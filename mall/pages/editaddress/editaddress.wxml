@@ -1,0 +1,33 @@
+<!--pages/addaddress/addaddress.wxml-->
+<!--添加收货地址-->
+<view class="wraper">
+  <view class="listItems">
+    <text class="listLeft">收货人: </text>
+    <input id="name" class="listRight" maxlength="10" type="text" value="{{name}}" name="name" bindinput='bindName' />
+  </view>
+  <view class="listItems">
+    <text class="listLeft">手机号码: </text>
+    <input id="name" class="listRight" maxlength="11" type="number" value="{{phoneNumber}}" name="phoneNumber" bindinput='bindNumber' />
+  </view>
+  <view class="listItems" bindtap="showCityPicker" >
+    <text class="listLeft">所在地区: </text>
+    <view class="listRight1">{{city}}</view>
+    <city-picker
+    id="city-picker"
+    value="{{cityPickerValue}}" 
+    isShow="{{cityPickerIsShow}}"
+    bindsureclick="cityPickerOnSureClick"
+    bindcancelclick="cityPickerOnCancelClick" /> 
+    <image class="img" src="../../assets/images/icon/data_narrow.png"></image>
+  </view>
+  <view class="listItems1">
+    <text class="listLeft">详细地址: </text>
+    <!-- <input placeholder="如道路、门牌号、小区、楼梯、单元等" maxlength="100" value="{{detailAddress}}" class="listRight" placeholder-style="color:#AAAAAA" name="detailAddress" bindinput='bindDetail' /> -->
+    <textarea placeholder="如道路、门牌号、小区、楼梯、单元等" maxlength="100" value="{{detailAddress}}" class="{{is_ios?'listRight_ios':'listRight'}}" placeholder-style="color:#AAAAAA;" name="detailAddress" bindinput='bindDetail'></textarea>
+  </view>
+  <view class="listItems-item">
+    <text class="listLeft">设为默认地址</text>
+    <switch color="#04BE02" checked="{{switchChecked}}" bindchange="switchChange" />
+  </view>
+  <button class="btn" bindtap='submit'>保存</button>
+</view>

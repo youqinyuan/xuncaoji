@@ -1,0 +1,7 @@
+<!--pages/invitationCode/invitationCode.wxml-->
+<!--寻草记-->
+<view class="code-input">
+  <input value="{{inputValue}}" type="number" placeholder="请输入邀请码" placeholder-style="color:#AAAAAA" bindinput='bindInput'/>
+</view>
+<button class="wx-login" bindtap='jumpIndex'>邀请码进入</button>
+<button class="other-login" bindtap='nextStep'>跳过这一步</button>

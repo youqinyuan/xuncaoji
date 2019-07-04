@@ -1,0 +1,24 @@
+<!--pages/shopAddress/shopAddress.wxml-->
+<view class="wraper">
+  <view class="listItems" bindtap="showCityPicker">
+    <text class="listLeft">所在区域: </text>
+    <input id="name" placeholder="省市区县、乡镇等" value="{{city}}" placeholder-style="color:#AAAAAA" class="listRight" type="text" disabled='disabled' />
+    <city-picker
+    id="city-picker"
+    value="{{cityPickerValue}}" 
+    isShow="{{cityPickerIsShow}}"
+    bindsureclick="cityPickerOnSureClick"
+    bindcancelclick="cityPickerOnCancelClick" /> 
+    <image src="../../assets/images/icon/data_narrow.png"></image>
+  </view>
+  <view class="listItems">
+    <text class="listLeft">地图选址: </text>
+    <input id="name" placeholder="请在地图中选择位置" disabled='disabled' placeholder-style="color:#AAAAAA" class="listRight" type="text" />
+    <image src="../../assets/images/icon/data_narrow.png"></image>
+  </view>
+  <view class="listItems1">
+    <text class="listLeft">详细地址: </text>
+    <input placeholder="请输入详细地址" type="text" bindinput='bindDetail' class="listRight" placeholder-style="color:#AAAAAA" value="{{detailAddress}}"/>
+  </view>
+    <button class="btn" bindtap='comfirm'>完成</button>
+</view>

@@ -1,0 +1,108 @@
+<!--pages/commission/commission.wxml-->
+<!--非会员初始页面-->
+<!--你还无法获取佣金-->
+<view class="notmember" wx:if="{{isMember==2}}">
+  <view class="container-top">
+    <view class="container-top-img">
+      <image src="../../assets/images/icon/commission_not_vip.png"></image>
+    </view>
+    <view class="container-top-text">您还不是会员无法获取佣金</view>
+  </view>
+  <!--开通后尊享五大权益-->
+  <view class="container-middle">
+    <view class="container-middle-title">开通后尊享五大权益</view>
+    <view class="container-middle-list">
+      <view class="container-middle-img">
+        <image src="../../assets/images/icon/vip_get_vip3.png"></image>
+      </view>
+      <view class="container-middle-text">成为会员预计平均每月获得1000元收入！</view>
+    </view>
+    <view class="container-middle-list">
+      <view class="container-middle-img">
+        <image src="../../assets/images/icon/vip_distribution3.png"></image>
+      </view>
+      <view class="container-middle-text">分销功能开启每月预计多赚700元收入！</view>
+    </view>
+    <view class="container-middle-list">
+      <view class="container-middle-img">
+        <image src="../../assets/images/icon/vip_store.png"></image>
+      </view>
+      <view class="container-middle-text">可享受线下1000+实体商铺折扣优惠！</view>
+    </view>
+    <view class="container-middle-list">
+      <view class="container-middle-img">
+        <image src="../../assets/images/icon/vip_server.png"></image>
+      </view>
+      <view class="container-middle-text">专用客服接入通道，尽享VIP尊荣体验！</view>
+    </view>
+    <view class="container-middle-list">
+      <view class="container-middle-img">
+        <image src="../../assets/images/icon/vip_identity.png"></image>
+      </view>
+      <view class="container-middle-text">尊享特殊身份标识，彰显会员魅力！</view>
+    </view>
+  </view>
+  <!--开通会员-->
+  <view class="button" bindtap='jumpMember'>开通会员</view>
+</view>
+<view class="member" wx:if="{{isMember==1}}">
+  <!--佣金余额-->
+  <view class="commission-balance-wrapper">
+    <view class="commission-balance">
+      <image src="../../assets/images/icon/recharge_card.png"></image>
+      <view class="balance">
+        <view class="balance-money">佣金余额</view>
+        <view class="balance-num">￥{{content.balance}}</view>
+      </view>
+    </view>
+  </view>
+  <!--佣金明细当余额小于0-->
+  <view class="commission-details" wx:if="{{items.length===0}}">
+    <view class="commission-img">
+      <image src="../../assets/images/icon/recharge_Detail.png"></image>
+    </view>
+    <view class="commission-title">佣金明细</view>
+    <view class="commission-text">(暂无)</view>
+  </view>
+  <!--佣金明细当余额大于0-->
+  <!--提现-->
+  <view class="withdraw" bindtap="showDetail">提现</view>
+  <!--佣金明细1-->
+  <view class="commission1-details" wx:if="{{items.length>0}}">
+    <view class="commission1-img">
+      <image src="../../assets/images/icon/recharge_Detail.png"></image>
+    </view>
+    <view class="commission1-title">佣金明细</view>
+  </view>
+  <!--明细-->
+  <view class="wrapper" wx:if="{{items.length>0}}">
+    <view class="list" wx:for="{{items}}" wx:key="">
+      <view class="list-left">
+        <view class="list-left-top">{{item.remark}}</view>
+        <view class="list-left-bottom-year">{{item.tradeTime}}</view>
+      </view>
+      <view class="list-right" wx:if="{{item.tradeAmount<0}}">
+        <view>{{item.tradeAmount}}</view>
+      </view>
+      <view class="list-right1" wx:if="{{item.tradeAmount>0}}">
+        <view>+{{item.tradeAmount}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!--提现弹窗-->
+<view class="modal-mask" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
+<view class="modal-dialog1" wx:if="{{show}}">
+  <view class="modal-title1">提现</view>
+  <view class="section1">
+    <view class="input-price1">￥</view>
+    <input placeholder="请输入提现金额" auto-focus type="digit" value="{{inputValue1}}" placeholder-style="color:#AAAAAA" bindinput="btnSumbit" />
+  </view>
+  <view class="prompt1" wx:if="{{showMessage1}}">请输入提现金额</view>
+  <view class="message1">单笔提现需满1元，一天最高可提现3次。
+  </view>
+  <view class="modal-footer1">
+    <view class="btn-confirm1" bindtap="hideConfirm">确认提现</view>
+  </view>
+</view>

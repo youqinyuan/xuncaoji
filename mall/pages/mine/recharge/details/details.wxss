@@ -1,0 +1,64 @@
+/* pages/mine/recharge/details/details.wxss */
+
+page {
+  background: #f4f4f4;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+}
+
+.list {
+  background: rgba(255, 255, 255, 1);
+  border-bottom: 2rpx solid #f4f4f4;
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-left {
+  margin-left: 30rpx;
+}
+
+.list-left-top {
+  margin-top: 30rpx;
+  font-size: 30rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.list-left-bottom {
+  display: flex;
+  font-size: 24rpx;
+  color: rgba(153, 153, 153, 1);
+}
+
+.list-left-bottom-year {
+  margin-bottom: 30rpx;
+  margin-right: 25rpx;
+  margin-top: 10rpx;
+}
+.list-right{
+  margin-right: 29rpx;
+  margin-top: 40rpx;
+  
+}
+.list-right-item{
+  color:rgba(255,141,18,1);
+}
+.list-right-item1{
+ color:rgba(227,58,89,1)
+}
+.list-text {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  text-align: center;
+  margin-top: 20rpx;
+}
+.list1{
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  text-align: center;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}

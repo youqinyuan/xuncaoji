@@ -1,0 +1,12 @@
+<template name="searchList">
+<view class="wrapper">
+  <view class="history">
+  <view class="history-search">搜索历史</view>
+  <view class="history-empty" catchtap='detele'>清空</view>
+</view>
+  <!--content--> 
+<view class="content">
+  <view class="content-list" wx:for="{{history}}" wx:key="{{index}}" bindtap='searchClick' data-item="{{item}}">{{item}}</view>
+</view>
+</view>
+</template>

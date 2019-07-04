@@ -1,0 +1,54 @@
+<!--pages/zeroPurchaseActivity/zeroPurchaseActivity.wxml-->
+<view class="zero-purchase">
+  <image class="zero-purchase-top" src="../../assets/images/icon/banner.png"></image>
+  <view class="zero-purchase-bottom">
+    <view class="zero-purchase-title">距活动结束还剩</view>
+    <view class="zero-purchase-time">
+      <view class="zero-purchase-number">{{hours.length>1?hours[0]:0}}</view>
+      <view class="zero-purchase-number">{{hours.length>1?hours[1]:hours[0]}}</view>
+      <view class="zero-purchase-word">时</view>
+      <view class="zero-purchase-number">{{minutes.length>1?minutes[0]:0}}</view>
+      <view class="zero-purchase-number">{{minutes.length>1?minutes[1]:minutes[0]}}</view>
+      <view class="zero-purchase-word">分</view>
+      <view class="zero-purchase-number">{{seconds.length>1?seconds[0]:0}}</view>
+      <view class="zero-purchase-number">{{seconds.length>1?seconds[1]:seconds[0]}}</view>
+      <view class="zero-purchase-word">秒</view>
+      <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[0]:0}}</view>
+      <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[1]:haoSeconds[0]}}</view>
+      <view class="zero-purchase-word">毫秒</view>
+    </view>
+    <view class="zero-purchase-person">{{grabbedNumber}}
+      <text>人已抢到</text>
+    </view>
+    <view class="zero-purchase-list-wrap">
+      <swiper class="zero-purchase-list" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{goodsItems}}" wx:key="{{item.id}}">
+          <swiper-item>
+            <view class="zero-purchase-list-item" data-id="{{item.id}}" bindtap='jumpDetail'>
+              <view class="zero-purchase-list-price">
+                <view class="text1">原价</view>
+                <view class="text2">
+                  <text>￥</text>{{item.orgPrice}}</view>
+              </view>
+              <image class="zero-purchase-list-img" src="{{item.imageUrls[0]}}" />
+              <view class="zero-purchase-list-text">{{item.name}}</view>
+              <view class="zero-purchase-list-sign">0元免费领后 还有钱送哦~
+                <view class="sign">></view>
+              </view>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="block"></view>
+  </view>
+</view>
+<!-- 弹框 -->
+<view class="modal-mask" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
+<view class="modal-dialog" wx:if="{{show}}">
+  <!-- <view class="modal-dialog-container"> -->
+    <image class="img1" src="../../assets/images/icon/left.png"></image>
+    <view class="text">左右滑动选择商品哦</view>
+    <image class="img2" src="../../assets/images/icon/right.png"></image>
+  <!-- </view> -->
+</view>

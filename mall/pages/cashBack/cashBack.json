@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#FF517A",
+  "navigationBarTitleText": "返现明细",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
+}

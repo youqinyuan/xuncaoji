@@ -1,0 +1,74 @@
+<!--pages/mine/personal/personal.wxml-->
+<form bindsubmit="formSubmit">
+  <!--头部-->
+  <view class="personal-top">
+    <view class="personal-photo" bindtap="upimg">
+      <view class="personal-photo-text">头像</view>
+      <view class="personal-photo-img">
+        <image src="{{adds.avatarKey}}"></image>
+      </view>
+    </view>
+    <view class="personal-photo">
+      <view class="personal-photo-nickname">昵称</view>
+       <view class="personal-photo-name"><input class="section" value='{{adds.nickname}}' name="nickname" maxlength='10' /></view>
+    </view>
+  </view>
+  <!--中部-->
+  <view class="section-middle">
+    <view bindtap="toggleDialog">
+      <view class="picker">
+        <view class="sex">性别</view>
+        <input class="content" wx:if="{{adds.gender===null}}" value="" name="gender" disabled="disabled" />
+        <input class="content" wx:else value="{{adds.gender === 1 ? '男': '女'}}" name="gender" disabled="disabled" />
+        <view class="free-dialog {{ showDialog ? 'free-dialog--show' : '' }}">
+          <view class="free-dialog__mask" bindtap="hide" />
+          <view class="free-dialog__container">
+            <view class="free-picker-content-center">
+              <picker-view class="free-picker-content-item" bindchange="sexOnChange">
+                <picker-view-column>
+                  <view>男</view>
+                  <view>女</view>
+                </picker-view-column>
+              </picker-view>
+            </view>
+          </view>
+        </view>
+        <view class="section-middle-img">
+          <image src="../../../assets/images/icon/data_narrow.png"></image>
+        </view>
+      </view>
+    </view>
+    <view bindtap="showDatePicker">
+      <view class="picker1">
+        <view class="sex">生日</view>
+        <input class="content" value='{{adds.birthday}}' name="birthday" disabled="disabled" />
+        <date-picker id="date-picker" value="{{datePickerValue}}" isShow="{{datePickerIsShow}}" bindsureclick="datePickerOnSureClick" bindcancelclick="datePickerOnCancelClick" />
+        <view class="section-middle-img1">
+          <image src="../../../assets/images/icon/data_narrow.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--底部-->
+  <view class="personal-bottom">
+    <view class="personal-bottom-list">
+      <view class="personal-bottom-item">职业</view>
+      <view class="section-bottom">
+        <input placeholder-style="color:#AAAAAA;" value="{{adds.career}}" name='career' maxlength='10' />
+      </view>
+    </view>
+    <view class="personal-bottom-list">
+      <view class="personal-bottom-item">所在地</view>
+      <view class="section-bottom">
+        <input placeholder-style="color:#AAAAAA;" value="{{adds.location}}" name='location' maxlength='10' />
+      </view>
+    </view>
+    <view class="personal-bottom-list">
+      <view class="personal-bottom-item">故乡</view>
+      <view class="section-bottom">
+        <input placeholder-style="color:#AAAAAA;" value="{{adds.hometown}}" name='hometown' maxlength='10' />
+      </view>
+    </view>
+  </view>
+  <button class="save-button" formType="submit">保存</button>
+</form>

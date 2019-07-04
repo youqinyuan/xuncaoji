@@ -1,0 +1,85 @@
+<!--pages/index/cart/cart.wxml-->
+<!--店铺商品-->
+<view class="store">
+  <view class="store-title">
+    <!--pages/cart/cart.wxml-->
+    <view class="store-wrapper">
+      <view class="store-container" wx:if="{{shops.length ===0 }}">
+        <view class="store-item">
+          <image src="../../../assets/images/icon/gouwuche_no_n.png" class="store-img"></image>
+        </view>
+        <view class="store-text">还没有商品呦</view>
+      </view>
+      <!--商品列表-->
+      <view class="store-container-wrapper" wx:if="{{shops.length >0 }}">
+        <view class="shop-view" style="margin-bottom: 400rpx;">
+          <view class="shop-view-wrapper" wx:for="{{shops}}" wx:key="{{index}}" wx:for-index="groupIndex">
+            <view class="shop-view-wrapper-title">
+              <checkbox-group bindchange="checkall" data-index="{{groupIndex}}" class="store-box">
+                <checkbox checked='{{item.checkeedAll}}' class="goods-view1"></checkbox>
+              </checkbox-group>              
+              <image src="{{item.imageUrl}}"></image>
+              <text class="teacher-ke-name" bindtap='jumpStoreDetail' data-id="{{item.storeId}}">{{item.storeName}}</text>
+            </view>
+            <checkbox-group data-groupIndex="{{groupIndex}}" wx:for="{{item.cartDetails}}" data-kc="{{item}}" wx:key="{{index}}" data-index="{{index}}" bindchange="Checks1" class="store-box1">
+              <checkbox class="goods-view" checked="{{item.checked}}"></checkbox>
+              <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
+              <image src="{{item.imageUrl}}" class="goods-view-img"></image>
+              <view class="goods-view-wrapper" data-id="{{item.goodsId}}" bindtap='toDetail'>
+                <view class="goods-view-name">{{item.goodsName}}</view>
+                <view class="goods-view-spcDesc">{{item.spcDesc}}</view>
+                <view class="goods-view-sign">
+                  ¥
+                  <view class="goods-view-price">{{item.goodsPrice}}</view>
+                </view>
+                <view class="num-item" wx:if="{{item.status==1}}">
+                  <text catchtap="bindMinus" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}">-</text>
+                  <input type="number" disabled='disabled' value="{{item.quantity}}" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}" />
+                  <text catchtap="bindPlus" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}">+</text>
+                </view>
+                <view>
+                </view>
+                <view class="num-item1" wx:if="{{item.status==2}}">
+                  商品已下架
+                </view>
+                <view class="num-item2" wx:if="{{item.status==3}}">
+                  商品已失效
+                </view>
+                <view>
+                </view>
+              </view>  
+            </checkbox-group>
+          </view>
+          <view class="detail-bottom">{{text}}</view>
+          <!-- 全选ICON -->
+          <view class="store-total" wx:if="{{shops.length >0 }}">
+            <checkbox-group bindchange="AllTap" data-index="{{index}}" class="store-box2">
+              <checkbox class="goods-view2" checked='{{checkedAll}}'></checkbox>
+            </checkbox-group>
+            <view class="store-total-text">全选</view>
+            <view class="store-total-expenses">不含运费</view>
+            <view class="store-total-number">合计：</view>
+            <view class="store-total-num">
+              <text class="store-total-num-text">￥</text>{{priceAll}}</view>
+            <view class="store-total-btn" style="background:{{color}}" bindtap='jumpPlaceOrder'>结算</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--弹框-->
+<view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
+  <view class="zan-dialog__mask" />
+  <view class="zan-dialog__container">
+    <view class='content-mask'>
+      <view class="content-title">提示</view>
+      <view class="content-container">确认删除购物车所选商品？
+      </view>
+      <view class="content-button">
+        <view class="reject" catchtap='reject'>取消</view>
+        <view class="comfirm" catchtap='comfirm'>确定</view>
+      </view>
+    </view>
+  </view>
+</view>

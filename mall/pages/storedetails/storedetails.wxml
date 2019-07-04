@@ -1,0 +1,71 @@
+<!--pages/storedetails/storedetails.wxml-->
+<!--店铺评分-->
+<view class="shops-wrap">
+  <view class="shops-content-img">
+    <image wx:if="{{detail.logoUrl}}" src="{{detail.logoUrl}}"></image>
+    <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
+  </view>
+  <view class="shops-content-middle">
+    <view class="shops-content-middle-wrap">
+      <view class="shops-content-middle-wrap-title">{{detail.name}}
+        <text class="shops-content-middle-wrap-text" wx:if="{{detail.channel==1}}">自营</text>
+      </view>
+    </view>
+    <view class="shops-content-middle-bottom">店铺评分：
+      <text>{{detail.score}}分</text>
+    </view>
+  </view>
+</view>
+<!--店铺介绍-->
+<view class="shopsintroduction">
+  <view class="shopsintroduction-text" wx:if="{{detail.intro}}">{{detail.intro}}</view>
+  <view class="shopsintroduction-img" wx:if="{{detail.appletQrCodeUrl}}">
+    <image src="{{detail.appletQrCodeUrl}}"></image>
+  </view>
+</view>
+<!--店铺商品-->
+<view class="quality">
+  <view class="quality-title">
+    <image class="quality-img" src="../../assets/images/icon/tuijian_haowu_icon.png"></image>
+    <text class="quality-text">店铺商品</text>
+  </view>
+  <view class="quality-list-wrapper">
+    <view class="quality-list" wx:for="{{list}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
+      <view class="quality-list-img">
+        <image src="{{item.imageUrls[0]}}"></image>
+      </view>
+      <view class="quality-list-text">
+       <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}</view>
+      <view class="quality-list-price">
+        <view class="newprice">
+          <text>￥</text>{{item.orgPrice}}</view>
+        <view class="oldprice">￥{{item.dctPrice}}</view>
+      </view>
+      <view class="quality-list-share" wx:if="{{item.sharingProfit}}">
+        <view class="share-price">
+          <text class="share-return">会员分享返</text>
+          <text class="share-price1">{{item.sharingProfit}}</text>
+        </view>
+        <view class="quality-list-share-img" catchtap='share' data-goodsid="{{item.id}}" data-profit="{{item.sharingProfit}}">
+          <image src="../../assets/images/icon/pinzhi_list_share_icon.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="store-bottom ">{{text}}</view>
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class="content-wrapper">
+    <image class="cancel" src="../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="shareCommission" wx:if="{{shareList.isPlusMember===2}}">你喜欢那就分享给你朋友吧</view>
+    <view class="shareCommission" wx:if="{{shareList.isPlusMember===1}}">分享商品后预计最多可赚佣金￥{{sharingProfit}}</view>
+    <view class="shareText" wx:if="{{shareList.isPlusMember===1}}">朋友通过你分享的页面成功购买后，你将获得商品返利</view>
+    <button class="share-button" open-type="share">
+      <image class="photo" src="../../assets/images/icon/share_tanc_weixin_n.png"></image>
+      <view class="wx">微信</view>
+    </button>
+  </view>
+</view>

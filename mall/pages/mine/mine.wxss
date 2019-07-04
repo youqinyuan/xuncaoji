@@ -1,0 +1,601 @@
+/* pages/mine/mine.wxss */
+
+page {
+  background: #f4f4f4;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+}
+
+/*我的信息*/
+
+.content {
+  height: 312rpx;
+  margin-bottom: 20rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
+.top {
+  display: flex;
+  justify-content: space-around;
+}
+
+.top-left {
+  display: flex;
+}
+
+.sculpture {
+  width: 128rpx;
+  height: 128rpx;
+  margin-left: 40rpx;
+  margin-top: 40rpx;
+}
+
+.sculpture image {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 100%;
+}
+
+.title {
+  margin-top: 54rpx;
+  margin-left: 40rpx;
+}
+
+.big-title {
+  position: absolute;
+  font-size: 42rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(51, 51, 51, 1);
+}
+
+.balance {
+  margin-top: 58rpx;
+}
+
+.balance-text {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(96, 68, 44, 1);
+}
+
+.balance-price {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(227, 58, 89, 1);
+  margin-left: 20rpx;
+}
+
+.balance-num {
+  font-size: 42rpx;
+  margin-right: 131rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(227, 58, 89, 1);
+}
+
+.right {
+  margin-top: 109rpx;
+  margin-right: 30rpx;
+  background: rgba(255, 157, 52, 1);
+  border-radius: 22rpx;
+  width: 112rpx;
+  height: 44rpx;
+  font-size: 24rpx;
+  line-height: 44rpx;
+  text-align: center;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.bottom {
+  margin-left: 30rpx;
+  margin-top: 30rpx;
+  width: 690rpx;
+  height: 80rpx;
+  display: flex;
+  background: linear-gradient(90deg, rgba(252, 241, 218, 1) 0%, rgba(250, 228, 184, 1) 100%);
+  border-radius: 40px;
+}
+
+.member {
+  margin-left: 40rpx;
+  margin-top: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.member image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.notmember {
+  margin-top: 20rpx;
+  margin-left: 26rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(170, 170, 170, 1);
+}
+
+.open {
+  color: #ff8d12;
+}
+
+.notmember1 {
+  margin-top: 20rpx;
+  margin-left: 26rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: #916814;
+}
+
+/*我的订单*/
+
+.order {
+  height: 238rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
+.order-title {
+  height: 90rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+  display: flex;
+}
+
+.order-img {
+  width: 36rpx;
+  height: 36rpx;
+  margin-left: 30rpx;
+  margin-top: 27rpx;
+}
+
+.order-text {
+  font-size: 32rpx;
+  margin-left: 15rpx;
+  margin-top: 20rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.order-list {
+  height: 148rpx;
+  justify-content: space-around;
+  align-items: center;
+  display: flex;
+}
+
+.waitpay {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.circle1 {
+  position: absolute;
+  left: 80rpx;
+  top: 440rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
+  width: 30rpx;
+  border-radius: 50%;
+  background: #ff517a;
+  font-size: 20rpx;
+  color: #fff;
+}
+
+.circle2 {
+  position: absolute;
+  left: 218rpx;
+  top: 440rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
+  width: 30rpx;
+  border-radius: 50%;
+  background: #ff517a;
+  font-size: 20rpx;
+  color: #fff;
+}
+
+.circle3 {
+  position: absolute;
+  left: 370rpx;
+  top: 440rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
+  width: 30rpx;
+  border-radius: 50%;
+  background: #ff517a;
+  font-size: 20rpx;
+  color: #fff;
+}
+
+.circle4 {
+  position: absolute;
+  right: 218rpx;
+  top: 440rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
+  width: 30rpx;
+  border-radius: 50%;
+  background: #ff517a;
+  font-size: 20rpx;
+  color: #fff;
+}
+
+.circle5 {
+  position: absolute;
+  right: 50rpx;
+  top: 440rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  text-align: center;
+  width: 30rpx;
+  border-radius: 50%;
+  background: #ff517a;
+  font-size: 20rpx;
+  color: #fff;
+}
+
+.waitpay-img {
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.waitpay-img image {
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.waitpay-text {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(85, 85, 85, 1);
+  margin-top: 15rpx;
+}
+
+/*我的服务*/
+
+.service {
+  height: 410rpx;
+  margin-bottom: 20rpx;
+  margin-top: 20rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
+.service-title {
+  height: 90rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+  display: flex;
+}
+
+.service-img {
+  width: 36rpx;
+  height: 36rpx;
+  margin-left: 30rpx;
+  margin-top: 27rpx;
+}
+
+.service-text {
+  font-size: 32rpx;
+  margin-left: 15rpx;
+  margin-top: 20rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.service-list {
+  height: 320rpx;
+  justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pay {
+  width: 370rpx;
+  border: 2rpx solid #f4f4f4;
+  border-right: none;
+  border-top: none;
+  display: flex;
+}
+
+.pay-img {
+  width: 54rpx;
+  height: 54rpx;
+  margin-top: 58rpx;
+  margin-left: 40rpx;
+}
+
+.pay-img image {
+  width: 54rpx;
+  height: 54rpx;
+}
+
+.pay-text {
+  font-size: 28rpx;
+  color: rgba(85, 85, 85, 1);
+  margin-top: 47rpx;
+  margin-left: 30rpx;
+}
+
+.pay-text-small {
+  font-size: 24rpx;
+  margin-top: 15rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(170, 170, 170, 1);
+}
+
+/*我的心情、我的地址、支付密码、邀请码、商家入驻、客服*/
+
+.mine {
+  /* height: 545rpx; */
+  margin-bottom: 20rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
+.mine-list {
+  height: 90rpx;
+  display: flex;
+  border-bottom: 2rpx solid #f4f4f4;
+}
+
+.mine-list-img {
+  width: 36rpx;
+  height: 36rpx;
+  margin-left: 30rpx;
+  margin-top: 27rpx;
+}
+
+.mine-list-text {
+  margin-left: 16rpx;
+  margin-top: 25rpx;
+  font-size: 30rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+/* 弹框 */
+
+.zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.zan-dialog__container {
+  transform: translateY(300%);
+  transition: all 0.00001s ease;
+  width: 540rpx;
+  height: 282rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  bottom: 530rpx;
+  left: 110rpx;
+  z-index: 9999;
+}
+
+.zan-dialog--show .zan-dialog__container {
+  transform: translateY(0);
+}
+
+.zan-dialog--show .zan-dialog__mask {
+  display: block;
+}
+
+/* 弹框内容 */
+
+.content {
+  text-align: center;
+  overflow: hidden;
+}
+
+.content-title {
+  margin-top: 44rpx;
+  margin-bottom: 10rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.content-container {
+  width: 450rpx;
+  height: 66rpx;
+  margin-left: 55rpx;
+  margin-bottom: 35rpx;
+  font-size: 30rpx;
+  text-align: center;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content-button {
+  height: 66rpx;
+  border-top: 2rpx solid #eaeaea;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  text-align: center;
+  color: rgba(255, 81, 122, 1);
+}
+
+/* .reject {
+  border-right: 2rpx solid #eaeaea;
+  width: 270rpx;
+  height: 75rpx;
+  line-height: 75rpx;
+  font-size: 34rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.comfirm {
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  text-align: center;
+  width: 270rpx;
+  background: rgba(255, 255, 255, 1);
+  color: rgba(255, 81, 122, 1);
+}
+
+.comfirm::after {
+  border: none;
+} */
+
+/* 邀请码弹框 */
+
+.zan-dialog__mask1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.zan-dialog__container1 {
+  transform: translateY(300%);
+  transition: all 0.00001s ease;
+  width: 540rpx;
+  height: 696rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  bottom: 222rpx;
+  left: 110rpx;
+  z-index: 9999;
+}
+
+.zan-dialog--show1 .zan-dialog__container1 {
+  transform: translateY(0);
+}
+
+.zan-dialog--show1 .zan-dialog__mask1 {
+  display: block;
+}
+
+.zan-dialog__container1 image:nth-child(1) {
+  width: 540rpx;
+  height: 696rpx;
+}
+
+.zan-dialog__container1 image:nth-child(2) {
+  position: absolute;
+  top: 61rpx;
+  left: 147rpx;
+  width: 250rpx;
+  height: 39rpx;
+}
+
+.zan-dialog__container1 .title {
+  position: absolute;
+  top: 0rpx;
+  left: 147rpx;
+  font-size: 32rpx;
+  background: rgba(255, 233, 211, 1);
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 141, 18, 1);
+}
+
+.zan-dialog__container1 .invite-code {
+  position: absolute;
+  top: 150rpx;
+  left: 61rpx;
+  font-size: 66rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  font-style: italic;
+  color: rgba(255, 141, 18, 1);
+  letter-spacing: 12rpx;
+}
+
+.zan-dialog__container1 .copy {
+  position: absolute;
+  top: 256rpx;
+  left: 190rpx;
+  width: 160rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  background: linear-gradient(90deg, rgba(255, 141, 18, 1), rgba(255, 43, 68, 1));
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.zan-dialog__container1 .line {
+  position: absolute;
+  top: 389rpx;
+  left: 34rpx;
+  width: 472rpx;
+  border: 2rpx dashed rgba(153, 153, 153, 1);
+}
+
+.zan-dialog__container1 .member1 {
+  position: absolute;
+  top: 430rpx;
+  right: 102rpx;
+  font-size: 20rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 141, 18, 1);
+  z-index: 999;
+}
+
+.zan-dialog__container1 .attrimage {
+  position: absolute;
+  top: 423rpx;
+  left: 210rpx;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+
+.zan-dialog__container1 .attrimage1 {
+  position: absolute;
+  top: 423rpx;
+  right: 97rpx;
+  width: 110rpx;
+  height: 40rpx;
+}
+
+.zan-dialog__container1 .text {
+  position: absolute;
+  top: 571rpx;
+  left: 201rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.zan-dialog__container1 .nickname {
+  position: absolute;
+  top: 618rpx;
+  left: 210rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(153, 153, 153, 1);
+}

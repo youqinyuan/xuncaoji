@@ -1,0 +1,182 @@
+/* pages/search/goods/goods.wxss */
+/*商品列表*/
+page{
+  background: #f4f4f4;
+}
+.goods-list-wrap {
+  margin-top: 20rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
+.goods-list {
+  height: 242rpx;
+  margin-left: 30rpx;
+  width: 720rpx;
+  overflow: hidden;
+  border-bottom: 2rpx solid #f4f4f4;
+  display: flex;
+  justify-content: space-between;
+}
+
+.goods-list-img {
+  width: 240rpx;
+  height: 200rpx;
+}
+
+.goods-list-img image {
+  width: 240rpx;
+  height: 200rpx;
+  margin-top: 20rpx;
+  border-radius: 8rpx;
+}
+
+.goods-list-item {
+  margin-top: 30rpx;
+  width: 428rpx;
+  margin-right: 30rpx;
+  height: 200rpx;
+}
+
+.goods-list-text {
+  width: 428rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.goods-list-price {
+  margin-top: 20rpx;
+  display: flex;
+}
+
+.newprice-wrap {
+  color: rgba(227, 58, 89, 1);
+  display: flex;
+  margin-right: 16rpx;
+}
+
+.pricesign1 {
+  font-size: 24rpx;
+}
+
+.newprice {
+  font-size: 36rpx;
+}
+
+.oldprice-wrap {
+  display: flex;
+  font-size: 24rpx;
+  margin-top: 10rpx;
+  text-decoration: line-through;
+  color: rgba(153, 153, 153, 1);
+}
+.goods-list-share{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10rpx;
+  font-size:24rpx;
+
+}
+.priceshare{
+  color:rgba(153,153,153,1);
+}
+.shareprice{
+  color: #E33A59;
+}
+.share-img{
+  width: 44rpx;
+  height: 44rpx;
+  margin-left: 200rpx;
+  margin-top: -10rpx;
+}
+.share-img image{
+  width: 44rpx;
+  height: 44rpx;
+}
+.goods-bottom{
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  text-align: center;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+/* 弹出框 */
+
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.4;
+  overflow: hidden;
+  z-index: 9999;
+  color: rgba(255, 255, 255, 1);
+}
+
+/*对话框 */
+
+.commodity_attr_box {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+  z-index: 9999;
+}
+
+.content-wrapper {
+  overflow: hidden;
+  height: auto;
+  text-align: center;
+  position: relative;
+}
+
+.content-wrapper .cancel {
+  width: 44rpx;
+  height: 44rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 14rpx;
+}
+
+.content-wrapper .shareCommission {
+  margin-top: 70rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content-wrapper .shareText {
+  margin-top: 39rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+}
+.content-wrapper .share-button {
+  background: rgba(255, 255, 255, 1);
+  width: 170rpx;
+  border-radius: 0;
+}
+button::after{
+  border: none;
+}
+.content-wrapper .photo {
+  margin-top: 30rpx;
+  width: 128rpx;
+  height: 128rpx;
+}
+
+.content-wrapper .wx {
+  margin-top: -35rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}

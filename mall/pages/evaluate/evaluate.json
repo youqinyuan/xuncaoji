@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#FF517A",
+  "navigationBarTitleText": "评价",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
+}

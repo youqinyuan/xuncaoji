@@ -1,0 +1,224 @@
+<!--pages/myorder/myorder.wxml-->
+<scroll-view scroll-x scroll-left='{{scrleft}}' class='orderTab'>
+  <view class="orderTabItem" wx:for='{{orderTabItem}}' wx:key="{{item.title}}" bindtap='tab' data-index="{{index}}" data-status="{{item.status}}">
+    <view class="order-item">
+      <view class="tabTitle {{item.select==true?'active':''}}">{{item.title}}</view>
+    </view>
+  </view>
+</scroll-view>
+<!--全部-->
+<view class="myOrder-wrapper-content">
+  <view class="myOrder-wrapper" wx:for="{{allOrder}}" wx:for-item="itemName" wx:key="{{itemName.id}}" wx:if="{{allOrder.length>0}}">
+    <view class="shop-container">
+      <view class="shop" bindtap='jumpStoreDetail' data-id="{{itemName.storeId}}">
+        <image src="../../assets/images/icon/xuncaoji_icon.png"></image>
+        <text class="title">{{itemName.storeName}}</text>
+        <view class="goods-channel" wx:if="{{itemName.channel===1}}">自营</view>
+        <text class="state" wx:if="{{itemName.latestStatus==1}}">待支付</text>
+        <text class="state" wx:if="{{itemName.latestStatus==2}}">待发货</text>
+        <text class="state" wx:if="{{itemName.latestStatus==3}}">待使用</text>
+        <text class="state" wx:if="{{itemName.latestStatus==4}}">待收货</text>
+        <text class="state" wx:if="{{itemName.latestStatus==5}}">待评价</text>
+        <text class="state" wx:if="{{itemName.latestStatus==6}}">已完成</text>
+        <text class="state" wx:if="{{itemName.latestStatus==7}}">退款中</text>
+        <text class="state" wx:if="{{itemName.latestStatus==8}}">退款中</text>
+        <text class="state" wx:if="{{itemName.latestStatus==9}}">取消退款</text>
+        <text class="state" wx:if="{{itemName.latestStatus==10}}">退款成功</text>
+        <text class="state" wx:if="{{itemName.latestStatus==11}}">退款失败</text>
+        <text class="state" wx:if="{{itemName.latestStatus==12}}">已取消</text>
+      </view>
+      <!-- 商品 -->
+      <view class="shops-wrap-bottom" catchtap='jumpOrderDetail' data-url="/pages/orderDetail/orderDetail?orderId={{itemName.id}}" wx:for="{{itemName.orderGoodsDetail}}" wx:key="{{item.id}}">
+        <image class="shops-wrap-bottom-img" src="{{item.imageUrl}}"></image>
+        <view class="shops-wrap-bottom-right">
+          <view class="shops-wrap-bottom-right-item">
+            <view class="shops-wrap-bottom-title">{{item.goodsName}}
+            </view>
+            <view class="shops-wrap-bottom-size">
+              {{item.specDesc}}
+            </view>
+          </view>
+          <view class="shops-wrap-bottom-right-list">
+            <view class="shops-wrap-bottom-price">
+              <text>￥</text>
+              <text class="price1">{{item.price}}</text>
+            </view>
+            <view class="shops-wrap-bottom-num">
+              x{{item.quantity}}
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 付款 -->
+      <view class="bottom">
+        <view class="all">
+          <text class="num">共{{itemName.quantity}}件</text>
+          <view class="price">
+            合计：
+            <text class="sign">￥</text>
+            <text class="text">{{itemName.orderAmount}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 底部按钮 -->
+    <view class="button">
+      <text class="cancel" wx:if="{{itemName.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{itemName.id}}">取消订单</text>
+      <text class="return-money" wx:if="{{itemName.isCashBack==true}}" catchtap='periodCash' data-lateststatus="{{itemName.latestStatus}}" data-orderid="{{itemName.id}}">分期返现</text>
+      <text class="return" catchtap='refund' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==2 || itemName.latestStatus==5 || itemName.latestStatus==11}}">退款</text>
+      <text class="return" catchtap='cancelRefund' wx:if="{{itemName.latestStatus==7 || itemName.latestStatus==8}}" data-orderid="{{itemName.id}}">取消退款</text>
+      <text class="pay" wx:if="{{itemName.latestStatus==1}}" catchtap='toPay' data-id="{{itemName.transStatementDetail.transId}}" data-orderid="{{itemName.id}}">付款</text>
+      <text class="pay" catchtap='toEvaluate'  data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==5}}">去评价</text>
+      <text class="pay" catchtap='confirmReceipt' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==4}}">确认收货</text>
+    </view>
+  </view>
+  <!-- 否则 -->
+  <view wx:if="{{allOrder.length===0}}">
+    <!-- 外层 -->
+    <view class='cont_count'>
+      <image src="../../assets/images/icon/ic_order_no.png"></image>
+      <label class='none_tab'>您还没有任何订单呢~</label>
+    </view>
+  </view>
+</view>
+<view class="remmend" wx:if="{{allOrder.length<=2}}">
+  <!--更多好货-->
+  <view class="recommend-title">
+    <view class="recommend-left">
+      <image src="../../assets/images/icon/fiery_orange_n.png"></image>
+    </view>
+    <view class="recommend-middle">
+      更多好货
+    </view>
+  </view>
+  <view class="recommend-list-wrapper">
+    <view class="recommend-list" wx:for="{{list}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
+      <view class="recommend-list-img">
+        <image src="{{item.imageUrls[0]}}"></image>
+      </view>
+      <view class="recommend-list-text">
+        <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}</view>
+      <view class="recommend-list-price">
+        <view class="newprice">
+          <text>￥</text>{{item.dctPrice}}</view>
+        <view class="oldprice">￥{{item.orgPrice}}</view>
+      </view>
+      <view class="recommend-list-share" wx:if="{{item.sharingProfit}}">
+        <view class="share-price">
+          <text class="share-return">会员分享返</text>
+          <text class="share-price1">{{item.sharingProfit}}</text>
+        </view>
+        <view class="recommend-list-share-img" catchtap='share' data-goodsid="{{item.id}}" data-profit="{{item.sharingProfit}}">
+          <image src="../../assets/images/icon/pinzhi_list_share_icon.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="myorder-bottom" wx:if="{{allOrder.length>0}}">{{text}}</view>
+<!-- 确认收货弹框 -->
+<view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
+  <view class="zan-dialog__mask" />
+  <view class="zan-dialog__container">
+    <view class='content1'>
+      <view class="content1-title">提示</view>
+      <view class="content1-container">确认收货
+      </view>
+      <view class="content1-button">
+        <view class="reject" bindtap='cancel'>取消</view>
+        <button class="comfirm" bindtap="allow">收货</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 取消退款 -->
+<view class="zan-dialog1 {{ showDialog1 ? 'zan-dialog--show1' : '' }}">
+  <view class="zan-dialog__mask1" />
+  <view class="zan-dialog__container1">
+    <view class='contentainer'>
+      <view class="contentainer-title">提示</view>
+      <view class="contentainer-container">是否取消当前订单退款申请？
+      </view>
+      <view class="contentainer-button">
+        <view class="reject" bindtap='cancelrefund'>取消</view>
+        <button class="comfirm" bindtap="surerefund">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 退款弹框 -->
+<view class="zan-dialog2 {{ showDialog2 ? 'zan-dialog--show2' : '' }}">
+  <view class="zan-dialog__mask2" />
+  <view class="zan-dialog__container2">
+    <view class='contentainer2'>
+      <view class="contentainer2-title">申请退款</view>
+      <view class="contentainer2-content">
+        <view class="contentainer2-content-text {{current == index ?'active1':''}}" bindtap="getText" wx:for="{{refund}}" wx:for-item="reasons" wx:key="{{reasons}}" data-current="{{index}}" data-text="{{reasons}}">{{reasons}}</view>
+      </view>
+      <view class="contentainer2-text">提示：申请退款前请与商家电话沟通后在进行申请，将减少商家拒绝申请退款概率</view>
+      <view class="contentainer2-button">
+        <view class="reject" bindtap='refundDialog'>取消</view>
+        <button class="comfirm" bindtap="application">申请退款</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 取消订单 -->
+<view class="zan-dialog3 {{ showDialog3 ? 'zan-dialog--show3' : '' }}">
+  <view class="zan-dialog__mask3" />
+  <view class="zan-dialog__container3">
+    <view class='contentainer3'>
+      <view class="contentainer3-title">取消订单</view>
+      <view class="contentainer3-content">
+        <view class="contentainer3-content-text {{current == index ?'active1':''}}" bindtap="getText1" wx:for="{{cancelOrder}}" wx:for-item="reasons1" wx:key="{{reasons1}}" data-current="{{index}}" data-text="{{reasons1}}">{{reasons1}}</view>
+      </view>
+      <view class="contentainer3-button">
+        <view class="reject" bindtap='cancelorder'>取消</view>
+        <button class="comfirm" bindtap="sureorder">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 去评价 -->
+<view class="zan-showDialog4 {{ showDialog4 ? 'zan-dialog--show4' : '' }}">
+  <view class="zan-dialog__mask4" />
+  <view class="zan-dialog__container4">
+    <view class='contentainer4'>
+      <view class="contentainer4-title">商品评价</view>
+      <view class="contentainer4-item">
+        <view class="contentainer4-left-text">商品评分</view>
+        <view class="contentainer4-left-start">
+          <block wx:for="{{one_2}}" wx:key="index">
+            <image catchtap='in_xin' id='{{index+1}}' data-in='use_sc2' src='../../assets/images/icon/pingj_xinxin.png'></image>
+          </block>
+          <block wx:for="{{two_2}}" wx:key="index">
+            <image catchtap='in_xin' id='{{index+1}}' data-in='use_sc' src='../../assets/images/icon/pingj_xinxin_l.png'></image>
+          </block>
+        </view>
+      </view>
+      <view class="textarea-wrp">
+        <textarea  wx:if="{{!multiShow}}" fixed="true" bindinput='input' maxlength="100" placeholder="您的评价是我们优化的目标" placeholder-style="color:#AAAAAA;" />
+        <text class="currentWordNumber">{{currentNoteLen|0}}/{{noteMaxLen}}</text>
+      </view>
+      <view class="contentainer4-button">
+        <view class="reject" bindtap='cancelEvaluate'>取消</view>
+        <button class="comfirm" bindtap="sureEvaluate">发布评论</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class="content-wrapper">
+    <image class="cancel" src="../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+   <view class="shareCommission" wx:if="{{shareList.isPlusMember===2}}">你喜欢那就分享给你朋友吧</view>
+    <view class="shareCommission" wx:if="{{shareList.isPlusMember===1}}">分享商品后预计最多可赚佣金￥{{sharingProfit}}</view>
+    <view class="shareText" wx:if="{{shareList.isPlusMember===1}}">朋友通过你分享的页面成功购买后，你将获得商品返利</view>
+    <button class="share-button" open-type="share">
+      <image class="photo" src="../../assets/images/icon/share_tanc_weixin_n.png"></image>
+      <view class="wx">微信</view>
+    </button>
+  </view>
+</view>

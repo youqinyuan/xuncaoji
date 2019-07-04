@@ -1,0 +1,8 @@
+{
+  "navigationBarBackgroundColor": "#FF517A",
+  "navigationBarTitleText": "个人资料",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "date-picker": "../../../components/date-picker/date-picker"
+  }
+}

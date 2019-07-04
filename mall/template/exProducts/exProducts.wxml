@@ -1,0 +1,149 @@
+<template name="exProducts">
+  <view class="container-wrapper">
+    <!--轮播图-->
+    <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF517A" indicator-dots="true" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <swiper-item wx:if="{{imgUrls.length>0}}" wx:for="{{imgUrls}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}">
+        <image wx:if="{{imgUrls.length===0}}" src="../../assets/images/icon/zhanw_tb_n.png" class="slide-image" />
+        <image wx:else src="{{item.imageUrl}}" class="slide-image" />
+      </swiper-item>
+       <swiper-item wx:if="{{imgUrls.length===0}}">
+        <image src="../../assets/images/icon/zhanw_tb_n.png" class="slide-image" />
+      </swiper-item>
+    </swiper>
+    <view class="platform">
+      <view class="platform-list">
+        <view class="platform-list-item">
+          <image class="platform-list-img" src="../../assets/images/icon/index_protect_shouhou_icon.png"></image>
+          <text class="platform-text">源头直采</text>
+        </view>
+        <view class="platform-list-item">
+          <image class="platform-list-img" src="../../assets/images/icon/index_protect_renzheng_icon.png"></image>
+          <text class="platform-text">假一赔三</text>
+        </view>
+        <view class="platform-list-item">
+          <image class="platform-list-img" src="../../assets/images/icon/index_protect_changj_icon.png"></image>
+          <text class="platform-text">部分商品全额返</text>
+        </view>
+      </view>
+    </view>
+    <!--Go-->
+    <view class="activity">
+      <view class="activity-list">
+        <view class="activity-list-item1">
+          <view class="activity-list-text">美食优选</view>
+          <view class="activity-list-go">Go></view>
+          <image class="activity-list-img1" src="../../assets/images/icon/index_chihewanle_list1_bg.png"></image>
+        </view>
+        <view class="activity-list-item2">
+          <view class="activity-list-text" style="color:#78551B;">夏日冰饮</view>
+          <view class="activity-list-go" style="background:#E7B473;">Go></view>
+          <image class="activity-list-img2" src="../../assets/images/icon/index_chihewanle_list2_bg.png"></image>
+        </view>
+        <view class="activity-list-item3">
+          <view class="activity-list-text" style="color:#68448A;">采摘园</view>
+          <view class="activity-list-go" style="background:#D4A4FA;">Go></view>
+          <image class="activity-list-img3" src="../../assets/images/icon/index_chihewanle_list3_bg.png"></image>
+        </view>
+        <view class="activity-list-item4">
+          <view class="activity-list-text" style="color:#015D82;">精选蓝莓</view>
+          <view class="activity-list-go" style="background:#83CDF0;">Go></view>
+          <image class="activity-list-img4" src="../../assets/images/icon/index_chihewanle_list4_bg.png"></image>
+        </view>
+      </view>
+    </view>
+    <!--零元购-->
+    <view class="zerobuy" bindtap='toZeroPurchase' wx:if="{{bannerId !==''}}">
+      <image class="zerobuy-item" src="../../assets/images/icon/index_zerobuy.png"></image>
+      <view class="zerobuy-item"></view>
+    </view>
+    <!--全民返-->
+    <view class="nationwideReturn">
+      <view class="nationwideReturn-title" bindtap='jumpReturn' data-url='/pages/nationwideReturn/nationwideReturn'>
+        <image class="nationwideReturn-img" src="../../assets/images/icon/quanmfan_icon.png"></image>
+        <text class="nationwideReturn-text">分期返专场</text>
+        <view class="nationwideReturn-price">累计已返
+          <text>{{totalAmount}}</text>元</view> 
+      </view>
+      <view class="nationwideReturn-wrapper">
+        <view class="nationwideReturn-list" wx:for="{{wholeNation}}" wx:key="{{item.id}}" bindtap='jumpReturn' data-url='/pages/nationwideReturn/nationwideReturn'>
+          <image src="{{item.imageUrls[0]}}" class="nationwideReturn-list-img"></image>
+          <view class="nationwideReturn-list-title">{{item.name}}</view>
+          <view class="nationwideReturn-list-price">最高返
+            <text>￥</text>{{item.cashBack.totalAmount}}</view>
+          <view class="nationwideReturn-list-item">已抢{{item.grabbed}}</view>
+        </view>
+      </view>
+    </view>
+    <!--好物榜-->
+    <view class="goodlist">
+      <view class="goodlist-title">
+        <image class="goodlist-img" src="../../assets/images/icon/tuijian_haowu_icon.png"></image>
+        <text class="goodlist-text">性价比之王</text>
+      </view>
+      <view class="goodlist-list">
+        <scroll-view class="goodlist-list-scroll" scroll-x="true">
+          <view class="goodlist-list-item" wx:for="{{goods}}" wx:key="{{item.id}}" bindtap='jumpDetail' data-id="{{item.id}}">
+            <view class="goodlist-list-img">
+              <image src="{{item.imageUrls[0]}}"></image>
+            </view>
+            <view class="goodlist-list-text">
+              <view class="text">低至</view>
+              <view class="price-sign">￥</view>
+              <view class="num">{{item.dctPrice}}</view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+    <view class="block"></view>
+    <!--趋势榜-->
+    <view class="trend">
+      <view class="trend-title">
+        <image class="trend-img" src="../../assets/images/icon/tuijian_qushi_icon.png"></image>
+        <text class="trend-text">口碑爆品榜</text>
+      </view>
+      <view class="trend-wrapper">
+        <view class="trend-list" wx:for="{{trend}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
+          <view class="trend-list-left">
+            <view class="top">{{item.name}}</view>
+            <view class="bottom">销量 {{item.sales}}</view>
+          </view>
+          <view class="trend-list-right">
+            <image src="{{item.imageUrls[0]}}"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--品质优选-->
+    <view class="quality">
+      <view class="quality-title">
+        <image class="quality-img" src="../../assets/images/icon/tuijian_pinzhi_icon.png"></image>
+        <text class="quality-text">销量排行榜</text>
+      </view>
+      <view class="quality-list-wrapper">
+        <view class="quality-list" wx:for="{{list}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
+          <view class="quality-list-img">
+            <image src="{{item.imageUrls[0]}}"></image>
+          </view>
+          <view class="quality-list-text">
+            <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}</view>
+          <view class="quality-list-price">
+            <view class="newprice">
+              <text>￥</text>{{item.dctPrice}}</view>
+            <view class="oldprice">￥{{item.orgPrice}}</view>
+          </view>
+          <view class="recommend-list-share" wx:if="{{item.sharingProfit}}">
+            <view class="share-price">
+              <text class="share-return">会员分享返</text>
+              <text class="share-price1">{{item.sharingProfit}}</text>
+            </view>
+            <view class="recommend-list-share-img" catchtap='share' data-goodsid="{{item.id}}" data-profit="{{item.sharingProfit}}">
+              <image src="../../assets/images/icon/pinzhi_list_share_icon.png"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="exProducts-bottom">{{text}}</view>
+</template>

@@ -1,0 +1,51 @@
+<!--pages/mine/recharge/recharge.wxml-->
+<!--账户余额-->
+<view class="account-balance-wrapper">
+  <view class="account-balance">
+    <image src="../../../assets/images/icon/recharge_card.png"></image>
+    <view class="balance">
+      <view class="balance-money">账户余额</view>
+      <view class="balance-num">￥ {{content.balance}}</view>
+      <view class="balance-text" wx:if="{{content.noCashBackAmount}}">未到账返现共计（不含退款）：{{content.noCashBackAmount}}元</view>
+      <view class="balance-text" wx:else>未到账返现共计（不含退款）：0元</view>
+    </view>
+  </view>
+</view>
+<!--充值、余额明细-->
+<view class="detail">
+  <view class="detail-list" bindtap="showRecharge">
+    <image class="detail-list-img" src="../../../assets/images/icon/recharge_money.png"></image>
+    <view class="detail-list-text">充值</view>
+  </view>
+  <!--充值弹窗-->
+  <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+  <view class="modal-dialog" wx:if="{{showModal}}">
+    <view class="modal-title">充值</view>
+    <view class="section">
+      <view class="input-price">￥</view>
+      <input placeholder="请输入充值金额" auto-focus type="digit" value="{{inputValue}}" placeholder-style="color:#AAAAAA" bindinput="btnInput" />
+    </view>
+    <view class="prompt" wx:if="{{showMessage}}">请输入正确的充值金额</view>
+    <view class="message">所充值的金额将进入您的账户余额</view>
+    <view class="modal-footer">
+      <view class="btn-confirm" bindtap="onConfirm">确认充值</view>
+    </view>
+  </view>
+  <view class="detail-list" bindtap="accountDetail">
+    <image class="detail-list-img" src="../../../assets/images/icon/recharge_withdraw.png"></image>
+    <view class="detail-list-text">余额明细</view>
+  </view>
+</view>
+<!--提现-->
+<view class="button" bindtap="showDetail">提现</view>
+<!--提现弹窗-->
+<view class="modal-mask1" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
+<view class="modal" wx:if="{{show}}">
+  <view class="modal-title1">提现</view>
+  <view class="modal-text">因微信限制原因造成平台短时间暂时无法开通自动转账功能我们深表歉意，不过我们正在努力与微信协调中，谢谢理解！</view>
+  <view class="modal-text1">说明：请联系平台客服进行手动提现申请</view>
+  <view class="modal-text1">客服电话：18910267045</view>
+  <view class="modal-text1">客服微信：寻草记商城客服</view>
+  <image class="modal-img" src="https://xuncaoji.yzsaas.cn/_download/img/qrcode_mall_support.jpg"></image>
+  <button bindtap='sure' bindtap="hideConfirm">确认提现</button>
+</view>

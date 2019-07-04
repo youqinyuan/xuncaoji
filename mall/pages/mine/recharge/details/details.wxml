@@ -1,0 +1,18 @@
+<!--pages/mine/recharge/details/details.wxml-->
+<view class="wrapper">
+  <view class="list" wx:for="{{items}}" wx:key="" wx:if="{{items.length>0}}">
+    <view class="list-left">
+      <view class="list-left-top">{{item.remark}}</view>
+      <view class="list-left-bottom">
+        <view class="list-left-bottom-year">{{item.tradeTime}}</view>
+      </view>
+    </view>
+    <view class="list-right">
+      <view class="list-right-item" wx:if="{{item.tradeAmount>0}}">+{{item.tradeAmount}}</view>
+      <view class="list-right-item1" wx:if="{{item.tradeAmount<0}}">{{item.tradeAmount}}</view>
+    </view>
+  </view>
+  <view class="list-text">{{text}}</view>
+  <view class="list1" wx:if="{{items.length===0}}">暂无数据</view>
+</view>
+

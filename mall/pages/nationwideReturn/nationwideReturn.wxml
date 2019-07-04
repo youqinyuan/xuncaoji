@@ -1,0 +1,49 @@
+<!--pages/nationwideReturn/nationwideReturn.wxml-->
+<!-- 已累计返现 -->
+<view class="nationwideReturn-wrapper">
+  <view class="nationwideReturn-img">
+    <image src="../../assets/images/icon/qmf_bg.png"></image>
+    <view class="nationwideReturn-text">
+      <view class="title">已累计返现</view>
+      <view class="num">
+        {{totalAmount}}元
+      </view>
+    </view>
+  </view>
+  <view class="nationwideReturn-swiper">
+    <swiper class="swiper_container" vertical="true" autoplay="true" circular="true" interval="2000">
+      <block wx:for="{{msgList}}" wx:key=''>
+        <swiper-item>
+          <view class="swiper_item">{{item.nickName}}胜已获得
+            <text>{{item.tradeAmount}}</text>元返现</view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</view>
+<!--好物返现-->
+<view class="recommend-title">
+  <view class="recommend-left">
+    <image src="../../assets/images/icon/fiery_orange_n.png"></image>
+  </view>
+  <view class="recommend-middle">
+    好物返现
+  </view>
+</view>
+<view class="recommend-list-wrapper">
+  <view class="recommend-list" bindtap='toDetail' wx:for="{{wholeNation}}" wx:key="{{item.id}}" data-id="{{item.id}}">
+    <view class="recommend-list-img">
+      <image src="{{item.imageUrls[0]}}"></image>
+    </view>
+    <view class="recommend-list-text">{{item.name}}</view>
+    <view class="recommend-list-price">
+      <view class="newprice">
+        <text>￥</text>{{item.dctPrice}}</view>
+      <view class="oldprice">￥{{item.orgPrice}}</view>
+    </view>
+    <view class="recommend-list-share">
+      最高返{{item.cashBack.totalAmount}}元
+    </view>
+  </view>
+</view>
+<view class="return-bottom ">{{text}}</view>

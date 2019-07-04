@@ -1,0 +1,12 @@
+<!--pages/merchantEntry3/merchantEntry3.wxml-->
+<view class="wraper">
+<view class="title">
+  <text>三、上传营业执照</text>
+</view>
+<view class="img" bindtap='chooseImg' wx:if="{{tempFilePaths==''}}">
+  <image src="../../assets/images/icon/entering_add_photo.png"></image>
+</view>
+<image class="image" bindtap='chooseImg' src="{{tempFilePaths}}" wx:if="{{tempFilePaths}}"></image>
+<view class="decription">建议尺寸690*440，只需上传一张</view>
+  <button class="btn" bindtap='nextStep'>提交申请</button>
+</view>

@@ -1,0 +1,60 @@
+/* pages/logistics/logistics.wxss */
+.logistics{
+  margin-top: 63rpx;
+}
+.logistics-list {
+  display: flex;
+  /* padding-top: 63rpx; */
+  position: relative;
+}
+
+.logistics-list-left {
+  margin-left: 30rpx;
+}
+
+.logistics-list-left .date {
+  width: 65rpx;
+  font-size: 22rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(153, 153, 153, 1);
+}
+
+.logistics-list-right .img {
+  width: 45rpx;
+  height: 45rpx;
+  position: absolute;
+  left: 112rpx;
+}
+
+.logistics-list-right image {
+  width: 45rpx;
+  height: 45rpx;
+}
+
+.logistics-list-right .detail {
+  padding-left: 10rpx;
+  margin-left: 40rpx;
+  margin-right: 30rpx;
+  height: 90rpx;
+  border-left: 2rpx solid #f4f4f4;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+.logistics-list-right .text {
+  color: #999999;
+}
+.logistics-list-right .text .number{
+  color: #007EFF;
+}
+.logistics-list-right .circle {
+  width: 12rpx;
+  height: 12rpx;
+  background: rgba(170, 170, 170, 1);
+  border-radius: 50%;
+   position: absolute;
+  left: 129rpx;
+  top:10rpx;
+}

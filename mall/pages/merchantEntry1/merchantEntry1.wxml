@@ -1,0 +1,4 @@
+<!--pages/merchantEntry1/merchantEntry1.wxml-->
+<view class="list" wx:for="{{list}}" wx:key="{{item.id}}" bindtap='chooseText' data-name="{{item.name}}" data-id="{{item.id}}">
+  <text>{{item.name}}</text>
+</view>

@@ -1,0 +1,246 @@
+/* pages/index/twolist/twolist.wxss */
+@import '/weui.wxss';
+page{
+  background: #f4f4f4;
+}
+/*综合、价格、上新*/
+.title {
+  height: 108rpx;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 1);
+}
+
+.comprehensive {
+  font-size: 30rpx;
+  width: 136rpx;
+  line-height: 108rpx;
+  text-align: center;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+}
+.active{
+  color: rgba(255, 141, 18, 1);
+}
+
+.price {
+  font-size: 30rpx;
+  width: 136rpx;
+  line-height: 108rpx;
+  text-align: center;
+  display: flex;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+.price-img{
+  margin-top: 10rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+.price-img image{
+  width: 40rpx;
+  height: 40rpx;
+}
+.new {
+  font-size: 30rpx;
+  width: 136rpx;
+  display: flex;
+  line-height: 108rpx;
+  text-align: center;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+.new-img{
+  margin-top: 10rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+.new-img image{
+  width: 40rpx;
+  height: 40rpx;
+}
+
+/*列表*/
+
+.comprehensive-list-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.comprehensive-list {
+  width: 348rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  margin-left: 18rpx;
+  border-radius: 8rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
+.comprehensive-list-img {
+  width: 348rpx;
+  height: 290rpx;
+}
+
+.comprehensive-list-img image {
+  width: 348rpx;
+  height: 290rpx;
+  border-radius: 8rpx 8rpx 0px 0px;
+}
+
+.comprehensive-list-text {
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  margin-left: 16rpx;
+  margin-top: 10rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.comprehensive-list-price {
+  display: flex;
+  margin-left: 16rpx;
+  margin-top: 30rpx;
+}
+
+.newprice {
+  font-size: 36rpx;
+  color: rgba(227, 58, 89, 1);
+}
+
+.newprice text {
+  font-size: 24rpx;
+}
+
+.oldprice {
+  margin-left: 16rpx;
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  text-decoration: line-through;
+  color: rgba(153, 153, 153, 1);
+}
+
+.comprehensive-list-share {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comprehensive-list-share-img {
+  width: 44rpx;
+  height: 44rpx;
+  margin-top: 15rpx;
+  margin-right: 20rpx;
+}
+
+.comprehensive-list-share-img image {
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.share-price {
+  font-size: 24rpx;
+  margin-left: 16rpx;
+  margin-top: 20rpx;
+  color: rgba(153, 153, 153, 1);
+}
+
+.share-price1 {
+  color: #e33a59;
+  margin-left: 20rpx;
+}
+/* 底部到底啦 */
+
+.page-bottom {
+  margin: 20rpx auto;
+  text-align: center;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+}
+/* 弹出框 */
+
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.4;
+  overflow: hidden;
+  z-index: 9999;
+  color: rgba(255, 255, 255, 1);
+}
+
+/*对话框 */
+
+.commodity_attr_box {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+  z-index: 9999;
+}
+
+.content-wrapper {
+  overflow: hidden;
+  height: auto;
+  text-align: center;
+  position: relative;
+}
+
+.content-wrapper .cancel {
+  width: 44rpx;
+  height: 44rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 14rpx;
+}
+
+.content-wrapper .shareCommission {
+  margin-top: 70rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content-wrapper .shareText {
+  margin-top: 39rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+}
+.content-wrapper .share-button {
+  background: rgba(255, 255, 255, 1);
+  width: 170rpx;
+  border-radius: 0;
+}
+button::after{
+  border: none;
+}
+.content-wrapper .photo {
+  margin-top: 30rpx;
+  width: 128rpx;
+  height: 128rpx;
+}
+
+.content-wrapper .wx {
+  margin-top: -35rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}

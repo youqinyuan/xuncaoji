@@ -1,0 +1,131 @@
+/* pages/addaddress/addaddress.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+.wraper .listItems {
+  position: relative;
+  height: 90rpx;
+  line-height: 90rpx;
+  display: flex;
+  border-bottom: 2rpx solid #f4f4f4;
+  background: rgba(255, 255, 255, 1);
+}
+.wraper .listItems .listLeft {
+  margin-right: 15rpx;
+  margin-left: 30rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+.wraper .listItems .listRight {
+  font-size: 28rpx;
+  margin-top: 20rpx;
+  width: 550rpx;
+}
+.wraper .listItems .listRight1 {
+  font-size: 28rpx;
+  width: 550rpx;
+}
+.img{
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  right: 30rpx;
+  top: 28rpx;
+}
+.wraper .listItems1 {
+  height: 200rpx;
+  display: flex;
+  border-bottom: 2rpx solid #f4f4f4;
+  background: rgba(255, 255, 255, 1);
+}
+
+.wraper .listItems1 .listLeft {
+  margin-right: 15rpx;
+  margin-left: 30rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  padding-top: 34rpx;
+}
+
+.wraper .listItems1 .listRight {
+  font-size: 28rpx;
+  width: 550rpx;
+  height:100%;
+  box-sizing: border-box;
+  padding-top: 38rpx;
+  line-height: 1;
+}
+/* 去除ios机型上面自带的上间距 */
+.wraper .listItems1 .listRight_ios {
+  font-size: 28rpx;
+  width: 550rpx;
+  height:100%;
+  box-sizing: border-box;
+  padding-top: 22rpx;
+  line-height: 1;
+}
+.listItems-item {
+  height: 90rpx;
+  line-height: 90rpx;
+  display: flex;
+  margin-top: 20rpx;
+  margin-bottom: 70rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+  background: rgba(255, 255, 255, 1);
+}
+
+.listItems-item .listLeft {
+  margin-right: 420rpx;
+  margin-left: 30rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+/*swtich整体大小*/
+
+.wx-switch-input {
+  width: 100rpx !important;
+  height: 56rpx !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/*白色样式（false的样式）*/
+
+.wx-switch-input::before {
+  width: 97rpx !important;
+  height: 52rpx !important;
+}
+
+/*绿色样式（true的样式）*/
+
+.wx-switch-input::after {
+  width: 54rpx !important;
+  height: 50rpx !important;
+}
+
+/* 保存 */
+
+.btn {
+  width: 690rpx;
+  height: 80rpx;
+  background: rgba(255, 141, 18, 1);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 1);
+}
+
+.btn::after {
+  border: none;
+}

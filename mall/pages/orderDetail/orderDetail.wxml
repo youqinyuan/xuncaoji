@@ -1,0 +1,325 @@
+<!--pages/orderDetail/orderDetail.wxml-->
+<view class="orderDetail-wrapper">
+  <!-- 状态 -->
+  <view class="orderDetail">
+    <view class="top">
+      <view class="state" wx:if="{{content.latestStatus==12}}">
+        <view class="text">
+          <text>已取消</text>
+        </view>
+        <image src="../../assets/images/icon/ic_cancel.png"></image>
+      </view>
+      <view class="state" wx:if="{{content.latestStatus==1}}">
+        <view class="text">
+          <view class="text1">待支付</view>
+          <view class="text2">{{waitPay}}后取消订单</view>
+        </view>
+        <image src="../../assets/images/icon/ic_clock.png"></image>
+      </view>
+      <view class="state" wx:if="{{content.latestStatus==4}}">
+        <view class="text">
+          <text>待收货</text>
+        </view>
+        <image src="../../assets/images/icon/ic_truck.png"></image>
+      </view>
+      <view class="state" wx:if="{{content.latestStatus==5}}">
+        <view class="text">
+          <text>待评价</text>
+        </view>
+        <image src="../../assets/images/icon/ic_comment.png"></image>
+      </view>
+      <view class="state" wx:if="{{content.latestStatus==2}}">
+        <view class="text">
+          <text>待发货</text>
+        </view>
+        <image src="../../assets/images/icon/ic_box.png"></image>
+      </view>
+      <view class="state" wx:if="{{content.latestStatus==6}}">
+        <view class="text">
+          <text>已完成</text>
+        </view>
+        <image src="../../assets/images/icon/ic_done.png"></image>
+      </view>
+      <view class="state" wx:if="{{content.latestStatus==7||content.latestStatus==8}}">
+        <view class="text">
+          <text>退款中</text>
+        </view>
+        <image src="../../assets/images/icon/ic_refund.png"></image>
+      </view>
+      <view class="state" wx:if="{{content.latestStatus==11}}">
+        <view class="text">
+          <text>退款失败</text>
+        </view>
+        <image src="../../assets/images/icon/ic_refund.png"></image>
+      </view>
+      <view class="state" wx:if="{{content.latestStatus==10}}">
+        <view class="text">
+          <text>退款成功</text>
+        </view>
+        <image src="../../assets/images/icon/ic_refund.png"></image>
+      </view>
+    </view>
+    <view class="platform">
+      <view class="platform-list">
+        <view class="platform-list-item">
+          <image class="platform-list-img" src="../../assets/images/icon/index_protect_shouhou_icon.png"></image>
+          <text class="platform-text">源头直采</text>
+        </view>
+        <view class="platform-list-item">
+          <image class="platform-list-img" src="../../assets/images/icon/index_protect_renzheng_icon.png"></image>
+          <text class="platform-text">假一赔三</text>
+        </view>
+        <view class="platform-list-item">
+          <image class="platform-list-img" src="../../assets/images/icon/index_protect_changj_icon.png"></image>
+          <text class="platform-text">部分商品全额返</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--物流详情-->
+  <view class="address" bindtap='jumpLogistics' data-orderid="{{content.id}}">
+    <view class="address-img">
+      <image src="../../assets/images/icon/ic_logistics.png"></image>
+    </view>
+    <view class="address-text">{{list.remark}}</view>
+    <view class="address-right-img">
+      <image src="../../assets/images/icon/xiangqing_more_n.png"></image>
+    </view>
+  </view>
+  <view class="shops-wrap-container">
+    <!--店铺商品-->
+    <view class="shops-wrap">
+      <view class="shops-wrap-top">
+        <view class="shops-wrap-top-img">
+          <image src="../../assets/images/icon/ic_location.png"></image>
+        </view>
+        <view class="shops-wrap-top-title">{{content.storeName}}</view>
+        <view class="shops-right-img">
+          <image src="../../assets/images/icon/xiangqing_more_n.png"></image>
+        </view>
+      </view>
+      <view class="shops-wrap-bottom-item" wx:for="{{content.orderGoodsDetail}}" wx:key="{{item.id}}">
+        <view class="shops-wrap-bottom">
+          <image class="shops-wrap-bottom-img" src="{{item.imageUrl}}"></image>
+          <view class="shops-wrap-bottom-right">
+            <view class="shops-wrap-bottom-right-item">
+              <view class="shops-wrap-bottom-title">{{item.goodsName}}</view>
+              <view class="shops-wrap-bottom-size">
+                {{item.specDesc}}
+              </view>
+            </view>
+            <view class="shops-wrap-bottom-right-list">
+              <view class="shops-wrap-bottom-price">
+                <text>￥</text>
+                <text class="price1">{{item.price}}</text>
+              </view>
+              <view class="shops-wrap-bottom-num">
+                x{{item.quantity}}
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="allprice">
+          <view class="expressfee">
+            <view class="expressfee-text">商品总价</view>
+            <view class="expressfee-price">
+              <text>￥</text>
+              <text class="expressfee-price1">{{item.goodsTotalPrice}}</text>
+            </view>
+          </view>
+          <view class="expressfee">
+            <view class="expressfee-text">运费(快递)</view>
+            <view class="expressfee-price">
+              <text>￥</text>
+              <text class="expressfee-price1">{{item.expressFee}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="payment">
+    <view class="payment-text">实际付款</view>
+    <view class="payment-price">
+      <text>￥</text>
+      <text class="payment-price1">{{content.orderAmount}}</text>
+    </view>
+  </view>
+  <!-- 订单信息 -->
+  <view class="order-message">
+    <view class="title">
+      <text>订单信息</text>
+    </view>
+    <view class="content">
+      <view class="pay-amount" wx:if="{{content.latestStatus==4||content.latestStatus==5||content.latestStatus==2||content.latestStatus==12||content.latestStatus==6||content.latestStatus==7||content.latestStatus==8}}">
+        <text>付款账户</text>
+        <text wx:if="{{content.transStatementDetail.paymentAccount===1}}">平台账户</text>
+        <text wx:if="{{content.transStatementDetail.paymentAccount===2}}">微信账户</text>
+      </view>
+      <view class="pay-amount" wx:if="{{content.latestStatus==1||content.latestStatus==4||content.latestStatus==5||content.latestStatus==2||content.latestStatus==12||content.latestStatus==6||content.latestStatus==7||content.latestStatus==8||content.latestStatus==10||content.latestStatus==11}}}}">
+        <text>订单编号</text>
+        <text>{{content.transStatementDetail.orderNumber}}</text>
+      </view>
+      <view class="time-wrapper" wx:for="{{orderTimeDetail}}" wx:key="{{item.id}}">
+        <view class="pay-amount" wx:if="{{item.status===1}}">
+          <text>创建时间</text>
+          <text>{{item.statusTime}}</text>
+        </view>
+        <view class="pay-amount" wx:if="{{item.status===2}}">
+          <text>支付时间</text>
+          <text>{{item.statusTime}}</text>
+        </view>
+        <view class="pay-amount" wx:if="{{item.status===4}}">
+          <text>发货时间</text>
+          <text>{{item.statusTime}}</text>
+        </view>
+        <view class="pay-amount" wx:if="{{item.status===6 || item.status===12}}">
+          <text>完成时间</text>
+          <text>{{item.statusTime}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="order-block" wx:if="{{content.latestStatus ==1||content.latestStatus ==2||content.latestStatus ==3||content.latestStatus ==4 ||content.latestStatus ==6||content.latestStatus ==9||content.latestStatus ==12}}"></view>
+  <!-- 退款信息 -->
+  <view class="refund-message" wx:if="{{content.latestStatus==7||content.latestStatus==8||content.latestStatus==10||content.latestStatus==11}}">
+    <view class="title">
+      <text>退款信息</text>
+    </view>
+    <view class="content">
+      <view class="refund-amount">
+        <text>退款金额</text>
+        <text>￥{{content.refundAmount}}</text>
+      </view>
+      <view wx:for="{{orderTimeRefundDetail}}" wx:key="">
+        <view class="refund-amount" wx:if="{{item.status==7 ||item.status==8}}">
+        <text>申请时间</text>
+        <text>{{item.statusTime}}</text>
+      </view>
+      <view class="refund-amount" wx:if="{{item.status==7 ||item.status==8}}">
+        <text>退款理由</text>
+        <text>{{item.desc}}</text>
+      </view>
+      <view class="refund-amount1" wx:if="{{item.status==7 ||item.status==8}}">
+        <text>处理时间</text>
+        <text>超过6天23时23分16秒系统将默认退款给您</text>
+      </view>
+      <!-- <view class="refund-amount" wx:if="{{item.status==10}}">
+        <text>处理时间</text>
+        <text>{{item.statusTime}}</text>
+      </view> -->
+       <view class="refund-amount" wx:if="{{item.status==10}}">
+        <text>退款时间</text>
+        <text>{{item.statusTime}}</text>
+      </view>
+      <view class="refund-amount4" wx:if="{{item.status==11}}">
+        <text>商家回复</text>
+        <text>{{item.desc}}</text>
+      </view>
+      </view>
+    </view>
+  </view>
+  <!-- 按钮 -->
+  <view class="order-bottom">
+    <view class="order-bottom1">
+      <view class="cancel-order" wx:if="{{content.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{content.id}}">取消订单</view>
+      <view class="refund" wx:if="{{content.latestStatus==2||content.latestStatus==5||content.latestStatus==11}}" catchtap='refund' data-orderid="{{content.id}}">退款</view>
+      <view class="cancel-refund" wx:if="{{content.latestStatus==7||content.latestStatus==8}}" catchtap='cancelRefund' data-orderid="{{content.id}}">取消退款</view>
+      <view class="cash-back" wx:if="{{content.isCashBack==true}}" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}">分期返现</view>
+      <view class="pay-money" wx:if="{{content.latestStatus==1}}" catchtap='toPay' data-id="{{content.transStatementDetail.transId}}" data-orderid="{{content.id}}">立即付款</view>
+      <view class="sure-goods" catchtap='confirmReceipt' wx:if="{{content.latestStatus==4}}" data-orderid="{{content.id}}" wx:if="{{content.latestStatus==4}}">确认收货</view>
+      <view class="evaluate" wx:if="{{content.latestStatus==5}}" catchtap='toEvaluate'  data-orderid="{{content.id}}">去评价</view>
+    </view>
+  </view>
+</view>
+<!-- 确认收货弹框 -->
+<view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
+  <view class="zan-dialog__mask" />
+  <view class="zan-dialog__container">
+    <view class='content1'>
+      <view class="content1-title">提示</view>
+      <view class="content1-container">确认收货
+      </view>
+      <view class="content1-button">
+        <view class="reject" bindtap='cancel'>取消</view>
+        <button class="comfirm" bindtap="allow">确认收货</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 取消退款 -->
+<view class="zan-dialog1 {{ showDialog1 ? 'zan-dialog--show1' : '' }}">
+  <view class="zan-dialog__mask1" />
+  <view class="zan-dialog__container1">
+    <view class='contentainer'>
+      <view class="contentainer-title">提示</view>
+      <view class="contentainer-container">是否取消当前订单退款申请？
+      </view>
+      <view class="contentainer-button">
+        <view class="reject" bindtap='cancelrefund'>取消</view>
+        <button class="comfirm" bindtap="surerefund">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 退款弹框 -->
+<view class="zan-dialog2 {{ showDialog2 ? 'zan-dialog--show2' : '' }}">
+  <view class="zan-dialog__mask2" />
+  <view class="zan-dialog__container2">
+    <view class='contentainer2'>
+      <view class="contentainer2-title">申请退款</view>
+      <view class="contentainer2-content">
+        <view class="contentainer2-content-text {{current == index ?'active1':''}}" bindtap="getText" wx:for="{{refund}}" wx:for-item="reasons" wx:key="{{reasons}}" data-current="{{index}}" data-text="{{reasons}}">{{reasons}}</view>
+      </view>
+      <view class="contentainer2-text">提示：申请退款前请与商家电话沟通后在进行申请，将减少商家拒绝申请退款概率</view>
+      <view class="contentainer2-button">
+        <view class="reject" bindtap='refundDialog'>取消</view>
+        <button class="comfirm" bindtap="application">申请退款</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 取消订单 -->
+<view class="zan-dialog3 {{ showDialog3 ? 'zan-dialog--show3' : '' }}">
+  <view class="zan-dialog__mask3" />
+  <view class="zan-dialog__container3">
+    <view class='contentainer3'>
+      <view class="contentainer3-title">取消订单</view>
+      <view class="contentainer3-content">
+        <view class="contentainer3-content-text {{current == index ?'active1':''}}" bindtap="getText1" wx:for="{{cancelOrder}}" wx:for-item="reasons1" wx:key="{{reasons1}}" data-current="{{index}}" data-text="{{reasons1}}">{{reasons1}}</view>
+      </view>
+      <view class="contentainer3-button">
+        <view class="reject" bindtap='cancelorder'>取消</view>
+        <button class="comfirm" bindtap="sureorder">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 去评价 -->
+<view class="zan-showDialog4 {{ showDialog4 ? 'zan-dialog--show4' : '' }}">
+  <view class="zan-dialog__mask4" />
+  <view class="zan-dialog__container4">
+    <view class='contentainer4'>
+      <view class="contentainer4-title">商品评价</view>
+      <view class="contentainer4-item">
+        <view class="contentainer4-left-text">商品评分</view>
+        <view class="contentainer4-left-start">
+          <block wx:for="{{one_2}}" wx:key="index">
+            <image catchtap='in_xin' id='{{index+1}}' data-in='use_sc2' src='../../assets/images/icon/pingj_xinxin.png'></image>
+          </block>
+          <block wx:for="{{two_2}}" wx:key="index">
+            <image catchtap='in_xin' id='{{index+1}}' data-in='use_sc' src='../../assets/images/icon/pingj_xinxin_l.png'></image>
+          </block>
+        </view>
+      </view>
+      <view class="textarea-wrp">
+        <textarea  wx:if="{{!multiShow}}" fixed="true" bindinput='input' maxlength="100" placeholder="您的评价是我们优化的目标" placeholder-style="color:#AAAAAA;" />
+        <text class="currentWordNumber">{{currentNoteLen|0}}/{{noteMaxLen}}</text>
+      </view>
+      <view class="contentainer4-button">
+        <view class="reject" bindtap='cancelEvaluate'>取消</view>
+        <button class="comfirm" bindtap="sureEvaluate">发布评论</button>
+      </view>
+    </view>
+  </view>
+</view>

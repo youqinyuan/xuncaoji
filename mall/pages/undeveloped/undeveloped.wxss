@@ -1,0 +1,18 @@
+/* pages/undeveloped/undeveloped.wxss */
+
+page {
+  text-align: center;
+}
+
+.img {
+  width: 200rpx;
+  height: 200rpx;
+  margin-top: 250rpx;
+}
+
+.content {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+}

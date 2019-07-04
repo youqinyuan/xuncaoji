@@ -1,0 +1,185 @@
+<!--pages/mine/mine.wxml-->
+<!--我的信息-->
+<view class="content">
+  <view class="top">
+    <view class="top-left">
+      <view class="sculpture" bindtap='personalData'>
+        <image wx:if="{{content.avatarKey}}" src="{{content.avatarKey}}"></image>
+        <image wx:elif="{{userInfo.avatarUrl}}" src="{{userInfo.avatarUrl}}"></image>
+        <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
+      </view>
+      <view class="title">
+        <view class="big-title" wx:if="{{content.avatarKey}}">{{content.nickname}}</view>
+        <view class="big-title" wx:elif="{{userInfo.nickName}}">{{userInfo.nickName}}</view>
+        <view class="big-title" wx:else>匿名用户</view>
+        <view class="balance">
+          <text class="balance-text">余额</text>
+          <text class="balance-price">￥</text>
+          <text class="balance-num">{{content.balance?content.balance:0}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="right" bindtap="recharge">充值</view>
+  </view>
+  <view class="bottom" wx:if="{{content.isMember===2}}">
+    <view class="member">
+      <image src="../../assets/images/icon/my_imassage_nohuiy_icon.png"></image>
+    </view>
+    <view class="notmember">您还不是会员， 立即
+      <text class="open" bindtap="open">领会员</text>
+    </view>
+  </view>
+  <view class="bottom" wx:if="{{content.isMember===1}}">
+    <view class="member">
+      <image src="../../assets/images/icon/my_imassage_huiy_icon.png"></image>
+    </view>
+    <view class="notmember1">您已经是会员
+      <text class="open" bindtap="open">领会员</text>
+    </view>
+  </view>
+</view>
+<!--我的订单-->
+<view class="order">
+  <view class="order-title" bindtap='nav' data-url="/pages/myorder/myorder?status=0">
+    <image class="order-img" src="../../assets/images/icon/my_order_icon.png"></image>
+    <text class="order-text">我的订单</text>
+  </view>
+  <view class="order-list">
+    <view class="waitpay" bindtap='nav' data-url='/pages/myorder/myorder?status={{item.status}}' wx:for='{{slist}}' wx:key='item.img'>
+      <view class="waitpay-img">
+        <image src="{{item.img}}"></image>
+      </view>
+      <view class="waitpay-text">{{item.txt}}</view>
+    </view>
+  </view>
+  <view class="circle" wx:for="{{orderCount}}" wx:key="">
+    <view class="circle1" wx:if="{{item.status==1}}">{{item.count}}</view>
+    <view class="circle2" wx:if="{{item.status==4}}">{{item.count}}</view>
+    <view class="circle3" wx:if="{{item.status==3}}">{{item.count}}</view>
+    <view class="circle4" wx:if="{{item.status==5}}">{{item.count}}</view>
+    <view class="circle5" wx:if="{{item.status==7}}">{{item.count}}</view>
+  </view>
+</view>
+<!--我的服务-->
+<view class="service">
+  <view class="service-title">
+    <image class="service-img" src="../../assets/images/icon/my_service_icon.png"></image>
+    <text class="service-text">我的服务</text>
+  </view>
+  <view class="service-list">
+    <view class="pay" catchtap='payMoney'>
+      <view class="pay-img">
+        <image src="../../assets/images/icon/my_service_list0_icon.png"></image>
+      </view>
+      <view class="pay-text">
+        <view class="pay-text-big">付钱</view>
+        <view class="pay-text-small">扫码付款</view>
+      </view>
+    </view>
+    <view class="pay" catchtap='commission'>
+      <view class="pay-img">
+        <image src="../../assets/images/icon/my_service_list1_icon.png"></image>
+      </view>
+      <view class="pay-text">
+        <view class="pay-text-big">佣金</view>
+        <view class="pay-text-small">收支明细一目了然</view>
+      </view>
+    </view>
+    <view class="pay" catchtap='myTeam'>
+      <view class="pay-img">
+        <image src="../../assets/images/icon/my_service_list2_icon.png"></image>
+      </view>
+      <view class="pay-text">
+        <view class="pay-text-big">我的团队</view>
+        <view class="pay-text-small">轻轻松松管理团队</view>
+      </view>
+    </view>
+    <view class="pay" catchtap='toCart'>
+      <view class="pay-img">
+        <image src="../../assets/images/icon/my_service_list4_icon.png"></image>
+      </view>
+      <view class="pay-text">
+        <view class="pay-text-big">购物车</view>
+        <view class="pay-text-small">收藏心仪商品</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--我的心情、我的地址、支付密码、邀请码、商家入驻、客服-->
+<view class="mine">
+  <view class="mine-list" bindtap='myMood'>
+    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list6_icon.png"></image>
+    <view class="mine-list-text">我的心情</view>
+  </view>
+  <view class="mine-list" catchtap='toAdress'>
+    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list1_icon(1).png"></image>
+    <view class="mine-list-text">我的地址</view>
+  </view>
+  <view class="mine-list" catchtap='toPassword'>
+    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list2_icon.png"></image>
+    <view class="mine-list-text">支付密码</view>
+  </view>
+  <view class="mine-list" bindtap='showInviterCode'>
+    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list3_icon.png"></image>
+    <view class="mine-list-text">邀请码</view>
+  </view>
+  <!-- <view class="mine-list" bindtap='toMerchantEntry'>
+    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list4_icon.png"></image>
+    <view class="mine-list-text">商家入驻</view>
+  </view> -->
+  <view class="mine-list"  bindtap='customerService'>
+    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list5_icon.png"></image>
+    <view class="mine-list-text">客服</view>
+  </view>
+</view>
+<!--微信授权弹框弹框-->
+<!-- <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
+  <view class="zan-dialog__mask" />
+  <view class="zan-dialog__container">
+    <view class='content'>
+      <view class="content-title">提示</view>
+      <view class="content-container">您需同意微信授权，拒绝微信授权
+您将无法获取佣金和提现功能。
+    </view>
+    <view class="content-button">
+      <view class="reject" catchtap='reject'>拒绝</view>
+      <button class="comfirm" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">确定</button>
+    </view>
+    </view>
+  </view>
+</view> -->
+<!-- 邀请码弹框 -->
+<view class="zan-dialog1 {{ showInviterCode ? 'zan-dialog--show1' : '' }}">
+  <view class="zan-dialog__mask1" bindtap="hideModal" />
+  <view class="zan-dialog__container1">
+    <image src="../../assets/images/icon/my_code_bg.png"></image>
+    <image src="../../assets/images/icon/my_code_title.png"></image>
+    <view class="title">我的邀请码</view>
+    <view class="invite-code">{{content.inviterCode}}</view>
+    <view class="copy" bindtap='copyText' data-text="{{content.inviterCode}}">复制</view>
+    <view class="line"></view>
+    <view class="member1" wx:if="{{content.inviterIsMember===2 && content.inviterNickname}}">非Plus会员</view>
+    <view class="member1" wx:elif="{{content.inviterIsMember===1}}">Plus会员</view>
+    <image class="attrimage1" wx:if="{{content.inviterIsMember===2 && content.inviterNickname}}"src="../../assets/images/icon/my_viptag_bg.png"></image>
+    <image class="attrimage1" wx:if="{{content.inviterIsMember===1}}"src="../../assets/images/icon/my_viptag_bg.png"></image>
+    <image wx:if="{{content.inviterAvatarKey}}" class="attrimage" src="{{content.inviterAvatarKey}}"></image>
+    <image wx:else class="attrimage" src="../../assets/images/icon/zhanw_tb_n.png"></image>
+    <view class="text">我的推荐人</view>
+    <view class="nickname" wx:if="{{!content.inviterNickname}}">寻草记</view>
+    <view class="nickname" wx:else>{{content.inviterNickname}}</view>
+  </view>
+</view>
+<!--客服弹框-->
+<view class="zan-dialog {{ showService ? 'zan-dialog--show' : '' }}">
+  <view class="zan-dialog__mask" bindtap="hideService" />
+  <view class="zan-dialog__container">
+    <view class='content'>
+      <view class="content-title">客服</view>
+      <view class="content-container">{{content.servicePhone}}
+      </view>
+      <view class="content-button" catchtap='call'>
+        呼叫
+      </view>
+    </view>
+  </view>
+</view>

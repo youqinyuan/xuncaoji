@@ -1,0 +1,21 @@
+<!--pages/search/shops/shops.wxml-->
+<!-- 电商列表-->
+<view class="shops-wrap">
+  <view class="shops-list" wx:for="{{storeResult}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='storeDetail'>
+    <view class="shops-list-img">
+      <image wx:if="{{detail.logoUrl}}" src="{{detail.logoUrl}}"></image>
+      <image wx:else src="../../../assets/images/icon/zhanw_tb_n.png"></image>
+    </view>
+    <view class="shops-middle">
+      <view class="shops-middle-top">
+        <text class="shops-middle-b">{{item.name}}</text>
+        <text class="shops-middle-z" wx:if="{{item.channel==1}}">自营</text>
+      </view>
+      <view class="shops-middle-bottom">店铺评分：
+        <text>{{item.score}}</text>分</view>
+    </view>
+    <view class="shops-right-img">
+      <image src="../../../assets/images/icon/search_more_n.png"></image>
+    </view>
+  </view>
+</view>

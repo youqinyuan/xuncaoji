@@ -1,0 +1,117 @@
+<!--pages/mine/member/member.wxml-->
+<!--会员到期日-->
+<view class="top">
+  <view class="top-img">
+    <image src="../../assets/images/icon/vip_radian_bg.png"></image>
+  </view>
+  <view class="expires">
+    <image src="../../assets/images/icon/vip_card.png"></image>
+    <view class="expires-text" wx:if="{{!expireTime}}">您还不是会员</view>
+    <view class="expires-text" wx:else>
+      <view class="expires-top">会员到期日</view>
+      <view class="expires-date">
+        {{expireTime}}
+      </view>
+    </view>
+  </view>
+</view>
+<!--限时任务-->
+<view class="active-wrapper-content">
+  <view class="active-title">
+    跟我做任务 一起当Plus会员
+  </view>
+  <view class="active-wrapper1" wx:for="{{taskItems}}" wx:key="">
+    <view class="active-wrapper" wx:if="{{item.key==='INVITEES_COUNT'}}">
+      <view class="active-list">
+        <view class="sculpture">
+          <image src="../../assets/images/icon/vip_friends.png"></image>
+        </view>
+        <view class="active-item">
+          <view class="active-item-invite">邀请好友</view>
+          <view class="active-item-text">已完成{{item.count}}/{{item.value}}</view>
+        </view>
+        <view class="active-item-mission" bindtap='recurit'>做任务</view>
+      </view>
+      <view class="active-bottom">邀请20位好友成功注册即送1个月会员特权</view>
+    </view>
+    <view class="active-wrapper" wx:if="{{item.key==='RECHARGE_AMOUNT'}}">
+      <view class="active-list">
+        <view class="sculpture">
+          <image src="../../assets/images/icon/vip_friends1.png"></image>
+        </view>
+        <view class="active-item">
+          <view class="active-item-invite">充值满额送会员</view>
+          <view class="active-item-text">已完成{{item.count}}/{{item.value}}</view>
+        </view>
+        <view class="active-item-mission" bindtap='jumpRecharge'>做任务</view>
+      </view>
+      <view class="active-bottom">累计充值金额为200元送1个月会员特权</view>
+    </view>
+    <view class="active-wrapper" wx:if="{{item.key==='ORDERS_COUNT'}}">
+      <view class="active-list">
+        <view class="sculpture">
+          <image src="../../assets/images/icon/vip_get_vip(1).png"></image>
+        </view>
+        <view class="active-item">
+          <view class="active-item-invite">购买即送会员</view>
+          <view class="active-item-text">已完成{{item.count}}/{{item.value}}</view>
+        </view>
+        <view class="active-item-mission" bindtap='jumpIndex'>做任务</view>
+      </view>
+      <view class="active-bottom1">下单次数大于等于10次送1个月会员特权</view>
+    </view>
+  </view>
+</view>
+<!--会员权益-->
+<view class="equity-middle">
+  <view class="equity-middle-title">会员权益</view>
+  <view class="equity-middle-list">
+    <view class="equity-middle-img">
+      <image src="../../assets/images/icon/vip_get_vip3.png"></image>
+    </view>
+    <view class="equity-middle-text">成为会员预计平均每月获得1000元收入！</view>
+  </view>
+  <view class="equity-middle-list">
+    <view class="equity-middle-img">
+      <image src="../../assets/images/icon/vip_distribution3.png"></image>
+    </view>
+    <view class="equity-middle-text">分销功能开启每月预计多赚700元收入！</view>
+  </view>
+  <view class="equity-middle-list">
+    <view class="equity-middle-img">
+      <image src="../../assets/images/icon/vip_store.png"></image>
+    </view>
+    <view class="equity-middle-text">可享受线下1000+实体商铺折扣优惠！</view>
+  </view>
+  <view class="equity-middle-list">
+    <view class="equity-middle-img">
+      <image src="../../assets/images/icon/vip_server.png"></image>
+    </view>
+    <view class="equity-middle-text">专用客服接入通道，尽享VIP尊荣体验！</view>
+  </view>
+  <view class="equity-middle-list">
+    <view class="equity-middle-img">
+      <image src="../../assets/images/icon/vip_identity.png"></image>
+    </view>
+    <view class="equity-middle-text">尊享特殊身份标识，彰显会员魅力！</view>
+  </view>
+</view>
+<view class="block"></view>
+<view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
+<view class="modal-dialog" wx:if="{{show}}">
+  <view class='content'>
+    <view class="content-top-img">
+      <image src="../../assets/images/icon/vip_pop_title.png">
+      </image>
+      <view class="invite-text">在好友填写您的邀请码以后，您将获得平台给您的一定的佣金和返利。</view>
+      <view class="invite-text1">邀请码:{{inviterCode}}</view>
+    </view>
+    <view class="content-middle-img">
+      <image src="../../assets/images/icon/pop_element.png"></image>
+    </view>
+    <button class="share" open-type="share">分享</button>
+  </view>
+</view>
+<view class="content-cancel" wx:if="{{show}}" bindtap='cancel'>
+  <image src="../../assets/images/icon/vip_close_Pop-ups.png"></image>
+</view>

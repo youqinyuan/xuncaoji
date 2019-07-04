@@ -1,0 +1,439 @@
+/* pages/placeorder/placeorder.wxss */
+
+page {
+  background: #f4f4f4;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  position: relative;
+}
+
+/*售后无忧*/
+
+.platform-compare {
+  height: 68rpx;
+  background: rgba(255, 255, 255, 1);
+  display: flex;
+  border-bottom: 2rpx solid #f4f4f4;
+  line-height: 68rpx;
+}
+
+.platform-wrap {
+  display: flex;
+}
+
+.platform-img {
+  margin-left: 30rpx;
+  margin-top: 5rpx;
+  margin-right: 10rpx;
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.platform-img image {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.platform-text {
+  margin-top: 5rpx;
+  margin-right: 10rpx;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(102, 102, 102, 1);
+}
+
+/*添加收货地址*/
+
+.address {
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  background: rgba(255, 255, 255, 1);
+  height: 100rpx;
+  line-height: 100rpx;
+  display: flex;
+}
+
+.address-img {
+  margin-right: 19rpx;
+  margin-left: 30rpx;
+  width: 25rpx;
+  height: 33rpx;
+}
+
+.address-img image {
+  width: 25rpx;
+  height: 33rpx;
+}
+
+.address-text {
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.address-right-img {
+  margin-left: 412rpx;
+  margin-top: 10rpx;
+  width: 56rpx;
+  height: 56rpx;
+}
+
+.address-right-img image {
+  width: 56rpx;
+  height: 56rpx;
+}
+
+.address1 {
+  background: rgb(255, 255, 255);
+  padding: 15rpx 30rpx;
+  font-size: 28rpx;
+}
+.address-name{
+  display: flex;
+}
+.address-name:nth-child(1) view {
+  margin-right: 15rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.address-address1 {
+  margin-top: 15rpx;
+  color: rgba(102, 102, 102, 1);
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  font-size: 28rpx;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/*店铺商品*/
+
+.shops-wrapper {
+  margin-bottom: 129rpx;
+}
+
+.shops-wrap-top {
+  display: flex;
+  height: 74rpx;
+  line-height: 74rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
+.shops-wrap-top image {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 30rpx;
+  margin-top: 21rpx;
+  margin-right: 13rpx;
+}
+
+.shops-wrap-top-title {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.shops-wrap-top-text {
+  width: 60rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  background: rgba(255, 81, 122, 1);
+  border-radius: 14rpx;
+  font-size: 20rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  margin-left: 10rpx;
+  margin-top: 25rpx;
+  color: rgba(255, 255, 255, 1);
+}
+
+.shops-wrap-bottom {
+  background: rgba(255, 255, 255, 1);
+  position: relative;
+  margin-bottom: 20rpx;
+}
+
+.shops-wrap-bottom-right {
+  display: flex;
+  padding-bottom: 40rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+}
+
+.shops-wrap-bottom-right image {
+  margin-left: 30rpx;
+  margin-top: 21rpx;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 8rpx;
+}
+
+.shops-wrap-bottom-right-item {
+  margin-top: 30rpx;
+  margin-left: 30rpx;
+}
+
+.shops-wrap-bottom-title {
+  width: 330rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  font-size: 28rpx;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.shops-wrap-bottom-size {
+  margin-top: 23rpx;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+}
+
+.shops-wrap-bottom-price {
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.price1 {
+  font-size: 32rpx;
+}
+
+.shops-wrap-bottom-num {
+  position: absolute;
+  right: 30rpx;
+  top: 110rpx;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.expressfee {
+  position: relative;
+  display: flex;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.expressfee-text {
+  margin-left: 30rpx;
+}
+
+.expressfee-price {
+  position: absolute;
+  right: 30rpx;
+}
+
+.expressfee-price1 {
+  font-size: 30rpx;
+}
+
+.blcok {
+  height: 20rpx;
+  background: #f4f4f4;
+}
+
+.payment {
+  display: flex;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  background: rgba(255, 255, 255, 1);
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.payment-text {
+  margin-left: 30rpx;
+}
+
+.payment-price {
+  color: rgba(227, 58, 89, 1);
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  position: absolute;
+  right: 30rpx;
+}
+
+.payment-price1 {
+  font-size: 30rpx;
+}
+
+/* 提交订单 */
+
+.placeorder {
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 750rpx;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  background: rgba(255, 255, 255, 1);
+}
+
+.placeorder-price {
+  margin-left: 150rpx;
+  font-size: 32rpx;
+  color: rgba(51, 51, 51, 1);
+  padding-right: 37rpx;
+}
+
+.placeorder-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 250rpx;
+  height: 100rpx;
+  text-align: center;
+  background: rgba(255, 81, 122, 1);
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
+  border-radius: 0;
+}
+
+button::after {
+  border: none;
+}
+
+button[disabled] {
+  background: rgba(255, 81, 122, 1) !important;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+/* 弹出框 */
+
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.4;
+  overflow: hidden;
+  z-index: 1000;
+  color: rgba(255, 255, 255, 1);
+}
+
+/*对话框 */
+
+.commodity_attr_box {
+  height: 633rpx;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+  z-index: 2000;
+}
+
+.content-wrapper {
+  height: auto;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding-bottom: 10rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+}
+
+.content-photo {
+  width: 64rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  font-size: 26rpx;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  margin-left: 30rpx;
+  margin-top: 55rpx;
+  background: rgba(170, 170, 170, 1);
+  border-radius: 50%;
+}
+
+.content-name-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-name {
+  display: flex;
+  margin-top: 36rpx;
+  font-size: 30rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content-name view:nth-child(1) {
+  width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.content-name view {
+  padding-left: 19rpx;
+}
+
+.default {
+  position: absolute;
+  z-index: 10;
+  right: 120rpx;
+  top: 26rpx;
+  height: 28rpx;
+  width: 48rpx;
+}
+
+.default image {
+  height: 28rpx;
+  width: 48rpx;
+}
+
+.content-address {
+  width: 500rpx;
+  height: 61rpx;
+  margin-left: 19rpx;
+  margin-top: 20rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  font-size: 26rpx;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  padding-bottom: 10rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}

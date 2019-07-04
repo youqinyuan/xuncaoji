@@ -1,0 +1,81 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/loginWay/loginWay",
+    "pages/invitationCode/invitationCode",
+    "pages/nearby/nearby",
+    "pages/placeorder/placeorder",
+    "pages/paymentorder/paymentorder",
+    "pages/storedetails/storedetails",
+    "pages/circle/circle",
+    "pages/member/member",
+    "pages/myorder/myorder",
+    "pages/mine/mine",
+    "pages/commission/commission",
+    "pages/myteam/myteam",
+    "pages/search/search",
+    "pages/detail/detail",
+    "pages/evaluate/evaluate",
+    "pages/search/goods/goods",
+    "pages/search/shops/shops",
+    "pages/mine/recharge/recharge",
+    "pages/mine/personal/personal",
+    "pages/mine/recharge/details/details",
+    "pages/index/cart/cart",
+    "pages/address/address",
+    "pages/addaddress/addaddress",
+    "pages/editaddress/editaddress",
+    "pages/paypassword/paypassword",
+    "pages/forgetpassword/forgetpassword",
+    "pages/index/twolist/twolist",
+    "pages/merchantEntry/merchantEntry",
+    "pages/merchantEntry1/merchantEntry1",
+    "pages/merchantEntry2/merchantEntry2",
+    "pages/merchantEntry3/merchantEntry3",
+    "pages/shopAddress/shopAddress",
+    "pages/averageDiscount/averageDiscount",
+    "pages/nationwideReturn/nationwideReturn",
+    "pages/orderDetail/orderDetail",
+    "pages/zeroPurchase/zeroPurchase",
+    "pages/zeroPurchaseActivity/zeroPurchaseActivity",
+    "pages/cashBack/cashBack",
+    "pages/logistics/logistics",
+    "pages/undeveloped/undeveloped"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#333333",
+    "selectedColor": "#FF8D12",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/images/icon/bq_home_icon_n.png",
+        "selectedIconPath": "assets/images/icon/bq_home_icon_a.png"
+      },
+      {
+        "pagePath": "pages/member/member",
+        "text": "会员",
+        "iconPath": "assets/images/icon/bq_member_icon_n.png",
+        "selectedIconPath": "assets/images/icon/bq_member_icon_a.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "assets/images/icon/bq_my_icon_n.png",
+        "selectedIconPath": "assets/images/icon/bq_my_icon_a.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置信息将用于获取周围商家信息"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
+}

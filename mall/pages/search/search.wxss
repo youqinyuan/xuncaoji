@@ -1,0 +1,148 @@
+/* pages/search/search.wxss */
+@import "/template/searchList/searchList"; 
+@import "/template/searchList1/searchList1";
+page {
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  background: #f4f4f4;
+}
+
+/*搜索框*/
+
+.section-wrapper {
+  font-size: 28rpx;
+  border-top: 2rpx solid #f4f4f4;
+  width: 750rpx;
+  height: 88rpx;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  display: flex;
+  background: #fff;
+  margin-bottom: 30rpx;
+}
+
+.section {
+  line-height: 60rpx;
+  width: 600rpx;
+  height: 60rpx;
+  margin-left: 30rpx;
+  margin-top: 14rpx;
+  display: flex;
+  background: rgba(244, 244, 244, 1);
+  font-weight: 400;
+  border-radius: 30rpx;
+  position: relative;
+}
+
+.section-img {
+  width: 26rpx;
+  height: 26rpx;
+  margin: 17rpx 22rpx;
+}
+
+input {
+  width: 450rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.search {
+  font-size: 32rpx;
+  background: #fff;
+  border: none;
+  color: rgba(51, 51, 51, 1);
+  height: 88rpx;
+  line-height: 88rpx;
+  margin-left: 30rpx;
+}
+.cancel{
+  position: absolute;
+  right: 136rpx;
+  top:20rpx;
+  width: 44rpx;
+  height: 44rpx;
+}
+.cancel image{
+  width: 44rpx;
+  height: 44rpx;
+}
+/* 弹出框 */
+
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.4;
+  overflow: hidden;
+  z-index: 9999;
+  color: rgba(255, 255, 255, 1);
+}
+
+/*对话框 */
+
+.commodity_attr_box {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+  z-index: 9999;
+}
+
+.content-wrapper {
+  overflow: hidden;
+  height: auto;
+  text-align: center;
+  position: relative;
+}
+
+.content-wrapper .cancel {
+  width: 44rpx;
+  height: 44rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 14rpx;
+}
+
+.content-wrapper .shareCommission {
+  margin-top: 70rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content-wrapper .shareText {
+  margin-top: 39rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+}
+.content-wrapper .share-button {
+  background: rgba(255, 255, 255, 1);
+  width: 170rpx;
+  border-radius: 0;
+}
+button::after{
+  border: none;
+}
+.content-wrapper .photo {
+  margin-top: 30rpx;
+  width: 128rpx;
+  height: 128rpx;
+}
+
+.content-wrapper .wx {
+  margin-top: -35rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}

@@ -1,0 +1,132 @@
+<!--pages/placeorder/placeorder.wxml-->
+<!--售后无忧-->
+<view class="platform-compare">
+  <view class="platform-wrap">
+    <view class="platform-img">
+      <image src="../../assets/images/icon/xqing_protect_shouhou_icon.png"></image>
+    </view>
+    <view class="platform-text">源头直采</view>
+  </view>
+  <view class="platform-wrap">
+    <view class="platform-img">
+      <image src="../../assets/images/icon/xqing_protect_renzheng_icon.png"></image>
+    </view>
+    <view class="platform-text">假一赔三</view>
+  </view>
+  <view class="platform-wrap">
+    <view class="platform-img">
+      <image src="../../assets/images/icon/xqing_protect_changj_icon.png"></image>
+    </view>
+    <view class="platform-text">部分商品全额返</view>
+  </view>
+</view>
+<!--添加地址-->
+<view class="address" bindtap='jumpAddress' wx:if="{{addressItems.length===0}}">
+  <view class="address-img">
+    <image src="../../assets/images/icon/ic_location.png"></image>
+  </view>
+  <view class="address-text">请添加收货地址</view>
+  <view class="address-right-img">
+    <image src="../../assets/images/icon/xiangqing_more_n.png"></image>
+  </view>
+</view>
+<view class="address-wrapper" bindtap='jumpAddress' wx:if="{{addressItems.length>0}}">
+    <view class="address1">
+      <view class="address-name-wrap">
+        <view class="address-name">
+          <view>{{name}}</view>
+          <view>{{phoneNumber}}</view>
+        </view>
+        <view class="address-address1">
+          {{city}}{{detailAddress}}
+        </view>
+      </view>
+    </view>
+  </view>
+<!--店铺商品-->
+<view class="shops-wrapper">
+  <view class="shops-wrap" wx:for="{{placeOrder}}" wx:key="">
+    <view class="shops-wrap-top">
+      <image src="../../assets/images/icon/ic_location.png"></image>
+      <view class="shops-wrap-top-title">{{item.order.storeName}}</view>
+      <view class="shops-wrap-top-text" wx:if="{{item.order.channel==1}}">自营</view>
+    </view>
+    <view class="shops-wrap-bottom" wx:for="{{item.orderGoodsBo}}" wx:key="">
+      <view class="shops-wrap-bottom-right">
+        <image src="{{item.orderGoods.imageUrl}}"></image>
+        <view class="shops-wrap-bottom-right-item">
+          <view class="shops-wrap-bottom-title">{{item.orderGoods.goodsName}}</view>
+          <view class="shops-wrap-bottom-size">{{item.orderGoods.specDesc}}</view>
+        </view>
+        <view class="shops-wrap-bottom-right-list">
+          <view class="shops-wrap-bottom-price">
+            <text>￥</text>
+            <text class="price1">{{item.orderGoods.price}}</text>
+          </view>
+          <view class="shops-wrap-bottom-num">x{{item.orderGoods.quantity}}</view>
+        </view>
+      </view>
+      <view class="allprice">
+        <view class="expressfee">
+          <view class="expressfee-text">商品总价</view>
+          <view class="expressfee-price">
+            <text>￥</text>
+            <text class="expressfee-price1">{{item.orderGoods.goodsTotalPrice}}</text>
+          </view>
+        </view>
+        <view class="expressfee">
+          <view class="expressfee-text">运费(快递)</view>
+          <view class="expressfee-price">
+            <text>￥</text>
+            <text class="expressfee-price1">{{item.orderGoods.expressFee}}</text>
+          </view>
+        </view>
+        <view class="expressfee" wx:if="{{item.orderGoods.period>0}}">
+          <view class="expressfee-text">分期返现</view>
+          <view class="expressfee-price">
+            <text class="expressfee-price1">{{item.orderGoods.period}}期返现</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="payment">
+    <view class="payment-text">实际付款</view>
+    <view class="payment-price">
+      <text>￥</text>
+      <text class="payment-price1">{{actualPrice}}</text>
+    </view>
+  </view>
+</view>
+<!--提交订单-->
+<view class="placeorder">
+  <view class="placeorder-price">
+    <text>合计金额：</text>
+    <text>￥{{actualPrice}}</text>
+  </view>
+  <button class="placeorder-btn" disabled='{{disabled}}' bindtap='toPaymentorder' data-id="{{item.goodsId}}">提交订单</button>
+</view>
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class="content-wrapper" wx:for="{{addressItems}}" wx:key="" bindtap='addressClick' data-name="{{item.receiverName}}" data-number="{{item.mobileNumber}}" data-province="{{item.provinceName}}" data-city="{{item.cityName}}" data-district="{{item.districtName}}" data-districtid="{{item.districtId}}" data-detailed="{{item.detailedAddress}}" data-id="{{item.id}}" data-gindex="{{index}}">
+    <view class='default'>
+      <image src="../../assets/images/icon/moren_bqian_n.png"></image>
+    </view>
+    <view class="content">
+      <view class="content-photo">
+        {{item.name}}
+      </view>
+      <view class="content-name-wrap">
+        <view class="content-name">
+          <view>{{item.receiverName}}</view>
+          <view>{{item.mobileNumber}}</view>
+        </view>
+        <view class="content-address">
+          {{item.provinceName}}{{item.cityName}}{{item.districtName}}{{item.detailedAddress}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

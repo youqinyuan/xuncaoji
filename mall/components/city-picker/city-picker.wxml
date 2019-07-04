@@ -1,0 +1,32 @@
+<view wx:if="{{showPicker}}" class="city-picker">
+    <view class="city-picker-mask" catchtouchstart="onTouchmask"></view>
+    <view class="city-picker-content" catchtouchstart="onTouchmask">
+        <view class='city-picker-content-top' catchtouchstart="onTouchmask">
+            <view class="city-picker-content-cancel" hover-class="hover-class" catchtouchend="onCacnelClick">
+                取消
+            </view>
+            <view class="city-picker-content-sure" hover-class="hover-class" catchtouchend="onSureClick">
+                确认
+            </view>
+        </view>
+        <view class="city-picker-content-line" catchtouchstart="onTouchmask"></view>
+        <view class="city-picker-content-center" catchtouchstart="onTouchmask">
+            <picker-view class="city-picker-content-item" indicator-style="height: 70rpx;" value="{{tempProvincePos}}" bindchange="province_onChange">
+                <picker-view-column>
+                    <view wx:for="{{provinces}}" wx:key="{{item.id}}" style="height: 70rpx; text-align:center; font-size: 28rpx; line-height:70rpx; color:#353535;">{{item.name}}</view>
+                </picker-view-column>
+            </picker-view>
+            <picker-view class="city-picker-content-item" indicator-style="height: 70rpx; " value="{{tempCityPos}}" bindchange="city_onChange">
+                <picker-view-column>
+                    <view wx:for="{{provinces[tempProvincePos].cityList}}" wx:key="{{item.id}}" style="height: 70rpx; text-align:center;  font-size: 28rpx; line-height:70rpx; color:#353535;">{{item.name}}</view>
+                </picker-view-column>
+            </picker-view>
+              <picker-view class="city-picker-content-item" indicator-style="height: 70rpx; " value="{{tempRegionPos}}" bindchange="region_onChange">
+                <picker-view-column>
+                    <view wx:for="{{provinces[tempProvincePos].cityList[tempCityPos].areaList}}" wx:key="{{item.id}}" style="height: 70rpx; text-align:center;  font-size: 28rpx; line-height:70rpx; color:#353535;">{{item.name}}</view>
+                    <!-- <view>111</view> -->
+                </picker-view-column>
+            </picker-view>
+        </view>
+    </view>
+</view>

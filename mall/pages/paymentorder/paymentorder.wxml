@@ -1,0 +1,82 @@
+<!--pages/paymentorder/paymentorder.wxml-->
+<!--支付价格-->
+<view class="payprice-wrap">
+  <view class="payprice" wx:if="{{flag===false}}">
+    <text>￥</text>
+    <text class="payprice1">{{content.paymentAmount}}</text>
+  </view>
+  <view class="payprice" wx:if="{{flag===true}}">
+  支付<text>￥</text>{{content.paymentAmount}}元返<text>￥</text>{{cashBack}}元
+  </view>
+  <view class="paytime">
+    <text>支付剩余时间</text>
+    <text class="paytime1" wx:if="{{flag===false}}">{{time}}</text>
+    <text class="paytime1" wx:if="{{flag===true}}">{{clientTime}}</text>
+  </view>
+</view>
+<!--支付方式-->
+<view class="payway-wrap">
+  <view class="payway">
+    <view class="payway-img">
+      <image src="../../assets/images/icon/order_yhk_icon.png"></image>
+    </view>
+    <view class="payway-text">
+      <view class="payway-title">余额支付</view>
+      <view class="payway-price">余额:￥{{balance}}</view>
+    </view>
+    <view class="payway-right-img" catchtap='wallet_pay'>
+      <checkbox-group class="store-box">
+        <label class="checkbox">
+          <checkbox checked="{{payment_mode1}}" />
+        </label>
+      </checkbox-group>
+    </view>
+  </view>
+  <view class="wx" wx:if="{{content.paymentAmount !==0}}">
+    <view class="wx-img">
+      <image src="../../assets/images/icon/order_weixin_icon.png"></image>
+    </view>
+    <view class="wx-text">微信支付</view>
+    <view class="wx-right-img" catchtap="wx_pay">
+      <checkbox-group class="store-box">
+        <label class="checkbox">
+          <checkbox checked="{{payment_mode2}}" />
+        </label>
+      </checkbox-group>
+    </view>
+  </view>
+</view>
+<!--确认支付-->
+<view class="button" bindtap='pay'>确认支付</view>
+<!-- 弹出框 -->
+<view class="zan-dialog1 {{ show ? 'zan-dialog--show1' : '' }}">
+  <view class="zan-dialog__mask1" bindtap='hideShow' />
+  <view class="zan-dialog__container1">
+    <view class="pwd-text">请输入支付密码</view>
+    <view class="text">{{text}}</view>
+    <view bindsubmit="formSubmit">
+      <view class='iptbox-wrapper'>
+        <block wx:for="{{Length}}" wx:key="item">
+          <input class='iptbox' value="{{Value.length>=index+1?Value[index]:''}}" disabled password='{{ispassword}}' type="number" catchtap='Tap'></input>
+        </block>
+      </view>
+      <input name="password" adjust-position="false" password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus" type="number"></input>
+    </view>
+  </view>
+  <image wx:if="{{show}}" class="pwd-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelShow'></image>
+</view>
+<!--弹框-->
+<view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
+  <view class="zan-dialog__mask" />
+  <view class="zan-dialog__container">
+    <view class='content'>
+      <view class="content-title">提示</view>
+      <view class="content-container">当前余额不足无法支付，建议您先 去充值后再进行操作！
+      </view>
+      <view class="content-button">
+        <view class="back" catchtap='back'>取消</view>
+        <view class="continue" catchtap='continuePay'>去充值</view>
+      </view>
+    </view>
+  </view>
+</view>

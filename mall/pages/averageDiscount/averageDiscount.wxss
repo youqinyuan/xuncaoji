@@ -1,0 +1,60 @@
+/* pages/averageDiscount/averageDiscount.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+.wraper .listItems {
+  height: 90rpx;
+  position: relative;
+  display: flex;
+  border-bottom: 2rpx solid #f4f4f4;
+  background: rgba(255, 255, 255, 1);
+}
+
+.wraper .listItems .listLeft {
+  margin-left: 29rpx;
+  margin-top: 24rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.wraper .listItems .listRight {
+  font-size: 28rpx;
+  position: absolute;
+  top: 24rpx;
+  right: 32rpx;
+}
+
+.container {
+  margin-left: 29rpx;
+  margin-top: 40rpx;
+  margin-right: 29rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+}
+.title{
+  margin-bottom: 26rpx;
+}
+/* 保存 */
+
+.btn {
+  width: 690rpx;
+  height: 80rpx;
+  background: rgba(255, 141, 18, 1);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  margin: 0 auto;
+  margin-top: 70rpx;
+  color: rgba(255, 255, 255, 1);
+}
+
+.btn::after {
+  border: none;
+}

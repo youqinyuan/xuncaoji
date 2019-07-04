@@ -1,0 +1,47 @@
+/* pages/invitationCode/invitationCode.wxss */
+
+.code-input {
+  width: 540rpx;
+  border-bottom: 2rpx solid rgba(221, 221, 221, 1);
+  margin: 129rpx auto;
+  margin-top: 292rpx;
+}
+
+.code-input input {
+  width: 201rpx;
+  height: 32rpx;
+  margin-bottom: 30rpx;
+  margin-left: 169rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(170, 170, 170, 1);
+}
+
+.wx-login {
+  width: 630rpx;
+  height: 80rpx;
+  background: rgba(255, 81, 122, 1);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  margin-bottom: 70rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.other-login {
+  width: 630rpx;
+  height: 80rpx;
+  background: rgba(255, 141, 18, 1);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  margin-bottom: 70rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+button::after {
+  border: none;
+}

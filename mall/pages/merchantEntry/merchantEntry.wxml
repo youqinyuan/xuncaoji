@@ -1,0 +1,21 @@
+<!--pages/merchantEntry/merchantEntry.wxml-->
+<view class="wraper">
+<view class="title">
+  <text>一、基本信息</text>
+</view>
+  <view class="listItems">
+    <text class="listLeft">姓名: </text>
+    <input id="name" maxlength="20" class="listRight" type="text" bindinput='bindText'/>
+  </view>
+  <view class="listItems">
+    <text class="listLeft">身份证号: </text>
+    <input id="name" maxlength="18" class="listRight" type="text"  bindinput='bindNum'/>
+  </view>
+  <view class="listItems" bindtap='industry'>
+    <text class="listLeft">所属行业: </text>
+    <text class="listRight1"></text>
+    <input id="name" class="listRight" type="text" name="region" value="{{industry.name}}" disabled='disabled' />
+    <image src="../../assets/images/icon/data_narrow.png" wx:if="{{industry==''}}"></image>
+    </view>
+    <button class="btn" bindtap='nextStep'>下一步</button>
+</view>

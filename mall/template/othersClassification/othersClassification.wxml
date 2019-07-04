@@ -1,0 +1,65 @@
+<template name="othersClassification" wx:if="{{imageUrl.length>0}}">
+  <view class="container-wrapper">
+    <!--轮播图-->
+    <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF517A" indicator-dots="true" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <swiper-item wx:if="{{imageUrl.length>0}}" wx:for="{{imageUrl}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}">
+        <image wx:if="{{imageUrl.length===0}}" src="../../assets/images/icon/zhanw_tb_n.png" class="slide-image" />
+        <image wx:else src="{{item.imageUrl}}" class="slide-image" />
+      </swiper-item>
+       <swiper-item wx:if="{{imageUrl.length===0}}">
+        <image src="../../assets/images/icon/zhanw_tb_n.png" class="slide-image" />
+      </swiper-item>
+    </swiper>
+    <!--二级分类-->
+    <view class="two-classification">
+      <view class="two-classification-wrapper">
+        <view class="two-classification-list" wx:for="{{classfy}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="twoList">
+          <view class="two-classification-img">
+            <image src="{{item.iconUrl}}"></image>
+          </view>
+          <view class="two-classification-text">{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+    <!--综合、价格、上新-->
+    <view class="title">
+      <view class="comprehensive" style="color:{{color}};" bindtap='comprehensive'>综合</view>
+      <view class="price" style="color:{{color1}};" bindtap="toPrice">
+        <view class="price-text">价格</view>
+        <view class="price-img">
+          <image src="{{pricePhoto}}"></image>
+        </view>
+      </view>
+      <view class="new" style="color:{{color2}};" bindtap='newGoods'>
+        <view class="new-text">上新</view>
+        <view class="new-img">
+          <image src="{{pricePhoto1}}"></image>
+        </view>
+      </view>
+    </view>
+    <view class="comprehensive-list-wrapper">
+      <view class="comprehensive-list" wx:for="{{comprehensive}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
+        <view class="comprehensive-list-img">
+          <image src="{{item.imageUrls[0]}}"></image>
+        </view>
+        <view class="comprehensive-list-text">
+        <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}</view>
+        <view class="comprehensive-list-price">
+          <view class="newprice">
+            <text>￥</text>{{item.dctPrice}}</view>
+          <view class="oldprice">￥{{item.orgPrice}}</view>
+        </view>
+        <view class="comprehensive-list-share">
+          <view class="share-price" wx:if="{{item.sharingProfit}}">
+            <text class="share-return">会员分享返</text>
+            <text class="share-price1">{{item.sharingProfit}}</text>
+          </view>
+          <view class="comprehensive-list-share-img" wx:if="{{item.sharingProfit}}" catchtap='share' data-goodsid="{{item.id}}" data-profit="{{item.sharingProfit}}">
+            <image src="../../assets/images/icon/pinzhi_list_share_icon.png"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+   <view class="othersClassification-bottom">{{text1}}</view>
+</template>

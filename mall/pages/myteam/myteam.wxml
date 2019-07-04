@@ -1,0 +1,58 @@
+<!--pages/myteam/myteam.wxml-->
+<!--团队人数-->
+<view class="contaniner">
+  <view class="contaniner-list">
+    <view class="contaniner-list-num">{{content.total}}</view>
+    <view class="contaniner-list-text">团队人数</view>
+  </view>
+  <view class="contaniner-list">
+    <view class="contaniner-list-num">{{content.plusMembers}}</view>
+    <view class="contaniner-list-text">Plus会员</view>
+  </view>
+  <view class="contaniner-list">
+    <view class="contaniner-list-num">{{content.members}}</view>
+    <view class="contaniner-list-text">普通会员</view>
+  </view>
+</view>
+<!--团队招募-->
+<view class="recurit" catchtap='recurit'>团队招募</view>
+<!--我的团队-->
+<view class="recurit-details" wx:if="{{followers.length>0}}">
+  <view class="recurit-img">
+    <image src="../../assets/images/icon/team_myteaml.png"></image>
+  </view>
+  <view class="recurit-title">我的团队</view>
+</view>
+<!--明细-->
+<view class="wrapper" wx:if="{{followers.length>0}}">
+  <view class="list" wx:for="{{followers}}" wx:key="{{item.id}}">
+    <view class="list-left">
+      <view class="list-left-top">{{item.nikeName}}</view>
+      <view class="list-left-bottom">
+        <view class="list-left-bottom-year">{{item.regTime}}</view>
+      </view>
+    </view>
+    <view class="list-right">
+      <view class="list-right-item" wx:if="{{item.role==2}}">普通会员</view>
+      <view class="list-right-item1" wx:if="{{item.role==3}}">Plus会员</view>
+    </view>
+  </view>
+</view>
+<view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
+<view class="modal-dialog" wx:if="{{show}}">
+  <view class='content'>
+      <view class="content-top-img">
+        <image src="../../assets/images/icon/team_pop_title.png">
+        </image>
+        <view class="invite-text">在好友填写您的邀请码以后，您将获得平台给您的一定的佣金和返利。</view>
+        <view class="invite-text1">邀请码:{{inviterCode}}</view>
+      </view>
+      <view class="content-middle-img">
+        <image src="../../assets/images/icon/pop_element.png"></image>
+      </view>
+      <button class="share" open-type="share">分享</button>
+    </view>
+</view>
+<view class="content-cancel" wx:if="{{show}}" bindtap='cancel'>
+  <image src="../../assets/images/icon/vip_close_Pop-ups.png"></image>
+</view>

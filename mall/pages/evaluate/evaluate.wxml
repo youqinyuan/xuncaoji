@@ -1,0 +1,60 @@
+<!--pages/evaluate/evaluate.wxml-->
+<!--用户评价-->
+<view class="evaluate" catchtap='jumpEvaluate'>
+  <view class="evaluate-left">
+    <view class="evaluate-left-text">综合评分</view>
+    <view class="evaluate-left-start">
+      <block wx:for="{{avgGoddInteract}}" wx:key=''>
+        <image src='../../assets/images/icon/pingj_xinxin.png'></image>
+      </block>
+      <block wx:for="{{5-avgGoddInteract}}" wx:key=''>
+        <image src='../../assets/images/icon/pingj_xinxin_l.png'></image>
+      </block>
+    </view>
+  </view>
+  <view class="evaluate-right">
+    <view class="evaluate-right-text">
+      <text class="percent">{{goodInteractRate}}%</text> 的人觉得好
+    </view>
+  </view>
+</view>
+<view class="evaluate-content-wrap">
+  <view class="evaluate-content" wx:for="{{comment}}" wx:key="{{item.id}}">
+    <view class="evaluate-content-top">
+      <view class="evaluate-content-img">
+        <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}"></image>
+        <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
+      </view>
+      <view class="evaluate-content-right">
+        <view class="evaluate-content-right-top">
+          <view class="evaluate-content-title">{{item.nickname}}</view>
+          <view class="evaluate-content-start">
+            <block wx:for="{{item.score}}" wx:key=''>
+              <image src='../../assets/images/icon/pingj_xinxin.png'></image>
+            </block>
+            <block wx:for="{{5-item.score}}" wx:key=''>
+              <image src='../../assets/images/icon/pingj_xinxin_l.png'></image>
+            </block>
+          </view>
+        </view>
+        <view class="evaluate-content-right-bottom">
+          <view class="date-wrap">
+            <text class="date">{{item.createTime}}</text>
+          </view>
+          <view class="size">
+            {{item.spcDesc}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="evaluate-content-bottom">
+      {{item.content}}
+    </view>
+    <!--商家回复-->
+    <view class="merchantreply" wx:if="{{item.userInteractDetails.length>0}}">
+      <text class="merchantreply-text">商家回复：</text>
+      <text>{{item.userInteractDetails[0].content}}</text>
+    </view>
+  </view>
+</view>
+<view class="merchantreply-bottom">{{text}}</view>

@@ -1,0 +1,80 @@
+/* pages/login/login.wxss */
+
+.section {
+  width: 630rpx;
+  font-size: 32rpx;
+  height: 60rpx;
+  margin-left: 60rpx;
+  display: flex;
+  border-bottom: 4rpx solid rgba(238, 238, 238, 1);
+  background: #fff;
+  font-weight: 400;
+  margin-top: 300rpx;
+}
+
+.section1 {
+  width: 630rpx;
+  font-size: 32rpx;
+  height: 60rpx;
+  margin-left: 60rpx;
+  display: flex;
+  border-bottom: 4rpx solid rgba(238, 238, 238, 1);
+  background: #fff;
+  font-weight: 400;
+  margin-top: 100rpx;
+}
+
+.section-img {
+  width: 52rpx;
+  height: 52rpx;
+  margin-right: 10rpx;
+}
+
+input {
+  width: 300rpx;
+  height: 50rpx;
+  margin-bottom: 30rpx;
+}
+
+.code {
+  font-size: 26rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 1);
+}
+
+button[disabled]{
+  background: rgba(255, 255, 255, 1) !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+
+button::after {
+  border: none;
+}
+
+/* 登录按钮 */
+
+.button {
+  width: 630rpx;
+  height: 80rpx;
+  background: rgba(255, 81, 122, 1);
+  border-radius: 40rpx;
+  margin-left: 60rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
+}
+
+.content {
+  margin-left: 80rpx;
+  height: 100rpx;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(227, 58, 89, 1);
+}

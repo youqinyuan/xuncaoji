@@ -1,0 +1,19 @@
+/* pages/merchantEntry1/merchantEntry1.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+.list {
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  border-bottom: 2rpx solid #f4f4f4;
+  background: rgba(255, 255, 255, 1);
+}
+.list text{
+  margin-left: 31rpx;
+}

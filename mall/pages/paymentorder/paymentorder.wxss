@@ -1,0 +1,352 @@
+/* pages/paymentorder/paymentorder.wxss */
+
+page {
+  background: rgba(244, 244, 244, 1);
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+}
+
+/* 支付价格 */
+
+.payprice-wrap {
+  margin-bottom: 30rpx;
+  overflow: hidden;
+  height: 250rpx;
+  text-align: center;
+  background: rgba(255, 255, 255, 1);
+}
+
+.payprice {
+  margin-top: 50rpx;
+  margin-bottom: 10rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: rgba(51, 51, 51, 1);
+}
+
+.payprice1 {
+  font-size: 60rpx;
+}
+.payprice-content{
+  margin-top: 50rpx;
+  margin-bottom: 10rpx;
+  font-size: 50rpx;
+}
+.paytime {
+  font-size: 22rpx;
+  color: rgba(153, 153, 153, 1);
+}
+
+.paytime1 {
+  color: #ff8d12;
+  margin-left: 15rpx;
+}
+
+/* 支付方式 */
+
+.payway-wrap {
+  margin-bottom: 60rpx;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 1);
+}
+
+.payway {
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+  display: flex;
+}
+
+.payway-img {
+  margin-top: 30rpx;
+  margin-right: 30rpx;
+  margin-left: 30rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.payway-img image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.payway-text {
+  width: 200rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.payway-title {
+  margin-top: 22rpx;
+  margin-bottom: 5rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.payway-price {
+  font-size: 18rpx;
+  color: rgba(153, 153, 153, 1);
+}
+
+.payway-right-img {
+  margin-left: 380rpx;
+  margin-top: 30rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.payway-right-img image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.wx {
+  padding-bottom: 20rpx;
+   padding-top: 20rpx;
+  /* height: 100rpx; */
+  border-bottom: 2rpx solid #f4f4f4;
+  display: flex;
+}
+
+.wx-img {
+  margin-top: 10rpx;
+  margin-right: 30rpx;
+  margin-left: 30rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.wx-img image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.wx-text {
+  margin-top: 10rpx;
+  width: 200rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.wx-right-img {
+  margin-left: 380rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.wx-right-img image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+checkbox .wx-checkbox-input {
+  border-radius: 50%;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  border: none;
+  background: rgba(255, 141, 18, 1);
+}
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  border-radius: 50%;
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}
+
+/* 确认支付 */
+
+.button {
+  width: 690rpx;
+  height: 80rpx;
+  background: rgba(255, 81, 122, 1);
+  border-radius: 38px;
+  margin-top: 60rpx;
+  margin-left: 30rpx;
+  margin-bottom: 40rpx;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
+}
+
+/* 弹框 */
+
+.zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.zan-dialog__container {
+  transform: translateY(300%);
+  transition: all 0.00001s ease;
+  width: 540rpx;
+  height: 309rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  bottom: 550rpx;
+  left: 110rpx;
+  z-index: 9999;
+  background: #f9f9f9;
+}
+
+.zan-dialog--show .zan-dialog__container {
+  transform: translateY(0);
+}
+
+.zan-dialog--show .zan-dialog__mask {
+  display: block;
+}
+
+/* 弹框内容 */
+
+.content {
+  text-align: center;
+  overflow: hidden;
+}
+
+.content-title {
+  margin-top: 44rpx;
+  margin-bottom: 30rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.content-container {
+  width: 400rpx;
+  height: 66rpx;
+  margin-left: 76rpx;
+  margin-bottom: 50rpx;
+  font-size: 30rpx;
+  text-align: center;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content-button {
+  display: flex;
+  height: 66rpx;
+  border-top: 2rpx solid #eaeaea;
+}
+
+.back {
+  border-right: 2rpx solid #eaeaea;
+  width: 270rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.continue {
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  text-align: center;
+  width: 270rpx;
+  color: rgba(255, 81, 122, 1);
+}
+
+/* 支付密码 */
+
+.zan-dialog__mask1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.zan-dialog__container1 {
+  transform: translateY(300%);
+  transition: all 0.00001s ease;
+  width: 630rpx;
+  height: 281rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  bottom: 530rpx;
+  left: 60rpx;
+  z-index: 9999;
+  background: #f9f9f9;
+}
+
+.zan-dialog--show1 .zan-dialog__container1 {
+  transform: translateY(0);
+}
+
+.zan-dialog--show1 .zan-dialog__mask1 {
+  display: block;
+}
+
+.text {
+  text-align: center;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(227, 58, 89, 1);
+  margin-top: 44rpx;
+  margin-bottom: -80rpx;
+}
+
+.pwd-text {
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+  margin-left: 189rpx;
+  margin-top: 44rpx;
+  margin-bottom: -40rpx;
+}
+
+.pwd-img {
+  width: 44rpx;
+  height: 69rpx;
+  position: absolute;
+  right: 55rpx;
+  bottom: 810rpx;
+}
+
+.iptbox-wrapper {
+  width: 630rpx;
+  height: 281rpx;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  margin-left: 50rpx;
+}
+
+.iptbox {
+  width: 85rpx;
+  height: 85rpx;
+  background: rgba(238, 238, 243, 1);
+  margin-right: 4rpx;
+  text-align: center;
+}
+
+.ipt {
+  width: 0;
+  height: 0;
+  position: fixed;
+  bottom:0;
+  left:0;
+  right: 0;
+}

@@ -1,0 +1,344 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"uglifyFileName": true,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.6.5",
+	"appid": "wx49f6da054a1eb413",
+	"projectname": "baopinduoduo",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 33,
+			"list": [
+				{
+					"id": 0,
+					"name": "我的",
+					"pathName": "pages/mine/mine",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "会员开通",
+					"pathName": "pages/mine/member/member",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "购物车",
+					"pathName": "pages/index/cart/cart",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "充值中心",
+					"pathName": "pages/mine/recharge/recharge",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "余额明细",
+					"pathName": "pages/mine/recharge/details/details",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "二级分类列表",
+					"pathName": "pages/index/twolist/twolist",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "搜索",
+					"pathName": "pages/search/search",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "个人资料",
+					"pathName": "pages/mine/personal/personal",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "详情",
+					"pathName": "pages/detail/detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 9,
+					"name": "提交订单",
+					"pathName": "pages/placeorder/placeorder",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "支付订单",
+					"pathName": "pages/paymentorder/paymentorder",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "评价",
+					"pathName": "pages/evaluate/evaluate",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "店铺详情",
+					"pathName": "pages/storedetails/storedetails",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 13,
+					"name": "我的订单",
+					"pathName": "pages/myorder/myorder",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的佣金",
+					"pathName": "pages/commission/commission",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的团队",
+					"pathName": "pages/myteam/myteam",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的地址",
+					"pathName": "pages/address/address",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 17,
+					"name": "添加收货地址",
+					"pathName": "pages/addaddress/addaddress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "编辑收货地址",
+					"pathName": "pages/editaddress/editaddress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 19,
+					"name": "首页",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "支付密码",
+					"pathName": "pages/paypassword/paypassword",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "忘记密码",
+					"pathName": "pages/forgetpassword/forgetpassword",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商家入驻",
+					"pathName": "pages/merchantEntry/merchantEntry",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 23,
+					"name": "个人资料",
+					"pathName": "pages/mine/personal/personal",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商家入驻二",
+					"pathName": "pages/merchantEntry2/merchantEntry2",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "预计平均折扣",
+					"pathName": "pages/averageDiscount/averageDiscount",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "店铺位置",
+					"pathName": "pages/shopAddress/shopAddress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商家入驻三",
+					"pathName": "pages/merchantEntry3/merchantEntry3",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商家入驻一",
+					"pathName": "pages/merchantEntry1/merchantEntry1",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "登录方式",
+					"pathName": "pages/loginWay/loginWay",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 30,
+					"name": "手机登录",
+					"pathName": "pages/login/login",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "输入邀请码",
+					"pathName": "pages/invitationCode/invitationCode",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "余额明细",
+					"pathName": "pages/mine/recharge/details/details",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 33,
+					"name": "分期返",
+					"pathName": "pages/nationwideReturn/nationwideReturn",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单详情",
+					"pathName": "pages/orderDetail/orderDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商品评论",
+					"pathName": "pages/evaluate/evaluate",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "返现明细",
+					"pathName": "pages/cashBack/cashBack",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "物流详情",
+					"pathName": "pages/logistics/logistics",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 38,
+					"name": "零元购详情页",
+					"pathName": "pages/zeroPurchase/zeroPurchase",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "零元购专题页",
+					"pathName": "pages/zeroPurchaseActivity/zeroPurchaseActivity",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "开发中",
+					"pathName": "pages/undeveloped/undeveloped",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

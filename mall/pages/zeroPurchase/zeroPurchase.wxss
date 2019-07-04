@@ -1,0 +1,549 @@
+/* pages/zeroPurchase/zeroPurchase.wxss */
+
+page {
+  position: relative;
+  background: rgba(244, 244, 244, 1);
+  margin-bottom: 100rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+}
+
+/*轮播图*/
+
+.swiper-wrapper-item {
+  height: 750rpx;
+}
+
+.slide-image {
+  height: 750rpx;
+  background-size: cover;
+  width: 100%;
+}
+
+/*小图标*/
+
+.circle {
+  position: absolute;
+  top: 416rpx;
+  right: 25rpx;
+  width: 64rpx;
+  height: 64rpx;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.2;
+  border-radius: 50%;
+  font-size: 24rpx;
+  line-height: 64rpx;
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
+}
+
+.zero-purchase-time {
+  background: #ffba00;
+  display: flex;
+  position: absolute;
+  top: 730rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  left:40rpx;
+  padding: 0 10rpx;
+  border-radius: 38rpx;
+}
+
+.zero-purchase-number {
+  width: 44rpx;
+  height: 44rpx;
+  background: linear-gradient(0deg, rgba(255, 192, 0, 1) 0%, rgba(255, 232, 140, 1) 100%);
+  box-shadow: 0rpx 2rpx 3rpx 0rpx rgba(100, 75, 0, 0.1);
+  border-radius: 4rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Heavy;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 1);
+  line-height: 44rpx;
+  text-align: center;
+  margin-right: 5rpx;
+  margin-top: 15rpx;
+}
+
+.zero-purchase-word {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 1);
+  /* margin: 0 rpx; */
+}
+
+.content {
+  margin-top: 40rpx;
+  background: rgba(255, 255, 255, 1);
+  margin-bottom: 20rpx;
+  overflow: hidden;
+}
+
+/*价格*/
+
+.price-wrap {
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.price {
+  display: flex;
+}
+
+.new-price {
+  font-size: 48rpx;
+  color: rgba(227, 58, 89, 1);
+}
+
+.price-text {
+  font-size: 24rpx;
+}
+
+.old-price {
+  font-size: 22rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(227, 58, 89, 1);
+}
+
+.old-price image {
+  margin-top: 10rpx;
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.express {
+  font-size: 24rpx;
+  margin-top: 20rpx;
+  color: rgba(153, 153, 153, 1);
+}
+
+.rush {
+  font-size: 24rpx;
+  margin-top: 20rpx;
+  color: rgba(153, 153, 153, 1);
+}
+
+/*商品名称*/
+
+.goods-title {
+  font-size: 32rpx;
+  color: rgba(51, 51, 51, 1);
+  line-height: 44rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  margin-left: 30rpx;
+}
+
+.goods-channel {
+  padding: 3rpx 12rpx;
+  line-height: 28rpx;
+  text-align: center;
+  background: rgba(255, 81, 122, 1);
+  border-radius: 14rpx;
+  font-size: 20rpx;
+  color: rgba(255, 255, 255, 1);
+  margin-right: 15rpx;
+  margin-top: 5rpx;
+}
+
+/*售后无忧*/
+
+.platform-compare {
+  height: 68rpx;
+  display: flex;
+  border-bottom: 2rpx solid #f4f4f4;
+  line-height: 68rpx;
+}
+
+.platform-wrap {
+  display: flex;
+}
+
+.platform-img {
+  margin-left: 30rpx;
+  margin-top: 5rpx;
+  margin-right: 10rpx;
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.platform-img image {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.platform-text {
+  margin-top: 5rpx;
+  margin-right: 10rpx;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(102, 102, 102, 1);
+}
+
+.stock {
+  display: flex;
+  background: rgba(255, 255, 255, 1);
+  height: 90rpx;
+  line-height: 90rpx;
+  margin-bottom: 20rpx;
+}
+
+.stock-img {
+  margin-left: 30rpx;
+  margin-top: 5rpx;
+  margin-right: 10rpx;
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.stock-img image {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.stock-text {
+  margin-top: 5rpx;
+  margin-right: 10rpx;
+  font-size: 26rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(227, 58, 89, 1);
+}
+
+/*用户评价*/
+
+.evaluate {
+  height: 90rpx;
+  line-height: 90rpx;
+  background: rgba(255, 255, 255, 1);
+  border-bottom: 2rpx solid #f4f4f4;
+  display: flex;
+  justify-content: space-between;
+}
+
+.evaluate-left {
+  margin-left: 30rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.evaluate-right {
+  display: flex;
+}
+
+.evaluate-right-text {
+  font-size: 28rpx;
+  color: rgba(102, 102, 102, 1);
+}
+
+.percent {
+  color: #e33a59;
+}
+
+.evaluate-content-top {
+  display: flex;
+}
+
+.evaluate-right-img {
+  margin-top: 15rpx;
+  width: 56rpx;
+  height: 56rpx;
+}
+
+.evaluate-right-img image {
+  width: 56rpx;
+  height: 56rpx;
+}
+
+.evaluate-content {
+  overflow: hidden;
+  padding-bottom: 20rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
+.evaluate-content-img {
+  width: 100rpx;
+  height: 100rpx;
+  margin-top: 30rpx;
+  margin-left: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.evaluate-content-img image {
+  border-radius: 100%;
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.evaluate-content-right-top {
+  margin-left: 30rpx;
+  margin-top: 46rpx;
+  display: flex;
+}
+
+.evaluate-content-title {
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.evaluate-content-start {
+  position: absolute;
+  right: 30rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.evaluate-content-start image {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 7rpx;
+}
+
+.evaluate-content-right-bottom {
+  display: flex;
+  font-size: 24rpx;
+  margin-left: 30rpx;
+  margin-top: 15rpx;
+  color: rgba(153, 153, 153, 1);
+}
+
+.date-wrap {
+  margin-right: 50rpx;
+}
+
+.date {
+  margin-right: 15rpx;
+}
+
+.evaluate-content-bottom {
+  margin-left: 31rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+  line-height: 36rpx;
+}
+
+/* 详情图 */
+
+.shop-detail-wrap {
+  margin-bottom: 100rpx;
+}
+
+.shop-detail-wrap-img {
+  height: 450rpx;
+  width: 750rpx;
+}
+
+.shop-detail-wrap-img image {
+  width: 100%;
+  height: 450rpx;
+}
+
+.shop-detail-wrap-text {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+  width: 691rpx;
+  margin: 15rpx auto;
+}
+
+/*底部*/
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  width: 750rpx;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  background: rgba(255, 81, 122, 1);
+  font-size: 36rpx;
+  font-family: Adobe Heiti Std R;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 1);
+}
+
+/*分享弹窗 */
+
+.modal-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.6;
+}
+
+.modal-dialog1 {
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 20%;
+  left: 125rpx;
+  z-index: 9999;
+}
+
+.modal-dialog1 .share {
+  text-align: center;
+  height: 34rpx;
+  font-size: 36rx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 1);
+}
+
+.modal-dialog1 .share1 {
+  margin-top: 30rpx;
+  margin-bottom: 40rpx;
+  text-align: center;
+  height: 34rpx;
+  font-size: 36rx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 1);
+}
+
+.modal-dialog1 .img {
+  width: 505rpx;
+  height: 403rpx;
+}
+
+.modal-dialog .img1 {
+  width: 82rpx;
+  height: 132rpx;
+  position: absolute;
+  top: 0;
+  right: 132rpx;
+  z-index: 9999;
+}
+
+.modal-dialog1 .text {
+  position: absolute;
+  top: 70%;
+  left: 90rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  width: 300rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  background: rgba(255, 81, 122, 1);
+  border-radius: 38rpx;
+}
+
+/* 公众号弹框 */
+
+.modal-mask1 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.6;
+}
+
+.modal {
+  width: 630rpx;
+  height: 977rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 5%;
+  left: 60rpx;
+  z-index: 9999;
+}
+
+.modal-title1 {
+  margin-top: 54rpx;
+  margin-left: 52rpx;
+  font-size: 34rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.modal-text {
+  margin-top: 54rpx;
+  margin-left: 52rpx;
+  width: 528rpx;
+  height: 91rpx;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(170, 170, 170, 1);
+  line-height: 34rpx;
+}
+
+.modal-img {
+  margin-top: 54rpx;
+  margin-left: 125rpx;
+  width: 380rpx;
+  height: 380rpx;
+  border: 8rpx solid rgba(255, 81, 122, 1);
+  border-radius: 20rpx;
+}
+
+.modal-img-text {
+  text-align: center;
+  width: 240rpx;
+  height: 53rpx;
+  background: rgba(255, 255, 255, 1);
+  position: absolute;
+  top: 270rpx;
+  left: 210rpx;
+  font-size: 40rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(255, 81, 122, 1);
+}
+
+.modal-img image {
+  margin-left: 24rpx;
+  width: 332rpx;
+  height: 332rpx;
+  margin-top: 20rpx;
+}
+
+.section1 {
+  font-size: 28rpx;
+  display: flex;
+  margin-top: 44rpx;
+  margin-left: 102rpx;
+  width: 440rpx;
+  border-bottom: 2rpx solid #ddd;
+}
+
+.input-price1 {
+  margin-top: 7rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+input {
+  width: 200rpx;
+}
+
+button {
+  width: 440rpx;
+  height: 76rpx;
+  margin-top: 50rpx;
+  background: rgba(255, 141, 18, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+button::after {
+  border: none;
+}

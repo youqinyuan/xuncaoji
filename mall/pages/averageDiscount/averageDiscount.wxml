@@ -1,0 +1,12 @@
+<!--pages/averageDiscount/averageDiscount.wxml-->
+<view class="wraper">
+  <view class="listItems">
+    <input id="name" placeholder="请输入折扣" placeholder-style="color:#AAAAAA" class="listLeft" type="text" value="{{rebate}}" bindinput='getRebate'/>
+    <text class="listRight">折</text>
+  </view>
+  <view class="container">
+    <view class="title">预计平均折扣：</view> 
+    <view class="content">寻草记可以为您的商品带来巨大的销量，是一个给您提供薄利多销的平台。采用让利的模式提高销量，吸引顾客。您可以根据您的实际商品毛利率来给填写一个预计的商品折扣，精确到小数点后一位，不得小于9.8折。</view> 
+  </view>
+    <button class="btn" bindtap='comfirm'>完成</button>
+</view>

@@ -1,0 +1,260 @@
+/* pages/mine/recharge/recharge.wxss */
+
+page {
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  background: #f4f4f4;
+}
+
+/*账户余额*/
+
+.account-balance-wrapper {
+  background: rgba(255, 255, 255, 1);
+  height: 328rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.account-balance {
+  width: 708rpx;
+  height: 261rpx;
+  margin-left: 31rpx;
+  margin-top: 46rpx;
+  position: relative;
+}
+
+.account-balance image {
+  width: 708rpx;
+  height: 261rpx;
+}
+
+.balance {
+  position: absolute;
+  top: 50rpx;
+  left: 54rpx;
+  color: rgba(255, 255, 255, 1);
+}
+
+.balance-money {
+  font-size: 32rpx;
+}
+
+.balance-num {
+  font-size: 50rpx;
+  margin-top: 15rpx;
+}
+
+.balance-text {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+/*提现、充值、余额明细*/
+
+.detail {
+  height: 126rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  line-height: 126rpx;
+  text-align: center;
+  background: rgba(255, 255, 255, 1);
+}
+
+.detail-list {
+  height: 126rpx;
+  width: 374rpx;
+  display: flex;
+}
+
+.detail-list-img {
+  width: 48rpx;
+  height: 48rpx;
+  margin-left: 115rpx;
+  margin-top: 39rpx;
+  margin-right: 24rpx;
+}
+
+.detail-list-text {
+  font-size: 28rpx;
+  color: rgba(85, 85, 85, 1);
+}
+
+/*弹窗*/
+
+.modal-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.5;
+}
+
+.modal-dialog {
+  width: 540rpx;
+  height: 454rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 15%;
+  left: 125rpx;
+  z-index: 9999;
+}
+
+.modal-title {
+  position: absolute;
+  left: 52rpx;
+  font-size: 34rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.section {
+  display: flex;
+  margin-top: 80rpx;
+  margin-left: 50rpx;
+  width: 440rpx;
+  height: 100rpx;
+  border-bottom: 4rpx solid #ddd;
+}
+
+.input-price {
+  font-size: 32rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+input {
+  margin-top: 35rpx;
+  margin-left: 10rpx;
+  text-align: left;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.message {
+  height: 23rpx;
+  font-size: 24rpx;
+  line-height: 24rpx;
+  margin-top: 15rpx;
+  color: rgba(170, 170, 170, 1);
+}
+
+.prompt {
+  height: 23rpx;
+  line-height: 23rpx;
+  text-align: left;
+  margin-left: 90rpx;
+  margin-top: 15rpx;
+  margin-bottom: 15rpx;
+  font-size: 24rpx;
+  color: rgba(227, 58, 89, 1);
+}
+
+.btn-confirm {
+  position: absolute;
+  width: 440rpx;
+  height: 76rpx;
+  background: rgba(255, 141, 18, 1);
+  border-radius: 38rpx;
+  line-height: 76rpx;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
+  top: 308rpx;
+  left: 50rpx;
+}
+
+/*提现*/
+
+.button {
+  width: 690rpx;
+  height: 76rpx;
+  background: rgba(255, 141, 18, 1);
+  border-radius: 38px;
+  margin-top: 60rpx;
+  margin-left: 30rpx;
+  margin-bottom: 40rpx;
+  text-align: center;
+  line-height: 76rpx;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
+}
+
+/* 公众号弹框 */
+
+.modal-mask1 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.6;
+}
+
+.modal {
+  width: 630rpx;
+  height: 977rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 5%;
+  left: 60rpx;
+  z-index: 9999;
+}
+
+.modal-title1 {
+  margin-top: 54rpx;
+  margin-left: 52rpx;
+  font-size: 34rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.modal-text {
+  margin-top: 54rpx;
+  margin-bottom: 30rpx;
+  margin-left: 52rpx;
+  width: 528rpx;
+  height: 91rpx;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(170, 170, 170, 1);
+  line-height: 34rpx;
+}
+
+.modal-text1 {
+  margin-top: 15rpx;
+  margin-left: 52rpx;
+  width: 528rpx;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(170, 170, 170, 1);
+}
+
+.modal-img {
+  margin-left: 152rpx;
+  width: 332rpx;
+  height: 332rpx;
+  margin-top: 20rpx;
+}
+
+button {
+  width: 440rpx;
+  height: 76rpx;
+  margin-top: 50rpx;
+  background: rgba(255, 141, 18, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+button::after {
+  border: none;
+}

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "city-picker": "../../components/city-picker/city-picker"
+  },
+  "navigationBarBackgroundColor": "#FF517A",
+  "navigationBarTitleText": "编辑收货地址",
+  "navigationBarTextStyle": "white"
+}

@@ -1,0 +1,155 @@
+<!--pages/zeroPurchase/zeroPurchase.wxml-->
+<view class="wrap">
+  <!--轮播图-->
+  <view class="swiper-wrap">
+    <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF517A" indicator-dots="true" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <swiper-item wx:for="{{imageUrls}}" wx:key="{{imageUrls}}" bindtap='imgYu' data-list="{{imageUrls}}" data-src="{{item}}">
+        <image src="{{item}}" class="slide-image" />
+      </swiper-item>
+    </swiper>
+  </view>
+   <view class="zero-purchase-time">
+   <view class="zero-purchase-word">距结束仅剩:</view>
+      <view class="zero-purchase-number">{{hours.length>1?hours[0]:0}}</view>
+      <view class="zero-purchase-number">{{hours.length>1?hours[1]:hours[0]}}</view>
+      <view class="zero-purchase-word">时</view>
+      <view class="zero-purchase-number">{{minutes.length>1?minutes[0]:0}}</view>
+      <view class="zero-purchase-number">{{minutes.length>1?minutes[1]:minutes[0]}}</view>
+      <view class="zero-purchase-word">分</view>
+      <view class="zero-purchase-number">{{seconds.length>1?seconds[0]:0}}</view>
+      <view class="zero-purchase-number">{{seconds.length>1?seconds[1]:seconds[0]}}</view>
+      <view class="zero-purchase-word">秒</view>
+      <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[0]:0}}</view>
+      <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[1]:haoSeconds[0]}}</view>
+      <view class="zero-purchase-word">毫秒</view>
+    </view>
+  <view class="content">
+    <!--价格-->
+    <view class="price-wrap">
+      <view class="price">
+        <view class="new-price">
+          <text class="price-text">￥</text>{{detail.orgPrice}}</view>
+        <view class="old-price">
+          <image src="../../assets/images/icon/ic_clock1.png"></image>
+          限时0元购
+        </view>
+      </view>
+      <view class="rush">
+        仅剩{{detail.stock}}件未抢
+      </view>
+    </view>
+    <!--商品名称-->
+    <view class="goods-title">
+      <text class="goods-channel" wx:if="{{store.channel==1}}">自营</text>
+      <text selectable='true' bindlongtap='copy'>{{detail.name}}</text>
+    </view>
+    <!--售后无忧-->
+    <view class="platform-compare">
+      <view class="platform-wrap">
+        <view class="platform-img">
+          <image src="../../assets/images/icon/xqing_protect_shouhou_icon.png"></image>
+        </view>
+        <view class="platform-text">源头直采</view>
+      </view>
+      <view class="platform-wrap">
+        <view class="platform-img">
+          <image src="../../assets/images/icon/xqing_protect_renzheng_icon.png"></image>
+        </view>
+        <view class="platform-text">假一赔三</view>
+      </view>
+      <view class="platform-wrap">
+        <view class="platform-img">
+          <image src="../../assets/images/icon/xqing_protect_changj_icon.png"></image>
+        </view>
+        <view class="platform-text">部分商品全额返</view>
+      </view>
+    </view>
+  </view>
+  <!--库存-->
+  <view class="stock">
+    <view class="stock-img">
+      <image src="../../assets/images/icon/xqing_protect_changj_icon.png"></image>
+    </view>
+    <view class="stock-text">成功邀请好友一起来拿可多得一次0元购机会哟</view>
+  </view>
+    <!--用户评价-->
+  <view class="evaluate" catchtap='jumpEvaluate' data-goodsid="{{detail.id}}" wx:if="{{comment.length>0}}">
+    <view class="evaluate-left">用户评价</view>
+    <view class="evaluate-right">
+      <view class="evaluate-right-text">
+        <text class="percent">{{goodInteractRate}}%</text> 的人觉得好
+      </view>
+      <view class="evaluate-right-img">
+        <image src="../../assets/images/icon/xiangqing_more_n.png"></image>
+      </view>
+    </view>
+  </view>
+  <view class="evaluate-content" wx:if="{{comment.length>0}}">
+    <view class="evaluate-content-top">
+      <view class="evaluate-content-img">
+        <image src="{{comment[0].avatarUrl}}"></image>
+      </view>
+      <view class="evaluate-content-right">
+        <view class="evaluate-content-right-top">
+          <view class="evaluate-content-title">{{comment[0].nickname}}</view>
+          <view class="evaluate-content-start">
+            <block wx:for="{{comment[0].score}}" wx:key=''>
+              <image src='../../assets/images/icon/pingj_xinxin.png'></image>
+            </block>
+            <block wx:for="{{5-comment[0].score}}" wx:key=''>
+              <image src='../../assets/images/icon/pingj_xinxin_l.png'></image>
+            </block>
+          </view>
+        </view>
+        <view class="evaluate-content-right-bottom">
+          <view class="date-wrap">
+            <text class="date">{{comment[0].createTime}}</text>
+          </view>
+          <view class="size">
+            {{comment[0].spcDesc}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="evaluate-content-bottom">
+      {{comment[0].content}}
+    </view>
+  </view>
+  <!--详情图-->
+  <view class="shop-detail-wrap" wx:for="{{introductions}}" wx:key="">
+    <view class="shop-detail-wrap-img" wx:if="{{item.resourceType==2}}">
+      <image src="{{item.content}}"></image>
+    </view>
+    <view class="shop-detail-wrap-text" wx:if="{{item.resourceType==1}}">{{item.content}}</view>
+  </view>
+  <!--底部-->
+  <view class="bottom" bindtap='toPlaceorder' data-activityGoodsid="{{detail.activityGoodsId}}" data-goodsid="{{detail.id}}">
+    0元购
+  </view>
+</view>
+<!--分享弹窗-->
+<view class="modal-mask" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
+<view class="modal-dialog" wx:if="{{show}}">
+  <image class="img1" src="../../assets/images/icon/ic_jiantou.png"></image>
+</view>
+<view class="modal-dialog1" wx:if="{{show}}">
+  <view class="share">分享给朋友后</view>
+  <view class="share1">可以再次获得0元购的机会哟</view>
+  <image class="img" src="../../assets/images/icon/pic.png"></image>
+  <view class="text" bindtap='cancelShow'>好哒，这就去</view>
+</view>
+<!-- 公众号弹框 -->
+<view class="modal-mask1" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal" wx:if="{{showModal}}">
+  <view class="modal-title1">说明</view>
+  <view class="modal-text">关注以下公众后获取公众号内验证码并且在下方输入后即可获得0元购，并且平台将赠送返现作为奖励给您。</view>
+  <view class="modal-img">
+    <view class="modal-img-text">寻草记商城</view>
+    <image src="../../assets/images/icon/code.png"></image>
+  </view>
+  <view class="section1">
+    <view class="input-price1">公众号验证码：</view>
+    <input placeholder="请输入6位数字" type="number" value="{{inputValue1}}" placeholder-style="color:#AAAAAA" bindinput="btnSumbit" />
+  </view>
+  <button bindtap='sure'>确定</button>
+</view>

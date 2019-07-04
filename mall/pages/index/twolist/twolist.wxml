@@ -1,0 +1,55 @@
+<!--pages/index/twolist/twolist.wxml-->
+<!--综合、价格、上新-->
+<view class="title">
+  <view class="comprehensive" style="color:{{color}};" data-id="{{item.id}}" bindtap='comprehensive'>综合</view>
+  <view class="price" style="color:{{color1}};" bindtap="toPrice">
+    <view class="price-text">价格</view>
+    <view class="price-img">
+      <image src="{{pricePhoto}}"></image>
+    </view>
+  </view>
+  <view class="new" style="color:{{color2}};" bindtap='newGoods'>
+    <view class="new-text">上新</view>
+    <view class="new-img">
+      <image src="{{pricePhoto1}}"></image>
+    </view>
+  </view>
+</view>
+<view class="comprehensive-list-wrapper">
+  <view class="comprehensive-list" wx:for="{{category}}" wx:key="item.id" bindtap='toDetail' data-id="{{item.id}}">
+    <view class="comprehensive-list-img">
+      <image src="{{item.imageUrls[0]}}"></image>
+    </view>
+    <view class="comprehensive-list-text">{{item.name}}</view>
+    <view class="comprehensive-list-price">
+      <view class="newprice">
+        <text>￥</text>{{item.dctPrice}}</view>
+      <view class="oldprice">￥{{item.orgPrice}}</view>
+    </view>
+    <view class="comprehensive-list-share" wx:if="{{item.sharingProfit}}">
+      <view class="share-price">
+        <text class="share-return">会员分享返</text>
+        <text class="share-price1">{{item.sharingProfit}}</text>
+      </view>
+      <view class="comprehensive-list-share-img"  catchtap='share' data-goodsid="{{item.id}}" data-profit="{{item.sharingProfit}}">
+        <image src="../../../assets/images/icon/pinzhi_list_share_icon.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="page-bottom">{{textToast}}</view>
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class="content-wrapper">
+    <image class="cancel" src="../../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="shareCommission" wx:if="{{shareList.isPlusMember===2}}">你喜欢那就分享给你朋友吧</view>
+    <view class="shareCommission" wx:if="{{shareList.isPlusMember===1}}">分享商品后预计最多可赚佣金￥{{sharingProfit}}</view>
+    <view class="shareText" wx:if="{{shareList.isPlusMember===1}}">朋友通过你分享的页面成功购买后，你将获得商品返利</view>
+    <button class="share-button" open-type="share">
+      <image class="photo" src="../../../assets/images/icon/share_tanc_weixin_n.png"></image>
+      <view class="wx">微信</view>
+    </button>
+  </view>
+</view>
