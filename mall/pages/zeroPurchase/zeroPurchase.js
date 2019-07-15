@@ -22,6 +22,7 @@ Page({
     minutes: [0, 0],//分钟
     seconds: [0, 0],//秒
     haoSeconds: [0, 0],//毫秒
+    inviterCode:'',
   },
   imgYu: function (e) {
     var src = e.currentTarget.dataset.src;//获取data-src
@@ -37,11 +38,15 @@ Page({
    */
   onLoad: function(options) {
     // home / activity / freeShopping / goodsDetail
+    console.log(options)
     var that = this
     var id = options.id
     that.setData({
       goodsId: id
     })
+    if (options.inviterCode){
+      that.data.inviterCode = options.inviterCode
+    }
     app.Util.ajax(`mall/home/activity/freeShopping/goodsDetail?id=${id}`, null, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         let current = res.data.content.remainingTime
@@ -151,7 +156,7 @@ Page({
       })
     }else{
       wx.navigateTo({
-        url: '/pages/invitationCode/invitationCode',
+        url: '/pages/invitationCode/invitationCode?inviterCode=' + that.data.inviterCode,
       })
     }
     
@@ -270,9 +275,8 @@ Page({
       }
     })
     return {
-      title: that.data.shareList.title,
       path: that.data.shareList.link,
-      imageUrl: that.data.shareList.imageUrl,
+      imageUrl: that.data.imageUrl,
       success: function (res) {
 
       },

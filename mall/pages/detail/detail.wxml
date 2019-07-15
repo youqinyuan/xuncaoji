@@ -1,12 +1,24 @@
 <!--pages/detail/detail.wxml-->
+
+<!-- 商品实际支出保留两位小数 -->
+<wxs module = "foo">
+  module.exports = {
+    toStr:function(n){
+      n = n.toFixed(2)
+      return n 
+    }
+  }
+</wxs>
+
 <view class="wrap" wx:if="{{imageUrls.length>0}}">
   <!--轮播图-->
   <view class="swiper-wrap">
-    <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF517A" indicator-dots="true" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <swiper class="swiper-wrapper-item" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="countIndex">
       <swiper-item wx:for="{{imageUrls}}" wx:key="{{imageUrls}}" bindtap='imgYu' data-list="{{imageUrls}}" data-src="{{item}}">
         <image src="{{item}}" class="slide-image" />
       </swiper-item>
     </swiper>
+    <view class="currentIndex">{{current+1}}/{{imageUrls.length}}</view>
   </view>
   <view class="content">
     <!--价格-->
@@ -128,30 +140,9 @@
       {{comment[0].content}}
     </view>
   </view>
-  <!--店铺-->
-  <view class="shops-wrap" data-store="{{store}}" data-id="{{store.id}}" catchtap='jumpShopsDetail'>
-    <view class="shops-content-img">
-      <!-- <image src="{{store.logoUrl}}"></image> -->
-      <image wx:if="{{store.logoUrl}}" src="{{store.logoUrl}}"></image>
-      <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
-    </view>
-    <view class="shops-content-middle">
-      <view class="shops-content-middle-wrap">
-        <view class="shops-content-middle-wrap-title">{{store.name}}
-          <text class="shops-content-middle-wrap-text" wx:if="{{store.channel==1}}">自营</text>
-        </view>
-      </view>
-      <view class="shops-content-middle-bottom">店铺评分：{{store.score}}分</view>
-    </view>
-    <view class="shops-content-right">
-      <image src="../../assets/images/icon/xiangqing_more_n.png"></image>
-    </view>
-  </view>
   <!--详情图-->
   <view class="shop-detail-wrap" wx:for="{{introductions}}" wx:key="">
-    <view class="shop-detail-wrap-img" wx:if="{{item.resourceType==2}}">
-      <image src="{{item.content}}"></image>
-    </view>
+      <image src="{{item.content}}" mode="widthFix" wx:if="{{item.resourceType==2}}"></image>
     <view class="shop-detail-wrap-text" wx:if="{{item.resourceType==1}}">{{item.content}}</view>
   </view>
   <!--爆品推荐-->
@@ -175,13 +166,14 @@
           <text>￥</text>{{item.dctPrice}}</view>
         <view class="oldprice">￥{{item.orgPrice}}</view>
       </view>
-      <view class="recommend-list-share" wx:if="{{item.sharingProfit}}">
-        <view class="share-price">
-          <text class="share-return">会员分享返</text>
-          <text class="share-price1">{{item.sharingProfit}}</text>
+      <view class="return-wrap" wx:if="{{item.marketingCashBack.totalAmount>0}}">
+        <view class="return-money">
+          <text>返</text>
+          <text>{{item.marketingCashBack.totalAmount}}</text>
         </view>
-        <view class="recommend-list-share-img" catchtap='share' data-goodsid="{{detail.id}}" data-profit="{{item.sharingProfit}}">
-          <image src="../../assets/images/icon/pinzhi_list_share_icon.png"></image>
+        <view class="pay-money">
+          <text>返后价</text>
+          <text>{{item.truePrice}}</text>
         </view>
       </view>
     </view>
@@ -222,7 +214,7 @@
   <view class="commodity-top">
     <view class="commodity-top-img">
       <image wx:if="{{iconUrl[0].iconUrl}}" src="{{iconUrl[0].iconUrl}}"></image>
-       <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
+      <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
     </view>
     <view class="commodity-top-right">
       <view class="commodity-top-right-item">
@@ -238,14 +230,22 @@
       <!-- <view class="commodity-size">已选：{{selectName}}</view> -->
     </view>
   </view>
+  <view class="content-cashBack" wx:if="{{stockDetail1.cashbackItems}}">
+    <image src="../../assets/images/icon/youhui_bqian.png"></image>
+    <view class="content-cashBack-text">
+      商品将返现
+      <text>{{cashMoney}}</text> 元，实际支出只需
+      <text>{{foo.toStr(stockDetail1.dctPrice-cashMoney)}}</text>元
+    </view>
+  </view>
   <view class="content-wrapper">
     <!--选择规格-->
     <block wx:for="{{spec}}" wx:key="{{item.id}}" wx:for-index="group_idx">
-      <view class="color-size">
+      <view class="color-size" data-index="{{group_idx}}" bindtap='specIndex'>
         <view class="color-size-title">{{item.name}}</view>
         <view class="color-size-list">
           <block wx:for="{{item.items}}" wx:key="{{item.id}}">
-            <text bindtap='clickAttr' data-attr-index="{{index}}" data-select-index="{{group_idx}}" data-attr-id="{{item.id}}" class="{{item.isSelect==true? 'active' : ''}}">{{item.name}}</text>
+            <text bindtap='clickAttr' data-attr-index="{{index}}" data-select-index="{{group_idx}}" data-attr-id="{{item.id}}" class="text1 {{item.isSelect==true? 'active' : ''}}">{{item.name}}</text>
           </block>
         </view>
       </view>
@@ -261,11 +261,11 @@
       </view>
     </view>
     <!-- 分期返现 -->
-    <view class="return" wx:if="{{cashbackItems.length>0}}">
+    <view class="return" wx:if="{{stockDetail1.cashbackItems.length>0}}">
       <view class="return-title">分期返现</view>
       <scroll-view scroll-x scroll-left='{{scrleft}}' class='orderTab'>
-        <view class="orderTabItem" wx:for="{{cashbackItems}}" wx:key="{{item.cashbackId}}">
-          <view class="order-item {{activeIndex===index? 'active1' : ''}}" data-id="{{item.cashbackId}}" data-gindex="{{index}}" bindtap='clickCashback'>
+        <view class="orderTabItem" wx:for="{{stockDetail1.cashbackItems}}" wx:key="{{item.cashbackId}}">
+          <view class="order-item {{activeIndex===index? 'active1' : ''}}" data-id="{{item.cashbackId}}" data-gindex="{{index}}" bindtap='clickCashback' data-total="{{item.totalAmount}}">
             <view class="tabTitle" wx:if="{{item.period==0}}">立即返</view>
             <view class="tabTitle1" wx:if="{{item.period==0}}">返现{{item.totalAmount}}元</view>
             <view class="tabTitle" wx:if="{{item.period !== 0}}">{{item.period}}期返{{item.totalAmount}}</view>
@@ -277,8 +277,8 @@
   </view>
   <!--加入购物车、立即购买-->
   <view class="bottom-buy">
-    <view class="add-cart" data-cashbackid="{{cashbackItems ? cashbackId:'' }}" data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" catchtap='addTocart'>加入购物车</view>
-    <view class="now-buy" data-quantity="{{num}}" data-cashbackid="{{cashbackItems ? cashbackId:'' }}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" bindtap='toPlaceorder'>立即购买</view>
+    <view class="add-cart" data-cashbackid="{{stockDetail1.cashbackItems ? cashbackId:'' }}" data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" catchtap='addTocart'>加入购物车</view>
+    <view class="now-buy" data-quantity="{{num}}" data-cashbackid="{{stockDetail1.cashbackItems ? cashbackId:'' }}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" bindtap='toPlaceorder'>立即购买</view>
   </view>
 </view>
 <!-- 分享弹框 -->
@@ -291,7 +291,7 @@
     <view class="shareCommission" wx:if="{{sharingProfit=='' || shareList.isPlusMember===2}}">你喜欢那就分享给你朋友吧</view>
     <view class="shareCommission" wx:if="{{sharingProfit && shareList.isPlusMember===1}}">分享商品后预计最多可赚佣金￥{{sharingProfit}}</view>
     <view class="shareText" wx:if="{{sharingProfit && shareList.isPlusMember===1}}">朋友通过你分享的页面成功购买后，你将获得商品返利</view>
-    <button class="share-button" open-type="share">
+    <button class="share-button" id='btn' open-type="share">
       <image class="photo" src="../../assets/images/icon/share_tanc_weixin_n.png"></image>
       <view class="wx">微信</view>
     </button>

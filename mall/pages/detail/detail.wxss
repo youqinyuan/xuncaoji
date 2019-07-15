@@ -10,6 +10,10 @@ page {
 
 /*轮播图*/
 
+.swiper-wrap {
+  position: relative;
+}
+
 .swiper-wrapper-item {
   height: 750rpx;
 }
@@ -24,6 +28,21 @@ page {
   background: rgba(255, 255, 255, 1);
   margin-bottom: 20rpx;
   overflow: hidden;
+}
+
+.currentIndex {
+  position: absolute;
+  bottom: 20rpx;
+  right: 26rpx;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*价格*/
@@ -385,17 +404,13 @@ page {
 }
 
 /* 详情图 */
-
-.shop-detail-wrap-img {
-  height: 450rpx;
-  width: 750rpx;
+.shop-detail-wrap{
+  width:100%;
 }
-
-.shop-detail-wrap-img image {
+.shop-detail-wrap image {
   width: 100%;
-  height: 450rpx;
+  display: block;
 }
-
 .shop-detail-wrap-text {
   font-size: 28rpx;
   font-family: PingFang-SC-Medium;
@@ -507,48 +522,43 @@ page {
   color: rgba(153, 153, 153, 1);
 }
 
-.recommend-list-share {
+.return-wrap {
   display: flex;
-  justify-content: space-between;
-  margin-right: 15rpx;
-}
-
-.recommend-list-share-img {
-  margin-top: 10rpx;
-}
-
-.recommend-list-share-img image {
-  width: 44rpx;
-  height: 44rpx;
-}
-
-.share-price {
-  font-size: 24rpx;
+  height: 40rpx;
+  margin-right: 30rpx;
+  line-height: 40rpx;
+  background: rgba(252, 243, 237, 1);
+  border-radius: 8rpx;
   margin-left: 16rpx;
-  margin-top: 20rpx;
-  margin-right: 88rpx;
-  color: rgba(153, 153, 153, 1);
+  font-size: 22rpx;
+  color:#FF8D12;
 }
-
-.share-price1 {
-  color: #e33a59;
-  margin-left: 20rpx;
+.return-wrap .return-money text:nth-child(1){
+  color:#999999;
+  margin-left: 17rpx;
+  padding: 0 8rpx;
+}
+.return-wrap .pay-money text:nth-child(1){
+  color:#999999;
+  padding: 0 8rpx;
 }
 
 .detail-bottom {
   font-size: 24rpx;
-  font-family: PingFang-SC-Regular;  
+  font-family: PingFang-SC-Regular;
   font-weight: 400;
   color: rgba(153, 153, 153, 1);
   text-align: center;
   margin-top: 20rpx;
   margin-bottom: 40rpx;
 }
-.block{
+
+.block {
   height: 60rpx;
   width: 750rpx;
   background: #f4f4f4;
 }
+
 /*底部*/
 
 .bottom {
@@ -655,9 +665,11 @@ page {
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
-.save{
+
+.save {
   padding: 0 10rpx;
 }
+
 .jian-img {
   width: 36rpx;
   height: 18rpx;
@@ -679,11 +691,13 @@ page {
   bottom: 60rpx;
   left: 220rpx;
   z-index: 999;
-  padding: 5rpx 8rpx;
+  width: 26rpx;
+  height: 26rpx;
+  line-height: 26rpx;
   text-align: center;
   background: rgba(255, 81, 122, 1);
   border-radius: 50%;
-  font-size: 20rpx;
+  font-size: 14rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
   color: rgba(255, 255, 255, 1);
@@ -743,11 +757,13 @@ page {
 
 .commodity-top-right-item {
   display: flex;
+  justify-content: flex-start;
 }
 
 .commodity-top-right-cancel {
-  margin-left: 130rpx;
-  margin-top: 20rpx;
+  position: absolute;
+  right: 30rpx;
+  top:20rpx;
   width: 44rpx;
   height: 44rpx;
 }
@@ -761,7 +777,6 @@ page {
   display: flex;
   margin-top: 40rpx;
   font-size: 28rpx;
-  width: 250rpx;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -788,7 +803,39 @@ page {
   margin-top: 45rpx;
   color: rgba(51, 51, 51, 1);
 }
+.content-wrapper{
+  height: auto;
+  max-height: 650rpx;
+  overflow-y: scroll;
+  overflow:-Scroll;
+  overflow-x:hidden;
+}
+/* 优惠 */
 
+.content-cashBack {
+  position: relative;
+  width: 702rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin: 30rpx auto;
+  font-size: 24rpx;
+  background: rgba(252, 243, 237, 1);
+  border-radius: 30rpx;
+}
+
+.content-cashBack image {
+  width: 50rpx;
+  height: 30rpx;
+  position: absolute;
+  left: 25rpx;
+  top:16rpx;
+}
+.content-cashBack-text{
+  margin-left: 85rpx;
+}
+.content-cashBack-text text{
+  color:#E33A59;
+}
 /*尺码*/
 
 .color-size-title {
@@ -806,7 +853,7 @@ page {
   color: rgba(51, 51, 51, 1);
 }
 
-.color-size-list text {
+.color-size-list .text1 {
   padding: 15rpx 30rpx;
   margin-right: 24rpx;
   background-color: rgba(244, 244, 244, 1);
@@ -884,6 +931,7 @@ page {
   white-space: nowrap;
   margin-left: 23rpx;
 }
+
 .orderTabItem {
   width: 230rpx;
   height: 100rpx;
@@ -931,10 +979,10 @@ page {
   background: rgba(255, 81, 122, 1);
 }
 
-.active {
+.color-size-list .active {
   border: 2rpx solid rgba(255, 81, 122, 1);
   color: rgba(255, 81, 122, 1);
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 1) !important;
   z-index: 999;
 }
 

@@ -51,7 +51,13 @@ Page({
   //设置密码的值
   btnInput: function(e) {
     var that = this;
-    var passwordNumber = e.detail.value
+    var passwordNumber
+    //限制输入6位数字
+    if (e.detail.value.toString().length > 6) {
+      passwordNumber = e.detail.value.substring(0, e.detail.value.length - 1);
+    } else {
+      passwordNumber = e.detail.value
+    }
     that.setData({
       password: passwordNumber
     })
@@ -59,7 +65,13 @@ Page({
   },
   btnInput1: function(e) {
     var that = this;
-    var passwordNumber1 = e.detail.value
+    var passwordNumber1
+    //限制输入6位数字
+    if (e.detail.value.toString().length > 6) {
+      passwordNumber1 = e.detail.value.substring(0, e.detail.value.length - 1);
+    } else {
+      passwordNumber1 = e.detail.value
+    }
     that.setData({
       password1: passwordNumber1
     })
@@ -118,21 +130,39 @@ Page({
   //修改密码的值
   btnOldPassword: function(e) {
     var that = this;
-    var oldPasswordNumber = e.detail.value
+    var oldPasswordNumber
+    //限制输入6位数字
+    if (e.detail.value.toString().length > 6) {
+      oldPasswordNumber = e.detail.value.substring(0, e.detail.value.length - 1);
+    } else {
+      oldPasswordNumber = e.detail.value
+    }
     that.setData({
       oldPassword: oldPasswordNumber
     })
   },
   btnNewPassword: function(e) {
     var that = this;
-    var newPasswordNumber = e.detail.value
+    var newPasswordNumber
+    //限制输入6位数字
+    if (e.detail.value.toString().length > 6) {
+      newPasswordNumber = e.detail.value.substring(0, e.detail.value.length - 1);
+    } else {
+      newPasswordNumber = e.detail.value
+    }
     that.setData({
       newPassword: newPasswordNumber
     })
   },
   btnNewPassword1: function(e) {
     var that = this;
-    var newPasswordNumber1 = e.detail.value
+    var newPasswordNumber1
+    //限制输入6位数字
+    if (e.detail.value.toString().length > 6) {
+      newPasswordNumber1 = e.detail.value.substring(0, e.detail.value.length - 1);
+    } else {
+      newPasswordNumber1 = e.detail.value
+    }
     that.setData({
       newPassword1: newPasswordNumber1
     })

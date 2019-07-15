@@ -1,9 +1,12 @@
 /* pages/index/twolist/twolist.wxss */
 @import '/weui.wxss';
-page{
+
+page {
   background: #f4f4f4;
 }
+
 /*综合、价格、上新*/
+
 .title {
   height: 108rpx;
   display: flex;
@@ -19,7 +22,8 @@ page{
   font-family: PingFang-SC-Medium;
   font-weight: 500;
 }
-.active{
+
+.active {
   color: rgba(255, 141, 18, 1);
 }
 
@@ -33,15 +37,18 @@ page{
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
-.price-img{
+
+.price-img {
   margin-top: 10rpx;
   width: 40rpx;
   height: 40rpx;
 }
-.price-img image{
+
+.price-img image {
   width: 40rpx;
   height: 40rpx;
 }
+
 .new {
   font-size: 30rpx;
   width: 136rpx;
@@ -52,12 +59,14 @@ page{
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
-.new-img{
+
+.new-img {
   margin-top: 10rpx;
   width: 40rpx;
   height: 40rpx;
 }
-.new-img image{
+
+.new-img image {
   width: 40rpx;
   height: 40rpx;
 }
@@ -127,34 +136,27 @@ page{
   color: rgba(153, 153, 153, 1);
 }
 
-.comprehensive-list-share {
+.return-wrap {
   display: flex;
-  justify-content: space-between;
-}
-
-.comprehensive-list-share-img {
-  width: 44rpx;
-  height: 44rpx;
-  margin-top: 15rpx;
-  margin-right: 20rpx;
-}
-
-.comprehensive-list-share-img image {
-  width: 44rpx;
-  height: 44rpx;
-}
-
-.share-price {
-  font-size: 24rpx;
+  height: 40rpx;
+  margin-right: 30rpx;
+  line-height: 40rpx;
+  background: rgba(252, 243, 237, 1);
+  border-radius: 8rpx;
   margin-left: 16rpx;
-  margin-top: 20rpx;
-  color: rgba(153, 153, 153, 1);
+  font-size: 22rpx;
+  color:#FF8D12;
+}
+.return-wrap .return-money text:nth-child(1){
+  color:#999999;
+  margin-left: 17rpx;
+  padding: 0 8rpx;
+}
+.return-wrap .pay-money text:nth-child(1){
+  color:#999999;
+  padding: 0 8rpx;
 }
 
-.share-price1 {
-  color: #e33a59;
-  margin-left: 20rpx;
-}
 /* 底部到底啦 */
 
 .page-bottom {
@@ -165,6 +167,7 @@ page{
   font-weight: 400;
   color: rgba(153, 153, 153, 1);
 }
+
 /* 弹出框 */
 
 .commodity_screen {
@@ -223,14 +226,17 @@ page{
   font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
+
 .content-wrapper .share-button {
   background: rgba(255, 255, 255, 1);
   width: 170rpx;
   border-radius: 0;
 }
-button::after{
+
+button::after {
   border: none;
 }
+
 .content-wrapper .photo {
   margin-top: 30rpx;
   width: 128rpx;

@@ -10,7 +10,12 @@
     </view>
     <view class="personal-photo">
       <view class="personal-photo-nickname">昵称</view>
-       <view class="personal-photo-name"><input class="section" value='{{adds.nickname}}' name="nickname" maxlength='10' /></view>
+      <view class="personal-photo-name">
+        <input class="section" placeholder-style="color:#AAAAAA" placeholder="昵称" value='{{adds.nickname}}' name="nickname" maxlength='10' />
+      </view>
+    </view>
+    <view class="section-middle-img" wx:if="{{!adds.avatarKey}}">
+      <image src="../../../assets/images/icon/data_narrow.png"></image>
     </view>
   </view>
   <!--中部-->
@@ -23,13 +28,8 @@
         <view class="free-dialog {{ showDialog ? 'free-dialog--show' : '' }}">
           <view class="free-dialog__mask" bindtap="hide" />
           <view class="free-dialog__container">
-            <view class="free-picker-content-center">
-              <picker-view class="free-picker-content-item" bindchange="sexOnChange">
-                <picker-view-column>
-                  <view>男</view>
-                  <view>女</view>
-                </picker-view-column>
-              </picker-view>
+            <view class="free-text" wx:for="{{text}}" wx:key='' data-text="{{item}}" bindtap='sexOnChange'>
+              {{item}}
             </view>
           </view>
         </view>
@@ -54,19 +54,19 @@
     <view class="personal-bottom-list">
       <view class="personal-bottom-item">职业</view>
       <view class="section-bottom">
-        <input placeholder-style="color:#AAAAAA;" value="{{adds.career}}" name='career' maxlength='10' />
+        <input placeholder-style="color:#AAAAAA;" placeholder="请填写" value="{{adds.career}}" name='career' maxlength='10' />
       </view>
     </view>
     <view class="personal-bottom-list">
       <view class="personal-bottom-item">所在地</view>
       <view class="section-bottom">
-        <input placeholder-style="color:#AAAAAA;" value="{{adds.location}}" name='location' maxlength='10' />
+        <input placeholder-style="color:#AAAAAA;" placeholder="请填写" value="{{adds.location}}" name='location' maxlength='10' />
       </view>
     </view>
     <view class="personal-bottom-list">
       <view class="personal-bottom-item">故乡</view>
       <view class="section-bottom">
-        <input placeholder-style="color:#AAAAAA;" value="{{adds.hometown}}" name='hometown' maxlength='10' />
+        <input placeholder-style="color:#AAAAAA;" placeholder="请填写" value="{{adds.hometown}}" name='hometown' maxlength='10' />
       </view>
     </view>
   </view>

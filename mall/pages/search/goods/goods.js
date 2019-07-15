@@ -88,6 +88,9 @@ Page({
       pageSize: that.data.pageSize
     }, 'GET').then((res) => {  // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
         that.setData({
           goodsResult: res.data.content.goodsResult.items
         })
@@ -112,13 +115,12 @@ Page({
             })
           }
           var arr = that.data.goodsResult
-          for (var i = 0; i < res.data.content.goodsResult.items.length; i++) {
+          res.data.content.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
             arr.push(res.data.content.goodsResult.items[i])
-          }
-          that.setData({
-            goodsResult: arr,
           })
           that.setData({
+            goodsResult: arr,
             pageNumber: pageNumber
           })
         }

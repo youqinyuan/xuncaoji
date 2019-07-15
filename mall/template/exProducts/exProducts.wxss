@@ -390,7 +390,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
 .trend-list-left .bottom {
@@ -514,27 +514,27 @@
   color: rgba(153, 153, 153, 1);
 }
 
-.recommend-list-share {
+.return-wrap {
   display: flex;
-  justify-content: space-between;
-  margin-right: 15rpx;
+  height: 40rpx;
+  margin-right: 30rpx;
+  line-height: 40rpx;
+  background: rgba(252, 243, 237, 1);
+  border-radius: 8rpx;
+  margin-left: 16rpx;
+  font-size: 22rpx;
+  color: #ff8d12;
 }
 
-.recommend-list-share-img {
-  margin-top: 10rpx;
+.return-wrap .return-money text:nth-child(1) {
+  color: #999;
+  margin-left: 17rpx;
+  padding: 0 8rpx;
 }
 
-.recommend-list-share-img image {
-  width: 44rpx;
-  height: 44rpx;
-}
-
-.share-price {
-  color: rgba(153, 153, 153, 1);
-}
-
-.share-price1 {
-  color: #e33a59;
+.return-wrap .pay-money text:nth-child(1) {
+  color: #999;
+  padding: 0 8rpx;
 }
 
 .exProducts-bottom {

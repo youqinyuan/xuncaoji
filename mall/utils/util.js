@@ -75,7 +75,7 @@ const ajax = (url, data, method, config = {}) => {
     ticket: '...',
     token: '' || token,
     params: '...',
-    'content-type': 'application/json'
+    'content-type': 'application/json' 
     // application/x-www-form-urlencoded
     // 'content-type':'application/x-www-form-urlencoded'
   }

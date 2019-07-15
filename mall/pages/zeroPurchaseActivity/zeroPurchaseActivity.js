@@ -16,7 +16,9 @@ Page({
     haoSeconds: [0, 0],//毫秒
     goodsItems:[],//商品
     grabbedNumber:0,//已抢到人数
-    show:true//左滑右滑弹窗
+    show:true,//左滑右滑弹窗
+    shareList: {},//分享数据
+    imageUrl:'../../assets/images/icon/shareActive.png'
   },
 
   /**
@@ -25,6 +27,7 @@ Page({
   onLoad: function(options) {
     var that = this
     that.init();
+    that.chooseShare();
     var status = wx.getStorageSync('status')
     if (status){
       that.setData({
@@ -35,6 +38,22 @@ Page({
         show:true
       })
     }
+  },
+  chooseShare:function(){
+    var that = this
+    app.Util.ajax('mall/weChat/sharing/target', { mode: 3}, 'GET').then((res) => {
+      if (res.data.content) {
+        var inviterCode = wx.getStorageSync('inviterCode')
+        if (inviterCode) {
+          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
+        } else {
+          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
+        }
+        that.setData({
+          shareList: res.data.content
+        })
+      }
+    })
   },
   init: function() {
     var that = this
@@ -133,6 +152,34 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
+    var that = this
+    // 来自页面内转发按钮
+    that.setData({
+      show: false
+    })
+    app.Util.ajax('mall/weChat/sharing/onSuccess', { mode: 2 }, 'POST').then((res) => {
+      if (res.data.content) {
+        wx.showToast({
+          title: '分享成功',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+      }
+    })
+    return {
+      path: that.data.shareList.link,
+      imageUrl: that.data.imageUrl,
+      success: function (res) {
 
+      },
+      fail: function (res) {
+        // 转发失败
+        console.log("转发失败:" + JSON.stringify(res));
+      }
+    }
   }
 })

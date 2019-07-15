@@ -117,9 +117,7 @@
   </view>
   <!--详情图-->
   <view class="shop-detail-wrap" wx:for="{{introductions}}" wx:key="">
-    <view class="shop-detail-wrap-img" wx:if="{{item.resourceType==2}}">
-      <image src="{{item.content}}"></image>
-    </view>
+      <image src="{{item.content}}" mode="widthFix" wx:if="{{item.resourceType==2}}"></image>
     <view class="shop-detail-wrap-text" wx:if="{{item.resourceType==1}}">{{item.content}}</view>
   </view>
   <!--底部-->

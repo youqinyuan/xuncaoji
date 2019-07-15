@@ -24,7 +24,6 @@ Page({
     introductions: [], //店铺详情介绍
     recommend: [], //爆品推荐
     spec: [],
-    cashbackItems: [],
     showModalStatus: false, //商品规格弹框
     showModalStatus1: false, //分享弹框
     iconUrl: {},
@@ -43,16 +42,25 @@ Page({
     comment: [], //商品评论
     goodInteractRate: '', //好评率
     // goodsId: 1, //商品id
-    shareList: {},//分享数据
-    sharingProfit: '',//分享返利
+    shareList: {}, //分享数据
+    sharingProfit: '', //分享返利
     quantity: 1, //库存
     saveAmount: 1, //省钱
     showPassword: false, //设置支付密码弹框
     password: 1,
-    count:'',//购物车种类个数
-    options:{},
-    activeIndex:'',//选中的index
-    showService: false //客服弹框
+    count: '', //购物车种类个数
+    options: {},
+    activeIndex: '', //选中的index
+    showService: false, //客服弹框
+    inviterCode: '', //邀请码
+    current:0,//轮播图当前索引
+    cashMoney:''//将返现金额
+  },
+  //求当前轮播图的索引
+  countIndex:function(e){
+    this.setData({
+      current:e.detail.current
+    })
   },
   //图片预览
   imgYu: function(e) {
@@ -68,7 +76,7 @@ Page({
   share: function(e) {
     var that = this
     var goodsId = e.currentTarget.dataset.goodsid
-    var sharingProfit = e.currentTarget.dataset.profit ? e.currentTarget.dataset.profit:''
+    var sharingProfit = e.currentTarget.dataset.profit ? e.currentTarget.dataset.profit : ''
     that.setData({
       goodsId: goodsId,
       sharingProfit: sharingProfit
@@ -114,12 +122,13 @@ Page({
   },
   //跳转到购物车
   toCart: function(e) {
+    var that = this
     let token = wx.getStorageSync('token')
     if (token) {
       app.nav(e)
     } else {
       wx.navigateTo({
-        url: "/pages/invitationCode/invitationCode"
+        url: "/pages/invitationCode/invitationCode?inviterCode=" + that.data.inviterCode
       })
     }
   },
@@ -140,7 +149,7 @@ Page({
       phoneNumber: that.data.content.servicePhone // 仅为示例，并非真实的电话号码
     })
   },
-  hideService:function(){
+  hideService: function() {
     var that = this;
     that.setData({
       showService: false
@@ -170,16 +179,16 @@ Page({
             title: '不能再少了哟',
             icon: 'none'
           })
-        }else {
+        } else {
           wx.navigateTo({
             url: `/pages/placeorder/placeorder?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&cashbackId=${cashbackId}`,
           })
-          this.setData({
+          this.setData({ 
             showModalStatus: false,
             num: 1
           })
         }
-      } else{
+      } else {
         this.setData({
           showPassword: true,
           showModalStatus: false,
@@ -188,7 +197,7 @@ Page({
       }
     } else {
       wx.navigateTo({
-        url: '/pages/invitationCode/invitationCode'
+        url: "/pages/invitationCode/invitationCode?inviterCode=" + this.data.inviterCode
       })
       this.setData({
         showModalStatus: false,
@@ -239,12 +248,12 @@ Page({
                 title: '已超出最大库存',
                 icon: 'none'
               })
-            } else if (this.data.num<1){
+            } else if (this.data.num < 1) {
               wx.showToast({
                 title: '不能再少了哟',
                 icon: 'none'
               })
-            }else{
+            } else {
               this.queryCount();
               wx.showToast({
                 title: '添加商品成功',
@@ -254,7 +263,7 @@ Page({
                 showModalStatus: false,
                 num: 1
               })
-            }            
+            }
           } else {
             wx.showToast({
               title: res.data.message,
@@ -266,12 +275,12 @@ Page({
         this.setData({
           showPassword: true,
           showModalStatus: false,
-          num:1
+          num: 1
         })
       }
     } else {
       wx.navigateTo({
-        url: "/pages/invitationCode/invitationCode"
+        url: "/pages/invitationCode/invitationCode?inviterCode=" + this.data.inviterCode
       })
     }
   },
@@ -297,7 +306,19 @@ Page({
     var cur = e.currentTarget.dataset.gindex
     that.setData({
       cashbackId: id,
-      activeIndex:cur
+      activeIndex: cur,
+      cashMoney: e.currentTarget.dataset.total
+    })
+  },
+  //选择规格index值
+  specIndex:function(e){
+    var that = this
+    var index = e.currentTarget.dataset.index
+    var selectAttridStr = that.data.selectAttridStr
+    selectAttridStr[index] = that.data.selectAttrid
+    that.setData({
+      stockDetail1: this.data.stockDetail[selectAttridStr],
+      cashMoney: this.data.stockDetail[selectAttridStr].cashbackItems ? this.data.stockDetail[selectAttridStr].cashbackItems[0].totalAmount : '',
     })
   },
   //选中规格
@@ -315,20 +336,12 @@ Page({
     var selectIndexArraySize = selectIndexArray.length;
     this.setData({
       spec: spec, //变换选择框,
-      selectAttrid: selectAttrid,
-      selectAttridStr: this.data.selectAttrid.join(",")
+      selectAttrid: e.currentTarget.dataset.attrId,
     })
     for (let i in this.data.stockDetail) {
       if (this.data.selectAttridStr == i) {
-        if (this.data.stockDetail[i].cashbackItems) {
-          this.setData({
-            cur: this.data.stockDetail[i].cashbackItems[0].period
-          })
-        }
         this.setData({
-          stockDetail1: this.data.stockDetail[i],
           quantity: this.data.stockDetail[i].quantity,
-          cashbackItems: this.data.stockDetail[i].cashbackItems,
           cashbackId: this.data.stockDetail[i].cashbackItems ? this.data.stockDetail[i].cashbackItems[0].cashbackId : ''
         })
       }
@@ -366,10 +379,40 @@ Page({
    */
   onLoad: function(options) {
     var that = this
-    that.setData({
-      goodsId: parseInt(options.id),
-      options:options
-    })
+    console.log(options)
+    if (options.scene) {
+      //扫描小程序码进入 -- 解析携带参数
+      that.setData({
+        options: options
+      })
+      var scene = decodeURIComponent(options.scene);
+      console.log("scene is ", scene);
+      var arrPara = scene.split("&");
+      console.log(arrPara)
+      var arr = [];
+      for (var i in arrPara) {
+        arr = arrPara[i].split("="); 
+        console.log(arr)
+        if(arr[0] == 'id'){
+          that.setData({
+            goodsId: parseInt(arr[1]),
+          })
+        }
+      }
+    } else {
+      //不是扫描小程序码进入
+      console.log("no scene");
+      that.setData({
+        goodsId: parseInt(options.id),
+        inviterCode: options.inviterCode || '',
+        options: options
+      })
+      //添加商品id缓存
+      wx.setStorage({
+        key: "goods_id",
+        data: parseInt(options.id)
+      })
+    }
     app.Util.ajax('mall/home/goodsDetail', {
       id: that.data.goodsId
     }, 'GET').then((res) => { // 使用ajax函数
@@ -396,29 +439,28 @@ Page({
         var spec = this.data.spec
         var size = spec.length;
         var index = 0;
+        var selectAttridstr1 = []
         for (var i = 0; i < size; i++) {
           selectIndexArray.push({
             key: i,
             value: spec[i].items[0].name
           });
-          var selectAttrid1 = spec[i].items[0].id
-          this.data.selectAttridstr += selectAttrid1 + ','
-          var selectAttridstr1 = this.data.selectAttridstr
-          var reg = /,$/gi;
-          selectAttridstr1 = selectAttridstr1.replace(reg, "");
+          selectAttridstr1.push(spec[i].items[0].id)
         }
         this.setData({
           selectAttrid: selectAttrid,
-          selectAttridStr: selectAttridstr1
+          selectAttridStr: selectAttridstr1,
         });
         for (let i in this.data.stockDetail) {
-          if (this.data.selectAttridStr == i) {
+          var selectAttridStr = this.data.selectAttridStr
+          this.data.stockDetail[i].dctPrice = parseFloat((this.data.stockDetail[i].dctPrice).toFixed(2))
+          if (selectAttridStr == i) {            
             this.setData({
               stockDetail1: this.data.stockDetail[i],
               quantity: this.data.stockDetail[i].quantity,
-              cashbackItems: this.data.stockDetail[i].cashbackItems,
+              cashMoney: this.data.stockDetail[i].cashbackItems?this.data.stockDetail[i].cashbackItems[0].totalAmount:'',
               cashbackId: this.data.stockDetail[i].cashbackItems ? this.data.stockDetail[i].cashbackItems[0].cashbackId : '',
-              activeIndex:0
+              activeIndex: 0
             })
           }
         }
@@ -435,7 +477,7 @@ Page({
     //是否设置支付密码
     that.setPassword();
   },
-  queryCount:function(){
+  queryCount: function() {
     //查询商品数量
     var that = this
     app.Util.ajax('mall/cart/count', 'GET').then((res) => { // 使用ajax函数
@@ -464,11 +506,14 @@ Page({
     app.Util.ajax('mall/home/goods', {
       categoryId: that.data.detail.categoryId,
       excludedGoodsId: that.data.detail.id,
-      sortBy :1,
+      sortBy: 1,
       pageNumber: pageNumber,
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
         that.setData({
           recommend: res.data.content.items,
         })
@@ -494,13 +539,12 @@ Page({
           })
         }
         var arr = that.data.recommend
-        for (var i = 0; i < res.data.content.items.length; i++) {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           arr.push(res.data.content.items[i])
-        }
-        that.setData({
-          recommend: arr,
         })
         that.setData({
+          recommend: arr,
           pageNumber: pageNumber
         })
       }
@@ -525,7 +569,7 @@ Page({
       }
     })
   },
-  setPassword:function(){
+  setPassword: function() {
     var that = this
     //是否设置支付密码
     app.Util.ajax('mall/account/paymentPassword/status', 'GET').then((res) => { // 使用ajax函数
@@ -547,11 +591,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this;   
+    var that = this;
     that.setData({
       pageNumber: 1
     })
     that.onLoad(that.data.options)
+    //是否设置支付密码
+    that.setPassword();
   },
 
   /**
@@ -573,8 +619,7 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
-  },
+  onPullDownRefresh: function() {},
 
   /**
    * 页面上拉触底事件的处理函数
@@ -587,13 +632,44 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function(ops) {
+  onShareAppMessage: function(res) {
     var that = this
-    if (ops.from === 'button') {
-      // 来自页面内转发按钮
-      that.setData({
-        showModalStatus1: false
-      })
+    if (res.from == "button") {
+      if (res.target.id === 'btn') {
+        // 来自页面内转发按钮
+        console.log(res.target.id)
+        that.setData({
+          showModalStatus1: false
+        })
+        app.Util.ajax('mall/weChat/sharing/onSuccess', {
+          mode: 1
+        }, 'POST').then((res) => {
+          if (res.data.content) {
+            wx.showToast({
+              title: '分享成功',
+              icon: 'none'
+            })
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
+          }
+        })
+        return {
+          title: that.data.shareList.desc,
+          path: that.data.shareList.link,
+          imageUrl: that.data.shareList.imageUrl,
+          success: function (res) {
+
+          },
+          fail: function (res) {
+            // 转发失败
+            console.log("转发失败:" + JSON.stringify(res));
+          }
+        }
+      }
+    }else{
       app.Util.ajax('mall/weChat/sharing/onSuccess', {
         mode: 1
       }, 'POST').then((res) => {
@@ -609,19 +685,20 @@ Page({
           })
         }
       })
-    }
-    return {
-      title: that.data.shareList.title,
-      path: that.data.shareList.link,
-      imageUrl: that.data.shareList.imageUrl,
-      success: function(res) {
+      return {
+        title: that.data.shareList.desc,
+        path: that.data.shareList.link,
+        imageUrl: that.data.shareList.imageUrl,
+        success: function (res) {
 
-      },
-      fail: function(res) {
-        // 转发失败
-        console.log("转发失败:" + JSON.stringify(res));
+        },
+        fail: function (res) {
+          // 转发失败
+          console.log("转发失败:" + JSON.stringify(res));
+        }
       }
     }
+    
   },
   /* 点击减号 */
   bindMinus: function() {

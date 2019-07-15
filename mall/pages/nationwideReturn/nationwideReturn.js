@@ -6,11 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    msgList: [],//轮播图
-    totalAmount:0,//累计返现
+    msgList: [], //轮播图
+    totalAmount: 0, //累计返现
     pageNumber: 1,
     pageSize: 6,
-    wholeNation:[],//列表
+    wholeNation: [], //列表
     text: ''
   },
 
@@ -20,10 +20,10 @@ Page({
   onLoad: function(options) {
     var that = this
     that.init()
-    
+
   },
   //全民返
-  init:function(){
+  init: function() {
     var that = this
     app.Util.ajax('mall/home/cashBack', {
       statistic: 1,
@@ -39,7 +39,7 @@ Page({
       }
     })
   },
-  getMore: function () {
+  getMore: function() {
     var that = this
     var pageNumber = that.data.pageNumber + 1
     //品质优选
@@ -68,7 +68,7 @@ Page({
     })
   },
   //跳转到详情页
-  toDetail: function (e) {
+  toDetail: function(e) {
     const id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: `/pages/detail/detail?id=${id}`,
@@ -78,7 +78,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    
+
   },
 
   /**

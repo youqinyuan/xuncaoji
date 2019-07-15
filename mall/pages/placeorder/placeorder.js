@@ -31,7 +31,7 @@ Page({
     that.setData({
       disabled:true
     })
-    if (that.data.addressItems.length > 0) {
+    if (that.data.addressItems) {
         if (that.data.cardIds.length > 0) {
           var cardIds = that.data.cardIds
           app.Util.ajax('mall/order/addOrderByCart', { cardIds: cardIds, userAddressBookId: that.data.userAddressBookId }, 'POST').then((res) => {
@@ -39,6 +39,8 @@ Page({
               wx.navigateTo({
                 url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}`,
               })
+              wx.removeStorageSync('address')
+              wx.removeStorageSync('goAddress')
             } else {
               wx.showToast({
                 title: res.data.message,
@@ -52,6 +54,8 @@ Page({
               wx.navigateTo({
                 url: `/pages/paymentorder/paymentorder?id=${res.data.content.transStatement.id ? res.data.content.transStatement.id : ''}&cashBack=${that.data.cashBack}&flag=${true}&createTime=${res.data.content.transStatement.createTime}`,
               })
+              wx.removeStorageSync('address')
+              wx.removeStorageSync('goAddress')
             } else {
               wx.showToast({
                 title: res.data.message,
@@ -65,6 +69,8 @@ Page({
               wx.navigateTo({
                 url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}`,
               })
+              wx.removeStorageSync('address')
+              wx.removeStorageSync('goAddress')
             } else {
               wx.showToast({
                 title: res.data.message,
@@ -82,17 +88,14 @@ Page({
   },
   //跳转到添加地址页面
   jumpAddress: function() {
-    var that = this;
-    if (that.data.addressItems.length>0){
-      that.setData({
-        showModalStatus: true
-      })
-    }else{
-      wx.navigateTo({
-        url: '/pages/addaddress/addaddress',
-      })
-    }
-    
+    var that = this; 
+    wx.navigateTo({
+      url: `/pages/address/address?flag=${true}`,
+    })
+    wx.setStorage({
+      key: "goAddress",
+      data: "1"
+    })    
   },
   hideModal:function(){
     var that = this;
@@ -104,6 +107,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(options)
     this.setData({
       options: options
     })
@@ -213,54 +217,50 @@ Page({
       })
 
     }
-    var name = ''
-    app.Util.ajax('mall/personal/addressInfo', 'GET').then((res) => { // 使用ajax函数
-      if (res.data.content.length > 0) {
-        for (var i = 0; i < res.data.content.length; i++) {
-          name = res.data.content[i].receiverName.substring(0, 1)
-          res.data.content[i]['name'] = name
+    var address = wx.getStorageSync('address')
+    if (address) {
+      console.log(address)
+      that.setData({
+        addressItems:address,
+        name: address.name,
+        phoneNumber: address.mobileNumber,
+        city: address.cityName,
+        detailAddress: address.districtName,
+        goodsList: {
+          goodsId: goodsId,
+          stockId: stockId,
+          quantity: quantity,
+          cashBackId: cashBackId,
+          userAddressBookId: address.id
         }
-        that.setData({
-          addressItems: res.data.content,
-          name: res.data.content[0].receiverName, //姓名
-          phoneNumber: res.data.content[0].mobileNumber, //电话号码
-          detailAddress: res.data.content[0].detailedAddress, //详细地址
-          city: res.data.content[0].provinceName + res.data.content[0].cityName + res.data.content[0].districtName, //所在区域
-          userAddressBookId: res.data.content[0].id,
-          goodsList: {
-            goodsId: goodsId,
-            stockId: stockId,
-            quantity: quantity,
-            cashBackId: cashBackId,
-            userAddressBookId: res.data.content[0].id
-          }
-        })
-      } else {
-        wx.showToast({
-          title: res.data.message,
-          icon: 'none'
-        })
-      }
-    })
-  },
-  //选择地址
-  addressClick: function(e) {
-    var province = e.currentTarget.dataset.province
-    var city = e.currentTarget.dataset.city
-    var district = e.currentTarget.dataset.district
-    var name = e.currentTarget.dataset.name
-    var number = e.currentTarget.dataset.number
-    var detailed = e.currentTarget.dataset.detailed
-    var id = e.currentTarget.dataset.id
-    this.setData({
-      name: name, //姓名
-      phoneNumber: number, //电话号码
-      detailAddress: detailed, //详细地址
-      city: province + city + district, //所在区域
-      userAddressBookId: id,
-      showModalStatus: false
-    })
-    console.log(this.data.userAddressBookId)
+      })
+    }else{
+      app.Util.ajax('mall/personal/addressInfo', 'GET').then((res) => { // 使用ajax函数
+        if (res.data.content.length > 0) {
+          that.setData({
+            addressItems: res.data.content,
+            name: res.data.content[0].receiverName, //姓名
+            phoneNumber: res.data.content[0].mobileNumber, //电话号码
+            detailAddress: res.data.content[0].detailedAddress, //详细地址
+            city: res.data.content[0].provinceName + res.data.content[0].cityName + res.data.content[0].districtName, //所在区域
+            userAddressBookId: res.data.content[0].id,
+            goodsList: {
+              goodsId: goodsId,
+              stockId: stockId,
+              quantity: quantity,
+              cashBackId: cashBackId,
+              userAddressBookId: res.data.content[0].id
+            }
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+    }
+    
   },
 
   /**
@@ -296,7 +296,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    wx.removeStorageSync('address')
+    wx.removeStorageSync('goAddress')
   },
 
   /**

@@ -6,7 +6,7 @@ App({
     wx.login({
       success(res) {
         console.log("获取code成功");
-        console.log('res.code:', res.code,res);
+        console.log('res.code:', res.code, res);
         wx.setStorageSync('code', res.code)
         // if (res.code) {
         //   //发起网络请求
@@ -22,7 +22,6 @@ App({
         // }
       }
     })
-
   },
   Util: {
     ajax: util.ajax,
@@ -30,7 +29,7 @@ App({
   },
   globalData: {
     appid: 'wx49f6da054a1eb413',
-    secret:'e0dassdadef2424234209bwqqweqw123ccqwa',
+    secret: 'e0dassdadef2424234209bwqqweqw123ccqwa',
     flag: false
   },
 
@@ -46,8 +45,8 @@ App({
       })
     }
   },
-  
-  onShow: function () {
+
+  onShow: function() {
 
   },
 })

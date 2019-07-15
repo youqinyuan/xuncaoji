@@ -99,7 +99,8 @@ Page({
       title.unshift(value)
       that.setData({
         history: title,
-        inputValue: value
+        inputValue: value,
+        textToast: ''
       })
       wx.setStorageSync("search", that.data.history.slice(0,30))
       that.setData({
@@ -113,10 +114,20 @@ Page({
         pageSize: that.data.pageSize
       }, 'GET').then((res) => {  // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
-          that.setData({
-            goodsResult: res.data.content.goodsResult.items,
-            storeResult: res.data.content.storeResult.items
+          res.data.content.goodsResult.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           })
+          if (res.data.content.goodsResult.items.length !== 0 && res.data.content.storeResult.items.length !==0){
+            that.setData({
+              goodsResult: res.data.content.goodsResult.items.slice(0, 5),
+              storeResult: res.data.content.storeResult.items.slice(0, 5)
+            }) 
+          }else{
+            that.setData({
+              goodsResult: res.data.content.goodsResult.items,
+              storeResult: res.data.content.storeResult.items
+            })
+          }         
         }
       })  
     }
@@ -137,26 +148,22 @@ Page({
       pageSize: that.data.pageSize
     }, 'GET').then((res) => {  // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
-        that.setData({
-          goodsResult: res.data.content.goodsResult.items,
-          storeResult: res.data.content.storeResult.items
+        res.data.content.goodsResult.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
         })
-        if (that.data.goodsResult.length > 5 && that.data.storeResult.length > 0) {
+        if (res.data.content.goodsResult.items.length !== 0 && res.data.content.storeResult.items.length !== 0) {
+          res.data.content.goodsResult.items = res.data.content.goodsResult.items.slice(0, 5)
+          res.data.content.storeResult.items = res.data.content.storeResult.items.slice(0, 5)
           that.setData({
-            getMore: '查看更多'
+            goodsResult: res.data.content.goodsResult.items,
+            storeResult: res.data.content.storeResult.items
           })
-        }
-        if (that.data.goodsResult.length > 0 && that.data.storeResult.length > 5) {
+        } else {
           that.setData({
-            getMore1: '查看更多'
+            goodsResult: res.data.content.goodsResult.items,
+            storeResult: res.data.content.storeResult.items
           })
-        }
-        if (that.data.goodsResult.length > 5 && that.data.storeResult.length > 5) {
-          that.setData({
-            getMore: '查看更多',
-            getMore1: '查看更多'
-          })
-        }
+        }       
       }
     })  
   },
@@ -178,13 +185,14 @@ Page({
           })
         }
         var arr = that.data.goodsResult
+        res.data.content.goodsResult.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
         for (var i = 0; i < res.data.content.goodsResult.items.length; i++) {
           arr.push(res.data.content.goodsResult.items[i])
         }
         that.setData({
           goodsResult: arr,
-        })
-        that.setData({
           pageNumber: pageNumber
         })
       }
@@ -196,7 +204,8 @@ Page({
       pageNumber:1,
       show: false,
       template: 1,
-      inputValue: ''
+      inputValue: '',
+      textToast:''
     })
   },
   bindInput: function(e) {

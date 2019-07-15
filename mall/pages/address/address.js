@@ -6,10 +6,17 @@ Page({
     text:'默认',
     startX: 0, //开始坐标
     startY: 0,
-    showDialog:false
+    showDialog:false,
+    flag:false,
+    options:{}
   },
   onLoad: function(options) {
     var that = this;
+    console.log(options)
+    that.setData({
+      options:options,
+      flag:Boolean(options.flag)
+    })
     var name = ''
     app.Util.ajax('mall/personal/addressInfo', 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
@@ -28,6 +35,20 @@ Page({
       }
     })
     
+  },
+  //返回提交订单页面
+  backPlaceorder:function(e){
+    var that = this
+    var is_address = wx.getStorageSync('goAddress')
+    if (is_address){
+      wx.setStorage({
+        key: "address",
+        data: that.data.items[e.currentTarget.dataset.index]
+      })
+      wx.navigateBack({
+        delta: 1
+      })
+    }
   },
   //手指触摸动作开始 记录起点X坐标
   touchstart: function(e) {
@@ -150,11 +171,21 @@ Page({
   },
   onShow:function(){
     var that = this
-    that.onLoad();
+    that.onLoad(that.data.options);
   },
   onUnload:function(){
-    wx.reLaunch({
-      url: '/pages/mine/mine',
-    })
+    // var pages = getCurrentPages() //获取加载的页面
+    // var currentPage = pages[pages.length - 1] //获取当前页面的对象
+    // var url = currentPage.route
+    // if (url == 'pages/placeorder/placeorder') {
+    //   wx.redirectTo({
+    //     url: '/pages/placeorder/placeorder'
+    //   })
+    // }else{
+    //   wx.reLaunch({
+    //     url: '/pages/mine/mine',
+    //   })
+    // }
+    
   }
 })

@@ -10,7 +10,9 @@ Page({
     show: false,
     taskItems:[],
     expireTime:'',
-    inviterCode: ''
+    inviterCode: '',
+    shareList:{},
+    imageUrl: '../../assets/images/icon/team_share.png'
   },
   //显示弹框
   recurit: function () {
@@ -42,6 +44,23 @@ Page({
   */
   preventTouchMove: function () {
   },
+  //查询分享数据
+  chooseShare: function () {
+    var that = this
+    app.Util.ajax('mall/weChat/sharing/target', { mode: 4 }, 'GET').then((res) => {
+      if (res.messageCode = 'MSG_1001') {
+        var inviterCode = wx.getStorageSync('inviterCode')
+        if (inviterCode) {
+          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
+        } else {
+          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
+        }
+        that.setData({
+          shareList: res.data.content
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -53,9 +72,6 @@ Page({
         url: '/pages/invitationCode/invitationCode',
       })
     }else{
-      // that.setData({
-      //   isMember: Number(options.isMember)
-      // })
       app.Util.ajax('mall/personal/myMember', 'GET').then((res) => { // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
           var inviterCode = wx.getStorageSync('inviterCode')
@@ -70,6 +86,7 @@ Page({
         }
       })
     }
+    that.chooseShare()
   },
 
   /**
@@ -120,7 +137,38 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (ops) {
+    var that = this
+    if (ops.from === 'button') {
+      // 来自页面内转发按钮
+      that.setData({
+        show: false
+      })
+      app.Util.ajax('mall/weChat/sharing/onSuccess', { mode: 4 }, 'POST').then((res) => {
+        if (res.data.messageCode = 'MSG_1001') {
+          wx.showToast({
+            title: '分享成功',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+    }
+    return {
+      title: that.data.shareList.desc,
+      path: that.data.shareList.link,
+      imageUrl: that.data.imageUrl,
+      success: function (res) {
 
+      },
+      fail: function (res) {
+        // 转发失败
+        console.log("转发失败:" + JSON.stringify(res));
+      }
+    }
   }
 })

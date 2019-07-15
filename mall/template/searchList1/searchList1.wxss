@@ -101,31 +101,25 @@
   color: rgba(153, 153, 153, 1);
 }
 
-.goods-list-share {
+.return-wrap {
   display: flex;
-  margin-top: 10rpx;
-  font-size: 24rpx;
+  height: 40rpx;
+  margin-right: 30rpx;
+  line-height: 40rpx;
+  background: rgba(252, 243, 237, 1);
+  border-radius: 8rpx;
+  margin-left: 16rpx;
+  font-size: 22rpx;
+  color:#FF8D12;
 }
-
-.priceshare {
-  color: rgba(153, 153, 153, 1);
+.return-wrap .return-money text:nth-child(1){
+  color:#999999;
+  margin-left: 17rpx;
+  padding: 0 8rpx;
 }
-
-.shareprice {
-  color: #e33a59;
-}
-
-.share-img {
-  width: 44rpx;
-  height: 44rpx;
-  position: absolute;
-  right: 40rpx;
-  bottom:60rpx;
-}
-
-.share-img image {
-  width: 44rpx;
-  height: 44rpx;
+.return-wrap .pay-money text:nth-child(1){
+  color:#999999;
+  padding: 0 8rpx;
 }
 
 /*电商商铺*/
@@ -207,6 +201,9 @@
 }
 
 .shops-right-img {
+  position: absolute;
+  right: 0;
+  top: 42rpx;
   width: 56rpx;
   height: 56rpx;
 }
@@ -214,8 +211,6 @@
 .shops-right-img image {
   width: 56rpx;
   height: 56rpx;
-  margin-top: 42rpx;
-  margin-left: 300rpx;
 }
 /* 空订单的时候 */
 .empty-wrap {

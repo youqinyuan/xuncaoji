@@ -11,9 +11,9 @@ Page({
     payment_mode2: false,
     showDialog: false, //余额不足弹出框
     content: {},
-    paymentAmount:'',
-    cashBack:'',
-    clientTime:'',
+    paymentAmount: '',
+    cashBack: '',
+    clientTime: '',
     balance: 100, //获取余额
     time: '',
     currentTime: '300',
@@ -27,7 +27,8 @@ Page({
     flag: false, //显示支付多少返多少
     transStatementId: 1, //交易流水id
     orderId: 1, //订单id
-    options:{}
+    options: {},
+    top:0,
   },
   //支付
   pay: function(e) {
@@ -38,7 +39,7 @@ Page({
           that.setData({
             showDialog: true
           });
-        }else{
+        } else {
           var transStatementId = that.data.transStatementId
           var channel = that.data.channel
           var orderId = that.data.orderId
@@ -57,23 +58,26 @@ Page({
               }
             }
           })
-        }        
+        }
       } else if (that.data.content.paymentAmount >= 10) {
         if (that.data.balance <= 0 || that.data.content.paymentAmount > that.data.balance) {
           that.setData({
             showDialog: true
           });
-        }else{
+        } else {
+          let height = wx.getSystemInfoSync().windowHeight
+          var top = height*0.1
           that.setData({
+            top:top,
             show: true,
             isFocus: true
           })
         }
-      } else if (that.data.content.paymentAmount===0){
+      } else if (that.data.content.paymentAmount === 0) {
         var transStatementId = that.data.transStatementId
         var channel = that.data.channel
         var orderId = that.data.orderId
-        //余额支付
+        //余额支付(支付金额小于10)
         app.Util.ajax('mall/payment/pay', {
           transStatementId: transStatementId,
           channel: channel,
@@ -83,7 +87,7 @@ Page({
           if (res.data.content) {
             if (res.data.content.balance.success == 1) {
               wx.navigateTo({
-               url: `/pages/myorder/myorder?status=${0}`,
+                url: `/pages/myorder/myorder?status=${0}`,
               })
             }
           }
@@ -114,7 +118,7 @@ Page({
                 if (res.data.content) {
                   if (res.data.content === 'SUCCESS') {
                     wx.navigateTo({
-                     url: `/pages/myorder/myorder?status=${0}`,
+                      url: `/pages/myorder/myorder?status=${0}`,
                     })
                   } else if (res.data.content = null) {
                     wx.showToast({
@@ -196,6 +200,7 @@ Page({
     var that = this;
     that.setData({
       show: false,
+      Value:''
     })
   },
   //获取密码框的值
@@ -223,16 +228,17 @@ Page({
             if (res.data.content) {
               if (res.data.content.balance.success == 1) {
                 wx.navigateTo({
-                 url: `/pages/myorder/myorder?status=${0}`,
+                  url: `/pages/myorder/myorder?status=${0}`,
                 })
                 that.setData({
                   show: false,
-                  isFocus:false
+                  isFocus: false
                 })
               } else {
                 if (res.data.content.balance.remainingCount > 0) {
                   that.setData({
                     text: `密码错误，你还剩余${res.data.content.balance.remainingCount}次机会`,
+                    Value:''
                   })
                 } else {
                   let lastTime = res.data.content.balance.retryRemainingTime / 1000
@@ -242,7 +248,8 @@ Page({
                       let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
                       let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
                       that.setData({
-                        text: `请${minuteTime}分${secondTime}秒后重试`
+                        text: `请${minuteTime}分${secondTime}秒后重试`,
+                        Value: ''
                       })
 
                     } else {
@@ -265,17 +272,18 @@ Page({
       }
     }
   },
-  blur: function (e) {
+  blur: function(e) {
     var that = this;
     that.setData({
       bottom: 0
     })
   },
-  hideShow:function(){
+  hideModal: function() {
     var that = this
     that.setData({
-      show:false,
-      isFocus:false
+      show: false,
+      isFocus: false,
+      Value:''
     })
   },
   Tap() {
@@ -305,8 +313,8 @@ Page({
         let minuteTime = parseInt(lastTime / 60)
         let secondTime = parseInt(lastTime % 60)
         that.setData({
-          clientTime:`${minuteTime}:${secondTime}`
-        })    
+          clientTime: `${minuteTime}:${secondTime}`
+        })
       } else {
         clearInterval(interval2)
         that.setData({
@@ -324,13 +332,49 @@ Page({
     })
     //获取余额
     app.Util.ajax('mall/personal/dashboard', 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
+      if (res.data.messageCode = 'MSG_1001') {
         that.setData({
           balance: res.data.content.balance
         })
       }
     })
-    if (!(isNaN(transStatementId))){
+    if (options.orderId) {
+      app.Util.ajax('mall/order/queryTransStatementInfo', {
+        orderId: orderId
+      }, 'GET').then((res) => { // 使用ajax函数
+        if (res.data.messageCode = 'MSG_1001') {
+          app.Util.ajax('mall/payment/channels', {
+            transStatementId: res.data.content.id
+          }, 'GET').then((res) => { // 使用ajax函数
+            if (res.data.content) {
+              let lastTime = res.data.content.remainingTime / 1000
+              let interval2 = setInterval(() => {
+                if (lastTime > 0) {
+                  lastTime--
+                  let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+                  let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
+                  that.setData({
+                    time: `${minuteTime}:${secondTime}`
+                  })
+
+                } else {
+                  clearInterval(interval2)
+                  wx.navigateTo({
+                    url: `/pages/myorder/myorder?status=${0}`
+                  })
+                  that.setData({
+                    time: ''
+                  })
+                }
+              }, 1000)
+              that.setData({
+                content: res.data.content
+              })
+            }
+          })
+        }
+      })
+    }else{
       app.Util.ajax('mall/payment/channels', {
         transStatementId: transStatementId
       }, 'GET').then((res) => { // 使用ajax函数
@@ -348,7 +392,7 @@ Page({
             } else {
               clearInterval(interval2)
               wx.navigateTo({
-                url: `/pages/myorder/myorder?status=${12}`
+                url: `/pages/myorder/myorder?status=${0}`
               })
               that.setData({
                 time: ''
@@ -360,7 +404,7 @@ Page({
           })
         }
       })
-    } 
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -400,7 +444,9 @@ Page({
       //给上一个页面设置状态
       let curPage = pages[pages.length - 2];
       let data = curPage.data;
-      curPage.setData({ 'isBack': true });
+      curPage.setData({
+        'isBack': true
+      });
     }
   },
 
@@ -423,5 +469,9 @@ Page({
    */
   onShareAppMessage: function() {
 
-  }
+  },
+  /**
+  * 弹出框蒙层截断touchmove事件
+  */
+  preventTouchMove: function () { }
 })

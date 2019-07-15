@@ -264,39 +264,28 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 
 /* 支付密码 */
 
-.zan-dialog__mask1 {
+.modal-mask {
+  width: 100%;
+  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  display: none;
   background: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
 }
 
+
 .zan-dialog__container1 {
-  transform: translateY(300%);
-  transition: all 0.00001s ease;
+  top: 27%;
   width: 630rpx;
   height: 281rpx;
-  background: rgba(255, 255, 255, 1);
+  background: #fff;
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  bottom: 530rpx;
   left: 60rpx;
   z-index: 9999;
-  background: #f9f9f9;
 }
-
-.zan-dialog--show1 .zan-dialog__container1 {
-  transform: translateY(0);
-}
-
-.zan-dialog--show1 .zan-dialog__mask1 {
-  display: block;
-}
-
 .text {
   text-align: center;
   font-size: 24rpx;
@@ -322,7 +311,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   height: 69rpx;
   position: absolute;
   right: 55rpx;
-  bottom: 810rpx;
+  top:22%;
 }
 
 .iptbox-wrapper {

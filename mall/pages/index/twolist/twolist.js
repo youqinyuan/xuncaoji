@@ -46,6 +46,9 @@ Page({
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
         that.setData({
           category: res.data.content.items
         })
@@ -68,13 +71,12 @@ Page({
           })
         }
         var arr = that.data.category
-        for (var i = 0; i < res.data.content.items.length; i++) {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           arr.push(res.data.content.items[i])
-        }
-        that.setData({
-          category: arr,
         })
         that.setData({
+          category: arr,
           pageNumber: pageNumber
         })
       }
@@ -103,6 +105,9 @@ Page({
       categoryId: id, sortBy: 1, pageNumber: that.data.pageNumber,
       pageSize: that.data.pageSize }, 'GET').then((res) => {  // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
         that.setData({
           category: res.data.content.items,
           color: "#FF8D12",
@@ -127,6 +132,9 @@ Page({
         categoryId: id, sortBy: 2, sortFlag: 1, pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize }, 'GET').then((res) => {  // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
+          res.data.content.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          })
           that.setData({
             category: res.data.content.items,
             color: "black",
@@ -142,6 +150,9 @@ Page({
         categoryId: id, sortBy: 2, sortFlag: 2, pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize }, 'GET').then((res) => {  // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
+          res.data.content.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          })
           that.setData({
             category: res.data.content.items,
             color: "black",
@@ -167,6 +178,9 @@ Page({
         categoryId: id, sortBy: 3, sortFlag: 1, pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize }, 'GET').then((res) => {  // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
+          res.data.content.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          })
           that.setData({
             category: res.data.content.items,
             color: "black",
@@ -182,6 +196,9 @@ Page({
         categoryId: id, sortBy: 3, sortFlag: 2, pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize }, 'GET').then((res) => {  // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
+          res.data.content.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          })
           that.setData({
             category: res.data.content.items,
             color: "black",

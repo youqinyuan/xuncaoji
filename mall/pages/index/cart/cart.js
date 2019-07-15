@@ -295,6 +295,15 @@ Page({
         wx.navigateTo({
         url: `/pages/placeorder/placeorder?cardIds=${cardIds}`
       })
+      //跳转页面后，合计为0，结算按钮变灰色,取消全选状态,选中的商品为空
+      setTimeout(function(){
+        that.setData({
+          priceAll: 0,
+          color: '#BDBDBD',
+          checkedAll:false,
+          cardIds:''
+        })
+      },500)
       }
       
       
@@ -406,7 +415,9 @@ Page({
               shops: res.data.content.items,
               showDialog: false,
               color: '#BDBDBD',
-              checkedAll:false
+              checkedAll:false,
+              priceAll:0,
+              cardIds:[]
             })
           } else {
             wx.showToast({

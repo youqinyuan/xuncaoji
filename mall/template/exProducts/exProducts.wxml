@@ -27,7 +27,7 @@
       </view>
     </view>
     <!--Go-->
-    <view class="activity">
+    <!-- <view class="activity">
       <view class="activity-list">
         <view class="activity-list-item1">
           <view class="activity-list-text">美食优选</view>
@@ -50,7 +50,7 @@
           <image class="activity-list-img4" src="../../assets/images/icon/index_chihewanle_list4_bg.png"></image>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--零元购-->
     <view class="zerobuy" bindtap='toZeroPurchase' wx:if="{{bannerId !==''}}">
       <image class="zerobuy-item" src="../../assets/images/icon/index_zerobuy.png"></image>
@@ -132,15 +132,16 @@
               <text>￥</text>{{item.dctPrice}}</view>
             <view class="oldprice">￥{{item.orgPrice}}</view>
           </view>
-          <view class="recommend-list-share" wx:if="{{item.sharingProfit}}">
-            <view class="share-price">
-              <text class="share-return">会员分享返</text>
-              <text class="share-price1">{{item.sharingProfit}}</text>
-            </view>
-            <view class="recommend-list-share-img" catchtap='share' data-goodsid="{{item.id}}" data-profit="{{item.sharingProfit}}">
-              <image src="../../assets/images/icon/pinzhi_list_share_icon.png"></image>
-            </view>
+        <view class="return-wrap" wx:if="{{item.marketingCashBack.totalAmount>0}}">
+          <view class="return-money">
+            <text>返</text>
+            <text>{{item.marketingCashBack.totalAmount}}</text>
           </view>
+          <view class="pay-money">
+            <text>返后价</text>
+            <text>{{item.truePrice}}</text>
+          </view>
+        </view>
         </view>
       </view>
     </view>

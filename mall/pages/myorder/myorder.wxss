@@ -363,31 +363,25 @@ page {
   color: rgba(153, 153, 153, 1);
 }
 
-.recommend-list-share {
+.return-wrap {
   display: flex;
-  justify-content: space-between;
-  margin-right: 15rpx;
-  margin-left: 15rpx;
+  height: 40rpx;
+  margin-right: 30rpx;
+  line-height: 40rpx;
+  background: rgba(252, 243, 237, 1);
+  border-radius: 8rpx;
+  margin-left: 16rpx;
+  font-size: 22rpx;
+  color:#FF8D12;
 }
-
-.recommend-list-share-img {
-  margin-top: 10rpx;
+.return-wrap .return-money1 text:nth-child(1){
+  color:#999999;
+  margin-left: 17rpx;
+  padding: 0 8rpx;
 }
-
-.recommend-list-share-img image {
-  width: 44rpx;
-  height: 44rpx;
-}
-
-.share-price {
-  font-size: 24rpx;
-  margin-top: 15rpx;
-  color: rgba(153, 153, 153, 1);
-}
-
-.share-price1 {
-  font-size: 24rpx;
-  color: #e33a59;
+.return-wrap .pay-money text:nth-child(1){
+  color:#999999;
+  padding: 0 8rpx;
 }
 
 /* 确认收货弹框 */

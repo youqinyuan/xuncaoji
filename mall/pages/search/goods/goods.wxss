@@ -69,28 +69,25 @@ page{
   text-decoration: line-through;
   color: rgba(153, 153, 153, 1);
 }
-.goods-list-share{
+.return-wrap {
   display: flex;
-  justify-content: space-between;
-  margin-top: 10rpx;
-  font-size:24rpx;
-
+  height: 40rpx;
+  margin-right: 30rpx;
+  line-height: 40rpx;
+  background: rgba(252, 243, 237, 1);
+  border-radius: 8rpx;
+  margin-left: 16rpx;
+  font-size: 22rpx;
+  color:#FF8D12;
 }
-.priceshare{
-  color:rgba(153,153,153,1);
+.return-wrap .return-money text:nth-child(1){
+  color:#999999;
+  margin-left: 17rpx;
+  padding: 0 8rpx;
 }
-.shareprice{
-  color: #E33A59;
-}
-.share-img{
-  width: 44rpx;
-  height: 44rpx;
-  margin-left: 200rpx;
-  margin-top: -10rpx;
-}
-.share-img image{
-  width: 44rpx;
-  height: 44rpx;
+.return-wrap .pay-money text:nth-child(1){
+  color:#999999;
+  padding: 0 8rpx;
 }
 .goods-bottom{
   font-size: 24rpx;

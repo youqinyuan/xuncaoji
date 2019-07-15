@@ -15,14 +15,23 @@ Page({
     color: '#FF8D12',
     currentTime: 60,
     disabled: false,
-    provinces:[]
+    provinces:[],
+    url:'',//记录从哪个页面跳转进来登录的
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    var that = this
+    //给当前地址添加缓存，授权之后跳转回原页面
+    var pages = getCurrentPages() //获取加载的页面
+    var currentPage = pages[pages.length - 4] //获取当前页面的对象
+    var url = currentPage.route
+    console.log(pages)
+    if (url == 'pages/detail/detail'){
+      that.data.url = '/' + url + '?id=' + wx.getStorageSync('goods_id')
+    }
   },
 
   /**
@@ -85,7 +94,13 @@ Page({
   },
   bindCode: function(e) {
     var that = this;
-    var value1 = e.detail.value
+    var value1
+    //验证码限制输入6位数字
+    if (e.detail.value.toString().length > 6){
+      value1 = e.detail.value.substring(0, e.detail.value.length - 1);
+    }else {
+      value1 = e.detail.value
+    }
     that.setData({
       codeNumber: value1
     })
@@ -99,8 +114,9 @@ Page({
       that.setData({
         text: '请输入正确的手机号码'
       })
+      return;
     }
-    if (phoneNumber !== '') {
+    if (/^1[3456789]\d{9}$/.test(phoneNumber)) {
       interval = setInterval(function() {
         currentTime--;
         that.setData({
@@ -174,9 +190,17 @@ Page({
               wx.setStorageSync('provinces', res.data.content)
             }
           })
-          wx.switchTab({
-            url: '/pages/index/index'
-          })
+          wx.removeStorageSync('othersInviterCode')
+          console.log(that.data.url)
+          if(that.data.url != ''){
+            wx.navigateTo({
+              url: that.data.url
+            })
+          }else{
+            wx.switchTab({
+              url: '/pages/index/index'
+            })
+          }
         }else{
           that.setData({
             text:res.data.message

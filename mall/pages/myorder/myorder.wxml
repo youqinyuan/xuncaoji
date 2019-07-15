@@ -10,10 +10,7 @@
 <view class="myOrder-wrapper-content">
   <view class="myOrder-wrapper" wx:for="{{allOrder}}" wx:for-item="itemName" wx:key="{{itemName.id}}" wx:if="{{allOrder.length>0}}">
     <view class="shop-container">
-      <view class="shop" bindtap='jumpStoreDetail' data-id="{{itemName.storeId}}">
-        <image src="../../assets/images/icon/xuncaoji_icon.png"></image>
-        <text class="title">{{itemName.storeName}}</text>
-        <view class="goods-channel" wx:if="{{itemName.channel===1}}">自营</view>
+      <view class="shop">
         <text class="state" wx:if="{{itemName.latestStatus==1}}">待支付</text>
         <text class="state" wx:if="{{itemName.latestStatus==2}}">待发货</text>
         <text class="state" wx:if="{{itemName.latestStatus==3}}">待使用</text>
@@ -68,7 +65,7 @@
       <text class="return" catchtap='refund' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==2 || itemName.latestStatus==5 || itemName.latestStatus==11}}">退款</text>
       <text class="return" catchtap='cancelRefund' wx:if="{{itemName.latestStatus==7 || itemName.latestStatus==8}}" data-orderid="{{itemName.id}}">取消退款</text>
       <text class="pay" wx:if="{{itemName.latestStatus==1}}" catchtap='toPay' data-id="{{itemName.transStatementDetail.transId}}" data-orderid="{{itemName.id}}">付款</text>
-      <text class="pay" catchtap='toEvaluate'  data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==5}}">去评价</text>
+      <text class="pay" catchtap='toEvaluate' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==5}}">去评价</text>
       <text class="pay" catchtap='confirmReceipt' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==4}}">确认收货</text>
     </view>
   </view>
@@ -103,13 +100,14 @@
           <text>￥</text>{{item.dctPrice}}</view>
         <view class="oldprice">￥{{item.orgPrice}}</view>
       </view>
-      <view class="recommend-list-share" wx:if="{{item.sharingProfit}}">
-        <view class="share-price">
-          <text class="share-return">会员分享返</text>
-          <text class="share-price1">{{item.sharingProfit}}</text>
+      <view class="return-wrap" wx:if="{{item.marketingCashBack.totalAmount>0}}">
+        <view class="return-money1">
+          <text>返</text>
+          <text>{{item.marketingCashBack.totalAmount}}</text>
         </view>
-        <view class="recommend-list-share-img" catchtap='share' data-goodsid="{{item.id}}" data-profit="{{item.sharingProfit}}">
-          <image src="../../assets/images/icon/pinzhi_list_share_icon.png"></image>
+        <view class="pay-money">
+          <text>返后价</text>
+          <text>{{item.truePrice}}</text>
         </view>
       </view>
     </view>
@@ -197,7 +195,7 @@
         </view>
       </view>
       <view class="textarea-wrp">
-        <textarea  wx:if="{{!multiShow}}" fixed="true" bindinput='input' maxlength="100" placeholder="您的评价是我们优化的目标" placeholder-style="color:#AAAAAA;" />
+        <textarea wx:if="{{!multiShow}}" fixed="true" value="{{evaluate}}" bindinput='input' maxlength="100" placeholder="您的评价是我们优化的目标" placeholder-style="color:#AAAAAA;" />
         <text class="currentWordNumber">{{currentNoteLen|0}}/{{noteMaxLen}}</text>
       </view>
       <view class="contentainer4-button">
@@ -213,7 +211,7 @@
 <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
   <view class="content-wrapper">
     <image class="cancel" src="../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
-   <view class="shareCommission" wx:if="{{shareList.isPlusMember===2}}">你喜欢那就分享给你朋友吧</view>
+    <view class="shareCommission" wx:if="{{shareList.isPlusMember===2}}">你喜欢那就分享给你朋友吧</view>
     <view class="shareCommission" wx:if="{{shareList.isPlusMember===1}}">分享商品后预计最多可赚佣金￥{{sharingProfit}}</view>
     <view class="shareText" wx:if="{{shareList.isPlusMember===1}}">朋友通过你分享的页面成功购买后，你将获得商品返利</view>
     <button class="share-button" open-type="share">

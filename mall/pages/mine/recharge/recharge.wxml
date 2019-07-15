@@ -23,7 +23,7 @@
     <view class="modal-title">充值</view>
     <view class="section">
       <view class="input-price">￥</view>
-      <input placeholder="请输入充值金额" auto-focus type="digit" value="{{inputValue}}" placeholder-style="color:#AAAAAA" bindinput="btnInput" />
+      <input placeholder="请输入充值金额" focus="true" type="digit" value="{{inputValue}}" placeholder-style="color:#AAAAAA" bindinput="btnInput" />
     </view>
     <view class="prompt" wx:if="{{showMessage}}">请输入正确的充值金额</view>
     <view class="message">所充值的金额将进入您的账户余额</view>
@@ -42,7 +42,7 @@
 <view class="modal-mask1" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
 <view class="modal" wx:if="{{show}}">
   <view class="modal-title1">提现</view>
-  <view class="modal-text">因微信限制原因造成平台短时间暂时无法开通自动转账功能我们深表歉意，不过我们正在努力与微信协调中，谢谢理解！</view>
+  <view class="modal-text">我们程序小伙伴正在努力开发提现功能!暂时还请联系客服小伙伴进行提现。</view>
   <view class="modal-text1">说明：请联系平台客服进行手动提现申请</view>
   <view class="modal-text1">客服电话：18910267045</view>
   <view class="modal-text1">客服微信：寻草记商城客服</view>

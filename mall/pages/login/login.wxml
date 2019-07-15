@@ -3,7 +3,7 @@
 <view class="section-wrapper">
   <view class="section">
     <image src="../../assets/images/icon/login_phone.png" class="section-img"></image>
-    <input placeholder="请输入手机号" placeholder-style="color:#AAAAAA" type="number" name="phone" value="{{phoneNumber}}" bindinput='bindInput'/>
+    <input placeholder="请输入手机号" placeholder-style="color:#AAAAAA" type="number" name="phone" value="{{phoneNumber}}" bindinput='bindInput' maxlength="11"/>
   </view>
    <view class="section1">
     <image src="../../assets/images/icon/login_code.png" class="section-img"></image>

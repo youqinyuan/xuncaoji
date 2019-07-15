@@ -13,7 +13,8 @@ Page({
     content:{},
     followers:[],
     shareList:{},
-    inviterCode:''
+    inviterCode:'',
+    imageUrl:'../../assets/images/icon/team_share.png'
   },
   //显示弹框
   recurit: function () {
@@ -139,9 +140,9 @@ Page({
       })
     }
     return {
-      title: that.data.shareList.title,
+      title: that.data.shareList.desc,
       path: that.data.shareList.link,
-      imageUrl: that.data.shareList.imageUrl,
+      imageUrl: that.data.imageUrl,
       success: function (res) {
 
       },

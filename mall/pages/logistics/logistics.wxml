@@ -7,8 +7,8 @@
     <view class="logistics-list-right">
       <!-- <view class="img"> <image src="../../assets/images/icon/ic_arrived.png"></image></view> -->
       <view class="circle"></view>
+      <view wx:if="{{index !== list.length-1}}" class="block"></view>
       <view class="detail">
-        <!-- <text class="province">【成都市】</text> -->
         <text class="text">{{item.remark}}</text>
       </view>
     </view>

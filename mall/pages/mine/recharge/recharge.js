@@ -15,7 +15,7 @@ Page({
     var that = this
     that.getMessage()
   },
-  getMessage:function(){
+  getMessage: function() {
     var that = this
     var pageNumber = that.data.pageNumber
     var pageSize = that.data.pageSize
@@ -56,13 +56,24 @@ Page({
     var that = this;
     that.setData({
       showModal: false,
-      inputValue:''
+      inputValue: ''
     });
   },
   //获取充值金额
   btnInput: function(e) {
     var that = this;
-    var mesValue = e.detail.value
+    var mesValue
+    //正则验证，充值金额仅支持小数点前8位小数点后2位
+    if (/^\d{1,8}(\.\d{0,2})?$/.test(e.detail.value)) {
+      mesValue = e.detail.value;
+    } else {
+      mesValue = e.detail.value.substring(0, e.detail.value.length - 1);
+      wx.showToast({
+        title: '充值金额仅支持小数点前8位，小数点后2位',
+        icon: 'none',
+        duration: 1500
+      })
+    }
     that.setData({
       inputValue: mesValue
     })
@@ -149,6 +160,11 @@ Page({
                 fail(err) {
                   console.log(err)
                 }
+              })
+            }else{
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none'
               })
             }
           })

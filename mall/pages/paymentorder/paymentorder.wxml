@@ -6,7 +6,9 @@
     <text class="payprice1">{{content.paymentAmount}}</text>
   </view>
   <view class="payprice" wx:if="{{flag===true}}">
-  支付<text>￥</text>{{content.paymentAmount}}元返<text>￥</text>{{cashBack}}元
+    支付
+    <text>￥</text>{{content.paymentAmount}}元返
+    <text>￥</text>{{cashBack}}元
   </view>
   <view class="paytime">
     <text>支付剩余时间</text>
@@ -49,9 +51,8 @@
 <!--确认支付-->
 <view class="button" bindtap='pay'>确认支付</view>
 <!-- 弹出框 -->
-<view class="zan-dialog1 {{ show ? 'zan-dialog--show1' : '' }}">
-  <view class="zan-dialog__mask1" bindtap='hideShow' />
-  <view class="zan-dialog__container1">
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{show}}">
+  <view class="zan-dialog__container1" wx:if="{{show}}">
     <view class="pwd-text">请输入支付密码</view>
     <view class="text">{{text}}</view>
     <view bindsubmit="formSubmit">
@@ -60,7 +61,7 @@
           <input class='iptbox' value="{{Value.length>=index+1?Value[index]:''}}" disabled password='{{ispassword}}' type="number" catchtap='Tap'></input>
         </block>
       </view>
-      <input name="password" adjust-position="false" password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus" type="number"></input>
+      <input name="password" value="{{Value}}" adjust-position="{{false}}" password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus" type="number"></input>
     </view>
   </view>
   <image wx:if="{{show}}" class="pwd-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelShow'></image>
@@ -71,7 +72,7 @@
   <view class="zan-dialog__container">
     <view class='content'>
       <view class="content-title">提示</view>
-      <view class="content-container">当前余额不足无法支付，建议您先 去充值后再进行操作！
+      <view class="content-container">当前余额不足无法支付，建议您先去充值后再进行操作！
       </view>
       <view class="content-button">
         <view class="back" catchtap='back'>取消</view>

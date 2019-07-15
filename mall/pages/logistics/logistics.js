@@ -35,6 +35,7 @@ Page({
           list: (res.data.content.list).reverse()
         })
       }
+      console.log(that.data.list[0])
     }) 
   },
   /**

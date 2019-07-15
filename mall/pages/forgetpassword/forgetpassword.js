@@ -19,28 +19,52 @@ Page({
     //获取输入框的值
   bindPhone:function(e){
     var that = this;
-    var phoneNumber = e.detail.value
+    var phoneNumber
+    //限制输入6位数字
+    if (e.detail.value.toString().length > 11) {
+      phoneNumber = e.detail.value.substring(0, e.detail.value.length - 1);
+    } else {
+      phoneNumber = e.detail.value
+    }
     that.setData({
       phoneNum: phoneNumber
     })
   },
   bindCode: function (e) {
     var that = this;
-    var codeNumber = e.detail.value
+    var codeNumber
+    //限制输入6位数字
+    if (e.detail.value.toString().length > 6) {
+      codeNumber = e.detail.value.substring(0, e.detail.value.length - 1);
+    } else {
+      codeNumber = e.detail.value
+    }
     that.setData({
       codeNum: codeNumber
     })
   },
   bindPassword: function (e) {
     var that = this;
-    var passwordNumber = e.detail.value
+    var passwordNumber
+    //限制输入6位数字
+    if (e.detail.value.toString().length > 6) {
+      passwordNumber = e.detail.value.substring(0, e.detail.value.length - 1);
+    } else {
+      passwordNumber = e.detail.value
+    }
     that.setData({
       password: passwordNumber
     })
   },
   bindPassword1: function (e) {
     var that = this;
-    var passwordNumber1 = e.detail.value
+    var passwordNumber1
+    //限制输入6位数字
+    if (e.detail.value.toString().length > 6) {
+      passwordNumber1 = e.detail.value.substring(0, e.detail.value.length - 1);
+    } else {
+      passwordNumber1 = e.detail.value
+    }
     that.setData({
       password1: passwordNumber1
     })

@@ -6,7 +6,7 @@
         <image wx:if="{{imageUrl.length===0}}" src="../../assets/images/icon/zhanw_tb_n.png" class="slide-image" />
         <image wx:else src="{{item.imageUrl}}" class="slide-image" />
       </swiper-item>
-       <swiper-item wx:if="{{imageUrl.length===0}}">
+      <swiper-item wx:if="{{imageUrl.length===0}}">
         <image src="../../assets/images/icon/zhanw_tb_n.png" class="slide-image" />
       </swiper-item>
     </swiper>
@@ -15,7 +15,8 @@
       <view class="two-classification-wrapper">
         <view class="two-classification-list" wx:for="{{classfy}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="twoList">
           <view class="two-classification-img">
-            <image src="{{item.iconUrl}}"></image>
+            <image wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}"></image>
+            <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
           </view>
           <view class="two-classification-text">{{item.name}}</view>
         </view>
@@ -43,23 +44,24 @@
           <image src="{{item.imageUrls[0]}}"></image>
         </view>
         <view class="comprehensive-list-text">
-        <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}</view>
+          <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}</view>
         <view class="comprehensive-list-price">
           <view class="newprice">
             <text>￥</text>{{item.dctPrice}}</view>
           <view class="oldprice">￥{{item.orgPrice}}</view>
         </view>
-        <view class="comprehensive-list-share">
-          <view class="share-price" wx:if="{{item.sharingProfit}}">
-            <text class="share-return">会员分享返</text>
-            <text class="share-price1">{{item.sharingProfit}}</text>
+        <view class="return-wrap" wx:if="{{item.marketingCashBack.totalAmount>0}}">
+          <view class="return-money">
+            <text>返</text>
+            <text>{{item.marketingCashBack.totalAmount}}</text>
           </view>
-          <view class="comprehensive-list-share-img" wx:if="{{item.sharingProfit}}" catchtap='share' data-goodsid="{{item.id}}" data-profit="{{item.sharingProfit}}">
-            <image src="../../assets/images/icon/pinzhi_list_share_icon.png"></image>
+          <view class="pay-money">
+            <text>返后价</text>
+            <text>{{item.truePrice}}</text>
           </view>
         </view>
       </view>
     </view>
   </view>
-   <view class="othersClassification-bottom">{{text1}}</view>
+  <view class="othersClassification-bottom">{{text1}}</view>
 </template>

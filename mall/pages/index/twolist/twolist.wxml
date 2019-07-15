@@ -26,13 +26,14 @@
         <text>￥</text>{{item.dctPrice}}</view>
       <view class="oldprice">￥{{item.orgPrice}}</view>
     </view>
-    <view class="comprehensive-list-share" wx:if="{{item.sharingProfit}}">
-      <view class="share-price">
-        <text class="share-return">会员分享返</text>
-        <text class="share-price1">{{item.sharingProfit}}</text>
+    <view class="return-wrap" wx:if="{{item.marketingCashBack.totalAmount>0}}">
+      <view class="return-money">
+        <text>返</text>
+        <text>{{item.marketingCashBack.totalAmount}}</text>
       </view>
-      <view class="comprehensive-list-share-img"  catchtap='share' data-goodsid="{{item.id}}" data-profit="{{item.sharingProfit}}">
-        <image src="../../../assets/images/icon/pinzhi_list_share_icon.png"></image>
+      <view class="pay-money">
+        <text>返后价</text>
+        <text>{{item.truePrice}}</text>
       </view>
     </view>
   </view>

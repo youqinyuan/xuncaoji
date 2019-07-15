@@ -4,14 +4,14 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"coverView": true,
 		"autoAudits": false,
 		"uglifyFileName": true,
+		"coverView": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 33,
+			"current": 8,
 			"list": [
 				{
 					"id": 0,
@@ -111,7 +111,7 @@
 					"id": 8,
 					"name": "详情",
 					"pathName": "pages/detail/detail",
-					"query": "",
+					"query": "scene=id%3D27%26remarks%3Dnull",
 					"scene": null
 				},
 				{
@@ -188,7 +188,7 @@
 					"id": 19,
 					"name": "首页",
 					"pathName": "pages/index/index",
-					"query": "",
+					"query": "name=\"王二“",
 					"scene": null
 				},
 				{

@@ -13,7 +13,7 @@
 }
 
 .logistics-list-left .date {
-  width: 65rpx;
+  width: 85rpx;
   font-size: 22rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
@@ -36,8 +36,7 @@
   padding-left: 10rpx;
   margin-left: 40rpx;
   margin-right: 30rpx;
-  height: 90rpx;
-  border-left: 2rpx solid #f4f4f4;
+  height: 100rpx;
   font-size: 24rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
@@ -46,15 +45,20 @@
 .logistics-list-right .text {
   color: #999999;
 }
-.logistics-list-right .text .number{
-  color: #007EFF;
-}
 .logistics-list-right .circle {
   width: 12rpx;
   height: 12rpx;
   background: rgba(170, 170, 170, 1);
   border-radius: 50%;
-   position: absolute;
-  left: 129rpx;
+  position: absolute;
+  left: 149rpx;
   top:10rpx;
+}
+.logistics-list-right .block {
+  width: 2rpx;
+  height: 84rpx;
+  background: rgba(170, 170, 170, 1);
+  position: absolute;
+  left: 153rpx;
+  top:22rpx;
 }

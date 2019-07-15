@@ -8,7 +8,7 @@ Page({
     showModalStatus: false, //分享弹窗
     shareList: {}, //分享数据
     goodsId: 1, //分享用的商品id
-    sharingProfit:'',//分享返利
+    sharingProfit: '', //分享返利
     imgUrls: [], //轮播图
     imageUrl: [], //二级分类下的轮播图
     autoplay: true,
@@ -42,33 +42,33 @@ Page({
     pricePhoto: '../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
     pricePhoto1: '../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png'
   },
-  //分享
-  share: function(e) {
-    var that = this
-    var goodsId = e.currentTarget.dataset.goodsid
-    var sharingProfit = e.currentTarget.dataset.profit
-    that.setData({
-      goodsId: goodsId,
-      sharingProfit: sharingProfit
-    })
-    //分享数据
-    that.chooseShare()
-    that.setData({
-      showModalStatus: true
-    })
-  },
-  cancelShare: function() {
-    var that = this
-    that.setData({
-      showModalStatus: false
-    })
-  },
-  hideModal: function() {
-    var that = this
-    that.setData({
-      showModalStatus: false
-    })
-  },
+  // //分享
+  // share: function(e) {
+  //   var that = this
+  //   var goodsId = e.currentTarget.dataset.goodsid
+  //   var sharingProfit = e.currentTarget.dataset.profit
+  //   that.setData({
+  //     goodsId: goodsId,
+  //     sharingProfit: sharingProfit
+  //   })
+  //   //分享数据
+  //   that.chooseShare()
+  //   that.setData({
+  //     showModalStatus: true
+  //   })
+  // },
+  // cancelShare: function() {
+  //   var that = this
+  //   that.setData({
+  //     showModalStatus: false
+  //   })
+  // },
+  // hideModal: function() {
+  //   var that = this
+  //   that.setData({
+  //     showModalStatus: false
+  //   })
+  // },
   // bindGetLocation: function() {
   //   this.setData({
   //     showDialog: false
@@ -97,6 +97,10 @@ Page({
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
+        console.log(res.data.content.items)
         that.setData({
           comprehensive: res.data.content.items,
           color: "#FF8D12",
@@ -126,6 +130,9 @@ Page({
         pageSize: that.data.pageSize
       }, 'GET').then((res) => { // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
+          res.data.content.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          })
           that.setData({
             comprehensive: res.data.content.items,
             color: "black",
@@ -145,6 +152,9 @@ Page({
         pageSize: that.data.pageSize
       }, 'GET').then((res) => { // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
+          res.data.content.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          })
           that.setData({
             comprehensive: res.data.content.items,
             color: "black",
@@ -173,6 +183,9 @@ Page({
         pageSize: that.data.pageSize
       }, 'GET').then((res) => { // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
+          res.data.content.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          })
           that.setData({
             comprehensive: res.data.content.items,
             color: "black",
@@ -192,6 +205,9 @@ Page({
         pageSize: that.data.pageSize
       }, 'GET').then((res) => { // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
+          res.data.content.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          })
           that.setData({
             comprehensive: res.data.content.items,
             color: "black",
@@ -206,11 +222,8 @@ Page({
   },
   //跳转到二级列表页面
   twoList: function(e) {
-    var id = e.currentTarget.dataset.id//当前点击的id 
-    var name = e.currentTarget.dataset.name//当前点击的id 
-    // wx.navigateTo({
-    //   url: '/pages/questionDetail/questionDetail?id=' + id + '&name=' + name
-    // })
+    var id = e.currentTarget.dataset.id //当前点击的id 
+    var name = e.currentTarget.dataset.name //当前点击的id 
     wx.navigateTo({
       url: `/pages/index/twolist/twolist?id=${id}&name=${name}`,
     })
@@ -271,6 +284,10 @@ Page({
         showDialog: true
       })
     }
+    //别人通过链接
+    if (options.inviterCode){
+      wx.setStorageSync('othersInviterCode', options.inviterCode )
+    }
     //查询商品数量
     app.Util.ajax('mall/cart/count', 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
@@ -316,9 +333,6 @@ Page({
     //口碑爆品榜
     app.Util.ajax('mall/home/topSales', 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
-        // for (var i = 0; i < res.data.content.length; i++) {
-        //   res.data.content[i].name = (res.data.content[i].name).slice(0, 6)
-        // }
         that.setData({
           trend: res.data.content
         })
@@ -356,13 +370,12 @@ Page({
           })
         }
         var arr = that.data.list
-        for (var i = 0; i < res.data.content.items.length; i++) {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           arr.push(res.data.content.items[i])
-        }
-        that.setData({
-          list: arr,
         })
         that.setData({
+          list: arr,
           pageNumber: pageNumber
         })
       }
@@ -378,6 +391,9 @@ Page({
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
         that.setData({
           list: res.data.content.items
         })
@@ -452,13 +468,12 @@ Page({
           })
         }
         var arr = that.data.comprehensive
-        for (var i = 0; i < res.data.content.items.length; i++) {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           arr.push(res.data.content.items[i])
-        }
-        that.setData({
-          comprehensive: arr,
         })
         that.setData({
+          comprehensive: arr,
           pageNumber: pageNumber
         })
       }
@@ -476,6 +491,9 @@ Page({
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
         that.setData({
           comprehensive: res.data.content.items
         })
@@ -484,25 +502,43 @@ Page({
   },
   //允许授权
   bindGetUserInfo: function(e) {
-    var that = this 
-    if (e.detail.errMsg == 'getUserInfo:ok'){
+    var that = this
+    if (e.detail.errMsg == 'getUserInfo:ok') {
       app.globalData.flag = false
       wx.setStorageSync("userInfo", e.detail.userInfo)
       that.setData({
         showDialog: false
       })
-    }else if (e.detail.errMsg =='getUserInfo:fail auth deny'){
+    } else if (e.detail.errMsg == 'getUserInfo:fail auth deny') {
       app.globalData.flag = false
       that.setData({
         showDialog: false
       })
-    }  
+    }
+    //跳转到授权页面之前的页面
+    wx.getStorage({
+      key: 'url',
+      success(res) {
+        wx.navigateTo({
+          url: '/' + res.data
+        })
+      }
+    })
   },
   reject: function() {
     var that = this
     app.globalData.flag = false
     that.setData({
       showDialog: false
+    })
+    //跳转到授权页面之前的页面
+    wx.getStorage({
+      key: 'url',
+      success(res) {
+        wx.navigateTo({
+          url: '/' + res.data
+        })
+      }
     })
   },
   　　　
@@ -527,17 +563,37 @@ Page({
         pageNumber: 1
       })
       that.initgetMore1()
-      //查询商品数量
-      app.Util.ajax('mall/cart/count', 'GET').then((res) => { // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
-          let a = res.data.content
-          that.setData({
-            count: a > 99 ? '99+' : res.data.content
-          })
-        }
-      })
     }
+    //查询商品数量
+    app.Util.ajax('mall/cart/count', 'GET').then((res) => { // 使用ajax函数
+      if (res.messageCode = 'MSG_1001') {
+        let a = res.data.content
+        that.setData({
+          count: a > 99 ? '99+' : res.data.content
+        })
+      }
+    })
   },
+  // //查询分享数据
+  // chooseShare: function() {
+  //   var that = this
+  //   app.Util.ajax('mall/weChat/sharing/target', {
+  //     mode: 1,
+  //     targetId: that.data.goodsId
+  //   }, 'GET').then((res) => {
+  //     if (res.messageCode = 'MSG_1001') {
+  //       var inviterCode = wx.getStorageSync('inviterCode')
+  //       if (inviterCode) {
+  //         res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
+  //       } else {
+  //         res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
+  //       }
+  //       that.setData({
+  //         shareList: res.data.content          
+  //       })
+  //     }
+  //   })
+  // },
   //查询分享数据
   chooseShare: function() {
     var that = this
@@ -553,7 +609,7 @@ Page({
           res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
         }
         that.setData({
-          shareList: res.data.content          
+          shareList: res.data.content        
         })
       }
     })
@@ -567,7 +623,7 @@ Page({
       wx.navigateTo({
         url: `/pages/detail/detail?id=${id}`,
       })
-    } else if(forwarddest === 2){
+    } else if (forwarddest === 2) {
       console.log(that.data.id)
       that.setData({
         currentTab: id
@@ -641,46 +697,46 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function(ops) {
-    var that = this
-    if (ops.from === 'button') {
-      // 来自页面内转发按钮
-      that.setData({
-        showModalStatus: false
-      })
-      app.Util.ajax('mall/weChat/sharing/onSuccess', {
-        mode: 1
-      }, 'POST').then((res) => {
-        if (res.data.content) {
-          wx.showToast({
-            title: '分享成功',
-            icon: 'none'
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
-        }
-      })
-    }
-    return {
-      title: that.data.shareList.title,
-      path: that.data.shareList.link,
-      imageUrl: that.data.shareList.imageUrl,
-      success: function(res) {
-        console.log(res.shareTickets[0])
-        wx.getShareInfo({
-          shareTicket: res.shareTickets[0],
-          complete(res) {
-            console.log(res)
-          }
-        })
-      },
-      fail: function(res) {
-        // 转发失败
-        console.log("转发失败:" + JSON.stringify(res));
-      }
-    }
+    // var that = this
+    // if (ops.from === 'button') {
+    //   // 来自页面内转发按钮
+    //   that.setData({
+    //     showModalStatus: false
+    //   })
+    //   app.Util.ajax('mall/weChat/sharing/onSuccess', {
+    //     mode: 1
+    //   }, 'POST').then((res) => {
+    //     if (res.data.content) {
+    //       wx.showToast({
+    //         title: '分享成功',
+    //         icon: 'none'
+    //       })
+    //     } else {
+    //       wx.showToast({
+    //         title: res.data.message,
+    //         icon: 'none'
+    //       })
+    //     }
+    //   })
+    // }
+    // return {
+    //   title: that.data.shareList.title,
+    //   path: that.data.shareList.link,
+    //   imageUrl: that.data.shareList.imageUrl,
+    //   success: function(res) {
+    //     console.log(res.shareTickets[0])
+    //     wx.getShareInfo({
+    //       shareTicket: res.shareTickets[0],
+    //       complete(res) {
+    //         console.log(res)
+    //       }
+    //     })
+    //   },
+    //   fail: function(res) {
+    //     // 转发失败
+    //     console.log("转发失败:" + JSON.stringify(res));
+    //   }
+    // }
   },
   onLaunch: function() {
 
@@ -697,7 +753,7 @@ Page({
     }
   },
   //下拉刷新
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     var that = this
     that.onLoad()
     wx.stopPullDownRefresh() //停止下拉刷新

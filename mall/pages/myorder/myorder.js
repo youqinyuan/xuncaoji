@@ -37,11 +37,11 @@ Page({
         select: false,
         status: '7, 8, 9, 10, 11'
       },
-      {
-        title: '已取消',
-        select: false,
-        status: '12'
-      },
+      // {
+      //   title: '已取消',
+      //   select: false,
+      //   status: '12'
+      // },
     ],
     allOrder: [],
     list:[],//更多好货
@@ -62,8 +62,8 @@ Page({
     noteMaxLen: 100, //详细评价的字数限制
     currentNoteLen: 0,//输入的字数
     evaluate:'',//文本框的值
-    one_2: 0,
-    two_2: 5,
+    one_2: 5,//实心星星
+    two_2: 0,//空心星星
     // disabled:true,
     multiShow:true,
     showModalStatus: false,//分享弹窗
@@ -198,6 +198,9 @@ Page({
       pageSize: pageSize
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
         that.setData({
           list: res.data.content.items
         })
@@ -240,9 +243,7 @@ Page({
           arr.push(res.data.content.items[i])
         }
         that.setData({
-          allOrder: arr
-        })
-        that.setData({
+          allOrder: arr,
           pageNumber: pageNumber
         })
       }
@@ -448,7 +449,10 @@ Page({
   cancelEvaluate: function () {
     var that = this
     that.setData({
-      showDialog4: false
+      showDialog4: false,
+      one_2: 5,//实心星星
+      two_2: 0,//空心星星
+      evaluate: ''
     })
   },
   //确定
@@ -468,6 +472,9 @@ Page({
           that.initgetMore1()
           that.setData({
             showDialog4: false,
+            one_2: 5,//实心星星
+            two_2: 0,//空心星星
+            evaluate:''
           })
         } else {
           wx.showToast({
@@ -508,9 +515,17 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    wx.reLaunch({
-      url: '/pages/mine/mine'
-    })
+    // wx.reLaunch({
+    //   url: '/pages/mine/mine'
+    // }) 
+    var pages = getCurrentPages() //获取加载的页面
+    var currentPage = pages[pages.length - 2] //获取当前页面的对象
+    var url = currentPage.route
+    if (url == 'pages/paymentorder/paymentorder') {
+      wx.reLaunch({
+        url: '/pages/mine/mine'
+      })
+    }
   },
 
   /**

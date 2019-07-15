@@ -113,7 +113,9 @@ page {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
-
+.address-wrapper{
+  margin-bottom: 20rpx;
+}
 /*店铺商品*/
 
 .shops-wrapper {
@@ -311,6 +313,7 @@ page {
   right: 0;
   width: 250rpx;
   height: 100rpx;
+  line-height: 100rpx;
   text-align: center;
   background: rgba(255, 81, 122, 1);
   font-size: 32rpx;

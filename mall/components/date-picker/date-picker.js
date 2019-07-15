@@ -22,37 +22,49 @@ Component({
     showPicker: false
   },
 
-  attached: function () {
+  attached: function() {
     /**
      * 初始化年月日
      */
+    var that = this
     var date = new Date();
     var years = [];
     var months = [];
     var days = [];
-
-    for (let i = 1900; i <= date.getFullYear(); i++) {
+    for (let i = 1960; i <= date.getFullYear(); i++) {
       years.push(i);
     }
 
-    for (let i = 1; i <= 12; i++) {
+    // for (let i = 1; i <= 12; i++) {
+    //   let month = 0;
+    //   month = i < 10 ? '0' + i : i;
+    //   months.push(month);
+    // }
+
+    // days = this.getDays(date.getFullYear(), date.getMonth() + 1);
+
+    for (let i = 1; i <= date.getMonth() + 1; i++) {
       let month = 0;
       month = i < 10 ? '0' + i : i;
       months.push(month);
     }
 
-    days = this.getDays(date.getFullYear(), date.getMonth() + 1);
+    for (let i = 1; i <= date.getDate(); i++) {
+      let day = 0;
+      day = i < 10 ? '0' + i : i;
+      days.push(day);
+    }
 
-    this.setData({
+    that.setData({
       years: years,
       months: months,
       days: days
     });
-
   },
 
   methods: {
-    onTouchmask: function (event) {
+    onTouchmask: function(e) {
+
     },
     onCacnelClick(e) {
       this.triggerEvent('cancelclick', {});
@@ -66,11 +78,32 @@ Component({
         value: value,
       });
     },
-    year_onChange: function (e) {
+    year_onChange: function(e) {
       //年改变，月要滑到一月，天要重新计算该年该月多少天
       var days = [];
       var curYear = this.data.years[e.detail.value];
       days = this.getDays(curYear, 1);
+      //可选范围至最新月
+      var months = []
+      if (curYear == new Date().getFullYear()) {
+        for (let i = 1; i <= new Date().getMonth() + 1; i++) {
+          let month = 0;
+          month = i < 10 ? '0' + i : i;
+          months.push(month);
+        }
+        this.setData({
+          months: months,
+        });
+      }else{
+        for (let i = 1; i <= 12; i++) {
+          let month = 0;
+          month = i < 10 ? '0' + i : i;
+          months.push(month);
+        }
+        this.setData({
+          months: months,
+        });
+      }
       this.setData({
         days: days,
         tempYearPos: e.detail.value,
@@ -78,7 +111,7 @@ Component({
         tempDayPos: [0],
       });
     },
-    month_onChange: function (e) {
+    month_onChange: function(e) {
       var days = [];
       var curYear = this.data.years[this.data.tempYearPos];
       var curMonth = this.data.months[e.detail.value];
@@ -88,8 +121,21 @@ Component({
         tempMonthPos: e.detail.value,
         tempDayPos: [0],
       });
+      //可选范围至最新日
+      var days = []
+      var month = new Date().getMonth() + 1 < '10' ? '0' + (new Date().getMonth() + 1) : new Date().getMonth() + 1
+      if (curMonth == month) {
+        for (let i = 1; i <= new Date().getDate(); i++) {
+          let day = 0;
+          day = i < 10 ? '0' + i : i;
+          days.push(day);
+        }
+        this.setData({
+          days: days,
+        });
+      }
     },
-    day_onChange: function (e) {
+    day_onChange: function(e) {
       this.setData({
         tempDayPos: e.detail.value
       });
@@ -101,7 +147,9 @@ Component({
     },
     onShow() {
       var data = this.getRefreshData();
+      console.log(data)
       data.showPicker = this.data.isShow;
+      data.days = this.data.days
       this.setData(data)
     },
     getDays(year, month) {

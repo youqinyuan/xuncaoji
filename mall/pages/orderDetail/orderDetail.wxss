@@ -120,7 +120,7 @@ page {
 .address-right-img {
   position: absolute;
   right: 10rpx;
-  bottom: 30rpx;
+  top: 13rpx;
   width: 56rpx;
   height: 56rpx;
 }
@@ -393,6 +393,20 @@ page {
 }
 .refund-message .refund-amount1 text:nth-child(2) {
   text-align: left;
+  color: rgba(102, 102, 102, 1);
+}
+.refund-message .refund-amount2 {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 30rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(153, 153, 153, 1);
+}
+.refund-message .refund-amount2 text:nth-child(2){
   color: rgba(102, 102, 102, 1);
 }
 .refund-message .refund-amount4 {

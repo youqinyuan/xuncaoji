@@ -11,7 +11,8 @@ Page({
     datePickerIsShow: false,
     sexPickerIsShow: false,
     isUpHeader: false,
-    adds: {}
+    adds: {},
+    text:['男','女']
   },
   toggleDialog: function() {
     this.setData({
@@ -20,7 +21,7 @@ Page({
   },
   //获取性别
   sexOnChange: function(e) {
-    if (e.detail.value[0] === 0) {
+    if (e.currentTarget.dataset.text === '男') {
       this.data.adds.gender = 1
       this.setData({
         adds: this.data.adds
@@ -32,6 +33,7 @@ Page({
       })
     }
   },
+  //获取日期
   showDatePicker: function(e) {
     this.setData({
       datePickerIsShow: true,
@@ -41,7 +43,6 @@ Page({
     this.data.adds.birthday = `${e.detail.value[0]}-${e.detail.value[1]}-${e.detail.value[2]}`
     this.setData({
       adds: this.data.adds,
-      datePickerValue: e.detail.value,
       datePickerIsShow: false,
     });
   },
@@ -54,28 +55,25 @@ Page({
   //表单提交（保存资料）
   formSubmit: function(e) {
     var that = this
+    var adds = e.detail.value;
     if (that.data.isUpHeader === true) {
-      var adds = e.detail.value;
+      console.log(1)
       if (adds.gender === '女') {
         adds.gender = 2
       } else {
         adds.gender = 1
       }
+      that.data.adds = adds
       that.upload()
-      that.setData({
-        adds: adds
-      })
     } else {
-      var adds = e.detail.value;
+      console.log(2)
       if (adds.gender === '女') {
         adds.gender = 2
       } else {
         adds.gender = 1
       }
+      that.data.adds = adds
       that.upload1()
-      // that.setData({
-      //   adds: e.detail.value
-      // })
     }
 
   },
@@ -131,18 +129,12 @@ Page({
   //不传头像的方法
   upload1: function() {
     var that = this
-    var userInfo = {}
-    userInfo.birthday = that.data.adds.birthday
-    userInfo.gender = that.data.adds.gender
-    userInfo.hometown = that.data.adds.hometown
-    userInfo.location = that.data.adds.location
-    userInfo.career = that.data.adds.career
-    userInfo.nickname = that.data.adds.nickname
+    var userInfo = that.data.adds
     app.Util.ajax('mall/personal/modifyBaseData', userInfo, 'POST').then((res) => {
       if (res.data.content) {
         that.baseMessage()
         wx.showToast({
-          title: '资料更新成功',
+          title: '资料更新成功', 
           icon: 'none'
         })
       } else {

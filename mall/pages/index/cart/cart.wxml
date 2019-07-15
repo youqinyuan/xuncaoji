@@ -14,13 +14,6 @@
       <view class="store-container-wrapper" wx:if="{{shops.length >0 }}">
         <view class="shop-view" style="margin-bottom: 400rpx;">
           <view class="shop-view-wrapper" wx:for="{{shops}}" wx:key="{{index}}" wx:for-index="groupIndex">
-            <view class="shop-view-wrapper-title">
-              <checkbox-group bindchange="checkall" data-index="{{groupIndex}}" class="store-box">
-                <checkbox checked='{{item.checkeedAll}}' class="goods-view1"></checkbox>
-              </checkbox-group>              
-              <image src="{{item.imageUrl}}"></image>
-              <text class="teacher-ke-name" bindtap='jumpStoreDetail' data-id="{{item.storeId}}">{{item.storeName}}</text>
-            </view>
             <checkbox-group data-groupIndex="{{groupIndex}}" wx:for="{{item.cartDetails}}" data-kc="{{item}}" wx:key="{{index}}" data-index="{{index}}" bindchange="Checks1" class="store-box1">
               <checkbox class="goods-view" checked="{{item.checked}}"></checkbox>
               <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
