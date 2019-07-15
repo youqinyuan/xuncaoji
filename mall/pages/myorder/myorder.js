@@ -206,7 +206,33 @@ Page({
         })
       }
     })
-  }, 　　
+  },
+  //加载更多好货
+  getMore2: function () {
+    var that = this
+    var pageNumber = that.data.pageNumber + 1
+    app.Util.ajax('mall/home/bestChoice', {
+      pageNumber: pageNumber,
+      pageSize: that.data.pageSize
+    }, 'GET').then((res) => { // 使用ajax函数
+      if (res.data.content) {
+        if (res.data.content.items == '' && that.data.list !== '') {
+          that.setData({
+            text: '已经到底啦'
+          })
+        }
+        var arr = that.data.list
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          arr.push(res.data.content.items[i])
+        })
+        that.setData({
+          list: arr,
+          pageNumber: pageNumber
+        })
+      }
+    })
+  },　　
   //页面初始化全部订单
   initgetMore1: function () {
     var that = this
@@ -540,8 +566,10 @@ Page({
   */
   onReachBottom: function () {
     var that = this;
-    if (that.data.currentTab==''){
+    if (that.data.allOrder.length > 2){
       that.getMore1() 
+    }else{
+      that.getMore2()
     }
     
   },

@@ -215,7 +215,7 @@
 
 .nationwideReturn-list-img {
   width: 224rpx;
-  height: 186rpx;
+  height: 224rpx;
   border-radius: 8rpx 8rpx 0rpx 0rpx;
 }
 
@@ -299,14 +299,14 @@
 
 .goodlist-list-img {
   width: 192rpx;
-  height: 160rpx;
+  height: 192rpx;
   border: 2rpx solid #fff;
   margin-right: 20rpx;
 }
 
 .goodlist-list-img image {
   width: 192rpx;
-  height: 160rpx;
+  height: 192rpx;
   border-radius: 8rpx;
 }
 
@@ -459,12 +459,12 @@
 
 .quality-list-img {
   width: 348rpx;
-  height: 290rpx;
+  height: 348rpx;
 }
 
 .quality-list-img image {
   width: 348rpx;
-  height: 290rpx;
+  height: 348rpx;
   border-radius: 8rpx 8rpx 0px 0px;
 }
 

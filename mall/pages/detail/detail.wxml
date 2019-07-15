@@ -166,7 +166,7 @@
           <text>￥</text>{{item.dctPrice}}</view>
         <view class="oldprice">￥{{item.orgPrice}}</view>
       </view>
-      <view class="return-wrap" wx:if="{{item.marketingCashBack.totalAmount>0}}">
+      <view class="return-wrap">
         <view class="return-money">
           <text>返</text>
           <text>{{item.marketingCashBack.totalAmount}}</text>
@@ -262,7 +262,7 @@
     </view>
     <!-- 分期返现 -->
     <view class="return" wx:if="{{stockDetail1.cashbackItems.length>0}}">
-      <view class="return-title">分期返现</view>
+      <view class="return-title">购物返现</view>
       <scroll-view scroll-x scroll-left='{{scrleft}}' class='orderTab'>
         <view class="orderTabItem" wx:for="{{stockDetail1.cashbackItems}}" wx:key="{{item.cashbackId}}">
           <view class="order-item {{activeIndex===index? 'active1' : ''}}" data-id="{{item.cashbackId}}" data-gindex="{{index}}" bindtap='clickCashback' data-total="{{item.totalAmount}}">

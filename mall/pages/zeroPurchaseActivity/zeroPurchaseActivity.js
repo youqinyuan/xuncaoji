@@ -26,6 +26,7 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    console.log(options)
     that.init();
     that.chooseShare();
     var status = wx.getStorageSync('status')
@@ -37,6 +38,10 @@ Page({
       that.setData({
         show:true
       })
+    }
+    //别人通过链接
+    if (options.inviterCode) {
+      wx.setStorageSync('othersInviterCode', options.inviterCode)
     }
   },
   chooseShare:function(){
@@ -171,6 +176,7 @@ Page({
       }
     })
     return {
+      title: that.data.shareList.desc,
       path: that.data.shareList.link,
       imageUrl: that.data.imageUrl,
       success: function (res) {

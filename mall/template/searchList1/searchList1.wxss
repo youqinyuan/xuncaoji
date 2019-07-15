@@ -31,11 +31,8 @@
 }
 
 .goods-list {
-  position: relative;
-  height: 242rpx;
   margin-left: 30rpx;
   width: 720rpx;
-  overflow: hidden;
   border-bottom: 2rpx solid #f4f4f4;
   display: flex;
   justify-content: space-between;
@@ -43,21 +40,22 @@
 
 .goods-list-img {
   width: 240rpx;
-  height: 200rpx;
+  height: 240rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  border-radius: 8rpx;
 }
 
 .goods-list-img image {
   width: 240rpx;
-  height: 200rpx;
-  margin-top: 20rpx;
-  border-radius: 8rpx;
+  height: 240rpx;
+  
 }
 
 .goods-list-item {
   margin-top: 30rpx;
   width: 428rpx;
   margin-right: 30rpx;
-  height: 200rpx;
 }
 
 .goods-list-text {

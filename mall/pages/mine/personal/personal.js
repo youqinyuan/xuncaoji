@@ -99,8 +99,8 @@ Page({
     var that = this
     var token = wx.getStorageSync('token')
     wx.uploadFile({
-      url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData',//测试环境
-      // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData',//正式环境
+      // url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData',//测试环境
+      url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData',//正式环境
       filePath: that.data.avatarKey,
       name: 'avatarKey',
       formData: that.data.adds,

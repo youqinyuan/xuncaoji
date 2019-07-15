@@ -117,17 +117,21 @@ Page({
           res.data.content.goodsResult.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           })
-          if (res.data.content.goodsResult.items.length !== 0 && res.data.content.storeResult.items.length !==0){
-            that.setData({
-              goodsResult: res.data.content.goodsResult.items.slice(0, 5),
-              storeResult: res.data.content.storeResult.items.slice(0, 5)
-            }) 
-          }else{
-            that.setData({
-              goodsResult: res.data.content.goodsResult.items,
-              storeResult: res.data.content.storeResult.items
-            })
-          }         
+          that.setData({
+            goodsResult: res.data.content.goodsResult.items,
+            // storeResult: res.data.content.storeResult.items
+          }) 
+          // if (res.data.content.goodsResult.items.length !== 0 && res.data.content.storeResult.items.length !==0){
+          //   that.setData({
+          //     goodsResult: res.data.content.goodsResult.items.slice(0, 5),
+          //     storeResult: res.data.content.storeResult.items.slice(0, 5)
+          //   }) 
+          // }else{
+          //   that.setData({
+          //     goodsResult: res.data.content.goodsResult.items,
+          //     storeResult: res.data.content.storeResult.items
+          //   })
+          // }         
         }
       })  
     }
@@ -151,19 +155,23 @@ Page({
         res.data.content.goodsResult.items.forEach((v, i) => {
           v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
         })
-        if (res.data.content.goodsResult.items.length !== 0 && res.data.content.storeResult.items.length !== 0) {
-          res.data.content.goodsResult.items = res.data.content.goodsResult.items.slice(0, 5)
-          res.data.content.storeResult.items = res.data.content.storeResult.items.slice(0, 5)
-          that.setData({
-            goodsResult: res.data.content.goodsResult.items,
-            storeResult: res.data.content.storeResult.items
-          })
-        } else {
-          that.setData({
-            goodsResult: res.data.content.goodsResult.items,
-            storeResult: res.data.content.storeResult.items
-          })
-        }       
+        that.setData({
+          goodsResult: res.data.content.goodsResult.items,
+          // storeResult: res.data.content.storeResult.items
+        }) 
+        // if (res.data.content.goodsResult.items.length !== 0 && res.data.content.storeResult.items.length !== 0) {
+        //   res.data.content.goodsResult.items = res.data.content.goodsResult.items.slice(0, 5)
+        //   res.data.content.storeResult.items = res.data.content.storeResult.items.slice(0, 5)
+        //   that.setData({
+        //     goodsResult: res.data.content.goodsResult.items,
+        //     storeResult: res.data.content.storeResult.items
+        //   })
+        // } else {
+        //   that.setData({
+        //     goodsResult: res.data.content.goodsResult.items,
+        //     storeResult: res.data.content.storeResult.items
+        //   })
+        // }       
       }
     })  
   },

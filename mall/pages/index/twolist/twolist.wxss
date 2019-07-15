@@ -91,12 +91,12 @@ page {
 
 .comprehensive-list-img {
   width: 348rpx;
-  height: 290rpx;
+  height: 348rpx;
 }
 
 .comprehensive-list-img image {
   width: 348rpx;
-  height: 290rpx;
+  height: 348rpx;
   border-radius: 8rpx 8rpx 0px 0px;
 }
 

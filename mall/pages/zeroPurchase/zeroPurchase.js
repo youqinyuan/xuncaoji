@@ -23,6 +23,7 @@ Page({
     seconds: [0, 0],//秒
     haoSeconds: [0, 0],//毫秒
     inviterCode:'',
+    imageUrl: '../../assets/images/icon/shareDetail.png'
   },
   imgYu: function (e) {
     var src = e.currentTarget.dataset.src;//获取data-src
@@ -275,6 +276,7 @@ Page({
       }
     })
     return {
+      title: that.data.shareList.desc,
       path: that.data.shareList.link,
       imageUrl: that.data.imageUrl,
       success: function (res) {

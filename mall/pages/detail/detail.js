@@ -476,6 +476,8 @@ Page({
     that.queryCount();
     //是否设置支付密码
     that.setPassword();
+    //查询分享数据
+    that.chooseShare()
   },
   queryCount: function() {
     //查询商品数量

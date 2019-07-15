@@ -222,7 +222,7 @@ Page({
       console.log(address)
       that.setData({
         addressItems:address,
-        name: address.name,
+        name: address.receiverName,
         phoneNumber: address.mobileNumber,
         city: address.cityName,
         detailAddress: address.districtName,
@@ -232,7 +232,8 @@ Page({
           quantity: quantity,
           cashBackId: cashBackId,
           userAddressBookId: address.id
-        }
+        },
+        userAddressBookId: address.id
       })
     }else{
       app.Util.ajax('mall/personal/addressInfo', 'GET').then((res) => { // 使用ajax函数

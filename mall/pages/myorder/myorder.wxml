@@ -100,7 +100,7 @@
           <text>￥</text>{{item.dctPrice}}</view>
         <view class="oldprice">￥{{item.orgPrice}}</view>
       </view>
-      <view class="return-wrap" wx:if="{{item.marketingCashBack.totalAmount>0}}">
+      <view class="return-wrap">
         <view class="return-money1">
           <text>返</text>
           <text>{{item.marketingCashBack.totalAmount}}</text>

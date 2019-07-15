@@ -56,11 +56,11 @@
       <image class="zerobuy-item" src="../../assets/images/icon/index_zerobuy.png"></image>
       <view class="zerobuy-item"></view>
     </view>
-    <!--全民返-->
+    <!--分期返专场-->
     <view class="nationwideReturn">
       <view class="nationwideReturn-title" bindtap='jumpReturn' data-url='/pages/nationwideReturn/nationwideReturn'>
         <image class="nationwideReturn-img" src="../../assets/images/icon/quanmfan_icon.png"></image>
-        <text class="nationwideReturn-text">分期返专场</text>
+        <text class="nationwideReturn-text">0元购好物</text>
         <view class="nationwideReturn-price">累计已返
           <text>{{totalAmount}}</text>元</view> 
       </view>
@@ -74,11 +74,11 @@
         </view>
       </view>
     </view>
-    <!--好物榜-->
+    <!--性价比之王-->
     <view class="goodlist">
       <view class="goodlist-title">
         <image class="goodlist-img" src="../../assets/images/icon/tuijian_haowu_icon.png"></image>
-        <text class="goodlist-text">性价比之王</text>
+        <text class="goodlist-text">超值一口价</text>
       </view>
       <view class="goodlist-list">
         <scroll-view class="goodlist-list-scroll" scroll-x="true">
@@ -96,8 +96,8 @@
       </view>
     </view>
     <view class="block"></view>
-    <!--趋势榜-->
-    <view class="trend">
+    <!--口碑爆品榜-->
+    <!-- <view class="trend">
       <view class="trend-title">
         <image class="trend-img" src="../../assets/images/icon/tuijian_qushi_icon.png"></image>
         <text class="trend-text">口碑爆品榜</text>
@@ -113,7 +113,7 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
     <!--品质优选-->
     <view class="quality">
       <view class="quality-title">
@@ -132,7 +132,7 @@
               <text>￥</text>{{item.dctPrice}}</view>
             <view class="oldprice">￥{{item.orgPrice}}</view>
           </view>
-        <view class="return-wrap" wx:if="{{item.marketingCashBack.totalAmount>0}}">
+        <view class="return-wrap">
           <view class="return-money">
             <text>返</text>
             <text>{{item.marketingCashBack.totalAmount}}</text>

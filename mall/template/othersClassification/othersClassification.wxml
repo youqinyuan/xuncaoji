@@ -14,10 +14,8 @@
     <view class="two-classification">
       <view class="two-classification-wrapper">
         <view class="two-classification-list" wx:for="{{classfy}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="twoList">
-          <view class="two-classification-img">
-            <image wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}"></image>
-            <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
-          </view>
+          <image class="two-classification-img" mode="widthFix" wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}"></image>
+          <image class="two-classification-img" mode="widthFix" wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
           <view class="two-classification-text">{{item.name}}</view>
         </view>
       </view>
@@ -50,7 +48,7 @@
             <text>￥</text>{{item.dctPrice}}</view>
           <view class="oldprice">￥{{item.orgPrice}}</view>
         </view>
-        <view class="return-wrap" wx:if="{{item.marketingCashBack.totalAmount>0}}">
+        <view class="return-wrap">
           <view class="return-money">
             <text>返</text>
             <text>{{item.marketingCashBack.totalAmount}}</text>

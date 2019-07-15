@@ -3,7 +3,7 @@
   <view class="searchList1-wrap">
     <view class="goods" wx:if="{{goodsResult.length !==0}}">
       <view class="goods-title">商品{{getMore}}</view>
-      <view wx:if="{{goodsResult.length>=5 && storeResult.length !== 0}}" class="goods-text" bindtap='seeMoreGoods'>查看更多</view>
+      <!-- <view wx:if="{{goodsResult.length>=5 && storeResult.length !== 0}}" class="goods-text" bindtap='seeMoreGoods'>查看更多</view> -->
     </view>
     <!--商品列表-->
     <view class="goods-list-wrap">
@@ -25,7 +25,7 @@
               <view class="oldprice">{{item.orgPrice}}</view>
             </view>
           </view>
-          <view class="return-wrap" wx:if="{{item.marketingCashBack.totalAmount>0}}">
+          <view class="return-wrap">
             <view class="return-money">
               <text>返</text>
               <text>{{item.marketingCashBack.totalAmount}}</text>

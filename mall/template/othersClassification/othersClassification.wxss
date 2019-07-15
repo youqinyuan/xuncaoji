@@ -16,7 +16,7 @@
 
 .two-classification {
   height: auto;
-  margin-bottom: 30rpx;
+  margin-bottom: 20rpx;
   overflow: hidden;
   background: rgba(255, 255, 255, 1);
 }
@@ -38,20 +38,14 @@
 }
 
 .two-classification-img {
-  width: 90rpx;
-  height: 90rpx;
+  width: 100rpx;
+  height: 100rpx;
 }
-
-.two-classification-img image {
-  width: 90rpx;
-  height: 90rpx;
-}
-
 .two-classification-text {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
   font-weight: 400;
-  margin-top: 10rpx;
+  margin-top: 20rpx;
   color: rgba(102, 102, 102, 1);
 }
 
@@ -134,12 +128,12 @@
 
 .comprehensive-list-img {
   width: 348rpx;
-  height: 290rpx;
+  height: 348rpx;
 }
 
 .comprehensive-list-img image {
   width: 348rpx;
-  height: 290rpx;
+  height: 348rpx;
   border-radius: 8rpx 8rpx 0px 0px;
 }
 
