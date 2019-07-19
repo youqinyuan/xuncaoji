@@ -159,7 +159,7 @@
   margin: 0rpx auto;
 }
 
-/* 全民返 */
+/* 0元购好物 */
 
 .nationwideReturn {
   margin-top: 20rpx;
@@ -202,13 +202,13 @@
 .nationwideReturn-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 0 22rpx;
+  justify-content: flex-start;
   background: rgb(255, 255, 255);
 }
 
 .nationwideReturn-list {
   margin-bottom: 20rpx;
+  margin-left: 20rpx;
   width: 224rpx;
   position: relative;
 }
@@ -233,14 +233,14 @@
 }
 
 .nationwideReturn-list-price {
-  font-size: 24rpx;
+  font-size: 20rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(227, 58, 89, 1);
 }
 
 .nationwideReturn-list-price text {
-  font-size: 20rpx;
+  font-size: 16rpx;
 }
 
 .nationwideReturn-list-item {
@@ -260,7 +260,7 @@
   color: rgba(255, 255, 255, 1);
 }
 
-/*好物榜*/
+/*超值一口价*/
 
 .goodlist {
   margin-top: 20rpx;
@@ -337,7 +337,7 @@
   font-size: 28rpx;
 }
 
-/*趋势榜*/
+/*口碑爆品榜*/
 
 .trend {
   margin-top: 20rpx;
@@ -416,7 +416,7 @@
   height: 150rpx;
 }
 
-/*品质优选*/
+/*销量排行榜*/
 
 .quality {
   margin-top: 20rpx;
@@ -517,7 +517,7 @@
 .return-wrap {
   display: flex;
   height: 40rpx;
-  margin-right: 30rpx;
+  margin-right: 16rpx;
   line-height: 40rpx;
   background: rgba(252, 243, 237, 1);
   border-radius: 8rpx;

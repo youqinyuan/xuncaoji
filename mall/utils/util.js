@@ -1,4 +1,4 @@
-function formatTime(date){
+function formatTime(date) {
   var date = new Date(Date.parse(date));
   var year = date.getFullYear();
   var month = date.getMonth() + 1;
@@ -21,7 +21,7 @@ function formatNumber(n) {
  * 时间戳转化为年 月 日 时 分 秒 
  * number: 传入时间戳 
  * format：返回格式，支持自定义，但参数必须与formateArr里保持一致 
-*/
+ */
 function formatTimeTwo(number, format) {
   var formateArr = ['Y', 'M', 'D', 'h', 'm', 's'];
   var returnArr = [];
@@ -69,38 +69,46 @@ function getRouter() { //此方法跟上面一个方法前四行一致，只是�
 
 const ajax = (url, data, method, config = {}) => {
   let token = wx.getStorageSync('token')
-  let baseUrl = "https://xuncaoji.yzsaas.cn/";//测试环境
-  // let baseUrl = 'https://xuncj.yzsaas.cn/';//正式环境
-  let headerConfig = {  // 默认header ticket、token、params参数是每次请求需要携带的认证信息
+  // let baseUrl = "https://xuncaoji.yzsaas.cn/"; //测试环境
+  let baseUrl = 'https://xuncj.yzsaas.cn/';//正式环境
+  let headerConfig = { // 默认header ticket、token、params参数是每次请求需要携带的认证信息
     ticket: '...',
     token: '' || token,
     params: '...',
-    'content-type': 'application/json' 
+    'content-type': 'application/json'
     // application/x-www-form-urlencoded
     // 'content-type':'application/x-www-form-urlencoded'
   }
   wx.showLoading({
     title: '加载中…'
   })
-    return new Promise((resolve, reject) => {  // 返回一个promise
-      wx.request({
-        url: baseUrl + url, // 拼接url
-        data,
-        header: Object.assign({}, headerConfig, config), // 合并传递进来的配置
-        method: method,
-        success(res) {
-          if (res.statusCode = 200) {
+  return new Promise((resolve, reject) => { // 返回一个promise
+    wx.request({
+      url: baseUrl + url, // 拼接url
+      data,
+      header: Object.assign({}, headerConfig, config), // 合并传递进来的配置
+      method: method,
+      success(res) {
+        if (res.data.statusCode == 200) {
+          if (res.data.messageCode == 'MSG_1001'){
+            // console.log('请求成功')
             resolve(res)
-          }
-        },
-        fail(res) {
-          reject(res => console.log(err))
-        },
-        complete(res) {
-          wx.hideLoading();
+          } else if (res.data.messageCode == 'MSG_2001') {
+            // console.log('未授权')
+            wx.navigateTo({
+              url: '/pages/invitationCode/invitationCode',
+            })
+          }        
         }
-      })
-    }) 
+      },
+      fail(res) {
+        reject(res => console.log(err))
+      },
+      complete(res) {
+        wx.hideLoading();
+      }
+    })
+  })
 }
 // export function uploadFiles(filePath, token) { 
 //   let token = wx.getStorageSync('token')

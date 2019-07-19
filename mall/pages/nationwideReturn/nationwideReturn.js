@@ -31,6 +31,9 @@ Page({
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
         that.setData({
           wholeNation: res.data.content.items,
           totalAmount: res.data.content.totalAmount,
@@ -42,7 +45,6 @@ Page({
   getMore: function() {
     var that = this
     var pageNumber = that.data.pageNumber + 1
-    //品质优选
     app.Util.ajax('mall/home/cashBack', {
       pageNumber: pageNumber,
       pageSize: that.data.pageSize,
@@ -55,13 +57,12 @@ Page({
           })
         }
         var arr = that.data.wholeNation
-        for (var i = 0; i < res.data.content.items.length; i++) {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           arr.push(res.data.content.items[i])
-        }
-        that.setData({
-          wholeNation: arr,
         })
         that.setData({
+          wholeNation: arr,
           pageNumber: pageNumber
         })
       }

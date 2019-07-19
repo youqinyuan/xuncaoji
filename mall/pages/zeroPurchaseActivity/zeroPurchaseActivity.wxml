@@ -21,9 +21,10 @@
       <text>人已抢到</text>
     </view>
     <view class="zero-purchase-list-wrap">
-      <swiper class="zero-purchase-list" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <swiper class="zero-purchase-list" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF517A" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
         <block wx:for="{{goodsItems}}" wx:key="{{item.id}}">
           <swiper-item>
+          <image class="zero-purchase-list-price-img" src="../../assets/images/icon/flag.png"></image>
             <view class="zero-purchase-list-item" data-id="{{item.id}}" bindtap='jumpDetail'>
               <view class="zero-purchase-list-price">
                 <view class="text1">原价</view>
@@ -47,8 +48,8 @@
 <view class="modal-mask" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
 <view class="modal-dialog" wx:if="{{show}}" bindtap="hide">
   <!-- <view class="modal-dialog-container"> -->
-    <image class="img1" src="../../assets/images/icon/left.png"></image>
-    <view class="text">左右滑动选择商品哦</view>
-    <image class="img2" src="../../assets/images/icon/right.png"></image>
+  <image class="img1" src="../../assets/images/icon/left.png"></image>
+  <view class="text">左右滑动选择商品哦</view>
+  <image class="img2" src="../../assets/images/icon/right.png"></image>
   <!-- </view> -->
 </view>

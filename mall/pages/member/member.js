@@ -12,7 +12,9 @@ Page({
     expireTime:'',
     inviterCode: '',
     shareList:{},
-    imageUrl: '../../assets/images/icon/team_share.png'
+    imageUrl: '../../assets/images/icon/team_share.png',
+    haibao: false,
+    haibaoImg: '',
   },
   //显示弹框
   recurit: function () {
@@ -73,7 +75,7 @@ Page({
       })
     }else{
       app.Util.ajax('mall/personal/myMember', 'GET').then((res) => { // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.content) {
           var inviterCode = wx.getStorageSync('inviterCode')
           if (res.data.content.expireTime) {
             res.data.content.expireTime = time.formatTimeTwo(res.data.content.expireTime, 'Y年M月D日');
@@ -87,6 +89,130 @@ Page({
       })
     }
     that.chooseShare()
+  },
+  // 分享朋友圈 生成海报
+  shareFriend: function () {
+    var that = this
+    app.Util.ajax('mall/weChat/sharing/snapshot/target', {
+      mode: 4,
+    }, 'GET').then((res) => {
+      console.log(res)
+      if (res.messageCode = 'MSG_1001') {
+        var cashBack = res.data.content.cashBack
+        var desc = res.data.content.desc
+        var inviterCode = res.data.content.inviterCode
+        //邀请码转换为本地路径
+        wx.getImageInfo({
+          src: res.data.content.appletQrCodeUrl,
+          success(res) {
+            var appletQrCodeUrl = res.path
+            var width
+            var height
+            wx.getSystemInfo({
+              success(res) {
+                width = res.screenWidth
+                height = res.screenHeight
+              }
+            })
+            console.log(width, height)
+            var ctx = wx.createCanvasContext('mycanvas');
+            var path_bg = '/assets/images/icon/bg.png'; //背景图片
+            var path_logo = '/assets/images/icon/xuncaoji_icon.png'
+            var title = '种草达人的欢乐场'
+            inviterCode = `邀请码: ${inviterCode}`
+            //绘制图片模板的背景图片
+            ctx.drawImage(path_bg, 0, 0, 0.88 * width, 0.89 * height);
+            //绘制logo
+            ctx.drawImage(path_logo, 0.384 * width, 0.055 * height, 0.133 * width, 0.133 * width);
+            // 绘制标题
+            ctx.setFontSize(13);
+            ctx.setFillStyle('#fff');
+            ctx.setTextAlign("center")
+            ctx.fillText(title, 0.5 * width * 0.88, 26);
+            ctx.stroke();
+            // 绘制邀请码
+            ctx.setFontSize(20);
+            ctx.setFillStyle('#FF517A');
+            ctx.fillText(inviterCode, 0.5 * width * 0.88, 0.055 * height + 0.133 * width + 20);
+            ctx.stroke();
+            // 绘制产品图
+            ctx.drawImage('/assets/images/icon/bg_pic.png', 0.068 * width, 0.17 * height, 0.74 * width, 0.327 * height);
+            ctx.drawImage('/assets/images/icon/bg_yellow.png', 0.068 * width, 0.418 * height, 0.74 * width, 0.08 * height);
+            ctx.setFontSize(17);
+            ctx.setFillStyle('#E33A59');
+            ctx.fillText(`平台累计返现金额¥ ${cashBack}`, 0.5 * width * 0.88, 0.48 * height);
+            ctx.closePath()
+            ctx.stroke();
+            // 绘制描述
+            ctx.setFontSize(14);
+            ctx.setFillStyle('#333');
+            var test = desc
+            let chr = test.split('') // 分割为字符串数组
+            let temp = ''
+            let row = []
+            for (let a = 0; a < chr.length; a++) {
+              if (ctx.measureText(temp).width < 0.7 * width) {
+                temp += chr[a]
+              } else {
+                a--
+                row.push(temp)
+                temp = ''
+              }
+            }
+            row.push(temp)
+            for (var b = 0; b < row.length; b++) {
+              ctx.fillText(row[b], 0.5 * width * 0.88, 0.53 * height + b * 20);
+            }
+            ctx.stroke();
+            //绘制邀请码
+            ctx.drawImage(appletQrCodeUrl, 0.3 * width, 0.57 * height, 0.3 * width, 0.3 * width);
+            //绘制提示语
+            ctx.setFontSize(12);
+            ctx.setFillStyle('#999');
+            ctx.fillText('长按保存图片或识别二维码查看', 0.5 * width * 0.88, 0.57 * height + 0.3 * width + 20);
+            ctx.stroke();
+            ctx.draw(true, () => {
+              wx.canvasToTempFilePath({
+                canvasId: 'mycanvas',
+                success: res => {
+                  that.data.haibaoImg = res.tempFilePath
+                }
+              })
+            })
+            that.setData({
+              show: false,
+              haibao: true
+            })
+            wx.hideTabBar()
+          }
+        })
+      }
+    })
+  },
+  // 长按保存到相册
+  handleLongPress: function () {
+    var that = this
+    console.log('长按')
+    wx.saveImageToPhotosAlbum({
+      filePath: that.data.haibaoImg,
+      success(res) {
+        wx.showToast({
+          title: '图片已保存到相册',
+          icon: 'none'
+        });
+      },
+      fail(res) {
+        console.log(res)
+      }
+    })
+  },
+  //关闭海报分享页面
+  close_hb: function () {
+    var that = this
+    that.setData({
+      haibao: false
+    })
+    wx.showTabBar()
   },
 
   /**
@@ -145,7 +271,7 @@ Page({
         show: false
       })
       app.Util.ajax('mall/weChat/sharing/onSuccess', { mode: 4 }, 'POST').then((res) => {
-        if (res.data.messageCode = 'MSG_1001') {
+        if (res.data.content) {
           wx.showToast({
             title: '分享成功',
             icon: 'none'

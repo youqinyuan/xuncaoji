@@ -4,7 +4,6 @@
 }
 .logistics-list {
   display: flex;
-  /* padding-top: 63rpx; */
   position: relative;
 }
 
@@ -36,7 +35,7 @@
   padding-left: 10rpx;
   margin-left: 40rpx;
   margin-right: 30rpx;
-  height: 100rpx;
+  height: 120rpx;
   font-size: 24rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
@@ -44,6 +43,13 @@
 }
 .logistics-list-right .text {
   color: #999999;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  font-size: 28rpx;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 .logistics-list-right .circle {
   width: 12rpx;
@@ -54,11 +60,29 @@
   left: 149rpx;
   top:10rpx;
 }
+.logistics-list-right .circle1 {
+  position: absolute;
+  left: 132rpx;
+  top:-6rpx;
+}
+.logistics-list-right .circle2 {
+  position: absolute;
+  left: 132rpx;
+  top:-6rpx;
+}
 .logistics-list-right .block {
   width: 2rpx;
-  height: 84rpx;
+  height: 108rpx;
   background: rgba(170, 170, 170, 1);
   position: absolute;
   left: 153rpx;
-  top:22rpx;
+  top:23rpx;
+}
+.logistics-list-right .block1 {
+  width: 2rpx;
+  height: 102rpx;
+  background: rgba(170, 170, 170, 1);
+  position: absolute;
+  left: 153rpx;
+  top:29rpx;
 }

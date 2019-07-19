@@ -8,7 +8,8 @@ Page({
   data: {
     orderId:1,//订单id
     list:[],//物流列表
-    options:{}
+    options:{},
+    status:null
   },
 
   /**
@@ -32,7 +33,8 @@ Page({
           res.data.content.list[i].datetime = (res.data.content.list[i].datetime).slice(5, 16);
         }
         that.setData({
-          list: (res.data.content.list).reverse()
+          list: (res.data.content.list).reverse(),
+          status:res.data.content.status
         })
       }
       console.log(that.data.list[0])

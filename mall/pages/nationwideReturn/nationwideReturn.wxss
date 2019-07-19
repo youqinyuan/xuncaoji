@@ -110,6 +110,7 @@ page {
   margin-top: 20rpx;
   margin-left: 18rpx;
   border-radius: 8rpx;
+  padding-bottom: 20rpx;
   background: rgba(255, 255, 255, 1);
 }
 
@@ -140,7 +141,7 @@ page {
 .recommend-list-price {
   display: flex;
   margin-left: 16rpx;
-  margin-top: 30rpx;
+  margin-top: 20rpx;
 }
 
 .newprice {
@@ -160,14 +161,27 @@ page {
   color: rgba(153, 153, 153, 1);
 }
 
-.recommend-list-share {
-  font-size: 28rpx;
+.return-wrap {
+  display: flex;
+  height: 40rpx;
+  margin-right: 16rpx;
+  line-height: 40rpx;
+  background: rgba(252, 243, 237, 1);
+  border-radius: 8rpx;
   margin-left: 16rpx;
-  margin-top: 16rpx;
-  padding-bottom: 30rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(255, 141, 18, 1);
+  font-size: 22rpx;
+  color: #ff8d12;
+}
+
+.return-wrap .return-money text:nth-child(1) {
+  color: #999;
+  margin-left: 17rpx;
+  padding: 0 8rpx;
+}
+
+.return-wrap .pay-money text:nth-child(1) {
+  color: #999;
+  padding: 0 8rpx;
 }
 
 .return-bottom {

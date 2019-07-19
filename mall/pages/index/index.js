@@ -5,12 +5,10 @@ var utils = require('../../utils/util.js');
 Page({
   data: {
     showDialog: false,
-    showModalStatus: false, //分享弹窗
-    shareList: {}, //分享数据
-    goodsId: 1, //分享用的商品id
-    sharingProfit: '', //分享返利
-    imgUrls: [], //轮播图
-    imageUrl: [], //二级分类下的轮播图
+    // showModalStatus: false, //分享弹窗
+    // shareList: {}, //分享数据
+    // goodsId: 1, //分享用的商品id
+    // sharingProfit: '', //分享返利
     autoplay: true,
     circular: true,
     interval: 2000,
@@ -18,24 +16,24 @@ Page({
     navData: [], //导航栏
     currentTab: 0,
     navScrollLeft: 0,
-    goods: [], //性价比之王
+    imgUrls: [], //爆品下的轮播图
+    wholeNation: [],//0元购好物
+    goods: [], //超值一口价
+    trend: [], //口碑爆品榜
     list: [], //销量排行榜
     classfy: [], //二级分类下轮播图下的分类
     pageNumber: 1, //分页记录数
     pageSize: 6, //分页大小
-    total: 0, //分页总数
-    hasmoreData: true, //更多数据
-    hiddenloading: true, //加载中
-    id: 1, //父级id
-    text: '', //底部提示
-    text1: '', //底部提示
-    trend: [], //口碑爆品榜
-    wholeNation: [], //全民返
+    id: 1, //导航栏id
+    text: '', //爆品底部提示
+    text1: '', //其他底部提示
+    imageUrl: [], //二级分类下的轮播图
     comprehensive: [], //二级分类下的商品
     totalAmount: 1, //全民返总件数
-    count: '', //购物车
+    count: null, //购物车数量
     i: 1,
     bannerId: 1, //0元购banner
+    bannerUrl: null,//0元购banner
     color: "#FF8D12",
     color1: "black",
     color2: "black",
@@ -83,8 +81,196 @@ Page({
   //     }
   //   })
   // },
+  //事件处理函数
+  onLoad: function(options) {
+    wx.showShareMenu({
+      withShareTicket: true
+    })
+    var that = this;
+    var flag = app.globalData.flag
+    if (!flag) {
+      that.setData({
+        showDialog: false
+      })
+    } else {
+      that.setData({
+        showDialog: true
+      })
+    }
+    //别人通过链接
+    if (options.inviterCode){
+      wx.setStorageSync('othersInviterCode', options.inviterCode )
+    }
+    //查询购物车种类数量
+    that.getCartCount();
+    //一级分类（导航栏）
+    that.navigationBar();
+    //爆品轮播图
+    that.explosivesSwiper();
+    //查询0元购banner图信息
+    that.zeroPurchase();
+    //查询0元购活动页
+    that.zeroPurchaseMessage();
+    //0元购好物
+    that.zeroPurchaseGoods();
+    //超值一口价
+    that.overvaluedPrice();
+    //口碑爆品榜
+    that.publicPraise();
+    //销量排行榜
+    that.initgetMore1();
+  },
+  //导航栏
+  navigationBar: function () {
+    var that = this
+    app.Util.ajax('mall/home/categories', 'GET').then((res) => {
+      if (res.data.messageCode = 'MSG_1001') {
+        console.log(res)
+        that.setData({
+          navData: res.data.content
+        })
+      }
+    })
+  },
+  //爆品轮播图
+  explosivesSwiper:function(){
+    var that = this
+    app.Util.ajax('mall/home/slideShow?slideShowCategory=1', 'GET').then((res) => { // 使用ajax函数
+      if (res.data.messageCode = 'MSG_1001') {
+        that.setData({
+          imgUrls: res.data.content
+        })
+      }
+    })
+  },
+  //查询0元购入口图片
+  zeroPurchase: function () {
+    var that = this
+    app.Util.ajax('mall/home/activity/freeShopping/entry', 'GET').then((res) => { // 使用ajax函数
+      if (res.data.content) {
+        that.setData({
+          bannerUrl: res.data.content.bannerUrl
+        })
+      }else{
+        that.setData({
+          bannerUrl: null
+        })
+      }
+    })
+  },
+  //查询0元购活动页
+  zeroPurchaseMessage:function(){
+    var that = this
+    app.Util.ajax(`mall/home/activity/freeShopping?mode=${1}`, null, 'GET').then((res) => { // 使用ajax函数
+      if (res.data.messageCode = 'MSG_1001') {
+        that.setData({
+          bannerId: res.data.content ? res.data.content.id : ''
+        })
+      }
+    })
+  },
+  //0元购好物
+  zeroPurchaseGoods:function(){
+    var that = this
+    app.Util.ajax('mall/home/cashBack', {
+      statistic: 1,
+      pageNumber: that.data.pageNumber,
+      pageSize: that.data.pageSize
+    }, 'GET').then((res) => { // 使用ajax函数
+      if (res.data.messageCode = 'MSG_1001') {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
+        that.setData({
+          wholeNation: res.data.content.items,
+          totalAmount: res.data.content.totalAmount
+        })
+      }
+    })
+  },
+  //超值一口价
+  overvaluedPrice:function(){
+    var that = this
+    app.Util.ajax('mall/home/lowPrice', 'GET').then((res) => { // 使用ajax函数
+      if (res.data.messageCode = 'MSG_1001') {
+        // console.log(res)
+        that.setData({
+          goods: res.data.content
+        })
+      }
+    })
+  },
+  //口碑爆品榜
+  publicPraise:function(){
+    var that = this
+    app.Util.ajax('mall/home/topSales', 'GET').then((res) => { // 使用ajax函数
+      if (res.data.messageCode = 'MSG_1001') {
+        that.setData({
+          trend: res.data.content
+        })
+      }
+    })
+  },
+  //销量排行榜
+  initgetMore1: function () {
+    var that = this
+    var pageNumber = that.data.pageNumber
+    //品质优选
+    app.Util.ajax('mall/home/bestChoice', {
+      pageNumber: pageNumber,
+      pageSize: that.data.pageSize
+    }, 'GET').then((res) => { // 使用ajax函数
+      if (res.data.messageCode = 'MSG_1001') {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
+        that.setData({
+          list: res.data.content.items
+        })
+      }
+    })
+  },
+  //加载更多
+  getMore1: function () {
+    var that = this
+    var pageNumber = that.data.pageNumber + 1
+    //销量排行榜
+    app.Util.ajax('mall/home/bestChoice', {
+      pageNumber: pageNumber,
+      pageSize: that.data.pageSize
+    }, 'GET').then((res) => { // 使用ajax函数
+      if (res.data.messageCode = 'MSG_1001') {
+        if (res.data.content.items == '' && that.data.list !== '') {
+          that.setData({
+            text: '已经到底啦'
+          })
+        }
+        var arr = that.data.list
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          arr.push(res.data.content.items[i])
+        })
+        that.setData({
+          list: arr,
+          pageNumber: pageNumber
+        })
+      }
+    })
+  },
+  //查询购物车种类数量
+  getCartCount:function(){
+    var that = this
+    app.Util.ajax('mall/cart/count', 'GET').then((res) => { // 使用ajax函数
+      if (res.data.messageCode = 'MSG_1001') {
+        let a = res.data.content
+        that.setData({
+          count: a > 99 ? '99+' : res.data.content
+        })
+      }
+    })
+  },
   //综合
-  comprehensive: function() {
+  comprehensive: function () {
     var that = this
     var id = that.data.id
     that.setData({
@@ -96,11 +282,10 @@ Page({
       pageNumber: that.data.pageNumber,
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
+      if (res.data.messageCode = 'MSG_1001') {
         res.data.content.items.forEach((v, i) => {
           v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
         })
-        console.log(res.data.content.items)
         that.setData({
           comprehensive: res.data.content.items,
           color: "#FF8D12",
@@ -113,7 +298,7 @@ Page({
     })
   },
   //升序降序
-  toPrice: function() {
+  toPrice: function () {
     var that = this
     var id = that.data.id
     that.setData({
@@ -129,7 +314,7 @@ Page({
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
       }, 'GET').then((res) => { // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.messageCode = 'MSG_1001') {
           res.data.content.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           })
@@ -151,7 +336,7 @@ Page({
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
       }, 'GET').then((res) => { // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.messageCode = 'MSG_1001') {
           res.data.content.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           })
@@ -167,7 +352,7 @@ Page({
     }
   },
   //上新
-  newGoods: function() {
+  newGoods: function () {
     var that = this
     var id = that.data.id
     that.setData({
@@ -182,7 +367,7 @@ Page({
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
       }, 'GET').then((res) => { // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.messageCode = 'MSG_1001') {
           res.data.content.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           })
@@ -204,7 +389,7 @@ Page({
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
       }, 'GET').then((res) => { // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.messageCode = 'MSG_1001') {
           res.data.content.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           })
@@ -220,16 +405,30 @@ Page({
       })
     }
   },
-  //跳转到二级列表页面
-  twoList: function(e) {
-    var id = e.currentTarget.dataset.id //当前点击的id 
-    var name = e.currentTarget.dataset.name //当前点击的id 
+  //跳转到搜索页面
+  focus: function (e) {
+    app.nav(e)
+  },
+  //首页跳转到详情页
+  jumpDetail: function (e) {
+    const id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: `/pages/index/twolist/twolist?id=${id}&name=${name}`,
+      url: `/pages/detail/detail?id=${id}`,
     })
   },
+  //跳转到0元购详情页
+  toZeroPurchase: function () {
+    const that = this
+    wx.navigateTo({
+      url: "/pages/zeroPurchaseActivity/zeroPurchaseActivity",
+    })
+  },
+  //跳转到0元购好物
+  jumpReturn: function (e) {
+    app.nav(e)
+  },
   //跳转到购物车
-  toCart: function(e) {
+  toCart: function (e) {
     let token = wx.getStorageSync('token')
     if (token) {
       app.nav(e)
@@ -239,168 +438,21 @@ Page({
       })
     }
   },
-  //跳转到搜索页面
-  focus: function(e) {
-    app.nav(e)
-  },
   //跳转到详情页
-  toDetail: function(e) {
+  toDetail: function (e) {
     const id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: `/pages/detail/detail?id=${id}`,
     })
   },
-  //首页跳转到详情页
-  jumpDetail: function(e) {
-    const id = e.currentTarget.dataset.id
+  //跳转到二级列表页面
+  twoList: function (e) {
+    var id = e.currentTarget.dataset.id //当前点击的id 
+    var name = e.currentTarget.dataset.name //当前点击的id 
     wx.navigateTo({
-      url: `/pages/detail/detail?id=${id}`,
+      url: `/pages/index/twolist/twolist?id=${id}&name=${name}`,
     })
-  },
-  //跳转到全民返
-  jumpReturn: function(e) {
-    app.nav(e)
-  },
-  //跳转到0元购详情页
-  toZeroPurchase: function() {
-    const that = this
-    wx.navigateTo({
-      url: "/pages/zeroPurchaseActivity/zeroPurchaseActivity",
-    })
-  },
-  //事件处理函数
-  onLoad: function(options) {
-    wx.showShareMenu({
-      withShareTicket: true
-    })
-    var that = this;
-    var flag = app.globalData.flag
-    if (!flag) {
-      that.setData({
-        showDialog: false
-      })
-    } else {
-      that.setData({
-        showDialog: true
-      })
-    }
-    //别人通过链接
-    if (options.inviterCode){
-      wx.setStorageSync('othersInviterCode', options.inviterCode )
-    }
-    //查询商品数量
-    app.Util.ajax('mall/cart/count', 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
-        let a = res.data.content
-        that.setData({
-          count: a > 99 ? '99+' : res.data.content
-        })
-      }
-    })
-    //一级分类（导航栏）
-    app.Util.ajax('mall/home/categories', 'GET').then((res) => {
-      if (res.messageCode = 'MSG_1001') {
-        that.setData({
-          navData: res.data.content
-        })
-      }
-    })
-    //爆品轮播图
-    app.Util.ajax('mall/home/slideShow?slideShowCategory=1', 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
-        that.setData({
-          imgUrls: res.data.content
-        })
-      }
-    })
-    //查询0元购活动页
-    app.Util.ajax(`mall/home/activity/freeShopping?mode=${1}`, null, 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
-        that.setData({
-          bannerId: res.data.content ? res.data.content.id : ''
-        })
-      }
-    })
-    //性价比之王
-    app.Util.ajax('mall/home/lowPrice', 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
-        // console.log(res)
-        that.setData({
-          goods: res.data.content
-        })
-      }
-    })
-    //口碑爆品榜
-    app.Util.ajax('mall/home/topSales', 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
-        that.setData({
-          trend: res.data.content
-        })
-      }
-    })
-    //分期返专场
-    app.Util.ajax('mall/home/cashBack', {
-      statistic: 1,
-      pageNumber: that.data.pageNumber,
-      pageSize: that.data.pageSize
-    }, 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
-        that.setData({
-          wholeNation: res.data.content.items,
-          totalAmount: res.data.content.totalAmount
-        })
-      }
-    })
-    //销量排行榜
-    that.initgetMore1()
-  },
-  //加载更多
-  getMore1: function() {
-    var that = this
-    var pageNumber = that.data.pageNumber + 1
-    //销量排行榜
-    app.Util.ajax('mall/home/bestChoice', {
-      pageNumber: pageNumber,
-      pageSize: that.data.pageSize
-    }, 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
-        if (res.data.content.items == '' && that.data.list !== '') {
-          that.setData({
-            text: '已经到底啦'
-          })
-        }
-        var arr = that.data.list
-        res.data.content.items.forEach((v, i) => {
-          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
-          arr.push(res.data.content.items[i])
-        })
-        that.setData({
-          list: arr,
-          pageNumber: pageNumber
-        })
-      }
-    })
-  },
-  //销量排行榜
-  initgetMore1: function() {
-    var that = this
-    var pageNumber = that.data.pageNumber
-    //品质优选
-    app.Util.ajax('mall/home/bestChoice', {
-      pageNumber: pageNumber,
-      pageSize: that.data.pageSize
-    }, 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
-        res.data.content.items.forEach((v, i) => {
-          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
-        })
-        that.setData({
-          list: res.data.content.items
-        })
-      }
-    })
-  },
-  　　　　　
+  }, 　　　　　
   switchNav(e) {
     var that = this
     var cur = e.currentTarget.dataset.current;
@@ -425,7 +477,7 @@ Page({
       app.Util.ajax('mall/home/categories', {
         parentId: id
       }, 'GET').then((res) => { // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.messageCode = 'MSG_1001') {
           that.setData({
             classfy: res.data.content
           })
@@ -436,7 +488,7 @@ Page({
         slideShowCategory: 2,
         goodsCategoryId: id
       }, 'GET').then((res) => { // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.messageCode = 'MSG_1001') {
           that.setData({
             imageUrl: res.data.content
           })
@@ -446,8 +498,30 @@ Page({
         comprehensive: [],
         pageNumber: 1
       })
-      that.initgetMore2()
+      that.initgetMore2();
+      that.comprehensive();
     }
+  },
+  initgetMore2: function () {
+    var that = this
+    var id = that.data.id
+    var pageNumber = that.data.pageNumber
+    //品质优选
+    app.Util.ajax('mall/home/goods', {
+      categoryId: id,
+      sortBy: 1,
+      pageNumber: pageNumber,
+      pageSize: that.data.pageSize
+    }, 'GET').then((res) => { // 使用ajax函数
+      if (res.data.messageCode = 'MSG_1001') {
+        res.data.content.items.forEach((v, i) => {
+          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+        })
+        that.setData({
+          comprehensive: res.data.content.items
+        })
+      }
+    })
   },
   //爆品之外的分类加载更多
   getMore2: function() {
@@ -461,7 +535,7 @@ Page({
       pageNumber: pageNumber,
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
+      if (res.data.messageCode = 'MSG_1001') {
         if (res.data.content.items == '' && that.data.comprehensive !== '') {
           that.setData({
             text1: '已经到底啦'
@@ -475,27 +549,6 @@ Page({
         that.setData({
           comprehensive: arr,
           pageNumber: pageNumber
-        })
-      }
-    })
-  },
-  initgetMore2: function() {
-    var that = this
-    var id = that.data.id
-    var pageNumber = that.data.pageNumber
-    //品质优选
-    app.Util.ajax('mall/home/goods', {
-      categoryId: id,
-      sortBy: 1,
-      pageNumber: pageNumber,
-      pageSize: that.data.pageSize
-    }, 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
-        res.data.content.items.forEach((v, i) => {
-          v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
-        })
-        that.setData({
-          comprehensive: res.data.content.items
         })
       }
     })
@@ -540,8 +593,7 @@ Page({
         })
       }
     })
-  },
-  　　　
+  },  　　　
   onShow: function() {
     var that = this;
     var flag = app.globalData.flag
@@ -564,15 +616,8 @@ Page({
       })
       that.initgetMore1()
     }
-    //查询商品数量
-    app.Util.ajax('mall/cart/count', 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
-        let a = res.data.content
-        that.setData({
-          count: a > 99 ? '99+' : res.data.content
-        })
-      }
-    })
+    //查询购物车种类
+    that.getCartCount();
   },
   // //查询分享数据
   // chooseShare: function() {
@@ -595,36 +640,36 @@ Page({
   //   })
   // },
   //查询分享数据
-  chooseShare: function() {
-    var that = this
-    app.Util.ajax('mall/weChat/sharing/target', {
-      mode: 1,
-      targetId: that.data.goodsId
-    }, 'GET').then((res) => {
-      if (res.messageCode = 'MSG_1001') {
-        var inviterCode = wx.getStorageSync('inviterCode')
-        if (inviterCode) {
-          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
-        } else {
-          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
-        }
-        that.setData({
-          shareList: res.data.content        
-        })
-      }
-    })
-  },
+  // chooseShare: function() {
+  //   var that = this
+  //   app.Util.ajax('mall/weChat/sharing/target', {
+  //     mode: 1,
+  //     targetId: that.data.goodsId
+  //   }, 'GET').then((res) => {
+  //     if (res.messageCode = 'MSG_1001') {
+  //       var inviterCode = wx.getStorageSync('inviterCode')
+  //       if (inviterCode) {
+  //         res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
+  //       } else {
+  //         res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
+  //       }
+  //       that.setData({
+  //         shareList: res.data.content        
+  //       })
+  //     }
+  //   })
+  // },
   //爆品轮播图跳转
   jumpping: function(e) {
     var that = this
     var id = e.currentTarget.dataset.id
     var forwarddest = e.currentTarget.dataset.forwarddest
+    var name = e.currentTarget.dataset.name
     if (forwarddest === 1) {
       wx.navigateTo({
         url: `/pages/detail/detail?id=${id}`,
       })
     } else if (forwarddest === 2) {
-      console.log(that.data.id)
       that.setData({
         currentTab: id
       })
@@ -632,7 +677,7 @@ Page({
       app.Util.ajax('mall/home/categories', {
         parentId: id
       }, 'GET').then((res) => { // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.messageCode = 'MSG_1001') {
           that.setData({
             classfy: res.data.content
           })
@@ -643,7 +688,7 @@ Page({
         slideShowCategory: 2,
         goodsCategoryId: id
       }, 'GET').then((res) => { // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.messageCode = 'MSG_1001') {
           that.setData({
             imageUrl: res.data.content
           })
@@ -661,7 +706,7 @@ Page({
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
       }, 'GET').then((res) => { // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.messageCode = 'MSG_1001') {
           that.setData({
             comprehensive: res.data.content.items,
             color: "#FF8D12",
@@ -677,7 +722,7 @@ Page({
       })
     } else if (forwarddest === 3) {
       wx.navigateTo({
-        url: `/pages/index/twolist/twolist?id=${id}`,
+        url: `/pages/index/twolist/twolist?id=${id}&name=${name}`,
       })
     } else if (forwarddest === 4) {
       wx.switchTab({

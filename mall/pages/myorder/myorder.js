@@ -541,17 +541,17 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    // wx.reLaunch({
-    //   url: '/pages/mine/mine'
-    // }) 
-    var pages = getCurrentPages() //获取加载的页面
-    var currentPage = pages[pages.length - 2] //获取当前页面的对象
-    var url = currentPage.route
-    if (url == 'pages/paymentorder/paymentorder') {
-      wx.reLaunch({
-        url: '/pages/mine/mine'
-      })
-    }
+    wx.reLaunch({
+      url: '/pages/mine/mine'
+    }) 
+    // var pages = getCurrentPages() //获取加载的页面
+    // var currentPage = pages[pages.length - 2] //获取当前页面的对象
+    // var url = currentPage.route
+    // if (url == 'pages/paymentorder/paymentorder') {
+    //   wx.reLaunch({
+    //     url: '/pages/mine/mine'
+    //   })
+    // }
   },
 
   /**

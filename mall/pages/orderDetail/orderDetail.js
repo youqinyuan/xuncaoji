@@ -30,7 +30,7 @@ Page({
     orderTimeRefundDetail: {}, //退款时间
     orderTimeDetail: [], //订单信息时间
     userInteractDetail: [], //商家回复
-    autoProcessDate: ''
+    autoProcessTime: ''
   },
   //跳转到分期返现明细
   periodCash: function(e) {
@@ -88,6 +88,22 @@ Page({
         }
         if (res.data.content.orderTimeRefundDetail.length > 0) { 
           for (var i = 0; i < res.data.content.orderTimeRefundDetail.length; i++) {
+            if (res.data.content.latestStatus == 7 || res.data.content.latestStatus == 8) {
+              if (res.data.content.orderTimeRefundDetail[i].status == 7 || res.data.content.orderTimeRefundDetail[i].status == 8){
+                let current = res.data.content.orderTimeRefundDetail[i].autoProcessTime
+                let interval = setInterval(() => {
+                  if (current > 0) {
+                    current -= 1000
+                    that.formatDuring(current)
+                  } else {
+                    clearInterval(interval)
+                    this.setData({
+                      autoProcessTime: ''
+                    })
+                  }
+                }, 1000)
+              }
+          }
             res.data.content.orderTimeRefundDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeRefundDetail[i].statusTime, 'Y-M-D h:m:s');
           }
         }
@@ -101,7 +117,17 @@ Page({
       }
     })
   },
-
+  //退款倒计时
+  formatDuring(mss) {
+    var that = this
+    const days = parseInt(mss / (1000 * 60 * 60 * 24)).toString()
+    const hours = parseInt(mss / (1000 * 60 * 60 *7)).toString()
+    const minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)).toString()
+    const seconds = parseInt((mss % (1000 * 60)) / 1000).toString()
+    that.setData({
+      autoProcessTime: `超过${days}天${hours}小时${minutes}分钟${seconds}秒`
+    })
+  },
   //各种按钮
   //付款
   toPay: function(e) {

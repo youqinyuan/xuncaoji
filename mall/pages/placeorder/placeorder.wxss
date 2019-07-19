@@ -91,6 +91,13 @@ page {
 .address-name{
   display: flex;
 }
+.address1 image{
+  position: absolute;
+  right: 20rpx;
+  top:104rpx;
+  width: 56rpx;
+  height: 56rpx;
+}
 .address-name:nth-child(1) view {
   margin-right: 15rpx;
   font-size: 28rpx;

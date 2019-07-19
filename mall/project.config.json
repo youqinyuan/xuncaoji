@@ -49,19 +49,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
 					"name": "我的",
 					"pathName": "pages/mine/mine",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 1,
-					"name": "会员开通",
-					"pathName": "pages/mine/member/member",
 					"query": "",
 					"scene": null
 				},
@@ -111,7 +104,7 @@
 					"id": 8,
 					"name": "详情",
 					"pathName": "pages/detail/detail",
-					"query": "scene=id%3D27%26remarks%3Dnull",
+					"query": "id=25",
 					"scene": null
 				},
 				{

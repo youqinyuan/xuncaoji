@@ -155,7 +155,6 @@ page {
 .platform-compare {
   height: 68rpx;
   display: flex;
-  border-bottom: 2rpx solid #f4f4f4;
   line-height: 68rpx;
 }
 
@@ -184,7 +183,34 @@ page {
   font-weight: 400;
   color: rgba(102, 102, 102, 1);
 }
+.block1{
+  width: 750rpx;
+  height: 20rpx;
+  background: #f4f4f4;
+}
+/* 优惠 */
+.content-cashBack1 {
+  position: relative;
+  width: 750rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 24rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+}
 
+.content-cashBack1 image {
+  width: 50rpx;
+  height: 30rpx;
+  position: absolute;
+  left: 30rpx;
+  top:30rpx;
+}
+.content-cashBack1-text{
+  margin-left: 90rpx;
+}
+.content-cashBack1-text text{
+  color:#E33A59;
+}
 /*库存*/
 
 .stock {
@@ -525,7 +551,7 @@ page {
 .return-wrap {
   display: flex;
   height: 40rpx;
-  margin-right: 30rpx;
+  margin-right: 16rpx;
   line-height: 40rpx;
   background: rgba(252, 243, 237, 1);
   border-radius: 8rpx;
@@ -615,6 +641,7 @@ page {
   position: relative;
   width: 232rpx;
   height: 100rpx;
+  line-height: 100rpx;
   background: rgba(255, 144, 170, 1);
   display: flex;
   justify-content: space-around;
@@ -628,16 +655,13 @@ page {
 .share image {
   position: absolute;
   left: 15rpx;
-  top: 38rpx;
+  top: 33rpx;
   width: 36rpx;
   height: 36rpx;
 }
 
 .share-text {
   font-size: 28rpx;
-  position: absolute;
-  left: 57rpx;
-  top: 18rpx;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -812,7 +836,6 @@ page {
   overflow-x:hidden;
 }
 /* 优惠 */
-
 .content-cashBack {
   position: relative;
   width: 702rpx;
@@ -1086,7 +1109,12 @@ page {
   font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
-
+.content-wrapper1 .share-wrap{
+  width: 500rpx;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+}
 .content-wrapper1 .share-button {
   background: rgba(255, 255, 255, 1);
   width: 170rpx;
@@ -1099,8 +1127,8 @@ button::after {
 
 .content-wrapper1 .photo {
   margin-top: 30rpx;
-  width: 128rpx;
-  height: 128rpx;
+  width: 84rpx;
+  height: 84rpx;
 }
 
 .content-wrapper1 .wx {
@@ -1261,4 +1289,38 @@ button::after {
   font-size: 34rpx;
   text-align: center;
   color: rgba(255, 81, 122, 1);
+}
+/* 海报弹框 */
+.mask_hb{
+  width:100%;
+  height:100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top:0;
+}
+.canvas-box{
+  width:0;
+  height:0;
+  position: fixed;
+  top:3.9%;
+  left:6%;
+}
+.canvas{
+  width:88%;
+  height:89%;
+  position: fixed;
+  top:3.9%;
+  left:6%;
+}
+.close_hb{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left:0;
+  bottom:2%;
+}
+.close_hb image{
+  width:50rpx;
+  height:50rpx;
 }

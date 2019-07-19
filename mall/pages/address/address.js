@@ -7,15 +7,13 @@ Page({
     startX: 0, //开始坐标
     startY: 0,
     showDialog:false,
-    flag:false,
     options:{}
   },
   onLoad: function(options) {
     var that = this;
     console.log(options)
     that.setData({
-      options:options,
-      flag:Boolean(options.flag)
+      options:options
     })
     var name = ''
     app.Util.ajax('mall/personal/addressInfo', 'GET').then((res) => { // 使用ajax函数

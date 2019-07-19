@@ -31,7 +31,7 @@ Page({
     that.setData({
       disabled:true
     })
-    if (that.data.addressItems) {
+    if (that.data.addressItems != '') {
         if (that.data.cardIds.length > 0) {
           var cardIds = that.data.cardIds
           app.Util.ajax('mall/order/addOrderByCart', { cardIds: cardIds, userAddressBookId: that.data.userAddressBookId }, 'POST').then((res) => {
@@ -90,7 +90,7 @@ Page({
   jumpAddress: function() {
     var that = this; 
     wx.navigateTo({
-      url: `/pages/address/address?flag=${true}`,
+      url: '/pages/address/address',
     })
     wx.setStorage({
       key: "goAddress",
@@ -224,8 +224,8 @@ Page({
         addressItems:address,
         name: address.receiverName,
         phoneNumber: address.mobileNumber,
-        city: address.cityName,
-        detailAddress: address.districtName,
+        city: address.provinceName + address.cityName + address.districtName,
+        detailAddress:address.detailedAddress,
         goodsList: {
           goodsId: goodsId,
           stockId: stockId,
@@ -260,8 +260,7 @@ Page({
           })
         }
       })
-    }
-    
+    }    
   },
 
   /**

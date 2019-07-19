@@ -27,7 +27,7 @@
     <image src="../../assets/images/icon/fiery_orange_n.png"></image>
   </view>
   <view class="recommend-middle">
-    好物返现
+    0元购好物
   </view>
 </view>
 <view class="recommend-list-wrapper">
@@ -41,8 +41,17 @@
         <text>￥</text>{{item.dctPrice}}</view>
       <view class="oldprice">￥{{item.orgPrice}}</view>
     </view>
-    <view class="recommend-list-share">
-      最高返{{item.cashBack.totalAmount}}元
+    <view class="return-wrap">
+      <view class="return-money">
+        <text>返</text>
+        <text>￥</text>
+        <text>{{item.marketingCashBack.totalAmount}}</text>
+      </view>
+      <view class="pay-money">
+        <text>返后价</text>
+        <text>￥</text>
+        <text>{{item.truePrice}}</text>
+      </view>
     </view>
   </view>
 </view>

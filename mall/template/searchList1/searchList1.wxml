@@ -28,10 +28,12 @@
           <view class="return-wrap">
             <view class="return-money">
               <text>返</text>
+              <text>￥</text>
               <text>{{item.marketingCashBack.totalAmount}}</text>
             </view>
             <view class="pay-money">
               <text>返后价</text>
+              <text>￥</text>
               <text>{{item.truePrice}}</text>
             </view>
           </view>

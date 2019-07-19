@@ -207,7 +207,6 @@ Page({
   Focus(e) {
     var that = this;
     var inputValue = e.detail.value;
-    console.log(e)
     that.setData({
       Value: inputValue
     })

@@ -39,20 +39,38 @@
   </view>
 </view>
 <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
-<view class="modal-dialog" wx:if="{{show}}">
+<view class="modal-dialog" wx:if="{{show}}" style='top:{{top}}px;'>
   <view class='content'>
-      <view class="content-top-img">
-        <image src="../../assets/images/icon/team_pop_title.png">
-        </image>
-        <view class="invite-text">在好友填写您的邀请码以后，您将获得平台给您的一定的佣金和返利。</view>
-        <view class="invite-text1">邀请码:{{inviterCode}}</view>
-      </view>
-      <view class="content-middle-img">
-        <image src="../../assets/images/icon/pop_element.png"></image>
-      </view>
-      <button class="share" open-type="share">分享</button>
+    <view class="content-top-img">
+      <image src="../../assets/images/icon/team_pop_title.png">
+      </image>
     </view>
+    <view class="content-middle-img">
+      <image src="../../assets/images/icon/pop_element.png"></image>
+    </view>
+    <view class="content-wrapper1">
+      <view class="share-text"> 我已经买了很多优惠商品了，赶快和我一起组团剁手吧!</view>
+      <view class="share-wrap">
+        <button class="share-button" id='btn' open-type="share">
+          <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
+          <view class="wx">微信</view>
+        </button>
+        <button class="share-button" bindtap='shareFriend'>
+          <image class="photo" src="../../assets/images/icon/share_friends.png"></image>
+          <view class="wx">朋友圈</view>
+        </button>
+      </view>
+    </view>
+  </view>
 </view>
-<view class="content-cancel" wx:if="{{show}}" bindtap='cancel'>
+<view class="content-cancel" wx:if="{{show}}" bindtap='cancel' style='top:{{height}}px;'>
   <image src="../../assets/images/icon/vip_close_Pop-ups.png"></image>
+</view>
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress"/>
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="/assets/images/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
 </view>

@@ -7,7 +7,9 @@ page {
   font-family: PingFang-SC-Medium;
   font-weight: 500;
 }
-
+.wrap{
+  overflow: hidden;
+}
 /*轮播图*/
 
 .swiper-wrapper-item {
@@ -44,7 +46,7 @@ page {
   top: 730rpx;
   height: 80rpx;
   line-height: 80rpx;
-  left:40rpx;
+  left: 40rpx;
   padding: 0 10rpx;
   border-radius: 38rpx;
 }
@@ -76,7 +78,6 @@ page {
 .content {
   margin-top: 40rpx;
   background: rgba(255, 255, 255, 1);
-  margin-bottom: 20rpx;
   overflow: hidden;
 }
 
@@ -185,6 +186,23 @@ page {
   font-weight: 400;
   color: rgba(102, 102, 102, 1);
 }
+
+/* 规格 */
+
+.spcdesc {
+  width: 750rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  padding-left: 30rpx;
+  margin-bottom: 20rpx;
+  background: rgba(255, 255, 255, 1);
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+/* 邀请好友 */
 
 .stock {
   display: flex;
@@ -330,13 +348,16 @@ page {
 
 /* 详情图 */
 
-.shop-detail-wrap{
-  width:100%;
+.shop-detail-wrap {
+  margin-top: 20rpx;
+  width: 100%;
 }
+
 .shop-detail-wrap image {
   width: 100%;
   display: block;
 }
+
 .shop-detail-wrap-text {
   font-size: 28rpx;
   font-family: PingFang-SC-Medium;
@@ -345,7 +366,10 @@ page {
   width: 691rpx;
   margin: 15rpx auto;
 }
-
+.block{
+  height: 90rpx;
+  width: 750rpx;
+}
 /*底部*/
 
 .bottom {
@@ -539,4 +563,132 @@ button {
 
 button::after {
   border: none;
+}
+
+/* 分享弹框 */
+
+/* 弹出框 */
+
+.commodity_screen1 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.4;
+  overflow: hidden;
+  z-index: 9999;
+  color: rgba(255, 255, 255, 1);
+}
+
+/*对话框 */
+
+.commodity_attr_box1 {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+  z-index: 9999;
+}
+
+.content-wrapper1 {
+  overflow: hidden;
+  height: auto;
+  padding-bottom: 60rpx;
+  text-align: center;
+  position: relative;
+}
+
+.content-wrapper1 .cancel {
+  width: 44rpx;
+  height: 44rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 14rpx;
+}
+
+.content-wrapper1 .shareCommission {
+  margin-top: 70rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content-wrapper1 .shareText {
+  margin-top: 39rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+}
+
+.content-wrapper1 .share-wrap {
+  width: 500rpx;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.content-wrapper1 .share-button {
+  background: rgba(255, 255, 255, 1);
+  width: 170rpx;
+  height: 185rpx;
+  border-radius: 0;
+}
+
+button::after {
+  border: none;
+}
+
+.content-wrapper1 .photo {
+  margin-top: 30rpx;
+  width: 84rpx;
+  height: 84rpx;
+}
+
+.content-wrapper1 .wx {
+  margin-top: -35rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+/* 海报弹框 */
+.mask_hb{
+  width:100%;
+  height:100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top:0;
+}
+.canvas-box{
+  width:0;
+  height:0;
+  position: fixed;
+  top:3.9%;
+  left:6%;
+}
+.canvas{
+  width:88%;
+  height:89%;
+  position: fixed;
+  top:3.9%;
+  left:6%;
+}
+.close_hb{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left:0;
+  bottom:2%;
+}
+.close_hb image{
+  width:50rpx;
+  height:50rpx;
 }

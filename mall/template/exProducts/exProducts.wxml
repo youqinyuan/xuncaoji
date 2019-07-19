@@ -2,7 +2,7 @@
   <view class="container-wrapper">
     <!--轮播图-->
     <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF517A" indicator-dots="true" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <swiper-item wx:if="{{imgUrls.length>0}}" wx:for="{{imgUrls}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}">
+      <swiper-item wx:if="{{imgUrls.length>0}}" wx:for="{{imgUrls}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}" data-name="{{item.name}}">
         <image wx:if="{{imgUrls.length===0}}" src="../../assets/images/icon/zhanw_tb_n.png" class="slide-image" />
         <image wx:else src="{{item.imageUrl}}" class="slide-image" />
       </swiper-item>
@@ -53,7 +53,7 @@
     </view> -->
     <!--零元购-->
     <view class="zerobuy" bindtap='toZeroPurchase' wx:if="{{bannerId !==''}}">
-      <image class="zerobuy-item" src="../../assets/images/icon/index_zerobuy.png"></image>
+      <image class="zerobuy-item" src="{{bannerUrl}}"></image>
       <view class="zerobuy-item"></view>
     </view>
     <!--分期返专场-->
@@ -68,11 +68,13 @@
         <view class="nationwideReturn-list" wx:for="{{wholeNation}}" wx:key="{{item.id}}" bindtap='jumpReturn' data-url='/pages/nationwideReturn/nationwideReturn'>
           <image src="{{item.imageUrls[0]}}" class="nationwideReturn-list-img"></image>
           <view class="nationwideReturn-list-title">{{item.name}}</view>
-          <view class="nationwideReturn-list-price">最高返
-            <text>￥</text>{{item.cashBack.totalAmount}}</view>
+          <view class="nationwideReturn-list-price">返
+            <text>￥</text>{{item.marketingCashBack.totalAmount}}
+            返后价<text>￥</text>{{item.truePrice}}
+          </view>
           <view class="nationwideReturn-list-item">已抢{{item.grabbed}}</view>
         </view>
-      </view>
+      </view>      
     </view>
     <!--性价比之王-->
     <view class="goodlist">
@@ -97,7 +99,7 @@
     </view>
     <view class="block"></view>
     <!--口碑爆品榜-->
-    <!-- <view class="trend">
+    <view class="trend">
       <view class="trend-title">
         <image class="trend-img" src="../../assets/images/icon/tuijian_qushi_icon.png"></image>
         <text class="trend-text">口碑爆品榜</text>
@@ -113,7 +115,7 @@
           </view>
         </view>
       </view>
-    </view> -->
+    </view>
     <!--品质优选-->
     <view class="quality">
       <view class="quality-title">
@@ -135,10 +137,12 @@
         <view class="return-wrap">
           <view class="return-money">
             <text>返</text>
+            <text>￥</text>
             <text>{{item.marketingCashBack.totalAmount}}</text>
           </view>
           <view class="pay-money">
             <text>返后价</text>
+            <text>￥</text>
             <text>{{item.truePrice}}</text>
           </view>
         </view>

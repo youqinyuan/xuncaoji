@@ -57,7 +57,6 @@ Page({
     var that = this
     var adds = e.detail.value;
     if (that.data.isUpHeader === true) {
-      console.log(1)
       if (adds.gender === '女') {
         adds.gender = 2
       } else {
@@ -66,7 +65,6 @@ Page({
       that.data.adds = adds
       that.upload()
     } else {
-      console.log(2)
       if (adds.gender === '女') {
         adds.gender = 2
       } else {
@@ -130,11 +128,17 @@ Page({
   upload1: function() {
     var that = this
     var userInfo = that.data.adds
-    app.Util.ajax('mall/personal/modifyBaseData', userInfo, 'POST').then((res) => {
+    var formData = new FormData()
+    // for (let item in userInfo) {
+    //   if (userInfo[item]) {
+    //     formData.append(item, userInfo[item][item])
+    //   }
+    // }
+    app.Util.ajax('mall/personal/modifyBaseData', formData, 'POST').then((res) => {
       if (res.data.content) {
         that.baseMessage()
         wx.showToast({
-          title: '资料更新成功', 
+          title: '资料更新成功',
           icon: 'none'
         })
       } else {
@@ -159,7 +163,6 @@ Page({
     let that = this
     app.Util.ajax('mall/personal/queryBaseData', null, 'POST').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
-        console.log(res)
         that.setData({
           adds: res.data.content
         })

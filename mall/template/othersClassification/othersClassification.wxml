@@ -1,7 +1,7 @@
 <template name="othersClassification" wx:if="{{imageUrl.length>0}}">
   <view class="container-wrapper">
     <!--轮播图-->
-    <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF517A" indicator-dots="true" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <swiper class="swiper-wrapper-item" indicator-dots="{{false}}" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <swiper-item wx:if="{{imageUrl.length>0}}" wx:for="{{imageUrl}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}">
         <image wx:if="{{imageUrl.length===0}}" src="../../assets/images/icon/zhanw_tb_n.png" class="slide-image" />
         <image wx:else src="{{item.imageUrl}}" class="slide-image" />
@@ -51,10 +51,12 @@
         <view class="return-wrap">
           <view class="return-money">
             <text>返</text>
+            <text>￥</text>
             <text>{{item.marketingCashBack.totalAmount}}</text>
           </view>
           <view class="pay-money">
             <text>返后价</text>
+            <text>￥</text>
             <text>{{item.truePrice}}</text>
           </view>
         </view>

@@ -1,11 +1,11 @@
 <!--pages/detail/detail.wxml-->
 
 <!-- 商品实际支出保留两位小数 -->
-<wxs module = "foo">
+<wxs module="foo">
   module.exports = {
-    toStr:function(n){
+    toStr: function(n) {
       n = n.toFixed(2)
-      return n 
+      return n
     }
   }
 </wxs>
@@ -85,6 +85,15 @@
         <view class="platform-text">部分商品全额返</view>
       </view>
     </view>
+    <view class="block1"></view>
+    <view class="content-cashBack1" wx:if="{{detail.cashBack.totalAmount}}">
+      <image src="../../assets/images/icon/youhui_bqian.png"></image>
+      <view class="content-cashBack1-text">
+        商品将返现
+        <text>{{foo.toStr(detail.marketingCashBack.totalAmount)}}</text> 元，实际支出只需
+        <text>{{foo.toStr(detail.dctPrice-detail.marketingCashBack.totalAmount)}}</text>元
+      </view>
+    </view>
     <!--库存-->
     <view class="stock" bindtap="clickme">
       <view class="stock-left">请选择商品数量规格</view>
@@ -142,7 +151,7 @@
   </view>
   <!--详情图-->
   <view class="shop-detail-wrap" wx:for="{{introductions}}" wx:key="">
-      <image src="{{item.content}}" mode="widthFix" wx:if="{{item.resourceType==2}}"></image>
+    <image src="{{item.content}}" mode="widthFix" wx:if="{{item.resourceType==2}}"></image>
     <view class="shop-detail-wrap-text" wx:if="{{item.resourceType==1}}">{{item.content}}</view>
   </view>
   <!--爆品推荐-->
@@ -169,10 +178,12 @@
       <view class="return-wrap">
         <view class="return-money">
           <text>返</text>
+          <text>￥</text>
           <text>{{item.marketingCashBack.totalAmount}}</text>
         </view>
         <view class="pay-money">
           <text>返后价</text>
+          <text>￥</text>
           <text>{{item.truePrice}}</text>
         </view>
       </view>
@@ -192,7 +203,7 @@
       <view class="cart-text">购物车</view>
     </view>
     <button class="share" catchtap='share' data-goodsid="{{detail.id}}" data-profit="{{detail.sharingProfit}}">
-      <image src="../../assets/images/icon/xqing_downbar_share_icon.png"></image>
+      <!-- <image src="../../assets/images/icon/xqing_downbar_share_icon.png"></image> -->
       <view class="share-text" wx:if="{{detail.sharingProfit}}">分享返{{detail.sharingProfit}}</view>
       <view class="share-text" wx:else>分享</view>
     </button>
@@ -291,10 +302,16 @@
     <view class="shareCommission" wx:if="{{sharingProfit=='' || shareList.isPlusMember===2}}">你喜欢那就分享给你朋友吧</view>
     <view class="shareCommission" wx:if="{{sharingProfit && shareList.isPlusMember===1}}">分享商品后预计最多可赚佣金￥{{sharingProfit}}</view>
     <view class="shareText" wx:if="{{sharingProfit && shareList.isPlusMember===1}}">朋友通过你分享的页面成功购买后，你将获得商品返利</view>
-    <button class="share-button" id='btn' open-type="share">
-      <image class="photo" src="../../assets/images/icon/share_tanc_weixin_n.png"></image>
-      <view class="wx">微信</view>
-    </button>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
+        <view class="wx">微信</view>
+      </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="../../assets/images/icon/share_friends.png"></image>
+        <view class="wx">朋友圈</view>
+      </button>
+    </view>
   </view>
 </view>
 <!--客服弹框-->
@@ -323,5 +340,14 @@
         <view class="sure-password" bindtap='sure'>马上设置</view>
       </view>
     </view>
+  </view>
+</view>
+
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress"/>
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="/assets/images/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
   </view>
 </view>

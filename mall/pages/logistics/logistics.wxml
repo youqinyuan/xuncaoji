@@ -6,8 +6,11 @@
     </view>
     <view class="logistics-list-right">
       <!-- <view class="img"> <image src="../../assets/images/icon/ic_arrived.png"></image></view> -->
-      <view class="circle"></view>
-      <view wx:if="{{index !== list.length-1}}" class="block"></view>
+      <view class="circle2" wx:if="{{status === '1' && index == 0}}"><image src="../../assets/images/icon/ic_arrived.png"></image></view>
+      <view class="circle1" wx:elif="{{status === '0' && index == 0}}"><image src="../../assets/images/icon/ic_transport.png"></image></view>
+      <view class="circle" wx:if="{{index !== 0}}"></view>
+      <view wx:if="{{index !== list.length-1 && index !== 0}}" class="block"></view>
+      <view wx:if="{{index !== list.length-1 && index == 0}}" class="block1"></view>
       <view class="detail">
         <text class="text">{{item.remark}}</text>
       </view>

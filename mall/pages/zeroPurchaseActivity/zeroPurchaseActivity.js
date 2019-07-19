@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    indicatorDots: false,
+    indicatorDots: true,
     autoplay: false,
     interval: 5000,
     duration: 1000,
@@ -72,7 +72,10 @@ Page({
           } else {
             clearInterval(interval2)
             this.setData({
-              waitPay: ''
+              hours: [0, 0],//小时
+              minutes: [0, 0],//分钟
+              seconds: [0, 0],//秒
+              haoSeconds: [0, 0],//毫秒
             })
           }
         }, 1000)

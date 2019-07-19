@@ -194,7 +194,7 @@
         <view wx:if="{{content.latestStatus == 7 || content.latestStatus == 8}}">
           <view class="refund-amount1" wx:if="{{item.status == 7 ||item.status == 8}}">
             <text>处理时间</text>
-            <text>{{item.autoProcessDate}}</text>
+            <text>{{autoProcessTime}}系统将默认退款给您</text>
           </view>
         </view>
         <view wx:if="{{content.latestStatus == 10 || content.latestStatus == 11}}">

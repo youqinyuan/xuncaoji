@@ -17,8 +17,7 @@ page {
   font-size: 30rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
-  color: rgba(255, 255, 255, 1);
-  margin-top: -20rpx;
+  color: rgba(255, 81, 122, 1);
 }
 
 .zero-purchase-time {
@@ -63,22 +62,8 @@ page {
   font-weight: normal;
   color: #fff;
 }
-
-.zero-purchase-list-wrap {
-  width: 610rpx;
-  height: 785rpx;
-  margin-left: 70rpx;
-  background: rgba(255, 255, 255, 1);
-  margin-top: 40rpx;
-  margin-bottom: 50rpx;
-  box-shadow: 0rpx 5rpx 10rpx 0rpx rgba(3, 0, 1, 0.1);
-  border-radius: 8rpx;
-}
-
 .zero-purchase-list {
-  margin-left: 45rpx;
-  width: 520rpx;
-  height: 785rpx;
+  height: 860rpx;
 }
 
 .zero-purchase-list-img {
@@ -89,42 +74,47 @@ page {
 
 .zero-purchase-list-price {
   position: absolute;
-  top: 30rpx;
+  top: 70rpx;
   color: #fff;
-  width: 182rpx;
+  width: 157rpx;
   height: 86rpx;
+  padding-right: 20rpx;
+  text-align: left;
   background: rgba(255, 141, 18, 1);
   border-radius: 0rpx 0rpx 8rpx 8rpx;
 }
-
-/* .zero-purchase-list-right {
+.zero-purchase-list-price-img{
   position: absolute;
-  top: 30rpx;
-  left: 140rpx;
-  width: 0;
-  height: 0;
-  border-top: 43rpx solid transparent;
-  border-bottom: 43rpx solid transparent;
-  border-right: 43rpx solid rgba(255, 255, 255, 1);
-} */
-
+  top: 70rpx;
+  left:244rpx;
+  width: 27rpx;
+  height: 86rpx;
+}
 .zero-purchase-list-price .text1 {
   font-size: 22rpx;
   margin-top: 15rpx;
-  margin-left: -80rpx;
+  margin-left: 20rpx;
 }
 
 .zero-purchase-list-price .text2 {
   font-size: 32rpx;
-  margin-left: -60rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
+  margin-left: 20rpx;
 }
 
 .zero-purchase-list-price .text2 text {
   font-size: 22rpx;
 }
-
+.zero-purchase-list-item{
+  width: 610rpx;
+  padding-bottom: 30rpx;
+  margin-left: 70rpx;
+  background: rgba(255, 255, 255, 1);
+  margin-top: 40rpx;
+  box-shadow: 0rpx 5rpx 10rpx 0rpx rgba(3, 0, 1, 0.1);
+  border-radius: 8rpx;
+}
 .zero-purchase-list-item image {
   margin-top: 45rpx;
   width: 520rpx;
@@ -133,9 +123,10 @@ page {
 }
 
 .zero-purchase-list-text {
-  display: flex;
   margin-top: 20rpx;
-  width: 563rpx;
+  margin-left: 24rpx;
+  width: 570rpx;
+  text-align: left;
   font-size: 30rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
@@ -144,6 +135,7 @@ page {
 
 .zero-purchase-list-sign {
   display: flex;
+  margin-left: 24rpx;
   justify-content: space-between;
   margin-top: 20rpx;
   font-size: 32rpx;
@@ -160,14 +152,13 @@ page {
   border-radius: 50%;
   color: #fff;
   font-size: 30rpx;
+  margin-right: 24rpx;
 }
-
-.block {
+.block{
   height: 40rpx;
   width: 750rpx;
-  background: rgba(252, 179, 188, 1);
+  background: #FCB3BC;
 }
-
 /* 左右滑模板 */
 
 .modal-mask {
@@ -180,7 +171,7 @@ page {
   opacity: 0.7;
 }
 
-.modal-dialog{
+.modal-dialog {
   display: flex;
   justify-content: space-between;
   font-size: 36rpx;
@@ -193,18 +184,21 @@ page {
   width: 186rpx;
   height: 250rpx;
 }
-.modal-dialog .img1{
+
+.modal-dialog .img1 {
   position: absolute;
-  left:68rpx;
+  left: 68rpx;
   bottom: 17%;
 }
-.modal-dialog .img2{
+
+.modal-dialog .img2 {
   position: absolute;
-  right:68rpx;
+  right: 68rpx;
   bottom: 30%;
 }
-.modal-dialog .text{
+
+.modal-dialog .text {
   position: absolute;
-  left:225rpx;
+  left: 225rpx;
   bottom: 25%;
 }

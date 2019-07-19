@@ -183,7 +183,7 @@ Page({
         userInfo: wx.getStorageSync('userInfo')
       })
       app.Util.ajax('mall/personal/dashboard',null, 'GET').then((res) => { // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.content) {
           if (res.data.content.orderCount.length > 0) {
             for (var i = 0; i < res.data.content.orderCount.length; i++) {
               res.data.content.orderCount[i].count = res.data.content.orderCount[i].count > 99 ? res.data.content.orderCount[i].count + '+' : res.data.content.orderCount[i].count
@@ -191,7 +191,7 @@ Page({
           }         
           that.setData({
             content: res.data.content ? res.data.content : '',
-            orderCount: res.data.content.orderCount,
+            orderCount: res.data.content ? res.data.content.orderCount:[],
           })
         }
       })

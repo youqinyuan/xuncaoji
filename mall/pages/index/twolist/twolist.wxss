@@ -139,7 +139,7 @@ page {
 .return-wrap {
   display: flex;
   height: 40rpx;
-  margin-right: 30rpx;
+  margin-right: 16rpx;
   line-height: 40rpx;
   background: rgba(252, 243, 237, 1);
   border-radius: 8rpx;

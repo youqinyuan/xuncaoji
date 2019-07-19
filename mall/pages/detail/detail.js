@@ -5,6 +5,7 @@ var selectIndex; //选择的大规格key
 var attrIndex; //选择的小规格的key
 var selectIndexArray = []; //选择属性名字的数组
 var selectAttrid = []; //选择的属性id
+var count = true //节流阀-限制购买提交次数
 Page({
 
   /**
@@ -35,7 +36,6 @@ Page({
     plusStatus: 'disabled',
     selectAttrid: [], //选择的属性id
     selectAttridstr: '',
-    selectAttridStr: '',
     pageNumber: 1,
     pageSize: 6,
     text: '',
@@ -54,12 +54,17 @@ Page({
     showService: false, //客服弹框
     inviterCode: '', //邀请码
     current:0,//轮播图当前索引
-    cashMoney:''//将返现金额
+    cashMoney:'',//将返现金额
+    haibao:false, //海报
+    path_img:'',//绘制产品图片路径
+    shareData:'',//要分享的数据
+    appletQrCodeUrl:'',//邀请码路径
+    haibaoImg:'',//生成的海报
   },
   //求当前轮播图的索引
-  countIndex:function(e){
+  countIndex: function(e) {
     this.setData({
-      current:e.detail.current
+      current: e.detail.current
     })
   },
   //图片预览
@@ -115,9 +120,202 @@ Page({
           res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
         }
         that.setData({
-          shareList: res.data.content
+          shareList: res.data.content 
+        })
+        that.getShareData()
+      }
+    })
+  },
+  // 获取分享数据
+  getShareData:function(){
+    var that = this
+    app.Util.ajax('mall/weChat/sharing/snapshot/target', {
+      mode: 1,
+      targetId: that.data.goodsId
+    }, 'GET').then((res) => {
+      console.log(res)
+      if (res.messageCode = 'MSG_1001') {
+        that.data.shareData = res.data.content
+        // 产品图片路径转化为本地路径
+        var imageUrl = res.data.content.imageUrl
+        wx.getImageInfo({
+          src: imageUrl,
+          success(res) {
+            that.data.path_img = res.path
+          }
+        })
+        //邀请码转换为本地路径
+        var appletQrCodeUrl = res.data.content.appletQrCodeUrl
+        wx.getImageInfo({
+          src: appletQrCodeUrl,
+          success(res) {
+            that.data.appletQrCodeUrl = res.path
+          }
         })
       }
+    })
+    console.log(that.data.path_img, that.data.appletQrCodeUrl)
+  },
+  //分享到朋友圈
+  shareFriend: function() {
+    var that = this
+    if (that.data.path_img && that.data.appletQrCodeUrl){
+      var width
+      var height
+      wx.getSystemInfo({
+        success(res) {
+          width = res.screenWidth
+          height = res.screenHeight
+        }
+      })
+      console.log(width, height)
+      var ctx = wx.createCanvasContext('mycanvas');
+      var path_bg = '/assets/images/icon/bg.png'; //背景图片
+      var path_logo = '/assets/images/icon/xuncaoji_icon.png'
+      var title = '种草达人的欢乐场'
+      var inviterCode = `邀请码: ${that.data.shareData.inviterCode}`
+      //绘制图片模板的背景图片
+      ctx.drawImage(path_bg, 0, 0, 0.88 * width, 0.89 * height);
+      //绘制logo
+      ctx.drawImage(path_logo, 0.384 * width, 0.055 * height, 0.133 * width, 0.133 * width);
+      // 绘制标题
+      ctx.setFontSize(13);
+      ctx.setFillStyle('#fff');
+      ctx.setTextAlign("center")
+      ctx.fillText(title, 0.5 * width * 0.88, 26);
+      ctx.stroke();
+      console.log(inviterCode)
+      if (inviterCode != '邀请码: undefined'){
+        // 绘制邀请码
+        ctx.setFontSize(20);
+        ctx.setFillStyle('#FF517A');
+        ctx.fillText(inviterCode, 0.5 * width * 0.88, 0.055 * height + 0.133 * width + 20);
+        ctx.stroke();
+      }
+      ctx.setTextAlign("left")
+      // 绘制产品图
+      ctx.drawImage(that.data.path_img, 0.068 * width, 0.17 * height, 0.74 * width, 0.327 * height);
+      ctx.drawImage('/assets/images/icon/bg_yellow.png', 0.068 * width, 0.418 * height, 0.74 * width, 0.08 * height);
+      ctx.setFillStyle('#FF96AF');
+      ctx.setStrokeStyle('#FF96AF')
+      ctx.beginPath()
+      ctx.arc(0.54 * width, 0.2 * height - 5, 10, 1.5 * Math.PI, 0.5 * Math.PI, true)
+      ctx.closePath()
+      ctx.fill()
+      ctx.beginPath()
+      ctx.moveTo(0.84 * width - 6, 0.2 * height + 5)
+      ctx.lineTo(0.84 * width - 6, 0.2 * height - 15)
+      ctx.lineTo(0.54 * width, 0.2 * height - 15)
+      ctx.lineTo(0.54 * width, 0.2 * height + 5)
+      ctx.lineTo(0.84 * width - 6, 0.2 * height + 5)
+      ctx.lineTo(0.84 * width - 12, 0.2 * height + 10)
+      ctx.lineTo(0.84 * width - 12, 0.2 * height + 5)
+      ctx.closePath()
+      ctx.fill();
+      ctx.beginPath()
+      ctx.setFontSize(12);
+      ctx.setFillStyle('#fff');
+      ctx.fillText(`已抢数量: ${that.data.shareData.grabbed}`, 0.54 * width, 0.2 * height);
+      ctx.stroke();
+      ctx.closePath()
+      ctx.beginPath()
+      ctx.setFontSize(25);
+      ctx.setFillStyle('#E33A59');
+      ctx.fillText(`¥ ${that.data.shareData.price}`, 0.1 * width, 0.485 * height);
+      ctx.closePath()
+      ctx.stroke();
+      ctx.beginPath()
+      ctx.setFillStyle('#FF96AF');
+      ctx.setStrokeStyle('#FF96AF')
+      ctx.moveTo(0.45 * width - 6, 0.48 * height - 4)
+      ctx.lineTo(0.45 * width, 0.48 * height - 8)
+      ctx.lineTo(0.45 * width, 0.48 * height - 16)
+      ctx.lineTo(0.45 * width + 100, 0.48 * height - 16)
+      ctx.lineTo(0.45 * width + 100, 0.48 * height + 8)
+      ctx.lineTo(0.45 * width, 0.48 * height + 8)
+      ctx.lineTo(0.45 * width, 0.48 * height + 2)
+      ctx.lineTo(0.45 * width - 6, 0.48 * height - 4)
+      ctx.closePath()
+      ctx.fill()
+      ctx.beginPath()
+      ctx.setFontSize(12);
+      ctx.setFillStyle('#fff');
+      ctx.fillText(`最高返¥ ${that.data.shareData.cashBack}`, 0.45 * width + 6, 0.48 * height);
+      ctx.closePath()
+      ctx.stroke();
+      // 绘制描述
+      ctx.setFontSize(14);
+      ctx.setFillStyle('#333');
+      var test = that.data.shareData.desc
+      let chr = test.split('') // 分割为字符串数组
+      let temp = ''
+      let row = []
+      for (let a = 0; a < chr.length; a++) {
+        if (ctx.measureText(temp).width < 0.7 * width) {
+          temp += chr[a]
+        } else {
+          a--
+          row.push(temp)
+          temp = ''
+        }
+      }
+      row.push(temp)
+      for (var b = 0; b < row.length; b++) {
+        ctx.fillText(row[b], 0.09 * width, 0.53 * height + b * 20);
+      }
+      ctx.stroke();
+      //绘制邀请码
+      ctx.drawImage(that.data.appletQrCodeUrl, 0.3 * width, 0.57 * height, 0.3 * width, 0.3 * width);
+      //绘制提示语
+      ctx.setFontSize(12);
+      ctx.setFillStyle('#999');
+      ctx.fillText('长按保存图片或识别二维码查看', 0.20 * width, 0.57 * height + 0.3 * width + 20);
+      ctx.stroke();
+      ctx.draw(true, () => {
+        var that = this
+        wx.canvasToTempFilePath({
+          canvasId: 'mycanvas',
+          success: res => {
+            that.data.haibaoImg = res.tempFilePath
+          }
+        })
+      })
+      that.setData({
+        showModalStatus1: false,
+        haibao: true
+      })
+    }else{
+      wx.showLoading({
+        title: '加载中',
+      })
+      setTimeout(function () {
+        that.shareFriend()
+        wx.hideLoading()
+      }, 2000)
+    }
+  },
+  // 长按保存到相册
+  handleLongPress:function(){
+    var that = this
+    console.log('长按')
+    wx.saveImageToPhotosAlbum({
+      filePath: that.data.haibaoImg,
+      success(res) {
+        wx.showToast({
+          title: '图片已保存到相册',
+          icon:'none'
+        });
+      },
+      fail(res) {
+        console.log(res)
+      }
+    })
+  },
+  //关闭海报分享页面
+  close_hb:function(){
+    var that = this
+    that.setData({
+      haibao:false
     })
   },
   //跳转到购物车
@@ -157,12 +355,12 @@ Page({
   },
   //跳转到提交订单
   toPlaceorder: function(e) {
-    var goodsId = e.currentTarget.dataset.goodsid
-    var stockId = e.currentTarget.dataset.stockid
-    var quantity = e.currentTarget.dataset.quantity
-    var cashbackId = e.currentTarget.dataset.cashbackid ? e.currentTarget.dataset.cashbackid : ''
-    var token = wx.getStorageSync('token')
-    if (token) {
+    if(count){ //节流阀-限制订单重复提交
+      count = false
+      var goodsId = e.currentTarget.dataset.goodsid
+      var stockId = e.currentTarget.dataset.stockid
+      var quantity = e.currentTarget.dataset.quantity
+      var cashbackId = e.currentTarget.dataset.cashbackid ? e.currentTarget.dataset.cashbackid : ''
       if (this.data.password === 1) {
         if (this.data.quantity === 0) {
           wx.showToast({
@@ -183,26 +381,20 @@ Page({
           wx.navigateTo({
             url: `/pages/placeorder/placeorder?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&cashbackId=${cashbackId}`,
           })
-          this.setData({ 
+          this.setData({
             showModalStatus: false,
             num: 1
-          })
+          })    
         }
+        count = true
       } else {
         this.setData({
           showPassword: true,
           showModalStatus: false,
           num: 1
         })
+        count = true
       }
-    } else {
-      wx.navigateTo({
-        url: "/pages/invitationCode/invitationCode?inviterCode=" + this.data.inviterCode
-      })
-      this.setData({
-        showModalStatus: false,
-        num: 1
-      })
     }
   },
   //跳转到评价页面
@@ -311,14 +503,16 @@ Page({
     })
   },
   //选择规格index值
-  specIndex:function(e){
+  specIndex: function(e) {
     var that = this
     var index = e.currentTarget.dataset.index
     var selectAttridStr = that.data.selectAttridStr
     selectAttridStr[index] = that.data.selectAttrid
+    console.log(index, selectAttridStr, selectAttridStr[index])
     that.setData({
       stockDetail1: this.data.stockDetail[selectAttridStr],
       cashMoney: this.data.stockDetail[selectAttridStr].cashbackItems ? this.data.stockDetail[selectAttridStr].cashbackItems[0].totalAmount : '',
+      cashbackId: this.data.stockDetail[selectAttridStr].cashbackItems ? this.data.stockDetail[selectAttridStr].cashbackItems[0].cashbackId : ''
     })
   },
   //选中规格
@@ -349,7 +543,18 @@ Page({
   },
   //点击我显示底部弹出框
   clickme: function() {
-    this.showModal();
+    var token = wx.getStorageSync('token')
+    if (token) {
+      this.showModal();
+      this.setPassword();
+    } else {
+      wx.navigateTo({
+        url: "/pages/invitationCode/invitationCode?inviterCode=" + this.data.inviterCode
+      })
+      this.setData({
+        num: 1
+      })
+    }
   },
   //显示分期返弹框
   showModalClick: function() {
@@ -391,9 +596,9 @@ Page({
       console.log(arrPara)
       var arr = [];
       for (var i in arrPara) {
-        arr = arrPara[i].split("="); 
+        arr = arrPara[i].split("=");
         console.log(arr)
-        if(arr[0] == 'id'){
+        if (arr[0] == 'id') {
           that.setData({
             goodsId: parseInt(arr[1]),
           })
@@ -454,11 +659,11 @@ Page({
         for (let i in this.data.stockDetail) {
           var selectAttridStr = this.data.selectAttridStr
           this.data.stockDetail[i].dctPrice = parseFloat((this.data.stockDetail[i].dctPrice).toFixed(2))
-          if (selectAttridStr == i) {            
+          if (selectAttridStr == i) {
             this.setData({
               stockDetail1: this.data.stockDetail[i],
               quantity: this.data.stockDetail[i].quantity,
-              cashMoney: this.data.stockDetail[i].cashbackItems?this.data.stockDetail[i].cashbackItems[0].totalAmount:'',
+              cashMoney: this.data.stockDetail[i].cashbackItems ? this.data.stockDetail[i].cashbackItems[0].totalAmount : '',
               cashbackId: this.data.stockDetail[i].cashbackItems ? this.data.stockDetail[i].cashbackItems[0].cashbackId : '',
               activeIndex: 0
             })
@@ -474,8 +679,6 @@ Page({
     that.service();
     //购物车种类
     that.queryCount();
-    //是否设置支付密码
-    that.setPassword();
     //查询分享数据
     that.chooseShare()
   },
@@ -494,7 +697,7 @@ Page({
   //service
   service: function() {
     var that = this
-    app.Util.ajax('mall/personal/dashboard', 'GET').then((res) => { // 使用ajax函数
+    app.Util.ajax('mall/contact', 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
         that.setData({
           content: res.data.content ? res.data.content : ''
@@ -598,8 +801,6 @@ Page({
       pageNumber: 1
     })
     that.onLoad(that.data.options)
-    //是否设置支付密码
-    that.setPassword();
   },
 
   /**
@@ -662,16 +863,16 @@ Page({
           title: that.data.shareList.desc,
           path: that.data.shareList.link,
           imageUrl: that.data.shareList.imageUrl,
-          success: function (res) {
+          success: function(res) {
 
           },
-          fail: function (res) {
+          fail: function(res) {
             // 转发失败
             console.log("转发失败:" + JSON.stringify(res));
           }
         }
       }
-    }else{
+    } else {
       app.Util.ajax('mall/weChat/sharing/onSuccess', {
         mode: 1
       }, 'POST').then((res) => {
@@ -691,16 +892,16 @@ Page({
         title: that.data.shareList.desc,
         path: that.data.shareList.link,
         imageUrl: that.data.shareList.imageUrl,
-        success: function (res) {
+        success: function(res) {
 
         },
-        fail: function (res) {
+        fail: function(res) {
           // 转发失败
           console.log("转发失败:" + JSON.stringify(res));
         }
       }
     }
-    
+
   },
   /* 点击减号 */
   bindMinus: function() {

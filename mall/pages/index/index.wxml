@@ -55,7 +55,7 @@
   </view>
   <view class="small-num" wx:if="{{count}}">{{count}}</view>
   <!-- 页面内容 -->
-  <template wx:if="{{currentTab === 0}}" is='exProducts' data="{{imgUrls:imgUrls,autoplay:autoplay,circular:circular,interval:interval,duration:duration,goods:goods,list:list,trend:trend,wholeNation:wholeNation,totalAmount:totalAmount,text:text,bannerId:bannerId}}" />
+  <template wx:if="{{currentTab === 0}}" is='exProducts' data="{{imgUrls:imgUrls,autoplay:autoplay,circular:circular,interval:interval,duration:duration,goods:goods,list:list,trend:trend,wholeNation:wholeNation,totalAmount:totalAmount,text:text,bannerId:bannerId,bannerUrl:bannerUrl}}" />
   <template wx:if="{{currentTab !== 0}}" is='othersClassification' data="{{imageUrl:imageUrl,autoplay:autoplay,circular:circular,interval:interval,duration:duration,navData:navData,classfy:classfy,comprehensive:comprehensive,pricePhoto:pricePhoto,pricePhoto1:pricePhoto1,color:color,color1:color1,color2:color2,text1:text1}}"
   />
 </view>

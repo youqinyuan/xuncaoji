@@ -8,40 +8,40 @@
       </swiper-item>
     </swiper>
   </view>
-   <view class="zero-purchase-time">
-   <view class="zero-purchase-word">距结束仅剩:</view>
-      <view class="zero-purchase-number">{{hours.length>1?hours[0]:0}}</view>
-      <view class="zero-purchase-number">{{hours.length>1?hours[1]:hours[0]}}</view>
-      <view class="zero-purchase-word">时</view>
-      <view class="zero-purchase-number">{{minutes.length>1?minutes[0]:0}}</view>
-      <view class="zero-purchase-number">{{minutes.length>1?minutes[1]:minutes[0]}}</view>
-      <view class="zero-purchase-word">分</view>
-      <view class="zero-purchase-number">{{seconds.length>1?seconds[0]:0}}</view>
-      <view class="zero-purchase-number">{{seconds.length>1?seconds[1]:seconds[0]}}</view>
-      <view class="zero-purchase-word">秒</view>
-      <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[0]:0}}</view>
-      <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[1]:haoSeconds[0]}}</view>
-      <view class="zero-purchase-word">毫秒</view>
-    </view>
+  <view class="zero-purchase-time">
+    <view class="zero-purchase-word">距结束仅剩:</view>
+    <view class="zero-purchase-number">{{hours.length>1?hours[0]:0}}</view>
+    <view class="zero-purchase-number">{{hours.length>1?hours[1]:hours[0]}}</view>
+    <view class="zero-purchase-word">时</view>
+    <view class="zero-purchase-number">{{minutes.length>1?minutes[0]:0}}</view>
+    <view class="zero-purchase-number">{{minutes.length>1?minutes[1]:minutes[0]}}</view>
+    <view class="zero-purchase-word">分</view>
+    <view class="zero-purchase-number">{{seconds.length>1?seconds[0]:0}}</view>
+    <view class="zero-purchase-number">{{seconds.length>1?seconds[1]:seconds[0]}}</view>
+    <view class="zero-purchase-word">秒</view>
+    <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[0]:0}}</view>
+    <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[1]:haoSeconds[0]}}</view>
+    <view class="zero-purchase-word">毫秒</view>
+  </view>
   <view class="content">
     <!--价格-->
     <view class="price-wrap">
       <view class="price">
         <view class="new-price">
-          <text class="price-text">￥</text>{{detail.orgPrice}}</view>
+          <text class="price-text">￥</text>{{detail.goodsItem.orgPrice}}</view>
         <view class="old-price">
           <image src="../../assets/images/icon/ic_clock1.png"></image>
           限时0元购
         </view>
       </view>
       <view class="rush">
-        仅剩{{detail.stock}}件未抢
+        仅剩{{detail.goodsItem.stock}}件未抢
       </view>
     </view>
     <!--商品名称-->
     <view class="goods-title">
       <text class="goods-channel" wx:if="{{store.channel==1}}">自营</text>
-      <text selectable='true' bindlongtap='copy'>{{detail.name}}</text>
+      <text selectable='true' bindlongtap='copy'>{{detail.goodsItem.name}}</text>
     </view>
     <!--售后无忧-->
     <view class="platform-compare">
@@ -65,15 +65,19 @@
       </view>
     </view>
   </view>
-  <!--库存-->
+  <!-- 规格 -->
+  <view class="spcdesc">
+    {{detail.specDesc}}
+  </view>
+  <!--邀请好友-->
   <view class="stock">
     <view class="stock-img">
       <image src="../../assets/images/icon/xqing_protect_changj_icon.png"></image>
     </view>
     <view class="stock-text">成功邀请好友一起来拿可多得一次0元购机会哟</view>
   </view>
-    <!--用户评价-->
-  <view class="evaluate" catchtap='jumpEvaluate' data-goodsid="{{detail.id}}" wx:if="{{comment.length>0}}">
+  <!--用户评价-->
+  <view class="evaluate" catchtap='jumpEvaluate' data-goodsid="{{detail.goodsItem.id}}" wx:if="{{comment.length>0}}">
     <view class="evaluate-left">用户评价</view>
     <view class="evaluate-right">
       <view class="evaluate-right-text">
@@ -87,7 +91,8 @@
   <view class="evaluate-content" wx:if="{{comment.length>0}}">
     <view class="evaluate-content-top">
       <view class="evaluate-content-img">
-        <image src="{{comment[0].avatarUrl}}"></image>
+        <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}"></image>
+        <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
       </view>
       <view class="evaluate-content-right">
         <view class="evaluate-content-right-top">
@@ -117,19 +122,17 @@
   </view>
   <!--详情图-->
   <view class="shop-detail-wrap" wx:for="{{introductions}}" wx:key="">
-      <image src="{{item.content}}" mode="widthFix" wx:if="{{item.resourceType==2}}"></image>
+    <image src="{{item.content}}" mode="widthFix" wx:if="{{item.resourceType==2}}"></image>
     <view class="shop-detail-wrap-text" wx:if="{{item.resourceType==1}}">{{item.content}}</view>
   </view>
+  <view class="block"></view>
   <!--底部-->
-  <view class="bottom" bindtap='toPlaceorder' data-activityGoodsid="{{detail.activityGoodsId}}" data-goodsid="{{detail.id}}">
+  <view class="bottom" bindtap='toPlaceorder' data-activityGoodsid="{{detail.goodsItem.activityGoodsId}}" data-goodsid="{{detail.goodsItem.id}}">
     0元购
   </view>
 </view>
 <!--分享弹窗-->
 <view class="modal-mask" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
-<view class="modal-dialog" wx:if="{{show}}">
-  <image class="img1" src="../../assets/images/icon/ic_jiantou.png"></image>
-</view>
 <view class="modal-dialog1" wx:if="{{show}}">
   <view class="share">分享给朋友后</view>
   <view class="share1">可以再次获得0元购的机会哟</view>
@@ -150,4 +153,34 @@
     <input placeholder="请输入6位数字" type="number" value="{{inputValue1}}" placeholder-style="color:#AAAAAA" bindinput="btnSumbit" />
   </view>
   <button bindtap='sure'>确定</button>
+</view>
+
+<!-- 分享弹框 -->
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen1" bindtap="hideModal" wx:if="{{showModalStatus1}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="shareCommission">你喜欢那就分享给你朋友吧</view>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
+        <view class="wx">微信</view>
+      </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="../../assets/images/icon/share_friends.png"></image>
+        <view class="wx">朋友圈</view>
+      </button>
+    </view>
+  </view>
+</view>
+
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress"/>
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="/assets/images/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
 </view>
