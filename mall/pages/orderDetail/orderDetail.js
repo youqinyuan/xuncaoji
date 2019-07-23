@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    content: {}, //详情信息
+    content: {}, //详情信息 
     orderId: 1, //订单id
     list: {}, //物流信息
     showDialog: false, //确认收货弹框
@@ -30,7 +30,7 @@ Page({
     orderTimeRefundDetail: {}, //退款时间
     orderTimeDetail: [], //订单信息时间
     userInteractDetail: [], //商家回复
-    autoProcessTime: ''
+    autoProcessTime: '',
   },
   //跳转到分期返现明细
   periodCash: function(e) {

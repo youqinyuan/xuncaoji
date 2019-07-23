@@ -593,8 +593,10 @@ page {
 .zan-dialog__container1 .nickname {
   position: absolute;
   top: 618rpx;
-  left: 210rpx;
+  left: 142rpx;
   font-size: 28rpx;
+  width: 250rpx;
+  text-align: center;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(153, 153, 153, 1);

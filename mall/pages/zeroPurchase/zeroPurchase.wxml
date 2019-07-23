@@ -2,7 +2,7 @@
 <view class="wrap">
   <!--轮播图-->
   <view class="swiper-wrap">
-    <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF517A" indicator-dots="true" circular="{{circular}}" autoplay="true" interval="{{interval}}" duration="{{duration}}">
+    <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF517A" indicator-dots="true" circular autoplay="true" interval="{{interval}}" duration="{{duration}}">
       <swiper-item wx:for="{{imageUrls}}" wx:key="{{imageUrls}}" bindtap='imgYu' data-list="{{imageUrls}}" data-src="{{item}}">
         <image src="{{item}}" class="slide-image" />
       </swiper-item>

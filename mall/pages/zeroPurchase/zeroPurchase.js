@@ -7,6 +7,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    autoplay: true,
+    circular: true,
+    interval: 2000,
+    duration: 1000,
     goodsId: 1, //商品id
     imageUrls: [], //轮播图
     detail: {}, //详情

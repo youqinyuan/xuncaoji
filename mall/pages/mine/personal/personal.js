@@ -14,35 +14,35 @@ Page({
     adds: {},
     text: ['男', '女']
   },
-  getNickname:function(e){
+  getNickname: function(e) {
     var that = this
     that.data.adds.nickname = e.detail.value
     that.setData({
       adds: that.data.adds
     })
   },
-  getCareer: function (e) {
+  getCareer: function(e) {
     var that = this
     that.data.adds.career = e.detail.value
     that.setData({
       adds: that.data.adds
     })
   },
-  getLocation: function (e) {
+  getLocation: function(e) {
     var that = this
     that.data.adds.location = e.detail.value
     that.setData({
       adds: that.data.adds
     })
   },
-  getHometown: function (e) {
+  getHometown: function(e) {
     var that = this
     that.data.adds.hometown = e.detail.value
     that.setData({
       adds: that.data.adds
     })
   },
-   //获取性别
+  //获取性别
   toggleDialog: function() {
     var that = this
     that.setData({
@@ -130,8 +130,8 @@ Page({
     var that = this
     var token = wx.getStorageSync('token')
     wx.uploadFile({
-      // url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
-      url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData',//正式环境
+      url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
+      // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData',//正式环境
       filePath: that.data.avatarKey,
       name: 'avatarKey',
       formData: that.data.adds,
@@ -148,7 +148,7 @@ Page({
             icon: 'none',
             duration: 1500
           })
-          setTimeout(function () {
+          setTimeout(function() {
             wx.switchTab({
               url: '/pages/mine/mine'
             })
@@ -157,7 +157,7 @@ Page({
           wx.showToast({
             title: '资料更新失败',
             icon: 'none',
-            duration:1500
+            duration: 1500
           })
         }
       },
@@ -173,29 +173,21 @@ Page({
   //不传头像的方法
   upload1: function() {
     var that = this
-    var userInfo = that.data.adds
+    var adds = that.data.adds
+    var userInfo = {}
+    for (var item in adds){
+      if (adds[item] !=''){
+        userInfo[item] = adds[item]
+      }
+    }
     var token = wx.getStorageSync('token')
-    // app.Util.ajax('mall/personal/modifyBaseData', userInfo, 'POST').then((res) => {
-    //   if (res.data.content) {
-    //     that.baseMessage()
-    //     wx.showToast({
-    //       title: '资料更新成功',
-    //       icon: 'none'
-    //     })
-    //   } else {
-    //     wx.showToast({
-    //       title: '资料更新失败',
-    //       icon: 'none'
-    //     })
-    //   }
-    // })
     wx.request({
-      // url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData',//测试环境
-      url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData',//正式环境
-      data: userInfo,
-      method:"POST",
+      url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData',//测试环境
+      // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
+      method: "POST",
+      data:userInfo,
       header: {
-        "token":token,
+        "token": token,
         "content-type": "application/x-www-form-urlencoded"
       },
       success(res) {
@@ -206,11 +198,11 @@ Page({
             title: '资料更新成功',
             icon: 'none'
           })
-          setTimeout(function(){
+          setTimeout(function() {
             wx.switchTab({
               url: '/pages/mine/mine'
             })
-          },500)
+          }, 500)
         } else {
           wx.showToast({
             title: '资料更新失败',

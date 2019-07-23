@@ -9,9 +9,10 @@
         <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
       </view>
       <view class="title">
-        <view class="big-title" wx:if="{{content.avatarKey}}">{{content.nickname}}</view>
+        <view class="big-title" wx:if="{{content.nickname !=='匿名用户'}}">{{content.nickname}}</view>
         <view class="big-title" wx:elif="{{userInfo.nickName}}">{{userInfo.nickName}}</view>
         <view class="big-title" wx:else>匿名用户</view>
+        <!-- <view class="big-title" wx:else>匿名用户</view> -->
         <view class="balance">
           <text class="balance-text">余额</text>
           <text class="balance-price">￥</text>

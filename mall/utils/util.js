@@ -69,8 +69,8 @@ function getRouter() { //此方法跟上面一个方法前四行一致，只是�
 
 const ajax = (url, data, method, config = {}) => {
   let token = wx.getStorageSync('token')
-  // let baseUrl = "https://xuncaoji.yzsaas.cn/"; //测试环境
-  let baseUrl = 'https://xuncj.yzsaas.cn/'; //正式环境
+  let baseUrl = "https://xuncaoji.yzsaas.cn/"; //测试环境
+  // let baseUrl = 'https://xuncj.yzsaas.cn/'; //正式环境
   let headerConfig = { // 默认header ticket、token、params参数是每次请求需要携带的认证信息
     ticket: '...',
     token: '' || token,
