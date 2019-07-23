@@ -6,7 +6,7 @@
   </view>
   <view class="expires">
     <image src="../../assets/images/icon/vip_card.png"></image>
-    <view class="expires-text" wx:if="{{!expireTime}}">您还不是会员</view>
+    <view class="expires-text1" wx:if="{{!expireTime}}">您还不是会员</view>
     <view class="expires-text" wx:else>
       <view class="expires-top">会员到期日</view>
       <view class="expires-date">
@@ -79,7 +79,7 @@
   </view>
   <view class="equity-middle-list">
     <view class="equity-middle-img">
-      <image src="../../assets/images/icon/vip_store.png"></image>
+      <image src="../../assets/images/icon/vip_cashback.png"></image>
     </view>
     <view class="equity-middle-text">得到您所邀请用户消费金额的2%-4%的返现！</view>
   </view>
@@ -134,4 +134,13 @@
   <view class="close_hb" wx:if="{{haibao}}">
     <image src="/assets/images/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
   </view>
+</view>
+<!-- 会员完成任务弹窗 -->
+<view class="mask_task" wx:if="{{membership}}"></view>
+<view class="membership-box" wx:if="{{membership}}">
+  <image class="membership-box-bg" mode='widthFix' src="../../assets/images/icon/vip_fishied_bg.png"></image>
+  <image class="membership-box-img" mode='widthFix' src="../../assets/images/icon/vip_tag.png"></image>
+  <view class="membership-box-text"> 哇哦！恭喜你完成任务啦，</view>
+  <view class="membership-box-text1">我们将赠送您一个月会员表示感谢</view>
+  <button class="membership-box-btn" bindtap='cancelBox'>谢谢</button>
 </view>

@@ -30,6 +30,7 @@
   height: 24rpx;
   margin-right: 5rpx;
   margin-top: 5rpx;
+  vertical-align: middle;
 }
 
 .platform-text {
@@ -151,12 +152,13 @@
   margin-top: 20rpx;
   background: #fff;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
 .zerobuy-item {
   width: 728rpx;
   height: 160rpx;
-  margin: 0rpx auto;
 }
 
 /* 0元购好物 */
@@ -171,6 +173,7 @@
   height: 108rpx;
   line-height: 108rpx;
   display: flex;
+  align-items: center;
 }
 
 .nationwideReturn-price {
@@ -271,12 +274,15 @@
 .goodlist-title {
   height: 108rpx;
   line-height: 108rpx;
+  display: flex;
+  align-items: center;
 }
 
 .goodlist-img {
   width: 36rpx;
   height: 36rpx;
   margin: 0 20rpx;
+  margin-top: 4rpx;
 }
 
 .goodlist-text {
@@ -315,7 +321,7 @@
   height: 44rpx;
   line-height: 44rpx;
   text-align: center;
-  margin-left: 16rpx;
+  margin:0 auto;
   margin-top: 15rpx;
   margin-bottom: 20rpx;
   background: #ff517a;
@@ -347,12 +353,15 @@
 .trend-title {
   height: 108rpx;
   line-height: 108rpx;
+  display: flex;
+  align-items: center;
 }
 
 .trend-img {
   width: 36rpx;
   height: 36rpx;
   margin: 0 20rpx;
+  margin-top: 4rpx;
 }
 
 .trend-text {
@@ -404,16 +413,17 @@
 }
 
 .trend-list-right {
-  width: 150rpx;
-  height: 150rpx;
+  width: 100rpx;
+  height: 100rpx;
   position: absolute;
-  right: 30rpx;
-  top: 22rpx;
+  right: 26rpx;
+  top: 26rpx;
 }
 
 .trend-list-right image {
-  width: 150rpx;
-  height: 150rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 6rpx;
 }
 
 /*销量排行榜*/
@@ -427,12 +437,15 @@
   height: 108rpx;
   background: rgba(255, 255, 255, 1);
   line-height: 108rpx;
+  display: flex;
+  align-items: center;
 }
 
 .quality-img {
   width: 36rpx;
   height: 36rpx;
   margin: 0 20rpx;
+  margin-top: 4rpx;
 }
 
 .quality-text {

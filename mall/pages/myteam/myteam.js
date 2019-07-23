@@ -163,18 +163,21 @@ Page({
             ctx.setFillStyle('#999');
             ctx.fillText('长按保存图片或识别二维码查看', 0.5 * width * 0.88, 0.57 * height + 0.3 * width + 20);
             ctx.stroke();
-            ctx.draw(true, () => {
+            ctx.draw()
+            setTimeout(function(){
               wx.canvasToTempFilePath({
                 canvasId: 'mycanvas',
-                success: res => {
+                success: function (res) {
+                  console.log('res', res)
                   that.data.haibaoImg = res.tempFilePath
                 }
               })
-            })
+            },1000)
             that.setData({
               show: false,
               haibao: true
             })
+            console.log('海报路径',that.data.haibaoImg)
             wx.hideLoading()
           }
         })
@@ -185,7 +188,8 @@ Page({
   handleLongPress: function () {
     var that = this
     console.log('长按')
-    wx.saveImageToPhotosAlbum({
+    console.log(that.data.haibaoImg)
+    wx.saveImageToPhotosAlbum({ 
       filePath: that.data.haibaoImg,
       success(res) {
         wx.showToast({

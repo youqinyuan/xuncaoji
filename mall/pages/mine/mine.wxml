@@ -54,7 +54,7 @@
   </view>
   <view class="circle" wx:for="{{orderCount}}" wx:key="">
     <view class="circle1" wx:if="{{item.status==1}}">{{item.count}}</view>
-    <view class="circle2" wx:if="{{item.status==4}}">{{item.count}}</view>
+    <view class="circle2" wx:if="{{item.status==2 || item.status==4}}">{{waitCount}}</view>
     <view class="circle3" wx:if="{{item.status==3}}">{{item.count}}</view>
     <view class="circle4" wx:if="{{item.status==5}}">{{item.count}}</view>
     <view class="circle5" wx:if="{{item.status==7}}">{{item.count}}</view>

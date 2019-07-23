@@ -23,9 +23,9 @@
     <view class="modal-title">充值</view>
     <view class="section">
       <view class="input-price">￥</view>
-      <input placeholder="请输入充值金额" focus="true" type="digit" value="{{inputValue}}" placeholder-style="color:#AAAAAA" bindinput="btnInput" />
+      <input class="input-text" placeholder="请输入充值金额" focus="true" type="digit" value="{{inputValue}}" placeholder-style="color:#AAAAAA" bindinput="btnInput" />
     </view>
-    <view class="prompt" wx:if="{{showMessage}}">请输入正确的充值金额</view>
+    <view class="prompt">{{showMessage}}</view>
     <view class="message">所充值的金额将进入您的账户余额</view>
     <view class="modal-footer">
       <view class="btn-confirm" bindtap="onConfirm">确认充值</view>
@@ -42,10 +42,12 @@
 <view class="modal-mask1" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
 <view class="modal" wx:if="{{show}}">
   <view class="modal-title1">提现</view>
-  <view class="modal-text">我们程序小伙伴正在努力开发提现功能!暂时还请联系客服小伙伴进行提现。</view>
-  <view class="modal-text1">说明：请联系平台客服进行手动提现申请</view>
-  <view class="modal-text1">客服电话：18910267045</view>
-  <view class="modal-text1">客服微信：寻草记商城客服</view>
-  <image class="modal-img" src="https://xuncaoji.yzsaas.cn/_download/img/qrcode_mall_support.jpg"></image>
+  <view class="section1">
+    <view class="input-price1">￥</view>
+    <input placeholder="请输入提现金额" focus="true" type="digit" value="{{inputValue1}}" placeholder-style="color:#AAAAAA" bindinput="btnPresentation" />
+  </view>
+  <view class="prompt-message">{{showMessage1}}</view>
+  <view class="modal-text">所提现的账户余额将到账至微信零钱账户中，到账时间根据微信所定，可能会有所延迟</view>
+  <view class="modal-text1">余额提现只支持整数提现</view>
   <button bindtap='sure' bindtap="hideConfirm">确认提现</button>
 </view>

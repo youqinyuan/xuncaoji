@@ -98,12 +98,12 @@ page {
   width: 56rpx;
   height: 56rpx;
 }
-.address-name:nth-child(1) view {
+.address-name .address-name-xm {
   margin-right: 15rpx;
   font-size: 28rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
-  width: 200rpx;
+  width: 125rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

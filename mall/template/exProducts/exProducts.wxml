@@ -54,7 +54,6 @@
     <!--零元购-->
     <view class="zerobuy" bindtap='toZeroPurchase' wx:if="{{bannerId !==''}}">
       <image class="zerobuy-item" src="{{bannerUrl}}"></image>
-      <view class="zerobuy-item"></view>
     </view>
     <!--分期返专场-->
     <view class="nationwideReturn">

@@ -16,7 +16,7 @@ Page({
     id: 1,
     text: '',
     color: '#BDBDBD'
-    
+
   },
   //单个店铺全选
   checkall: function(e) {
@@ -280,33 +280,39 @@ Page({
       var cardIds = JSON.stringify(that.data.cardIds);
       for (var i = 0; i < shops.length; i++) {
         for (var j = 0; j < shops[i].cartDetails.length; j++) {
-          if (shops[i].cartDetails[j].checked==true){
+          if (shops[i].cartDetails[j].checked == true) {
             status.push(shops[i].cartDetails[j].status)
-            
-          }          
+          }
         }
       }
-      if (status.indexOf(2) !== -1 || status.indexOf(3) !== -1){
+      if (status.indexOf(2) !== -1 || status.indexOf(3) !== -1) {
         wx.showToast({
           title: '当前选择商品存在失效商品无法提交订单',
-          icon:'none'
+          icon: 'none'
         })
-      }else{
-        wx.navigateTo({
-        url: `/pages/placeorder/placeorder?cardIds=${cardIds}`
-      })
-      //跳转页面后，合计为0，结算按钮变灰色,取消全选状态,选中的商品为空
-      setTimeout(function(){
-        that.setData({
-          priceAll: 0,
-          color: '#BDBDBD',
-          checkedAll:false,
-          cardIds:''
+      } else {
+        app.Util.ajax('mall/order/checkCart', cardIds, 'POST').then((res) => {
+          if (res.data.content) {
+            wx.navigateTo({
+              url: `/pages/placeorder/placeorder?cardIds=${cardIds}`
+            })
+            //跳转页面后，合计为0，结算按钮变灰色,取消全选状态,选中的商品为空
+            setTimeout(function () {
+              that.setData({
+                priceAll: 0,
+                color: '#BDBDBD',
+                checkedAll: false,
+                cardIds: ''
+              })
+            }, 500)
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
+          }
         })
-      },500)
       }
-      
-      
     } else if (cardIds.length === 0) {
       wx.showToast({
         title: '请选择你想购买的商品',
@@ -335,7 +341,7 @@ Page({
     var that = this
     that.init();
   },
-  init:function(){
+  init: function() {
     var that = this
     var cartDetails = []
     //查询购物车
@@ -358,11 +364,10 @@ Page({
       }
     })
   },
-  getMore:function(){
+  getMore: function() {
     var that = this
     var cartDetails = []
     var pageNumber = that.data.pageNumber + 1
-    //销量排行榜
     app.Util.ajax('mall/cart/queryShoppingCart', {
       pageNumber: pageNumber,
       pageSize: that.data.pageSize
@@ -374,7 +379,7 @@ Page({
           })
         }
         var arr = that.data.shops
-        if (res.data.content.items.length>0){
+        if (res.data.content.items.length > 0) {
           for (var i = 0; i < res.data.content.items.length; i++) {
             arr.push(res.data.content.items[i])
           }
@@ -415,9 +420,9 @@ Page({
               shops: res.data.content.items,
               showDialog: false,
               color: '#BDBDBD',
-              checkedAll:false,
-              priceAll:0,
-              cardIds:[]
+              checkedAll: false,
+              priceAll: 0,
+              cardIds: []
             })
           } else {
             wx.showToast({

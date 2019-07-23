@@ -147,7 +147,6 @@ Component({
     },
     onShow() {
       var data = this.getRefreshData();
-      console.log(data)
       data.showPicker = this.data.isShow;
       data.days = this.data.days
       this.setData(data)

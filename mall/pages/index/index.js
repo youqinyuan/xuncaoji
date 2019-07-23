@@ -125,7 +125,6 @@ Page({
     var that = this
     app.Util.ajax('mall/home/categories', 'GET').then((res) => {
       if (res.data.messageCode = 'MSG_1001') {
-        console.log(res)
         that.setData({
           navData: res.data.content
         })

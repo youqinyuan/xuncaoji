@@ -25,7 +25,7 @@
     </view>
     <view class="container-middle-list">
       <view class="container-middle-img">
-        <image src="../../assets/images/icon/vip_store.png"></image>
+        <image src="../../assets/images/icon/vip_cashback.png"></image>
       </view>
       <view class="container-middle-text">得到您所邀请用户消费金额的2%-4%的返现！</view>
     </view>

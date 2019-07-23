@@ -7,11 +7,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    show: false,
+    show: false,//邀请好友弹框
     taskItems:[],
-    expireTime:'',
-    inviterCode: '',
-    shareList:{},
+    expireTime:'',//会员到期时间
+    inviterCode: '',//邀请码
+    shareList:{},//分享数据
+    membership:false,//完成任务弹窗
     imageUrl: '../../assets/images/icon/team_share.png',
     haibao: false,
     haibaoImg: '',
@@ -80,6 +81,11 @@ Page({
           if (res.data.content.expireTime) {
             res.data.content.expireTime = time.formatTimeTwo(res.data.content.expireTime, 'Y年M月D日');
           }
+          if (res.data.content.lastExchangeKey !== ''){
+            that.setData({
+              membership:true
+            })
+          }
           that.setData({
             taskItems: res.data.content.taskItems,
             expireTime: res.data.content.expireTime,
@@ -89,6 +95,13 @@ Page({
       })
     }
     that.chooseShare()
+  },
+  //取消会员完成任务弹窗
+  cancelBox:function(){
+    var that = this
+    that.setData({
+      membership:false
+    })
   },
   // 分享朋友圈 生成海报
   shareFriend: function () {
@@ -171,14 +184,16 @@ Page({
             ctx.setFillStyle('#999');
             ctx.fillText('长按保存图片或识别二维码查看', 0.5 * width * 0.88, 0.57 * height + 0.3 * width + 20);
             ctx.stroke();
-            ctx.draw(true, () => {
+            ctx.draw()
+            setTimeout(function () {
               wx.canvasToTempFilePath({
                 canvasId: 'mycanvas',
-                success: res => {
+                success: function (res) {
+                  console.log('res', res)
                   that.data.haibaoImg = res.tempFilePath
                 }
               })
-            })
+            }, 1000)
             that.setData({
               show: false,
               haibao: true

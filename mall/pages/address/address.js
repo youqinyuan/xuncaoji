@@ -40,7 +40,7 @@ Page({
     var is_address = wx.getStorageSync('goAddress')
     if (is_address){
       wx.setStorage({
-        key: "address",
+        key: "address", 
         data: that.data.items[e.currentTarget.dataset.index]
       })
       wx.navigateBack({

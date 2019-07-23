@@ -152,8 +152,8 @@ Page({
     if (that.data.phoneNumber !== '' && that.data.phoneNumber !== '' && that.data.city !== '' && that.data.detailAddress !== ''){
       app.Util.ajax('mall/personal/updateAddressInfo', { id: that.data.id, receiverName: that.data.name, mobileNumber: that.data.phoneNumber, detailedAddress: that.data.detailAddress, districtId: that.data.districtId, isDefault: that.data.switchChecked ? 1 : 2 }, 'POST').then((res) => { 
         if (res.data.content) {
-          wx.navigateTo({
-            url: '/pages/address/address',
+          wx.navigateBack({
+            delta: 1
           })
         } else {
           

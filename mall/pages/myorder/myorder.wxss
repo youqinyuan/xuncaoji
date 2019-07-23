@@ -190,7 +190,7 @@ page {
 
 .button {
   display: flex;
-  height: 80rpx;
+  padding-bottom: 26rpx;
   justify-content: flex-end;
   margin-right: 5rpx;
 }
@@ -238,7 +238,14 @@ page {
   margin-top: 20rpx;
   margin-bottom: 20rpx;
 }
-
+.myorder-bottom1 {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  text-align: center;
+  margin-bottom: 20rpx;
+}
 /* 无订单的时候 */
 
 .cont_count {

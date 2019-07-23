@@ -8,8 +8,8 @@ Page({
    */
   data: {
     placeOrder: [],
-    actualPrice: 0,//实际付款
-    cashBack:0,//0元购返现
+    actualPrice: 0, //实际付款
+    cashBack: 0, //0元购返现
     addressItems: [],
     showModalStatus: false,
     goodsList: {}, //单个商品下单
@@ -18,86 +18,99 @@ Page({
     phoneNumber: '', //电话号码
     detailAddress: '', //详细地址
     city: '', //所在区域
-    userAddressBookId:1,//地址id
-    activityGoodsId:'',//0元购
-    goodsId: 1,//商品id
+    userAddressBookId: 1, //地址id
+    activityGoodsId: '', //0元购
+    goodsId: 1, //商品id
     options: {},
     disabled: false,
   },
   //跳转到支付订单页面
   toPaymentorder: function(e) {
     var that = this
-    var goodsList = that.data.goodsList; 
+    console.log(0)
+    var goodsList = that.data.goodsList;
     that.setData({
-      disabled:true
+      disabled: true
     })
     if (that.data.addressItems != '') {
-        if (that.data.cardIds.length > 0) {
-          var cardIds = that.data.cardIds
-          app.Util.ajax('mall/order/addOrderByCart', { cardIds: cardIds, userAddressBookId: that.data.userAddressBookId }, 'POST').then((res) => {
-            if (res.data.content) {
-              wx.navigateTo({
-                url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}`,
-              })
-              wx.removeStorageSync('address')
-              wx.removeStorageSync('goAddress')
-            } else {
-              wx.showToast({
-                title: res.data.message,
-                icon: 'none'
-              })
-            }
-          })
-        } else if (that.data.activityGoodsId !== '') {
-          app.Util.ajax('mall/home/activity/freeShopping/placeOrder', { goodsId: that.data.goodsId, userAddressBookId: that.data.userAddressBookId }, 'POST').then((res) => { // 使用ajax函数
-            if (res.data.content) {
-              wx.navigateTo({
-                url: `/pages/paymentorder/paymentorder?id=${res.data.content.transStatement.id ? res.data.content.transStatement.id : ''}&cashBack=${that.data.cashBack}&flag=${true}&createTime=${res.data.content.transStatement.createTime}`,
-              })
-              wx.removeStorageSync('address')
-              wx.removeStorageSync('goAddress')
-            } else {
-              wx.showToast({
-                title: res.data.message,
-                icon: 'none'
-              })
-            }
-          })
-        } else {
-          app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => { // 使用ajax函数
-            if (res.data.content) {
-              wx.navigateTo({
-                url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}`,
-              })
-              wx.removeStorageSync('address')
-              wx.removeStorageSync('goAddress')
-            } else {
-              wx.showToast({
-                title: res.data.message,
-                icon: 'none'
-              })
-            }
-          })
-        }
-      }else{
+      if (that.data.cardIds.length > 0) {
+        var cardIds = that.data.cardIds
+        app.Util.ajax('mall/order/addOrderByCart', {
+          cardIds: cardIds,
+          userAddressBookId: that.data.userAddressBookId
+        }, 'POST').then((res) => {
+          if (res.data.content) {
+            wx.navigateTo({
+              url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}`,
+            })
+            wx.removeStorageSync('address')
+            wx.removeStorageSync('goAddress')
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
+          }
+        })
+      } else if (that.data.activityGoodsId !== '') {
+        app.Util.ajax('mall/home/activity/freeShopping/placeOrder', {
+          goodsId: that.data.goodsId,
+          userAddressBookId: that.data.userAddressBookId
+        }, 'POST').then((res) => { // 使用ajax函数
+          if (res.data.content) {
+            wx.navigateTo({
+              url: `/pages/paymentorder/paymentorder?id=${res.data.content.transStatement.id ? res.data.content.transStatement.id : ''}&cashBack=${that.data.cashBack}&flag=${true}&createTime=${res.data.content.transStatement.createTime}`,
+            })
+            wx.removeStorageSync('address')
+            wx.removeStorageSync('goAddress')
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
+          }
+        })
+      } else {
+        app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => { // 使用ajax函数
+          if (res.data.content) {
+            wx.navigateTo({
+              url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}`,
+            })
+            wx.removeStorageSync('address')
+            wx.removeStorageSync('goAddress')
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
+          }
+        })
+      }
+      that.setData({
+        disabled: false
+      })
+    } else {
       wx.showToast({
         title: '请选择收货地址',
         icon: 'none'
+      })
+      that.setData({
+        disabled: false
       })
     }
   },
   //跳转到添加地址页面
   jumpAddress: function() {
-    var that = this; 
+    var that = this;
     wx.navigateTo({
       url: '/pages/address/address',
     })
     wx.setStorage({
       key: "goAddress",
       data: "1"
-    })    
+    })
   },
-  hideModal:function(){
+  hideModal: function() {
     var that = this;
     that.setData({
       showModalStatus: false
@@ -155,7 +168,10 @@ Page({
         activityGoodsId: activityGoodsId,
         goodsId: goodsId
       })
-      app.Util.ajax('mall/order/checkGoods', { activityGoodsId: activityGoodsId, orderType: 3 }, 'POST').then((res) => { // 使用ajax函数
+      app.Util.ajax('mall/order/checkGoods', {
+        activityGoodsId: activityGoodsId,
+        orderType: 3
+      }, 'POST').then((res) => { // 使用ajax函数
         if (res.data.content) {
           var arr = []
           var arr1 = arr.concat(res.data.content)
@@ -220,12 +236,13 @@ Page({
     var address = wx.getStorageSync('address')
     if (address) {
       console.log(address)
+      address.length = 1
       that.setData({
-        addressItems:address,
+        addressItems: address,
         name: address.receiverName,
         phoneNumber: address.mobileNumber,
         city: address.provinceName + address.cityName + address.districtName,
-        detailAddress:address.detailedAddress,
+        detailAddress: address.detailedAddress,
         goodsList: {
           goodsId: goodsId,
           stockId: stockId,
@@ -235,7 +252,7 @@ Page({
         },
         userAddressBookId: address.id
       })
-    }else{
+    } else {
       app.Util.ajax('mall/personal/addressInfo', 'GET').then((res) => { // 使用ajax函数
         if (res.data.content.length > 0) {
           that.setData({
@@ -260,7 +277,7 @@ Page({
           })
         }
       })
-    }    
+    }
   },
 
   /**

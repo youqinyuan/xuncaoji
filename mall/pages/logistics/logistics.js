@@ -30,7 +30,8 @@ Page({
     app.Util.ajax(`mall/order/queryLogistics?orderId=${orderId}`,null, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         for(var i=0;i<res.data.content.list.length;i++){
-          res.data.content.list[i].datetime = (res.data.content.list[i].datetime).slice(5, 16);
+          res.data.content.list[i].date = (res.data.content.list[i].datetime).slice(5, 10);
+          res.data.content.list[i].time = (res.data.content.list[i].datetime).slice(11, 16);
         }
         that.setData({
           list: (res.data.content.list).reverse(),

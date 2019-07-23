@@ -12,42 +12,75 @@ Page({
     sexPickerIsShow: false,
     isUpHeader: false,
     adds: {},
-    text:['男','女']
+    text: ['男', '女']
   },
+  getNickname:function(e){
+    var that = this
+    that.data.adds.nickname = e.detail.value
+    that.setData({
+      adds: that.data.adds
+    })
+  },
+  getCareer: function (e) {
+    var that = this
+    that.data.adds.career = e.detail.value
+    that.setData({
+      adds: that.data.adds
+    })
+  },
+  getLocation: function (e) {
+    var that = this
+    that.data.adds.location = e.detail.value
+    that.setData({
+      adds: that.data.adds
+    })
+  },
+  getHometown: function (e) {
+    var that = this
+    that.data.adds.hometown = e.detail.value
+    that.setData({
+      adds: that.data.adds
+    })
+  },
+   //获取性别
   toggleDialog: function() {
-    this.setData({
+    var that = this
+    that.setData({
       showDialog: !this.data.showDialog
     });
   },
-  //获取性别
   sexOnChange: function(e) {
+    var that = this
     if (e.currentTarget.dataset.text === '男') {
-      this.data.adds.gender = 1
-      this.setData({
-        adds: this.data.adds
+      that.data.adds.gender = 1
+      that.setData({
+        adds: that.data.adds
       })
     } else {
-      this.data.adds.gender = 2
-      this.setData({
-        adds: this.data.adds
+      that.data.adds.gender = 2
+      that.setData({
+        adds: that.data.adds
       })
     }
   },
   //获取日期
   showDatePicker: function(e) {
-    this.setData({
+    var that = this
+    that.setData({
       datePickerIsShow: true,
     });
   },
   datePickerOnSureClick: function(e) {
-    this.data.adds.birthday = `${e.detail.value[0]}-${e.detail.value[1]}-${e.detail.value[2]}`
-    this.setData({
-      adds: this.data.adds,
+    var that = this
+    that.data.adds.birthday = `${e.detail.value[0]}-${e.detail.value[1]}-${e.detail.value[2]}`
+    that.setData({
+      adds: that.data.adds,
       datePickerIsShow: false,
     });
   },
   datePickerOnCancelClick: function(event) {
-    this.setData({
+    var that = this
+    that.setData({
       datePickerIsShow: false,
     });
   },
@@ -97,14 +130,14 @@ Page({
     var that = this
     var token = wx.getStorageSync('token')
     wx.uploadFile({
-      // url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData',//测试环境
+      // url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
       url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData',//正式环境
       filePath: that.data.avatarKey,
       name: 'avatarKey',
       formData: that.data.adds,
       header: {
         'token': token,
-        'content-type': 'multipart/form-data'
+        "content-type": "multipart/form-data"
       },
       success: function(res) {
         var res = JSON.parse(res.data)
@@ -112,14 +145,27 @@ Page({
           that.baseMessage()
           wx.showToast({
             title: '资料更新成功',
-            icon: 'none'
+            icon: 'none',
+            duration: 1500
+          })
+          setTimeout(function () {
+            wx.switchTab({
+              url: '/pages/mine/mine'
+            })
+          }, 500)
+        } else {
+          wx.showToast({
+            title: '资料更新失败',
+            icon: 'none',
+            duration:1500
           })
         }
       },
       fail: function(res) {
         wx.showToast({
           title: '资料更新失败',
-          icon: 'none'
+          icon: 'none',
+          duration: 1500
         })
       }
     })
@@ -128,24 +174,49 @@ Page({
   upload1: function() {
     var that = this
     var userInfo = that.data.adds
-    var formData = new FormData()
-    // for (let item in userInfo) {
-    //   if (userInfo[item]) {
-    //     formData.append(item, userInfo[item][item])
+    var token = wx.getStorageSync('token')
+    // app.Util.ajax('mall/personal/modifyBaseData', userInfo, 'POST').then((res) => {
+    //   if (res.data.content) {
+    //     that.baseMessage()
+    //     wx.showToast({
+    //       title: '资料更新成功',
+    //       icon: 'none'
+    //     })
+    //   } else {
+    //     wx.showToast({
+    //       title: '资料更新失败',
+    //       icon: 'none'
+    //     })
     //   }
-    // }
-    app.Util.ajax('mall/personal/modifyBaseData', formData, 'POST').then((res) => {
-      if (res.data.content) {
-        that.baseMessage()
-        wx.showToast({
-          title: '资料更新成功',
-          icon: 'none'
-        })
-      } else {
-        wx.showToast({
-          title: '资料更新失败',
-          icon: 'none'
-        })
+    // })
+    wx.request({
+      // url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData',//测试环境
+      url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData',//正式环境
+      data: userInfo,
+      method:"POST",
+      header: {
+        "token":token,
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      success(res) {
+        console.log(res.data)
+        if (res.data.content) {
+          that.baseMessage()
+          wx.showToast({
+            title: '资料更新成功',
+            icon: 'none'
+          })
+          setTimeout(function(){
+            wx.switchTab({
+              url: '/pages/mine/mine'
+            })
+          },500)
+        } else {
+          wx.showToast({
+            title: '资料更新失败',
+            icon: 'none'
+          })
+        }
       }
     })
   },

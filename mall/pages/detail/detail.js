@@ -271,15 +271,16 @@ Page({
       ctx.setFillStyle('#999');
       ctx.fillText('长按保存图片或识别二维码查看', 0.20 * width, 0.57 * height + 0.3 * width + 20);
       ctx.stroke();
-      ctx.draw(true, () => {
-        var that = this
+      ctx.draw()
+      setTimeout(function () {
         wx.canvasToTempFilePath({
           canvasId: 'mycanvas',
-          success: res => {
+          success: function (res) {
+            console.log('res', res)
             that.data.haibaoImg = res.tempFilePath
           }
         })
-      })
+      }, 1000)
       that.setData({
         showModalStatus1: false,
         haibao: true
@@ -344,7 +345,7 @@ Page({
       showService: false
     })
     wx.makePhoneCall({
-      phoneNumber: that.data.content.servicePhone // 仅为示例，并非真实的电话号码
+      phoneNumber: that.data.content.serviceTel // 仅为示例，并非真实的电话号码
     })
   },
   hideService: function() {

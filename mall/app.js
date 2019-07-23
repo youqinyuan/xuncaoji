@@ -49,4 +49,7 @@ App({
   onShow: function() {
 
   },
+  onHide:function(){
+    
+  }
 })

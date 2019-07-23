@@ -28,7 +28,6 @@ Page({
     transStatementId: 1, //交易流水id
     orderId: 1, //订单id
     options: {},
-    top:0,
   },
   //支付
   pay: function(e) {
@@ -65,10 +64,7 @@ Page({
             showDialog: true
           });
         } else {
-          let height = wx.getSystemInfoSync().windowHeight
-          var top = height*0.1
           that.setData({
-            top:top,
             show: true,
             isFocus: true
           })

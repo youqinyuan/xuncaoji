@@ -20,7 +20,7 @@ Page({
       {
         title: '待收货',
         select: false,
-        status: '4'
+        status: '2,4'
       },
       {
         title: '待使用',
@@ -36,18 +36,14 @@ Page({
         title: '退款/售后',
         select: false,
         status: '7, 8, 9, 10, 11'
-      },
-      // {
-      //   title: '已取消',
-      //   select: false,
-      //   status: '12'
-      // },
+      }
     ],
     allOrder: [],
     list:[],//更多好货
     pageNumber:1,
     pageSize:20,
     text:'',
+    text1:'',
     showDialog:false,//确认收货弹框
     showDialog1:false,//取消退款
     showDialog2:false,//退款
@@ -70,7 +66,8 @@ Page({
     shareList: {},//分享数据
     goodsId: 1,//分享用的商品id
     sharingProfit: '',//分享返利
-    options:{}
+    options:{},
+    status:''
   },
   // 跳转到订单详情
   jumpOrderDetail:function(e){
@@ -154,8 +151,14 @@ Page({
     })
     if (options.status==='0'){
       status= parseInt(options.status)
+      that.setData({
+        status:status
+      })
     }else{
       status = options.status
+      that.setData({
+        status: status
+      })
     }
     that.setData({
       currentTab: status
@@ -218,7 +221,7 @@ Page({
       if (res.data.content) {
         if (res.data.content.items == '' && that.data.list !== '') {
           that.setData({
-            text: '已经到底啦'
+            text1: '已经到底啦'
           })
         }
         var arr = that.data.list
@@ -254,9 +257,16 @@ Page({
   getMore1: function () {
     var that = this
     var pageNumber = that.data.pageNumber+1
+    console.log(that.data.status)
+    if (that.data.status == 0){
+      that.setData({
+        status:''
+      })
+    }
     app.Util.ajax('mall/order/queryOrderListByUserId', {
       pageNumber: pageNumber,
-      pageSize: that.data.pageSize
+      pageSize: that.data.pageSize,
+      latestStatus: that.data.status
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         if (res.data.content.items == '' && that.data.allOrder !== '') {
@@ -541,17 +551,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    wx.reLaunch({
+    wx.switchTab({
       url: '/pages/mine/mine'
     }) 
-    // var pages = getCurrentPages() //获取加载的页面
-    // var currentPage = pages[pages.length - 2] //获取当前页面的对象
-    // var url = currentPage.route
-    // if (url == 'pages/paymentorder/paymentorder') {
-    //   wx.reLaunch({
-    //     url: '/pages/mine/mine'
-    //   })
-    // }
   },
 
   /**
@@ -615,7 +617,8 @@ Page({
     var that = this;    
     var status = e.currentTarget.dataset.status
     that.setData({
-      pageNumber:1
+      pageNumber:1,
+      status: status
     })
     if (status == 0){
       that.setData({

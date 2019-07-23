@@ -3,13 +3,14 @@ let app = getApp()
 Page({
   data: {
     showModal: false, //充值
-    showMessage: false, //错误充值提示
-    showMessage1: false, //提现错误提示
+    showMessage: '', //错误充值提示
+    showMessage1: '', //提现错误提示
     show: false, //提现
     pageNumber: 1,
     pageSize: 6,
     content: {},
-    inputValue: '',
+    inputValue: '', //充值金额
+    inputValue1: '' //提现金额
   },
   onLoad: function(options) {
     var that = this
@@ -64,14 +65,15 @@ Page({
     var that = this;
     var mesValue
     //正则验证，充值金额仅支持小数点前8位小数点后2位
-    if (/^\d{1,8}(\.\d{0,2})?$/.test(e.detail.value)) {
+    if (/^\d{1,8}(\.\d{0,2})?$/.test(e.detail.value) || e.detail.value == '') {
       mesValue = e.detail.value;
+      that.setData({
+        showMessage: ''
+      })
     } else {
       mesValue = e.detail.value.substring(0, e.detail.value.length - 1);
-      wx.showToast({
-        title: '充值金额仅支持小数点前8位，小数点后2位',
-        icon: 'none',
-        duration: 1500
+      that.setData({
+        showMessage: '充值金额仅支持小数点前8位,小数点后2位'
       })
     }
     that.setData({
@@ -86,7 +88,6 @@ Page({
       app.Util.ajax('mall/order/addRechargeOrder', {
         amount: amount
       }, 'POST').then((res) => { // 使用ajax函数
-
         if (res.data.content) {
           var id = res.data.content.id
           app.Util.ajax('mall/payment/pay', {
@@ -94,7 +95,6 @@ Page({
             channel: 2,
             client: 2
           }, 'POST').then((res) => {
-            console.log(res)
             if (res.data.content) {
               wx.requestPayment({
                 timeStamp: res.data.content.wechat.appletPrepay.timeStamp,
@@ -161,7 +161,7 @@ Page({
                   console.log(err)
                 }
               })
-            }else{
+            } else {
               wx.showToast({
                 title: res.data.message,
                 icon: 'none'
@@ -169,6 +169,10 @@ Page({
             }
           })
         }
+      })
+    } else {
+      that.setData({
+        showMessage: '请输入充值金额'
       })
     }
   },
@@ -183,15 +187,70 @@ Page({
   hide: function() {
     var that = this;
     that.setData({
-      show: false
+      show: false,
+      inputValue1: '',
+      showMessage1: ''
     });
+  },
+  //获取提现金额
+  btnPresentation: function(e) {
+    var that = this;
+    var mesValue
+    //正则验证，充值金额仅支持小数点前8位小数点后2位
+    if (/^\d{2,}$/.test(e.detail.value) || e.detail.value == '') {
+      mesValue = e.detail.value;
+      that.setData({
+        showMessage1: ''
+      })
+    } else {
+      mesValue = e.detail.value.substring(0, e.detail.value.length);
+      that.setData({
+        showMessage1: '请输入大于10的整数'
+      })
+    }
+    that.setData({
+      inputValue1: mesValue
+    })
   },
   //确认提现
   hideConfirm: function() {
     var that = this;
-    that.setData({
-      show: false
-    })
+    var amount = parseInt(that.data.inputValue1)
+    if (that.data.inputValue1 !== '') {
+      if (amount > that.data.content.balance) {
+        that.setData({
+          showMessage1: '当前提现金额大于账户余额'
+        })
+      } else {
+        app.Util.ajax('mall/personal/transferAudit', {
+          amount: amount,
+          status: 1,
+          source: 2
+        }, 'POST').then((res) => { // 使用ajax函数
+          if (res.data.messageCode == 'MSG_1001') {
+            that.setData({
+              show: false
+            })
+            that.getMessage();
+            wx.showToast({
+              title: '提现成功',
+              icon: 'none',
+              duration: 1500
+            })
+          } else if (res.data.messageCode == 'MSG_4001'){
+            console.log('tixian')
+            that.setData({
+              showMessage1: res.data.message
+            })
+          }
+        })
+      }
+    } else {
+      that.setData({
+        showMessage1: '请输入提现金额'
+      })
+    }
+
   },
   /**
    * 弹出框蒙层截断touchmove事件

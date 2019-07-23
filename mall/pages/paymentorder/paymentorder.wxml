@@ -67,17 +67,14 @@
   <image wx:if="{{show}}" class="pwd-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelShow'></image>
 </view>
 <!--弹框-->
-<view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
-  <view class="zan-dialog__mask" />
-  <view class="zan-dialog__container">
-    <view class='content'>
-      <view class="content-title">提示</view>
-      <view class="content-container">当前余额不足无法支付，建议您先去充值后再进行操作！
-      </view>
-      <view class="content-button">
-        <view class="back" catchtap='back'>取消</view>
-        <view class="continue" catchtap='continuePay'>去充值</view>
-      </view>
+<view class="zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}">
+  <view class="zan-dialog__container" wx:if="{{showDialog}}">
+    <view class="content-title">提示</view>
+    <view class="content-container">当前余额不足无法支付，建议您先去充值后再进行操作！
+    </view>
+    <view class="content-button">
+      <view class="back" catchtap='back'>取消</view>
+      <view class="continue" catchtap='continuePay'>去充值</view>
     </view>
   </view>
 </view>

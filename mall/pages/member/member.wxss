@@ -39,6 +39,14 @@ page {
   color: rgba(255, 255, 255, 1);
 }
 
+.expires-text1 {
+  position: absolute;
+  top: 95rpx;
+  left: 53rpx;
+  font-size: 36rpx;
+  color: rgba(255, 255, 255, 1);
+}
+
 .expires-date {
   margin-top: 20rpx;
 }
@@ -51,11 +59,13 @@ page {
   background: rgba(255, 255, 255, 1);
   border-radius: 8rpx;
   margin: 0 auto;
+  margin-top: 85rpx;
 }
+
 .active-title {
   margin-left: 149rpx;
   padding-top: 59rpx;
-  margin-top: 100rpx;
+  margin-top: 50rpx;
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
@@ -188,11 +198,13 @@ page {
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
-.block{
+
+.block {
   height: 40rpx;
   width: 750rpx;
   background: rgba(255, 128, 78, 1);
 }
+
 /*弹窗*/
 
 .modal-mask {
@@ -311,44 +323,122 @@ button::after {
   height: 76rpx;
   position: absolute;
   left: 350rpx;
-  bottom:1%;
+  bottom: 1%;
 }
 
 .content-cancel image {
   width: 76rpx;
   height: 76rpx;
 }
+
 /* 海报弹框 */
-.mask_hb{
-  width:100%;
-  height:100%;
+
+.mask_hb {
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
-  top:0;
+  top: 0;
 }
-.canvas-box{
-  width:0;
-  height:0;
+
+.canvas-box {
+  width: 0;
+  height: 0;
   position: fixed;
-  top:3.9%;
-  left:6%;
+  top: 3.9%;
+  left: 6%;
 }
-.canvas{
-  width:88%;
-  height:89%;
+
+.canvas {
+  width: 88%;
+  height: 89%;
   position: fixed;
-  top:3.9%;
-  left:6%;
+  top: 3.9%;
+  left: 6%;
 }
-.close_hb{
+
+.close_hb {
   width: 100%;
   display: flex;
   justify-content: center;
   position: fixed;
-  left:0;
-  bottom:2%;
+  left: 0;
+  bottom: 2%;
 }
-.close_hb image{
-  width:50rpx;
-  height:50rpx;
+
+.close_hb image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+/* 会员完成任务弹框 */
+
+.mask_task {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+}
+
+.membership-box {
+  width: 540rpx;
+  height: 562rpx;
+  position: fixed;
+  top: 15.9%;
+  left: 107rpx;
+}
+
+.membership-box-bg {
+  width: 100%;
+  height: 100%；;
+}
+
+.membership-box-img {
+  position: absolute;
+  top: 6.9%;
+  left: 190rpx;
+  width: 169rpx;
+  height: 198rpx;
+}
+
+.membership-box-text {
+  position: absolute;
+  top: 47.9%;
+  left: 86rpx;
+  font-size: 32rpx;
+  text-align: center;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.membership-box-text1 {
+  position: absolute;
+  top: 56.9%;
+  left: 35rpx;
+  font-size: 32rpx;
+  text-align: center;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.membership-box-btn {
+  position: absolute;
+  top: 72.9%;
+  left: 86rpx;
+  width: 360rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 141, 18, 1);
+  background: rgba(255, 255, 255, 1);
+  border-radius: 38rpx;
+}
+
+.membership-box-btn::after {
+  border: none;
 }

@@ -115,7 +115,8 @@
     </view>
   </view>
 </view>
-<view class="myorder-bottom" wx:if="{{allOrder.length>0}}">{{text}}</view>
+<view class="myorder-bottom" wx:if="{{allOrder.length>2}}">{{text}}</view>
+<view class="myorder-bottom1" wx:if="{{allOrder.length<2}}">{{text1}}</view>
 <!-- 确认收货弹框 -->
 <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
   <view class="zan-dialog__mask" />

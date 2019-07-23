@@ -320,7 +320,7 @@
   <view class="zan-dialog__container">
     <view class='content1'>
       <view class="content-title">客服</view>
-      <view class="content-container">{{content.servicePhone}}
+      <view class="content-container">{{content.serviceTel}}
       </view>
       <view class="content-button" catchtap='call'>
         呼叫

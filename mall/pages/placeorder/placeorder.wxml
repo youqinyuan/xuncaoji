@@ -30,11 +30,11 @@
     <image src="../../assets/images/icon/xiangqing_more_n.png"></image>
   </view>
 </view>
-<view class="address-wrapper" bindtap='jumpAddress' wx:if="{{addressItems.length > 0}}">
+<view class="address-wrapper" bindtap='jumpAddress' wx:if="{{addressItems.length>0}}">
   <view class="address1">
     <view class="address-name-wrap">
       <view class="address-name">
-        <view>{{name}}</view>
+        <view class="address-name-xm">{{name}}</view>
         <view>{{phoneNumber}}</view>
       </view>
       <view class="address-address1">

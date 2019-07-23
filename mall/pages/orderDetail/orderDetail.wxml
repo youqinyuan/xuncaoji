@@ -125,6 +125,13 @@
               <text class="expressfee-price1">{{item.expressFee}}</text>
             </view>
           </view>
+           <view class="expressfee" wx:if="{{content.isCashBack==true}}">
+            <view class="expressfee-text">分期返现</view>
+            <view class="expressfee-price">
+              <text class="expressfee-price1" wx:if="{{item.period==0}}">立即返</text>
+              <text class="expressfee-price1" wx:else>{{item.period}}期返现</text>
+            </view>
+          </view>
         </view>
       </view>
     </view>

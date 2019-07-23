@@ -14,7 +14,7 @@
         <view class="content-address">{{item.provinceName}}{{item.cityName}}{{item.districtName}}{{item.detailedAddress}}
         </view>
       </view>
-      <view class="content-edit" bindtap='jumpEdit' data-name="{{item.receiverName}}" data-number="{{item.mobileNumber}}" data-province="{{item.provinceName}}" data-city="{{item.cityName}}" data-district="{{item.districtName}}" data-districtid="{{item.districtId}}" data-detailed="{{item.detailedAddress}}" data-id="{{item.id}}" data-gindex="{{index}}">
+      <view class="content-edit" catchtap='jumpEdit' data-name="{{item.receiverName}}" data-number="{{item.mobileNumber}}" data-province="{{item.provinceName}}" data-city="{{item.cityName}}" data-district="{{item.districtName}}" data-districtid="{{item.districtId}}" data-detailed="{{item.detailedAddress}}" data-id="{{item.id}}" data-gindex="{{index}}">
         <image src="../../assets/images/icon/location_edit.png"></image>
       </view>
     </view>

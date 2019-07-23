@@ -16,9 +16,15 @@
   font-size: 22rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
-  color: rgba(153, 153, 153, 1);
+  color: #999;
 }
-
+.logistics-list-left .date1 {
+  width: 85rpx;
+  font-size: 18rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: #999;
+}
 .logistics-list-right .img {
   width: 45rpx;
   height: 45rpx;
@@ -57,32 +63,32 @@
   background: rgba(170, 170, 170, 1);
   border-radius: 50%;
   position: absolute;
-  left: 149rpx;
+  left: 126rpx;
   top:10rpx;
 }
 .logistics-list-right .circle1 {
   position: absolute;
-  left: 132rpx;
+  left: 109rpx;
   top:-6rpx;
 }
 .logistics-list-right .circle2 {
   position: absolute;
-  left: 132rpx;
+  left: 109rpx;
   top:-6rpx;
 }
 .logistics-list-right .block {
-  width: 2rpx;
+  width: 1rpx;
   height: 108rpx;
-  background: rgba(170, 170, 170, 1);
+  background: #E7E7E7;
   position: absolute;
-  left: 153rpx;
+  left: 130rpx;
   top:23rpx;
 }
 .logistics-list-right .block1 {
-  width: 2rpx;
+  width: 1rpx;
   height: 102rpx;
-  background: rgba(170, 170, 170, 1);
+  background: #E7E7E7;
   position: absolute;
-  left: 153rpx;
+  left: 130rpx;
   top:29rpx;
 }

@@ -52,6 +52,7 @@ Page({
     if (options.inviterCode) {
       that.data.inviterCode = options.inviterCode
     }
+    that.chooseShare();
     app.Util.ajax(`mall/home/activity/freeShopping/goodsDetail?id=${id}`, null, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         let current = res.data.content.remainingTime
@@ -76,7 +77,7 @@ Page({
     var token = wx.getStorageSync('token')
     if (token) {
       app.Util.ajax('mall/home/activity/freeShopping/placeOrder/validate', {
-        goodsId: goodsId
+        goodsId: that.data.goodsId
       }, 'POST').then((res) => { // 使用ajax函数
         if (res.data.content) {
           if (res.data.content.status === 2) {
@@ -302,7 +303,7 @@ Page({
             console.log(width, height)
             var ctx = wx.createCanvasContext('mycanvas');
             var path_bg = '/assets/images/icon/bg.png'; //背景图片
-            var path_logo = '/assets/images/icon/xuncaoji_icon.png'
+            var path_logo = '/assets/images/icon/logo_share.png'
             var title = '种草达人的欢乐场'
             inviterCode = `邀请码: ${inviterCode}`
             //绘制图片模板的背景图片
@@ -314,13 +315,13 @@ Page({
             ctx.setFillStyle('#fff');
             ctx.fillText(title, 0.32 * width, 26);
             ctx.stroke();
+            // 绘制邀请码
             if (inviterCode != '邀请码: undefined') {
               ctx.setFontSize(20);
               ctx.setFillStyle('#FF517A');
-              ctx.fillText(inviterCode, 0.25 * width, 0.055 * height + 0.133 * width + 20);
+              ctx.fillText(inviterCode, 0.25 * width, 0.055 * height + 0.14 * width + 20);
               ctx.stroke();
             }
-            // 绘制邀请码
             // 绘制产品图
             ctx.drawImage('/assets/images/icon/bg_zero.png', 0.068 * width, 0.17 * height, 0.74 * width, 0.327 * height);
             ctx.drawImage('/assets/images/icon/bg_yellow.png', 0.068 * width, 0.418 * height, 0.74 * width, 0.08 * height);
@@ -389,7 +390,7 @@ Page({
             }
             row.push(temp)
             for (var b = 0; b < row.length; b++) {
-              ctx.fillText(row[b], 0.09 * width, 0.53 * height + b * 20);
+              ctx.fillText(row[b], 0.076 * width, 0.53 * height + b * 20);
             }
             ctx.stroke();
             //绘制邀请码
@@ -399,14 +400,16 @@ Page({
             ctx.setFillStyle('#999');
             ctx.fillText('长按保存图片或识别二维码查看', 0.20 * width, 0.57 * height + 0.3 * width + 20);
             ctx.stroke();
-            ctx.draw(true, () => {
+            ctx.draw()
+            setTimeout(function() {
               wx.canvasToTempFilePath({
                 canvasId: 'mycanvas',
-                success: res => {
+                success: function(res) {
+                  console.log('res', res)
                   that.data.haibaoImg = res.tempFilePath
                 }
               })
-            })
+            }, 1000)
             that.setData({
               showModalStatus1: false,
               haibao: true
@@ -486,37 +489,70 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function(res) {
     var that = this
-    // 来自页面内转发按钮
-    that.setData({
-      showModalStatus1: false,
-    })
-    app.Util.ajax('mall/weChat/sharing/onSuccess', {
-      mode: 2
-    }, 'POST').then((res) => {
-      if (res.data.content) {
-        wx.showToast({
-          title: '分享成功',
-          icon: 'none'
+    if (res.from == "button") {
+      if (res.target.id === 'btn') {
+        // 来自页面内转发按钮
+        console.log(res.target.id)
+        that.setData({
+          showModalStatus1: false
         })
-      } else {
-        wx.showToast({
-          title: res.data.message,
-          icon: 'none'
+        app.Util.ajax('mall/weChat/sharing/onSuccess', {
+          mode: 1
+        }, 'POST').then((res) => {
+          if (res.data.content) {
+            wx.showToast({
+              title: '分享成功',
+              icon: 'none'
+            })
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
+          }
         })
-      }
-    })
-    return {
-      title: that.data.shareList.desc,
-      path: that.data.shareList.link,
-      imageUrl: that.data.shareList.imageUrl,
-      success: function(res) {
+        return {
+          title: that.data.shareList.desc,
+          path: that.data.shareList.link,
+          imageUrl: that.data.shareList.imageUrl,
+          success: function (res) {
 
-      },
-      fail: function(res) {
-        // 转发失败
-        console.log("转发失败:" + JSON.stringify(res));
+          },
+          fail: function (res) {
+            // 转发失败
+            console.log("转发失败:" + JSON.stringify(res));
+          }
+        }
+      }
+    } else {
+      app.Util.ajax('mall/weChat/sharing/onSuccess', {
+        mode: 1
+      }, 'POST').then((res) => {
+        if (res.data.content) {
+          wx.showToast({
+            title: '分享成功',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+      return {
+        title: that.data.shareList.desc,
+        path: that.data.shareList.link,
+        imageUrl: that.data.shareList.imageUrl,
+        success: function (res) {
+
+        },
+        fail: function (res) {
+          // 转发失败
+          console.log("转发失败:" + JSON.stringify(res));
+        }
       }
     }
   }

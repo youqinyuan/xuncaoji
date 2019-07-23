@@ -15,7 +15,7 @@ Page({
     }, {
       img: '../../assets/images/icon/my_order_list2_icon.png',
       txt: '待收货',
-      status: '4'
+      status: '2,4'
     }, {
       img: '../../assets/images/icon/my_order_list5_icon.png',
       txt: '待使用',
@@ -32,7 +32,7 @@ Page({
     showService: false, //我的服务
     showInviterCode: false, //邀请码
     orderCount: [],
-    allCount:0//待发货待收货数量
+    waitCount:0//待发货待收货数量
   },
   //跳转到全部订单页面
   nav: function(e) {
@@ -185,13 +185,27 @@ Page({
       app.Util.ajax('mall/personal/dashboard',null, 'GET').then((res) => { // 使用ajax函数
         if (res.data.content) {
           if (res.data.content.orderCount.length > 0) {
+            var waitCount = 0;
             for (var i = 0; i < res.data.content.orderCount.length; i++) {
               res.data.content.orderCount[i].count = res.data.content.orderCount[i].count > 99 ? res.data.content.orderCount[i].count + '+' : res.data.content.orderCount[i].count
+              if (res.data.content.orderCount[i].status == 2){
+                waitCount +=res.data.content.orderCount[i].count
+                that.setData({
+                  waitCount: waitCount
+                })
+              }
+              if (res.data.content.orderCount[i].status == 4){
+                waitCount += res.data.content.orderCount[i].count
+                that.setData({
+                  waitCount: waitCount
+                })
+              }
             }
           }         
           that.setData({
             content: res.data.content ? res.data.content : '',
             orderCount: res.data.content ? res.data.content.orderCount:[],
+            // waitCount:
           })
         }
       })

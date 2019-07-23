@@ -117,6 +117,7 @@ Page({
               password: '',
               password1: ''
             })
+            
           } else {
             // wx.showToast({
             //   title: res.data.message,

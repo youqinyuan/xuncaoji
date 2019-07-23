@@ -56,7 +56,7 @@ Page({
         }
         wx.removeStorageSync('othersInviterCode')
       })
-    } else if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
+    } else{
       app.globalData.flag = false
       wx.navigateTo({
         url: '/pages/login/login',

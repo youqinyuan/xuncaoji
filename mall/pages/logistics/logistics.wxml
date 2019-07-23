@@ -2,7 +2,8 @@
 <view class="logistics">
   <view class="logistics-list" wx:for="{{list}}" wx:key="">
     <view class="logistics-list-left">
-      <view class="date">{{item.datetime}}</view>
+      <view class="date">{{item.date}}</view>
+      <view class="date1">{{item.time}}</view>
     </view>
     <view class="logistics-list-right">
       <!-- <view class="img"> <image src="../../assets/images/icon/ic_arrived.png"></image></view> -->

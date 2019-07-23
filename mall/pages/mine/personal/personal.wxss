@@ -20,12 +20,11 @@ page {
   border-bottom: 2rpx solid #f4f4f4;
   display: flex;
   justify-content: space-between;
-  margin-left: 30rpx;
-  margin-right: 30rpx;
+  padding-left: 30rpx;
+  padding-right: 87rpx;
 }
 
 .personal-photo-text {
-  margin-left: 30rpx;
   font-size: 30rpx; 
   color: rgba(51, 51, 51, 1);
 }
@@ -57,7 +56,6 @@ page {
 .personal-photo-nickname {
   font-size: 30rpx;
   width: 100rpx;
-  margin-left: 30rpx;
   color: rgba(51, 51, 51, 1);
 }
 .personal-photo-name{
@@ -70,6 +68,18 @@ page {
 
 input{
   color:#AAAAAA;
+}
+.section-top-img {
+  position: absolute;
+  top:23rpx;
+  right: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.section-top-img image {
+  width: 40rpx;
+  height: 40rpx;
 }
 /*中部*/
 
@@ -94,8 +104,8 @@ input{
 }
 .sex {
   font-size: 30rpx;
-  margin-left: 60rpx;
-  margin-right: 380rpx;
+  margin-left: 30rpx;
+  margin-right: 374rpx;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -177,8 +187,7 @@ input{
   height: 90rpx;
   line-height: 90rpx;
   border-bottom: 2rpx solid #f4f4f4;
-  margin-right: 30rpx;
-  margin-left: 30rpx;
+  padding-right: 87rpx;
   display: flex;
   justify-content: space-between;
 }
@@ -222,7 +231,6 @@ input{
   text-align: right;
   margin-top: 20rpx;
   width: 450rpx;
-  background-color: #fff;
 }
 /*保存*/
 
