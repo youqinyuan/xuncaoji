@@ -1,5 +1,7 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "swiper-show":"/components/swiper-show/swiper-show"
+  },
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTitleText": "搜索"
 }

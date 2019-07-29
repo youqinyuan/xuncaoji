@@ -62,7 +62,11 @@ Page({
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         let lastTime = res.data.content.remainingTime / 1000
-        // let lastTime = 10
+        let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+        let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
+        this.setData({
+          waitPay: `00:${minuteTime}:${secondTime}`
+        })
         if (lastTime>0){
          let interval2 = setInterval(() => {
            if (lastTime > 0) {
@@ -70,7 +74,7 @@ Page({
              let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
              let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
              this.setData({
-               waitPay: `${minuteTime}:${secondTime}`
+               waitPay: `00:${minuteTime}:${secondTime}`
              })
            } else {
              clearInterval(interval2)
@@ -91,6 +95,7 @@ Page({
             if (res.data.content.latestStatus == 7 || res.data.content.latestStatus == 8) {
               if (res.data.content.orderTimeRefundDetail[i].status == 7 || res.data.content.orderTimeRefundDetail[i].status == 8){
                 let current = res.data.content.orderTimeRefundDetail[i].autoProcessTime
+                that.formatDuring(current)
                 let interval = setInterval(() => {
                   if (current > 0) {
                     current -= 1000

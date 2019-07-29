@@ -188,69 +188,7 @@ Page({
     var that = this;
     that.setData({
       show: false,
-      inputValue1: '',
-      showMessage1: ''
     });
-  },
-  //获取提现金额
-  btnPresentation: function(e) {
-    var that = this;
-    var mesValue
-    //正则验证，充值金额仅支持小数点前8位小数点后2位
-    if (/^\d{2,}$/.test(e.detail.value) || e.detail.value == '') {
-      mesValue = e.detail.value;
-      that.setData({
-        showMessage1: ''
-      })
-    } else {
-      mesValue = e.detail.value.substring(0, e.detail.value.length);
-      that.setData({
-        showMessage1: '请输入大于10的整数'
-      })
-    }
-    that.setData({
-      inputValue1: mesValue
-    })
-  },
-  //确认提现
-  hideConfirm: function() {
-    var that = this;
-    var amount = parseInt(that.data.inputValue1)
-    if (that.data.inputValue1 !== '') {
-      if (amount > that.data.content.balance) {
-        that.setData({
-          showMessage1: '当前提现金额大于账户余额'
-        })
-      } else {
-        app.Util.ajax('mall/personal/transferAudit', {
-          amount: amount,
-          status: 1,
-          source: 2
-        }, 'POST').then((res) => { // 使用ajax函数
-          if (res.data.messageCode == 'MSG_1001') {
-            that.setData({
-              show: false
-            })
-            that.getMessage();
-            wx.showToast({
-              title: '提现成功',
-              icon: 'none',
-              duration: 1500
-            })
-          } else if (res.data.messageCode == 'MSG_4001'){
-            console.log('tixian')
-            that.setData({
-              showMessage1: res.data.message
-            })
-          }
-        })
-      }
-    } else {
-      that.setData({
-        showMessage1: '请输入提现金额'
-      })
-    }
-
   },
   /**
    * 弹出框蒙层截断touchmove事件

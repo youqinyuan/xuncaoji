@@ -10,10 +10,10 @@ Page({
     autoplay: false,
     interval: 5000,
     duration: 1000,
-    hours: [0, 0],//小时
-    minutes: [0, 0],//分钟
-    seconds: [0, 0],//秒
-    haoSeconds: [0, 0],//毫秒
+    hours: [],//小时
+    minutes: [],//分钟
+    seconds: [],//秒
+    haoSeconds: [],//毫秒
     goodsItems:[],//商品
     grabbedNumber:0,//已抢到人数
     show:true,//左滑右滑弹窗
@@ -65,6 +65,7 @@ Page({
     app.Util.ajax(`mall/home/activity/freeShopping?mode=${2}`, null, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         let current = res.data.content.remainingTime
+        that.formatDuring(current)
         let interval2 = setInterval(() => {
           if (current > 0) {
             current -=1000
@@ -72,10 +73,10 @@ Page({
           } else {
             clearInterval(interval2)
             this.setData({
-              hours: [0, 0],//小时
-              minutes: [0, 0],//分钟
-              seconds: [0, 0],//秒
-              haoSeconds: [0, 0],//毫秒
+              hours: [],//小时
+              minutes: [],//分钟
+              seconds: [],//秒
+              haoSeconds: [],//毫秒
             })
           }
         }, 1000)

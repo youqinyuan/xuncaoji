@@ -45,7 +45,7 @@ page {
 }
 
 .percent {
-  color: #e33a59;
+  color: #FF2644;
 }
 
 .evaluate-content-top {

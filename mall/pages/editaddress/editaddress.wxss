@@ -117,7 +117,7 @@ page {
 .btn {
   width: 690rpx;
   height: 80rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 40rpx;
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;

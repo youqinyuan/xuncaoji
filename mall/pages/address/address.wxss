@@ -69,7 +69,7 @@ page {
 .default {
   position: fixed;
   z-index: 10;
-  right: 100rpx;
+  right: 170rpx;
   top: 33rpx;
   height: 34rpx;
   text-align: center;
@@ -77,9 +77,9 @@ page {
   font-size: 24rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
-  color: rgba(255, 141, 18, 1);
+  color: #FF6417;
   background: rgba(255, 246, 237, 1);
-  border: 2rpx solid rgba(255, 141, 18, 1);
+  border: 2rpx solid #FF6417;
 }
 
 .content-address {
@@ -109,7 +109,7 @@ page {
 }
 
 .del {
-  background: rgba(227, 58, 89, 1);
+  background: #FF2644;
   width: 90px;
   display: flex;
   flex-direction: column;
@@ -209,13 +209,13 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .addaddress {
   width: 690rpx;
   height: 76rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 38px;
   margin-top: 60rpx;
   margin-left: 30rpx;

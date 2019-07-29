@@ -148,7 +148,7 @@ checkbox .wx-checkbox-input {
 
 checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   border: none;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
 }
 
 checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
@@ -169,7 +169,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 .button {
   width: 690rpx;
   height: 80rpx;
-  background: rgba(255, 81, 122, 1);
+  background: #FF2644;
   border-radius: 38px;
   margin-top: 60rpx;
   margin-left: 30rpx;
@@ -246,7 +246,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   font-size: 34rpx;
   text-align: center;
   width: 270rpx;
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 /* 支付密码 */
@@ -325,4 +325,87 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   bottom: 0;
   left: 0;
   right: 0;
+}
+/* 设置支付密码弹框 */
+
+.zan-dialog__mask1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.zan-dialog__container1 {
+  transform: translateY(400%);
+  transition: all 0.00001s ease;
+  width: 540rpx;
+  height: 282rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  bottom: 530rpx;
+  left: 110rpx;
+  z-index: 9999;
+}
+
+.zan-dialog--show1 .zan-dialog__container1 {
+  transform: translateY(0);
+}
+
+.zan-dialog--show1 .zan-dialog__mask1 {
+  display: block;
+}
+
+/* 弹框内容 */
+
+.content1 {
+  text-align: center;
+  overflow: hidden;
+}
+
+.content1-title {
+  margin-top: 44rpx;
+  margin-bottom: 10rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.content1-container {
+  width: 450rpx;
+  height: 66rpx;
+  margin-left: 55rpx;
+  margin-bottom: 35rpx;
+  font-size: 30rpx;
+  text-align: center;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content1-button {
+  display: flex;
+  height: 66rpx;
+  border-top: 2rpx solid #eaeaea;
+}
+
+.cancel-password {
+  width: 270rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  text-align: center;
+  border-right: 2rpx solid #eaeaea;
+  color: rgba(51, 51, 51, 1);
+}
+
+.sure-password {
+  width: 270rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  text-align: center;
+  color: #FF6417;
 }

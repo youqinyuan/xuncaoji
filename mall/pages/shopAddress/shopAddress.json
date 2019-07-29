@@ -2,7 +2,7 @@
   "usingComponents": {
     "city-picker": "../../components/city-picker/city-picker"
   },
-  "navigationBarBackgroundColor": "#FF517A",
+  "navigationBarBackgroundColor": "#FF2644",
   "navigationBarTitleText": "店铺位置",
   "navigationBarTextStyle": "white"
 }

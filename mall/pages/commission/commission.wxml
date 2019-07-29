@@ -8,9 +8,9 @@
     </view>
     <view class="container-top-text">您还不是会员无法获取佣金</view>
   </view>
-  <!--开通后尊享五大权益-->
+  <!--会员权益-->
   <view class="container-middle">
-    <view class="container-middle-title">开通后尊享五大权益</view>
+    <view class="container-middle-title">会员权益</view>
     <view class="container-middle-list">
       <view class="container-middle-img">
         <image src="../../assets/images/icon/vip_get_vip3.png"></image>

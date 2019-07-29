@@ -101,7 +101,7 @@
         <view class="oldprice">￥{{item.orgPrice}}</view>
       </view>
       <view class="return-wrap">
-        <view class="return-money1">
+        <view class="return-moneypay">
           <text>返</text>
           <text>￥</text>
           <text>{{item.marketingCashBack.totalAmount}}</text>

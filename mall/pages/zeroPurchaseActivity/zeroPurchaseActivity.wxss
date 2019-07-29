@@ -17,12 +17,12 @@ page {
   font-size: 30rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
-  color: rgba(255, 81, 122, 1);
+  color: #FF2644;
+  margin-bottom: 24rpx;
 }
 
 .zero-purchase-time {
   display: flex;
-  margin-top: 30rpx;
   margin-left: 76rpx;
 }
 
@@ -52,8 +52,9 @@ page {
   font-size: 26rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
-  color: rgba(255, 81, 122, 1);
+  color: #FF2644;
   margin-top: 20rpx;
+  margin-bottom: 22rpx;
 }
 
 .zero-purchase-person text {
@@ -62,14 +63,14 @@ page {
   font-weight: normal;
   color: #fff;
 }
+
 .zero-purchase-list {
-  height: 860rpx;
+  height: 885rpx;
 }
 
 .zero-purchase-list-img {
   width: 520rpx;
   height: 520rpx;
-  margin-top: 45rpx;
 }
 
 .zero-purchase-list-price {
@@ -80,16 +81,17 @@ page {
   height: 86rpx;
   padding-right: 20rpx;
   text-align: left;
-  background: rgba(255, 141, 18, 1);
-  border-radius: 0rpx 0rpx 8rpx 8rpx;
+  background: #FF8D12;
 }
-.zero-purchase-list-price-img{
+
+.zero-purchase-list-price-img {
   position: absolute;
   top: 70rpx;
-  left:244rpx;
+  left: 244rpx;
   width: 27rpx;
   height: 86rpx;
 }
+
 .zero-purchase-list-price .text1 {
   font-size: 22rpx;
   margin-top: 15rpx;
@@ -106,15 +108,17 @@ page {
 .zero-purchase-list-price .text2 text {
   font-size: 22rpx;
 }
-.zero-purchase-list-item{
+
+.zero-purchase-list-item {
   width: 610rpx;
-  padding-bottom: 30rpx;
+  padding-bottom: 15rpx;
   margin-left: 70rpx;
   background: rgba(255, 255, 255, 1);
   margin-top: 40rpx;
   box-shadow: 0rpx 5rpx 10rpx 0rpx rgba(3, 0, 1, 0.1);
   border-radius: 8rpx;
 }
+
 .zero-purchase-list-item image {
   margin-top: 45rpx;
   width: 520rpx;
@@ -137,28 +141,31 @@ page {
   display: flex;
   margin-left: 24rpx;
   justify-content: space-between;
-  margin-top: 20rpx;
+  margin-top: 34rpx;
+  margin-bottom: 34rpx;
   font-size: 32rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
-  color: rgba(255, 81, 122, 1);
+  color: #FF2644;
 }
 
 .zero-purchase-list-sign .sign {
   display: block;
   width: 48rpx;
   height: 48rpx;
-  background: rgba(255, 81, 122, 1);
+  background: #FF2644;
   border-radius: 50%;
   color: #fff;
   font-size: 30rpx;
   margin-right: 24rpx;
 }
-.block{
+
+.block {
   height: 40rpx;
   width: 750rpx;
-  background: #FCB3BC;
+  background: #fcb3bc;
 }
+
 /* 左右滑模板 */
 
 .modal-mask {

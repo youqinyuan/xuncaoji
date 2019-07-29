@@ -76,3 +76,6 @@
     </view>
   </view>
 </view>
+
+<!-- 轮播展示组件 -->
+<swiper-show class="swiper-show"></swiper-show>

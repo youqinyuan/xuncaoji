@@ -5,7 +5,8 @@
     <image src="../../assets/images/icon/vip_radian_bg.png"></image>
   </view>
   <view class="expires">
-    <image src="../../assets/images/icon/vip_card.png"></image>
+    <image wx:if="{{!expireTime}}" src="../../assets/images/icon/not_vip_card.png"></image>
+    <image wx:else src="../../assets/images/icon/vip_card.png"></image>
     <view class="expires-text1" wx:if="{{!expireTime}}">您还不是会员</view>
     <view class="expires-text" wx:else>
       <view class="expires-top">会员到期日</view>

@@ -157,7 +157,7 @@ page {
   position: absolute;
   width: 440rpx;
   height: 76rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 38rpx;
   line-height: 76rpx;
   font-size: 32rpx;
@@ -171,7 +171,7 @@ page {
 .button {
   width: 690rpx;
   height: 76rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 38px;
   margin-top: 60rpx;
   margin-left: 30rpx;
@@ -195,78 +195,16 @@ page {
 }
 
 .modal {
-  width: 540rpx;
-  background: rgba(255, 255, 255, 1);
+  width: 620rpx;
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  top: 15%;
-  left: 125rpx;
+  top: 5rpx;
+  left: 65rpx;
   z-index: 9999;
 }
-
-.modal-title1 {
-  margin-top: 54rpx;
-  margin-left: 52rpx;
-  font-size: 34rpx;
-  color: rgba(51, 51, 51, 1);
-}
-.section1 {
+.modal-img{
+  width: 620rpx;
   display: flex;
-  margin-top: 65rpx;
-  margin-left: 50rpx;
-  width: 440rpx;
-  height: 75rpx;
-  border-bottom: 4rpx solid #ddd;
-}
-
-.input-price1 {
-  font-size: 32rpx;
-  color: rgba(51, 51, 51, 1);
-}
-.prompt-message{
-  /* height: 23rpx; */
-  line-height: 23rpx;
-  margin-left: 90rpx;
-  margin-top: 15rpx;
-  font-size: 24rpx;
-  color: rgba(227, 58, 89, 1);
-}
-.modal-text {
-  margin-top: 18rpx;
-  width: 475rpx;
-  text-align: left;
-  margin-left: 52rpx;
-  height: 91rpx;
-  font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(170, 170, 170, 1);
-  line-height: 34rpx;
-}
-
-.modal-text1 {
-  margin-left: 52rpx;
-  width: 528rpx;
-  font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(170, 170, 170, 1);
-}
-
-button {
-  width: 440rpx;
-  height: 76rpx;
-  margin-top: 50rpx;
-  margin-bottom: 50rpx;
-  background: rgba(255, 141, 18, 1);
-  border-radius: 38rpx;
-  font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 1);
-}
-
-button::after {
-  border: none;
+  justify-content: center;
 }

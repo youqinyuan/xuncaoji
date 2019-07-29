@@ -1,10 +1,11 @@
 /* pages/commission/commission.wxss */
 
 page {
-  background: #f4f4f4;
+  /* background: #f4f4f4; */
 }
 
 .container-top {
+  overflow: hidden;
   height: 300rpx;
   background: rgba(255, 255, 255, 1);
   text-align: center;
@@ -28,7 +29,7 @@ page {
   color: rgba(51, 51, 51, 1);
 }
 
-/* 开通后尊享五大权益 */
+/* 会员权益 */
 
 .container-middle {
   height: 690rpx;
@@ -37,13 +38,13 @@ page {
 }
 
 .container-middle-title {
-  height: 80rpx;
-  margin-left: 30rpx;
-  line-height: 80rpx;
+  margin-top: 52rpx;
+  display: flex;
+  justify-content: center;
   font-size: 34rpx;
-  font-family: PingFang-SC-Bold;
-  font-weight: bold;
-  color: rgba(51, 51, 51, 1);
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 100, 23, 1);
 }
 
 .container-middle-list {
@@ -54,7 +55,7 @@ page {
 }
 
 .container-middle-img {
-   margin-left: 30rpx;
+  margin-left: 30rpx;
   margin-right: 20rpx;
   width: 100rpx;
   height: 100rpx;
@@ -71,14 +72,15 @@ page {
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
+
 /* 开通会员按钮 */
 
 .button {
   width: 690rpx;
   height: 76rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 38px;
-  margin-top: 60rpx;
+  margin-top: 80rpx;
   margin-left: 30rpx;
   margin-bottom: 40rpx;
   text-align: center;
@@ -169,7 +171,7 @@ page {
 .withdraw {
   width: 690rpx;
   height: 76rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 38px;
   margin-top: 60rpx;
   margin-left: 30rpx;
@@ -245,7 +247,7 @@ page {
 .list-right1 {
   margin-right: 29rpx;
   margin-top: 40rpx;
-  color: rgba(255, 141, 18, 1);
+  color: #FF6417;
 }
 
 /* 提现弹窗 */
@@ -315,7 +317,7 @@ page {
   position: absolute;
   width: 440rpx;
   height: 76rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 38rpx;
   line-height: 76rpx;
   text-align: center;

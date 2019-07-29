@@ -20,6 +20,10 @@ Page({
   //显示弹框
   recurit: function () {
     var that = this;
+    //隐藏tabbar
+    that.getTabBar().setData({
+      showTabbar: false
+    })
     that.setData({
       show: true
     })
@@ -28,6 +32,10 @@ Page({
     var that = this;
     that.setData({
       show: false
+    })
+    //显示tabbar
+    that.getTabBar().setData({
+      showTabbar: true
     })
   },
   //跳转至充值界面
@@ -198,7 +206,6 @@ Page({
               show: false,
               haibao: true
             })
-            wx.hideTabBar()
           }
         })
       }
@@ -227,7 +234,10 @@ Page({
     that.setData({
       haibao: false
     })
-    wx.showTabBar()
+    //显示tabbar
+    that.getTabBar().setData({
+      showTabbar: true
+    })
   },
 
   /**
@@ -243,6 +253,12 @@ Page({
   onShow: function () {
     var that = this
     that.onLoad();
+    //tabbar
+    if (typeof that.getTabBar === 'function' && that.getTabBar()) {
+      that.getTabBar().setData({
+        selected: 1
+      })
+    }
   },
 
   /**
@@ -284,6 +300,10 @@ Page({
       // 来自页面内转发按钮
       that.setData({
         show: false
+      })
+      //显示tabbar
+      that.getTabBar().setData({
+        showTabbar: true
       })
       app.Util.ajax('mall/weChat/sharing/onSuccess', { mode: 4 }, 'POST').then((res) => {
         if (res.data.content) {

@@ -1,8 +1,8 @@
 <!--pages/nationwideReturn/nationwideReturn.wxml-->
 <!-- 已累计返现 -->
 <view class="nationwideReturn-wrapper">
-  <view class="nationwideReturn-img">
-    <image src="../../assets/images/icon/qmf_bg.png"></image>
+  <view class="nationwideReturn">
+    <image mode="widthFix" class="nationwideReturn-img" src="../../assets/images/icon/qmf_bg.png"></image>
     <view class="nationwideReturn-text">
       <view class="title">已累计返现</view>
       <view class="num">

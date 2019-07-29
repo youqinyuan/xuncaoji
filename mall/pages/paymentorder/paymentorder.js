@@ -28,6 +28,7 @@ Page({
     transStatementId: 1, //交易流水id
     orderId: 1, //订单id
     options: {},
+    showPassword: false, //设置支付密码弹框
   },
   //支付
   pay: function(e) {
@@ -59,16 +60,29 @@ Page({
           })
         }
       } else if (that.data.content.paymentAmount >= 10) {
-        if (that.data.balance <= 0 || that.data.content.paymentAmount > that.data.balance) {
-          that.setData({
-            showDialog: true
-          });
-        } else {
-          that.setData({
-            show: true,
-            isFocus: true
-          })
-        }
+        //是否设置支付密码
+        app.Util.ajax('mall/account/paymentPassword/status', 'GET').then((res) => { // 使用ajax函数
+          if (res.messageCode = 'MSG_1001') {
+            if (res.data.content == 2) {
+              //未设置密码
+              that.setData({
+                showPassword: true
+              })
+            } else {
+              //已设置密码
+              if (that.data.balance <= 0 || that.data.content.paymentAmount > that.data.balance) {
+                that.setData({
+                  showDialog: true
+                });
+              } else {
+                that.setData({
+                  show: true,
+                  isFocus: true
+                })
+              }
+            }
+          }
+        })
       } else if (that.data.content.paymentAmount === 0) {
         var transStatementId = that.data.transStatementId
         var channel = that.data.channel
@@ -196,7 +210,7 @@ Page({
     var that = this;
     that.setData({
       show: false,
-      Value:''
+      Value: ''
     })
   },
   //获取密码框的值
@@ -233,7 +247,7 @@ Page({
                 if (res.data.content.balance.remainingCount > 0) {
                   that.setData({
                     text: `密码错误，你还剩余${res.data.content.balance.remainingCount}次机会`,
-                    Value:''
+                    Value: ''
                   })
                 } else {
                   let lastTime = res.data.content.balance.retryRemainingTime / 1000
@@ -278,7 +292,7 @@ Page({
     that.setData({
       show: false,
       isFocus: false,
-      Value:''
+      Value: ''
     })
   },
   Tap() {
@@ -287,7 +301,23 @@ Page({
       isFocus: true,
     })
   },
-
+  // 是否设置支付密码弹框点击取消
+  cancel: function() {
+    var that = this
+    that.setData({
+      showPassword: false
+    })
+  },
+  // 是否设置支付密码弹框点击确定
+  sure: function() {
+    var that = this
+    that.setData({
+      showPassword: false
+    })
+    wx.navigateTo({
+      url: '/pages/paypassword/paypassword',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -302,6 +332,11 @@ Page({
     let endTime = createTime + 15 * 60 * 1000
     let clientTime = new Date()
     let lastTime = (endTime - clientTime) / 1000
+    let minuteTime = parseInt(lastTime / 60)
+    let secondTime = parseInt(lastTime % 60)
+    that.setData({
+      clientTime: `${minuteTime}:${secondTime}`
+    })
     let interval2 = setInterval(() => {
       if (lastTime > 0) {
         lastTime--
@@ -343,6 +378,11 @@ Page({
           }, 'GET').then((res) => { // 使用ajax函数
             if (res.data.content) {
               let lastTime = res.data.content.remainingTime / 1000
+              let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+              let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
+              that.setData({
+                time: `${minuteTime}:${secondTime}`
+              })
               let interval2 = setInterval(() => {
                 if (lastTime > 0) {
                   lastTime--
@@ -369,7 +409,7 @@ Page({
           })
         }
       })
-    }else{
+    } else {
       app.Util.ajax('mall/payment/channels', {
         transStatementId: transStatementId
       }, 'GET').then((res) => { // 使用ajax函数
@@ -466,7 +506,7 @@ Page({
 
   },
   /**
-  * 弹出框蒙层截断touchmove事件
-  */
-  preventTouchMove: function () { }
+   * 弹出框蒙层截断touchmove事件
+   */
+  preventTouchMove: function() {}
 })

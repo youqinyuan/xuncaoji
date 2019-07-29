@@ -56,9 +56,9 @@
   <view class="circle" wx:for="{{orderCount}}" wx:key="">
     <view class="circle1" wx:if="{{item.status==1}}">{{item.count}}</view>
     <view class="circle2" wx:if="{{item.status==2 || item.status==4}}">{{waitCount}}</view>
-    <view class="circle3" wx:if="{{item.status==3}}">{{item.count}}</view>
-    <view class="circle4" wx:if="{{item.status==5}}">{{item.count}}</view>
-    <view class="circle5" wx:if="{{item.status==7}}">{{item.count}}</view>
+    <view class="circle3" wx:if="{{item.status==5}}">{{item.count}}</view>
+    <view class="circle4" wx:if="{{item.status==7}}">{{item.count}}</view>
+
   </view>
 </view>
 <!--我的服务-->
@@ -70,7 +70,7 @@
   <view class="service-list">
     <view class="pay" catchtap='payMoney'>
       <view class="pay-img">
-        <image src="../../assets/images/icon/my_service_list0_icon.png"></image>
+        <image src="../../assets/images/icon/my_service_list1_icon.png"></image>
       </view>
       <view class="pay-text">
         <view class="pay-text-big">付钱</view>
@@ -79,7 +79,7 @@
     </view>
     <view class="pay" catchtap='commission'>
       <view class="pay-img">
-        <image src="../../assets/images/icon/my_service_list1_icon.png"></image>
+        <image src="../../assets/images/icon/my_service_list2_icon.png"></image>
       </view>
       <view class="pay-text">
         <view class="pay-text-big">佣金</view>
@@ -88,7 +88,7 @@
     </view>
     <view class="pay" catchtap='myTeam'>
       <view class="pay-img">
-        <image src="../../assets/images/icon/my_service_list2_icon.png"></image>
+        <image src="../../assets/images/icon/my_service_list3_icon.png"></image>
       </view>
       <view class="pay-text">
         <view class="pay-text-big">我的团队</view>
@@ -109,11 +109,11 @@
 <!--我的心情、我的地址、支付密码、邀请码、商家入驻、客服-->
 <view class="mine">
   <view class="mine-list" bindtap='myMood'>
-    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list6_icon.png"></image>
+    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list0_icon.png"></image>
     <view class="mine-list-text">我的心情</view>
   </view>
   <view class="mine-list" catchtap='toAdress'>
-    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list1_icon(1).png"></image>
+    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list1_icon.png"></image>
     <view class="mine-list-text">我的地址</view>
   </view>
   <view class="mine-list" catchtap='toPassword'>
@@ -129,7 +129,7 @@
     <view class="mine-list-text">商家入驻</view>
   </view> -->
   <view class="mine-list"  bindtap='customerService'>
-    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list5_icon.png"></image>
+    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list4_icon.png"></image>
     <view class="mine-list-text">客服</view>
   </view>
 </view>

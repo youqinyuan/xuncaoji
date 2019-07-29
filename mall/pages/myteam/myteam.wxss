@@ -43,7 +43,7 @@ page {
 .recurit {
   width: 690rpx;
   height: 76rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 38px;
   margin-top: 60rpx;
   margin-left: 30rpx;
@@ -127,7 +127,7 @@ page {
   font-size: 32rpx;
   margin-right: 29rpx;
   margin-top: 40rpx;
-  color: rgba(255, 141, 18, 1);
+  color: #FF6417;
 }
 
 /*弹窗*/
@@ -243,11 +243,13 @@ button::after {
 }
 
 .content-cancel {
-  width: 76rpx;
-  height: 76rpx;
-  position: absolute;
-  left: 350rpx;
-  bottom:1%;
+  width:100%;
+  height:76rpx;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left:0;
+  top:1111rpx;
 }
 
 .content-cancel image {

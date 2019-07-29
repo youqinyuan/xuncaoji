@@ -19,7 +19,7 @@
 }
 
 .history-empty {
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .content {

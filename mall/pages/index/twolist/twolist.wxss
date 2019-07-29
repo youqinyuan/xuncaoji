@@ -24,7 +24,7 @@ page {
 }
 
 .active {
-  color: rgba(255, 141, 18, 1);
+  color: #FF6417;
 }
 
 .price {
@@ -101,27 +101,30 @@ page {
 }
 
 .comprehensive-list-text {
+  margin-left: 16rpx;
+  margin-top: 10rpx;
+  height: 90rpx;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
+  font-size: 28rpx;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  margin-left: 16rpx;
-  margin-top: 10rpx;
-  font-size: 28rpx;
   color: rgba(51, 51, 51, 1);
 }
 
 .comprehensive-list-price {
   display: flex;
   margin-left: 16rpx;
-  margin-top: 30rpx;
+  margin-bottom: 16rpx;
 }
 
 .newprice {
+  font-family:PingFang-SC-Bold;
+  font-weight:bold;
   font-size: 36rpx;
-  color: rgba(227, 58, 89, 1);
+  color: #FF6417;
 }
 
 .newprice text {
@@ -145,16 +148,23 @@ page {
   border-radius: 8rpx;
   margin-left: 16rpx;
   font-size: 22rpx;
-  color:#FF8D12;
+  color: #ff2644;
+  font-family: PingFang-SC-Bold;
+  font-weight: Bold;
 }
-.return-wrap .return-money text:nth-child(1){
-  color:#999999;
-  margin-left: 17rpx;
+
+.return-wrap .return-money text:nth-child(1) {
+  color: #ff6417;
   padding: 0 8rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
 }
-.return-wrap .pay-money text:nth-child(1){
-  color:#999999;
+
+.return-wrap .pay-money text:nth-child(1) {
+  color: #ff6417;
   padding: 0 8rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
 }
 
 /* 底部到底啦 */

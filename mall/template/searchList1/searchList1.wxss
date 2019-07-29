@@ -1,8 +1,10 @@
 /*商品*/
-.searchList1-wrap{
+
+.searchList1-wrap {
   margin-top: 108rpx;
 }
-.goods {  
+
+.goods {
   border-bottom: 2rpx solid #f4f4f4;
   background: rgba(255, 255, 255, 1);
   height: 80rpx;
@@ -49,7 +51,6 @@
 .goods-list-img image {
   width: 240rpx;
   height: 240rpx;
-  
 }
 
 .goods-list-item {
@@ -59,26 +60,32 @@
 }
 
 .goods-list-text {
+  height: 70rpx;
+  margin-bottom: 40rpx;
   width: 428rpx;
   font-size: 28rpx;
   color: rgba(51, 51, 51, 1);
 }
-.goods-list-text text{
-   padding: 3rpx 7rpx;
+
+.goods-list-text text {
+  padding: 2rpx 12rpx;
   font-size: 20rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
-  background: rgba(255, 81, 122, 1);
+  background: #FF6417;
   border-radius: 14rpx;
 }
+
 .goods-list-price {
-  margin-top: 20rpx;
   display: flex;
+  margin-bottom: 30rpx;
 }
 
 .newprice-wrap {
-  color: rgba(227, 58, 89, 1);
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #ff6417;
   display: flex;
   margin-right: 16rpx;
 }
@@ -108,16 +115,23 @@
   border-radius: 8rpx;
   margin-left: 16rpx;
   font-size: 22rpx;
-  color:#FF8D12;
+  color: #ff2644;
+  font-family: PingFang-SC-Bold;
+  font-weight: Bold;
 }
-.return-wrap .return-money text:nth-child(1){
-  color:#999999;
-  margin-left: 17rpx;
+
+.return-wrap .return-money text:nth-child(1) {
+  color: #ff6417;
   padding: 0 8rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
 }
-.return-wrap .pay-money text:nth-child(1){
-  color:#999999;
+
+.return-wrap .pay-money text:nth-child(1) {
+  color: #ff6417;
   padding: 0 8rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
 }
 
 /*电商商铺*/
@@ -184,7 +198,7 @@
   width: 60rpx;
   height: 28rpx;
   margin-top: 8rpx;
-  background: rgba(255, 81, 122, 1);
+  background: #FF6417;
   border-radius: 14px;
   font-size: 20rpx;
   text-align: center;
@@ -210,7 +224,9 @@
   width: 56rpx;
   height: 56rpx;
 }
+
 /* 空订单的时候 */
+
 .empty-wrap {
   text-align: center;
 }
@@ -227,9 +243,10 @@
   font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
-.shops-bottom{
+
+.shops-bottom {
   font-size: 24rpx;
-  font-family: PingFang-SC-Regular;  
+  font-family: PingFang-SC-Regular;
   font-weight: 400;
   color: rgba(153, 153, 153, 1);
   text-align: center;

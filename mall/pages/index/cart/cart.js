@@ -65,7 +65,7 @@ Page({
         if (datacount[c].checked == true) {
           priceAll += datacount[c].goodsPrice * datacount[c].quantity;
           this.setData({
-            color: '#FF517A'
+            color: '#FF2644'
           });
         }
       }
@@ -141,7 +141,7 @@ Page({
         if (datacount[c].checked == true) {
           priceAll += datacount[c].goodsPrice * datacount[c].quantity;
           this.setData({
-            color: '#FF517A'
+            color: '#FF2644'
           });
         }
       }
@@ -176,7 +176,7 @@ Page({
         if (datacount[c].checked == true) {
           priceAll += datacount[c].goodsPrice * datacount[c].quantity;
           this.setData({
-            color: '#FF517A'
+            color: '#FF2644'
           });
         }
       }

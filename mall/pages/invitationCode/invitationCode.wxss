@@ -18,10 +18,10 @@
   color: rgba(170, 170, 170, 1);
 }
 
-.wx-login {
+.invitation-code {
   width: 630rpx;
   height: 80rpx;
-  background: rgba(255, 81, 122, 1);
+  background: #FF2644;
   border-radius: 40rpx;
   font-size: 32rpx;
   margin-bottom: 70rpx;
@@ -30,10 +30,10 @@
   color: rgba(255, 255, 255, 1);
 }
 
-.other-login {
+.next-step {
   width: 630rpx;
   height: 80rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 40rpx;
   font-size: 32rpx;
   margin-bottom: 70rpx;

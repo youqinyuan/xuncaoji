@@ -26,8 +26,8 @@ page {
 .sculpture {
   width: 128rpx;
   height: 128rpx;
-  margin-left: 40rpx;
   margin-top: 40rpx;
+  margin-left: 30rpx;
 }
 
 .sculpture image {
@@ -73,13 +73,13 @@ page {
   margin-right: 131rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
-  color: rgba(227, 58, 89, 1);
+  color: #FF2644;
 }
 
 .right {
   margin-top: 109rpx;
   margin-right: 30rpx;
-  background: rgba(255, 157, 52, 1);
+  background: #FF6417;
   border-radius: 22rpx;
   width: 112rpx;
   height: 44rpx;
@@ -103,7 +103,7 @@ page {
 
 .member {
   margin-left: 40rpx;
-  margin-top: 20rpx;
+  margin-top: 18rpx;
   width: 40rpx;
   height: 40rpx;
 }
@@ -123,7 +123,7 @@ page {
 }
 
 .open {
-  color: #ff8d12;
+  color: #FF6417;
 }
 
 .notmember1 {
@@ -158,7 +158,7 @@ page {
 .order-text {
   font-size: 32rpx;
   margin-left: 15rpx;
-  margin-top: 20rpx;
+  margin-top: 23rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
@@ -179,70 +179,56 @@ page {
 
 .circle1 {
   position: absolute;
-  left: 80rpx;
+  left: 105rpx;
   top: 440rpx;
   height: 30rpx;
   line-height: 30rpx;
   text-align: center;
   width: 30rpx;
   border-radius: 50%;
-  background: #ff517a;
+  background: #FF2644;
   font-size: 20rpx;
   color: #fff;
 }
 
 .circle2 {
   position: absolute;
-  left: 218rpx;
+  left: 275rpx;
   top: 440rpx;
   height: 30rpx;
   line-height: 30rpx;
   text-align: center;
   width: 30rpx;
   border-radius: 50%;
-  background: #ff517a;
+  background: #FF2644;
   font-size: 20rpx;
   color: #fff;
 }
 
 .circle3 {
   position: absolute;
-  left: 370rpx;
+  right: 260rpx;
   top: 440rpx;
   height: 30rpx;
   line-height: 30rpx;
   text-align: center;
   width: 30rpx;
   border-radius: 50%;
-  background: #ff517a;
+  background: #FF2644;
   font-size: 20rpx;
   color: #fff;
 }
 
 .circle4 {
   position: absolute;
-  right: 218rpx;
+  right: 70rpx;
   top: 440rpx;
   height: 30rpx;
   line-height: 30rpx;
   text-align: center;
   width: 30rpx;
   border-radius: 50%;
-  background: #ff517a;
-  font-size: 20rpx;
-  color: #fff;
-}
-
-.circle5 {
-  position: absolute;
-  right: 50rpx;
-  top: 440rpx;
-  height: 30rpx;
-  line-height: 30rpx;
-  text-align: center;
-  width: 30rpx;
-  border-radius: 50%;
-  background: #ff517a;
+  background: #FF2644;
   font-size: 20rpx;
   color: #fff;
 }
@@ -290,7 +276,7 @@ page {
 .service-text {
   font-size: 32rpx;
   margin-left: 15rpx;
-  margin-top: 20rpx;
+  margin-top: 23rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
@@ -342,7 +328,7 @@ page {
 
 .mine {
   /* height: 545rpx; */
-  margin-bottom: 20rpx;
+  padding-bottom: 100rpx;
   background: rgba(255, 255, 255, 1);
 }
 
@@ -433,7 +419,7 @@ page {
   line-height: 66rpx;
   font-size: 34rpx;
   text-align: center;
-  color: rgba(255, 81, 122, 1);
+  color: #FF2644;
 }
 
 /* .reject {
@@ -452,7 +438,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .comfirm::after {
@@ -513,7 +499,7 @@ page {
   background: rgba(255, 233, 211, 1);
   font-family: PingFang-SC-Medium;
   font-weight: 500;
-  color: rgba(255, 141, 18, 1);
+  color: #FF2644;
 }
 
 .zan-dialog__container1 .invite-code {
@@ -524,7 +510,7 @@ page {
   font-family: PingFang-SC-Bold;
   font-weight: bold;
   font-style: italic;
-  color: rgba(255, 141, 18, 1);
+  color: #FF6417;
   letter-spacing: 12rpx;
 }
 
@@ -536,7 +522,7 @@ page {
   height: 60rpx;
   line-height: 60rpx;
   text-align: center;
-  background: linear-gradient(90deg, rgba(255, 141, 18, 1), rgba(255, 43, 68, 1));
+  background: linear-gradient(90deg, #FF6417, rgba(255, 43, 68, 1));
   border-radius: 30rpx;
   font-size: 28rpx;
   font-family: PingFang-SC-Medium;
@@ -559,7 +545,7 @@ page {
   font-size: 20rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
-  color: rgba(255, 141, 18, 1);
+  color: #FF6417;
   z-index: 999;
 }
 

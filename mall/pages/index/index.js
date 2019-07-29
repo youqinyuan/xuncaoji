@@ -11,7 +11,7 @@ Page({
     // sharingProfit: '', //分享返利
     autoplay: true,
     circular: true,
-    interval: 2000,
+    interval: 2000,   
     duration: 1000,
     navData: [], //导航栏
     currentTab: 0,
@@ -617,6 +617,12 @@ Page({
     }
     //查询购物车种类
     that.getCartCount();
+    //tabbar
+    if (typeof that.getTabBar === 'function' && that.getTabBar()) {
+      that.getTabBar().setData({
+        selected: 0
+      })
+    }
   },
   // //查询分享数据
   // chooseShare: function() {

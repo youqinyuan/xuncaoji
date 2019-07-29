@@ -21,7 +21,7 @@
       <text>人已抢到</text>
     </view>
     <view class="zero-purchase-list-wrap">
-      <swiper class="zero-purchase-list" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF517A" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <swiper class="zero-purchase-list" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF2644" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
         <block wx:for="{{goodsItems}}" wx:key="{{item.id}}">
           <swiper-item>
           <image class="zero-purchase-list-price-img" src="../../assets/images/icon/flag.png"></image>

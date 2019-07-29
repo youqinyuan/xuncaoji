@@ -118,7 +118,7 @@ page {
 .btn {
   width: 690rpx;
   height: 80rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 40rpx;
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;
@@ -210,12 +210,12 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 .addaddress {
   width: 690rpx;
   height: 76rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 38px;
   margin-top: 60rpx;
   margin-left: 30rpx;

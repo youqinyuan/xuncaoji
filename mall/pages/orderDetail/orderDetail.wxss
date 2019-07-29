@@ -18,7 +18,7 @@ page {
   position: relative;
   width: 690rpx;
   height: 160rpx;
-  background: linear-gradient(65deg, rgba(255, 141, 18, 1) 0%, rgba(255, 170, 77, 1) 100%);
+  background: linear-gradient(65deg, #FF6417 0%, #FFAA4D 100%);
   border-radius: 10rpx;
   margin-left: 30rpx;
   margin-top: 30rpx;
@@ -203,7 +203,7 @@ page {
   font-size: 28rpx;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   margin-right: 95rpx;
   color: rgba(51, 51, 51, 1);
 }
@@ -282,7 +282,7 @@ page {
 }
 
 .payment-price {
-  color:#E33A59;
+  color:#FF2644;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
   position: absolute;
@@ -470,20 +470,20 @@ page {
   width: 100%;
   text-align: center;
   color: rgb(255, 255, 255);
-  background: rgba(255, 168, 188, 1);
+  background: #FF8898;
 }
 
 .pay-money{
   width: 100%;
   text-align: center;
   color: rgb(255, 255, 255);
-  background: rgba(255, 81, 122, 1);
+  background: #FF2644;
 }
 .sure-goods{
   width: 100%;
   text-align: center;
   color: rgb(255, 255, 255);
-  background: rgba(255, 81, 122, 1);
+  background: #FF2644;
 }
 .refund{
   width: 100%;
@@ -495,7 +495,7 @@ page {
   width: 100%;
   text-align: center;
   color: rgb(255, 255, 255);
-  background: rgba(255, 81, 122, 1);
+  background: #FF2644;
 }
 .cancel-refund{
   width: 100%;
@@ -587,7 +587,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .comfirm::after {
@@ -677,7 +677,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .comfirm::after {
@@ -790,7 +790,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .comfirm::after {
@@ -868,8 +868,8 @@ page {
 }
 
 .active1 {
-  border: 2rpx solid rgba(255, 81, 122, 1);
-  color: rgba(255, 81, 122, 1);
+  border: 2rpx solid #FF6417;
+  color: #FF6417;
 }
 
 .contentainer3-button {
@@ -895,7 +895,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .comfirm::after {
@@ -1028,7 +1028,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .comfirm::after {

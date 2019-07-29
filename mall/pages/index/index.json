@@ -1,6 +1,8 @@
 {
-  "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF517A",
+  "usingComponents": {
+    "swiper-show":"/components/swiper-show/swiper-show"
+  },
+  "navigationBarBackgroundColor": "#FF2644",
   "navigationBarTitleText": "首页",
   "navigationBarTextStyle": "white",
   "enablePullDownRefresh": true

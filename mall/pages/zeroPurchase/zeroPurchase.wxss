@@ -7,9 +7,11 @@ page {
   font-family: PingFang-SC-Medium;
   font-weight: 500;
 }
-.wrap{
+
+.wrap {
   overflow: hidden;
 }
+
 /*轮播图*/
 
 .swiper-wrapper-item {
@@ -24,47 +26,47 @@ page {
 
 /*小图标*/
 
-.circle {
+.currentIndex {
   position: absolute;
-  top: 416rpx;
-  right: 25rpx;
+  top: 20rpx;
+  right: 26rpx;
   width: 64rpx;
   height: 64rpx;
-  background: rgba(0, 0, 0, 1);
-  opacity: 0.2;
   border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
   font-size: 24rpx;
-  line-height: 64rpx;
-  text-align: center;
-  color: rgba(255, 255, 255, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* 倒计时 */
+
 .zero-purchase-time {
+  width: 690rpx;
   background: #ffba00;
   display: flex;
+  justify-content: center;
   position: absolute;
-  top: 730rpx;
+  top: 710rpx;
   height: 80rpx;
   line-height: 80rpx;
-  left: 40rpx;
-  padding: 0 10rpx;
+  left: 30rpx;
   border-radius: 38rpx;
 }
 
 .zero-purchase-number {
-  width: 44rpx;
-  height: 44rpx;
-  background: linear-gradient(0deg, rgba(255, 192, 0, 1) 0%, rgba(255, 232, 140, 1) 100%);
-  box-shadow: 0rpx 2rpx 3rpx 0rpx rgba(100, 75, 0, 0.1);
+  width: 54rpx;
+  height: 40rpx;
+  background: rgba(255, 245, 212, 1);
   border-radius: 4rpx;
-  font-size: 28rpx;
+  font-size: 38rpx;
   font-family: PingFang-SC-Heavy;
   font-weight: 800;
-  color: rgba(255, 255, 255, 1);
-  line-height: 44rpx;
-  text-align: center;
-  margin-right: 5rpx;
-  margin-top: 15rpx;
+  color: rgba(255, 79, 86, 1);
+  line-height: 40rpx;
+  margin: 20rpx 10rpx;
 }
 
 .zero-purchase-word {
@@ -72,18 +74,17 @@ page {
   font-family: PingFang-SC-Bold;
   font-weight: bold;
   color: rgba(255, 255, 255, 1);
-  /* margin: 0 rpx; */
-}
-
-.content {
-  margin-top: 40rpx;
-  background: rgba(255, 255, 255, 1);
-  overflow: hidden;
 }
 
 /*价格*/
 
+.content {
+  padding-top: 50rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
 .price-wrap {
+  position: relative;
   margin-left: 30rpx;
   margin-right: 30rpx;
   margin-top: 20rpx;
@@ -93,11 +94,13 @@ page {
 
 .price {
   display: flex;
+  justify-content:flex-start;
+  align-items: center;
 }
 
 .new-price {
   font-size: 48rpx;
-  color: rgba(227, 58, 89, 1);
+  color: #FF2644;
 }
 
 .price-text {
@@ -105,18 +108,25 @@ page {
 }
 
 .old-price {
+  
   font-size: 22rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
-  color: rgba(227, 58, 89, 1);
+  color: #FF2644;
 }
 
-.old-price image {
-  margin-top: 10rpx;
+.old-price .img {
+  position: absolute;
+  top:24rpx;
+  left:94rpx;
   width: 36rpx;
   height: 36rpx;
 }
-
+.old-price text{
+  position: absolute;
+  top:24rpx;
+  left:127rpx;
+}
 .express {
   font-size: 24rpx;
   margin-top: 20rpx;
@@ -144,7 +154,7 @@ page {
   padding: 3rpx 12rpx;
   line-height: 28rpx;
   text-align: center;
-  background: rgba(255, 81, 122, 1);
+  background: #FF6417;
   border-radius: 14rpx;
   font-size: 20rpx;
   color: rgba(255, 255, 255, 1);
@@ -231,7 +241,7 @@ page {
   font-size: 26rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
-  color: rgba(227, 58, 89, 1);
+  color: #FF2644;
 }
 
 /*用户评价*/
@@ -261,7 +271,7 @@ page {
 }
 
 .percent {
-  color: #e33a59;
+  color: #FF2644;
 }
 
 .evaluate-content-top {
@@ -366,10 +376,12 @@ page {
   width: 691rpx;
   margin: 15rpx auto;
 }
-.block{
+
+.block {
   height: 90rpx;
   width: 750rpx;
 }
+
 /*底部*/
 
 .bottom {
@@ -379,7 +391,7 @@ page {
   height: 100rpx;
   text-align: center;
   line-height: 100rpx;
-  background: rgba(255, 81, 122, 1);
+  background: #ff2644;
   font-size: 36rpx;
   font-family: Adobe Heiti Std R;
   font-weight: normal;
@@ -453,7 +465,7 @@ page {
   height: 76rpx;
   line-height: 76rpx;
   text-align: center;
-  background: rgba(255, 81, 122, 1);
+  background: #FF6417;
   border-radius: 38rpx;
 }
 
@@ -505,7 +517,7 @@ page {
   margin-left: 125rpx;
   width: 380rpx;
   height: 380rpx;
-  border: 8rpx solid rgba(255, 81, 122, 1);
+  border: 8rpx solid #FF6417;
   border-radius: 20rpx;
 }
 
@@ -520,7 +532,7 @@ page {
   font-size: 40rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .modal-img image {
@@ -553,7 +565,7 @@ button {
   width: 440rpx;
   height: 76rpx;
   margin-top: 50rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 38rpx;
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;
@@ -658,37 +670,43 @@ button::after {
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
+
 /* 海报弹框 */
-.mask_hb{
-  width:100%;
-  height:100%;
+
+.mask_hb {
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
-  top:0;
+  top: 0;
 }
-.canvas-box{
-  width:0;
-  height:0;
+
+.canvas-box {
+  width: 0;
+  height: 0;
   position: fixed;
-  top:3.9%;
-  left:6%;
+  top: 3.9%;
+  left: 6%;
 }
-.canvas{
-  width:88%;
-  height:89%;
+
+.canvas {
+  width: 88%;
+  height: 89%;
   position: fixed;
-  top:3.9%;
-  left:6%;
+  top: 3.9%;
+  left: 6%;
 }
-.close_hb{
+
+.close_hb {
   width: 100%;
   display: flex;
   justify-content: center;
   position: fixed;
-  left:0;
-  bottom:2%;
+  left: 0;
+  bottom: 2%;
 }
-.close_hb image{
-  width:50rpx;
-  height:50rpx;
+
+.close_hb image {
+  width: 50rpx;
+  height: 50rpx;
 }

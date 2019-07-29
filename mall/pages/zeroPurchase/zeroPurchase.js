@@ -23,15 +23,22 @@ Page({
     showModalStatus1: false, //分享弹框
     inputValue1: '', //验证码
     show: false, //分享弹框
-    hours: [0, 0], //小时
-    minutes: [0, 0], //分钟
-    seconds: [0, 0], //秒
-    haoSeconds: [0, 0], //毫秒
+    hours: '', //小时
+    minutes: '', //分钟
+    seconds: '', //秒
+    haoSeconds: '', //毫秒
+    current:0,//当前轮播图索引
     inviterCode: '',
     imageUrl: '../../assets/images/icon/shareDetail.png',
     haibao: false,
     appletQrCodeUrl: '', //邀请码路径
     haibaoImg: '', //生成的海报
+  },
+  //求当前轮播图的索引
+  countIndex: function (e) {
+    this.setData({
+      current: e.detail.current
+    })
   },
   imgYu: function(e) {
     var src = e.currentTarget.dataset.src; //获取data-src
@@ -60,13 +67,14 @@ Page({
     app.Util.ajax(`mall/home/activity/freeShopping/goodsDetail?id=${id}`, null, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         let current = res.data.content.remainingTime
+        that.formatDuring(current)
         let interval2 = setInterval(() => {
           if (current > 0) {
             current -= 1000
             that.formatDuring(current)
           } else {
             clearInterval(interval2)
-            this.setData({
+            that.setData({
               waitPay: ''
             })
           }
@@ -126,15 +134,15 @@ Page({
   },
   formatDuring(mss) {
     var that = this
-    const hours = parseInt(mss / (1000 * 60 * 60)).toString()
-    const minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)).toString()
-    const seconds = parseInt((mss % (1000 * 60)) / 1000).toString()
-    const haoSeconds = parseInt((mss % (60))).toString()
+    const hours = parseInt(mss / (1000 * 60 * 60)).toString().slice(0,2)
+    const minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)).toString() >= 10 ? parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)).toString() : '0' + parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)).toString()
+    const seconds = parseInt((mss % (1000 * 60)) / 1000).toString() >= 10 ? parseInt((mss % (1000 * 60)) / 1000).toString() : '0' + parseInt((mss % (1000 * 60)) / 1000).toString()
+    const haoSeconds = parseInt((mss % (60))).toString() >= 10 ? parseInt((mss % (60))).toString() : '0' + parseInt((mss % (60))).toString()
     that.setData({
-      hours: hours.split(''),
-      minutes: minutes.split(''),
-      seconds: seconds.split(''),
-      haoSeconds: haoSeconds.split('')
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
+      haoSeconds: haoSeconds
     })
   },
   //商品评论

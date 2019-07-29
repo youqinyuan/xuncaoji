@@ -48,7 +48,7 @@ page {
   width: 60rpx;
   height: 28rpx;
   margin-top: 8rpx;
-  background: rgba(255, 81, 122, 1);
+  background: #FF6417;
   border-radius: 14px;
   font-size: 20rpx;
   text-align: center;

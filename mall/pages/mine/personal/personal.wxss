@@ -239,7 +239,7 @@ input{
   height: 80rpx;
   margin: 0 auto;
   margin-top: 60rpx;
-  background: rgba(255, 141, 18, 1);
+  background: #FF6417;
   border-radius: 40rpx;
   text-align: center;
   line-height: 80rpx;

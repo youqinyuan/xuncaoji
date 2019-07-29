@@ -10,7 +10,6 @@ page {
   height: auto;
   overflow: hidden;
 }
-
 .orderTab {
   width: 100%;
   border-bottom: 2rpx solid #f4f4f4;
@@ -40,8 +39,8 @@ page {
 }
 
 .active {
-  color: rgba(255, 141, 18, 1);
-  border-bottom: 4rpx solid rgba(255, 141, 18, 1);
+  color: #FF6417;
+  border-bottom: 4rpx solid #FF6417;
 }
 
 /* 列表 */
@@ -68,7 +67,7 @@ page {
   height: 28rpx;
   line-height: 28rpx;
   text-align: center;
-  background: rgba(255, 81, 122, 1);
+  background: #FF6417;
   border-radius: 14px;
   font-size: 20rpx;
   color: rgba(255, 255, 255, 1);
@@ -90,7 +89,7 @@ page {
 }
 
 .shop .state {
-  color: rgba(227, 58, 89, 1);
+  color: #FF2644;
   position: absolute;
   right: 30rpx;
 }
@@ -124,7 +123,7 @@ page {
   font-size: 28rpx;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   margin-right: 95rpx;
   color: rgba(51, 51, 51, 1);
 }
@@ -225,8 +224,8 @@ page {
 }
 
 .pay {
-  border: 2rpx solid rgba(255, 81, 122, 1);
-  color: rgba(255, 81, 122, 1);
+  border: 2rpx solid #FF2644;
+  color: #FF2644;
 }
 
 .myorder-bottom {
@@ -238,6 +237,7 @@ page {
   margin-top: 20rpx;
   margin-bottom: 20rpx;
 }
+
 .myorder-bottom1 {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
@@ -246,6 +246,7 @@ page {
   text-align: center;
   margin-bottom: 20rpx;
 }
+
 /* 无订单的时候 */
 
 .cont_count {
@@ -327,6 +328,7 @@ page {
 .recommend-list-text {
   margin-left: 16rpx;
   margin-top: 10rpx;
+  height: 75rpx;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
@@ -338,24 +340,26 @@ page {
 }
 
 .recommend-list-text text {
-  padding: 3rpx 7rpx;
+  padding: 2rpx 12rpx;
   font-size: 20rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
-  background: rgba(255, 81, 122, 1);
+  background: #FF6417;
   border-radius: 14rpx;
 }
 
 .recommend-list-price {
   display: flex;
   margin-left: 16rpx;
-  margin-top: 30rpx;
+  margin-bottom: 16rpx;
 }
 
 .newprice {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
   font-size: 36rpx;
-  color: rgba(227, 58, 89, 1);
+  color: #ff6417;
 }
 
 .newprice text {
@@ -379,16 +383,23 @@ page {
   border-radius: 8rpx;
   margin-left: 16rpx;
   font-size: 22rpx;
-  color:#FF8D12;
+  color: #ff2644;
+  font-family: PingFang-SC-Bold;
+  font-weight: Bold;
 }
-.return-wrap .return-money1 text:nth-child(1){
-  color:#999999;
-  margin-left: 17rpx;
+
+.return-wrap .return-moneypay text:nth-child(1) {
+  color: #ff6417;
   padding: 0 8rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
 }
-.return-wrap .pay-money text:nth-child(1){
-  color:#999999;
+
+.return-wrap .pay-money text:nth-child(1) {
+  color: #ff6417;
   padding: 0 8rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
 }
 
 /* 确认收货弹框 */
@@ -475,7 +486,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .comfirm::after {
@@ -565,7 +576,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .comfirm::after {
@@ -652,8 +663,8 @@ page {
 }
 
 .active1 {
-  border: 2rpx solid rgba(255, 81, 122, 1);
-  color: rgba(255, 81, 122, 1);
+  border: 2rpx solid #FF6417;
+  color: #FF6417;
 }
 
 .contentainer2-button {
@@ -679,7 +690,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .comfirm::after {
@@ -757,8 +768,8 @@ page {
 }
 
 .active1 {
-  border: 2rpx solid rgba(255, 81, 122, 1);
-  color: rgba(255, 81, 122, 1);
+  border: 2rpx solid #FF6417;
+  color: #FF6417;
 }
 
 .contentainer3-button {
@@ -784,7 +795,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .comfirm::after {
@@ -918,7 +929,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: rgba(255, 81, 122, 1);
+  color: #FF6417;
 }
 
 .comfirm::after {

@@ -23,11 +23,6 @@ Page({
         status: '2,4'
       },
       {
-        title: '待使用',
-        select: false,
-        status: '3'
-      },
-      {
         title: '待评价',
         select: false,
         status: '5'

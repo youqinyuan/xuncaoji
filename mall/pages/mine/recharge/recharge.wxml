@@ -40,14 +40,6 @@
 <view class="button" bindtap="showDetail">提现</view>
 <!--提现弹窗-->
 <view class="modal-mask1" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
-<view class="modal" wx:if="{{show}}">
-  <view class="modal-title1">提现</view>
-  <view class="section1">
-    <view class="input-price1">￥</view>
-    <input placeholder="请输入提现金额" focus="true" type="digit" value="{{inputValue1}}" placeholder-style="color:#AAAAAA" bindinput="btnPresentation" />
-  </view>
-  <view class="prompt-message">{{showMessage1}}</view>
-  <view class="modal-text">所提现的账户余额将到账至微信零钱账户中，到账时间根据微信所定，可能会有所延迟</view>
-  <view class="modal-text1">余额提现只支持整数提现</view>
-  <button bindtap='sure' bindtap="hideConfirm">确认提现</button>
+<view class="modal" wx:if="{{show}}" bindtap="hide">
+  <image class="modal-img" mode="widthFix" src="../../../assets/images/icon/withdraw_pop.png"></image>
 </view>

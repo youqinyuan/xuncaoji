@@ -2,25 +2,22 @@
 <view class="wrap">
   <!--轮播图-->
   <view class="swiper-wrap">
-    <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF517A" indicator-dots="true" circular autoplay="true" interval="{{interval}}" duration="{{duration}}">
+    <swiper class="swiper-wrapper-item" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="countIndex">
       <swiper-item wx:for="{{imageUrls}}" wx:key="{{imageUrls}}" bindtap='imgYu' data-list="{{imageUrls}}" data-src="{{item}}">
         <image src="{{item}}" class="slide-image" />
       </swiper-item>
     </swiper>
+    <view class="currentIndex">{{current+1}}/{{imageUrls.length}}</view>
   </view>
   <view class="zero-purchase-time">
-    <view class="zero-purchase-word">距结束仅剩:</view>
-    <view class="zero-purchase-number">{{hours.length>1?hours[0]:0}}</view>
-    <view class="zero-purchase-number">{{hours.length>1?hours[1]:hours[0]}}</view>
-    <view class="zero-purchase-word">时</view>
-    <view class="zero-purchase-number">{{minutes.length>1?minutes[0]:0}}</view>
-    <view class="zero-purchase-number">{{minutes.length>1?minutes[1]:minutes[0]}}</view>
-    <view class="zero-purchase-word">分</view>
-    <view class="zero-purchase-number">{{seconds.length>1?seconds[0]:0}}</view>
-    <view class="zero-purchase-number">{{seconds.length>1?seconds[1]:seconds[0]}}</view>
-    <view class="zero-purchase-word">秒</view>
-    <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[0]:0}}</view>
-    <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[1]:haoSeconds[0]}}</view>
+    <view class="zero-purchase-word">距结束仅剩</view>
+    <view class="zero-purchase-number">{{hours}}</view>
+    <view class="zero-purchase-word">时:</view>
+    <view class="zero-purchase-number">{{minutes}}</view>
+    <view class="zero-purchase-word">分:</view>
+    <view class="zero-purchase-number">{{seconds}}</view>
+    <view class="zero-purchase-word">秒:</view>
+    <view class="zero-purchase-number">{{haoSeconds}}</view>
     <view class="zero-purchase-word">毫秒</view>
   </view>
   <view class="content">
@@ -30,8 +27,8 @@
         <view class="new-price">
           <text class="price-text">￥</text>{{detail.goodsItem.orgPrice}}</view>
         <view class="old-price">
-          <image src="../../assets/images/icon/ic_clock1.png"></image>
-          限时0元购
+          <image class="img" src="../../assets/images/icon/ic_clock1.png"></image>
+          <text>限时0元购</text>          
         </view>
       </view>
       <view class="rush">
@@ -72,7 +69,7 @@
   <!--邀请好友-->
   <view class="stock">
     <view class="stock-img">
-      <image src="../../assets/images/icon/xqing_protect_changj_icon.png"></image>
+      <image src="../../assets/images/icon/ic_hint.png"></image>
     </view>
     <view class="stock-text">成功邀请好友一起来拿可多得一次0元购机会哟</view>
   </view>

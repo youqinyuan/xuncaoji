@@ -63,13 +63,13 @@
     </view>
   </view>
 </view>
-<view class="content-cancel" wx:if="{{show}}" bindtap='cancel' style='top:{{height}}px;'>
+<view class="content-cancel" wx:if="{{show}}" bindtap='cancel'>
   <image src="../../assets/images/icon/vip_close_Pop-ups.png"></image>
 </view>
 <!-- 海报弹框 -->
 <view class="mask_hb" wx:if="{{haibao}}"></view>
 <view class="canvas-box" hidden='{{haibao == false}}'>
-  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress"/>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
   <view class="close_hb" wx:if="{{haibao}}">
     <image src="/assets/images/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
   </view>

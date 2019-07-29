@@ -1,8 +1,11 @@
 /* pages/search/goods/goods.wxss */
+
 /*商品列表*/
-page{
+
+page {
   background: #f4f4f4;
 }
+
 .goods-list-wrap {
   margin-top: 20rpx;
   background: rgba(255, 255, 255, 1);
@@ -49,7 +52,9 @@ page{
 }
 
 .newprice-wrap {
-  color: rgba(227, 58, 89, 1);
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #ff6417;
   display: flex;
   margin-right: 16rpx;
 }
@@ -69,6 +74,7 @@ page{
   text-decoration: line-through;
   color: rgba(153, 153, 153, 1);
 }
+
 .return-wrap {
   display: flex;
   height: 40rpx;
@@ -78,18 +84,26 @@ page{
   border-radius: 8rpx;
   margin-left: 16rpx;
   font-size: 22rpx;
-  color:#FF8D12;
+  color: #ff2644;
+  font-family: PingFang-SC-Bold;
+  font-weight: Bold;
 }
-.return-wrap .return-money text:nth-child(1){
-  color:#999999;
-  margin-left: 17rpx;
+
+.return-wrap .return-money text:nth-child(1) {
+  color: #ff6417;
   padding: 0 8rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
 }
-.return-wrap .pay-money text:nth-child(1){
-  color:#999999;
+
+.return-wrap .pay-money text:nth-child(1) {
+  color: #ff6417;
   padding: 0 8rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
 }
-.goods-bottom{
+
+.goods-bottom {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
   font-weight: 400;
@@ -98,6 +112,7 @@ page{
   margin-top: 20rpx;
   margin-bottom: 20rpx;
 }
+
 /* 弹出框 */
 
 .commodity_screen {
@@ -156,14 +171,17 @@ page{
   font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
+
 .content-wrapper .share-button {
   background: rgba(255, 255, 255, 1);
   width: 170rpx;
   border-radius: 0;
 }
-button::after{
+
+button::after {
   border: none;
 }
+
 .content-wrapper .photo {
   margin-top: 30rpx;
   width: 128rpx;

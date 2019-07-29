@@ -17,10 +17,6 @@ Page({
       txt: '待收货',
       status: '2,4'
     }, {
-      img: '../../assets/images/icon/my_order_list5_icon.png',
-      txt: '待使用',
-      status: '3'
-    }, {
       img: '../../assets/images/icon/my_order_list3_icon.png',
       txt: '待评价',
       status: '5'
@@ -225,6 +221,12 @@ Page({
   onShow: function() {
     var that = this
     that.onLoad();
+    //tabbar
+    if (typeof that.getTabBar === 'function' && that.getTabBar()) {
+      that.getTabBar().setData({
+        selected: 2
+      })
+    }
   },
 
   /**

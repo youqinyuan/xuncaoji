@@ -59,7 +59,7 @@ button::after {
 .button {
   width: 630rpx;
   height: 80rpx;
-  background: rgba(255, 81, 122, 1);
+  background: #FF2644;
   border-radius: 40rpx;
   margin-left: 60rpx;
   line-height: 80rpx;

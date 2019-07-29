@@ -38,6 +38,7 @@
     <!--商品名称-->
     <view class="goods-title">
       <text class="goods-channel" wx:if="{{store.channel==1}}">自营</text>
+      <text class="goods-channel">自营</text>
       <text selectable='true' bindlongtap='copy'>{{detail.name}}</text>
     </view>
     <!--商品比较-->
@@ -89,8 +90,8 @@
     <view class="content-cashBack1" wx:if="{{detail.cashBack.totalAmount}}">
       <image src="../../assets/images/icon/youhui_bqian.png"></image>
       <view class="content-cashBack1-text">
-        商品将返现
-        <text>{{foo.toStr(detail.marketingCashBack.totalAmount)}}</text> 元，实际支出只需
+       当前商品返
+        <text>{{foo.toStr(detail.marketingCashBack.totalAmount)}}</text> 元，返后价
         <text>{{foo.toStr(detail.dctPrice-detail.marketingCashBack.totalAmount)}}</text>元
       </view>
     </view>
@@ -203,7 +204,7 @@
       <view class="cart-text">购物车</view>
     </view>
     <button class="share" catchtap='share' data-goodsid="{{detail.id}}" data-profit="{{detail.sharingProfit}}">
-      <!-- <image src="../../assets/images/icon/xqing_downbar_share_icon.png"></image> -->
+      <image src="../../assets/images/icon/xqing_downbar_share_icon.png"></image>
       <view class="share-text" wx:if="{{detail.sharingProfit}}">分享返{{detail.sharingProfit}}</view>
       <view class="share-text" wx:else>分享</view>
     </button>
@@ -224,7 +225,7 @@
 <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
   <view class="commodity-top">
     <view class="commodity-top-img">
-      <image wx:if="{{iconUrl[0].iconUrl}}" src="{{iconUrl[0].iconUrl}}"></image>
+      <image wx:if="{{iconUrl}}" src="{{iconUrl}}"></image>
       <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
     </view>
     <view class="commodity-top-right">
@@ -238,14 +239,14 @@
         </view>
       </view>
       <view class="commodity-save">库存{{stockDetail1.quantity}}件</view>
-      <!-- <view class="commodity-size">已选：{{selectName}}</view> -->
+      <view class="commodity-size">已选：{{selectName}}</view>
     </view>
   </view>
   <view class="content-cashBack" wx:if="{{stockDetail1.cashbackItems}}">
     <image src="../../assets/images/icon/youhui_bqian.png"></image>
     <view class="content-cashBack-text">
-      商品将返现
-      <text>{{cashMoney}}</text> 元，实际支出只需
+      当前商品返
+      <text>{{cashMoney}}</text> 元，返后价
       <text>{{foo.toStr(stockDetail1.dctPrice-cashMoney)}}</text>元
     </view>
   </view>
@@ -254,9 +255,9 @@
     <block wx:for="{{spec}}" wx:key="{{item.id}}" wx:for-index="group_idx">
       <view class="color-size" data-index="{{group_idx}}" bindtap='specIndex'>
         <view class="color-size-title">{{item.name}}</view>
-        <view class="color-size-list">
+        <view class="color-size-list"> 
           <block wx:for="{{item.items}}" wx:key="{{item.id}}">
-            <text bindtap='clickAttr' data-attr-index="{{index}}" data-select-index="{{group_idx}}" data-attr-id="{{item.id}}" class="text1 {{item.isSelect==true? 'active' : ''}}">{{item.name}}</text>
+            <text bindtap='clickAttr' data-attr-index="{{index}}" data-name="{{item.name}}" data-select-index="{{group_idx}}" data-attr-id="{{item.id}}" class="text1 {{item.isSelect==true? 'active' : ''}}">{{item.name}}</text>
           </block>
         </view>
       </view>
@@ -324,20 +325,6 @@
       </view>
       <view class="content-button" catchtap='call'>
         呼叫
-      </view>
-    </view>
-  </view>
-</view>
-<!--是否设置支付弹框-->
-<view class="zan-dialog1 {{ showPassword ? 'zan-dialog--show1' : '' }}">
-  <view class="zan-dialog__mask1" bindtap='hidePassword' />
-  <view class="zan-dialog__container1">
-    <view class='content1'>
-      <view class="content1-title">提示</view>
-      <view class="content1-container">为了您账户余额安全，请您先设置账户支付密码哦</view>
-      <view class="content1-button">
-        <view class="cancel-password" bindtap='cancel'>取消</view>
-        <view class="sure-password" bindtap='sure'>马上设置</view>
       </view>
     </view>
   </view>
