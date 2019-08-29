@@ -21,22 +21,26 @@ page {
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
+
 .wraper .listItems .listRight {
   font-size: 28rpx;
   margin-top: 20rpx;
   width: 550rpx;
 }
+
 .wraper .listItems .listRight1 {
   font-size: 28rpx;
   width: 550rpx;
 }
-.img{
+
+.img {
   position: absolute;
   width: 40rpx;
   height: 40rpx;
   right: 30rpx;
   top: 28rpx;
 }
+
 .wraper .listItems1 {
   height: 200rpx;
   display: flex;
@@ -48,7 +52,7 @@ page {
   margin-right: 15rpx;
   margin-left: 30rpx;
   font-size: 28rpx;
-  padding-top:34rpx;
+  padding-top: 34rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
@@ -57,20 +61,23 @@ page {
 .wraper .listItems1 .listRight {
   font-size: 28rpx;
   width: 550rpx;
-  height:100%;
+  height: 100%;
   box-sizing: border-box;
   padding-top: 38rpx;
   line-height: 1;
 }
+
 /* 去除ios机型上面自带的上间距 */
+
 .wraper .listItems1 .listRight_ios {
   font-size: 28rpx;
   width: 550rpx;
-  height:100%;
+  height: 100%;
   box-sizing: border-box;
   padding-top: 22rpx;
   line-height: 1;
 }
+
 .listItems-item {
   height: 90rpx;
   line-height: 90rpx;
@@ -118,7 +125,7 @@ page {
 .btn {
   width: 690rpx;
   height: 80rpx;
-  background: #FF6417;
+  background: #ff6417;
   border-radius: 40rpx;
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;
@@ -130,7 +137,8 @@ page {
 .btn::after {
   border: none;
 }
-/* 弹框 */
+
+/* 保存弹框 */
 
 .zan-dialog__mask {
   position: fixed;
@@ -138,34 +146,25 @@ page {
   left: 0;
   right: 0;
   bottom: 0;
-  display: none;
-  z-index: 99;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
 }
 
 .zan-dialog__container {
-  transform: translateY(300%);
-  transition: all 0.00001s ease;
   width: 540rpx;
   height: 282rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  bottom: 550rpx;
+  top: 300rpx;
   left: 110rpx;
   z-index: 9999;
 }
 
-.zan-dialog--show .zan-dialog__container {
-  transform: translateY(0);
-}
-
-.zan-dialog--show .zan-dialog__mask {
-  display: block;
-}
 /* 弹框内容 */
-.content-mask {
+
+.content {
   text-align: center;
   overflow: hidden;
 }
@@ -179,9 +178,9 @@ page {
 }
 
 .content-container {
-  width: 450rpx;
+  width: 372rpx;
   height: 66rpx;
-  margin-left: 55rpx;
+  margin-left: 100rpx;
   margin-bottom: 35rpx;
   font-size: 30rpx;
   text-align: center;
@@ -210,12 +209,17 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF6417;
+  color: #ff2644;
 }
+
+.comfirm::after {
+  border: none;
+}
+
 .addaddress {
   width: 690rpx;
   height: 76rpx;
-  background: #FF6417;
+  background: #ff6417;
   border-radius: 38px;
   margin-top: 60rpx;
   margin-left: 30rpx;

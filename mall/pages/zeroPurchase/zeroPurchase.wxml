@@ -58,7 +58,7 @@
         <view class="platform-img">
           <image src="../../assets/images/icon/xqing_protect_changj_icon1.png"></image>
         </view>
-        <view class="platform-text">部分商品全额返</view>
+        <view class="platform-text">0元购买即将上线</view>
       </view>
     </view>
   </view>
@@ -188,3 +188,7 @@
 
 <!-- 返回首页组件 -->
 <go_home class="go_home"></go_home>
+
+
+<!-- 使用canvas将分享图片和申请0元购图片合成一张图 -->
+<canvas canvas-id="canvas" style="width:400px;height:400px;position: absolute;left:-1000px;top:-1000px;"></canvas>

@@ -33,6 +33,7 @@ Page({
     haibao: false,
     appletQrCodeUrl: '', //邀请码路径
     haibaoImg: '', //生成的海报
+    shareImg:'',
   },
   //求当前轮播图的索引
   countIndex: function(e) {
@@ -115,12 +116,39 @@ Page({
       mode: 2,
       targetId: that.data.goodsId
     }, 'GET').then((res) => {
+      console.log(res)
       if (res.messageCode = 'MSG_1001') {
         var inviterCode = wx.getStorageSync('inviterCode')
         if (inviterCode) {
           res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
         } else {
           res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
+        }
+        // 产品图片路径转换为本地路径
+        var imageUrl = res.data.content.imageUrl
+        if (imageUrl) {
+          wx.getImageInfo({
+            src: imageUrl,
+            success(res) {
+              var ctx = wx.createCanvasContext('canvas');
+              var path_bg = res.path; //背景图片
+              var path_logo = '/assets/images/icon/apply_icon.png'
+              // 绘制产品图片
+              ctx.drawImage(path_bg, 0, 0, 400, 400);
+              //绘制申请0元购logo
+              ctx.drawImage(path_logo, 270, 265, 100, 44);
+              ctx.draw()
+              setTimeout(function () {
+                wx.canvasToTempFilePath({
+                  canvasId: 'canvas',
+                  success: function (res) {
+                    console.log('res', res)
+                    that.data.shareImg = res.tempFilePath
+                  }
+                })
+              }, 1000)
+            }
+          })
         }
         that.setData({
           shareList: res.data.content
@@ -527,7 +555,7 @@ Page({
         return {
           title: that.data.shareList.desc,
           path: that.data.shareList.link,
-          imageUrl: that.data.shareList.imageUrl,
+          imageUrl: that.data.shareImg,
           success: function(res) {
 
           },
@@ -556,7 +584,7 @@ Page({
       return {
         title: that.data.shareList.desc,
         path: that.data.shareList.link,
-        imageUrl: that.data.shareList.imageUrl,
+        imageUrl: that.data.shareImg,
         success: function(res) {
 
         },

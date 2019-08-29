@@ -10,6 +10,7 @@ Page({
     pageNumber: 1,
     pageSize: 5,
     checkedAll: false, //全选
+    showDialog:false,
     priceAll: 0,//选择的价格
     cardIds: [], //购物车id集合
     cartDetails: [],

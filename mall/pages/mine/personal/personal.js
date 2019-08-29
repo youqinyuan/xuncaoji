@@ -137,8 +137,8 @@ Page({
     }
     var token = wx.getStorageSync('token')
     wx.uploadFile({
-      url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
-      // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
+      // url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
+      url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
       filePath: that.data.avatarKey,
       name: 'avatarKey',
       formData: userInfo,
@@ -190,8 +190,8 @@ Page({
     }
     var token = wx.getStorageSync('token')
     wx.request({
-      url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
-      // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
+      // url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
+      url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
       method: "POST",
       data: userInfo,
       header: {

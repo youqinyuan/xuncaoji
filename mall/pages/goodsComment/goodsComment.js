@@ -11,6 +11,8 @@ Page({
     commentNum: 5, //商品评分
     goodsComment: '', //商品评论内容
     goodsData: '', //商品详情
+    index: '',
+    idx:'',
   },
 
   /**
@@ -30,9 +32,18 @@ Page({
     }, 'GET').then((res) => {
       console.log(res.data.content.orderGoodsDetail)
       if (res.data.messageCode == 'MSG_1001') {
+        var orderGoodsDetail = res.data.content.orderGoodsDetail
+        for (let item in res.data.content.orderGoodsDetail) {
+          orderGoodsDetail[item].commentNum = 5
+          orderGoodsDetail[item].goodsComment = ''
+          orderGoodsDetail[item].imgList = []
+          orderGoodsDetail[item].imgList_compress = []
+        }
+        // res.data.content.orderGoodsDetail.commentNum = 5
         that.setData({
-          goodsData: res.data.content.orderGoodsDetail
+          goodsData: orderGoodsDetail
         })
+        console.log(that.data.goodsData)
       }
     })
   },
@@ -40,18 +51,28 @@ Page({
   //评分
   getScore: function(e) {
     var that = this
+    console.log(e)
     let num = e.target.dataset.num
+    let index = e.target.dataset.index
+    let goodsData = that.data.goodsData
+    goodsData[index].commentNum = num
     that.setData({
-      commentNum: num
+      goodsData: goodsData
     })
+    console.log(that.data.goodsData)
   },
   // 获取textarea输入内容
   getTextareaValue: function(e) {
-    this.data.goodsComment = e.detail.value
+    console.log(e)
+    var that = this
+    that.data.goodsData[e.target.dataset.index].goodsComment = e.detail.value
   },
   // 添加图片
-  choiceImg: function() {
+  choiceImg: function(e) {
     var that = this
+    console.log(e)
+    var index = e.target.dataset.index
+    that.data.index = e.target.dataset.index
     wx.chooseImage({
       count: 6,
       sizeType: 'compressed',
@@ -59,8 +80,8 @@ Page({
       success(res) {
         // tempFilePath可以作为img标签的src属性显示图片
         const tempFilePaths = res.tempFilePaths
-        let imgs = that.data.imgList
-        if (imgs.length + tempFilePaths.length > 6) {
+        var imgs = that.data.goodsData[index].imgList
+        if ((imgs.length + tempFilePaths.length) > 6) {
           wx.showToast({
             title: '您最多可以上传6张图片',
             icon: 'none',
@@ -68,12 +89,15 @@ Page({
           })
           return;
         }
-        that.data.imgList_compress = []
+        that.data.goodsData[index].img_compress = []
         imgs = imgs.concat(tempFilePaths)
-        that.getCanvasImg(0, 0, imgs)
+        var goodsData = that.data.goodsData
+        goodsData[index].imgList = imgs
         that.setData({
-          imgList: imgs
+          goodsData: goodsData
         })
+        console.log(that.data.goodsData)
+        that.getCanvasImg(0, 0, imgs)
         console.log(JSON.stringify(that.data.imgList))
       }
     })
@@ -81,21 +105,43 @@ Page({
   // 删除用户上传的图片评论
   deleteImg: function(e) {
     var that = this
-    let index = e.target.dataset.index
-    let img = that.data.imgList
-    img.splice(index, 1)
-    var img_compress = that.data.imgList_compress
-    img_compress.splice(index, 1)
-    that.setData({
-      imgList: img,
-      imgList_compress: img_compress
-    })
+    console.log(e)
+    let dex = e.target.dataset.index
+    that.data.idx = e.target.dataset.index
+    // var index = that.data.index
+    // console.log(index)
+    // var goodsData = that.data.goodsData
+    // goodsData[index].imgList.splice(dex, 1)
+    // that.data.goodsData[index].img_compress.splice(dex, 1)
+    // that.setData({
+    //   goodsData: goodsData,
+    // })
+  },
+  //获取产品index
+  getIndex: function(e) {
+    console.log(e)
+    var that = this
+    var index = e.currentTarget.dataset.index
+    var dex = that.data.idx
+    console.log(dex)
+    if(dex !== ''){
+      var goodsData = that.data.goodsData
+      console.log(goodsData)
+      console.log(index)
+      goodsData[index].imgList.splice(dex, 1)
+      that.data.goodsData[index].img_compress.splice(dex, 1)
+      that.setData({
+        goodsData: goodsData,
+      })
+      that.data.dex = ''
+    }
   },
   //图片预览 
   imgYu: function(e) {
     console.log(e)
+    var that = this
     var src = e.currentTarget.dataset.src; //获取data-src
-    var imgList = this.data.imgList; //获取data-list
+    var imgList = that.data.goodsData[that.data.index].imgList; //获取data-list
     //图片预览
     wx.previewImage({
       current: src, // 当前显示图片的http链接
@@ -113,8 +159,22 @@ Page({
         wx.canvasToTempFilePath({
           canvasId: 'canvas',
           success: function success(res) {
-            that.data.imgList_compress.push(res.tempFilePath)
-            that.getCanvasImg(index, failNum, tempFilePaths);
+            wx.getFileSystemManager().readFile({
+              filePath: res.tempFilePath,
+              encoding: "base64",
+              success: function(data) {
+                // console.log(data.data) //返回base64编码结果，但是图片的话没有data:image/png
+                // that.data.imgList_compress.push({
+                //   url: data.data
+                // })
+                console.log(that.data.goodsData[that.data.index].img_compress)
+                that.data.goodsData[that.data.index].img_compress.push({
+                  url: data.data
+                })
+                console.log(that.data.goodsData[that.data.index].img_compress)
+                that.getCanvasImg(index, failNum, tempFilePaths);
+              }
+            })
           },
           fail: function(e) {
             failNum += 1; //失败数量，可以用来提示用户
@@ -128,59 +188,39 @@ Page({
   submit: function() {
     var that = this
     let goodsComment = that.data.goodsComment
-    var goodsData = that.data.goodsData[0]
-    if (goodsComment == '') {
-      wx.showToast({
-        title: '请输入评论内容',
-        icon: 'none',
-        duration: 2000
-      })
-      return;
+    var goodsData = that.data.goodsData
+    console.log(that.data.goodsData)
+    var userInteractGoodsList = []
+    var userInteractGoodsList_item = {}
+    for (var item in goodsData) {
+      userInteractGoodsList_item = {
+        interactImageFiles: goodsData[item].img_compress,
+        score: goodsData[item].commentNum,
+        content: goodsData[item].goodsComment,
+        goodsId: goodsData[item].goodsId,
+        orderDetailId: goodsData[item].id,
+      }
+      userInteractGoodsList.push(userInteractGoodsList_item)
     }
-    let imgs = that.data.imgList_compress
-    console.log(imgs)
-    // for(let item in imgs){
-    //   wx.getFileSystemManager().readFile({
-    //     filePath: imgs[item],
-    //     encoding: "base64",
-    //     success: function (data) {
-    //       console.log(data.data)
-    //     },
-    //   })
-    // }
-    // return;
-    wx.getFileSystemManager().readFile({
-      filePath: imgs[0],
-      encoding: "base64",
-      success: function (data) {
-        console.log(data.data)//返回base64编码结果，但是图片的话没有data:image/png
-        app.Util.ajax('mall/interact/addUserInteractGoods', {
-          orderId: goodsData.orderId,
-          action: 1,
-          userInteractGoodsList: [{
-            interactImageFiles: [{url:data.data}],
-            score: that.data.commentNum,
-            content: that.data.goodsComment,
-            goodsId: goodsData.goodsId,
-            orderDetailId: goodsData.id,
-          }]
-        }, 'POST').then((res) => {
-          console.log(res)
-          if (res.data.messageCode == 'MSG_1001') {
-            wx.redirectTo({
-              url: '/pages/goodsEvaluate/goodsEvaluate?goodsId=' + goodsData.goodsId,
-            })
-          } else {
-            wx.showToast({
-              title: '发布失败',
-              icon: 'none',
-              duration: 2000
-            })
-          }
+    console.log(userInteractGoodsList)
+    app.Util.ajax('mall/interact/addUserInteractGoods', {
+      orderId: goodsData[0].orderId,
+      action: 1,
+      userInteractGoodsList: userInteractGoodsList
+    }, 'POST').then((res) => {
+      console.log(res)
+      if (res.data.messageCode == 'MSG_1001') {
+        wx.redirectTo({
+          url: '/pages/goodsEvaluate/goodsEvaluate?goodsId=' + goodsData[0].goodsId,
+        })
+      } else {
+        wx.showToast({
+          title: '发布失败',
+          icon: 'none',
+          duration: 2000
         })
       }
     })
-      
   },
 
   /**

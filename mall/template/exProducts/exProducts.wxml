@@ -22,7 +22,7 @@
         </view>
         <view class="platform-list-item">
           <image class="platform-list-img" src="../../assets/images/icon/index_protect_changj_icon.png"></image>
-          <text class="platform-text">部分商品全额返</text>
+          <text class="platform-text">0元购买即将上线</text>
         </view>
       </view>
     </view>
@@ -75,7 +75,7 @@
         </view>
       </view>
     </view>
-    <!--性价比之王-->
+    <!-- 全网低价 -->
     <view class="goodlist">
       <view class="goodlist-title">
         <image class="goodlist-img" src="../../assets/images/icon/tuijian_haowu_icon.png"></image>

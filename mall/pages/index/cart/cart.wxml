@@ -58,20 +58,18 @@
   </view>
 </view>
 <!--弹框-->
-<view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
-  <view class="zan-dialog__mask" />
-  <view class="zan-dialog__container">
-    <view class='content-mask'>
+<view class="zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>
+  <view class="zan-dialog__container" wx:if="{{showDialog}}">
+    <view class='content'>
       <view class="content-title">提示</view>
       <view class="content-container">确认删除购物车所选商品？
       </view>
       <view class="content-button">
         <view class="reject" catchtap='reject'>取消</view>
-        <view class="comfirm" catchtap='comfirm'>确定</view>
+        <view class="comfirm" catchtap='comfirm'>删除</view>
       </view>
     </view>
   </view>
-</view>
 
 <!-- 轮播展示组件 -->
 <swiper-show class="swiper-show"></swiper-show>

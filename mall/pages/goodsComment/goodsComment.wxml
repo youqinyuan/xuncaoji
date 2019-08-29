@@ -5,7 +5,7 @@
     <view class="goods">
       <view class="goodsName">{{item.goodsName}}</view>
       <view class="goodsModel">{{item.specDesc}}</view>
-      <view class="goodsSource">自营</view>
+      <view class="goodsSource" wx:if="{{item.goodsTagItem[0].tag == 1}}">自营</view>
     </view>
     <view class="goodsPrice">￥{{item.price}}</view>
   </view>
@@ -13,31 +13,31 @@
   <view class="goodsNum">
     <view class="numTitle">商品评分</view>
     <view class="num_wrap">
-      <image wx:if="{{commentNum >=1}}" catchtap="getScore" data-num="{{1}}" src="/assets/images/icon/pingj_xinxin.png"></image>
-      <image wx:else src="/assets/images/icon/pingj_xinxin_l.png" catchtap="getScore" data-num="{{1}}"></image>
-      <image wx:if="{{commentNum >=2}}" catchtap="getScore" data-num="{{2}}" src="/assets/images/icon/pingj_xinxin.png"></image>
-      <image wx:else src="/assets/images/icon/pingj_xinxin_l.png" catchtap="getScore" data-num="{{2}}"></image>
-      <image wx:if="{{commentNum >=3}}" catchtap="getScore" data-num="{{3}}" src="/assets/images/icon/pingj_xinxin.png"></image>
-      <image wx:else src="/assets/images/icon/pingj_xinxin_l.png" catchtap="getScore" data-num="{{3}}"></image>
-      <image wx:if="{{commentNum >=4}}" catchtap="getScore" data-num="{{4}}" src="/assets/images/icon/pingj_xinxin.png"></image>
-      <image wx:else src="/assets/images/icon/pingj_xinxin_l.png" catchtap="getScore" data-num="{{4}}"></image>
-      <image wx:if="{{commentNum >=5}}" catchtap="getScore" data-num="{{5}}" src="/assets/images/icon/pingj_xinxin.png"></image>
-      <image wx:else src="/assets/images/icon/pingj_xinxin_l.png" catchtap="getScore" data-num="{{5}}"></image>
+      <image wx:if="{{item.commentNum >=1}}" catchtap="getScore" data-num="{{1}}" data-index="{{index}}" src="/assets/images/icon/pingj_xinxin.png"></image>
+      <image wx:else src="/assets/images/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{1}}"></image>
+      <image wx:if="{{item.commentNum >=2}}" catchtap="getScore" data-num="{{2}}" data-index="{{index}}" src="/assets/images/icon/pingj_xinxin.png"></image>
+      <image wx:else src="/assets/images/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{2}}"></image>
+      <image wx:if="{{item.commentNum >=3}}" catchtap="getScore" data-num="{{3}}" data-index="{{index}}" src="/assets/images/icon/pingj_xinxin.png"></image>
+      <image wx:else src="/assets/images/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{3}}"></image>
+      <image wx:if="{{item.commentNum >=4}}" catchtap="getScore" data-num="{{4}}" data-index="{{index}}" src="/assets/images/icon/pingj_xinxin.png"></image>
+      <image wx:else src="/assets/images/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{4}}"></image>
+      <image wx:if="{{item.commentNum >=5}}" catchtap="getScore" data-num="{{5}}" data-index="{{index}}" src="/assets/images/icon/pingj_xinxin.png"></image>
+      <image wx:else src="/assets/images/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{5}}"></image>
     </view>
   </view>
 
-  <textarea placeholder="快来说说宝贝它的优点和美中不足的地方吧(0/100)" maxlength="{{100}}" bindinput="getTextareaValue">
+  <textarea placeholder="快来说说宝贝它的优点和美中不足的地方吧(0/100)" maxlength="{{100}}" bindinput="getTextareaValue" data-index="{{index}}">
   </textarea>
-  <view class="img_wrap">
-    <view class="commentImg_wrap" wx:for="{{imgList}}" wx:key="item">
-      <image src="{{item}}" catchtap="imgYu" data-src="{{item}}"></image>
-      <image src="/assets/images/icon/commentClose.png" class="close" catchtap="deleteImg" data-index="{{index}}"></image>
+  <view class="img_wrap"  catchtap="getIndex" data-index="{{index}}">
+    <view class="commentImg_wrap" wx:for="{{item.imgList}}" wx:key="items" wx:for-item="items">
+      <image src="{{items}}" catchtap="imgYu" data-src="{{items}}"></image>
+      <image src="/assets/images/icon/commentClose.png" class="close" bindtap="deleteImg" data-index="{{index}}"></image>
     </view>
-    <image src="/assets/images/icon/addImg.png" bindtap="choiceImg" wx:if="{{imgList.length<6}}"></image>
+    <image src="/assets/images/icon/addImg.png" bindtap="choiceImg" wx:if="{{item.imgList.length<6}}" data-index="{{index}}"></image>
   </view>
 </view>
 
 <view class="btn" bindtap="submit">发布</view>
 
 <!-- 压缩上传图片使用 -->
-<canvas canvas-id="canvas" style="width:400px;height:400px;position: absolute;left:-1000px;top:-1000px;"></canvas>
+<canvas canvas-id="canvas" style="width:200px;height:200px;position: absolute;left:-1000px;top:-1000px;"></canvas>

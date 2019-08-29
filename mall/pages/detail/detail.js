@@ -157,11 +157,11 @@ Page({
             success(res) {
               var ctx = wx.createCanvasContext('canvas');
               var path_bg = res.path; //背景图片
-              var path_logo = '/assets/images/icon/xuncaoji_icon.png'
+              var path_logo = '/assets/images/icon/apply_icon.png'
               // 绘制产品图片
               ctx.drawImage(path_bg, 0, 0, 400, 400);
               //绘制申请0元购logo
-              ctx.drawImage(path_logo, 300, 300, 100, 60);
+              ctx.drawImage(path_logo,270, 265, 100, 44);
               ctx.draw()
               setTimeout(function() {
                 wx.canvasToTempFilePath({

@@ -1,7 +1,8 @@
 <!--pages/address/address.wxml-->
 <view class="container">
-<view class='default' wx:if="{{items[0]}}">{{text}}</view>
-  <view class="touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove" wx:for="{{items}}" wx:key="{{item.id}}" bindtap='backPlaceorder' data-name="{{item.receiverName}}" data-number="{{item.mobileNumber}}" data-province="{{item.provinceName}}" data-city="{{item.cityName}}" data-district="{{item.districtName}}" data-districtid="{{item.districtId}}" data-detailed="{{item.detailedAddress}}" data-id="{{item.id}}">
+  <view class='default' wx:if="{{items[0]}}">{{text}}</view>
+  <view class="touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove" wx:for="{{items}}" wx:key="{{item.id}}" bindtap='backPlaceorder' data-name="{{item.receiverName}}" data-number="{{item.mobileNumber}}"
+    data-province="{{item.provinceName}}" data-city="{{item.cityName}}" data-district="{{item.districtName}}" data-districtid="{{item.districtId}}" data-detailed="{{item.detailedAddress}}" data-id="{{item.id}}">
     <view class="content">
       <view class="content-photo">
         {{item.name}}
@@ -14,25 +15,24 @@
         <view class="content-address">{{item.provinceName}}{{item.cityName}}{{item.districtName}}{{item.detailedAddress}}
         </view>
       </view>
-      <view class="content-edit" catchtap='jumpEdit' data-name="{{item.receiverName}}" data-number="{{item.mobileNumber}}" data-province="{{item.provinceName}}" data-city="{{item.cityName}}" data-district="{{item.districtName}}" data-districtid="{{item.districtId}}" data-detailed="{{item.detailedAddress}}" data-id="{{item.id}}" data-gindex="{{index}}">
+      <view class="content-edit" catchtap='jumpEdit' data-name="{{item.receiverName}}" data-number="{{item.mobileNumber}}" data-province="{{item.provinceName}}" data-city="{{item.cityName}}" data-district="{{item.districtName}}" data-districtid="{{item.districtId}}"
+        data-detailed="{{item.detailedAddress}}" data-id="{{item.id}}" data-gindex="{{index}}">
         <image src="../../assets/images/icon/location_edit.png"></image>
       </view>
     </view>
     <!--弹框-->
-    <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
-      <view class="zan-dialog__mask" />
-      <view class="zan-dialog__container">
-        <view class='content-mask'>
-          <view class="content-title">提示</view>
-          <view class="content-container">是否删除收货地址？
-          </view>
-          <view class="content-button">
-            <view class="reject" catchtap='reject'>取消</view>
+    <view class="zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>
+  <view class="zan-dialog__container" wx:if="{{showDialog}}">
+    <view class='content-mask'>
+      <view class="content-title">提示</view>
+      <view class="content-container">是否删除收货地址？
+      </view>
+      <view class="content-button">
+       <view class="reject" catchtap='reject'>取消</view>
             <view class="comfirm" catchtap='comfirm'>确定</view>
-          </view>
-        </view>
       </view>
     </view>
+  </view>
     <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
   </view>
 </view>

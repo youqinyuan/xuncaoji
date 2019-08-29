@@ -11,7 +11,7 @@ Page({
   //跳转到手机登录
   jumpPhoneLogin: function() {
     wx.navigateTo({
-      url: '/pages/login/login?pageNum='+4,
+      url: '/pages/login/login?pageNum=' + 4,
     })
   },
   getPhoneNumber: function(e) {
@@ -19,6 +19,14 @@ Page({
     //给当前地址添加缓存，授权之后跳转回原页面
     var encryptedData = e.detail.encryptedData
     var iv = e.detail.iv
+    //刷新code
+    wx.login({
+      success(res) {
+        console.log("获取code成功");
+        console.log('res.code:', res.code, res);
+        wx.setStorageSync('code', res.code)
+      }
+    })
     var code = wx.getStorageSync('code')
     var inviterCode1 = wx.getStorageSync('inviterCode1') || ''
     if (e.detail.errMsg == 'getPhoneNumber:ok') {
@@ -61,7 +69,13 @@ Page({
               wx.setStorageSync('provinces', res.data.content)
             }
           })
-        }else{
+        } else if (res.data.messageCode = 'MSG_4001') {
+          wx.showToast({
+            title: '您的微信昵称含有特殊字符，请先修改微信昵称后再登录',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
           wx.showToast({
             title: res.data.message,
             icon: 'none',
@@ -77,7 +91,7 @@ Page({
           duration: 2000
         })
       })
-    } else{
+    } else {
       app.globalData.flag = false
       wx.navigateTo({
         url: '/pages/login/login',

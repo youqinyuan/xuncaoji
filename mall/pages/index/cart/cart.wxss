@@ -327,43 +327,31 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 /* 删除按钮 */
 
 /* 弹框 */
-
 .zan-dialog__mask {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  display: none;
-  z-index: 99;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
 }
 
 .zan-dialog__container {
-  transform: translateY(300%);
-  transition: all 0.00001s ease;
   width: 540rpx;
   height: 282rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  bottom: 550rpx;
+  top: 300rpx;
   left: 110rpx;
   z-index: 9999;
 }
 
-.zan-dialog--show .zan-dialog__container {
-  transform: translateY(0);
-}
-
-.zan-dialog--show .zan-dialog__mask {
-  display: block;
-}
-
 /* 弹框内容 */
 
-.content-mask {
+.content {
   text-align: center;
   overflow: hidden;
 }
@@ -377,9 +365,9 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 }
 
 .content-container {
-  width: 450rpx;
+  width: 372rpx;
   height: 66rpx;
-  margin-left: 55rpx;
+  margin-left: 100rpx;
   margin-bottom: 35rpx;
   font-size: 30rpx;
   text-align: center;
@@ -410,6 +398,11 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   background: rgba(255, 255, 255, 1);
   color: #ff2644;
 }
+
+.comfirm::after {
+  border: none;
+}
+
 
 /* 轮播展示组件 */
 

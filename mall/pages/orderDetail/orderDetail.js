@@ -144,7 +144,7 @@ Page({
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode == 'MSG_1001') {
         that.setData({
-          list: (res.data.content.logisticsDetailList[0].logisticsDto.list.reverse())[0],
+          list: res.data.content.logisticsDetailList[0].logisticsDto?(res.data.content.logisticsDetailList[0].logisticsDto.list.reverse())[0]:'',
           logisticsDetailList: res.data.content.logisticsDetailList,
           logisticsId: res.data.content.logisticsDetailList[0].id
         })
@@ -358,7 +358,7 @@ Page({
     //   refundorderId: e.currentTarget.dataset.orderid
     // })
     wx.navigateTo({
-      url: '/pages/goodsComment/goodsComment'
+      url: '/pages/goodsComment/goodsComment?orderid=' + e.currentTarget.dataset.orderid
     })
   },
   //获取文本框的长度
