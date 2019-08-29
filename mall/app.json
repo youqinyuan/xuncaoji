@@ -14,6 +14,7 @@
     "pages/search/search",
     "pages/detail/detail",
     "pages/evaluate/evaluate",
+    "pages/goodsEvaluate/goodsEvaluate",
     "pages/search/goods/goods",
     "pages/mine/recharge/recharge",
     "pages/mine/personal/personal",
@@ -31,9 +32,14 @@
     "pages/orderDetail/orderDetail",
     "pages/zeroPurchase/zeroPurchase",
     "pages/zeroPurchaseActivity/zeroPurchaseActivity",
+    "pages/applyRule/applyRule",
+    "pages/applyZero/applyZero",
     "pages/cashBack/cashBack",
     "pages/logistics/logistics",
-    "pages/undeveloped/undeveloped"
+    "pages/logisticsDetail/logisticsDetail",
+    "pages/undeveloped/undeveloped",
+    "pages/zeroBuy/zeroBuy",
+    "pages/goodsComment/goodsComment"
   ],
   "window": {
     "backgroundTextStyle": "dark",

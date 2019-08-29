@@ -11,7 +11,7 @@
     <view class="platform-img">
       <image src="../../assets/images/icon/xqing_protect_renzheng_icon.png"></image>
     </view>
-    <view class="platform-text">假一赔三</view>
+    <view class="platform-text">假一赔十</view>
   </view>
   <view class="platform-wrap">
     <view class="platform-img">
@@ -80,7 +80,7 @@
         <view class="expressfee" wx:if="{{item.orderGoods.period>0}}">
           <view class="expressfee-text">分期返现</view>
           <view class="expressfee-price">
-            <text class="expressfee-price1">{{item.orderGoods.period}}期返现</text>
+            <text class="expressfee-price1">{{item.orderGoods.period}}期返现共返<text class="expressfee-price1-text">{{item.orderGoods.cashBack}}</text>元</text>
           </view>
         </view>
       </view>

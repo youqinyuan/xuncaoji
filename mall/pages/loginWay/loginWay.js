@@ -11,10 +11,11 @@ Page({
   //跳转到手机登录
   jumpPhoneLogin: function() {
     wx.navigateTo({
-      url: '/pages/login/login',
+      url: '/pages/login/login?pageNum='+4,
     })
   },
   getPhoneNumber: function(e) {
+    console.log(e)
     //给当前地址添加缓存，授权之后跳转回原页面
     var encryptedData = e.detail.encryptedData
     var iv = e.detail.iv
@@ -25,25 +26,32 @@ Page({
       wx.setStorageSync('iv', iv)
       var pages = getCurrentPages() //获取加载的页面
       var currentPage = pages[pages.length - 3] //获取当前页面的对象
+      console.log(currentPage)
       var url = currentPage.route
       if (url == 'pages/detail/detail') {
         wx.setStorage({
           key: "url",
           data: url + '?id=' + wx.getStorageSync('goods_id')
         })
+      } else if (url == 'pages/zeroPurchase/zeroPurchase') {
+        wx.setStorage({
+          key: "url",
+          data: url + '?id=' + wx.getStorageSync('zeroGoods_id')
+        })
       }
-      app.globalData.flag = true
-      wx.switchTab({
-        url: '/pages/index/index'
-      })
       app.Util.ajax('mall/account/authLogin', {
         encryptedData: encryptedData,
         iv: iv,
         code: code,
         inviterCode: inviterCode1
       }, 'POST').then((res) => {
+        console.log(res)
         wx.setStorageSync('token', res.header.token)
         wx.setStorageSync('inviterCode', res.data.content.inviterCode)
+        app.globalData.flag = true
+        wx.switchTab({
+          url: '/pages/index/index'
+        })
         if (res.data.content) {
           app.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
             if (res.data.messageCode = 'MSG_1001') {
@@ -53,8 +61,21 @@ Page({
               wx.setStorageSync('provinces', res.data.content)
             }
           })
+        }else{
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 2000
+          })
         }
         wx.removeStorageSync('othersInviterCode')
+      }).catch((err) => {
+        console.log(err)
+        wx.showToast({
+          title: '登录失败',
+          icon: 'none',
+          duration: 2000
+        })
       })
     } else{
       app.globalData.flag = false

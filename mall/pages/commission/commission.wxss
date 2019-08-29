@@ -167,15 +167,17 @@ page {
 /* 佣金明细当余额大于0 */
 
 /* 提现 */
-
+.withdraw-wrap{
+  height: 220rpx;
+  background: #f4f4f4;
+  overflow: hidden;
+}
 .withdraw {
   width: 690rpx;
   height: 76rpx;
+  margin: 66rpx auto;
   background: #FF6417;
   border-radius: 38px;
-  margin-top: 60rpx;
-  margin-left: 30rpx;
-  margin-bottom: 60rpx;
   text-align: center;
   line-height: 76rpx;
   font-size: 32rpx;
@@ -219,6 +221,8 @@ page {
   border-bottom: 2rpx solid #f4f4f4;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8rpx;
 }
 
 .list-left {
@@ -249,7 +253,16 @@ page {
   margin-top: 40rpx;
   color: #FF6417;
 }
-
+.commission-bottom {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #f4f4f4;
+}
 /* 提现弹窗 */
 
 .modal-mask {

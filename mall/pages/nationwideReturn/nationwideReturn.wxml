@@ -1,6 +1,6 @@
 <!--pages/nationwideReturn/nationwideReturn.wxml-->
 <!-- 已累计返现 -->
-<view class="nationwideReturn-wrapper">
+<view class="nationwideReturn-wrapper" wx:if="{{wholeNation.length>0}}">
   <view class="nationwideReturn">
     <image mode="widthFix" class="nationwideReturn-img" src="../../assets/images/icon/qmf_bg.png"></image>
     <view class="nationwideReturn-text">
@@ -22,7 +22,7 @@
   </view>
 </view>
 <!--好物返现-->
-<view class="recommend-title">
+<view class="recommend-title" wx:if="{{wholeNation.length>0}}">
   <view class="recommend-left">
     <image src="../../assets/images/icon/fiery_orange_n.png"></image>
   </view>
@@ -38,19 +38,19 @@
     <view class="recommend-list-text">{{item.name}}</view>
     <view class="recommend-list-price">
       <view class="newprice">
-        <text>￥</text>{{item.dctPrice}}</view>
+        <text>￥</text>{{item.truePrice}}</view>
       <view class="oldprice">￥{{item.orgPrice}}</view>
     </view>
     <view class="return-wrap">
       <view class="return-money">
+        <text>实付</text>
+        <text>￥</text>
+        <text>{{item.dctPrice}}</text>
+      </view>
+      <view class="pay-money">
         <text>返</text>
         <text>￥</text>
         <text>{{item.marketingCashBack.totalAmount}}</text>
-      </view>
-      <view class="pay-money">
-        <text>返后价</text>
-        <text>￥</text>
-        <text>{{item.truePrice}}</text>
       </view>
     </view>
   </view>

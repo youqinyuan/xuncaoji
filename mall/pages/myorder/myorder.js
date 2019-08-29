@@ -49,18 +49,13 @@ Page({
     cancelOrder: ['我不想买了', '填写错误,重拍', '卖家缺货', '其他原因'],//取消订单
     showDialog3: false,//取消订单弹框
     reason1:'我不想买了',//取消订单理由
-    showDialog4:false,//去评价弹框
-    noteMaxLen: 100, //详细评价的字数限制
-    currentNoteLen: 0,//输入的字数
-    evaluate:'',//文本框的值
-    one_2: 5,//实心星星
-    two_2: 0,//空心星星
-    // disabled:true,
-    multiShow:true,
-    showModalStatus: false,//分享弹窗
-    shareList: {},//分享数据
-    goodsId: 1,//分享用的商品id
-    sharingProfit: '',//分享返利
+    showDialog4:false,//终止0元购弹窗
+    // noteMaxLen: 100, //详细评价的字数限制
+    // currentNoteLen: 0,//输入的字数
+    // evaluate:'',//文本框的值
+    // one_2: 5,//实心星星
+    // two_2: 0,//空心星星
+    // multiShow:true,
     options:{},
     status:''
   },
@@ -88,51 +83,6 @@ Page({
     const id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: `/pages/detail/detail?id=${id}`,
-    })
-  },
-  //分享
-  share: function (e) {
-    var that = this
-    var goodsId = e.currentTarget.dataset.goodsid
-    var sharingProfit = e.currentTarget.dataset.profit
-    that.setData({
-      goodsId: goodsId,
-      sharingProfit: sharingProfit
-    })
-    //分享数据
-    that.chooseShare()
-
-    that.setData({
-      showModalStatus: true
-    })
-  },
-  cancelShare: function () {
-    var that = this
-    that.setData({
-      showModalStatus: false
-    })
-  },
-  hideModal: function () {
-    var that = this
-    that.setData({
-      showModalStatus: false
-    })
-  },
-  //查询分享数据
-  chooseShare: function () {
-    var that = this
-    app.Util.ajax('mall/weChat/sharing/target', { mode: 1, targetId: that.data.goodsId }, 'GET').then((res) => {
-      if (res.messageCode = 'MSG_1001') {
-        var inviterCode = wx.getStorageSync('inviterCode')
-        if (inviterCode) {
-          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
-        } else {
-          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
-        }     
-        that.setData({
-          shareList: res.data.content
-        })
-      }
     })
   },
   /**
@@ -252,7 +202,6 @@ Page({
   getMore1: function () {
     var that = this
     var pageNumber = that.data.pageNumber+1
-    console.log(that.data.status)
     if (that.data.status == 0){
       that.setData({
         status:''
@@ -280,8 +229,11 @@ Page({
       }
     })
   },
-  //各种按钮
-  //付款
+  //终止0元购按钮
+  stopZero:function(e){
+
+  },
+  //去付款按钮
   toPay:function(e){
     var orderId = e.currentTarget.dataset.orderid
     var id = e.currentTarget.dataset.id
@@ -297,14 +249,12 @@ Page({
       refundorderId: e.currentTarget.dataset.orderid
     })
   },
-  //取消收货
   cancel:function(){
     var that = this
     that.setData({
       showDialog: false
     })
   },
-  //确认收货
   allow:function(e){
     var that = this
     var orderId = that.data.refundorderId
@@ -330,14 +280,12 @@ Page({
       refundorderId: e.currentTarget.dataset.orderid
     })
   },
-  //取消
   cancelrefund: function () {
     var that = this
     that.setData({
       showDialog1: false
     })
   },
-  //确定
   surerefund: function (e) {
     var that = this
     var orderId = that.data.refundorderId
@@ -363,14 +311,12 @@ Page({
       refundorderId: e.currentTarget.dataset.orderid
     })
   },
-  //取消
   refundDialog: function () {
     var that = this
     that.setData({
       showDialog2: false
     })
   },
-  //申请退款
   application: function (e) {
     var that = this
     var orderId = that.data.refundorderId
@@ -407,14 +353,12 @@ Page({
       refundorderId: e.currentTarget.dataset.orderid
     })
   },
-  //取消
   cancelorder: function () {
     var that = this
     that.setData({
       showDialog3: false
     })
   },
-  //确定
   sureorder: function (e) {
     var that = this
     var orderId = that.data.refundorderId
@@ -446,76 +390,79 @@ Page({
   //去评价
   toEvaluate:function(e){
     var that = this
-    that.setData({
-      showDialog4: true,
-      multiShow:false,
-      refundorderId: e.currentTarget.dataset.orderid
+    // that.setData({
+    //   showDialog4: true,
+    //   multiShow:false,
+    //   refundorderId: e.currentTarget.dataset.orderid
+    // })
+    wx.navigateTo({
+      url: '/pages/goodsComment/goodsComment?orderid=' + e.currentTarget.dataset.orderid
     })
   },
-  //获取文本框的长度
-  input(e) {
-    var value = e.detail.value,
-    len = parseInt(value.length);
-    let that = this;
-    that.setData({
-      currentNoteLen: len,
-      evaluate: value
-    })
-  },
-  //用户给评分
-  in_xin: function (e) {
-    var in_xin = e.currentTarget.dataset.in;
-    var one_2;
-    if (in_xin === 'use_sc2') {
-      one_2 = Number(e.currentTarget.id);
-    } else {
-      one_2 = Number(e.currentTarget.id) + this.data.one_2;
-    }
-    this.setData({
-      one_2: one_2,
-      two_2: 5 - one_2
-    })
-  },
-  //取消
-  cancelEvaluate: function () {
-    var that = this
-    that.setData({
-      showDialog4: false,
-      one_2: 5,//实心星星
-      two_2: 0,//空心星星
-      evaluate: ''
-    })
-  },
-  //确定
-  sureEvaluate: function () {
-    var that = this
-    var orderId = that.data.refundorderId
-    var score = that.data.one_2
-    var content = that.data.evaluate
-    if (score ==''){
-      wx.showToast({
-        title: '请对商品进行评分',
-        icon: 'none'
-      })
-    }else{
-      app.Util.ajax('mall/interact/addUserInteract', { orderId: orderId, score: score, action: 1, content: content }, 'POST').then((res) => {
-        if (res.data.content) {
-          that.initgetMore1()
-          that.setData({
-            showDialog4: false,
-            one_2: 5,//实心星星
-            two_2: 0,//空心星星
-            evaluate:''
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
-        }
-      }) 
-    }  
-  },
+  // //获取文本框的长度
+  // input(e) {
+  //   var value = e.detail.value,
+  //   len = parseInt(value.length);
+  //   let that = this;
+  //   that.setData({
+  //     currentNoteLen: len,
+  //     evaluate: value
+  //   })
+  // },
+  // //用户给评分
+  // in_xin: function (e) {
+  //   var in_xin = e.currentTarget.dataset.in;
+  //   var one_2;
+  //   if (in_xin === 'use_sc2') {
+  //     one_2 = Number(e.currentTarget.id);
+  //   } else {
+  //     one_2 = Number(e.currentTarget.id) + this.data.one_2;
+  //   }
+  //   this.setData({
+  //     one_2: one_2,
+  //     two_2: 5 - one_2
+  //   })
+  // },
+  // //取消
+  // cancelEvaluate: function () {
+  //   var that = this
+  //   that.setData({
+  //     showDialog4: false,
+  //     one_2: 5,//实心星星
+  //     two_2: 0,//空心星星
+  //     evaluate: ''
+  //   })
+  // },
+  // //确定
+  // sureEvaluate: function () {
+  //   var that = this
+  //   var orderId = that.data.refundorderId
+  //   var score = that.data.one_2
+  //   var content = that.data.evaluate
+  //   if (score ==''){
+  //     wx.showToast({
+  //       title: '请对商品进行评分',
+  //       icon: 'none'
+  //     })
+  //   }else{
+  //     app.Util.ajax('mall/interact/addUserInteract', { orderId: orderId, score: score, action: 1, content: content }, 'POST').then((res) => {
+  //       if (res.data.content) {
+  //         that.initgetMore1()
+  //         that.setData({
+  //           showDialog4: false,
+  //           one_2: 5,//实心星星
+  //           two_2: 0,//空心星星
+  //           evaluate:''
+  //         })
+  //       } else {
+  //         wx.showToast({
+  //           title: res.data.message,
+  //           icon: 'none'
+  //         })
+  //       }
+  //     }) 
+  //   }  
+  // },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -575,38 +522,7 @@ Page({
  * 用户点击右上角分享
  */
   onShareAppMessage: function (ops) {
-    var that = this
-    if (ops.from === 'button') {
-      // 来自页面内转发按钮
-      that.setData({
-        showModalStatus: false
-      })
-      app.Util.ajax('mall/weChat/sharing/onSuccess', { mode: 1 }, 'POST').then((res) => {
-        if (res.data.content) {
-          wx.showToast({
-            title: '分享成功',
-            icon: 'none'
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
-        }
-      })
-    }
-    return {
-      title: that.data.shareList.title,
-      path: that.data.shareList.link,
-      imageUrl: that.data.shareList.imageUrl,
-      success: function (res) {
-        
-      },
-      fail: function (res) {
-        // 转发失败
-        console.log("转发失败:" + JSON.stringify(res));
-      }
-    }
+   
   },
   tab: function(e) {
     var that = this;    
@@ -619,14 +535,11 @@ Page({
       that.setData({
         currentTab: ''
       })
+      that.initgetMore1()
     }else{
       that.setData({
         currentTab: status
       })
-    }
-    if (status == 0){
-      that.initgetMore1()
-    }else{
       app.Util.ajax('mall/order/queryOrderListByUserId', {
         pageNumber: 1,
         pageSize: 10,
@@ -638,8 +551,7 @@ Page({
           })
         }
       })
-    }
-    
+    }    
     for (var i in this.data.orderTabItem) {
       that.setData({
         [`orderTabItem[${i}].select`]: false

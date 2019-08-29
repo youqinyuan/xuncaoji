@@ -1,0 +1,5 @@
+<!--components/go_home/go_home.wxml-->
+
+<view class="img_wrap"  wx:if="{{img_show}}">
+  <image class="go_home" src="/assets/images/icon/ic.png" catchtap="go_home"></image>
+</view>

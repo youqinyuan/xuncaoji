@@ -79,16 +79,14 @@
   </view>
 </view>
 <!--是否设置支付弹框-->
-<view class="zan-dialog1 {{ showPassword ? 'zan-dialog--show1' : '' }}">
-  <view class="zan-dialog__mask1" bindtap='hidePassword' />
-  <view class="zan-dialog__container1">
-    <view class='content1'>
-      <view class="content1-title">提示</view>
-      <view class="content1-container">为了您账户余额安全，请您先设置账户支付密码哦</view>
-      <view class="content1-button">
-        <view class="cancel-password" bindtap='cancel'>取消</view>
-        <view class="sure-password" bindtap='sure'>马上设置</view>
-      </view>
+<view class="zan-dialog1" catchtouchmove="preventTouchMove" wx:if="{{showPassword}}" bindtap='hidePassword'></view>
+<view class="zan-dialog1__container" wx:if="{{showPassword}}">
+  <view class='content1'>
+    <view class="content1-title">提示</view>
+    <view class="content1-container">为了您账户余额安全，请您先设置账户支付密码哦</view>
+    <view class="content1-button">
+      <view class="cancel-password" bindtap='cancel'>取消</view>
+      <view class="sure-password" bindtap='sure'>马上设置</view>
     </view>
   </view>
 </view>

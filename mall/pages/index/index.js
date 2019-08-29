@@ -4,89 +4,47 @@ const app = getApp()
 var utils = require('../../utils/util.js');
 Page({
   data: {
-    showDialog: false,
-    // showModalStatus: false, //分享弹窗
-    // shareList: {}, //分享数据
-    // goodsId: 1, //分享用的商品id
-    // sharingProfit: '', //分享返利
+    showDialog: false, //获取头像昵称弹框
+    showReceived: false, //首页叮咚弹窗
     autoplay: true,
     circular: true,
-    interval: 2000,   
+    interval: 2000,
     duration: 1000,
     navData: [], //导航栏
     currentTab: 0,
     navScrollLeft: 0,
     imgUrls: [], //爆品下的轮播图
-    wholeNation: [],//0元购好物
+    wholeNation: [], //0元购好物
+    totalAmount: '', //0元购好物返总件数
     goods: [], //超值一口价
     trend: [], //口碑爆品榜
     list: [], //销量排行榜
     classfy: [], //二级分类下轮播图下的分类
     pageNumber: 1, //分页记录数
-    pageSize: 6, //分页大小
+    pageSize: 20, //分页大小
     id: 1, //导航栏id
     text: '', //爆品底部提示
     text1: '', //其他底部提示
     imageUrl: [], //二级分类下的轮播图
     comprehensive: [], //二级分类下的商品
-    totalAmount: 1, //全民返总件数
     count: null, //购物车数量
     i: 1,
-    bannerId: 1, //0元购banner
-    bannerUrl: null,//0元购banner
+    bannerId: 1, //0元购bannerid
+    bannerUrl: '', //0元购banner图片
     color: "#FF8D12",
     color1: "black",
     color2: "black",
     pricePhoto: '../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
-    pricePhoto1: '../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png'
+    pricePhoto1: '../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
+    options: {},
+    shareMessage: {} //叮咚信息
   },
-  // //分享
-  // share: function(e) {
-  //   var that = this
-  //   var goodsId = e.currentTarget.dataset.goodsid
-  //   var sharingProfit = e.currentTarget.dataset.profit
-  //   that.setData({
-  //     goodsId: goodsId,
-  //     sharingProfit: sharingProfit
-  //   })
-  //   //分享数据
-  //   that.chooseShare()
-  //   that.setData({
-  //     showModalStatus: true
-  //   })
-  // },
-  // cancelShare: function() {
-  //   var that = this
-  //   that.setData({
-  //     showModalStatus: false
-  //   })
-  // },
-  // hideModal: function() {
-  //   var that = this
-  //   that.setData({
-  //     showModalStatus: false
-  //   })
-  // },
-  // bindGetLocation: function() {
-  //   this.setData({
-  //     showDialog: false
-  //   })
-  //   wx.getLocation({
-  //     type: 'wgs84',
-  //     success(res) {
-  //       const latitude = res.latitude
-  //       const longitude = res.longitude
-  //       const speed = res.speed
-  //       const accuracy = res.accuracy
-  //     }
-  //   })
-  // },
   //事件处理函数
   onLoad: function(options) {
-    wx.showShareMenu({
-      withShareTicket: true
-    })
     var that = this;
+    that.setData({
+      options: options
+    })
     var flag = app.globalData.flag
     if (!flag) {
       that.setData({
@@ -98,8 +56,8 @@ Page({
       })
     }
     //别人通过链接
-    if (options.inviterCode){
-      wx.setStorageSync('othersInviterCode', options.inviterCode )
+    if (options.inviterCode) {
+      wx.setStorageSync('othersInviterCode', options.inviterCode)
     }
     //查询购物车种类数量
     that.getCartCount();
@@ -119,9 +77,58 @@ Page({
     that.publicPraise();
     //销量排行榜
     that.initgetMore1();
+    //获取分享提示信息
+    var token = wx.getStorageSync('token')
+    if (token) {
+      if (app.globalData.share == 0) {
+        that.getShareMessage();
+      }
+    }
+  },
+  //获取分享提示信息
+  getShareMessage: function() {
+    var that = this
+    app.Util.ajax('mall/home/hint/share', {
+      source: 2
+    }, 'GET').then((res) => {
+      if (res.data.messageCode = 'MSG_1001') {
+        if (res.data.content.hint == 2) {
+          that.setData({
+            showReceived: false
+          })
+        } else if (res.data.content.hint == 1) {
+          that.setData({
+            showReceived: true,
+            shareMessage: res.data.content
+          })
+        }
+      }
+    })
+  },
+  //点击立即去进去公众号0元购页面
+  go_zeroActivity: function() {
+    var that = this
+    wx.navigateTo({
+      url: '/pages/zeroPurchaseActivity/zeroPurchaseActivity',
+    })
+    that.setData({
+      showReceived: false
+    })
+    app.globalData.share = 1
+  },
+  //点击立即去进去0元购列表页面
+  go_zeroBuy: function() {
+    var that = this
+    wx.navigateTo({
+      url: '/pages/zeroBuy/zeroBuy',
+    })
+    that.setData({
+      showReceived: false
+    })
+    app.globalData.share = 1
   },
   //导航栏
-  navigationBar: function () {
+  navigationBar: function() {
     var that = this
     app.Util.ajax('mall/home/categories', 'GET').then((res) => {
       if (res.data.messageCode = 'MSG_1001') {
@@ -132,7 +139,7 @@ Page({
     })
   },
   //爆品轮播图
-  explosivesSwiper:function(){
+  explosivesSwiper: function() {
     var that = this
     app.Util.ajax('mall/home/slideShow?slideShowCategory=1', 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode = 'MSG_1001') {
@@ -143,14 +150,14 @@ Page({
     })
   },
   //查询0元购入口图片
-  zeroPurchase: function () {
+  zeroPurchase: function() {
     var that = this
     app.Util.ajax('mall/home/activity/freeShopping/entry', 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         that.setData({
           bannerUrl: res.data.content.bannerUrl
         })
-      }else{
+      } else {
         that.setData({
           bannerUrl: null
         })
@@ -158,7 +165,7 @@ Page({
     })
   },
   //查询0元购活动页
-  zeroPurchaseMessage:function(){
+  zeroPurchaseMessage: function() {
     var that = this
     app.Util.ajax(`mall/home/activity/freeShopping?mode=${1}`, null, 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode = 'MSG_1001') {
@@ -169,12 +176,12 @@ Page({
     })
   },
   //0元购好物
-  zeroPurchaseGoods:function(){
+  zeroPurchaseGoods: function() {
     var that = this
     app.Util.ajax('mall/home/cashBack', {
       statistic: 1,
       pageNumber: that.data.pageNumber,
-      pageSize: that.data.pageSize
+      pageSize: 6
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode = 'MSG_1001') {
         res.data.content.items.forEach((v, i) => {
@@ -188,11 +195,13 @@ Page({
     })
   },
   //超值一口价
-  overvaluedPrice:function(){
+  overvaluedPrice: function() {
     var that = this
     app.Util.ajax('mall/home/lowPrice', 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode = 'MSG_1001') {
-        // console.log(res)
+        res.data.content.forEach((v,i)=>{
+          v.cashBackPrice = (v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2)
+        })
         that.setData({
           goods: res.data.content
         })
@@ -200,7 +209,7 @@ Page({
     })
   },
   //口碑爆品榜
-  publicPraise:function(){
+  publicPraise: function() {
     var that = this
     app.Util.ajax('mall/home/topSales', 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode = 'MSG_1001') {
@@ -211,7 +220,7 @@ Page({
     })
   },
   //销量排行榜
-  initgetMore1: function () {
+  initgetMore1: function() {
     var that = this
     var pageNumber = that.data.pageNumber
     //品质优选
@@ -229,11 +238,10 @@ Page({
       }
     })
   },
-  //加载更多
-  getMore1: function () {
+  //加载更多销量排行榜
+  getMore1: function() {
     var that = this
     var pageNumber = that.data.pageNumber + 1
-    //销量排行榜
     app.Util.ajax('mall/home/bestChoice', {
       pageNumber: pageNumber,
       pageSize: that.data.pageSize
@@ -257,7 +265,7 @@ Page({
     })
   },
   //查询购物车种类数量
-  getCartCount:function(){
+  getCartCount: function() {
     var that = this
     app.Util.ajax('mall/cart/count', 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode = 'MSG_1001') {
@@ -269,7 +277,7 @@ Page({
     })
   },
   //综合
-  comprehensive: function () {
+  comprehensive: function() {
     var that = this
     var id = that.data.id
     that.setData({
@@ -297,7 +305,7 @@ Page({
     })
   },
   //升序降序
-  toPrice: function () {
+  toPrice: function() {
     var that = this
     var id = that.data.id
     that.setData({
@@ -306,6 +314,28 @@ Page({
       comprehensive: []
     })
     if (that.data.i % 2 === 0) {
+      app.Util.ajax('mall/home/goods', {
+        categoryId: id,
+        sortBy: 2,
+        sortFlag: 2,
+        pageNumber: that.data.pageNumber,
+        pageSize: that.data.pageSize
+      }, 'GET').then((res) => { // 使用ajax函数
+        if (res.data.messageCode = 'MSG_1001') {
+          res.data.content.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          })
+          that.setData({
+            comprehensive: res.data.content.items,
+            color: "black",
+            color1: "#FF8D12",
+            color2: "black",
+            pricePhoto: '../../assets/images/icon/fenlei_tuijian_pinzhi_title_down.png',
+            pricePhoto1: '../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
+          })
+        }
+      })
+    } else if (that.data.i % 2 !== 0) {
       app.Util.ajax('mall/home/goods', {
         categoryId: id,
         sortBy: 2,
@@ -324,34 +354,14 @@ Page({
             color2: "black",
             pricePhoto: '../../assets/images/icon/fenlei_tuijian_pinzhi_title_up.png',
             pricePhoto1: '../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
-          })
-        }
-      })
-    } else if (that.data.i % 2 !== 0) {
-      app.Util.ajax('mall/home/goods', {
-        categoryId: id,
-        sortBy: 2,
-        sortFlag: 2,
-        pageNumber: that.data.pageNumber,
-        pageSize: that.data.pageSize
-      }, 'GET').then((res) => { // 使用ajax函数
-        if (res.data.messageCode = 'MSG_1001') {
-          res.data.content.items.forEach((v, i) => {
-            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
-          })
-          that.setData({
-            comprehensive: res.data.content.items,
-            color: "black",
-            color1: "#FF8D12",
-            color2: "black",
-            pricePhoto: '../../assets/images/icon/fenlei_tuijian_pinzhi_title_down.png'
+
           })
         }
       })
     }
   },
   //上新
-  newGoods: function () {
+  newGoods: function() {
     var that = this
     var id = that.data.id
     that.setData({
@@ -405,29 +415,29 @@ Page({
     }
   },
   //跳转到搜索页面
-  focus: function (e) {
+  focus: function(e) {
     app.nav(e)
   },
   //首页跳转到详情页
-  jumpDetail: function (e) {
+  jumpDetail: function(e) {
     const id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: `/pages/detail/detail?id=${id}`,
     })
   },
   //跳转到0元购详情页
-  toZeroPurchase: function () {
+  toZeroPurchase: function() {
     const that = this
     wx.navigateTo({
-      url: "/pages/zeroPurchaseActivity/zeroPurchaseActivity",
+      url: "/pages/zeroBuy/zeroBuy",
     })
   },
   //跳转到0元购好物
-  jumpReturn: function (e) {
+  jumpReturn: function(e) {
     app.nav(e)
   },
   //跳转到购物车
-  toCart: function (e) {
+  toCart: function(e) {
     let token = wx.getStorageSync('token')
     if (token) {
       app.nav(e)
@@ -438,31 +448,29 @@ Page({
     }
   },
   //跳转到详情页
-  toDetail: function (e) {
+  toDetail: function(e) {
     const id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: `/pages/detail/detail?id=${id}`,
     })
   },
   //跳转到二级列表页面
-  twoList: function (e) {
+  twoList: function(e) {
     var id = e.currentTarget.dataset.id //当前点击的id 
-    var name = e.currentTarget.dataset.name //当前点击的id 
+    var name = e.currentTarget.dataset.name //当前点击的名字
     wx.navigateTo({
       url: `/pages/index/twolist/twolist?id=${id}&name=${name}`,
     })
-  }, 　　　　　
+  },
+  　　　　　
   switchNav(e) {
     var that = this
-    var cur = e.currentTarget.dataset.current;
-    var id = e.currentTarget.dataset.id
-    //每个tab选项宽度占1/5
-    var singleNavWidth = that.data.windowWidth / 5;
-    var pageNumber = that.data.pageNumber;
-    //tab选项居中                            
+    var cur = e.currentTarget.dataset.current; //导航栏数组的index
+    var id = e.currentTarget.dataset.id; //导航栏数组的id                
     that.setData({
-      navScrollLeft: (cur - 2) * singleNavWidth,
-      id: id
+      id: id,
+      pageNumber: 1,
+      navScrollLeft: (cur - 3) * 80
     })
     if (that.data.currentTab == cur) {
       return false;
@@ -471,11 +479,14 @@ Page({
         currentTab: cur
       })
     }
+    if (that.data.currentTab == 0) {
+      that.onLoad(that.data.options)
+    }
     //二级分类（轮播图下面的）
     if (that.data.currentTab === cur) {
       app.Util.ajax('mall/home/categories', {
         parentId: id
-      }, 'GET').then((res) => { // 使用ajax函数
+      }, 'GET').then((res) => {
         if (res.data.messageCode = 'MSG_1001') {
           that.setData({
             classfy: res.data.content
@@ -486,7 +497,7 @@ Page({
       app.Util.ajax('mall/home/slideShow', {
         slideShowCategory: 2,
         goodsCategoryId: id
-      }, 'GET').then((res) => { // 使用ajax函数
+      }, 'GET').then((res) => {
         if (res.data.messageCode = 'MSG_1001') {
           that.setData({
             imageUrl: res.data.content
@@ -501,11 +512,11 @@ Page({
       that.comprehensive();
     }
   },
-  initgetMore2: function () {
+  //爆品之外的分类
+  initgetMore2: function() {
     var that = this
     var id = that.data.id
     var pageNumber = that.data.pageNumber
-    //品质优选
     app.Util.ajax('mall/home/goods', {
       categoryId: id,
       sortBy: 1,
@@ -527,7 +538,6 @@ Page({
     var that = this
     var id = that.data.id
     var pageNumber = that.data.pageNumber + 1
-    //品质优选
     app.Util.ajax('mall/home/goods', {
       categoryId: id,
       sortBy: 1,
@@ -561,6 +571,43 @@ Page({
       that.setData({
         showDialog: false
       })
+      // 发送个人资料给后台
+      var userInfo = e.detail.userInfo
+      app.Util.ajax('mall/personal/queryBaseData', null, 'POST').then((res) => { // 使用ajax函数
+        if (res.messageCode = 'MSG_1001') {
+          if (!res.data.content.nickname) {
+            console.log('需要发送个人资料给后台')
+            wx.downloadFile({
+              url: userInfo.avatarUrl,
+              success(res) {
+                if (res.statusCode === 200) {
+                  wx.uploadFile({
+                    // url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
+                    url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
+                    filePath: res.tempFilePath,
+                    name: 'avatarKey',
+                    formData: {
+                      nickname: userInfo.nickName,
+                      gender: userInfo.gender == 0 ? 2 : userInfo.gender,
+                    },
+                    header: {
+                      'token': wx.getStorageSync('token'),
+                      "content-type": "multipart/form-data"
+                    },
+                    success: function(res) {
+                      console.log(res)
+                      console.log('发送成功')
+                    },
+                    fail: function(res) {
+                      console.log(res)
+                    }
+                  })
+                }
+              }
+            })
+          }
+        }
+      })
     } else if (e.detail.errMsg == 'getUserInfo:fail auth deny') {
       app.globalData.flag = false
       that.setData({
@@ -592,7 +639,8 @@ Page({
         })
       }
     })
-  },  　　　
+  },
+  　　　
   onShow: function() {
     var that = this;
     var flag = app.globalData.flag
@@ -605,65 +653,14 @@ Page({
         showDialog: true
       })
     }
-    if (that.data.currentTab == 0) {
-      that.setData({
-        pageNumber: 1
-      })
-    } else {
-      that.setData({
-        pageNumber: 1
-      })
-      that.initgetMore1()
-    }
     //查询购物车种类
     that.getCartCount();
-    //tabbar
     if (typeof that.getTabBar === 'function' && that.getTabBar()) {
       that.getTabBar().setData({
         selected: 0
       })
     }
   },
-  // //查询分享数据
-  // chooseShare: function() {
-  //   var that = this
-  //   app.Util.ajax('mall/weChat/sharing/target', {
-  //     mode: 1,
-  //     targetId: that.data.goodsId
-  //   }, 'GET').then((res) => {
-  //     if (res.messageCode = 'MSG_1001') {
-  //       var inviterCode = wx.getStorageSync('inviterCode')
-  //       if (inviterCode) {
-  //         res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
-  //       } else {
-  //         res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
-  //       }
-  //       that.setData({
-  //         shareList: res.data.content          
-  //       })
-  //     }
-  //   })
-  // },
-  //查询分享数据
-  // chooseShare: function() {
-  //   var that = this
-  //   app.Util.ajax('mall/weChat/sharing/target', {
-  //     mode: 1,
-  //     targetId: that.data.goodsId
-  //   }, 'GET').then((res) => {
-  //     if (res.messageCode = 'MSG_1001') {
-  //       var inviterCode = wx.getStorageSync('inviterCode')
-  //       if (inviterCode) {
-  //         res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
-  //       } else {
-  //         res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
-  //       }
-  //       that.setData({
-  //         shareList: res.data.content        
-  //       })
-  //     }
-  //   })
-  // },
   //爆品轮播图跳转
   jumpping: function(e) {
     var that = this
@@ -747,49 +744,17 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function(ops) {
-    // var that = this
-    // if (ops.from === 'button') {
-    //   // 来自页面内转发按钮
-    //   that.setData({
-    //     showModalStatus: false
-    //   })
-    //   app.Util.ajax('mall/weChat/sharing/onSuccess', {
-    //     mode: 1
-    //   }, 'POST').then((res) => {
-    //     if (res.data.content) {
-    //       wx.showToast({
-    //         title: '分享成功',
-    //         icon: 'none'
-    //       })
-    //     } else {
-    //       wx.showToast({
-    //         title: res.data.message,
-    //         icon: 'none'
-    //       })
-    //     }
-    //   })
-    // }
-    // return {
-    //   title: that.data.shareList.title,
-    //   path: that.data.shareList.link,
-    //   imageUrl: that.data.shareList.imageUrl,
-    //   success: function(res) {
-    //     console.log(res.shareTickets[0])
-    //     wx.getShareInfo({
-    //       shareTicket: res.shareTickets[0],
-    //       complete(res) {
-    //         console.log(res)
-    //       }
-    //     })
-    //   },
-    //   fail: function(res) {
-    //     // 转发失败
-    //     console.log("转发失败:" + JSON.stringify(res));
-    //   }
-    // }
+
   },
   onLaunch: function() {
 
+  },
+  //监听页面隐藏
+  onHide: function() {
+    // 隐藏弹框
+    this.setData({
+      showReceived: false
+    })
   },
   /**
    * 页面上拉触底事件的处理函数
@@ -805,7 +770,7 @@ Page({
   //下拉刷新
   onPullDownRefresh: function() {
     var that = this
-    that.onLoad()
+    that.onLoad(that.data.options)
     wx.stopPullDownRefresh() //停止下拉刷新
   },
 })

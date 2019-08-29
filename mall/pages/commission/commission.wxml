@@ -66,7 +66,10 @@
   </view>
   <!--佣金明细当余额大于0-->
   <!--提现-->
-  <view class="withdraw" bindtap="showDetail">提现</view>
+  <view class="withdraw-wrap">
+    <view class="withdraw" bindtap="showDetail">提现</view>
+  </view>
+ 
   <!--佣金明细1-->
   <view class="commission1-details" wx:if="{{items.length>0}}">
     <view class="commission1-img">
@@ -90,7 +93,7 @@
     </view>
   </view>
 </view>
-
+<view class="commission-bottom" wx:if="{{isMember==1}}">{{text}}</view>
 <!--提现弹窗-->
 <view class="modal-mask" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
 <view class="modal-dialog1" wx:if="{{show}}">

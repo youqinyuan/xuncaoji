@@ -9,10 +9,12 @@ Page({
   data: {
     pageNumber: 1,
     pageSize: 8,
-    items:[],
+    items:[],//佣金明细
     content:{},
-    inputValue1:'',
-    show:false
+    inputValue1:'',//提现金额
+    show:false,//提现弹框
+    isMember:null,//是否是会员
+    text:''
   },
   /**
    * 生命周期函数--监听页面加载
@@ -34,6 +36,28 @@ Page({
         that.setData({
           content: res.data.content,
           items: res.data.content.items.items
+        })
+      }
+    })
+  },
+  getMore1: function () {
+    var that = this
+    var pageNumber = that.data.pageNumber + 1
+    app.Util.ajax('mall/personal/balanceDetails', { pageNumber: that.data.pageNumber, pageSize: that.data.pageSize, status: 2 }, 'GET').then((res) => { // 使用ajax函数
+      if (res.data.messageCode = 'MSG_1001') {
+        if (res.data.content.items.items == '' && that.data.items !== '') {
+          that.setData({
+            text: '已经到底啦'
+          })
+        }
+        var arr = that.data.items
+        for (var i = 0; i < res.data.content.items.items.length; i++) {
+          res.data.content.items.items[i].tradeTime = time.formatTimeTwo(res.data.content.items.items[i].tradeTime, 'Y-M-D h:m:s');
+          arr.push(res.data.content.items.items[i])
+        }
+        that.setData({
+          items: arr,
+          pageNumber: pageNumber
         })
       }
     })
@@ -70,13 +94,13 @@ Page({
   hideConfirm: function () {
     var that = this;
     var amount = that.data.inputValue1
-    console.log(amount)
     if (that.data.inputValue1 !== '') {
-      app.Util.ajax('mall/personal/transferForWeChatAudit',{amount:amount,status:2}, 'PUT').then((res) => { // 使用ajax函数
+      app.Util.ajax('mall/personal/transferAudit', { status: 2, amount: amount, source:2}, 'POST').then((res) => { // 使用ajax函数
         if (res.data.content) {
           that.hide();
           that.setData({
-            inputValue1:''
+            inputValue1:'',
+            pageNumber:1
           })
           wx.showToast({
             title: '余额提现成功',
@@ -110,7 +134,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this;
+    that.setData({
+      pageNumber: 2
+    })
   },
 
   /**
@@ -138,7 +165,8 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    var that = this;
+    that.getMore1(); 
   },
 
   /**

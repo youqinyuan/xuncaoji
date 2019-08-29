@@ -28,7 +28,21 @@ Page({
     showService: false, //我的服务
     showInviterCode: false, //邀请码
     orderCount: [],
-    waitCount:0//待发货待收货数量
+    waitCount: 0, //待发货待收货数量
+    userInfo: wx.getStorageSync('userInfo'), //用户信息
+  },
+  //客服分享图片回到指定的小程序页面
+  handleContact: function (e) {
+    var path = e.detail.path, query = e.detail.query, params = '';
+    if (path) {
+      for (var key in query) {
+        params = key + '=' + query[key] + '&';
+      }
+      params = params.slice(0, params.length - 1);
+      wx.navigateTo({
+        url: path + '?' + params
+      })
+    }
   },
   //跳转到全部订单页面
   nav: function(e) {
@@ -91,7 +105,7 @@ Page({
       url: '/pages/undeveloped/undeveloped',
     })
   },
-  //跳转到修改地址
+  //跳转到修改地址页面
   toAdress: function() {
     wx.navigateTo({
       url: '/pages/address/address',
@@ -145,12 +159,12 @@ Page({
     })
   },
   //客服
-  customerService: function() {
-    var that = this;
-    that.setData({
-      showService: true
-    })
-  },
+  // customerService: function() {
+  //   var that = this;
+  //   that.setData({
+  //     showService: true
+  //   })
+  // },
   //呼叫
   call: function() {
     var that = this;
@@ -178,29 +192,30 @@ Page({
       that.setData({
         userInfo: wx.getStorageSync('userInfo')
       })
-      app.Util.ajax('mall/personal/dashboard',null, 'GET').then((res) => { // 使用ajax函数
+      // console.log(that.data.userInfo.nickName)
+      app.Util.ajax('mall/personal/dashboard', null, 'GET').then((res) => { // 使用ajax函数
         if (res.data.content) {
           if (res.data.content.orderCount.length > 0) {
             var waitCount = 0;
             for (var i = 0; i < res.data.content.orderCount.length; i++) {
               res.data.content.orderCount[i].count = res.data.content.orderCount[i].count > 99 ? res.data.content.orderCount[i].count + '+' : res.data.content.orderCount[i].count
-              if (res.data.content.orderCount[i].status == 2){
-                waitCount +=res.data.content.orderCount[i].count
+              if (res.data.content.orderCount[i].status == 2) {
+                waitCount += res.data.content.orderCount[i].count
                 that.setData({
                   waitCount: waitCount
                 })
               }
-              if (res.data.content.orderCount[i].status == 4){
+              if (res.data.content.orderCount[i].status == 4) {
                 waitCount += res.data.content.orderCount[i].count
                 that.setData({
                   waitCount: waitCount
                 })
               }
             }
-          }         
+          }
           that.setData({
             content: res.data.content ? res.data.content : '',
-            orderCount: res.data.content ? res.data.content.orderCount:[],
+            orderCount: res.data.content ? res.data.content.orderCount : [],
             // waitCount:
           })
         }

@@ -29,6 +29,7 @@
         <view class="free-dialog__container">
           <view class="free-text" wx:for="{{text}}" wx:key='' data-text="{{item}}" bindtap='sexOnChange'>
             {{item}}
+            <view class="line" wx:if="{{index !== text.length-1}}"></view>
           </view>
         </view>
       </view>

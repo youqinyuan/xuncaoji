@@ -23,9 +23,10 @@ page {
   font-size: 28rpx;
   color: rgba(51, 51, 51, 1);
 }
+
 .evaluate-left-start {
   margin-left: 20rpx;
-   margin-top:28rpx;
+  margin-top: 28rpx;
   display: flex;
   justify-content: space-between;
 }
@@ -34,6 +35,7 @@ page {
   width: 30rpx;
   height: 30rpx;
 }
+
 .evaluate-right {
   margin-right: 20rpx;
   display: flex;
@@ -45,7 +47,7 @@ page {
 }
 
 .percent {
-  color: #FF2644;
+  color: #ff2644;
 }
 
 .evaluate-content-top {
@@ -125,7 +127,8 @@ page {
 }
 
 .evaluate-content-bottom {
- margin-right: 30rpx;
+   margin:30rpx 30rpx;
+  margin-top:0;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
@@ -136,6 +139,25 @@ page {
   margin-left: 31rpx;
   color: rgba(51, 51, 51, 1);
   line-height: 36rpx;
+}
+
+.evaluate-list-scroll {
+  display: flex;
+  width: 100%;
+  margin-left: 30rpx;
+}
+
+.evaluate-list-img {
+  display: inline-block;
+  width: 150rpx;
+  height: 150rpx;
+  border: 2rpx solid #fff;
+  margin-right: 20rpx;
+}
+
+.evaluate-list-img image {
+  width: 150rpx;
+  height: 150rpx;
 }
 
 /* 商家回复 */
@@ -150,9 +172,11 @@ page {
   padding: 20rpx 0 20rpx 0;
   color: rgba(51, 51, 51, 1);
 }
-.merchantreply-text{
-  margin-left:20rpx;
+
+.merchantreply-text {
+  margin-left: 20rpx;
 }
+
 .merchantreply-bottom {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;

@@ -8,7 +8,7 @@ Page({
    */
   data: {
     autoplay: true,
-    circular: true,
+    circular: true, 
     interval: 2000,
     duration: 1000,
     goodsId: 1, //商品id
@@ -19,7 +19,7 @@ Page({
     pageSize: 6,
     shareList: {}, //分享数据
     introductions: [], //店铺详情
-    showModal: false, //公众号弹框
+    // showModal: false, //公众号弹框
     showModalStatus1: false, //分享弹框
     inputValue1: '', //验证码
     show: false, //分享弹框
@@ -27,7 +27,7 @@ Page({
     minutes: '', //分钟
     seconds: '', //秒
     haoSeconds: '', //毫秒
-    current:0,//当前轮播图索引
+    current: 0, //当前轮播图索引
     inviterCode: '',
     imageUrl: '../../assets/images/icon/shareDetail.png',
     haibao: false,
@@ -35,7 +35,7 @@ Page({
     haibaoImg: '', //生成的海报
   },
   //求当前轮播图的索引
-  countIndex: function (e) {
+  countIndex: function(e) {
     this.setData({
       current: e.detail.current
     })
@@ -53,12 +53,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // home / activity / freeShopping / goodsDetail
-    console.log(options)
     var that = this
     var id = options.id
     that.setData({
       goodsId: id
+    })
+    //添加商品id缓存
+    wx.setStorage({
+      key: "zeroGoods_id",
+      data: parseInt(options.id)
     })
     if (options.inviterCode) {
       that.data.inviterCode = options.inviterCode
@@ -134,7 +137,7 @@ Page({
   },
   formatDuring(mss) {
     var that = this
-    const hours = parseInt(mss / (1000 * 60 * 60)).toString().slice(0,2)
+    const hours = parseInt(mss / (1000 * 60 * 60)).toString().slice(0, 2)
     const minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)).toString() >= 10 ? parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)).toString() : '0' + parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)).toString()
     const seconds = parseInt((mss % (1000 * 60)) / 1000).toString() >= 10 ? parseInt((mss % (1000 * 60)) / 1000).toString() : '0' + parseInt((mss % (1000 * 60)) / 1000).toString()
     const haoSeconds = parseInt((mss % (60))).toString() >= 10 ? parseInt((mss % (60))).toString() : '0' + parseInt((mss % (60))).toString()
@@ -206,10 +209,6 @@ Page({
                 })
               }
             })
-          } else if (res.data.content.status === 3) {
-            that.setData({
-              showModal: true
-            })
           }
         } else {
           wx.showToast({
@@ -226,49 +225,49 @@ Page({
 
   },
   //关闭公众号弹框
-  hideModal: function() {
-    var that = this;
-    that.setData({
-      showModal: false
-    })
-  },
+  // hideModal: function() {
+  //   var that = this;
+  //   that.setData({
+  //     showModal: false
+  //   })
+  // },
   //获取验证码
-  btnSumbit: function(e) {
-    var that = this;
-    var mesValue = e.detail.value
-    that.setData({
-      inputValue1: mesValue
-    })
-    console.log(mesValue)
-  },
-  sure: function() {
-    var that = this
-    if (that.data.inputValue1 == '') {
-      wx.showToast({
-        title: '请输入正确的验证码',
-        icon: 'none'
-      })
-    } else {
-      app.Util.ajax('mall/weChat/weChatCheckCode', {
-        code: that.data.inputValue1
-      }, 'POST').then((res) => {
-        if (res.data.content === true) {
-          wx.showToast({
-            title: '关注成功!',
-            icon: 'none'
-          })
-          that.setData({
-            showModal: false
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
-        }
-      })
-    }
-  },
+  // btnSumbit: function(e) {
+  //   var that = this;
+  //   var mesValue = e.detail.value
+  //   that.setData({
+  //     inputValue1: mesValue
+  //   })
+  //   console.log(mesValue)
+  // },
+  // sure: function() {
+  //   var that = this
+  //   if (that.data.inputValue1 == '') {
+  //     wx.showToast({
+  //       title: '请输入正确的验证码',
+  //       icon: 'none'
+  //     })
+  //   } else {
+  //     app.Util.ajax('mall/weChat/weChatCheckCode', {
+  //       code: that.data.inputValue1
+  //     }, 'POST').then((res) => {
+  //       if (res.data.content === true) {
+  //         wx.showToast({
+  //           title: '关注成功!',
+  //           icon: 'none'
+  //         })
+  //         that.setData({
+  //           showModal: false
+  //         })
+  //       } else {
+  //         wx.showToast({
+  //           title: res.data.message,
+  //           icon: 'none'
+  //         })
+  //       }
+  //     })
+  //   }
+  // },
   //关闭分享弹框
   cancelShow: function() {
     var that = this
@@ -315,7 +314,7 @@ Page({
             console.log(width, height)
             var ctx = wx.createCanvasContext('mycanvas');
             var path_bg = '/assets/images/icon/bg.png'; //背景图片
-            var path_logo = '/assets/images/icon/logo_share.png'
+            var path_logo = '/assets/images/icon/xuncaoji_icon.png'
             var title = '种草达人的欢乐场'
             inviterCode = `邀请码: ${inviterCode}`
             //绘制图片模板的背景图片
@@ -330,7 +329,7 @@ Page({
             // 绘制邀请码
             if (inviterCode != '邀请码: undefined') {
               ctx.setFontSize(20);
-              ctx.setFillStyle('#FF517A');
+              ctx.setFillStyle('#FF2644');
               ctx.fillText(inviterCode, 0.25 * width, 0.055 * height + 0.14 * width + 20);
               ctx.stroke();
             }
@@ -361,27 +360,27 @@ Page({
             ctx.closePath()
             ctx.beginPath()
             ctx.setFontSize(27);
-            ctx.setFillStyle('#E33A59');
+            ctx.setFillStyle('#FF2644');
             ctx.fillText(`¥ ${price}`, 0.1 * width, 0.485 * height);
             ctx.closePath()
             ctx.stroke();
             ctx.beginPath()
-            ctx.setFillStyle('#FF96AF');
-            ctx.setStrokeStyle('#FF96AF')
-            ctx.moveTo(0.45 * width - 6, 0.48 * height - 4)
-            ctx.lineTo(0.45 * width, 0.48 * height - 8)
-            ctx.lineTo(0.45 * width, 0.48 * height - 16)
-            ctx.lineTo(0.45 * width + 100, 0.48 * height - 16)
-            ctx.lineTo(0.45 * width + 100, 0.48 * height + 8)
-            ctx.lineTo(0.45 * width, 0.48 * height + 8)
-            ctx.lineTo(0.45 * width, 0.48 * height + 2)
-            ctx.lineTo(0.45 * width - 6, 0.48 * height - 4)
+            ctx.setFillStyle('#FF2644');
+            ctx.setStrokeStyle('#FF2644')
+            ctx.moveTo(0.3 * width - 6, 0.48 * height - 4)
+            ctx.lineTo(0.3 * width, 0.48 * height - 8)
+            ctx.lineTo(0.3 * width, 0.48 * height - 16)
+            ctx.lineTo(0.3 * width + 100, 0.48 * height - 16)
+            ctx.lineTo(0.3 * width + 100, 0.48 * height + 8)
+            ctx.lineTo(0.3 * width, 0.48 * height + 8)
+            ctx.lineTo(0.3 * width, 0.48 * height + 2)
+            ctx.lineTo(0.3 * width - 6, 0.48 * height - 4)
             ctx.closePath()
             ctx.fill()
             ctx.beginPath()
             ctx.setFontSize(12);
             ctx.setFillStyle('#fff');
-            ctx.fillText(`参与返¥ ${cashBack}`, 0.45 * width + 6, 0.48 * height);
+            ctx.fillText(`参与返¥ ${cashBack}`, 0.3 * width + 6, 0.48 * height);
             ctx.closePath()
             ctx.stroke();
             // 绘制描述
@@ -529,10 +528,10 @@ Page({
           title: that.data.shareList.desc,
           path: that.data.shareList.link,
           imageUrl: that.data.shareList.imageUrl,
-          success: function (res) {
+          success: function(res) {
 
           },
-          fail: function (res) {
+          fail: function(res) {
             // 转发失败
             console.log("转发失败:" + JSON.stringify(res));
           }
@@ -558,10 +557,10 @@ Page({
         title: that.data.shareList.desc,
         path: that.data.shareList.link,
         imageUrl: that.data.shareList.imageUrl,
-        success: function (res) {
+        success: function(res) {
 
         },
-        fail: function (res) {
+        fail: function(res) {
           // 转发失败
           console.log("转发失败:" + JSON.stringify(res));
         }

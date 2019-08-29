@@ -10,7 +10,7 @@ Page({
     pageNumber: 1,
     pageSize: 5,
     checkedAll: false, //全选
-    priceAll: 0,
+    priceAll: 0,//选择的价格
     cardIds: [], //购物车id集合
     cartDetails: [],
     id: 1,
@@ -20,20 +20,21 @@ Page({
   },
   //单个店铺全选
   checkall: function(e) {
+    var that = this;
     var index = e.target.dataset.index;
-    var list = this.data.shops[index].cartDetails;
-    var status = this.data.shops[index].checkeedAll;
+    var list = that.data.shops[index].cartDetails;
+    var status = that.data.shops[index].checkeedAll;
     for (var i = 0; i < list.length; i++) {
       list[i].checked = !status;
     };
     var dataIndex = 'shops[' + index + '].cartDetails';
     var dataStatus = 'shops[' + index + '].checkeedAll';
-    this.setData({
+    that.setData({
       [dataIndex]: list,
       [dataStatus]: !status
     });
     //只有所有单选的都选中了当前单选的这块的的父级就会选中,将选中的 父级 添加在一个数组当中如果过它本身的数据的length == 它被选中的length 就让三级的全选选中
-    var data = this.data.shops;
+    var data = that.data.shops;
     var datarr = [];
     var cardIds = [];
     for (var a = 0; a < data.length; a++) {
@@ -44,15 +45,15 @@ Page({
         }
       }
     }
-    this.setData({
+    that.setData({
       cardIds: cardIds
     })
     if (data.length === datarr.length) {
-      this.setData({
+      that.setData({
         checkedAll: true
       });
     } else {
-      this.setData({
+      that.setData({
         checkedAll: false,
         color: '#BDBDBD'
       });
@@ -64,40 +65,41 @@ Page({
       for (var c = 0; c < datacount.length; c++) {
         if (datacount[c].checked == true) {
           priceAll += datacount[c].goodsPrice * datacount[c].quantity;
-          this.setData({
+          that.setData({
             color: '#FF2644'
           });
         }
       }
     }
     var price = Number(priceAll).toFixed(2);
-    this.setData({
+    that.setData({
       priceAll: price
     });
   },
   //点击商品上的checkbox
   Checks1: function(e) {
+    var that = this
     var groupIndex = e.target.dataset.groupindex; // 店铺index
     var index = e.target.dataset.index; // 店铺下点击的商品的index
-    var list = this.data.shops[groupIndex].cartDetails; // 店铺下的所有商品
-    var list2 = this.data.shops[groupIndex].cartDetails[index].checked; // 点击的店铺的商品的选中转态
+    var list = that.data.shops[groupIndex].cartDetails; // 店铺下的所有商品
+    var list2 = that.data.shops[groupIndex].cartDetails[index].checked; // 点击的店铺的商品的选中转态
     var dataIndexchecked = 'shops[' + groupIndex + '].cartDetails[' + index + '].checked';
     var dataStatus = 'shops[' + groupIndex + '].checkeedAll';
-    this.setData({
+    that.setData({
       [dataIndexchecked]: !list2,
     });
     var listcheckedarr = []
     var cardIds = [];
-    var data = this.data.shops;
+    var data = that.data.shops;
     for (var i = 0; i < data.length; i++) {
-      var shopGoodsList = this.data.shops[i].cartDetails;
+      var shopGoodsList = that.data.shops[i].cartDetails;
       for (var a = 0; a < shopGoodsList.length; a++) {
         if (shopGoodsList[a].checked == true) {
           cardIds.push(shopGoodsList[a].id)
         }
       }
     }
-    this.setData({
+    that.setData({
       cardIds: cardIds
     })
     for (var b = 0; b < list.length; b++) {
@@ -106,16 +108,16 @@ Page({
       }
     }
     if (list.length === listcheckedarr.length) {
-      this.setData({
+      that.setData({
         [dataStatus]: true
       });
     } else {
-      this.setData({
+      that.setData({
         [dataStatus]: false
       });
     }
     //只有所有单选的都选中了当前单选的这块的的父级就会选中,将选中的 父级 添加在一个数组当中如果过它本身的数据的length == 它被选中的length 就让三级的全选选中
-    var data = this.data.shops;
+    var data = that.data.shops;
     var datarr = [];
     for (var a = 0; a < data.length; a++) {
       if (data[a].checkeedAll == true) {
@@ -123,11 +125,11 @@ Page({
       }
     }
     if (data.length === datarr.length) {
-      this.setData({
+      that.setData({
         checkedAll: true
       });
     } else {
-      this.setData({
+      that.setData({
         checkedAll: false,
         color: '#BDBDBD'
       });
@@ -140,31 +142,32 @@ Page({
       for (var c = 0; c < datacount.length; c++) {
         if (datacount[c].checked == true) {
           priceAll += datacount[c].goodsPrice * datacount[c].quantity;
-          this.setData({
+          that.setData({
             color: '#FF2644'
           });
         }
       }
     }
     var price = Number(priceAll).toFixed(2);
-    this.setData({
+    that.setData({
       priceAll: price
     });
   },
   //点击全选
   AllTap: function(e) {
-    var checkedAll = this.data.checkedAll;
-    var list1 = this.data.shops;
+    var that = this
+    var checkedAll = that.data.checkedAll;
+    var list1 = that.data.shops;
     var cardIds = [];
     for (var i = 0; i < list1.length; i++) {
       list1[i].checkeedAll = !checkedAll;
-      var list2 = this.data.shops[i].cartDetails;
+      var list2 = that.data.shops[i].cartDetails;
       for (var a = 0; a < list2.length; a++) {
         list2[a].checked = !checkedAll;
         cardIds.push(list2[a].id)
       }
     }
-    this.setData({
+    that.setData({
       cardIds: cardIds,
       color: '#BDBDBD'
     })
@@ -175,14 +178,14 @@ Page({
       for (var c = 0; c < datacount.length; c++) {
         if (datacount[c].checked == true) {
           priceAll += datacount[c].goodsPrice * datacount[c].quantity;
-          this.setData({
+          that.setData({
             color: '#FF2644'
           });
         }
       }
     }
     var price = Number(priceAll).toFixed(2);
-    this.setData({
+    that.setData({
       checkedAll: (!checkedAll),
       shops: list1,
       priceAll: price
@@ -190,9 +193,10 @@ Page({
   },
   /* 点击减号 */
   bindMinus: function(e) {
+    var that = this
     const quantity = e.target.dataset.num - 1
     const id = e.target.dataset.id
-    var shops = this.data.shops //购物车数据    
+    var shops = that.data.shops //购物车数据    
     let index = e.currentTarget.dataset.index //当前商品所在店铺中的下标  
     let idx = e.currentTarget.dataset.groupindex //当前店铺下标     
     let cai = shops[idx].cartDetails; //当前商品的店铺shops.cartDetails
@@ -217,7 +221,7 @@ Page({
       }
     }
     var price = Number(priceAll).toFixed(2);
-    this.setData({   
+    that.setData({   
       shops: shops,
       priceAll: price
     })  
@@ -232,9 +236,10 @@ Page({
   },
   /*点击加号*/
   bindPlus: function(e) {
+    var that = this
     const quantity = e.target.dataset.num + 1
     const id = e.target.dataset.id
-    var shops = this.data.shops //购物车数据    
+    var shops = that.data.shops //购物车数据    
     let index = e.currentTarget.dataset.index //当前商品所在店铺中的下标  
     let idx = e.currentTarget.dataset.groupindex //当前店铺下标     
     let cai = shops[idx].cartDetails; //当前商品的店铺shops.cartDetails
@@ -257,7 +262,7 @@ Page({
           }
         }
         var price = Number(priceAll).toFixed(2);
-        this.setData({
+        that.setData({
           shops: shops, //店铺下商品的数量  
           priceAll: price
         })

@@ -1,0 +1,90 @@
+<!--pages/applyRule/applyRule.wxml-->
+<!-- 对话框 -->
+<view class="wrapper">
+  <view class="container">
+    <view class="img">
+      <image src="/assets/images/icon/people_head.png"></image>
+    </view>
+    <text>0元购是什么？</text>
+  </view>
+  <view class="container-xcj">
+    <text>消费金额可以全额分期返现，所有商品均可0元得。</text>
+    <view class="img">
+      <image src="/assets/images/icon/xuncj_head.png"></image>
+    </view>
+  </view>
+  <view class="container">
+    <view class="img">
+      <image src="/assets/images/icon/people_head.png"></image>
+    </view>
+    <text>为何选用0元购</text>
+  </view>
+  <view class="container-xcj">
+    <text>寻草记是全国唯一一家真正能帮助用户省钱的电商购物平台。我们的理念是为了让消费者节省开支，拿到好的商品的同时还能省钱。现在物价越来越贵，银行存钱的利息又微乎其微。假设一个人从婴幼儿时期开始，每个月生活支出至少需要2000元，平均每年24000元，70年就是168万元，这么一笔庞大的金额花了就是花了。但如果在寻草记商城购物，您消费的每一笔金额都能全部返还，您不仅可以拿回花出去的钱，还能收获相同价值的商品。我们认为，0元购是一种新型消费理念，可以帮助消费者省钱、攒钱，这种方式应该推广到每个人、每个家庭。</text>
+    <view class="img">
+      <image src="/assets/images/icon/xuncj_head.png"></image>
+    </view>
+  </view>
+  <view class="container">
+    <view class="img">
+      <image src="/assets/images/icon/people_head.png"></image>
+    </view>
+    <text>可否取消0元购？</text>
+  </view>
+  <view class="container-xcj">
+    <text>您可以随时终止0元购，变成正常买，寻草记会将钱退还给您，还返给您回馈金。案例:小张刚作，每月只有5000元收入,除去吃饭和日常开销，只剩闲钱2000元。小张在寻草记商城花2000元买了0元购产品,过几天需要用钱，直接在寻草记将0元购取消，转变为正常购买，钱不但返还了，还拿到了产品和一笔回馈金。这是一个让您攒钱速度超过花钱速度的新型电商平台，真是棒极啦！</text>
+    <view class="img">
+      <image src="/assets/images/icon/xuncj_head.png"></image>
+    </view>
+  </view>
+  <view class="container">
+    <view class="img">
+      <image src="/assets/images/icon/people_head.png"></image>
+    </view>
+    <text>都有哪些好处？</text>
+  </view>
+  <view class="container-xcj">
+    <text>全部商品价格低于市场价10%，保证正品。现金按月返还到您的账户，并获得同等价值的商品。此外，平台还奖励用户跟银行同期活期利率同等的回馈金。</text>
+    <view class="img">
+      <image src="/assets/images/icon/xuncj_head.png"></image>
+    </view>
+  </view>
+  <view class="container">
+    <view class="img">
+      <image src="/assets/images/icon/people_head.png"></image>
+    </view>
+    <text>何时能拿到返现？</text>
+  </view>
+  <view class="container-xcj">
+    <text>分期期数任您选，消费金额也任您填，最低0元。消费金额越少，所需分期期数则越长；金额越多，所需分期期数越短。</text>
+    <view class="img">
+      <image src="/assets/images/icon/xuncj_head.png"></image>
+    </view>
+  </view>
+  <view class="container">
+    <view class="img">
+      <image src="/assets/images/icon/people_head.png"></image>
+    </view>
+    <text>何时可以提现？</text>
+  </view>
+  <view class="container-xcj">
+    <text>您随时随地都可无限制提取现金。</text>
+    <view class="img">
+      <image src="/assets/images/icon/xuncj_head.png"></image>
+    </view>
+  </view>
+  <view class="container">
+    <view class="img">
+      <image src="/assets/images/icon/people_head.png"></image>
+    </view>
+    <text>是否有消费保障？</text>
+  </view>
+  <view class="container-xcj">
+    <text>我们有xxx银行的100万消费者保障基金，保证用户在我平台 放心0元购。</text>
+    <view class="img">
+      <image src="/assets/images/icon/xuncj_head.png"></image>
+    </view>
+  </view>
+</view>
+<!-- 申请0元购 -->
+<button class="application-zero" bindtap='applyZeroBuy'>申请0元购买</button>

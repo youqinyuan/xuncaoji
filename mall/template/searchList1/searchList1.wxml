@@ -18,7 +18,7 @@
           <view class="goods-list-price">
             <view class="newprice-wrap">
               <view class="pricesign">￥</view>
-              <view class="newprice">{{item.dctPrice}}</view>
+              <view class="newprice">{{item.truePrice}}</view>
             </view>
             <view class="oldprice-wrap">
               <view class="pricesign1">￥</view>
@@ -27,14 +27,14 @@
           </view>
           <view class="return-wrap">
             <view class="return-money">
+              <text>实付</text>
+              <text>￥</text>
+              <text>{{item.dctPrice}}</text>
+            </view>
+            <view class="pay-money">
               <text>返</text>
               <text>￥</text>
               <text>{{item.marketingCashBack.totalAmount}}</text>
-            </view>
-            <view class="pay-money">
-              <text>返后价</text>
-              <text>￥</text>
-              <text>{{item.truePrice}}</text>
             </view>
           </view>
         </view>

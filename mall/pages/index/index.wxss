@@ -9,10 +9,10 @@ page {
 }
 
 .small-cart {
-  width: 112rpx;
-  height: 112rpx;
+  width: 108rpx;
+  height: 108rpx;
   text-align: center;
-  background: #FF2644;
+  background: #ff2644;
   border-radius: 50%;
   position: fixed;
   bottom: 140rpx;
@@ -21,26 +21,35 @@ page {
 }
 
 .small-cart image {
-  width: 60rpx;
-  height: 60rpx;
+  width: 66rpx;
+  height: 66rpx;
   margin-top: 25rpx;
 }
 
-.small-num {
+.small-wrapper {
   position: fixed;
-  bottom: 200rpx;
-  right: 30rpx;
+  bottom: 186rpx;
+  right: 35rpx;
   z-index: 999;
-  width: 44rpx;
-  height: 44rpx;
-  line-height: 44rpx;
+  width: 42rpx;
+  height: 42rpx;
+  line-height: 42rpx;
   text-align: center;
-  background: #FF2644;
+  background: #ff2644;
   border-radius: 50%;
+  border: 2rpx solid #ff2644;
   font-size: 20rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
   color: rgba(255, 255, 255, 1);
+}
+
+.small-num {
+  width: 36rpx;
+  height: 36rpx;
+  background: #ff2644;
+  border-radius: 50%;
+  border: 2rpx solid #fff;
 }
 
 /*搜索框*/
@@ -105,15 +114,11 @@ page {
 }
 
 .nav-item.active {
-  color: #FF6417;
-  border-bottom: 6rpx solid #FF6417;
+  color: #ff6417;
+  border-bottom: 6rpx solid #ff6417;
 }
 
-.tab-content {
-  overflow-y: scroll;
-}
-
-/* 弹框 */
+/* 微信昵称弹框 */
 
 .zan-dialog__mask {
   position: fixed;
@@ -121,31 +126,20 @@ page {
   left: 0;
   right: 0;
   bottom: 0;
-  display: none;
+  background: rgba(0, 0, 0, 0.6);
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.4);
 }
 
 .zan-dialog__container {
-  transform: translateY(300%);
-  transition: all 0.00001s ease;
   width: 540rpx;
   height: 282rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  bottom: 530rpx;
+  top: 300rpx;
   left: 110rpx;
   z-index: 9999;
-}
-
-.zan-dialog--show .zan-dialog__container {
-  transform: translateY(0);
-}
-
-.zan-dialog--show .zan-dialog__mask {
-  display: block;
 }
 
 /* 弹框内容 */
@@ -195,96 +189,70 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF2644;
+  color: #ff2644;
 }
 
 .comfirm::after {
   border: none;
 }
 
-/* 弹出框 */
+/* 首页叮咚弹窗（已领取） */
 
-.commodity_screen {
-  width: 100%;
-  height: 100%;
+.show-received {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 1);
-  opacity: 0.4;
-  overflow: hidden;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
   z-index: 9999;
+}
+
+.show-received-container {
+  width: 540rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 28rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 110rpx;
+  z-index: 9999;
+}
+
+.show-received-top {
+  width: 540rpx;
+  height: 320rpx;
+}
+
+.show-received-text {
+  width: 446rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 40rpx;
+  margin: 29rpx auto;
+  margin-bottom: 50rpx;
+}
+
+.show-received-button {
+  width: 440rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-bottom: 52rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
-/*对话框 */
-
-.commodity_attr_box {
-  width: 100%;
-  overflow: hidden;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 20rpx 20rpx 0rpx 0rpx;
-  z-index: 9999;
-}
-
-.content-wrapper {
-  overflow: hidden;
-  height: auto;
-  text-align: center;
-  position: relative;
-}
-
-.content-wrapper .cancel {
-  width: 44rpx;
-  height: 44rpx;
-  position: absolute;
-  right: 30rpx;
-  top: 14rpx;
-}
-
-.content-wrapper .shareCommission {
-  margin-top: 70rpx;
-  font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(51, 51, 51, 1);
-}
-
-.content-wrapper .shareText {
-  margin-top: 39rpx;
-  font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(102, 102, 102, 1);
-}
-.content-wrapper .share-button {
-  background: rgba(255, 255, 255, 1);
-  width: 170rpx;
-  border-radius: 0;
-}
-button::after{
-  border: none;
-}
-.content-wrapper .photo {
-  margin-top: 30rpx;
-  width: 128rpx;
-  height: 128rpx;
-}
-
-.content-wrapper .wx {
-  margin-top: -35rpx;
-  font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(51, 51, 51, 1);
-}
 /* 轮播展示组件 */
-.swiper-show{
+
+.swiper-show {
   position: fixed;
-  top:196rpx;
-  left:16rpx;
+  top: 196rpx;
+  left: 16rpx;
   z-index: 9999;
 }

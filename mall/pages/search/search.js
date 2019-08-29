@@ -18,9 +18,6 @@ Page({
     textToast:'',//已经到底啦
     getMore:'',//查看更多
     getMore1: '',//查看更多
-    shareList: {},//分享数据
-    goodsId: 1,//分享用的商品id
-    sharingProfit:''//分享返利
   },
   //跳转到详情页
   toDetail(e){
@@ -34,51 +31,6 @@ Page({
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '/pages/storedetails/storedetails?id=' + id
-    })
-  },
-  //分享
-  share: function (e) {
-    var that = this
-    var goodsId = e.currentTarget.dataset.goodsid
-    var sharingProfit = e.currentTarget.dataset.profit
-    that.setData({
-      goodsId: goodsId,
-      sharingProfit: sharingProfit
-    })
-    //分享数据
-    that.chooseShare()
-
-    that.setData({
-      showModalStatus: true
-    })
-  },
-  cancelShare: function () {
-    var that = this
-    that.setData({
-      showModalStatus: false
-    })
-  },
-  hideModal: function () {
-    var that = this
-    that.setData({
-      showModalStatus: false
-    })
-  },
-  //查询分享数据
-  chooseShare: function () {
-    var that = this
-    app.Util.ajax('mall/weChat/sharing/target', { mode: 1, targetId: that.data.goodsId }, 'GET').then((res) => {
-      if (res.messageCode = 'MSG_1001') {
-        var inviterCode = wx.getStorageSync('inviterCode')
-        if (inviterCode) {
-          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
-        } else {
-          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
-        }     
-        that.setData({
-          shareList: res.data.content
-        })
-      }
     })
   },
   /**
@@ -134,6 +86,59 @@ Page({
           // }         
         }
       })  
+    }
+  },
+  confirmTap:function(e){
+    var that = this
+    that.data.inputValue = e.detail.value
+    if (that.data.inputValue === '') {
+      wx.showToast({
+        title: '搜索内容不能为空',
+        icon: 'none',
+        duration: 2000
+      })
+    } else {
+      const value = that.data.inputValue;
+      const text = that.data.history
+      const title = text.filter(item => item !== value)
+      title.unshift(value)
+      that.setData({
+        history: title,
+        inputValue: value,
+        textToast: ''
+      })
+      wx.setStorageSync("search", that.data.history.slice(0, 30))
+      that.setData({
+        template: 2
+      })
+      that.data.pageNumber == 1
+      app.Util.ajax('mall/home/_search', {
+        keyword: value,
+        scope: 4,
+        pageNumber: that.data.pageNumber,
+        pageSize: that.data.pageSize
+      }, 'GET').then((res) => {  // 使用ajax函数
+        if (res.messageCode = 'MSG_1001') {
+          res.data.content.goodsResult.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          })
+          that.setData({
+            goodsResult: res.data.content.goodsResult.items,
+            // storeResult: res.data.content.storeResult.items
+          })
+          // if (res.data.content.goodsResult.items.length !== 0 && res.data.content.storeResult.items.length !==0){
+          //   that.setData({
+          //     goodsResult: res.data.content.goodsResult.items.slice(0, 5),
+          //     storeResult: res.data.content.storeResult.items.slice(0, 5)
+          //   }) 
+          // }else{
+          //   that.setData({
+          //     goodsResult: res.data.content.goodsResult.items,
+          //     storeResult: res.data.content.storeResult.items
+          //   })
+          // }         
+        }
+      })
     }
   },
   //点击搜索历史
@@ -330,37 +335,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (ops) {
-    var that = this
-    if (ops.from === 'button') {
-      // 来自页面内转发按钮
-      that.setData({
-        showModalStatus: false
-      })
-      app.Util.ajax('mall/weChat/sharing/onSuccess', { mode: 1 }, 'POST').then((res) => {
-        if (res.data.content) {
-          wx.showToast({
-            title: '分享成功',
-            icon: 'none'
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
-        }
-      })
-    }
-    return {
-      title: that.data.shareList.title,
-      path: that.data.shareList.link,
-      imageUrl: that.data.shareList.imageUrl,
-      success: function (res) {
-        
-      },
-      fail: function (res) {
-        // 转发失败
-        console.log("转发失败:" + JSON.stringify(res));
-      }
-    }
+    
   }
 })

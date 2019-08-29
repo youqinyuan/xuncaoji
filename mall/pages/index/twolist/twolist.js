@@ -129,6 +129,24 @@ Page({
     })
     if (that.data.i % 2 === 0) {
       app.Util.ajax('mall/home/goods', {
+        categoryId: id, sortBy: 2, sortFlag: 2, pageNumber: that.data.pageNumber,
+        pageSize: that.data.pageSize }, 'GET').then((res) => {  // 使用ajax函数
+        if (res.messageCode = 'MSG_1001') {
+          res.data.content.items.forEach((v, i) => {
+            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+          })
+          that.setData({
+            category: res.data.content.items,
+            color: "black",
+            color1: "#FF8D12",
+            color2: "black",
+            pricePhoto: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_down.png',
+            pricePhoto1: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
+          })
+        }
+      })
+    } else if (that.data.i % 2 !== 0) {
+      app.Util.ajax('mall/home/goods', {
         categoryId: id, sortBy: 2, sortFlag: 1, pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize }, 'GET').then((res) => {  // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
@@ -141,24 +159,7 @@ Page({
             color1: "#FF8D12",
             color2: "black",
             pricePhoto: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_up.png',
-            pricePhoto1: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
-          })
-        }
-      })
-    } else if (that.data.i % 2 !== 0) {
-      app.Util.ajax('mall/home/goods', {
-        categoryId: id, sortBy: 2, sortFlag: 2, pageNumber: that.data.pageNumber,
-        pageSize: that.data.pageSize }, 'GET').then((res) => {  // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
-          res.data.content.items.forEach((v, i) => {
-            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
-          })
-          that.setData({
-            category: res.data.content.items,
-            color: "black",
-            color1: "#FF8D12",
-            color2: "black",
-            pricePhoto: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_down.png'
+            pricePhoto1: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',         
           })
         }
       })
@@ -211,51 +212,6 @@ Page({
       })
     }
   },
-  //分享
-  share: function (e) {
-    var that = this
-    var goodsId = e.currentTarget.dataset.goodsid
-    var sharingProfit = e.currentTarget.dataset.profit
-    that.setData({
-      goodsId: goodsId,
-      sharingProfit: sharingProfit
-    })
-    //分享数据
-    that.chooseShare()
-
-    that.setData({
-      showModalStatus: true
-    })
-  },
-  cancelShare: function () {
-    var that = this
-    that.setData({
-      showModalStatus: false
-    })
-  },
-  hideModal: function () {
-    var that = this
-    that.setData({
-      showModalStatus: false
-    })
-  },
-  //查询分享数据
-  chooseShare: function () {
-    var that = this
-    app.Util.ajax('mall/weChat/sharing/target', { mode: 1, targetId: that.data.goodsId }, 'GET').then((res) => {
-      if (res.messageCode = 'MSG_1001') {
-        var inviterCode = wx.getStorageSync('inviterCode')
-        if (inviterCode) {
-          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
-        } else {
-          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
-        }     
-        that.setData({
-          shareList: res.data.content
-        })
-      }
-    })
-  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -304,37 +260,6 @@ Page({
  * 用户点击右上角分享
  */
   onShareAppMessage: function (ops) {
-    var that = this
-    if (ops.from === 'button') {
-      // 来自页面内转发按钮
-      // 来自页面内转发按钮
-      that.setData({
-        showModalStatus: false
-      })
-      app.Util.ajax('mall/weChat/sharing/onSuccess', { mode: 1 }, 'POST').then((res) => {
-        if (res.data.content) {
-          wx.showToast({
-            title: '分享成功',
-            icon: 'none'
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
-        }
-      })
-    }
-    return {
-      title: that.data.shareList.title,
-      path: that.data.shareList.link,
-      imageUrl: that.data.shareList.imageUrl,
-      success: function (res) {
-      },
-      fail: function (res) {
-        // 转发失败
-        console.log("转发失败:" + JSON.stringify(res));
-      }
-    }
+    
   },
 })

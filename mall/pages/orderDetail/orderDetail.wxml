@@ -62,26 +62,35 @@
     <view class="platform">
       <view class="platform-list">
         <view class="platform-list-item">
-          <image class="platform-list-img" src="../../assets/images/icon/index_protect_shouhou_icon.png"></image>
+          <image class="platform-list-img" src="../../assets/images/icon/xqing_protect_shouhou_icon1.png"></image>
           <text class="platform-text">源头直采</text>
         </view>
         <view class="platform-list-item">
-          <image class="platform-list-img" src="../../assets/images/icon/index_protect_renzheng_icon.png"></image>
-          <text class="platform-text">假一赔三</text>
+          <image class="platform-list-img" src="../../assets/images/icon/xqing_protect_renzheng_icon1.png"></image>
+          <text class="platform-text">假一赔十</text>
         </view>
         <view class="platform-list-item">
-          <image class="platform-list-img" src="../../assets/images/icon/index_protect_changj_icon.png"></image>
+          <image class="platform-list-img" src="../../assets/images/icon/xqing_protect_changj_icon1.png"></image>
           <text class="platform-text">部分商品全额返</text>
         </view>
       </view>
     </view>
   </view>
   <!--物流详情-->
-  <view class="address" bindtap='jumpLogistics' data-orderid="{{content.id}}" wx:if="{{list}}">
+  <view class="address" bindtap='jumpLogDetail' data-logisticsid="{{logisticsId}}" wx:if="{{logisticsDetailList.length===1}}">
     <view class="address-img">
       <image src="../../assets/images/icon/ic_logistics.png"></image>
     </view>
     <view class="address-text">{{list.remark}}</view>
+    <view class="address-right-img">
+      <image src="../../assets/images/icon/xiangqing_more_n.png"></image>
+    </view>
+  </view>
+  <view class="address" bindtap='jumpLogDetail' data-orderid="{{content.id}}" wx:if="{{logisticsDetailList.length>1}}">
+    <view class="address-img">
+      <image src="../../assets/images/icon/ic_logistics.png"></image>
+    </view>
+    <view class="address-text">该订单已拆成{{logisticsDetailList.length}}个包裹发出，点击查看具体物流详情</view>
     <view class="address-right-img">
       <image src="../../assets/images/icon/xiangqing_more_n.png"></image>
     </view>
@@ -105,7 +114,8 @@
                 <text class="price1">{{item.price}}</text>
               </view>
               <view class="shops-wrap-bottom-num">
-                x{{item.quantity}}
+                <text>x</text>
+                <text>{{item.quantity}}</text>
               </view>
             </view>
           </view>
@@ -125,7 +135,7 @@
               <text class="expressfee-price1">{{item.expressFee}}</text>
             </view>
           </view>
-           <view class="expressfee" wx:if="{{content.isCashBack==true}}">
+          <view class="expressfee" wx:if="{{item.cashBack}}">
             <view class="expressfee-text">分期返现</view>
             <view class="expressfee-price">
               <text class="expressfee-price1" wx:if="{{item.period==0}}">立即返</text>
@@ -149,7 +159,7 @@
       <text>订单信息</text>
     </view>
     <view class="content">
-      <view class="pay-amount" wx:if="{{content.latestStatus==4||content.latestStatus==5||content.latestStatus==2||content.latestStatus==6||content.latestStatus==7||content.latestStatus==8}}">
+      <view class="pay-amount" wx:if="{{content.latestStatus==4||content.latestStatus==5||content.latestStatus==2||content.latestStatus==6||content.latestStatus==7||content.latestStatus==8||content.latestStatus==9||content.latestStatus==10||content.latestStatus==11}}">
         <text>付款账户</text>
         <text wx:if="{{content.transStatementDetail.paymentAccount===1}}">平台账户</text>
         <text wx:if="{{content.transStatementDetail.paymentAccount===2}}">微信账户</text>
@@ -167,7 +177,7 @@
           <text>支付时间</text>
           <text>{{item.statusTime}}</text>
         </view>
-        <view class="pay-amount" wx:if="{{item.status===4}}">
+        <view class="pay-amount" wx:if="{{item.status===4 && item.show}}">
           <text>发货时间</text>
           <text>{{item.statusTime}}</text>
         </view>

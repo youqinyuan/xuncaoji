@@ -9,7 +9,9 @@ Page({
   data: {
     content: {}, //详情信息 
     orderId: 1, //订单id
-    list: {}, //物流信息
+    list: null, //物流信息
+    logisticsDetailList:null,//是否显示几个包裹
+    logisticsId:null,//物流id
     showDialog: false, //确认收货弹框
     showDialog1: false, //取消退款
     showDialog2: false, //退款
@@ -42,11 +44,20 @@ Page({
     })
   },
   //跳转到物流详情
-  jumpLogistics: function(e) {
+  jumpLogDetail: function(e) {
+    var that = this
     var orderId = e.currentTarget.dataset.orderid
-    wx.navigateTo({
-      url: `/pages/logistics/logistics?orderId=${orderId}`,
-    })
+    var logisticsId = e.currentTarget.dataset.logisticsid
+    console.log(logisticsId)
+    if (that.data.logisticsDetailList.length>1){
+      wx.navigateTo({
+        url: `/pages/logisticsDetail/logisticsDetail?orderId=${orderId}`,
+      })
+    } else if (that.data.logisticsDetailList.length === 1){
+      wx.navigateTo({
+        url: `/pages/logistics/logistics?logisticsId=${logisticsId}`,
+      })
+    }   
   },
   /**
    * 生命周期函数--监听页面加载
@@ -88,7 +99,7 @@ Page({
          }, 1000)
         }
         for (var i = 0; i < res.data.content.orderTimeDetail.length; i++) {
-          res.data.content.orderTimeDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeDetail[i].statusTime, 'Y-M-D h:m:s');
+          res.data.content.orderTimeDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeDetail[i].statusTime, 'Y-M-D h:m:s');   
         }
         if (res.data.content.orderTimeRefundDetail.length > 0) { 
           for (var i = 0; i < res.data.content.orderTimeRefundDetail.length; i++) {
@@ -111,14 +122,37 @@ Page({
           }
             res.data.content.orderTimeRefundDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeRefundDetail[i].statusTime, 'Y-M-D h:m:s');
           }
-        }
+        } 
+        var orderTimeDetail = res.data.content.orderTimeDetail.reverse()
+        orderTimeDetail.forEach((v,i)=>{
+          if(v.status ==4 ){
+             orderTimeDetail[2].show = true
+          }
+        })
+       
         that.setData({
           content: res.data.content,
-          orderTimeDetail: (res.data.content.orderTimeDetail).reverse(),
+          orderTimeDetail: orderTimeDetail,
           orderTimeRefundDetail: (res.data.content.orderTimeRefundDetail).reverse(),
-          list: res.data.content.orderLogisticsDetail && res.data.content.orderLogisticsDetail.logisticsDto ? (res.data.content.orderLogisticsDetail.logisticsDto.list.reverse())[0] : '',
+          // list: res.data.content.orderLogisticsDetail && res.data.content.orderLogisticsDetail.logisticsDto ? (res.data.content.orderLogisticsDetail.logisticsDto.list.reverse())[0] : '',
         })
-
+      }
+    })
+    //物流详情
+    app.Util.ajax('mall/order/queryLogistics', {
+      orderId: orderId
+    }, 'GET').then((res) => { // 使用ajax函数
+      if (res.data.messageCode == 'MSG_1001') {
+        that.setData({
+          list: (res.data.content.logisticsDetailList[0].logisticsDto.list.reverse())[0],
+          logisticsDetailList: res.data.content.logisticsDetailList,
+          logisticsId: res.data.content.logisticsDetailList[0].id
+        })
+      } else if (res.data.messageCode == 'MSG_5001'){
+        that.setData({
+          list: null,
+          logisticsDetailList:null
+        })
       }
     })
   },
@@ -318,82 +352,85 @@ Page({
   //去评价
   toEvaluate: function(e) {
     var that = this
-    that.setData({
-      showDialog4: true,
-      multiShow: false,
-      refundorderId: e.currentTarget.dataset.orderid
+    // that.setData({
+    //   showDialog4: true,
+    //   multiShow: false,
+    //   refundorderId: e.currentTarget.dataset.orderid
+    // })
+    wx.navigateTo({
+      url: '/pages/goodsComment/goodsComment'
     })
   },
   //获取文本框的长度
-  input(e) {
-    var value = e.detail.value,
-      len = parseInt(value.length);
-    let that = this;
-    that.setData({
-      currentNoteLen: len,
-      evaluate: value
-    })
-  },
-  //用户给评分
-  in_xin: function(e) {
-    var in_xin = e.currentTarget.dataset.in;
-    var one_2;
-    if (in_xin === 'use_sc2') {
-      one_2 = Number(e.currentTarget.id);
-    } else {
-      one_2 = Number(e.currentTarget.id) + this.data.one_2;
-    }
-    this.setData({
-      one_2: one_2,
-      two_2: 5 - one_2
-    })
-    console.log(this.data.one_2)
-  },
-  //取消
-  cancelEvaluate: function() {
-    var that = this
-    that.setData({
-      showDialog4: false,
-      one_2: 5,//实心星星
-      two_2: 0,//空心星星
-      evaluate: ''
-    })
-  },
-  //确定
-  sureEvaluate: function() {
-    var that = this
-    var orderId = that.data.refundorderId
-    var score = that.data.one_2
-    var content = that.data.evaluate
-    if (score == '') {
-      wx.showToast({
-        title: '请对商品进行评分',
-        icon: 'none'
-      })
-    } else {
-      app.Util.ajax('mall/interact/addUserInteract', {
-        orderId: orderId,
-        score: score,
-        action: 1,
-        content: content
-      }, 'POST').then((res) => {
-        if (res.data.content) {
-          that.setData({
-            showDialog4: false,
-            one_2: 5,//实心星星
-            two_2: 0,//空心星星
-            evaluate: ''
-          })
+  // input(e) {
+  //   var value = e.detail.value,
+  //     len = parseInt(value.length);
+  //   let that = this;
+  //   that.setData({
+  //     currentNoteLen: len,
+  //     evaluate: value
+  //   })
+  // },
+  // //用户给评分
+  // in_xin: function(e) {
+  //   var in_xin = e.currentTarget.dataset.in;
+  //   var one_2;
+  //   if (in_xin === 'use_sc2') {
+  //     one_2 = Number(e.currentTarget.id);
+  //   } else {
+  //     one_2 = Number(e.currentTarget.id) + this.data.one_2;
+  //   }
+  //   this.setData({
+  //     one_2: one_2,
+  //     two_2: 5 - one_2
+  //   })
+  //   console.log(this.data.one_2)
+  // },
+  // //取消
+  // cancelEvaluate: function() {
+  //   var that = this
+  //   that.setData({
+  //     showDialog4: false,
+  //     one_2: 5,//实心星星
+  //     two_2: 0,//空心星星
+  //     evaluate: ''
+  //   })
+  // },
+  // //确定
+  // sureEvaluate: function() {
+  //   var that = this
+  //   var orderId = that.data.refundorderId
+  //   var score = that.data.one_2
+  //   var content = that.data.evaluate
+  //   if (score == '') {
+  //     wx.showToast({
+  //       title: '请对商品进行评分',
+  //       icon: 'none'
+  //     })
+  //   } else {
+  //     app.Util.ajax('mall/interact/addUserInteract', {
+  //       orderId: orderId,
+  //       score: score,
+  //       action: 1,
+  //       content: content
+  //     }, 'POST').then((res) => {
+  //       if (res.data.content) {
+  //         that.setData({
+  //           showDialog4: false,
+  //           one_2: 5,//实心星星
+  //           two_2: 0,//空心星星
+  //           evaluate: ''
+  //         })
 
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
-        }
-      })
-    }
-  },
+  //       } else {
+  //         wx.showToast({
+  //           title: res.data.message,
+  //           icon: 'none'
+  //         })
+  //       }
+  //     })
+  //   }
+  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -21,7 +21,7 @@ image {
 .other-login {
   width: 630rpx;
   height: 80rpx;
-  background: #FF6417;
+  background: #FF2644;
   border-radius: 40rpx;
   font-size: 32rpx;
   margin-bottom: 70rpx;

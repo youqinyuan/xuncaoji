@@ -16,31 +16,27 @@
           <view class="shop-view-wrapper" wx:for="{{shops}}" wx:key="{{index}}" wx:for-index="groupIndex">
             <checkbox-group data-groupIndex="{{groupIndex}}" wx:for="{{item.cartDetails}}" data-kc="{{item}}" wx:key="{{index}}" data-index="{{index}}" bindchange="Checks1" class="store-box1">
               <checkbox class="goods-view" checked="{{item.checked}}"></checkbox>
-              <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
               <image src="{{item.imageUrl}}" class="goods-view-img"></image>
               <view class="goods-view-wrapper" data-id="{{item.goodsId}}" bindtap='toDetail'>
                 <view class="goods-view-name">{{item.goodsName}}</view>
                 <view class="goods-view-spcDesc">{{item.spcDesc}}</view>
-                <view class="goods-view-sign">
-                  ¥
-                  <view class="goods-view-price">{{item.goodsPrice}}</view>
+                <view class="goods-view-bottom">
+                  <view class="goods-view-sign">¥
+                    <view class="goods-view-price">{{item.goodsPrice}}</view>
+                  </view>
+                  <view class="num-item" wx:if="{{item.status==1}}">
+                    <text catchtap="bindMinus" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}">-</text>
+                    <input type="number" disabled='disabled' value="{{item.quantity}}" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}" />
+                    <text catchtap="bindPlus" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}">+</text>
+                  </view>
+                  <view class="num-item1" wx:if="{{item.status==2}}">商品已下架 </view>
+                  <view class="num-item2" wx:if="{{item.status==3}}">商品已失效</view>
                 </view>
-                <view class="num-item" wx:if="{{item.status==1}}">
-                  <text catchtap="bindMinus" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}">-</text>
-                  <input type="number" disabled='disabled' value="{{item.quantity}}" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}" />
-                  <text catchtap="bindPlus" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}">+</text>
+                <view class="zero-wrap">
+                  <!-- <view class="zero-message">查看0元申请信息</view> -->
+                  <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
                 </view>
-                <view>
-                </view>
-                <view class="num-item1" wx:if="{{item.status==2}}">
-                  商品已下架
-                </view>
-                <view class="num-item2" wx:if="{{item.status==3}}">
-                  商品已失效
-                </view>
-                <view>
-                </view>
-              </view>  
+              </view>
             </checkbox-group>
           </view>
           <view class="detail-bottom">{{text}}</view>

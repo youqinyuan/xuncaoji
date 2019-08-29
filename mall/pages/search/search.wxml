@@ -4,7 +4,7 @@
 <view class="section-wrapper">
   <view class="section">
     <image src="../../assets/images/icon/index_nav_search_n.png" class="section-img"></image>
-    <input value="{{inputValue}}"  auto-focus placeholder="更多好货等你来发现" placeholder-style="color:#AAAAAA" bindinput='bindInput'/>
+    <input value="{{inputValue}}" confirm-type="search" bindconfirm='confirmTap' focus="{{true}}" placeholder="更多好货等你来发现" placeholder-style="color:#AAAAAA" bindinput='bindInput'/>
   </view>
   <view class="cancel" wx:if="{{show}}" catchtap='cancel'>
     <image src="../../assets/images/icon/nav_search_delete_n.png"></image>
@@ -13,21 +13,6 @@
 </view>
 <template is="searchList" wx:if="{{template === 1}}" data="{{history:history}}"></template>
 <template is="searchList1" wx:if="{{template === 2}}" data="{{goodsResult:goodsResult,storeResult:storeResult,showModalStatus:showModalStatus,shareList:shareList,goodsId:goodsId,textToast:textToast}}"></template>
-<!--屏幕背景变暗的背景  -->
-<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
-<!--弹出框 选择开始 -->
-<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
-  <view class="content-wrapper">
-    <image class="cancel" src="../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
-    <view class="shareCommission" wx:if="{{shareList.isPlusMember===2}}">你喜欢那就分享给你朋友吧</view>
-    <view class="shareCommission" wx:if="{{shareList.isPlusMember===1}}">分享商品后预计最多可赚佣金￥{{sharingProfit}}</view>
-    <view class="shareText" wx:if="{{shareList.isPlusMember===1}}">朋友通过你分享的页面成功购买后，你将获得商品返利</view>
-    <button class="share-button" open-type="share">
-      <image class="photo" src="../../assets/images/icon/share_tanc_weixin_n.png"></image>
-      <view class="wx">微信</view>
-    </button>
-  </view>
-</view>
 
-<!-- 轮播图展示组件 -->
+<!-- 轮播展示组件 -->
 <swiper-show class="swiper-show"></swiper-show>

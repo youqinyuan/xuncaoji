@@ -146,8 +146,9 @@
 
 .comprehensive-list-text {
   margin-left: 16rpx;
+  margin-right: 16rpx;
   margin-top: 10rpx;
-  height: 90rpx;
+  height: 85rpx;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
@@ -158,14 +159,25 @@
   color: rgba(51, 51, 51, 1);
 }
 
-.comprehensive-list-text text {
+.comprehensive-list-text .item1 {
   padding: 2rpx 12rpx;
   margin-right: 13rpx;
   font-size: 20rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
-  background: #FF6417;
+  background: #ff2644;
+  border-radius: 14rpx;
+}
+
+.comprehensive-list-text .item2 {
+  padding: 2rpx 12rpx;
+  margin-right: 13rpx;
+  font-size: 20rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 100, 23, 1);
+  border: 2rpx solid rgba(255, 100, 23, 1);
   border-radius: 14rpx;
 }
 

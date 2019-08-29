@@ -11,7 +11,7 @@
       <view class="goods-list-price">
         <view class="newprice-wrap">
           <view class="pricesign">￥</view>
-          <view class="newprice">{{item.dctPrice}}</view>
+          <view class="newprice">{{item.truePrice}}</view>
         </view>
         <view class="oldprice-wrap">
           <view class="pricesign1">￥</view>
@@ -20,32 +20,17 @@
       </view>
       <view class="return-wrap">
         <view class="return-money">
+          <text>实付</text>
+          <text>￥</text>
+          <text>{{item.dctPrice}}</text>
+        </view>
+        <view class="pay-money">
           <text>返</text>
           <text>￥</text>
           <text>{{item.marketingCashBack.totalAmount}}</text>
-        </view>
-        <view class="pay-money">
-          <text>返后价</text>
-          <text>￥</text>
-          <text>{{item.truePrice}}</text>
         </view>
       </view>
     </view>
   </view>
 </view>
 <view class="goods-bottom">{{text}}</view>
-<!--屏幕背景变暗的背景  -->
-<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
-<!--弹出框 选择开始 -->
-<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
-  <view class="content-wrapper">
-    <image class="cancel" src="../../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
-    <view class="shareCommission" wx:if="{{shareList.isPlusMember===2}}">你喜欢那就分享给你朋友吧</view>
-    <view class="shareCommission" wx:if="{{shareList.isPlusMember===1}}">分享商品后预计最多可赚佣金￥{{sharingProfit}}</view>
-    <view class="shareText" wx:if="{{shareList.isPlusMember===1}}">朋友通过你分享的页面成功购买后，你将获得商品返利</view>
-    <button class="share-button" open-type="share">
-      <image class="photo" src="../../../assets/images/icon/share_tanc_weixin_n.png"></image>
-      <view class="wx">微信</view>
-    </button>
-  </view>
-</view>

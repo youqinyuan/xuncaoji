@@ -23,19 +23,19 @@
     <view class="comprehensive-list-text">{{item.name}}</view>
     <view class="comprehensive-list-price">
       <view class="newprice">
-        <text>￥</text>{{item.dctPrice}}</view>
+        <text>￥</text>{{item.truePrice}}</view>
       <view class="oldprice">￥{{item.orgPrice}}</view>
     </view>
     <view class="return-wrap">
       <view class="return-money">
+        <text>实付</text>
+        <text>￥</text>
+        <text>{{item.dctPrice}}</text>
+      </view>
+      <view class="pay-money">
         <text>返</text>
         <text>￥</text>
         <text>{{item.marketingCashBack.totalAmount}}</text>
-      </view>
-      <view class="pay-money">
-        <text>返后价</text>
-        <text>￥</text>
-        <text>{{item.truePrice}}</text>
       </view>
     </view>
   </view>

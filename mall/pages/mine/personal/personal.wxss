@@ -153,11 +153,12 @@ input{
 }
 .free-dialog__container {
  position: fixed;
- left: 0;
- bottom: 0;
- width: 750rpx;
- height: 300rpx;
- background: white;
+ left: 30rpx;
+ bottom: 20rpx;
+ width: 690rpx;
+ height: 240rpx;
+ border-radius: 20rpx;
+ background: #fff;
  transform: translateY(150%);
  transition: all 0.4s ease;
  z-index: 11;
@@ -171,10 +172,14 @@ input{
 /*模态框中的内容*/
 
 .free-text{
-  height: 150rpx;
-  line-height: 150rpx;
-  border-bottom: 2rpx solid #f4f4f4;
+  height: 120rpx;
+  line-height: 120rpx;
   text-align: center;
+}
+.line{
+  height: 2rpx;
+  width: 690rpx;
+  background: #f4f4f4;
 }
 /*底部*/
 

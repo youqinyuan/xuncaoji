@@ -1,0 +1,147 @@
+<!--pages/applyZero/applyZero.wxml-->
+<view class="wrapper-top">
+  <view class="spend">
+    <view class="spend-left">我想花</view>
+    <view class="spend-right">
+      <input placeholder="0" placeholder-style="color:#AAAAAA;" />
+      <view class="spend-money">元</view>
+      <view class="spend-text">钱拿这件好物</view>
+    </view>
+  </view>
+  <view class="platform" catchtap="periodMonth">
+    <view class="platform-left">我要平台</view>
+    <view class="platform-right">
+      <input disabled="{{disabled}}" value="48" placeholder-style="color:#AAAAAA;" />
+      <view class="platform-month">月</view>
+      <view class="platform-text">返现给我</view>
+    </view>
+  </view>
+  <view class="interest">
+    <view class="interest-left">平台给您的银行活期存款利率</view>
+    <view class="interest-right">0.3%</view>
+  </view>
+  <!-- ���� -->
+  <button class="count" bindtap='compute'>计算</button>
+</view>
+<view class="wrapper-bottom">
+  <view class="pay">
+    <view class="pay-money">您需要马上支付的金额</view>
+    <view class="pay-num">￥300元</view>
+  </view>
+  <view class="pay">
+    <view class="pay-money">
+      <view class="left">300元会在12个月内返还给您（可在余额随时提现）：</view>
+      <view class="right" catchtap="returnDetail">明细</view>
+    </view>
+    <view class="pay-num">每月必返您现金25元</view>
+  </view>
+  <view class="pay">
+    <view class="pay-money">
+      <view class="left">平台按银行存款利率给您的利息奖励是：</view>
+      <view class="right" catchtap="interestDetail">明细</view>
+    </view>
+    <view class="pay-num">3.6元</view>
+  </view>
+  <view class="pay">
+    <view class="pay-money">您此次申请0元购的花销：</view>
+    <view class="pay-num">0元</view>
+  </view>
+  <view class="pay">
+    <view class="pay-money">您此次申请0元共计可赚：</view>
+    <view class="pay-num">商品原价：商品售价-用户最终付费+利息</view>
+  </view>
+  <view class="get-money">赚：106.4元</view>
+</view>
+<view class="btn">
+  <button>加入购物车</button>
+  <button>立即支付0元获得！</button>
+</view>
+<view class="stop" catchtap="stopZero">
+  可随时终止0元购，取消后将钱退到您的账户余额
+  <image src="/assets/images/icon/wenhao_icon.png"></image>
+</view>
+<view class="block"></view>
+<!-- 您想要分期的月数 -->
+<view class="period-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showPeriod}}">
+  <view class="zan-dialog__container" wx:if="{{showPeriod}}">
+    <view class="title">您想要分期的月数</view>
+    <view class="period-month">
+      <view class="period-detail">42月</view>
+      <view class="period-detail">42月</view>
+      <view class="period-detail">42月</view>
+      <view class="period-detail">42月</view>
+      <view class="period-detail custom" catchtap="custom">自定义</view>
+    </view>
+  </view>
+  <image wx:if="{{showPeriod}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelPeriod'></image>
+</view>
+<!-- 返现明细表 -->
+<view class="return-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}">
+  <view class="zan-dialog__container" wx:if="{{showDialog}}">
+    <view class="title">返现明细表</view>
+    <view class="table">
+      <view class="tr bg-w">
+        <view class="th">返现时间</view>
+        <view class="th">第几个月</view>
+        <view class="th">返现金额</view>
+        <view class="th">累积返现</view>
+      </view>
+      <block>
+        <view class="tr bg-g">
+          <view class="td">2018-11-20</view>
+          <view class="td">1</view>
+          <view class="td">25</view>
+          <view class="td">25</view>
+        </view>
+      </block>
+      <block>
+        <view class="tr bg-g">
+          <view class="td">2018-11-20</view>
+          <view class="td">1</view>
+          <view class="td">25</view>
+          <view class="td">25</view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <image wx:if="{{showDialog}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelDialog'></image>
+</view>
+<!-- 利息明细表 -->
+<view class="interest-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}">
+  <view class="zan-dialog__container" wx:if="{{showModal}}">
+    <view class="title">利息明细表</view>
+    <view class="table">
+      <view class="tr bg-w">
+        <view class="th">返现时间</view>
+        <view class="th">第几个月</view>
+        <view class="th">利息金额</view>
+      </view>
+      <block>
+        <view class="tr bg-g">
+          <view class="td">2018-11-20</view>
+          <view class="td">1</view>
+          <view class="td">25</view>
+        </view>
+      </block>
+      <block>
+        <view class="tr bg-g">
+          <view class="td">2018-11-20</view>
+          <view class="td">1</view>
+          <view class="td">25</view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <image wx:if="{{showModal}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelModal'></image>
+</view>
+<!-- 可随时终止说明 -->
+<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showStop}}">
+  <view class="zan-dialog__container" wx:if="{{showStop}}">
+    <view class="title">可随时终止说明</view>
+    <view class="text">
+      <view>申请0元购终止，需要您在订单页面，在订单下就可以点击终止操作，终止后，您支付的金额将减去商品的原付款价再减去总共给您返现的金额。剩余的钱将返现到您的账户余额，可随时提现！</view>
+      <view>您的利息也将在当月停止发放，给到您到当月的利息！</view>
+    </view>
+  </view>
+  <image wx:if="{{showStop}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelStop'></image>
+</view>

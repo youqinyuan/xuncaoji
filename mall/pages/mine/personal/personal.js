@@ -128,19 +128,27 @@ Page({
   //上传文件
   upload: function() {
     var that = this
+    var adds = that.data.adds
+    var userInfo = {}
+    for (var item in adds) {
+      if (adds[item] != '') {
+        userInfo[item] = adds[item]
+      }
+    }
     var token = wx.getStorageSync('token')
     wx.uploadFile({
       url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
-      // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData',//正式环境
+      // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
       filePath: that.data.avatarKey,
       name: 'avatarKey',
-      formData: that.data.adds,
+      formData: userInfo,
       header: {
         'token': token,
         "content-type": "multipart/form-data"
       },
       success: function(res) {
         var res = JSON.parse(res.data)
+        console.log(res)
         if (res.content) {
           that.baseMessage()
           wx.showToast({
@@ -175,17 +183,17 @@ Page({
     var that = this
     var adds = that.data.adds
     var userInfo = {}
-    for (var item in adds){
-      if (adds[item] !=''){
+    for (var item in adds) {
+      if (adds[item] != '') {
         userInfo[item] = adds[item]
       }
     }
     var token = wx.getStorageSync('token')
     wx.request({
-      url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData',//测试环境
+      url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
       // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
       method: "POST",
-      data:userInfo,
+      data: userInfo,
       header: {
         "token": token,
         "content-type": "application/x-www-form-urlencoded"

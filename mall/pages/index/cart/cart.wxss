@@ -5,6 +5,7 @@ page {
 }
 
 /* 没有商品 */
+
 .store-container {
   width: 100%;
 }
@@ -30,9 +31,11 @@ page {
 }
 
 /* 店铺 */
-.store-container-wrapper{
+
+.store-container-wrapper {
   overflow: hidden;
 }
+
 .shop-view-wrapper-title {
   display: flex;
   height: 90rpx;
@@ -89,7 +92,6 @@ page {
   display: flex;
   margin-left: 20rpx;
   margin-right: 10rpx;
-  padding-bottom: 20rpx;
   background: rgb(255, 255, 255);
   border-bottom: 2rpx solid #f4f4f4;
 }
@@ -107,7 +109,7 @@ checkbox .wx-checkbox-input {
 
 checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   border: none;
-  background: #FF2644;
+  background: #ff2644;
 }
 
 checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
@@ -125,6 +127,11 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 
 /* 商品列表 */
 
+.goods-view-wrapper {
+  margin-left: 15rpx;
+  margin-top: 35rpx;
+}
+
 .goods-view-img {
   width: 150rpx;
   height: 150rpx;
@@ -133,19 +140,16 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   margin-right: 20rpx;
 }
 
-.goods-view-wrapper {
-  margin-left: 28rpx;
-  margin-top: 50rpx;
-}
-.del{
-  position: absolute;
-  right: 40rpx;
-  top:20rpx;
-  font-size: 24rpx;
-}
 .goods-view-name {
-  margin-right: 30rpx;
+  width: 428rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
   font-size: 28rpx;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  margin-right: 30rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
@@ -159,8 +163,16 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   color: rgba(153, 153, 153, 1);
 }
 
+.goods-view-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin: 16rpx 30rpx;
+  margin-left: 0rpx;
+  margin-bottom: 0rpx;
+}
+
 .goods-view-sign {
-  margin-top: 39rpx;
+  margin-top: 32rpx;
   display: flex;
   font-size: 18rpx;
   font-family: PingFang-SC-Medium;
@@ -175,19 +187,14 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 }
 
 .num-item {
-  position: absolute;
-  right: 40rpx;
-  bottom: 30rpx;
-  display: flex;
   height: 50rpx;
   border: 2rpx solid rgba(170, 170, 170, 1);
-  border-radius: 3px;
+  border-radius: 6rpx;
+  display: flex;
+  margin-top: 8rpx;
 }
 
 .num-item1 {
-  position: absolute;
-  right: 40rpx;
-  bottom: 30rpx;
   width: 168rpx;
   height: 50rpx;
   line-height: 50rpx;
@@ -201,9 +208,6 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 }
 
 .num-item2 {
-  position: absolute;
-  right: 40rpx;
-  bottom: 30rpx;
   width: 168rpx;
   height: 50rpx;
   line-height: 50rpx;
@@ -231,6 +235,37 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   border-left: 2rpx solid #ccc;
   border-right: 2rpx solid #ccc;
 }
+
+.zero-wrap {
+  height: 102rpx;
+  line-height: 102rpx;
+  display: flex;
+  position: relative;
+}
+
+.zero-message {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(255, 100, 23, 1);
+}
+
+.del {
+  width: 112rpx;
+  height: 42rpx;
+  line-height: 42rpx;
+  text-align: center;
+  background: rgba(241, 241, 241, 1);
+  border-radius: 21rpx;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  position: absolute;
+  bottom: 30rpx;
+  right: 30rpx;
+}
+
 .detail-bottom {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
@@ -240,7 +275,9 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   margin-top: 20rpx;
   margin-bottom: 40rpx;
 }
+
 /* 底部 */
+
 .store-total {
   display: flex;
   line-height: 90rpx;
@@ -286,6 +323,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 .store-total-num-text {
   font-size: 24rpx;
 }
+
 /* 删除按钮 */
 
 /* 弹框 */
@@ -322,7 +360,9 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 .zan-dialog--show .zan-dialog__mask {
   display: block;
 }
+
 /* 弹框内容 */
+
 .content-mask {
   text-align: center;
   overflow: hidden;
@@ -368,12 +408,14 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF6417;
+  color: #ff2644;
 }
+
 /* 轮播展示组件 */
-.swiper-show{
+
+.swiper-show {
   position: fixed;
-  top:24rpx;
-  left:16rpx;
+  top: 24rpx;
+  left: 16rpx;
   z-index: 9999;
-} 
+}

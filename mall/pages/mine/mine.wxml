@@ -9,10 +9,9 @@
         <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
       </view>
       <view class="title">
-        <view class="big-title" wx:if="{{content.nickname !=='匿名用户'}}">{{content.nickname}}</view>
+        <view class="big-title" wx:if="{{content.nickname !==''}}">{{content.nickname}}</view>
         <view class="big-title" wx:elif="{{userInfo.nickName}}">{{userInfo.nickName}}</view>
         <view class="big-title" wx:else>匿名用户</view>
-        <!-- <view class="big-title" wx:else>匿名用户</view> -->
         <view class="balance">
           <text class="balance-text">余额</text>
           <text class="balance-price">￥</text>
@@ -128,10 +127,10 @@
     <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list4_icon.png"></image>
     <view class="mine-list-text">商家入驻</view>
   </view> -->
-  <view class="mine-list"  bindtap='customerService'>
-    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list4_icon.png"></image>
+  <button class="mine-list service1" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" open-type="contact" bindcontact="handleContact">
+    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list5_icon.png"></image>
     <view class="mine-list-text">客服</view>
-  </view>
+  </button>
 </view>
 <!--微信授权弹框弹框-->
 <!-- <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
@@ -150,28 +149,26 @@
   </view>
 </view> -->
 <!-- 邀请码弹框 -->
-<view class="zan-dialog1 {{ showInviterCode ? 'zan-dialog--show1' : '' }}">
-  <view class="zan-dialog__mask1" bindtap="hideModal" />
-  <view class="zan-dialog__container1">
-    <image src="../../assets/images/icon/my_code_bg.png"></image>
-    <image src="../../assets/images/icon/my_code_title.png"></image>
-    <view class="title">我的邀请码</view>
-    <view class="invite-code">{{content.inviterCode}}</view>
-    <view class="copy" bindtap='copyText' data-text="{{content.inviterCode}}">复制</view>
-    <view class="line"></view>
-    <view class="member1" wx:if="{{content.inviterIsMember===2 && content.inviterNickname}}">非Plus会员</view>
-    <view class="member1" wx:elif="{{content.inviterIsMember===1}}">Plus会员</view>
-    <image class="attrimage1" wx:if="{{content.inviterIsMember===2 && content.inviterNickname}}"src="../../assets/images/icon/my_viptag_bg.png"></image>
-    <image class="attrimage1" wx:if="{{content.inviterIsMember===1}}"src="../../assets/images/icon/my_viptag_bg.png"></image>
-    <image wx:if="{{content.inviterAvatarKey}}" class="attrimage" src="{{content.inviterAvatarKey}}"></image>
-    <image wx:else class="attrimage" src="../../assets/images/icon/zhanw_tb_n.png"></image>
-    <view class="text">我的推荐人</view>
-    <view class="nickname" wx:if="{{!content.inviterNickname}}">寻草记</view>
-    <view class="nickname" wx:else>{{content.inviterNickname}}</view>
-  </view>
+<view class="zan-dialog1" catchtouchmove="preventTouchMove" wx:if="{{showInviterCode}}" catchtap="hideModal"></view>
+<view class="zan-dialog__container1" wx:if="{{showInviterCode}}">
+  <image src="../../assets/images/icon/my_code_bg.png"></image>
+  <image src="../../assets/images/icon/my_code_title.png"></image>
+  <view class="title">我的邀请码</view>
+  <view class="invite-code">{{content.inviterCode}}</view>
+  <view class="copy" bindtap='copyText' data-text="{{content.inviterCode}}">复制</view>
+  <view class="line"></view>
+  <view class="member1" wx:if="{{content.inviterIsMember===2 && content.inviterNickname}}">非Plus会员</view>
+  <view class="member1" wx:elif="{{content.inviterIsMember===1}}">Plus会员</view>
+  <image class="attrimage1" wx:if="{{content.inviterIsMember===2 && content.inviterNickname}}" src="../../assets/images/icon/my_viptag_bg.png"></image>
+  <image class="attrimage1" wx:if="{{content.inviterIsMember===1}}" src="../../assets/images/icon/my_viptag_bg.png"></image>
+  <image wx:if="{{content.inviterAvatarKey}}" class="attrimage" src="{{content.inviterAvatarKey}}"></image>
+  <image wx:else class="attrimage" src="../../assets/images/icon/zhanw_tb_n.png"></image>
+  <view class="text">我的推荐人</view>
+  <view class="nickname" wx:if="{{!content.inviterNickname}}">寻草记</view>
+  <view class="nickname" wx:else>{{content.inviterNickname}}</view>
 </view>
 <!--客服弹框-->
-<view class="zan-dialog {{ showService ? 'zan-dialog--show' : '' }}">
+<!-- <view class="zan-dialog {{ showService ? 'zan-dialog--show' : '' }}">
   <view class="zan-dialog__mask" bindtap="hideService" />
   <view class="zan-dialog__container">
     <view class='content'>
@@ -183,4 +180,4 @@
       </view>
     </view>
   </view>
-</view>
+</view> -->

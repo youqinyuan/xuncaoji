@@ -6,7 +6,7 @@
         <image wx:if="{{imgUrls.length===0}}" src="../../assets/images/icon/zhanw_tb_n.png" class="slide-image" />
         <image wx:else src="{{item.imageUrl}}" class="slide-image" />
       </swiper-item>
-       <swiper-item wx:if="{{imgUrls.length===0}}">
+      <swiper-item wx:if="{{imgUrls.length===0}}">
         <image src="../../assets/images/icon/zhanw_tb_n.png" class="slide-image" />
       </swiper-item>
     </swiper>
@@ -18,7 +18,7 @@
         </view>
         <view class="platform-list-item">
           <image class="platform-list-img" src="../../assets/images/icon/index_protect_renzheng_icon.png"></image>
-          <text class="platform-text">假一赔三</text>
+          <text class="platform-text">假一赔十</text>
         </view>
         <view class="platform-list-item">
           <image class="platform-list-img" src="../../assets/images/icon/index_protect_changj_icon.png"></image>
@@ -55,31 +55,31 @@
     <view class="zerobuy" bindtap='toZeroPurchase' wx:if="{{bannerId !==''}}">
       <image class="zerobuy-item" src="{{bannerUrl}}"></image>
     </view>
-    <!--分期返专场-->
+    <!--0元购好物-->
     <view class="nationwideReturn">
-      <view class="nationwideReturn-title" bindtap='jumpReturn' data-url='/pages/nationwideReturn/nationwideReturn'>
+      <view class="nationwideReturn-title">
         <image class="nationwideReturn-img" src="../../assets/images/icon/quanmfan_icon.png"></image>
         <text class="nationwideReturn-text">0元购好物</text>
-        <view class="nationwideReturn-price">累计已返
-          <text>{{totalAmount}}</text>元</view> 
+        <!-- <view class="nationwideReturn-price">累计已返
+          <text>{{totalAmount}}</text>元</view> -->
       </view>
       <view class="nationwideReturn-wrapper">
         <view class="nationwideReturn-list" wx:for="{{wholeNation}}" wx:key="{{item.id}}" bindtap='jumpReturn' data-url='/pages/nationwideReturn/nationwideReturn'>
           <image src="{{item.imageUrls[0]}}" class="nationwideReturn-list-img"></image>
           <view class="nationwideReturn-list-title">{{item.name}}</view>
           <view class="nationwideReturn-list-price">返
-            <text>￥</text>{{item.marketingCashBack.totalAmount}}
-            返后价<text>￥</text>{{item.truePrice}}
+            <text>￥</text>{{item.marketingCashBack.totalAmount}} 返后价
+            <text>￥</text>{{item.truePrice}}
           </view>
           <view class="nationwideReturn-list-item">已抢{{item.grabbed}}</view>
         </view>
-      </view>      
+      </view>
     </view>
     <!--性价比之王-->
     <view class="goodlist">
       <view class="goodlist-title">
         <image class="goodlist-img" src="../../assets/images/icon/tuijian_haowu_icon.png"></image>
-        <text class="goodlist-text">超值一口价</text>
+        <text class="goodlist-text">全网低价</text>
       </view>
       <view class="goodlist-list">
         <scroll-view class="goodlist-list-scroll" scroll-x="true">
@@ -90,7 +90,7 @@
             <view class="goodlist-list-text">
               <view class="text">低至</view>
               <view class="price-sign">￥</view>
-              <view class="num">{{item.dctPrice}}</view>
+              <view class="num">{{item.cashBackPrice}}</view>
             </view>
           </view>
         </scroll-view>
@@ -115,7 +115,7 @@
         </view>
       </view>
     </view>
-    <!--品质优选-->
+    <!--销量排行榜-->
     <view class="quality">
       <view class="quality-title">
         <image class="quality-img" src="../../assets/images/icon/tuijian_pinzhi_icon.png"></image>
@@ -127,24 +127,25 @@
             <image src="{{item.imageUrls[0]}}"></image>
           </view>
           <view class="quality-list-text">
-            <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}</view>
+            <text class="item1" wx:if="{{item.tags==1}}">自营</text>
+            <text class="item2">可申请0元购</text>{{item.name}}</view>
           <view class="quality-list-price">
             <view class="newprice">
-              <text>￥</text>{{item.dctPrice}}</view>
+              <text>￥</text>{{item.truePrice}}</view>
             <view class="oldprice">￥{{item.orgPrice}}</view>
           </view>
-        <view class="return-wrap">
-          <view class="return-money">
-            <text>返</text>
-            <text>￥</text>
-            <text>{{item.marketingCashBack.totalAmount}}</text>
+          <view class="return-wrap">
+            <view class="return-money">
+              <text>实付</text>
+              <text>￥</text>
+              <text>{{item.dctPrice}}</text>
+            </view>
+            <view class="pay-money">
+              <text>返</text>
+              <text>￥</text>
+              <text>{{item.marketingCashBack.totalAmount}}</text>
+            </view>
           </view>
-          <view class="pay-money">
-            <text>返后价</text>
-            <text>￥</text>
-            <text>{{item.truePrice}}</text>
-          </view>
-        </view>
         </view>
       </view>
     </view>

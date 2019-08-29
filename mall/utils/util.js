@@ -76,11 +76,9 @@ const ajax = (url, data, method, config = {}) => {
     token: '' || token,
     params: '...',
     'content-type': 'application/json'
-    // application/x-www-form-urlencoded
-    // 'content-type':'application/x-www-form-urlencoded'
   }
   wx.showLoading({
-    title: '加载中…'
+    title: '加载中…',
   })
   return new Promise((resolve, reject) => { // 返回一个promise
     wx.request({
@@ -90,8 +88,9 @@ const ajax = (url, data, method, config = {}) => {
       method: method,
       success(res) {
         if (res.data.statusCode == 200) {
+            wx.hideLoading()
           if (res.data.messageCode == 'MSG_1001') {
-            // console.log('请求成功')
+            // console.log('请求成功') 
             resolve(res)
           } else if (res.data.messageCode == 'MSG_2001') {
             // console.log('未授权')
@@ -107,40 +106,11 @@ const ajax = (url, data, method, config = {}) => {
         reject(res => console.log(err))
       },
       complete(res) {
-        wx.hideLoading();
+        wx.hideLoading()
       }
     })
   })
 }
-// export function uploadFiles(filePath, token) { 
-//   let token = wx.getStorageSync('token')
-//   let baseUrl = "https://xuncaoji.yzsaas.cn/";  // 上传文件通用接口
-//   return new Promise((resolve, reject) => {
-//     wx.uploadFile({
-//       url: baseUrl + url,
-//       filePath: filePath,
-//       name: 'file',
-//       header: {
-//         'content-type': 'multipart/form-data',
-//         'x-token': token
-//       },
-//       success: function (res) {
-//         let data = JSON.parse(res.data);
-//         if (data.code == 200) {
-//           resolve(data.link);
-//         } else {
-//           reject(data.message);
-//         }
-//       }
-//     })
-//   }).catch(function (e) {
-//     wx.showToast({
-//       title: e,
-//       icon: 'none',
-//       duration: 1500
-//     })
-//   });
-// };
 function deepCopy(o, c) {
   var c = c || {}
   for (var i in o) {

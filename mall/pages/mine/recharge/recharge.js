@@ -95,7 +95,8 @@ Page({
             channel: 2,
             client: 2
           }, 'POST').then((res) => {
-            if (res.data.content) {
+            console.log(res)
+            if (res.data.content) {             
               wx.requestPayment({
                 timeStamp: res.data.content.wechat.appletPrepay.timeStamp,
                 nonceStr: res.data.content.wechat.appletPrepay.nonceStr,

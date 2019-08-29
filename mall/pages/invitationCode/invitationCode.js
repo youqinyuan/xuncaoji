@@ -17,12 +17,12 @@ Page({
   //跳转到选择登录方式
   jumpIndex:function(){
     var that = this
-    if (that.data.inputValue ==''){
+    if (that.data.inputValue == '' || that.data.inputValue.length > 8){
       wx.showToast({
         title: '请输入正确的邀请码',
         icon:'none'
       })
-    }else{
+    } else{
       wx.setStorageSync('inviterCode1', that.data.inputValue)
       wx.navigateTo({
         url: '/pages/loginWay/loginWay'
@@ -32,7 +32,7 @@ Page({
   nextStep: function () {
     var that = this
     wx.navigateTo({
-      url: '/pages/loginWay/loginWay'
+      url: '/pages/login/login?pageNum='+3
     })
   },
   /**
@@ -40,6 +40,14 @@ Page({
    */
   onLoad: function (options) {
     console.log(options)
+    if (options.tips){
+      wx.showToast({
+        title: options.tips,
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
     this.setData({
       inputValue: options.inviterCode || wx.getStorageSync('othersInviterCode') || ''
     })

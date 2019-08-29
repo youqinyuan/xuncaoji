@@ -18,7 +18,7 @@ page {
   position: relative;
   width: 690rpx;
   height: 160rpx;
-  background: linear-gradient(65deg, #FF6417 0%, #FFAA4D 100%);
+  background: linear-gradient(65deg, #FF8D12 0%, #FFAA4D 100%);
   border-radius: 10rpx;
   margin-left: 30rpx;
   margin-top: 30rpx;
@@ -65,6 +65,11 @@ page {
 
 /*平台保证*/
 
+.platform {
+  background: #fff;
+  overflow: hidden;
+}
+
 .platform-list {
   height: 80rpx;
   line-height: 80rpx;
@@ -75,8 +80,9 @@ page {
 .platform-list-img {
   width: 24rpx;
   height: 24rpx;
-  margin-right: 5rpx;
-  margin-top: 5rpx;
+  margin-right: 8rpx;
+  margin-top: 2rpx;
+  vertical-align: middle;
 }
 
 .platform-text {
@@ -92,22 +98,17 @@ page {
 
 .address {
   overflow: hidden;
-  margin-bottom: 20rpx;
   position: relative;
   background: rgba(255, 255, 255, 1);
-  padding: 20rpx 0;
-  padding-right: 60rpx;
   display: flex;
-}
-
-.address-img {
-  margin-right: 19rpx;
-  margin-left: 30rpx;
-  width: 40rpx;
-  height: 40rpx;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 30rpx;
+  margin-bottom: 20rpx;
 }
 
 .address-img image {
+  margin-right: 20rpx;
   width: 40rpx;
   height: 40rpx;
 }
@@ -115,14 +116,6 @@ page {
 .address-text {
   font-size: 28rpx;
   color: rgba(51, 51, 51, 1);
-}
-
-.address-right-img {
-  position: absolute;
-  right: 10rpx;
-  top: 13rpx;
-  width: 56rpx;
-  height: 56rpx;
 }
 
 .address-right-img image {
@@ -176,12 +169,13 @@ page {
 }
 
 .shops-wrap-bottom {
+  height: 180rpx;
   display: flex;
-  padding-bottom: 45rpx;
   border-bottom: 2rpx solid #f4f4f4;
 }
+
 .shops-wrap-bottom-img {
-  width: 144rpx;
+  width: 120rpx;
   height: 120rpx;
   margin-left: 30rpx;
   margin-top: 24rpx;
@@ -189,14 +183,17 @@ page {
 }
 
 .shops-wrap-bottom-right {
+  position: relative;
   display: flex;
-  margin-left: 24rpx;
+  margin: 0 30rpx;
   margin-top: 20rpx;
-  justify-content: start;
+  justify-content: space-between;
+  width: 570rpx;
 }
 
 .shops-wrap-bottom-title {
   width: 310rpx;
+  height: 79rpx;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
@@ -210,30 +207,35 @@ page {
 
 .shops-wrap-bottom-size {
   font-size: 24rpx;
-  margin-top: 24rpx;
+  margin-top: 15rpx;
   color: rgba(153, 153, 153, 1);
 }
 
 .size1 {
   margin-left: 20rpx;
 }
-
 .shops-wrap-bottom-price {
-  position: absolute;
-  right: 30rpx;
   font-size: 24rpx;
   color: rgba(153, 153, 153, 1);
 }
 
 .price1 {
-  font-size: 32rpx;
+  font-size: 28rpx;
 }
 
 .shops-wrap-bottom-num {
-  font-size: 24rpx;
-  color: rgba(127, 127, 127, 1);
-  margin-left: 88rpx;
-  margin-top: 64rpx;
+  color: rgba(153, 153, 153, 1);
+  position: absolute;
+  right: 0rpx;
+  top: 83rpx;
+}
+.shops-wrap-bottom-num text:nth-child(1){
+  padding-right: 8rpx;
+  font-size: 28rpx;
+}
+.shops-wrap-bottom-num text:nth-child(2){
+  padding-right: 2rpx;
+  font-size: 26rpx;
 }
 
 /* 商品总价 */
@@ -266,8 +268,8 @@ page {
 
 .payment {
   display: flex;
-  height: 70rpx;
-  line-height: 70rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   font-size: 28rpx;
   font-family: PingFang-SC-Regular;
   font-weight: 400;
@@ -339,7 +341,7 @@ page {
   font-size: 28rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
-  color: rgba(153, 153, 153, 1);
+  color: #999999;
 }
 
 .order-message .pay-amount text:nth-child(2) {
@@ -371,10 +373,21 @@ page {
 }
 
 .refund-message .title text {
-  border-left: 6rpx solid rgba(235, 149, 127, 1);
-  padding-left: 30rpx;
+  padding-left: 26rpx;
+  position: relative;
+  display: block;
 }
-
+.refund-message .title text::after {
+  content:'';
+  display: block;
+  width:6rpx;
+  height:30rpx;
+  background-color: rgba(235, 149, 127, 1);
+  position: absolute;
+  top:21rpx;
+  left:0;
+  border-radius: 4rpx;
+}
 .refund-message .content {
   margin-left: 30rpx;
 }
@@ -587,7 +600,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF6417;
+  color: #FF2644;
 }
 
 .comfirm::after {
@@ -677,7 +690,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF6417;
+  color: #FF2644;
 }
 
 .comfirm::after {
@@ -790,7 +803,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF6417;
+  color: #FF2644;
 }
 
 .comfirm::after {
@@ -868,8 +881,8 @@ page {
 }
 
 .active1 {
-  border: 2rpx solid #FF6417;
-  color: #FF6417;
+  border: 2rpx solid #FF2644;
+  color: #FF2644;
 }
 
 .contentainer3-button {
@@ -895,7 +908,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF6417;
+  color: #FF2644;
 }
 
 .comfirm::after {
@@ -1028,7 +1041,7 @@ page {
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF6417;
+  color: #FF2644;
 }
 
 .comfirm::after {

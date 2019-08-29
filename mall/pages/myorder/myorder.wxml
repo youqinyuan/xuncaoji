@@ -1,11 +1,13 @@
 <!--pages/myorder/myorder.wxml-->
-<scroll-view scroll-x scroll-left='{{scrleft}}' class='orderTab'>
-  <view class="orderTabItem" wx:for='{{orderTabItem}}' wx:key="{{item.title}}" bindtap='tab' data-index="{{index}}" data-status="{{item.status}}">
-    <view class="order-item">
-      <view class="tabTitle {{item.select==true?'active':''}}">{{item.title}}</view>
+<view class="orderTab-wrap">
+  <scroll-view scroll-x class='orderTab'>
+    <view class="orderTabItem" wx:for='{{orderTabItem}}' data-current="{{idx}}" wx:key="{{item.title}}" bindtap='tab' data-index="{{index}}" data-status="{{item.status}}">
+      <view class="order-item">
+        <view class="tabTitle {{item.select==true?'active':''}}">{{item.title}}</view>
+      </view>
     </view>
-  </view>
-</scroll-view>
+  </scroll-view>
+</view>
 <!--全部-->
 <view class="myOrder-wrapper-content">
   <view class="myOrder-wrapper" wx:for="{{allOrder}}" wx:for-item="itemName" wx:key="{{itemName.id}}" wx:if="{{allOrder.length>0}}">
@@ -41,7 +43,8 @@
               <text class="price1">{{item.price}}</text>
             </view>
             <view class="shops-wrap-bottom-num">
-              x{{item.quantity}}
+              <text>x</text>
+              <text>{{item.quantity}}</text>
             </view>
           </view>
         </view>
@@ -60,7 +63,8 @@
     </view>
     <!-- 底部按钮 -->
     <view class="button">
-      <text class="cancel" wx:if="{{itemName.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{itemName.id}}">取消订单</text>
+    <!-- <text class="stopzero" catchtap="stopZero">终止0元购</text> -->
+      <text class="cancelOrder" wx:if="{{itemName.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{itemName.id}}">取消订单</text>
       <text class="return-money" wx:if="{{itemName.isCashBack==true}}" catchtap='periodCash' data-lateststatus="{{itemName.latestStatus}}" data-orderid="{{itemName.id}}">分期返现</text>
       <text class="return" catchtap='refund' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==2 || itemName.latestStatus==5 || itemName.latestStatus==11}}">退款</text>
       <text class="return" catchtap='cancelRefund' wx:if="{{itemName.latestStatus==7 || itemName.latestStatus==8}}" data-orderid="{{itemName.id}}">取消退款</text>
@@ -94,22 +98,23 @@
         <image src="{{item.imageUrls[0]}}"></image>
       </view>
       <view class="recommend-list-text">
-        <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}</view>
+        <text class="item1" wx:if="{{item.tags==1}}">自营</text>
+        <text class="item2">可申请0元购</text>{{item.name}}</view>
       <view class="recommend-list-price">
         <view class="newprice">
-          <text>￥</text>{{item.dctPrice}}</view>
+          <text>￥</text>{{item.truePrice}}</view>
         <view class="oldprice">￥{{item.orgPrice}}</view>
       </view>
       <view class="return-wrap">
         <view class="return-moneypay">
+          <text>实付</text>
+          <text>￥</text>
+          <text>{{item.dctPrice}}</text>
+        </view>
+        <view class="pay-money">
           <text>返</text>
           <text>￥</text>
           <text>{{item.marketingCashBack.totalAmount}}</text>
-        </view>
-        <view class="pay-money">
-          <text>返后价</text>
-          <text>￥</text>
-          <text>{{item.truePrice}}</text>
         </view>
       </view>
     </view>
@@ -118,35 +123,31 @@
 <view class="myorder-bottom" wx:if="{{allOrder.length>2}}">{{text}}</view>
 <view class="myorder-bottom1" wx:if="{{allOrder.length<2}}">{{text1}}</view>
 <!-- 确认收货弹框 -->
-<view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
-  <view class="zan-dialog__mask" />
-  <view class="zan-dialog__container">
-    <view class='content1'>
-      <view class="content1-title">提示</view>
-      <view class="content1-container">确认收货
+ <view class="comfirm-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>
+  <view class="comfirm-zan-dialog__container" wx:if="{{showDialog}}">
+    <view class='comfirm-content'>
+      <view class="comfirm-content-title">提示</view>
+      <view class="comfirm-content-container">确认收货
       </view>
-      <view class="content1-button">
-        <view class="reject" bindtap='cancel'>取消</view>
-        <button class="comfirm" bindtap="allow">收货</button>
+      <view class="comfirm-content-button">
+        <view class="comfirm-reject" catchtap='cancel'>取消</view>
+        <button class="comfirm-comfirm" bindtap="allow">收货</button>
       </view>
     </view>
   </view>
-</view>
 <!-- 取消退款 -->
-<view class="zan-dialog1 {{ showDialog1 ? 'zan-dialog--show1' : '' }}">
-  <view class="zan-dialog__mask1" />
-  <view class="zan-dialog__container1">
-    <view class='contentainer'>
-      <view class="contentainer-title">提示</view>
-      <view class="contentainer-container">是否取消当前订单退款申请？
+<view class="cancelorder-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog1}}"></view>
+  <view class="cancelorder-zan-dialog__container" wx:if="{{showDialog1}}">
+    <view class='cancelorder-content'>
+      <view class="cancelorder-content-title">提示</view>
+      <view class="cancelorder-content-container">是否取消当前订单退款申请？
       </view>
-      <view class="contentainer-button">
-        <view class="reject" bindtap='cancelrefund'>取消</view>
-        <button class="comfirm" bindtap="surerefund">确定</button>
+      <view class="cancelorder-content-button">
+        <view class="cancelorder-reject" catchtap='cancelrefund'>取消</view>
+        <button class="cancelorder-comfirm" bindtap="surerefund">确定</button>
       </view>
     </view>
   </view>
-</view>
 <!-- 退款弹框 -->
 <view class="zan-dialog2 {{ showDialog2 ? 'zan-dialog--show2' : '' }}">
   <view class="zan-dialog__mask2" />
@@ -180,8 +181,23 @@
     </view>
   </view>
 </view>
+<!-- 终止0元购弹窗 -->
+ <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog4}}"></view>
+  <view class="stop-zan-dialog__container" wx:if="{{showDialog4}}">
+    <view class='stop-content'>
+      <view class="stop-content-title">提示</view>
+      <view class="stop-content-container">
+        <view>确定终止0元购吗？</view>
+        <view>此刻取消将退您：99元</view>
+      </view>
+      <view class="stop-content-button">
+        <view class="stop-reject" catchtap='wait'>再想想</view>
+        <button class="stop-comfirm" bindtap="comfireCancel">确定取消</button>
+      </view>
+    </view>
+  </view>
 <!-- 去评价 -->
-<view class="zan-showDialog4 {{ showDialog4 ? 'zan-dialog--show4' : '' }}">
+<!-- <view class="zan-showDialog4 {{ showDialog4 ? 'zan-dialog--show4' : '' }}">
   <view class="zan-dialog__mask4" />
   <view class="zan-dialog__container4">
     <view class='contentainer4'>
@@ -207,19 +223,4 @@
       </view>
     </view>
   </view>
-</view>
-<!--屏幕背景变暗的背景  -->
-<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
-<!--弹出框 选择开始 -->
-<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
-  <view class="content-wrapper">
-    <image class="cancel" src="../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
-    <view class="shareCommission" wx:if="{{shareList.isPlusMember===2}}">你喜欢那就分享给你朋友吧</view>
-    <view class="shareCommission" wx:if="{{shareList.isPlusMember===1}}">分享商品后预计最多可赚佣金￥{{sharingProfit}}</view>
-    <view class="shareText" wx:if="{{shareList.isPlusMember===1}}">朋友通过你分享的页面成功购买后，你将获得商品返利</view>
-    <button class="share-button" open-type="share">
-      <image class="photo" src="../../assets/images/icon/share_tanc_weixin_n.png"></image>
-      <view class="wx">微信</view>
-    </button>
-  </view>
-</view>
+</view> -->

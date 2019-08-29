@@ -1,0 +1,10 @@
+/* components/go_home/go_home.wxss */
+.img_wrap{
+  width:58px;
+  height:58px;
+  border-radius: 50%;
+}
+.go_home{
+  width:100%;
+  height:100%;
+}

@@ -18,7 +18,9 @@ Page({
     grabbedNumber:0,//已抢到人数
     show:true,//左滑右滑弹窗
     shareList: {},//分享数据
-    imageUrl:'../../assets/images/icon/shareActive.png'
+    imageUrl:'../../assets/images/icon/shareActive.png',
+    showModalStatus1:false, //分享弹框
+    shareList:[], //分享数据
   },
 
   /**
@@ -26,7 +28,6 @@ Page({
    */
   onLoad: function(options) {
     var that = this
-    console.log(options)
     that.init();
     that.chooseShare();
     var status = wx.getStorageSync('status')
@@ -115,6 +116,29 @@ Page({
     })
     wx.setStorageSync('status', 1)
   },
+  // 点击分享按钮
+  shares:function(){
+    var that = this
+    app.Util.ajax('mall/weChat/sharing/target', {
+      mode: 3,
+    }, 'GET').then((res) => {
+      if (res.messageCode = 'MSG_1001') {
+        res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
+        that.setData({
+          shareList: res.data.content
+        })
+      }
+    })
+    this.setData({
+      showModalStatus1:true
+    })
+  },
+  // 取消分享
+  cancelShare:function(){
+    this.setData({
+      showModalStatus1:false
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -164,7 +188,7 @@ Page({
     var that = this
     // 来自页面内转发按钮
     that.setData({
-      show: false
+      showModalStatus1: false
     })
     app.Util.ajax('mall/weChat/sharing/onSuccess', { mode: 2 }, 'POST').then((res) => {
       if (res.data.content) {
@@ -181,8 +205,8 @@ Page({
     })
     return {
       title: that.data.shareList.desc,
-      path: that.data.shareList.link,
-      imageUrl: that.data.imageUrl,
+      path: '/pages/zeroBuy/zeroBuy',
+      imageUrl: that.data.shareList.imageUrl,
       success: function (res) {
 
       },

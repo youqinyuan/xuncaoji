@@ -1,5 +1,7 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "swiper-show":"/components/swiper-show/swiper-show"
+  },
   "navigationBarBackgroundColor": "#FF2644",
   "navigationBarTitleText": "会员",
   "navigationBarTextStyle": "white",

@@ -37,26 +37,26 @@
     </view>
     <!--商品名称-->
     <view class="goods-title">
-      <text class="goods-channel" wx:if="{{store.channel==1}}">自营</text>
+      <text class="goods-channel" wx:if="{{detail.tags==1}}">自营</text>
       <text selectable='true' bindlongtap='copy'>{{detail.goodsItem.name}}</text>
     </view>
     <!--售后无忧-->
     <view class="platform-compare">
       <view class="platform-wrap">
         <view class="platform-img">
-          <image src="../../assets/images/icon/xqing_protect_shouhou_icon.png"></image>
+          <image src="../../assets/images/icon/xqing_protect_shouhou_icon1.png"></image>
         </view>
         <view class="platform-text">源头直采</view>
       </view>
       <view class="platform-wrap">
         <view class="platform-img">
-          <image src="../../assets/images/icon/xqing_protect_renzheng_icon.png"></image>
+          <image src="../../assets/images/icon/xqing_protect_renzheng_icon1.png"></image>
         </view>
-        <view class="platform-text">假一赔三</view>
+        <view class="platform-text">假一赔十</view>
       </view>
       <view class="platform-wrap">
         <view class="platform-img">
-          <image src="../../assets/images/icon/xqing_protect_changj_icon.png"></image>
+          <image src="../../assets/images/icon/xqing_protect_changj_icon1.png"></image>
         </view>
         <view class="platform-text">部分商品全额返</view>
       </view>
@@ -116,6 +116,11 @@
     <view class="evaluate-content-bottom">
       {{comment[0].content}}
     </view>
+    <scroll-view class="evaluate-list-scroll" scroll-x="true">
+      <view class="evaluate-list-img" wx:for="{{comment[0].interactImageUrlList}}" wx:key="{{}}" wx:for-item="itemName" >
+        <image src="{{itemName}}"></image>
+      </view>
+    </scroll-view>
   </view>
   <!--详情图-->
   <view class="shop-detail-wrap" wx:for="{{introductions}}" wx:key="">
@@ -137,27 +142,26 @@
   <view class="text" bindtap='cancelShow'>好哒，这就去</view>
 </view>
 <!-- 公众号弹框 -->
-<view class="modal-mask1" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<!-- <view class="modal-mask1" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
 <view class="modal" wx:if="{{showModal}}">
   <view class="modal-title1">说明</view>
   <view class="modal-text">关注以下公众后获取公众号内验证码并且在下方输入后即可获得0元购，并且平台将赠送返现作为奖励给您。</view>
   <view class="modal-img">
     <view class="modal-img-text">寻草记商城</view>
-    <image src="../../assets/images/icon/code.png"></image>
+    <image class="modal-img-a" mode="aspectFit" src="../../assets/images/icon/code.png"></image>
   </view>
   <view class="section1">
     <view class="input-price1">公众号验证码：</view>
     <input placeholder="请输入6位数字" type="number" value="{{inputValue1}}" placeholder-style="color:#AAAAAA" bindinput="btnSumbit" />
   </view>
   <button bindtap='sure'>确定</button>
-</view>
-
+</view> -->
 <!-- 分享弹框 -->
 <!--屏幕背景变暗的背景  -->
 <view class="commodity_screen1" bindtap="hideModal" wx:if="{{showModalStatus1}}"></view>
 <!--弹出框 选择开始 -->
 <view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
-  <view class="content-wrapper1">
+  <view class="content-wrapper1"> 
     <image class="cancel" src="../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
     <view class="shareCommission">你喜欢那就分享给你朋友吧</view>
     <view class="share-wrap">
@@ -181,3 +185,6 @@
     <image src="/assets/images/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
   </view>
 </view>
+
+<!-- 返回首页组件 -->
+<go_home class="go_home"></go_home>

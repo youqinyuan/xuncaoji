@@ -294,6 +294,9 @@ Page({
       isFocus: false,
       Value: ''
     })
+    // wx.navigateTo({
+    //   url: `/pages/myorder/myorder?status=${1}`
+    // })
   },
   Tap() {
     var that = this;

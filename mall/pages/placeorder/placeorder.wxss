@@ -197,6 +197,7 @@ page {
 
 .shops-wrap-bottom-title {
   width: 330rpx;
+  height: 80rpx;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
@@ -210,7 +211,6 @@ page {
 }
 
 .shops-wrap-bottom-size {
-  margin-top: 23rpx;
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
   font-weight: 400;
@@ -264,7 +264,9 @@ page {
 .expressfee-price1 {
   font-size: 30rpx;
 }
-
+.expressfee-price1-text{
+  color: #FF2644;
+}
 .blcok {
   height: 20rpx;
   background: #f4f4f4;

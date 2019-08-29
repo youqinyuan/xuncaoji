@@ -25,7 +25,7 @@
     <view class="price-wrap">
       <view class="price">
         <view class="new-price">
-          <text class="price-text">￥</text>{{detail.dctPrice}}</view>
+          <text class="price-text">￥</text>{{foo.toStr(detail.dctPrice-detail.marketingCashBack.totalAmount)}}</view>
         <view class="old-price">￥{{detail.orgPrice}}</view>
       </view>
       <view class="express">
@@ -37,8 +37,8 @@
     </view>
     <!--商品名称-->
     <view class="goods-title">
-      <text class="goods-channel" wx:if="{{store.channel==1}}">自营</text>
-      <text class="goods-channel">自营</text>
+      <text class="goods-channel" wx:if="{{detail.tags==1}}">自营</text>
+      <text class="goods-zero">可申请0元购</text>
       <text selectable='true' bindlongtap='copy'>{{detail.name}}</text>
     </view>
     <!--商品比较-->
@@ -77,7 +77,7 @@
         <view class="platform-img">
           <image src="../../assets/images/icon/xqing_protect_renzheng_icon.png"></image>
         </view>
-        <view class="platform-text">假一赔三</view>
+        <view class="platform-text">假一赔十</view>
       </view>
       <view class="platform-wrap">
         <view class="platform-img">
@@ -87,14 +87,14 @@
       </view>
     </view>
     <view class="block1"></view>
-    <view class="content-cashBack1" wx:if="{{detail.cashBack.totalAmount}}">
+    <!-- <view class="content-cashBack1" wx:if="{{detail.cashBack.totalAmount}}">
       <image src="../../assets/images/icon/youhui_bqian.png"></image>
       <view class="content-cashBack1-text">
-       当前商品返
-        <text>{{foo.toStr(detail.marketingCashBack.totalAmount)}}</text> 元，返后价
-        <text>{{foo.toStr(detail.dctPrice-detail.marketingCashBack.totalAmount)}}</text>元
+        当前商品实付
+        <text>{{detail.dctPrice}}</text> 元，返
+        <text>{{foo.toStr(detail.marketingCashBack.totalAmount)}}</text>元
       </view>
-    </view>
+    </view> -->
     <!--库存-->
     <view class="stock" bindtap="clickme">
       <view class="stock-left">请选择商品数量规格</view>
@@ -149,6 +149,11 @@
     <view class="evaluate-content-bottom">
       {{comment[0].content}}
     </view>
+    <scroll-view class="evaluate-list-scroll" scroll-x="true">
+      <view class="evaluate-list-img" wx:for="{{comment[0].interactImageUrlList}}" wx:key="{{}}" wx:for-item="itemName" >
+        <image src="{{itemName}}"></image>
+      </view>
+    </scroll-view>
   </view>
   <!--详情图-->
   <view class="shop-detail-wrap" wx:for="{{introductions}}" wx:key="">
@@ -170,22 +175,23 @@
         <image src="{{item.imageUrls[0]}}"></image>
       </view>
       <view class="recommend-list-text">
-        <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}</view>
+        <text class="item1" wx:if="{{item.tags==1}}">自营</text>
+        <text class="item2">可申请0元购</text>{{item.name}}</view>
       <view class="recommend-list-price">
         <view class="newprice">
-          <text>￥</text>{{item.dctPrice}}</view>
+          <text>￥</text>{{item.truePrice}}</view>
         <view class="oldprice">￥{{item.orgPrice}}</view>
       </view>
       <view class="return-wrap">
         <view class="return-money">
+          <text>实付</text>
+          <text>￥</text>
+          <text>{{item.dctPrice}}</text>
+        </view>
+        <view class="pay-money">
           <text>返</text>
           <text>￥</text>
           <text>{{item.marketingCashBack.totalAmount}}</text>
-        </view>
-        <view class="pay-money">
-          <text>返后价</text>
-          <text>￥</text>
-          <text>{{item.truePrice}}</text>
         </view>
       </view>
     </view>
@@ -195,10 +201,11 @@
   <!--底部-->
   <view class="bottom">
     <view class="small-num" wx:if="{{count}}">{{count}}</view>
-    <view class="service" bindtap='customerService'>
+    <button class="service" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" send-message-title="{{detail.name}}" send-message-img='{{imageUrls[0]}}' show-message-card="true"
+      bindcontact="handleContact" open-type="contact">
       <image src="../../assets/images/icon/xqing_downbar_kefu_n.png"></image>
       <view class="service-text">客服</view>
-    </view>
+    </button>
     <view class="cart" bindtap='toCart' data-url='/pages/index/cart/cart'>
       <image src="../../assets/images/icon/xqing_downbar_gwc_n.png"></image>
       <view class="cart-text">购物车</view>
@@ -213,10 +220,12 @@
     </view>
   </view>
 </view>
+<image class="apply" catchtap='applyZero' src='/assets/images/icon/apply_icon.png' wx:if="{{imageUrls.length>0}}"></image>
 <view class="buy-model" wx:if="{{imageUrls.length>0}}">
   <text class="buy-text">立即购买：</text>
+  <text class="save" wx:if="{{detail.cashBack.totalAmount>0}}">节约￥{{saveMoney}}</text>
   <text class="save">省￥{{saveAmount}}</text>
-  <text class="back" wx:if="{{detail.cashBack.totalAmount>0}}">，返￥{{detail.cashBack.totalAmount}}</text>
+  <text class="back" wx:if="{{detail.cashBack.totalAmount>0}}">，返￥{{foo.toStr(detail.cashBack.totalAmount)}}</text>
 </view>
 <image class="jian-img" wx:if="{{imageUrls.length>0}}" src="../../assets/images/icon/tanceng_jiantou.png"></image>
 <!--屏幕背景变暗的背景  -->
@@ -232,7 +241,7 @@
       <view class="commodity-top-right-item">
         <view class="commodity-top-right-title">抢购价:
           <view class="sign">￥</view>
-          <view class="price">{{stockDetail1.dctPrice}}</view>
+          <view class="price">{{foo.toStr(stockDetail1.dctPrice-cashMoney)}}</view>
         </view>
         <view class="commodity-top-right-cancel" bindtap="hideModal">
           <image src="../../assets/images/icon/tanc_close_n.png"></image>
@@ -245,9 +254,9 @@
   <view class="content-cashBack" wx:if="{{stockDetail1.cashbackItems}}">
     <image src="../../assets/images/icon/youhui_bqian.png"></image>
     <view class="content-cashBack-text">
-      当前商品返
-      <text>{{cashMoney}}</text> 元，返后价
-      <text>{{foo.toStr(stockDetail1.dctPrice-cashMoney)}}</text>元
+      当前商品实付
+      <text>{{foo.toStr(stockDetail1.dctPrice)}}</text> 元，返
+      <text>{{foo.toStr(cashMoney)}}</text>元
     </view>
   </view>
   <view class="content-wrapper">
@@ -255,7 +264,7 @@
     <block wx:for="{{spec}}" wx:key="{{item.id}}" wx:for-index="group_idx">
       <view class="color-size" data-index="{{group_idx}}" bindtap='specIndex'>
         <view class="color-size-title">{{item.name}}</view>
-        <view class="color-size-list"> 
+        <view class="color-size-list">
           <block wx:for="{{item.items}}" wx:key="{{item.id}}">
             <text bindtap='clickAttr' data-attr-index="{{index}}" data-name="{{item.name}}" data-select-index="{{group_idx}}" data-attr-id="{{item.id}}" class="text1 {{item.isSelect==true? 'active' : ''}}">{{item.name}}</text>
           </block>
@@ -272,6 +281,8 @@
         <text class="{plusStatus}}" bindtap="bindPlus">+</text>
       </view>
     </view>
+    <!-- 申请0元购 -->
+    <!-- <button class="application-zero" bindtap='applyZeroBuy'>申请0元购</button> -->
     <!-- 分期返现 -->
     <view class="return" wx:if="{{stockDetail1.cashbackItems.length>0}}">
       <view class="return-title">购物返现</view>
@@ -316,7 +327,7 @@
   </view>
 </view>
 <!--客服弹框-->
-<view class="zan-dialog {{ showService ? 'zan-dialog--show' : '' }}">
+<!-- <view class="zan-dialog {{ showService ? 'zan-dialog--show' : '' }}">
   <view class="zan-dialog__mask" bindtap='hideService' />
   <view class="zan-dialog__container">
     <view class='content1'>
@@ -328,13 +339,22 @@
       </view>
     </view>
   </view>
-</view>
+</view> -->
 
 <!-- 海报弹框 -->
 <view class="mask_hb" wx:if="{{haibao}}"></view>
 <view class="canvas-box" hidden='{{haibao == false}}'>
-  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress"/>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
   <view class="close_hb" wx:if="{{haibao}}">
     <image src="/assets/images/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
   </view>
 </view>
+
+<!-- 轮播展示组件 -->
+<swiper-show class="swiper-show"></swiper-show>
+
+<!-- 返回首页组件 -->
+<go_home class="go_home"></go_home>
+
+<!-- 使用canvas将分享图片和申请0元购图片合成一张图 -->
+<canvas canvas-id="canvas" style="width:400px;height:400px;position: absolute;left:-1000px;top:-1000px;"></canvas>

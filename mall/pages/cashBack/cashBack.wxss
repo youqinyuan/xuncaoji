@@ -10,6 +10,7 @@ page {
 }
 
 .cashback-message .title {
+  display: flex;
   width: 750rpx;
   height: 72rpx;
   line-height: 72rpx;
@@ -20,19 +21,28 @@ page {
   margin-left: 30rpx;
 }
 
-.cashback-message .title text {
-  border-left: 6rpx solid rgba(60, 213, 139, 1);
-  padding-left: 30rpx;
+.cashback-message .title text:nth-child(1) {
+  display: block;
+  margin-top: 23rpx;
+  height: 30rpx;
+  width: 6rpx;
+  background: rgba(60, 213, 139, 1);
+  border-radius: 3rpx;
+}
+
+.cashback-message .title text:nth-child(2) {
+  padding-left: 20rpx;
 }
 
 /* 商品信息 */
 
 .shops-wrap-bottom {
+  padding-bottom: 20rpx;
   display: flex;
 }
 
 .shops-wrap-bottom-img {
-  width: 144rpx;
+  width: 122rpx;
   height: 120rpx;
   margin-left: 30rpx;
   margin-top: 24rpx;
@@ -40,15 +50,24 @@ page {
 }
 
 .shops-wrap-bottom-right {
+  position: relative;
   display: flex;
-  margin-left: 24rpx;
+  margin: 0 30rpx;
   margin-top: 20rpx;
-  justify-content: start;
+  justify-content: space-between;
+  width: 570rpx;
 }
 
 .shops-wrap-bottom-title {
   width: 310rpx;
+  height: 79rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
   font-size: 28rpx;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   margin-right: 95rpx;
   color: rgba(51, 51, 51, 1);
 }
@@ -62,23 +81,30 @@ page {
 .size1 {
   margin-left: 20rpx;
 }
-
 .shops-wrap-bottom-price {
-  position: absolute;
-  right: 30rpx;
   font-size: 24rpx;
   color: rgba(153, 153, 153, 1);
 }
 
 .price1 {
-  font-size: 32rpx;
+  font-size: 28rpx;
 }
 
 .shops-wrap-bottom-num {
-  font-size: 24rpx;
-  color: rgba(127, 127, 127, 1);
-  margin-left: 88rpx;
-  margin-top: 80rpx;
+  color: rgba(153, 153, 153, 1);
+  position: absolute;
+  right: 0rpx;
+  top: 83rpx;
+}
+
+.shops-wrap-bottom-num text:nth-child(1) {
+  padding-right: 8rpx;
+  font-size: 28rpx;
+}
+
+.shops-wrap-bottom-num text:nth-child(2) {
+  padding-right: 2rpx;
+  font-size: 26rpx;
 }
 
 /* 商品明细 */
@@ -88,7 +114,7 @@ page {
   height: 70rpx;
   line-height: 70rpx;
   margin: 0 auto;
-  margin-top: 49rpx;
+  margin-top: 29rpx;
   margin-bottom: 20rpx;
   padding-left: 20rpx;
   background: rgba(244, 244, 244, 1);
@@ -102,7 +128,8 @@ page {
 .cashback-detail .list {
   display: flex;
   height: 90rpx;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 30rpx;
   align-items: center;
   border-bottom: 2rpx solid #f4f4f4;
 }
@@ -125,11 +152,10 @@ page {
   font-size: 28rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
-  color: rgba(102, 102, 102, 1);
+  color: #666;
 }
 
 .cashback-detail .list .text {
-  width: 113rpx;
   font-size: 28rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;

@@ -1,7 +1,10 @@
 <!--pages/invitationCode/invitationCode.wxml-->
 <!--寻草记-->
 <view class="code-input">
-  <input value="{{inputValue}}" type="number" placeholder="请输入邀请码" placeholder-style="color:#AAAAAA" bindinput='bindInput'/>
+  <input value="{{inputValue}}" type="number" placeholder="请输入邀请码" placeholder-style="color:#AAAAAA" bindinput='bindInput' />
 </view>
 <button class="invitation-code" bindtap='jumpIndex'>邀请码进入</button>
-<button class="next-step" bindtap='nextStep'>跳过这一步</button>
+<view class="application-wrap">
+  <button class="application-code" open-type="contact">咨询客服，申请邀请码</button>
+  <button class="writed" bindtap='nextStep'>我是老用户</button>
+</view>

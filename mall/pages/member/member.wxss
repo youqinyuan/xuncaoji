@@ -203,7 +203,7 @@ page {
 .block {
   height: 80rpx;
   width: 750rpx;
-  background: rgba(255, 128, 78, 1);
+  background: rgba(255,236,221,1);
 }
 
 /*弹窗*/
@@ -445,3 +445,10 @@ button::after {
 .membership-box-btn::after {
   border: none;
 }
+/* 轮播展示组件 */
+/* .swiper-show{
+  position: fixed;
+  top:60rpx;
+  left:16rpx;
+  z-index: 9999;
+} */

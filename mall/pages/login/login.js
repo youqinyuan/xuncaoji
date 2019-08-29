@@ -12,11 +12,11 @@ Page({
     text: '',
     content: '',
     getcode: '获取验证码',
-    color: '#FF8D12',
+    color: '#FF2644',
     currentTime: 60,
     disabled: false,
-    provinces:[],
-    url:'',//记录从哪个页面跳转进来登录的
+    provinces: [],
+    url: '', //记录从哪个页面跳转进来登录的
   },
 
   /**
@@ -24,13 +24,17 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    console.log(options)
     //给当前地址添加缓存，授权之后跳转回原页面
     var pages = getCurrentPages() //获取加载的页面
-    var currentPage = pages[pages.length - 4] //获取当前页面的对象
-    var url = currentPage.route
+    var currentPage = pages[pages.length - Number(options.pageNum)] //获取当前页面的对象
     console.log(pages)
-    if (url == 'pages/detail/detail'){
+    console.log(currentPage)
+    var url = currentPage.route
+    if (url == 'pages/detail/detail') {
       that.data.url = '/' + url + '?id=' + wx.getStorageSync('goods_id')
+    } else if (url == 'pages/zeroPurchase/zeroPurchase') {
+      that.data.url = '/' + url + '?id=' + wx.getStorageSync('zeroGoods_id')
     }
   },
 
@@ -59,9 +63,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    wx.switchTab({
-      url: '/pages/index/index'
-    })
+    // wx.switchTab({
+    //   url: '/pages/index/index'
+    // })
   },
 
   /**
@@ -96,9 +100,9 @@ Page({
     var that = this;
     var value1
     //验证码限制输入6位数字
-    if (e.detail.value.toString().length > 6){
+    if (e.detail.value.toString().length > 6) {
       value1 = e.detail.value.substring(0, e.detail.value.length - 1);
-    }else {
+    } else {
       value1 = e.detail.value
     }
     that.setData({
@@ -160,16 +164,24 @@ Page({
       that.setData({
         text: '请输入正确的手机号码'
       })
-    }else if (codeNumber ==''){
+    } else if (codeNumber == '') {
       that.setData({
         text: '请输入验证码'
       })
-    }else if (!(/^[0-9]{6}$/.test(codeNumber))) {
+    } else if (!(/^[0-9]{6}$/.test(codeNumber))) {
       that.setData({
         text: '验证码输入错误'
       })
-    } 
-    if (phone !== '' && codeNumber !==''){
+    }
+    if (phone !== '' && codeNumber !== '') {
+      //刷新code
+      wx.login({
+        success(res) {
+          console.log("获取code成功");
+          console.log('res.code:', res.code, res);
+          wx.setStorageSync('code', res.code)
+        }
+      })
       var code = wx.getStorageSync('code')
       var inviterCode1 = wx.getStorageSync('inviterCode1') || ''
       app.Util.ajax('mall/account/login', {
@@ -191,22 +203,25 @@ Page({
             }
           })
           wx.removeStorageSync('othersInviterCode')
-          console.log(that.data.url)
-          if(that.data.url != ''){
+          if (that.data.url != '') {
             wx.navigateTo({
               url: that.data.url
             })
-          }else{
+          } else {
             wx.switchTab({
               url: '/pages/index/index'
             })
           }
-        }else{
+        } else if (res.data.messageCode === 'MSG_4002') {
+          wx.redirectTo({
+            url: '/pages/invitationCode/invitationCode?tips=' + '请填写邀请码后进入'
+          })
+        } else {
           that.setData({
-            text:res.data.message
+            text: '验证码输入错误'
           })
         }
       })
-    }  
+    }
   }
 })

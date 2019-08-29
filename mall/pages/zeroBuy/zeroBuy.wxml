@@ -1,0 +1,39 @@
+<!--pages/zeroBuy/zeroBuy.wxml-->
+<image src="/assets/images/icon/zero_banner.png" class="img_title"></image>
+<view class="wrap">
+  <view class="items" wx:for="{{goodsItems}}" wx:key="{{item.id}}">
+    <view class="img_wrap">
+      <image src="{{item.imageUrls[0]}}"></image>
+    </view>
+    <view class="goodsDetail">
+      <view class="goodsName"> {{item.name}}</view>
+      <view class="goodsPrice">原价：¥
+        <text>{{item.orgPrice}}</text>
+      </view>
+      <view class="btn" bindtap="show">进入公众号免费拿</view>
+    </view>
+  </view>
+</view>
+
+<!-- 提示关注公众号弹框 -->
+<view class="mask" wx:if="{{showMask}}" catchtouchmove="preventTouchMove">
+  <view class="content_wrap" bindlongpress="saveImg" >
+    <image src="/assets/images/icon/bg_gzh.png"></image>
+    <view class="content">
+      <view class="title">如何关注「寻草记商城」</view>
+      <view class="step">1、进入微信点击搜索
+        <text>“寻草记商城”</text>进入公众号点击
+        <text>“关注”</text>即可免费拿商品哦~
+      </view>
+      <view class="step">2、长按保存二维码保存至相册，进入微信后点击
+        <text>“扫一扫”</text>进入公众号点击“关注”即可免费拿商品哦~
+      </view>
+      <view class="code_wrap">
+        <image src="/assets/images/icon/code.png" class="code"></image>
+      </view>
+    </view>
+  </view>
+  <image src="/assets/images/icon/ic_cancel.png" class="close" bindtap="show"></image>
+</view>
+<!-- 返回首页组件 -->
+<go_home class="go_home"></go_home>

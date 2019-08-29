@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderId:1,//订单id
+    logisticsId:null,//订单id
     list:[],//物流列表
     options:{},
     status:null
@@ -17,8 +17,9 @@ Page({
    */
   onLoad: function (options) {
     var that = this
+    console.log(options)
     that.setData({
-      orderId: parseInt(options.orderId),
+      logisticsId: parseInt(options.logisticsId),
       options: options
     })
     that.init()
@@ -26,8 +27,8 @@ Page({
   //初始化物流信息
   init:function(){
     var that = this
-    var orderId = that.data.orderId
-    app.Util.ajax(`mall/order/queryLogistics?orderId=${orderId}`,null, 'GET').then((res) => { // 使用ajax函数
+    var logisticsId = that.data.logisticsId
+    app.Util.ajax(`mall/order/queryLogisticsById?logisticsId=${logisticsId}`,null, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         for(var i=0;i<res.data.content.list.length;i++){
           res.data.content.list[i].date = (res.data.content.list[i].datetime).slice(5, 10);
@@ -38,7 +39,6 @@ Page({
           status:res.data.content.status
         })
       }
-      console.log(that.data.list[0])
     }) 
   },
   /**

@@ -145,3 +145,6 @@
   <view class="membership-box-text1">我们将赠送您一个月会员表示感谢</view>
   <button class="membership-box-btn" bindtap='cancelBox'>谢谢</button>
 </view>
+
+<!-- 轮播展示组件 -->
+<!-- <swiper-show class="swiper-show"></swiper-show> -->

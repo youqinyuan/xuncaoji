@@ -14,8 +14,8 @@
     <view class="two-classification">
       <view class="two-classification-wrapper">
         <view class="two-classification-list" wx:for="{{classfy}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="twoList">
-          <image class="two-classification-img" mode="widthFix" wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}"></image>
-          <image class="two-classification-img" mode="widthFix" wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
+          <image class="two-classification-img" mode="aspectFit" wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}"></image>
+          <image class="two-classification-img" mode="aspectFit" wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
           <view class="two-classification-text">{{item.name}}</view>
         </view>
       </view>
@@ -42,22 +42,23 @@
           <image src="{{item.imageUrls[0]}}"></image>
         </view>
         <view class="comprehensive-list-text">
-          <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}</view>
+          <text class="item1" wx:if="{{item.tags==1}}">自营</text>
+          <text class="item2">可申请0元购</text>{{item.name}}</view>
         <view class="comprehensive-list-price">
           <view class="newprice">
-            <text>￥</text>{{item.dctPrice}}</view>
+            <text>￥</text>{{item.truePrice}}</view>
           <view class="oldprice">￥{{item.orgPrice}}</view>
         </view>
         <view class="return-wrap">
           <view class="return-money">
+            <text>实付</text>
+            <text>￥</text>
+            <text>{{item.dctPrice}}</text>
+          </view>
+          <view class="pay-money">
             <text>返</text>
             <text>￥</text>
             <text>{{item.marketingCashBack.totalAmount}}</text>
-          </view>
-          <view class="pay-money">
-            <text>返后价</text>
-            <text>￥</text>
-            <text>{{item.truePrice}}</text>
           </view>
         </view>
       </view>

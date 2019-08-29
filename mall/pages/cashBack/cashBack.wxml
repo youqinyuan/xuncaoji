@@ -3,6 +3,7 @@
   <!-- 标题 -->
   <view class="cashback-message">
     <view class="title">
+      <text></text>
       <text>商品返现</text>
     </view>
   </view>
@@ -23,15 +24,17 @@
             <text class="price1">{{itemName.price}}</text>
           </view>
           <view class="shops-wrap-bottom-num">
-            x{{itemName.quantity}}
+            <text>x</text>
+            <text>{{itemName.quantity}}</text>
           </view>
         </view>
       </view>
     </view>
   </view>
   <!-- 返现明细 -->
-  <view class="cashback-amount" wx:if="{{itemName.period !==0}}">共分{{itemName.period}}期返现，已返现{{itemName.returnedPeriod}}期，剩余返现金额为{{itemName.remainingCashReturn}}元</view>
-  <view class="cashback-amount" wx:if="{{itemName.period ==0}}">立即返，剩余返现金额为{{itemName.remainingCashReturn}}元</view>
+  <view class="cashback-amount" wx:if="{{itemName.cashBack && itemName.period !==0}}">共分{{itemName.period}}期返现，已返现{{itemName.returnedPeriod}}期，剩余返现金额为{{itemName.remainingCashReturn}}元</view>
+  <view class="cashback-amount" wx:elif="{{itemName.cashBack && itemName.period ==0}}">立即返，剩余返现金额为
+  {{itemName.remainingCashReturn}}元</view>
   <view class="cashback-detail">
     <view class="list" wx:for="{{itemName.orderGoodsCashBackItem}}" wx:key="{{item.id}}">
       <view class="item">
@@ -42,10 +45,9 @@
       </view>
       <view class="price" wx:if="{{item.status===3 || item.status===2}}">￥{{item.amount}}</view>
       <view class="price1" wx:if="{{item.status===1}}">￥{{item.amount}}</view>
-      <view class="text" wx:if="{{item.status===3}}">已返现</view>  
+      <view class="text" wx:if="{{item.status===3}}">已返现</view>
       <view class="text1" wx:if="{{item.status===1}}">未返现</view>
-      <view class="refund" wx:if="{{item.status===2}}">订单<text wx:if="{{latestStatus !==12}}">退款</text>
-      <text wx:if="{{latestStatus ===12}}">取消</text>终止返现</view>
+      <view class="refund" wx:if="{{item.status===2}}">订单<text wx:if="{{latestStatus !==12}}">退款</text><text wx:if="{{latestStatus ===12}}">取消</text>终止返现</view>
     </view>
   </view>
 </view>

@@ -17,7 +17,8 @@ Component({
     easingFunction: "linear", //指定 swiper 切换缓动动画类型
     swiperData: [], //请求回来的页面数据
     pageNumber: 1,
-    pageSize: 20,
+    pageSize: 50,
+    isSwiper:false, //是否显示轮图组件
   },
 
   /**
@@ -35,10 +36,10 @@ Component({
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
       }, 'GET').then((res) => { // 使用ajax函数
-        console.log(res)
         if (res.data.messageCode == "MSG_1001") {
           that.setData({
-            swiperData: res.data.content.items
+            swiperData: res.data.content.items,
+            isSwiper:true
           })
         }
       })
@@ -53,12 +54,13 @@ Component({
       var index = current + 1
       if (index == pageNumber * pageSize) {
         that.data.pageNumber++;
+        wx.hideLoading()
         app.Util.ajax('mall/home/textSlideShow', {
           pageNumber: that.data.pageNumber,
           pageSize: that.data.pageSize
         }, 'GET').then((res) => {
           if (res.data.messageCode == "MSG_1001") {
-            res.data.content.items.forEach(item=>{
+            res.data.content.items.forEach(item => {
               swiperData.push(item)
             })
             that.setData({

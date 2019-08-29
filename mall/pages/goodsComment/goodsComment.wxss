@@ -1,0 +1,123 @@
+/* pages/goodsComment/goodsComment.wxss */
+page{
+  background-color: #F4F4F4;
+}
+.goodsName_wrap{
+  width:100%;
+  height:146rpx;
+  padding:0 30rpx;
+  display: flex;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+.goodsName_wrap image{
+  width:86rpx;
+  height:86rpx;
+  border-radius: 8rpx;
+  margin-right: 24rpx;
+}
+.goods{
+  position: relative;
+}
+.goods .goodsName{
+  font-size: 28rpx;
+  color:#333333;
+}
+.goods .goodsModel{
+  font-size: 24rpx;
+  color:#999999;
+  margin-top: 20rpx;
+}
+.goodsSource{
+  position: absolute;
+  top:8rpx;
+  right:-66rpx;
+  width:60rpx;
+  height:28rpx;
+  background-color: #FF2644;
+  border-radius: 14rpx;
+  font-size: 20rpx;
+  color:#fff;
+  text-align: center;
+  line-height: 28rpx;
+}
+.goodsPrice{
+  position: absolute;
+  top:42rpx;
+  right:40rpx;
+  font-size: 28rpx;
+  color:#FF2644;
+}
+.goodsNum{
+  width:100%;
+  height:80rpx;
+  border-top: 1px solid #E7E7E7;
+  border-bottom: 1px solid #E7E7E7;
+  display: flex;
+  align-items: center;
+  color:#333333;
+  font-size: 24rpx;
+  padding:0 30rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+.num_wrap{
+  margin-left: 30rpx;
+}
+.num_wrap > image{
+  width:34rpx;
+  height:34rpx;
+  margin-right: 10rpx;
+}
+textarea{
+  width:100%;
+  height:176rpx;
+  background-color: #fff;
+  padding: 0 32rpx;
+  padding-top: 30rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+textarea::placeholder{
+  color:#AAAAAA;
+}
+.img_wrap{
+  width:100%;
+  background-color: #fff;
+  padding:0 20rpx;
+  padding-bottom: 6rpx;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 40rpx;
+  box-sizing: border-box;
+}
+.img_wrap image{
+  width:150rpx;
+  height:150rpx;
+  margin:0 10rpx;
+  margin-bottom: 18rpx;
+}
+.commentImg_wrap{
+  position: relative;
+}
+.commentImg_wrap .close{
+  width:28rpx;
+  height:28rpx;
+  position: absolute;
+  top:-10rpx;
+  right:-10rpx;
+}
+.btn{
+  width:670rpx;
+  height:80rpx;
+  background-color: #FF2644;
+  margin:0 auto;
+  margin-top: 40rpx;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  color:#fff;
+  line-height: 80rpx;
+  text-align: center;
+}

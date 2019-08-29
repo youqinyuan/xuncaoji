@@ -1,0 +1,7 @@
+<!--pages/goodsEvaluate/goodsEvaluate.wxml-->
+<image class="evaluate-img" src="/assets/images/icon/plun_tanc_def_icon.png"></image>
+<view class="evaluate-text">感谢您的认真评价</view>
+<view class="evaluate-btn">
+  <button bindtap='go_home'>返回首页</button>
+  <button bindtap='watchEvaluate'>查看评价</button>
+</view>
