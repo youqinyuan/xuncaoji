@@ -1,5 +1,8 @@
 <!--pages/zeroBuy/zeroBuy.wxml-->
 <image src="/assets/images/icon/zero_banner.png" class="img_title"></image>
+<view class="zero-buy-text-wrap">
+    <view class="zero-buy-text">需支付1分钱，支付成功后立刻返还至余额每期新品限领一份，分享好友即可再领一份</view>
+  </view>
 <view class="wrap">
   <view class="items" wx:for="{{goodsItems}}" wx:key="{{item.id}}">
     <view class="img_wrap">
@@ -14,19 +17,19 @@
     </view>
   </view>
 </view>
-
+<view class="block"></view>
 <!-- 提示关注公众号弹框 -->
 <view class="mask" wx:if="{{showMask}}" catchtouchmove="preventTouchMove">
   <view class="content_wrap" bindlongpress="saveImg" >
     <image src="/assets/images/icon/bg_gzh.png"></image>
     <view class="content">
       <view class="title">如何关注「寻草记商城」</view>
-      <view class="step">1、进入微信点击搜索
-        <text>“寻草记商城”</text>进入公众号点击
-        <text>“关注”</text>即可免费拿商品哦~
+      <view class="step">1、微信搜索公众号
+        <text>「寻草记商城」</text>，点击
+        <text>关注。</text>
       </view>
-      <view class="step">2、长按保存二维码保存至相册，进入微信后点击
-        <text>“扫一扫”</text>进入公众号点击“关注”即可免费拿商品哦~
+      <view class="step">2、长按即可保存二维码至相册，打开微信
+        <text>“扫一扫”</text>点击右上角“相册”，选择二维码图片。
       </view>
       <view class="code_wrap">
         <image src="/assets/images/icon/code.png" class="code"></image>
@@ -37,3 +40,24 @@
 </view>
 <!-- 返回首页组件 -->
 <go_home class="go_home"></go_home>
+
+<!-- 分享按钮 -->
+<image src="/assets/images/icon/ic_share.png" class="share_img" bindtap="shares"></image>
+<!-- 分享弹框 -->
+<view class="commodity_screen1" bindtap="hideModal" wx:if="{{showModalStatus1}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="shareCommission">你喜欢那就分享给你朋友吧</view>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="../../assets/images/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
+    </view>
+  </view>
+</view>

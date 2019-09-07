@@ -343,8 +343,16 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function() {
+  onLoad: function(options) {
     var that = this
+    if (options) {
+      if (options.inviterCode) {
+        wx.setStorage({
+          key: "othersInviterCode",
+          data: options.inviterCode
+        })
+      }
+    }
     that.init();
   },
   init: function() {
@@ -499,6 +507,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: "/pages/index/cart/cart?inviterCode=" + wx.getStorageSync('inviterCode'),
+    }
   }
 })

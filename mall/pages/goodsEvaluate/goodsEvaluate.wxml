@@ -3,5 +3,4 @@
 <view class="evaluate-text">感谢您的认真评价</view>
 <view class="evaluate-btn">
   <button bindtap='go_home'>返回首页</button>
-  <button bindtap='watchEvaluate'>查看评价</button>
 </view>

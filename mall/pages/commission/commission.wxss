@@ -1,7 +1,7 @@
 /* pages/commission/commission.wxss */
 
 page {
-  /* background: #f4f4f4; */
+  background: #f4f4f4;
 }
 
 .container-top {
@@ -31,7 +31,31 @@ page {
 
 /* 会员权益 */
 
-.container-middle {
+.container-wrap {
+  padding: 60rpx 42rpx;
+  background: #fff;
+}
+
+.container-title {
+  margin-bottom: 26rpx;
+  margin-top: 50rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: rgba(51, 51, 51, 1);
+}
+.title1{
+  margin-top: 0rpx;
+}
+.container-text {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+  line-height: 40rpx;
+}
+
+/* .container-middle {
   height: 690rpx;
   background: rgba(255, 255, 255, 1);
   overflow: hidden;
@@ -71,14 +95,14 @@ page {
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
-}
+} */
 
 /* 开通会员按钮 */
 
 .button {
   width: 690rpx;
   height: 76rpx;
-  background: #FF6417;
+  background: #ff6417;
   border-radius: 38px;
   margin-top: 80rpx;
   margin-left: 30rpx;
@@ -88,7 +112,11 @@ page {
   font-size: 32rpx;
   color: rgba(255, 255, 255, 1);
 }
-
+.block{
+  height: 30rpx;
+  background: #f4f4f4;
+  width: 750rpx;
+}
 /* 佣金余额 */
 
 .commission-balance-wrapper {
@@ -127,56 +155,21 @@ page {
   margin-top: 22rpx;
 }
 
-/* 佣金明细当余额小于0 */
-
-.commission-details {
-  height: 90rpx;
-  background: rgba(255, 255, 255, 1);
-  line-height: 90rpx;
-  display: flex;
-}
-
-.commission-img {
-  width: 36rpx;
-  height: 36rpx;
-  margin-left: 30rpx;
-  margin-right: 15rpx;
-  margin-top: 5rpx;
-}
-
-.commission-img image {
-  width: 36rpx;
-  height: 36rpx;
-}
-
-.commission-title {
-  font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(51, 51, 51, 1);
-}
-
-.commission-text {
-  font-size: 32rpx;
-  margin-left: 17rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(170, 170, 170, 1);
-}
-
 /* 佣金明细当余额大于0 */
 
 /* 提现 */
-.withdraw-wrap{
+
+.withdraw-wrap {
   height: 220rpx;
   background: #f4f4f4;
   overflow: hidden;
 }
+
 .withdraw {
   width: 690rpx;
   height: 76rpx;
   margin: 66rpx auto;
-  background: #FF6417;
+  background: #ff6417;
   border-radius: 38px;
   text-align: center;
   line-height: 76rpx;
@@ -214,6 +207,13 @@ page {
   color: rgba(51, 51, 51, 1);
 }
 
+.commission1-text {
+  font-size: 32rpx;
+  margin-left: 17rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(170, 170, 170, 1);
+}
 /* 明细 */
 
 .list {
@@ -251,8 +251,9 @@ page {
 .list-right1 {
   margin-right: 29rpx;
   margin-top: 40rpx;
-  color: #FF6417;
+  color: #ff6417;
 }
+
 .commission-bottom {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
@@ -263,6 +264,7 @@ page {
   line-height: 80rpx;
   background: #f4f4f4;
 }
+
 /* 提现弹窗 */
 
 .modal-mask {
@@ -330,7 +332,7 @@ page {
   position: absolute;
   width: 440rpx;
   height: 76rpx;
-  background: #FF6417;
+  background: #ff6417;
   border-radius: 38rpx;
   line-height: 76rpx;
   text-align: center;

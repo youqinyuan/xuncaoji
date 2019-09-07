@@ -14,10 +14,7 @@ Page({
     i: 1,
     textToast:'',
     pageNumber: 1, //分页记录数
-    pageSize: 6, //分页大小
-    total: 0, //分页总数
-    hasmoreData: true, //更多数据
-    hiddenloading: true, //加载中
+    pageSize: 20, //分页大小
     showModalStatus: false,//分享弹框
     shareList:{},//分享数据
     goodsId:1,
@@ -91,7 +88,6 @@ Page({
     that.setData({
       id:options.id
     })
-     // //品质优选
     that.initgetMore()
   },
   //综合

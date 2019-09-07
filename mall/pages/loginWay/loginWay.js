@@ -16,6 +16,7 @@ Page({
   },
   getPhoneNumber: function(e) {
     console.log(e)
+    var that = this
     //给当前地址添加缓存，授权之后跳转回原页面
     var encryptedData = e.detail.encryptedData
     var iv = e.detail.iv
@@ -25,78 +26,87 @@ Page({
         console.log("获取code成功");
         console.log('res.code:', res.code, res);
         wx.setStorageSync('code', res.code)
-      }
-    })
-    var code = wx.getStorageSync('code')
-    var inviterCode1 = wx.getStorageSync('inviterCode1') || ''
-    if (e.detail.errMsg == 'getPhoneNumber:ok') {
-      wx.setStorageSync('encryptedData', encryptedData)
-      wx.setStorageSync('iv', iv)
-      var pages = getCurrentPages() //获取加载的页面
-      var currentPage = pages[pages.length - 3] //获取当前页面的对象
-      console.log(currentPage)
-      var url = currentPage.route
-      if (url == 'pages/detail/detail') {
-        wx.setStorage({
-          key: "url",
-          data: url + '?id=' + wx.getStorageSync('goods_id')
-        })
-      } else if (url == 'pages/zeroPurchase/zeroPurchase') {
-        wx.setStorage({
-          key: "url",
-          data: url + '?id=' + wx.getStorageSync('zeroGoods_id')
-        })
-      }
-      app.Util.ajax('mall/account/authLogin', {
-        encryptedData: encryptedData,
-        iv: iv,
-        code: code,
-        inviterCode: inviterCode1
-      }, 'POST').then((res) => {
-        console.log(res)
-        wx.setStorageSync('token', res.header.token)
-        wx.setStorageSync('inviterCode', res.data.content.inviterCode)
-        app.globalData.flag = true
-        wx.switchTab({
-          url: '/pages/index/index'
-        })
-        if (res.data.content) {
-          app.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
-            if (res.data.messageCode = 'MSG_1001') {
-              this.setData({
-                provinces: res.data.content
+        var code = res.code
+        var inviterCode1 = wx.getStorageSync('inviterCode1') || ''
+        if (e.detail.errMsg == 'getPhoneNumber:ok') {
+          wx.setStorageSync('encryptedData', encryptedData)
+          wx.setStorageSync('iv', iv)
+          var pages = getCurrentPages() //获取加载的页面
+          var currentPage = pages[pages.length - 3] //获取当前页面的对象
+          console.log(currentPage, 'currentPage')
+          var url = currentPage.route
+          if (url == 'pages/detail/detail') {
+            wx.setStorage({
+              key: "url",
+              data: url + '?id=' + wx.getStorageSync('goods_id')
+            })
+          } else if (url == 'pages/zeroPurchase/zeroPurchase') {
+            wx.setStorage({
+              key: "url",
+              data: url + '?id=' + wx.getStorageSync('zeroGoods_id')
+            })
+          } else if (url == 'pages/zeroBuy/zeroBuy') {
+            wx.setStorage({
+              key: "url",
+              data: url
+            })
+          }
+          app.Util.ajax('mall/account/authLogin', {
+            encryptedData: encryptedData,
+            iv: iv,
+            code: code,
+            inviterCode: inviterCode1
+          }, 'POST').then((res) => {
+            console.log(res)
+            wx.setStorageSync('token', res.header.token)
+            wx.setStorageSync('inviterCode', res.data.content.inviterCode)
+            app.globalData.flag = true
+            wx.switchTab({
+              url: '/pages/index/index'
+            })
+            if (res.data.content) {
+              app.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
+                if (res.data.messageCode = 'MSG_1001') {
+                  that.setData({
+                    provinces: res.data.content
+                  })
+                  wx.setStorageSync('provinces', res.data.content)
+                }
               })
-              wx.setStorageSync('provinces', res.data.content)
+            } else if (res.data.messageCode = 'MSG_4002') {
+              wx.redirectTo({
+                url: '/pages/invitationCode/invitationCode?tips=' + '请填写正确的邀请码'
+              })
+            } else if (res.data.messageCode = 'MSG_4001') {
+              wx.showToast({
+                title: '您的微信昵称含有特殊字符，请先修改微信昵称后再登录',
+                icon: 'none',
+                duration: 2000
+              })
+            } else {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none',
+                duration: 2000
+              })
             }
-          })
-        } else if (res.data.messageCode = 'MSG_4001') {
-          wx.showToast({
-            title: '您的微信昵称含有特殊字符，请先修改微信昵称后再登录',
-            icon: 'none',
-            duration: 2000
+            wx.removeStorageSync('othersInviterCode')
+          }).catch((err) => {
+            console.log(err)
+            wx.showToast({
+              title: '登录失败，请重新登录',
+              icon: 'none',
+              duration: 2000
+            })
           })
         } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none',
-            duration: 2000
+          app.globalData.flag = false
+          wx.navigateTo({
+            url: '/pages/login/login',
           })
         }
-        wx.removeStorageSync('othersInviterCode')
-      }).catch((err) => {
-        console.log(err)
-        wx.showToast({
-          title: '登录失败',
-          icon: 'none',
-          duration: 2000
-        })
-      })
-    } else {
-      app.globalData.flag = false
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    }
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载

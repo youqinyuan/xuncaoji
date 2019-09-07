@@ -425,7 +425,7 @@ Page({
       url: `/pages/detail/detail?id=${id}`,
     })
   },
-  //跳转到0元购详情页
+  //跳转到0元购公众号
   toZeroPurchase: function() {
     const that = this
     wx.navigateTo({
@@ -461,8 +461,7 @@ Page({
     wx.navigateTo({
       url: `/pages/index/twolist/twolist?id=${id}&name=${name}`,
     })
-  },
-  　　　　　
+  },  　　　　　
   switchNav(e) {
     var that = this
     var cur = e.currentTarget.dataset.current; //导航栏数组的index
@@ -582,8 +581,8 @@ Page({
               success(res) {
                 if (res.statusCode === 200) {
                   wx.uploadFile({
-                    // url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
-                    url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
+                    url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
+                    // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
                     filePath: res.tempFilePath,
                     name: 'avatarKey',
                     formData: {
@@ -621,6 +620,7 @@ Page({
         wx.navigateTo({
           url: '/' + res.data
         })
+        wx.removeStorage({key: 'url'})
       }
     })
   },
@@ -637,6 +637,7 @@ Page({
         wx.navigateTo({
           url: '/' + res.data
         })
+        wx.removeStorage({ key: 'url' })
       }
     })
   },
@@ -655,11 +656,6 @@ Page({
     }
     //查询购物车种类
     that.getCartCount();
-    if (typeof that.getTabBar === 'function' && that.getTabBar()) {
-      that.getTabBar().setData({
-        selected: 0
-      })
-    }
   },
   //爆品轮播图跳转
   jumpping: function(e) {
@@ -744,7 +740,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function(ops) {
-
+    return {
+      path: "/pages/index/index?inviterCode=" + wx.getStorageSync('inviterCode'),
+    }
   },
   onLaunch: function() {
 

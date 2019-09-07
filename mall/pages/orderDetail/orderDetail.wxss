@@ -5,9 +5,11 @@ page {
 }
 
 /* 订单状态 */
-.orderDetail-wrapper{
+
+.orderDetail-wrapper {
   overflow: hidden;
 }
+
 .orderDetail {
   overflow: hidden;
   background: rgb(255, 255, 255);
@@ -18,7 +20,7 @@ page {
   position: relative;
   width: 690rpx;
   height: 160rpx;
-  background: linear-gradient(65deg, #FF8D12 0%, #FFAA4D 100%);
+  background: linear-gradient(65deg, #ff8d12 0%, #ffaa4d 100%);
   border-radius: 10rpx;
   margin-left: 30rpx;
   margin-top: 30rpx;
@@ -214,6 +216,7 @@ page {
 .size1 {
   margin-left: 20rpx;
 }
+
 .shops-wrap-bottom-price {
   font-size: 24rpx;
   color: rgba(153, 153, 153, 1);
@@ -229,11 +232,13 @@ page {
   right: 0rpx;
   top: 83rpx;
 }
-.shops-wrap-bottom-num text:nth-child(1){
+
+.shops-wrap-bottom-num text:nth-child(1) {
   padding-right: 8rpx;
   font-size: 28rpx;
 }
-.shops-wrap-bottom-num text:nth-child(2){
+
+.shops-wrap-bottom-num text:nth-child(2) {
   padding-right: 2rpx;
   font-size: 26rpx;
 }
@@ -253,13 +258,13 @@ page {
 
 .expressfee-text {
   margin-left: 30rpx;
-  color:#999;
+  color: #999;
 }
 
 .expressfee-price {
   position: absolute;
   right: 30rpx;
-  color:#666;
+  color: #666;
 }
 
 .expressfee-price1 {
@@ -284,7 +289,7 @@ page {
 }
 
 .payment-price {
-  color:#FF2644;
+  color: #ff2644;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
   position: absolute;
@@ -318,15 +323,16 @@ page {
   position: relative;
   display: block;
 }
+
 .order-message .title text::after {
-  content:'';
+  content: '';
   display: block;
-  width:6rpx;
-  height:30rpx;
-  background-color: #E3B54A;
+  width: 6rpx;
+  height: 30rpx;
+  background-color: #e3b54a;
   position: absolute;
-  top:21rpx;
-  left:0;
+  top: 21rpx;
+  left: 0;
   border-radius: 4rpx;
 }
 
@@ -341,7 +347,7 @@ page {
   font-size: 28rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
-  color: #999999;
+  color: #999;
 }
 
 .order-message .pay-amount text:nth-child(2) {
@@ -349,10 +355,32 @@ page {
   right: 30rpx;
   color: #666;
 }
-.order-block{
+
+.order-block {
   height: 120rpx;
   background: #f4f4f4;
 }
+
+.stop-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 30rpx;
+}
+
+.stop-zero {
+  width: 150rpx;
+  height: 46rpx;
+  border: 2rpx solid rgba(255, 38, 68, 1);
+  border-radius: 23rpx;
+  margin-top: 25rpx;
+  font-size: 26rpx;
+  line-height: 46rpx;
+  text-align: center;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 38, 68, 1);
+}
+
 /* 退款信息 */
 
 .refund-message {
@@ -377,17 +405,19 @@ page {
   position: relative;
   display: block;
 }
+
 .refund-message .title text::after {
-  content:'';
+  content: '';
   display: block;
-  width:6rpx;
-  height:30rpx;
+  width: 6rpx;
+  height: 30rpx;
   background-color: rgba(235, 149, 127, 1);
   position: absolute;
-  top:21rpx;
-  left:0;
+  top: 21rpx;
+  left: 0;
   border-radius: 4rpx;
 }
+
 .refund-message .content {
   margin-left: 30rpx;
 }
@@ -416,13 +446,16 @@ page {
   font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
+
 .refund-message .refund-amount1 text:nth-child(1) {
   width: 300rpx;
 }
+
 .refund-message .refund-amount1 text:nth-child(2) {
   text-align: left;
   color: rgba(102, 102, 102, 1);
 }
+
 .refund-message .refund-amount2 {
   display: flex;
   justify-content: space-between;
@@ -434,9 +467,11 @@ page {
   font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
-.refund-message .refund-amount2 text:nth-child(2){
+
+.refund-message .refund-amount2 text:nth-child(2) {
   color: rgba(102, 102, 102, 1);
 }
+
 .refund-message .refund-amount4 {
   display: flex;
   justify-content: space-between;
@@ -445,9 +480,11 @@ page {
   font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
+
 .refund-message .refund-amount4 text:nth-child(1) {
   width: 300rpx;
 }
+
 .refund-message .refund-amount4 text:nth-child(2) {
   color: rgba(102, 102, 102, 1);
   text-align: left;
@@ -483,84 +520,79 @@ page {
   width: 100%;
   text-align: center;
   color: rgb(255, 255, 255);
-  background: #FF8898;
+  background: #ff8898;
 }
 
-.pay-money{
+.pay-money {
   width: 100%;
   text-align: center;
   color: rgb(255, 255, 255);
-  background: #FF2644;
+  background: #ff2644;
 }
-.sure-goods{
+
+.sure-goods {
   width: 100%;
   text-align: center;
   color: rgb(255, 255, 255);
-  background: #FF2644;
+  background: #ff2644;
 }
-.refund{
+
+.refund {
   width: 100%;
   text-align: center;
   color: rgba(153, 153, 153, 1);
   background: rgba(255, 255, 255, 1);
 }
-.evaluate{
+
+.evaluate {
   width: 100%;
   text-align: center;
   color: rgb(255, 255, 255);
-  background: #FF2644;
+  background: #ff2644;
 }
-.cancel-refund{
+
+.cancel-refund {
   width: 100%;
   text-align: center;
   color: rgba(153, 153, 153, 1);
   background: rgba(255, 255, 255, 1);
 }
+
+
 /* 确认收货弹框 */
 
 /* 弹框 */
 
-.zan-dialog__mask {
+.comfirm-zan-dialog__mask {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  display: none;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 999;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
 }
 
-.zan-dialog__container {
-  transform: translateY(300%);
-  transition: all 0.00001s ease;
+.comfirm-zan-dialog__container {
   width: 540rpx;
   height: 282rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  bottom: 530rpx;
+  top: 300rpx;
   left: 110rpx;
   z-index: 9999;
 }
 
-.zan-dialog--show .zan-dialog__container {
-  transform: translateY(0);
-}
-
-.zan-dialog--show .zan-dialog__mask {
-  display: block;
-}
-
 /* 弹框内容 */
 
-.content1 {
+.comfirm-content {
   text-align: center;
   overflow: hidden;
 }
 
-.content1-title {
+.comfirm-content-title {
   margin-top: 44rpx;
   margin-bottom: 10rpx;
   font-size: 34rpx;
@@ -568,23 +600,23 @@ page {
   color: rgba(34, 34, 34, 1);
 }
 
-.content1-container {
-  width: 400rpx;
+.comfirm-content-container {
+  width: 357rpx;
   height: 66rpx;
-  margin-left: 65rpx;
+  margin-left: 100rpx;
   margin-bottom: 35rpx;
   font-size: 30rpx;
   text-align: center;
   color: rgba(51, 51, 51, 1);
 }
 
-.content1-button {
+.comfirm-content-button {
   display: flex;
-  height: 66rpx;
+  height: 100rpx;
   border-top: 2rpx solid #eaeaea;
 }
 
-.reject {
+.comfirm-reject {
   border-right: 2rpx solid #eaeaea;
   width: 270rpx;
   height: 75rpx;
@@ -593,17 +625,17 @@ page {
   color: rgba(51, 51, 51, 1);
 }
 
-.comfirm {
+.comfirm-comfirm {
   height: 66rpx;
   line-height: 66rpx;
   font-size: 34rpx;
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF2644;
+  color: #ff2644;
 }
 
-.comfirm::after {
+.comfirm-comfirm::after {
   border: none;
 }
 
@@ -611,70 +643,60 @@ page {
 
 /* 弹框 */
 
-.zan-dialog__mask1 {
+.cancelorder-zan-dialog__mask {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  display: none;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
 }
 
-.zan-dialog__container1 {
-  transform: translateY(300%);
-  transition: all 0.00001s ease;
+.cancelorder-zan-dialog__container {
   width: 540rpx;
   height: 282rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  bottom: 530rpx;
+  top: 300rpx;
   left: 110rpx;
   z-index: 9999;
 }
 
-.zan-dialog--show1 .zan-dialog__container1 {
-  transform: translateY(0);
-}
-
-.zan-dialog--show1 .zan-dialog__mask1 {
-  display: block;
-}
-
 /* 弹框内容 */
 
-.contentainer {
+.cancelorder-content {
   text-align: center;
   overflow: hidden;
 }
 
-.contentainer-title {
+.cancelorder-content-title {
   margin-top: 44rpx;
-  margin-bottom: 10rpx;
+  margin-bottom: 20rpx;
   font-size: 34rpx;
   font-weight: bold;
   color: rgba(34, 34, 34, 1);
 }
 
-.contentainer-container {
-  width: 400rpx;
+.cancelorder-content-container {
+  width: 394rpx;
   height: 66rpx;
-  margin-left: 65rpx;
+  margin-left: 79rpx;
   margin-bottom: 35rpx;
   font-size: 30rpx;
   text-align: center;
   color: rgba(51, 51, 51, 1);
 }
 
-.contentainer-button {
+.cancelorder-content-button {
   display: flex;
   height: 66rpx;
   border-top: 2rpx solid #eaeaea;
 }
 
-.reject {
+.cancelorder-reject {
   border-right: 2rpx solid #eaeaea;
   width: 270rpx;
   height: 75rpx;
@@ -683,17 +705,17 @@ page {
   color: rgba(51, 51, 51, 1);
 }
 
-.comfirm {
+.cancelorder-comfirm {
   height: 66rpx;
   line-height: 66rpx;
   font-size: 34rpx;
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF2644;
+  color: #ff2644;
 }
 
-.comfirm::after {
+.cancelorder-comfirm::after {
   border: none;
 }
 
@@ -703,19 +725,19 @@ page {
 
 .zan-dialog__mask2 {
   position: fixed;
-  top: 0;
+  top: -80rpx;
   left: 0;
   right: 0;
   bottom: 0;
   display: none;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
 }
 
 .zan-dialog__container2 {
   transform: translateY(300%);
   transition: all 0.00001s ease;
   width: 540rpx;
-  height: 524rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
@@ -769,20 +791,22 @@ page {
 }
 
 .contentainer2-text {
-  width:466rpx;
+  width: 466rpx;
   margin-left: 37rpx;
   font-size: 26rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
-.active1{
-  border:2rpx solid rgba(255,81,122,1);
-  color:rgba(255,81,122,1);
+
+.active1 {
+  border: 2rpx solid #ff2644;
+  color: #ff2644;
 }
+
 .contentainer2-button {
   display: flex;
-  height: 66rpx;
+  height: 75rpx;
   text-align: center;
   border-top: 2rpx solid #eaeaea;
 }
@@ -797,13 +821,13 @@ page {
 }
 
 .comfirm {
-  height: 66rpx;
-  line-height: 66rpx;
+  height: 75rpx;
+  line-height: 75rpx;
   font-size: 34rpx;
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF2644;
+  color: #ff2644;
 }
 
 .comfirm::after {
@@ -816,12 +840,13 @@ page {
 
 .zan-dialog__mask3 {
   position: fixed;
-  top: 0;
+  top: -80rpx;
   left: 0;
   right: 0;
   bottom: 0;
   display: none;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
 }
 
 .zan-dialog__container3 {
@@ -863,7 +888,9 @@ page {
 .contentainer3-content {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0rpx 30rpx;
+  padding-bottom: 30rpx;
 }
 
 .contentainer3-content-text {
@@ -881,252 +908,114 @@ page {
 }
 
 .active1 {
-  border: 2rpx solid #FF2644;
-  color: #FF2644;
+  border: 2rpx solid #ff2644;
+  color: #ff2644;
 }
 
 .contentainer3-button {
   display: flex;
-  height: 66rpx;
+  height: 88rpx;
   text-align: center;
   border-top: 2rpx solid #eaeaea;
 }
 
-.reject {
+.contentainer3-button .reject {
   border-right: 2rpx solid #eaeaea;
   width: 270rpx;
-  height: 75rpx;
-  line-height: 75rpx;
+  height: 88rpx;
+  line-height: 88rpx;
   font-size: 34rpx;
   color: rgba(51, 51, 51, 1);
 }
 
-.comfirm {
-  height: 66rpx;
-  line-height: 66rpx;
+.contentainer3-button .comfirm {
+  height: 88rpx;
+  line-height: 88rpx;
   font-size: 34rpx;
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF2644;
+  color: #ff2644;
 }
 
 .comfirm::after {
   border: none;
 }
-/* 去评价弹框 */
 
-/* 弹框 */
+/* 终止0元购弹框 */
 
-.zan-dialog__mask4 {
+.stop-zan-dialog__mask {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  display: none;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
 }
 
-.zan-dialog__container4 {
-  transform: translateY(300%);
-  transition: all 0.00001s ease;
+.stop-zan-dialog__container {
   width: 540rpx;
-  height: 524rpx;
+  height: 282rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  bottom: 530rpx;
+  top: 300rpx;
   left: 110rpx;
   z-index: 9999;
 }
 
-.zan-dialog--show4 .zan-dialog__container4 {
-  transform: translateY(0);
-}
-
-.zan-dialog--show4 .zan-dialog__mask4 {
-  display: block;
-}
-
 /* 弹框内容 */
 
-.contentainer4 {
+.stop-content {
+  text-align: center;
   overflow: hidden;
 }
 
-.contentainer4-title {
-  text-align: center;
+.stop-content-title {
   margin-top: 44rpx;
-  margin-bottom: 30rpx;
+  margin-bottom: 10rpx;
   font-size: 34rpx;
   font-weight: bold;
   color: rgba(34, 34, 34, 1);
 }
 
-.contentainer4-item {
-  display: flex;
-}
-
-.contentainer4-left-text {
-  margin-left: 30rpx;
+.stop-content-container {
+  width: 357rpx;
+  height: 66rpx;
+  margin-left: 100rpx;
+  margin-bottom: 35rpx;
   font-size: 30rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
+  text-align: center;
   color: rgba(51, 51, 51, 1);
 }
 
-.contentainer4-left-start {
-  margin-left: 215rpx;
+.stop-content-button {
   display: flex;
-  justify-content: space-between;
-}
-
-.contentainer4-left-start image {
-  width: 30rpx;
-  height: 30rpx;
-}
-
-.textarea-wrp {
-  position: relative;
-  margin: 20rpx auto;
-  width: 480rpx;
-  height: 220rpx;
-  border: 2rpx solid rgba(153, 153, 153, 1);
-  border-radius: 25px;
-  margin-bottom: 40rpx;
-}
-
-.textarea-wrp textarea {
-  width: 440rpx;
-  height: 220rpx;
-  color: #aaa;
-  font-size: 28rpx;
-  margin-left: 20rpx;
-  margin-top: 20rpx;
-  z-index: 10;
-}
-
-.currentWordNumber {
-  position: absolute;
-  right: 30rpx;
-  bottom: 20rpx;
-  font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(170, 170, 170, 1);
-}
-
-.contentainer4-button {
-  display: flex;
-  height: 70rpx;
-  text-align: center;
+  height: 100rpx;
   border-top: 2rpx solid #eaeaea;
 }
 
-.reject {
+.stop-reject {
   border-right: 2rpx solid #eaeaea;
   width: 270rpx;
   height: 75rpx;
   line-height: 75rpx;
   font-size: 34rpx;
-  color: rgba(51, 51, 51, 1);
+  color: #ff2644;
 }
 
-.comfirm {
+.stop-comfirm {
   height: 66rpx;
   line-height: 66rpx;
   font-size: 34rpx;
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  color: #FF2644;
-}
-
-.comfirm::after {
-  border: none;
-}
-
-/* 弹出框 */
-
-.commodity_screen {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 1);
-  opacity: 0.4;
-  overflow: hidden;
-  z-index: 9999;
-  color: rgba(255, 255, 255, 1);
-}
-
-/*对话框 */
-
-.commodity_attr_box {
-  width: 100%;
-  overflow: hidden;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 20rpx 20rpx 0rpx 0rpx;
-  z-index: 9999;
-}
-
-.content-wrapper {
-  overflow: hidden;
-  height: auto;
-  text-align: center;
-  position: relative;
-}
-
-.content-wrapper .cancel {
-  width: 44rpx;
-  height: 44rpx;
-  position: absolute;
-  right: 30rpx;
-  top: 14rpx;
-}
-
-.content-wrapper .shareCommission {
-  margin-top: 70rpx;
-  font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
-.content-wrapper .shareText {
-  margin-top: 39rpx;
-  font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(102, 102, 102, 1);
-}
-
-.content-wrapper .share-button {
-  background: rgba(255, 255, 255, 1);
-  width: 170rpx;
-  border-radius: 0;
-}
-
-button::after {
+.stop-comfirm::after {
   border: none;
-}
-
-.content-wrapper .photo {
-  margin-top: 30rpx;
-  width: 128rpx;
-  height: 128rpx;
-}
-
-.content-wrapper .wx {
-  margin-top: -35rpx;
-  font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(51, 51, 51, 1);
 }

@@ -6,24 +6,43 @@ page {
 
 .zero-purchase-top {
   width: 750rpx;
-  height: 401rpx;
+  height: 364rpx;
+}
+
+.zero-purchase-text-wrap {
+  width: 750rpx;
+  position: absolute;
+  top: 310rpx;
+}
+
+.zero-purchase-text {
+  margin: 0 auto;
+  width: 460rpx;
+  height: 59rpx;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: rgba(255, 38, 68, 1);
 }
 
 .zero-purchase-bottom {
+  margin-top: 32rpx;
   text-align: center;
 }
 
-.zero-purchase-title {
-  font-size: 30rpx;
-  font-family: PingFang-SC-Bold;
-  font-weight: bold;
-  color: #FF2644;
-  margin-bottom: 24rpx;
+.zero-purchase-container {
+  margin: 0 auto;
+  overflow: hidden;
+  width: 692rpx;
+  height: 118rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 59rpx;
 }
 
 .zero-purchase-time {
   display: flex;
-  margin-left: 76rpx;
+  margin-top: 20rpx;
+  margin-left: 38rpx;
 }
 
 .zero-purchase-number {
@@ -52,8 +71,8 @@ page {
   font-size: 26rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
-  color: #FF2644;
-  margin-top: 20rpx;
+  color: #ff2644;
+  margin-top: 10rpx;
   margin-bottom: 22rpx;
 }
 
@@ -111,23 +130,24 @@ page {
 
 .zero-purchase-list-item {
   width: 610rpx;
-  padding-bottom: 15rpx;
+  height: 765rpx;
   margin-left: 70rpx;
   background: rgba(255, 255, 255, 1);
   margin-top: 40rpx;
   box-shadow: 0rpx 5rpx 10rpx 0rpx rgba(3, 0, 1, 0.1);
   border-radius: 8rpx;
+  box-sizing: border-box;
+  padding-top: 75rpx;
 }
 
 .zero-purchase-list-item image {
-  margin-top: 45rpx;
   width: 520rpx;
   height: 520rpx;
   border-radius: 8rpx;
 }
 
 .zero-purchase-list-text {
-  margin-top: 20rpx;
+  margin-top: 30rpx;
   margin-left: 24rpx;
   width: 570rpx;
   text-align: left;
@@ -141,19 +161,18 @@ page {
   display: flex;
   margin-left: 24rpx;
   justify-content: space-between;
-  margin-top: 34rpx;
-  margin-bottom: 34rpx;
+  margin-top: 24rpx;
   font-size: 32rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
-  color: #FF2644;
+  color: #ff2644;
 }
 
 .zero-purchase-list-sign .sign {
   display: block;
   width: 48rpx;
   height: 48rpx;
-  background: #FF2644;
+  background: #ff2644;
   border-radius: 50%;
   color: #fff;
   font-size: 30rpx;
@@ -163,6 +182,11 @@ page {
 .block {
   height: 40rpx;
   width: 750rpx;
+  margin-bottom: 56rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
   background: #fcb3bc;
 }
 
@@ -210,22 +234,18 @@ page {
   bottom: 25%;
 }
 
-/* 返回首页组件 */
-.go_home{
-  position: fixed;
-  top:450px;
-  right:10px;
-  z-index: 9999;
-}
 /* 分享按钮 */
-.share_img{
+
+.share_img {
   position: absolute;
-  right:0;
-  top:54rpx;
-  width:104rpx;
-  height:58rpx;
+  right: 0;
+  top: 54rpx;
+  width: 125rpx;
+  height: 70rpx;
 }
+
 /* 分享弹框 */
+
 .commodity_screen1 {
   width: 100%;
   height: 100%;
@@ -238,6 +258,7 @@ page {
   z-index: 9999;
   color: rgba(255, 255, 255, 1);
 }
+
 .commodity_attr_box1 {
   width: 100%;
   overflow: hidden;
@@ -290,7 +311,7 @@ page {
 
 .content-wrapper1 .share-button {
   background: rgba(255, 255, 255, 1);
-  width: 170rpx;
+  width: 198rpx;
   height: 185rpx;
   border-radius: 0;
 }
@@ -312,3 +333,115 @@ button::after {
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
+
+/* 返回首页按钮 */
+
+.go_home {
+  width: 115rpx;
+  height: 109rpx;
+  position: fixed;
+  bottom: 20%;
+  right: 20rpx;
+  animation: swing .8s infinite;
+}
+
+@-webkit-keyframes swing {
+  20% {
+    -webkit-transform: rotate3d(0, 0, 1, 15deg);
+    transform: rotate3d(0, 0, 1, 15deg);
+  }
+
+  40% {
+    -webkit-transform: rotate3d(0, 0, 1, -10deg);
+    transform: rotate3d(0, 0, 1, -10deg);
+  }
+
+  60% {
+    -webkit-transform: rotate3d(0, 0, 1, 5deg);
+    transform: rotate3d(0, 0, 1, 5deg);
+  }
+
+  80% {
+    -webkit-transform: rotate3d(0, 0, 1, -5deg);
+    transform: rotate3d(0, 0, 1, -5deg);
+  }
+
+  to {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+}
+
+@keyframes swing {
+  20% {
+    -webkit-transform: rotate3d(0, 0, 1, 15deg);
+    transform: rotate3d(0, 0, 1, 15deg);
+  }
+
+  40% {
+    -webkit-transform: rotate3d(0, 0, 1, -10deg);
+    transform: rotate3d(0, 0, 1, -10deg);
+  }
+
+  60% {
+    -webkit-transform: rotate3d(0, 0, 1, 5deg);
+    transform: rotate3d(0, 0, 1, 5deg);
+  }
+
+  80% {
+    -webkit-transform: rotate3d(0, 0, 1, -5deg);
+    transform: rotate3d(0, 0, 1, -5deg);
+  }
+
+  to {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+}
+
+.swing {
+  -webkit-transform-origin: top center;
+  transform-origin: top center;
+  -webkit-animation-name: swing;
+  animation-name: swing;
+}
+/* 海报弹框 */
+
+.mask_hb {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+}
+
+.canvas-box {
+  width: 0;
+  height: 0;
+  position: fixed;
+  top: 3.9%;
+  left: 6%;
+}
+
+.canvas {
+  width: 88%;
+  height: 89%;
+  position: fixed;
+  top: 3.9%;
+  left: 6%;
+}
+
+.close_hb {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: 2%;
+}
+
+.close_hb image {
+  width: 50rpx;
+  height: 50rpx;
+}
+

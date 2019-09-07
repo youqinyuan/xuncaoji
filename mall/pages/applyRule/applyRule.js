@@ -5,18 +5,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    options:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options)
+    var that = this
+    that.setData({
+      options: options
+    })
   },
   applyZeroBuy: function () {
+    var that = this
+    let str = JSON.stringify(that.data.options);
     wx.navigateTo({
-      url: '/pages/applyZero/applyZero',
+      url: '/pages/applyZero/applyZero?detailObj=' + str,
     })
   },
   /**

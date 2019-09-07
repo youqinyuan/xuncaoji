@@ -1,6 +1,7 @@
 <!--pages/mine/mine.wxml-->
 <!--我的信息-->
-<view class="content">
+<!-- 已登录 -->
+<view class="content" wx:if="{{token}}">
   <view class="top">
     <view class="top-left">
       <view class="sculpture" bindtap='personalData'>
@@ -19,22 +20,37 @@
         </view>
       </view>
     </view>
-    <view class="right" bindtap="recharge">充值</view>
+    <view class="right" bindtap="recharge">账户</view>
   </view>
   <view class="bottom" wx:if="{{content.isMember===2}}">
     <view class="member">
       <image src="../../assets/images/icon/my_imassage_nohuiy_icon.png"></image>
     </view>
-    <view class="notmember">您还不是会员， 立即
-      <text class="open" bindtap="open">领会员</text>
+    <view class="notmember">您还不是合伙人，
+      <text class="open" bindtap="open">领合伙人特权</text>
     </view>
   </view>
   <view class="bottom" wx:if="{{content.isMember===1}}">
     <view class="member">
       <image src="../../assets/images/icon/my_imassage_huiy_icon.png"></image>
     </view>
-    <view class="notmember1">您已经是会员
-      <text class="open" bindtap="open">领会员</text>
+    <view class="notmember1">您已经是合伙人，
+      <text class="open" bindtap="open">领合伙人特权</text>
+    </view>
+  </view>
+</view>
+<!-- 未登录 -->
+<view class="person-login" wx:elif="{{!token}}">
+  <view class="person-wrap">
+    <image src="../../assets/images/icon/zhanw_tb_n.png"></image>
+    <view class="click" bindtap="jumpLogin">点击登录账户</view>
+  </view>
+  <view class="person-login-text">
+    <view class="member">
+      <image src="../../assets/images/icon/my_imassage_nohuiy_icon.png"></image>
+    </view>
+    <view class="notmember">您还不是合伙人，
+      <text class="open" bindtap="open">领合伙人特权</text>
     </view>
   </view>
 </view>
@@ -132,22 +148,6 @@
     <view class="mine-list-text">客服</view>
   </button>
 </view>
-<!--微信授权弹框弹框-->
-<!-- <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
-  <view class="zan-dialog__mask" />
-  <view class="zan-dialog__container">
-    <view class='content'>
-      <view class="content-title">提示</view>
-      <view class="content-container">您需同意微信授权，拒绝微信授权
-您将无法获取佣金和提现功能。
-    </view>
-    <view class="content-button">
-      <view class="reject" catchtap='reject'>拒绝</view>
-      <button class="comfirm" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">确定</button>
-    </view>
-    </view>
-  </view>
-</view> -->
 <!-- 邀请码弹框 -->
 <view class="zan-dialog1" catchtouchmove="preventTouchMove" wx:if="{{showInviterCode}}" catchtap="hideModal"></view>
 <view class="zan-dialog__container1" wx:if="{{showInviterCode}}">
@@ -167,17 +167,3 @@
   <view class="nickname" wx:if="{{!content.inviterNickname}}">寻草记</view>
   <view class="nickname" wx:else>{{content.inviterNickname}}</view>
 </view>
-<!--客服弹框-->
-<!-- <view class="zan-dialog {{ showService ? 'zan-dialog--show' : '' }}">
-  <view class="zan-dialog__mask" bindtap="hideService" />
-  <view class="zan-dialog__container">
-    <view class='content'>
-      <view class="content-title">客服</view>
-      <view class="content-container">{{content.servicePhone}}
-      </view>
-      <view class="content-button" catchtap='call'>
-        呼叫
-      </view>
-    </view>
-  </view>
-</view> -->

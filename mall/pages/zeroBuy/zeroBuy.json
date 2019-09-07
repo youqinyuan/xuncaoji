@@ -3,7 +3,7 @@
     "go_home": "/components/go_home/go_home"
   },
   "navigationBarBackgroundColor": "#FF2644",
-  "navigationBarTitleText": "正品0元购",
+  "navigationBarTitleText": "新品体验",
   "navigationBarTextStyle": "white",
   "enablePullDownRefresh": false
 }

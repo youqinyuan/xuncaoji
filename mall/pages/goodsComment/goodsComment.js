@@ -12,7 +12,7 @@ Page({
     goodsComment: '', //商品评论内容
     goodsData: '', //商品详情
     index: '',
-    idx:'',
+    idx: '',
   },
 
   /**
@@ -39,7 +39,6 @@ Page({
           orderGoodsDetail[item].imgList = []
           orderGoodsDetail[item].imgList_compress = []
         }
-        // res.data.content.orderGoodsDetail.commentNum = 5
         that.setData({
           goodsData: orderGoodsDetail
         })
@@ -108,14 +107,6 @@ Page({
     console.log(e)
     let dex = e.target.dataset.index
     that.data.idx = e.target.dataset.index
-    // var index = that.data.index
-    // console.log(index)
-    // var goodsData = that.data.goodsData
-    // goodsData[index].imgList.splice(dex, 1)
-    // that.data.goodsData[index].img_compress.splice(dex, 1)
-    // that.setData({
-    //   goodsData: goodsData,
-    // })
   },
   //获取产品index
   getIndex: function(e) {
@@ -124,7 +115,7 @@ Page({
     var index = e.currentTarget.dataset.index
     var dex = that.data.idx
     console.log(dex)
-    if(dex !== ''){
+    if (dex !== '') {
       var goodsData = that.data.goodsData
       console.log(goodsData)
       console.log(index)
@@ -185,7 +176,7 @@ Page({
     }
   },
   //发布
-  submit: function() {
+  submit: function () {
     var that = this
     let goodsComment = that.data.goodsComment
     var goodsData = that.data.goodsData
@@ -211,7 +202,7 @@ Page({
       console.log(res)
       if (res.data.messageCode == 'MSG_1001') {
         wx.redirectTo({
-          url: '/pages/goodsEvaluate/goodsEvaluate?goodsId=' + goodsData[0].goodsId,
+          url: '/pages/goodsEvaluate/goodsEvaluate',
         })
       } else {
         wx.showToast({

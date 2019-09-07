@@ -25,10 +25,11 @@
 	"libVersion": "2.6.5",
 	"appid": "wx49f6da054a1eb413",
 	"projectname": "xcj",
+	"cloudfunctionTemplateRoot": "",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
-	"isGameTourist": false,
+	"scripts": {},
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
@@ -45,11 +46,10 @@
 			"list": []
 		},
 		"game": {
-			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 5,
 			"list": [
 				{
 					"id": 0,
@@ -80,15 +80,22 @@
 					"scene": null
 				},
 				{
-					"id": 4,
-					"name": "pages/address/address",
-					"pathName": "pages/address/address",
+					"id": 5,
+					"name": "pages/zeroPurchase/zeroPurchase",
+					"pathName": "pages/zeroPurchase/zeroPurchase",
+					"query": "id=80",
+					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "pages/mine/mine",
+					"pathName": "pages/mine/mine",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "0元购",
+					"id": 6,
+					"name": "pages/zeroPurchaseActivity/zeroPurchaseActivity",
 					"pathName": "pages/zeroPurchaseActivity/zeroPurchaseActivity",
 					"query": "",
 					"scene": null

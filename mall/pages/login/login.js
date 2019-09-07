@@ -180,45 +180,45 @@ Page({
           console.log("获取code成功");
           console.log('res.code:', res.code, res);
           wx.setStorageSync('code', res.code)
-        }
-      })
-      var code = wx.getStorageSync('code')
-      var inviterCode1 = wx.getStorageSync('inviterCode1') || ''
-      app.Util.ajax('mall/account/login', {
-        mobileNumber: phone,
-        captcha: codeNumber,
-        source: 2,
-        code: code,
-        inviterCode: inviterCode1
-      }, 'POST').then((res) => { // 使用ajax函数
-        if (res.data.messageCode === 'MSG_1001') {
-          wx.setStorageSync('token', res.header.token)
-          wx.setStorageSync('inviterCode', res.data.content.inviterCode)
-          app.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
-            if (res.data.content) {
-              that.setData({
-                provinces: res.data.content
+          var code = res.code
+          var inviterCode1 = wx.getStorageSync('inviterCode1') || ''
+          app.Util.ajax('mall/account/login', {
+            mobileNumber: phone,
+            captcha: codeNumber,
+            source: 2,
+            code: code,
+            inviterCode: inviterCode1
+          }, 'POST').then((res) => { // 使用ajax函数
+            if (res.data.messageCode === 'MSG_1001') {
+              wx.setStorageSync('token', res.header.token)
+              wx.setStorageSync('inviterCode', res.data.content.inviterCode)
+              app.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
+                if (res.data.content) {
+                  that.setData({
+                    provinces: res.data.content
+                  })
+                  wx.setStorageSync('provinces', res.data.content)
+                }
               })
-              wx.setStorageSync('provinces', res.data.content)
+              wx.removeStorageSync('othersInviterCode')
+              if (that.data.url != '') {
+                wx.navigateTo({
+                  url: that.data.url
+                })
+              } else {
+                wx.switchTab({
+                  url: '/pages/index/index'
+                })
+              }
+            } else if (res.data.messageCode === 'MSG_4002') {
+              wx.redirectTo({
+                url: '/pages/invitationCode/invitationCode?tips=' + '请填写正确的邀请码'
+              })
+            } else {
+              that.setData({
+                text: '验证码输入错误'
+              })
             }
-          })
-          wx.removeStorageSync('othersInviterCode')
-          if (that.data.url != '') {
-            wx.navigateTo({
-              url: that.data.url
-            })
-          } else {
-            wx.switchTab({
-              url: '/pages/index/index'
-            })
-          }
-        } else if (res.data.messageCode === 'MSG_4002') {
-          wx.redirectTo({
-            url: '/pages/invitationCode/invitationCode?tips=' + '请填写邀请码后进入'
-          })
-        } else {
-          that.setData({
-            text: '验证码输入错误'
           })
         }
       })

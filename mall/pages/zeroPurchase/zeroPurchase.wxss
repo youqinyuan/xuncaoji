@@ -114,15 +114,7 @@ page {
   font-size: 22rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
-  color: #ff2644;
-  position: relative;
-}
-
-.old-price .img {
-  position: absolute;
-  top: 5px;
-  width: 36rpx;
-  height: 36rpx;
+  color: rgba(153, 153, 153, 1);
 }
 
 .old-price text {
@@ -214,20 +206,6 @@ page {
   color: rgba(102, 102, 102, 1);
 }
 
-/* 规格 */
-
-.spcdesc {
-  width: 750rpx;
-  height: 90rpx;
-  line-height: 90rpx;
-  padding-left: 30rpx;
-  margin-bottom: 20rpx;
-  background: rgba(255, 255, 255, 1);
-  font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(51, 51, 51, 1);
-}
 
 /* 邀请好友 */
 
@@ -391,6 +369,7 @@ page {
   width: 150rpx;
   height: 150rpx;
 }
+
 /* 详情图 */
 
 .shop-detail-wrap {
@@ -504,115 +483,6 @@ page {
   border-radius: 38rpx;
 }
 
-/* 公众号弹框 */
-
-.modal-mask1 {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 1);
-  opacity: 0.6;
-}
-
-.modal {
-  width: 630rpx;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 24rpx;
-  overflow: hidden;
-  position: fixed;
-  top: 5%;
-  left: 60rpx;
-  z-index: 9999;
-  padding-bottom: 69rpx;
-}
-
-.modal-title1 {
-  margin-top: 54rpx;
-  margin-left: 52rpx;
-  font-size: 34rpx;
-  color: rgba(51, 51, 51, 1);
-}
-
-.modal-text {
-  margin-top: 50rpx;
-  margin-left: 52rpx;
-  width: 528rpx;
-  height: 91rpx;
-  font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(170, 170, 170, 1);
-  line-height: 34rpx;
-}
-
-.modal-img {
-  margin: 0 auto;
-  margin-top: 56rpx;
-  width: 380rpx;
-  height: 380rpx;
-  border: 8rpx solid #ff2644;
-  border-radius: 20rpx;
-}
-
-.modal-img-text {
-  text-align: center;
-  width: 240rpx;
-  height: 53rpx;
-  background: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 270rpx;
-  left: 198rpx;
-  font-size: 40rpx;
-  font-family: PingFang-SC-Bold;
-  font-weight: bold;
-  color: #ff6417;
-}
-
-.modal-img image {
-  margin-left: 24rpx;
-  width: 332rpx;
-  height: 332rpx;
-  margin-top: 20rpx;
-}
-
-.section1 {
-  font-size: 28rpx;
-  display: flex;
-  margin-top: 44rpx;
-  margin-left: 102rpx;
-  width: 440rpx;
-  border-bottom: 2rpx solid #ddd;
-}
-
-.input-price1 {
-  margin-top: 7rpx;
-  font-size: 28rpx;
-  color: rgba(51, 51, 51, 1);
-}
-
-input {
-  width: 200rpx;
-  padding-bottom: 6rpx;
-}
-
-button {
-  width: 440rpx;
-  height: 76rpx;
-  margin-top: 59rpx;
-  background: #ff6417;
-  border-radius: 38rpx;
-  font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 1);
-}
-
-button::after {
-  border: none;
-}
-
 /* 分享弹框 */
 
 /* 弹出框 */
@@ -640,7 +510,7 @@ button::after {
   left: 0;
   background: rgba(255, 255, 255, 1);
   border-radius: 20rpx 20rpx 0rpx 0rpx;
-  z-index: 9999;
+  z-index: 99999;
 }
 
 .content-wrapper1 {
@@ -684,7 +554,7 @@ button::after {
 
 .content-wrapper1 .share-button {
   background: rgba(255, 255, 255, 1);
-  width: 170rpx;
+  width: 198rpx;
   height: 185rpx;
   border-radius: 0;
 }
@@ -751,7 +621,220 @@ button::after {
 
 .go_home {
   position: fixed;
-  top: 450px;
+  bottom: 20%;
   right: 10px;
   z-index: 9999;
+}
+
+/* 规格弹框使屏幕变暗  */
+
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.4;
+  overflow: hidden;
+  z-index: 1000;
+  color: rgba(255, 255, 255, 1);
+}
+
+/*对话框 */
+
+.commodity_attr_box {
+  height: 962rpx;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+  z-index: 2000;
+}
+
+.commodity-top {
+  display: flex;
+  height: 242rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+}
+
+.commodity-top-img {
+  margin-left: 24rpx;
+  margin-top: 21rpx;
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.commodity-top-img image {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 8rpx;
+}
+
+.commodity-top-right {
+  margin-left: 30rpx;
+}
+
+.commodity-top-right-item {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.commodity-top-right-cancel {
+  position: absolute;
+  right: 30rpx;
+  top: 20rpx;
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.commodity-top-right-cancel image {
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.commodity-top-right-title {
+  display: flex;
+  margin-top: 40rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.sign {
+  margin-top: 5rpx;
+  font-size: 24rpx;
+  color: #ff2644;
+}
+
+.price {
+  margin-top: -6rpx;
+  font-size: 36rpx;
+  color: #ff2644;
+}
+
+.commodity-save {
+  font-size: 24rpx;
+  margin-top: 10rpx;
+  color: rgba(102, 102, 102, 1);
+}
+
+.commodity-size {
+  font-size: 24rpx;
+  margin-top: 45rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content-wrapper {
+  height: auto;
+  max-height: 565rpx;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
+}
+
+/*规格值选择*/
+
+.color-size {
+  margin-top: 20rpx;
+}
+
+.color-size-title {
+  margin-left: 24rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.color-size-list {
+  margin-left: 24rpx;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 24rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.color-size-list .text1 {
+  padding: 15rpx 30rpx;
+  margin-top: 20rpx;
+  display: block;
+  margin-right: 24rpx;
+  background-color: rgba(244, 244, 244, 1);
+  border-radius: 30rpx;
+}
+
+.color-size-list .active {
+  border: 2rpx solid #ff2644;
+  color: #ff2644;
+  background-color: rgba(255, 255, 255, 1) !important;
+  z-index: 999;
+}
+
+.active1 {
+  border: 2rpx solid #ff2644;
+  color: #ff2644;
+  background-color: rgb(255, 255, 255);
+  width: 230rpx;
+  height: 100rpx;
+  text-align: center;
+  z-index: 999;
+  border-radius: 12rpx;
+}
+
+/* 分期返现 */
+
+.return-title {
+  margin-top: 30rpx;
+  margin-left: 23rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.orderTab {
+  width: 100%;
+  height: 130rpx;
+  margin-top: 30rpx;
+  background-color: #fff;
+  font-size: 0;
+  white-space: nowrap;
+  margin-left: 23rpx;
+}
+
+.orderTabItem {
+  width: 230rpx;
+  height: 100rpx;
+  text-align: center;
+  border-radius: 12rpx;
+  margin-right: 20rpx;
+  position: relative;
+  vertical-align: middle;
+  display: inline-block;
+  background: rgba(244, 244, 244, 1);
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(153, 153, 153, 1);
+}
+
+.tabTitle {
+  margin-top: 20rpx;
+}
+
+.zeroButton {
+  position: fixed;
+  bottom: 0;
+  width: 750rpx;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  background: #ff2644;
+  font-size: 36rpx;
+  font-family: Adobe Heiti Std R;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 1);
 }

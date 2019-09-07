@@ -32,9 +32,11 @@ Component({
    */
   methods: {
     go_home: function() {
+      var that = this
       wx.switchTab({
         url: '/pages/index/index'
       })
+      app.globalData.scene = 1001
     }
   }
 })

@@ -1,9 +1,7 @@
 {
-  "usingComponents": {
-    "swiper-show":"/components/swiper-show/swiper-show"
-  },
+  "usingComponents": {},
   "navigationBarBackgroundColor": "#FF2644",
-  "navigationBarTitleText": "会员",
+  "navigationBarTitleText": "寻草记",
   "navigationBarTextStyle": "white",
   "enablePullDownRefresh": true
 }

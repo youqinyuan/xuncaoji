@@ -53,15 +53,13 @@
     </view> -->
     <!--零元购-->
     <view class="zerobuy" bindtap='toZeroPurchase' wx:if="{{bannerId !==''}}">
-      <image class="zerobuy-item" src="{{bannerUrl}}"></image>
+      <image class="zerobuy-item" src="/assets/images/icon/index_zerobuy.png"></image>
     </view>
     <!--0元购好物-->
-    <view class="nationwideReturn">
+    <!-- <view class="nationwideReturn">
       <view class="nationwideReturn-title">
         <image class="nationwideReturn-img" src="../../assets/images/icon/quanmfan_icon.png"></image>
         <text class="nationwideReturn-text">0元购好物</text>
-        <!-- <view class="nationwideReturn-price">累计已返
-          <text>{{totalAmount}}</text>元</view> -->
       </view>
       <view class="nationwideReturn-wrapper">
         <view class="nationwideReturn-list" wx:for="{{wholeNation}}" wx:key="{{item.id}}" bindtap='jumpReturn' data-url='/pages/nationwideReturn/nationwideReturn'>
@@ -74,7 +72,7 @@
           <view class="nationwideReturn-list-item">已抢{{item.grabbed}}</view>
         </view>
       </view>
-    </view>
+    </view> -->
     <!-- 全网低价 -->
     <view class="goodlist">
       <view class="goodlist-title">
@@ -141,7 +139,7 @@
               <text>{{item.dctPrice}}</text>
             </view>
             <view class="pay-money">
-              <text>返</text>
+              <text>返现</text>
               <text>￥</text>
               <text>{{item.marketingCashBack.totalAmount}}</text>
             </view>

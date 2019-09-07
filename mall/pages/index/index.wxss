@@ -15,7 +15,7 @@ page {
   background: #ff2644;
   border-radius: 50%;
   position: fixed;
-  bottom: 140rpx;
+  bottom: 200rpx;
   right: 20rpx;
   z-index: 999;
 }
@@ -28,7 +28,7 @@ page {
 
 .small-wrapper {
   position: fixed;
-  bottom: 186rpx;
+  bottom: 246rpx;
   right: 35rpx;
   z-index: 999;
   width: 42rpx;

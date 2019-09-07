@@ -176,20 +176,6 @@
   display: flex;
   align-items: center;
 }
-
-.nationwideReturn-price {
-  position: absolute;
-  right: 26rpx;
-  font-size: 26rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(51, 51, 51, 1);
-}
-
-.nationwideReturn-price text {
-  color: #ff2644;
-}
-
 .nationwideReturn-img {
   width: 36rpx;
   height: 36rpx;
@@ -579,5 +565,4 @@
   color: rgba(153, 153, 153, 1);
   text-align: center;
   margin-top: 20rpx;
-  padding-bottom: 100rpx;
 }

@@ -88,3 +88,4 @@
 </view>
 <!-- 申请0元购 -->
 <button class="application-zero" bindtap='applyZeroBuy'>申请0元购买</button>
+<view class="block"></view>

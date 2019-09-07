@@ -267,6 +267,12 @@ page {
 .expressfee-price1-text{
   color: #FF2644;
 }
+.expressfee-money{
+  color: #FF2644;
+}
+.expressfee-period{
+  color: #333333;
+}
 .blcok {
   height: 20rpx;
   background: #f4f4f4;

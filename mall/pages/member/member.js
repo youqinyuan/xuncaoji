@@ -7,58 +7,55 @@ Page({
    * 页面的初始数据
    */
   data: {
-    show: false,//邀请好友弹框
-    taskItems:[],
-    expireTime:'',//会员到期时间
-    inviterCode: '',//邀请码
-    shareList:{},//分享数据
-    membership:false,//完成任务弹窗
+    show: false, //邀请好友弹框
+    taskItems: [],
+    expireTime: '', //会员到期时间
+    inviterCode: '', //邀请码
+    shareList: {}, //分享数据
+    membership: false, //完成任务弹窗
     imageUrl: '../../assets/images/icon/team_share.png',
     haibao: false,
     haibaoImg: '',
   },
   //显示弹框
-  recurit: function () {
+  recurit: function() {
     var that = this;
-    //隐藏tabbar
-    that.getTabBar().setData({
-      showTabbar: false
-    })
+    // 隐藏tabbar
+    wx.hideTabBar()
     that.setData({
       show: true
     })
   },
-  cancel: function () {
+  cancel: function() {
     var that = this;
     that.setData({
       show: false
     })
     //显示tabbar
-    that.getTabBar().setData({
-      showTabbar: true
-    })
+    wx.showTabBar()
   },
   //跳转至充值界面
-  jumpRecharge:function(){
+  jumpRecharge: function() {
     wx.navigateTo({
       url: '/pages/mine/recharge/recharge',
     })
   },
   //跳转至首页
-  jumpIndex:function(){
+  jumpIndex: function() {
     wx.switchTab({
-     url:'/pages/index/index'
-   })
+      url: '/pages/index/index'
+    })
   },
   /**
-  * 弹出框蒙层截断touchmove事件
-  */
-  preventTouchMove: function () {
-  },
+   * 弹出框蒙层截断touchmove事件
+   */
+  preventTouchMove: function() {},
   //查询分享数据
-  chooseShare: function () {
+  chooseShare: function() {
     var that = this
-    app.Util.ajax('mall/weChat/sharing/target', { mode: 4 }, 'GET').then((res) => {
+    app.Util.ajax('mall/weChat/sharing/target', {
+      mode: 4
+    }, 'GET').then((res) => {
       if (res.messageCode = 'MSG_1001') {
         var inviterCode = wx.getStorageSync('inviterCode')
         if (inviterCode) {
@@ -75,23 +72,24 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this
     var token = wx.getStorageSync('token')
+    that.setData({
+      token:token
+    })
     if (!token) {
-      wx.navigateTo({
-        url: '/pages/invitationCode/invitationCode',
-      })
-    }else{
+      return
+    } else {
       app.Util.ajax('mall/personal/myMember', 'GET').then((res) => { // 使用ajax函数
         if (res.data.content) {
           var inviterCode = wx.getStorageSync('inviterCode')
           if (res.data.content.expireTime) {
             res.data.content.expireTime = time.formatTimeTwo(res.data.content.expireTime, 'Y年M月D日');
           }
-          if (res.data.content.lastExchangeKey !== ''){
+          if (res.data.content.lastExchangeKey !== '') {
             that.setData({
-              membership:true
+              membership: true
             })
           }
           that.setData({
@@ -105,14 +103,14 @@ Page({
     that.chooseShare()
   },
   //取消会员完成任务弹窗
-  cancelBox:function(){
+  cancelBox: function() {
     var that = this
     that.setData({
-      membership:false
+      membership: false
     })
   },
   // 分享朋友圈 生成海报
-  shareFriend: function () {
+  shareFriend: function() {
     var that = this
     app.Util.ajax('mall/weChat/sharing/snapshot/target', {
       mode: 4,
@@ -137,42 +135,60 @@ Page({
             })
             console.log(width, height)
             var ctx = wx.createCanvasContext('mycanvas');
-            var path_bg = '/assets/images/icon/bg.png'; //背景图片
-            var path_logo = '/assets/images/icon/xuncaoji_icon.png'
-            var title = '种草达人的欢乐场'
-            inviterCode = `邀请码: ${inviterCode}`
+            console.log(ctx)
             //绘制图片模板的背景图片
-            ctx.drawImage(path_bg, 0, 0, 0.88 * width, 0.89 * height);
-            //绘制logo
-            ctx.drawImage(path_logo, 0.384 * width, 0.055 * height, 0.133 * width, 0.133 * width);
-            // 绘制标题
+            ctx.drawImage('/assets/images/icon/bg.png', 0, 0, 0.88 * width, 0.89 * height);
+            //绘制顶部红色背景
+            ctx.drawImage('/assets/images/icon/canvas_title.png', 0, 0, 0.88 * width, 0.2 * height);
+            //绘制标题
             ctx.setFontSize(13);
             ctx.setFillStyle('#fff');
             ctx.setTextAlign("center")
-            ctx.fillText(title, 0.5 * width * 0.88, 26);
+            ctx.fillText('"Free Buy"，自由买，免费拿', 0.5 * width * 0.88, 26);
             ctx.stroke();
-            // 绘制邀请码
-            ctx.setFontSize(20);
-            ctx.setFillStyle('#FF517A');
-            ctx.fillText(inviterCode, 0.5 * width * 0.88, 0.055 * height + 0.133 * width + 20);
+            //绘制矩形
+            ctx.setFillStyle('#fff')
+            ctx.setShadow(0, 0, 2, '#eee')
+            ctx.fillRect(0.075 * width * 0.88, 0.095 * height * 0.89, 0.75 * width, 0.485 * height)
+            //绘制logo
+            ctx.drawImage('/assets/images/icon/partner.png', 0.35 * width, 44, 64, 51);
+            //绘制邀请码
+            if (inviterCode != 'undefined') {
+              ctx.setFontSize(19);
+              ctx.setFillStyle('#F85A53');
+              ctx.setTextAlign("center")
+              ctx.setFontSize(20);
+              ctx.setFillStyle('#FF2644');
+              ctx.fillText(`我的邀请码：${inviterCode}`, 0.5 * width * 0.88, 0.06 * height + 0.133 * width + 20);
+              ctx.stroke();
+            }
+            //绘制矩形
+            ctx.setFillStyle('#fff')
+            ctx.setShadow(0, 0, 2, '#eee')
+            ctx.fillRect(0.172 * width * 0.85, 0.205 * height * 0.89, 0.58 * width, 0.27 * height)
+            //绘制产品图片
+            ctx.drawImage('/assets/images/icon/bg_pic.png', 0.183 * width * 0.85, 0.21 * height * 0.89, 0.56 * width, 0.26 * height);
+            ctx.setFontSize(13);
+            ctx.setFillStyle('#F85A53');
+            ctx.fillText('平台累计返现金额', 0.3 * width * 0.88, 0.49 * height);
             ctx.stroke();
-            // 绘制产品图
-            ctx.drawImage('/assets/images/icon/bg_pic.png', 0.068 * width, 0.17 * height, 0.74 * width, 0.327 * height);
-            ctx.drawImage('/assets/images/icon/bg_yellow.png', 0.068 * width, 0.418 * height, 0.74 * width, 0.08 * height);
-            ctx.setFontSize(17);
-            ctx.setFillStyle('#E33A59');
-            ctx.fillText(`平台累计返现金额¥ ${cashBack}`, 0.5 * width * 0.88, 0.48 * height);
-            ctx.closePath()
+            ctx.setFontSize(13);
+            ctx.setFillStyle('#F85A53');
+            ctx.fillText('￥', 0.52 * width * 0.88, 0.49 * height);
+            ctx.stroke();
+            ctx.setFontSize(19);
+            ctx.setFillStyle('#F85A53');
+            ctx.fillText(`${cashBack}`, 0.658 * width * 0.88, 0.49 * height);
             ctx.stroke();
             // 绘制描述
-            ctx.setFontSize(14);
+            ctx.setFontSize(13);
             ctx.setFillStyle('#333');
-            var test = desc
+            var test = '寻草记商城所有商品均支持0元购买，自由买免费拿随时购随时取。'
             let chr = test.split('') // 分割为字符串数组
             let temp = ''
             let row = []
             for (let a = 0; a < chr.length; a++) {
-              if (ctx.measureText(temp).width < 0.7 * width) {
+              if (ctx.measureText(temp).width < 0.638 * width) {
                 temp += chr[a]
               } else {
                 a--
@@ -182,21 +198,24 @@ Page({
             }
             row.push(temp)
             for (var b = 0; b < row.length; b++) {
-              ctx.fillText(row[b], 0.5 * width * 0.88, 0.53 * height + b * 20);
+              ctx.setTextAlign("left")
+              ctx.fillText(row[b], 0.13 * width * 0.88, 0.52 * height + b * 20);
             }
             ctx.stroke();
             //绘制邀请码
-            ctx.drawImage(appletQrCodeUrl, 0.3 * width, 0.57 * height, 0.3 * width, 0.3 * width);
+            ctx.setShadow(0, 0, 0, '#fff')
+            ctx.drawImage(appletQrCodeUrl, 0.3 * width, 0.58 * height, 0.3 * width, 0.3 * width);
             //绘制提示语
             ctx.setFontSize(12);
             ctx.setFillStyle('#999');
-            ctx.fillText('长按保存图片或识别二维码查看', 0.5 * width * 0.88, 0.57 * height + 0.3 * width + 20);
+            ctx.setTextAlign("center")
+            ctx.fillText('长按保存图片或识别二维码查看', 0.5 * width * 0.88, 0.58 * height + 0.3 * width + 20);
             ctx.stroke();
             ctx.draw()
-            setTimeout(function () {
+            setTimeout(function() {
               wx.canvasToTempFilePath({
                 canvasId: 'mycanvas',
-                success: function (res) {
+                success: function(res) {
                   console.log('res', res)
                   that.data.haibaoImg = res.tempFilePath
                 }
@@ -212,7 +231,7 @@ Page({
     })
   },
   // 长按保存到相册
-  handleLongPress: function () {
+  handleLongPress: function() {
     var that = this
     console.log('长按')
     wx.saveImageToPhotosAlbum({
@@ -229,56 +248,48 @@ Page({
     })
   },
   //关闭海报分享页面
-  close_hb: function () {
+  close_hb: function() {
     var that = this
     that.setData({
       haibao: false
     })
-    //显示tabbar
-    that.getTabBar().setData({
-      showTabbar: true
-    })
+    // 显示tabbar
+    wx.showTabBar()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     var that = this
-    that.onLoad();
-    //tabbar
-    if (typeof that.getTabBar === 'function' && that.getTabBar()) {
-      that.getTabBar().setData({
-        selected: 1
-      })
-    }
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     var that = this
     that.onLoad()
     wx.stopPullDownRefresh() //停止下拉刷新
@@ -287,14 +298,14 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (ops) {
+  onShareAppMessage: function(ops) {
     var that = this
     if (ops.from === 'button') {
       // 来自页面内转发按钮
@@ -302,10 +313,10 @@ Page({
         show: false
       })
       //显示tabbar
-      that.getTabBar().setData({
-        showTabbar: true
-      })
-      app.Util.ajax('mall/weChat/sharing/onSuccess', { mode: 4 }, 'POST').then((res) => {
+      wx.showTabBar()
+      app.Util.ajax('mall/weChat/sharing/onSuccess', {
+        mode: 4
+      }, 'POST').then((res) => {
         if (res.data.content) {
           wx.showToast({
             title: '分享成功',
@@ -318,17 +329,23 @@ Page({
           })
         }
       })
-    }
-    return {
-      title: that.data.shareList.desc,
-      path: that.data.shareList.link,
-      imageUrl: that.data.imageUrl,
-      success: function (res) {
+      return {
+        title: that.data.shareList.desc,
+        path: that.data.shareList.link,
+        imageUrl: that.data.imageUrl,
+        success: function(res) {
 
-      },
-      fail: function (res) {
-        // 转发失败
-        console.log("转发失败:" + JSON.stringify(res));
+        },
+        fail: function(res) {
+          // 转发失败
+          console.log("转发失败:" + JSON.stringify(res));
+        }
+      }
+    } else {
+      return {
+        title: that.data.shareList.desc,
+        path: that.data.shareList.link,
+        imageUrl: that.data.imageUrl,
       }
     }
   }

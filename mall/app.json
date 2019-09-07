@@ -46,7 +46,6 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "custom": true,
     "color": "#333333",
     "selectedColor": "#FF2644",
     "backgroundColor": "#fff",
@@ -59,7 +58,7 @@
       },
       {
         "pagePath": "pages/member/member",
-        "text": "会员",
+        "text": "寻草记",
         "iconPath": "assets/images/icon/ic_member_n.png",
         "selectedIconPath": "assets/images/icon/ic_activemember_n.png"
       },

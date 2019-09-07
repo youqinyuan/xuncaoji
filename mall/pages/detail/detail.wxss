@@ -48,9 +48,49 @@ page {
 .apply{
   position: absolute;
   top: 642rpx;
-  right: 26rpx;
-  width: 200rpx;
-  height: 88rpx;
+  right: 36rpx;
+  width: 177rpx;
+  height: 74rpx;
+  animation: pulse .8s infinite;
+}
+
+@-webkit-keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.2, 1.2, 1.2);
+    transform: scale3d(1.2, 1.2, 1.2);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.2, 1.2, 1.2);
+    transform: scale3d(1.2, 1.2, 1.2);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.pulse {
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
 }
 /*价格*/
 
@@ -107,7 +147,7 @@ page {
   font-size: 32rpx;
   margin-top: 20rpx;
   margin-left: 30rpx;
-  height: 80rpx;
+  height: 85rpx;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -140,7 +180,7 @@ page {
   height: 50rpx;
   display: flex;
   line-height: 50rpx;
-  margin: 10rpx auto;
+  margin: 15rpx auto;
   background: rgba(255, 246, 248, 1);
   border-radius: 8rpx;
 }
@@ -770,9 +810,13 @@ button::after {
 }
 
 .save {
-  padding: 0 10rpx;
+  padding: 0 4rpx;
 }
 
+.savemoney{
+  padding-right: 0;
+  padding-left: 6rpx;
+}
 .jian-img {
   width: 36rpx;
   height: 18rpx;
@@ -806,7 +850,7 @@ button::after {
   color: rgba(255, 255, 255, 1);
 }
 
-/* 使屏幕变暗  */
+/* 规格弹框使屏幕变暗  */
 
 .commodity_screen {
   width: 100%;
@@ -824,7 +868,7 @@ button::after {
 /*对话框 */
 
 .commodity_attr_box {
-  height: 1150rpx;
+  height: 1000rpx;
   width: 100%;
   overflow: hidden;
   position: fixed;
@@ -909,7 +953,7 @@ button::after {
 
 .content-wrapper {
   height: auto;
-  max-height: 650rpx;
+  max-height: 495rpx;
   overflow-y: scroll;
   overflow: -Scroll;
   overflow-x: hidden;
@@ -1024,13 +1068,14 @@ button::after {
 
 /* 申请0元购 */
 .application-zero{
-  width: 630rpx;
+  position: fixed;
+  bottom: 40rpx;
+  left:40rpx;
+  width: 670rpx;
   height: 80rpx;
-  margin-top: 80rpx;
   background: #ff2644;
   border-radius: 40rpx;
   font-size: 32rpx;
-  margin-bottom: 111rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
@@ -1174,7 +1219,7 @@ button::after {
   left: 0;
   background: rgba(255, 255, 255, 1);
   border-radius: 20rpx 20rpx 0rpx 0rpx;
-  z-index: 9999;
+  z-index: 99999;
 }
 
 .content-wrapper1 {
@@ -1217,7 +1262,7 @@ button::after {
 
 .content-wrapper1 .share-button {
   background: rgba(255, 255, 255, 1);
-  width: 170rpx;
+  width: 198rpx;
   border-radius: 0;
 }
 
@@ -1360,7 +1405,7 @@ button::after {
 
 .go_home {
   position: fixed;
-  top: 450px;
+  bottom: 20%;
   right: 10px;
   z-index: 9999;
 }

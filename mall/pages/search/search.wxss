@@ -127,7 +127,7 @@ input {
 }
 .content-wrapper .share-button {
   background: rgba(255, 255, 255, 1);
-  width: 170rpx;
+  width: 198rpx;
   border-radius: 0;
 }
 button::after{

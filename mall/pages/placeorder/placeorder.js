@@ -18,16 +18,16 @@ Page({
     phoneNumber: '', //电话号码
     detailAddress: '', //详细地址
     city: '', //所在区域
-    userAddressBookId: 1, //地址id
-    activityGoodsId: '', //0元购
-    goodsId: 1, //商品id
+    userAddressBookId: '', //地址id
+    activityGoodsId: '', //0元购活动id
+    stockId:'',//库存ID
+    goodsId: '', //商品id
     options: {},
     disabled: false,
   },
   //跳转到支付订单页面
   toPaymentorder: function(e) {
     var that = this
-    console.log(0)
     var goodsList = that.data.goodsList;
     that.setData({
       disabled: true
@@ -55,6 +55,7 @@ Page({
       } else if (that.data.activityGoodsId !== '') {
         app.Util.ajax('mall/home/activity/freeShopping/placeOrder', {
           goodsId: that.data.goodsId,
+          stockId: that.data.stockId,
           userAddressBookId: that.data.userAddressBookId
         }, 'POST').then((res) => { // 使用ajax函数
           if (res.data.content) {
@@ -121,16 +122,16 @@ Page({
    */
   onLoad: function(options) {
     console.log(options)
-    this.setData({
+    var that = this
+    that.setData({
       options: options
     })
-    var that = this
     var goodsId = parseInt(options.goodsId)
     var stockId = parseInt(options.stockId)
     var quantity = parseInt(options.quantity)
     var cashBackId = parseInt(options.cashbackId)
     if (options.cardIds) {
-      //购物车下单
+      //购物车校验下单
       var cardIds = JSON.parse(options.cardIds);
       that.setData({
         cardIds: cardIds
@@ -161,15 +162,19 @@ Page({
         }
       })
     } else if (options.activityGoodsId) {
-      //零元购下单
+      //零元购校验下单
+      console.log(2)
       var activityGoodsId = parseInt(options.activityGoodsId)
+      var stockId = parseInt(options.stockId)
       var goodsId = parseInt(options.goodsId)
       that.setData({
         activityGoodsId: activityGoodsId,
-        goodsId: goodsId
+        goodsId: goodsId,
+        stockId: stockId
       })
       app.Util.ajax('mall/order/checkGoods', {
-        activityGoodsId: activityGoodsId,
+        stockId: stockId,
+        goodsId: goodsId,
         orderType: 3
       }, 'POST').then((res) => { // 使用ajax函数
         if (res.data.content) {
@@ -199,7 +204,7 @@ Page({
         }
       })
     } else {
-      //单个商品下单
+      //单个商品校验下单
       app.Util.ajax('mall/order/checkGoods', {
         goodsId: goodsId,
         stockId: stockId,

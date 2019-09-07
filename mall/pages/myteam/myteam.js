@@ -9,11 +9,12 @@ Page({
   data: {
     show: false,
     pageNumber: 1,
-    pageSize: 10,
+    pageSize: 20,
     content: {},
-    followers: [],
+    followers: [],//团队成员
     shareList: {},
     inviterCode: '',
+    text: '',
     imageUrl: '../../assets/images/icon/team_share.png',
     haibao: false,
     haibaoImg: '',
@@ -66,12 +67,16 @@ Page({
    */
   onLoad: function(options) {
     var that = this
-    console.log(options)
+    that.chooseShare();
+    that.init();
+  },
+  init: function () {
+    var that = this
     app.Util.ajax('mall/personal/followers', {
       pageNumber: that.data.pageNumber,
       pageSize: that.data.pageSize
     }, 'GET').then((res) => {
-      if (res.messageCode = 'MSG_1001') {
+      if (res.data.messageCode = 'MSG_1001') {
         var inviterCode = wx.getStorageSync('inviterCode')
         for (var i = 0; i < res.data.content.followers.items.length; i++) {
           res.data.content.followers.items[i].regTime = time.formatTimeTwo(res.data.content.followers.items[i].regTime, 'Y-M-D h:m:s');
@@ -83,7 +88,34 @@ Page({
         })
       }
     })
-    that.chooseShare()
+  },
+  getMore: function () {
+    var that = this
+    var pageNumber = that.data.pageNumber + 1
+    app.Util.ajax('mall/personal/followers', {
+      pageNumber: pageNumber,
+      pageSize: that.data.pageSize
+    }, 'GET').then((res) => {
+      if (res.data.messageCode = 'MSG_1001') {
+        var inviterCode = wx.getStorageSync('inviterCode')
+        var followers = res.data.content.followers.items
+        if (followers == '' && that.data.followers !== '') {
+          that.setData({
+            text: '已经到底啦'
+          })
+        }
+        var arr = that.data.followers
+        for (var i = 0; i < res.data.content.followers.items.length; i++) {
+          res.data.content.followers.items[i].regTime = time.formatTimeTwo(res.data.content.followers.items[i].regTime, 'Y-M-D h:m:s');
+          arr.push(res.data.content.followers.items[i])
+        }
+        that.setData({
+          followers: arr,
+          inviterCode: inviterCode,
+          pageNumber: pageNumber
+        })
+      }
+    })
   },
   // 分享朋友圈 生成海报
   shareFriend: function() {
@@ -113,42 +145,60 @@ Page({
             })
             console.log(width, height)
             var ctx = wx.createCanvasContext('mycanvas');
-            var path_bg = '/assets/images/icon/bg.png'; //背景图片
-            var path_logo = '/assets/images/icon/xuncaoji_icon.png'
-            var title = '种草达人的欢乐场'
-            inviterCode = `邀请码: ${inviterCode}`
+            console.log(ctx)
             //绘制图片模板的背景图片
-            ctx.drawImage(path_bg, 0, 0, 0.88 * width, 0.89 * height);
-            //绘制logo
-            ctx.drawImage(path_logo, 0.384 * width, 0.055 * height, 0.133 * width, 0.133 * width);
-            // 绘制标题
+            ctx.drawImage('/assets/images/icon/bg.png', 0, 0, 0.88 * width, 0.89 * height);
+            //绘制顶部红色背景
+            ctx.drawImage('/assets/images/icon/canvas_title.png', 0, 0, 0.88 * width, 0.2 * height);
+            //绘制标题
             ctx.setFontSize(13);
             ctx.setFillStyle('#fff');
             ctx.setTextAlign("center")
-            ctx.fillText(title, 0.5 * width * 0.88, 26);
+            ctx.fillText('"Free Buy"，自由买，免费拿', 0.5 * width * 0.88, 26);
             ctx.stroke();
-            // 绘制邀请码
-            ctx.setFontSize(20);
-            ctx.setFillStyle('#FF517A');
-            ctx.fillText(inviterCode, 0.5 * width * 0.88, 0.055 * height + 0.133 * width + 20);
+            //绘制矩形
+            ctx.setFillStyle('#fff')
+            ctx.setShadow(0, 0, 2, '#eee')
+            ctx.fillRect(0.075 * width * 0.88, 0.095 * height * 0.89, 0.75 * width, 0.485 * height)
+            //绘制logo
+            ctx.drawImage('/assets/images/icon/partner.png', 0.35 * width, 44, 64, 51);
+            //绘制邀请码
+            if (inviterCode != 'undefined') {
+              ctx.setFontSize(19);
+              ctx.setFillStyle('#F85A53');
+              ctx.setTextAlign("center")
+              ctx.setFontSize(20);
+              ctx.setFillStyle('#FF2644');
+              ctx.fillText(`我的邀请码：${inviterCode}`, 0.5 * width * 0.88, 0.06 * height + 0.133 * width + 20);
+              ctx.stroke();
+            }
+            //绘制矩形
+            ctx.setFillStyle('#fff')
+            ctx.setShadow(0, 0, 2, '#eee')
+            ctx.fillRect(0.172 * width * 0.85, 0.205 * height * 0.89, 0.58 * width, 0.27 * height)
+            //绘制产品图片
+            ctx.drawImage('/assets/images/icon/bg_pic.png', 0.183 * width * 0.85, 0.21 * height * 0.89, 0.56 * width, 0.26 * height);
+            ctx.setFontSize(13);
+            ctx.setFillStyle('#F85A53');
+            ctx.fillText('平台累计返现金额', 0.3 * width * 0.88, 0.49 * height);
             ctx.stroke();
-            // 绘制产品图
-            ctx.drawImage('/assets/images/icon/bg_pic.png', 0.068 * width, 0.17 * height, 0.74 * width, 0.327 * height);
-            ctx.drawImage('/assets/images/icon/bg_yellow.png', 0.068 * width, 0.418 * height, 0.74 * width, 0.08 * height);
-            ctx.setFontSize(17);
-            ctx.setFillStyle('#E33A59');
-            ctx.fillText(`平台累计返现金额¥ ${cashBack}`, 0.5 * width * 0.88, 0.48 * height);
-            ctx.closePath()
+            ctx.setFontSize(13);
+            ctx.setFillStyle('#F85A53');
+            ctx.fillText('￥', 0.52 * width * 0.88, 0.49 * height);
+            ctx.stroke();
+            ctx.setFontSize(19);
+            ctx.setFillStyle('#F85A53');
+            ctx.fillText(`${cashBack}`, 0.658 * width * 0.88, 0.49 * height);
             ctx.stroke();
             // 绘制描述
-            ctx.setFontSize(14);
+            ctx.setFontSize(13);
             ctx.setFillStyle('#333');
-            var test = desc
+            var test = '寻草记商城所有商品均支持0元购买，自由买免费拿随时购随时取。'
             let chr = test.split('') // 分割为字符串数组
             let temp = ''
             let row = []
             for (let a = 0; a < chr.length; a++) {
-              if (ctx.measureText(temp).width < 0.7 * width) {
+              if (ctx.measureText(temp).width < 0.638 * width) {
                 temp += chr[a]
               } else {
                 a--
@@ -158,17 +208,20 @@ Page({
             }
             row.push(temp)
             for (var b = 0; b < row.length; b++) {
-              ctx.fillText(row[b], 0.5 * width * 0.88, 0.53 * height + b * 20);
+              ctx.setTextAlign("left")
+              ctx.fillText(row[b], 0.13 * width * 0.88, 0.52 * height + b * 20);
             }
             ctx.stroke();
             //绘制邀请码
-            ctx.drawImage(appletQrCodeUrl, 0.3 * width, 0.57 * height, 0.3 * width, 0.3 * width);
+            ctx.setShadow(0, 0, 0, '#fff')
+            ctx.drawImage(appletQrCodeUrl, 0.3 * width, 0.58 * height, 0.3 * width, 0.3 * width);
             //绘制提示语
             ctx.setFontSize(12);
             ctx.setFillStyle('#999');
-            ctx.fillText('长按保存图片或识别二维码查看', 0.5 * width * 0.88, 0.57 * height + 0.3 * width + 20);
+            ctx.setTextAlign("center")
+            ctx.fillText('长按保存图片或识别二维码查看', 0.5 * width * 0.88, 0.58 * height + 0.3 * width + 20);
             ctx.stroke();
-            ctx.draw()
+            ctx.draw();
             setTimeout(function() {
               wx.canvasToTempFilePath({
                 canvasId: 'mycanvas',
@@ -225,7 +278,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    var that = this;
+    that.setData({
+      pageNumber: 1,
+      followers:[]
+    })
   },
 
   /**
@@ -253,7 +310,8 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    var that = this;
+    that.getMore(); 
   },
 
   /**

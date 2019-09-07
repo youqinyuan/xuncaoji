@@ -30,10 +30,13 @@ Page({
     orderCount: [],
     waitCount: 0, //待发货待收货数量
     userInfo: wx.getStorageSync('userInfo'), //用户信息
+    token:null
   },
   //客服分享图片回到指定的小程序页面
-  handleContact: function (e) {
-    var path = e.detail.path, query = e.detail.query, params = '';
+  handleContact: function(e) {
+    var path = e.detail.path,
+      query = e.detail.query,
+      params = '';
     if (path) {
       for (var key in query) {
         params = key + '=' + query[key] + '&';
@@ -43,6 +46,12 @@ Page({
         url: path + '?' + params
       })
     }
+  },
+  //跳转到登录页面
+  jumpLogin:function(){
+    wx.navigateTo({
+      url: '/pages/invitationCode/invitationCode',
+    })
   },
   //跳转到全部订单页面
   nav: function(e) {
@@ -152,47 +161,26 @@ Page({
       }
     })
   },
-  //跳转到商家入驻界面
-  toMerchantEntry: function() {
-    wx.navigateTo({
-      url: '/pages/undeveloped/undeveloped',
-    })
-  },
-  //客服
-  // customerService: function() {
-  //   var that = this;
-  //   that.setData({
-  //     showService: true
-  //   })
-  // },
-  //呼叫
-  call: function() {
-    var that = this;
-    that.setData({
-      showService: false
-    })
-    wx.makePhoneCall({
-      phoneNumber: that.data.content.servicePhone // 仅为示例，并非真实的电话号码
-    })
-  },
-  hideService: function() {
-    var that = this;
-    that.setData({
-      showService: false
-    })
-  },
   onLoad: function(options) {
     var that = this
+    if (options) {
+      if (options.inviterCode) {
+        wx.setStorage({
+          key: "othersInviterCode",
+          data: options.inviterCode
+        })
+      }
+    }
     var token = wx.getStorageSync('token')
+    that.setData({
+      token:token
+    })
     if (!token) {
-      wx.navigateTo({
-        url: '/pages/invitationCode/invitationCode',
-      })
+      return
     } else {
       that.setData({
         userInfo: wx.getStorageSync('userInfo')
       })
-      // console.log(that.data.userInfo.nickName)
       app.Util.ajax('mall/personal/dashboard', null, 'GET').then((res) => { // 使用ajax函数
         if (res.data.content) {
           if (res.data.content.orderCount.length > 0) {
@@ -216,7 +204,6 @@ Page({
           that.setData({
             content: res.data.content ? res.data.content : '',
             orderCount: res.data.content ? res.data.content.orderCount : [],
-            // waitCount:
           })
         }
       })
@@ -234,14 +221,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this
-    that.onLoad();
-    //tabbar
-    if (typeof that.getTabBar === 'function' && that.getTabBar()) {
-      that.getTabBar().setData({
-        selected: 2
-      })
-    }
+
+
   },
 
   /**
@@ -278,6 +259,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: "/pages/mine/mine?inviterCode=" + wx.getStorageSync('inviterCode'),
+    }
   }
 })

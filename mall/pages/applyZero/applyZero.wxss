@@ -7,7 +7,6 @@ page {
 .wrapper-top {
   background: #fff;
   font-size: 28rpx;
-  height: 453rpx;
 }
 
 .spend {
@@ -79,19 +78,6 @@ page {
   color: #aaa;
 }
 
-.count {
-  width: 630rpx;
-  height: 80rpx;
-  margin-top: 30rpx;
-  background: #ff2644;
-  border-radius: 40rpx;
-  font-size: 32rpx;
-  margin-bottom: 111rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 1);
-}
-
 .wrapper-bottom {
   background: #fff;
   margin-top: 20rpx;
@@ -140,7 +126,7 @@ page {
   margin: 40rpx 0;
 }
 
-.btn button:nth-child(1) {
+.btn .add {
   width: 270rpx;
   height: 80rpx;
   line-height: 80rpx;
@@ -153,7 +139,20 @@ page {
   color: rgba(255, 255, 255, 1);
 }
 
-.btn button:nth-child(2) {
+.btn .count {
+  width: 270rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-left: 30rpx;
+  background: rgba(255, 100, 23, 1);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.btn .pay-zero {
   width: 390rpx;
   height: 80rpx;
   background: rgba(255, 38, 68, 1);
@@ -228,6 +227,11 @@ page {
 }
 
 .period-zan-dialog__mask .period-month {
+  height: auto;
+  max-height: 320rpx;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
   text-align: center;
 }
 
@@ -238,10 +242,17 @@ page {
   font-family: PingFang SC;
   font-weight: 400;
   color: rgba(34, 34, 34, 1);
-  border-top: 2rpx solid #bdbdbd;
+  border-top: 2rpx solid #dbdbdb;
 }
 
 .period-zan-dialog__mask .custom {
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  border-top: 2rpx solid #dbdbdb;
   color: #aaa;
 }
 
@@ -288,7 +299,7 @@ page {
 .return-zan-dialog__mask .table {
   width: 550rpx;
   margin: 0 auto;
-  border: 2rpx solid #bdbdbd;
+  border: 2rpx solid #dbdbdb;
   border-bottom: none;
   border-right: none;
   margin-bottom: 50rpx;
@@ -302,11 +313,19 @@ page {
   display: flex;
   height: 68rpx;
   align-items: center;
-  border-right: 2rpx solid #bdbdbd;
+  border-right: 2rpx solid #dbdbdb;
+}
+
+.return-zan-dialog__mask .tr-height {
+  height: auto;
+  max-height: 420rpx;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
 }
 
 .return-zan-dialog__mask .tr {
-  border-bottom: 2rpx solid #bdbdbd;
+  border-bottom: 2rpx solid #dbdbdb;
   color: #333;
   font-size: 20rpx;
   display: flex;
@@ -323,7 +342,7 @@ page {
   justify-content: center;
   text-align: center;
   align-items: center;
-  border-right: 2rpx solid #bdbdbd;
+  border-right: 2rpx solid #dbdbdb;
 }
 
 /* 利息明细表 */
@@ -369,7 +388,7 @@ page {
 .interest-zan-dialog__mask .table {
   width: 550rpx;
   margin: 0 auto;
-  border: 2rpx solid #bdbdbd;
+  border: 2rpx solid #dbdbdb;
   border-bottom: none;
   border-right: none;
   margin-bottom: 50rpx;
@@ -383,11 +402,19 @@ page {
   display: flex;
   height: 68rpx;
   align-items: center;
-  border-right: 2rpx solid #bdbdbd;
+  border-right: 2rpx solid #dbdbdb;
+}
+
+.interest-zan-dialog__mask .tr-height {
+  height: auto;
+  max-height: 420rpx;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
 }
 
 .interest-zan-dialog__mask .tr {
-  border-bottom: 2rpx solid #bdbdbd;
+  border-bottom: 2rpx solid #dbdbdb;
   color: #333;
   font-size: 20rpx;
   display: flex;
@@ -404,7 +431,7 @@ page {
   justify-content: center;
   text-align: center;
   align-items: center;
-  border-right: 2rpx solid #bdbdbd;
+  border-right: 2rpx solid #dbdbdb;
 }
 
 /* 终止说明 */
@@ -455,4 +482,68 @@ page {
   font-weight: 400;
   color: rgba(34, 34, 34, 1);
   line-height: 40rpx;
+}
+
+/* 怎么赚的钱 */
+
+.get-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask .zan-dialog__container {
+  width: 540rpx;
+  height: 382rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 105rpx;
+  text-align: center;
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask .cancel-get {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 112rpx;
+  top: 226rpx;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .title {
+  margin: 44rpx auto;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.get-zan-dialog__mask .zan-dialog__container .text {
+  margin: 0 36rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(34, 34, 34, 1);
+  line-height: 40rpx;
+}
+
+.get-zan-dialog__mask .zan-dialog__container button {
+  width: 440rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 40rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
 }

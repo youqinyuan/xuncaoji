@@ -815,7 +815,9 @@ page {
 .comfirm::after {
   border: none;
 }
+
 /* 终止0元购弹框 */
+
 .stop-zan-dialog__mask {
   position: fixed;
   top: 0;
@@ -1087,7 +1089,7 @@ page {
 
 .content-wrapper .share-button {
   background: rgba(255, 255, 255, 1);
-  width: 170rpx;
+  width: 198rpx;
   border-radius: 0;
 }
 

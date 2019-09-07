@@ -38,6 +38,7 @@
     </view>
   </view>
 </view>
+<view class="myteam-bottom">{{text}}</view>
 <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
 <view class="modal-dialog" wx:if="{{show}}" style='top:{{top}}px;'>
   <view class='content'>
@@ -53,11 +54,11 @@
       <view class="share-wrap">
         <button class="share-button" id='btn' open-type="share">
           <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
-          <view class="wx">微信</view>
+          <view class="wx">分享好友</view>
         </button>
         <button class="share-button" bindtap='shareFriend'>
           <image class="photo" src="../../assets/images/icon/share_friends.png"></image>
-          <view class="wx">朋友圈</view>
+          <view class="wx">分享图片</view>
         </button>
       </view>
     </view>

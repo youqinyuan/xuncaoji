@@ -5,26 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goodsId:'', //商品id
+    
   },
   //返回首页
-  go_home:function(){
+  go_home: function () {
     wx.switchTab({
-      url: '/pages/index/index',
-    })
-  },
-  //查看评价
-  watchEvaluate:function(){
-    wx.redirectTo({
-      url: '/pages/evaluate/evaluate?goodsId=' + this.data.goodsId,
+      url: '/pages/index/index'
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
-    this.data.goodsId = options.goodsId
+
   },
 
   /**

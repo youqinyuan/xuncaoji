@@ -23,7 +23,7 @@
 }
 
 .evaluate-btn button {
-  width: 200rpx;
+  width: 280rpx;
   height: 80rpx;
   line-height: 80rpx;
   font-size: 32rpx;
@@ -34,10 +34,7 @@
   background: rgba(255, 38, 68, 1);
   color: #fff;
 }
-.evaluate-btn button:nth-child(2) {
-  border:2rpx solid rgba(153,153,153,1);
-  background: #fff;
-}
+
 button::after {
   border: none;
 }

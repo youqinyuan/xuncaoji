@@ -48,7 +48,7 @@
         <text>{{item.dctPrice}}</text>
       </view>
       <view class="pay-money">
-        <text>返</text>
+        <text>返现</text>
         <text>￥</text>
         <text>{{item.marketingCashBack.totalAmount}}</text>
       </view>

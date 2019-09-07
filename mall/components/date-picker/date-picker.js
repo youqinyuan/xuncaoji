@@ -34,15 +34,6 @@ Component({
     for (let i = 1960; i <= date.getFullYear(); i++) {
       years.push(i);
     }
-
-    // for (let i = 1; i <= 12; i++) {
-    //   let month = 0;
-    //   month = i < 10 ? '0' + i : i;
-    //   months.push(month);
-    // }
-
-    // days = this.getDays(date.getFullYear(), date.getMonth() + 1);
-
     for (let i = 1; i <= date.getMonth() + 1; i++) {
       let month = 0;
       month = i < 10 ? '0' + i : i;

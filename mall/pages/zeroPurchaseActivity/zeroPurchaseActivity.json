@@ -1,8 +1,6 @@
 {
-  "usingComponents": {
-    "go_home":"/components/go_home/go_home"
-  },
+  "usingComponents": {},
   "navigationBarBackgroundColor": "#FF2644",
-  "navigationBarTitleText": "新人0元购",
+  "navigationBarTitleText": "新品体验",
   "navigationBarTextStyle": "white"
 }

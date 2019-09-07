@@ -11,7 +11,6 @@ Page({
     cityPickerIsShow: false,
     showDialog: false,//确认收货地址弹框
     is_ios:false, //登录机型是否是ios
-    // provinces: []
   },
 
   onLoad: function (options) {
@@ -149,7 +148,6 @@ Page({
       cityPickerValue: e.detail.valueCode,
       cityPickerIsShow: false,
     });
-    // console.log(this.data.cityPickerValue[2])
   },
   /**
    * 城市选择取消
@@ -160,7 +158,6 @@ Page({
     });
   },
   showCityPicker() {
-    // this.init()
     this.setData({
       cityPickerIsShow: true,
     });

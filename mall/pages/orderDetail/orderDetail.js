@@ -10,8 +10,8 @@ Page({
     content: {}, //详情信息 
     orderId: 1, //订单id
     list: null, //物流信息
-    logisticsDetailList:null,//是否显示几个包裹
-    logisticsId:null,//物流id
+    logisticsDetailList: null, //是否显示几个包裹
+    logisticsId: null, //物流id
     showDialog: false, //确认收货弹框
     showDialog1: false, //取消退款
     showDialog2: false, //退款
@@ -22,12 +22,7 @@ Page({
     cancelOrder: ['我不想买了', '填写错误,重拍', '卖家缺货', '其他原因'], //取消订单
     showDialog3: false, //取消订单弹框
     reason1: '我不想买了', //取消订单理由
-    showDialog4: false, //去评价弹框
-    noteMaxLen: 100, //详细评价的字数限制
-    currentNoteLen: 0, //输入的字数
-    evaluate: '', //文本框的值
-    one_2: 5,//实心星星
-    two_2: 0,//空心星星
+    showDialog4: false, //终止0元购弹框
     waitPay: '',
     orderTimeRefundDetail: {}, //退款时间
     orderTimeDetail: [], //订单信息时间
@@ -49,15 +44,15 @@ Page({
     var orderId = e.currentTarget.dataset.orderid
     var logisticsId = e.currentTarget.dataset.logisticsid
     console.log(logisticsId)
-    if (that.data.logisticsDetailList.length>1){
+    if (that.data.logisticsDetailList.length > 1) {
       wx.navigateTo({
         url: `/pages/logisticsDetail/logisticsDetail?orderId=${orderId}`,
       })
-    } else if (that.data.logisticsDetailList.length === 1){
+    } else if (that.data.logisticsDetailList.length === 1) {
       wx.navigateTo({
         url: `/pages/logistics/logistics?logisticsId=${logisticsId}`,
       })
-    }   
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -78,33 +73,33 @@ Page({
         this.setData({
           waitPay: `00:${minuteTime}:${secondTime}`
         })
-        if (lastTime>0){
-         let interval2 = setInterval(() => {
-           if (lastTime > 0) {
-             lastTime--
-             let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
-             let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
-             this.setData({
-               waitPay: `00:${minuteTime}:${secondTime}`
-             })
-           } else {
-             clearInterval(interval2)
-             wx.navigateBack({
-               url: `/pages/myorder/myorder?status=${1}`
-             })
-             this.setData({
-               waitPay: ''
-             })
-           }
-         }, 1000)
+        if (lastTime > 0) {
+          let interval2 = setInterval(() => {
+            if (lastTime > 0) {
+              lastTime--
+              let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+              let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
+              this.setData({
+                waitPay: `00:${minuteTime}:${secondTime}`
+              })
+            } else {
+              clearInterval(interval2)
+              wx.navigateBack({
+                url: `/pages/myorder/myorder?status=${1}`
+              })
+              this.setData({
+                waitPay: ''
+              })
+            }
+          }, 1000)
         }
         for (var i = 0; i < res.data.content.orderTimeDetail.length; i++) {
-          res.data.content.orderTimeDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeDetail[i].statusTime, 'Y-M-D h:m:s');   
+          res.data.content.orderTimeDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeDetail[i].statusTime, 'Y-M-D h:m:s');
         }
-        if (res.data.content.orderTimeRefundDetail.length > 0) { 
+        if (res.data.content.orderTimeRefundDetail.length > 0) {
           for (var i = 0; i < res.data.content.orderTimeRefundDetail.length; i++) {
             if (res.data.content.latestStatus == 7 || res.data.content.latestStatus == 8) {
-              if (res.data.content.orderTimeRefundDetail[i].status == 7 || res.data.content.orderTimeRefundDetail[i].status == 8){
+              if (res.data.content.orderTimeRefundDetail[i].status == 7 || res.data.content.orderTimeRefundDetail[i].status == 8) {
                 let current = res.data.content.orderTimeRefundDetail[i].autoProcessTime
                 that.formatDuring(current)
                 let interval = setInterval(() => {
@@ -119,17 +114,17 @@ Page({
                   }
                 }, 1000)
               }
-          }
+            }
             res.data.content.orderTimeRefundDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeRefundDetail[i].statusTime, 'Y-M-D h:m:s');
           }
-        } 
+        }
         var orderTimeDetail = res.data.content.orderTimeDetail.reverse()
-        orderTimeDetail.forEach((v,i)=>{
-          if(v.status ==4 ){
-             orderTimeDetail[2].show = true
+        orderTimeDetail.forEach((v, i) => {
+          if (v.status == 4) {
+            orderTimeDetail[2].show = true
           }
         })
-       
+
         that.setData({
           content: res.data.content,
           orderTimeDetail: orderTimeDetail,
@@ -144,14 +139,14 @@ Page({
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode == 'MSG_1001') {
         that.setData({
-          list: res.data.content.logisticsDetailList[0].logisticsDto?(res.data.content.logisticsDetailList[0].logisticsDto.list.reverse())[0]:'',
+          list: res.data.content.logisticsDetailList[0].logisticsDto ? (res.data.content.logisticsDetailList[0].logisticsDto.list.reverse())[0] : '',
           logisticsDetailList: res.data.content.logisticsDetailList,
           logisticsId: res.data.content.logisticsDetailList[0].id
         })
-      } else if (res.data.messageCode == 'MSG_5001'){
+      } else if (res.data.messageCode == 'MSG_5001') {
         that.setData({
           list: null,
-          logisticsDetailList:null
+          logisticsDetailList: null
         })
       }
     })
@@ -160,14 +155,34 @@ Page({
   formatDuring(mss) {
     var that = this
     const days = parseInt(mss / (1000 * 60 * 60 * 24)).toString()
-    const hours = parseInt(mss / (1000 * 60 * 60 *7)).toString()
+    const hours = parseInt(mss / (1000 * 60 * 60 * 7)).toString()
     const minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)).toString()
     const seconds = parseInt((mss % (1000 * 60)) / 1000).toString()
     that.setData({
       autoProcessTime: `超过${days}天${hours}小时${minutes}分钟${seconds}秒`
     })
   },
+
   //各种按钮
+  //终止0元购按钮
+  stopZero: function(e) {
+    var that = this
+    that.setData({
+      showDialog4: true
+    })
+  },
+  wait: function(e) {
+    var that = this
+    that.setData({
+      showDialog4: false
+    })
+  },
+  comfireCancel: function(e) {
+    var that = this
+    that.setData({
+      showDialog4: false
+    })
+  },
   //付款
   toPay: function(e) {
     var orderId = e.currentTarget.dataset.orderid

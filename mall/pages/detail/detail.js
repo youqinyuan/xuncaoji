@@ -61,19 +61,28 @@ Page({
     haibaoImg: '', //生成的海报
     userInfo: wx.getStorageSync('userInfo'), //用户信息
     shareImg: '', //需要分享的产品图片
+    zero:false//弹框是否显示0元购按钮
   },
   //可申请0元购
-  applyZero: function() {
+  applyZero: function(e) {
+    var that = this
     wx.showToast({
-      title: '开发小哥拼命开发中，请期待哦!',
-      icon: 'none',
-      duration: 2000
+      title: '开发中，敬请期待',
+      icon:'none',
+      duration:2000
     })
+    // that.setData({
+    //   zero: true,
+    //   showModalStatus:true,
+    // })
   },
   //跳转到申请0元购规则
-  applyZeroBuy:function(){
+  applyZeroBuy:function(e){
+    var goodsId = e.currentTarget.dataset.goodsid
+    var stockId = e.currentTarget.dataset.stockid
+    var quantity = e.currentTarget.dataset.quantity
     wx.navigateTo({
-      url: '/pages/applyRule/applyRule',
+      url: `/pages/applyRule/applyRule?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}`,
     })
   },
   //客服分享图片回到指定的小程序页面
@@ -116,9 +125,6 @@ Page({
       goodsId: goodsId,
       sharingProfit: sharingProfit
     })
-    //分享数据
-    that.chooseShare()
-
     that.setData({
       showModalStatus1: true
     })
@@ -129,10 +135,11 @@ Page({
       showModalStatus1: false
     })
   },
-  hideModal: function() {
+  //隐藏底部分享对话框
+  hide: function() {
     var that = this
     that.setData({
-      showModalStatus1: false
+      showModalStatus1: false,
     })
   },
   //查询分享数据
@@ -161,7 +168,7 @@ Page({
               // 绘制产品图片
               ctx.drawImage(path_bg, 0, 0, 400, 400);
               //绘制申请0元购logo
-              ctx.drawImage(path_logo,270, 265, 100, 44);
+              ctx.drawImage(path_logo, 240, 245, 130, 64);
               ctx.draw()
               setTimeout(function() {
                 wx.canvasToTempFilePath({
@@ -218,144 +225,173 @@ Page({
   // 分享到朋友圈
   shareFriend: function() {
     var that = this
-    if (that.data.path_img && that.data.appletQrCodeUrl) {
-      var width
-      var height
-      wx.getSystemInfo({
-        success(res) {
-          width = res.screenWidth
-          height = res.screenHeight
-        }
-      })
-      var ctx = wx.createCanvasContext('mycanvas');
-      var path_bg = '/assets/images/icon/bg.png'; //背景图片
-      var path_logo = '/assets/images/icon/xuncaoji_icon.png'
-      var title = '种草达人的欢乐场'
-      var inviterCode = `邀请码: ${that.data.shareData.inviterCode}`
-      // 绘制图片模板的背景图片
-      ctx.drawImage(path_bg, 0, 0, 0.88 * width, 0.89 * height);
-      //绘制logo
-      ctx.drawImage(path_logo, 0.384 * width, 0.055 * height, 0.133 * width, 0.133 * width);
-      // 绘制标题
-      ctx.setFontSize(13);
-      ctx.setFillStyle('#fff');
-      ctx.setTextAlign("center")
-      ctx.fillText(title, 0.5 * width * 0.88, 26);
-      ctx.stroke();
-      console.log(inviterCode)
-      if (inviterCode != '邀请码: undefined') {
-        // 绘制邀请码
-        ctx.setFontSize(20);
-        ctx.setFillStyle('#FF2644');
-        ctx.fillText(inviterCode, 0.5 * width * 0.88, 0.06 * height + 0.133 * width + 20);
-        ctx.stroke();
+    var width
+    var height
+    wx.getSystemInfo({
+      success(res) {
+        width = res.screenWidth
+        height = res.screenHeight
       }
-      ctx.setTextAlign("left")
-      // 绘制产品图
-      ctx.drawImage(that.data.path_img, 0.068 * width, 0.17 * height, 0.74 * width, 0.327 * height);
-      ctx.drawImage('/assets/images/icon/bg_yellow.png', 0.068 * width, 0.418 * height, 0.74 * width, 0.08 * height);
-      ctx.setFillStyle('#FF96AF');
-      ctx.setStrokeStyle('#FF96AF')
+    })
+    var ctx = wx.createCanvasContext('mycanvas');
+    var path_bg = '/assets/images/icon/bg.png'; //背景图片
+    var path_bg2 = '/assets/images/icon/canvas_title.png';
+    var path_logo = '/assets/images/icon/xuncaoji_icon.png'
+    var path_partner = '/assets/images/icon/partner.png'
+    var title = '"Free Buy"，自由买，免费拿'
+    var inviterCode = that.data.shareData.inviterCode
+    //绘制图片模板的背景图片
+    ctx.drawImage(path_bg, 0, 0, 0.88 * width, 0.89 * height);
+    //绘制红色背景
+    ctx.drawImage(path_bg2, 0, 0, 0.885 * width, 0.224 * height);
+    // 绘制标题
+    ctx.setFontSize(13);
+    ctx.setFillStyle('#fff');
+    ctx.setTextAlign("center")
+    ctx.fillText(title, 0.442 * width, 25);
+    ctx.stroke();
+    // 绘制中间矩形
+    ctx.beginPath()
+    ctx.setFillStyle('#fff')
+    ctx.setShadow(0, 0, 2, '#eee')
+    ctx.fillRect(0.057 * width, 0.08 * height, 0.76 * width, 0.522 * height -2)
+    ctx.closePath()
+    //绘制合伙人图标
+    ctx.beginPath()
+    ctx.drawImage(path_partner, 0.35 * width, 44, 64, 51);
+    ctx.closePath()
+    // 绘制邀请码
+    if (inviterCode) {
       ctx.beginPath()
-      var textWidth1 = ctx.measureText(`已抢数量: ${that.data.shareData.grabbed}`).width
-      console.log(`已抢数量: ${that.data.shareData.grabbed}`)
-      ctx.arc(0.84 * width - 26 - textWidth1 / 2, 0.2 * height - 5, 10, 1.5 * Math.PI, 0.5 * Math.PI, true)
-      ctx.closePath()
-      ctx.fill()
-      ctx.beginPath()
-      ctx.moveTo(0.84 * width - 6, 0.2 * height + 5)
-      ctx.lineTo(0.84 * width - 6, 0.2 * height - 15)
-      ctx.lineTo(0.84 * width - 26 - textWidth1 / 2, 0.2 * height - 15)
-      ctx.lineTo(0.84 * width - 26 - textWidth1 / 2, 0.2 * height + 5)
-      ctx.lineTo(0.84 * width - 6, 0.2 * height + 5)
-      ctx.lineTo(0.84 * width - 12, 0.2 * height + 10)
-      ctx.lineTo(0.84 * width - 12, 0.2 * height + 5)
-      ctx.closePath()
-      ctx.fill();
-      ctx.beginPath()
-      ctx.setFontSize(12);
-      ctx.setFillStyle('#fff');
-      ctx.fillText(`已抢数量: ${that.data.shareData.grabbed}`, 0.84 * width - 26 - textWidth1 / 2, 0.2 * height);
+      ctx.setFontSize(19);
+      ctx.setFillStyle('#F85A53');
+      ctx.fillText(`我的邀请码:${inviterCode}`, 0.442 * width, 120);
       ctx.stroke();
       ctx.closePath()
-      ctx.beginPath()
-      ctx.setFontSize(25);
-      ctx.setFillStyle('#FF2644');
-      ctx.fillText(`¥ ${that.data.shareData.price}`, 0.1 * width, 0.485 * height);
-      ctx.closePath()
-      ctx.stroke();
-      ctx.beginPath()
-      ctx.setFillStyle('#FF2644');
-      ctx.setStrokeStyle('#FF2644')
-      var textWidth = ctx.measureText(`最高返¥ ${that.data.shareData.cashBack}`).width
-      var textWidth2 = ctx.measureText(`¥ ${that.data.shareData.price}`).width
-      ctx.moveTo(0.1 * width + textWidth2 + 24 - 6, 0.48 * height - 4)
-      ctx.lineTo(0.1 * width + textWidth2 + 24, 0.48 * height - 8)
-      ctx.lineTo(0.1 * width + textWidth2 + 24, 0.48 * height - 16)
-      ctx.lineTo(0.1 * width + textWidth2 + 24 + textWidth / 2 + 12, 0.48 * height - 16)
-      ctx.lineTo(0.1 * width + textWidth2 + 24 + textWidth / 2 + 12, 0.48 * height + 8)
-      ctx.lineTo(0.1 * width + textWidth2 + 24, 0.48 * height + 8)
-      ctx.lineTo(0.1 * width + textWidth2 + 24, 0.48 * height + 2)
-      ctx.lineTo(0.1 * width + textWidth2 + 24 - 6, 0.48 * height - 4)
-      ctx.closePath()
-      ctx.fill()
-      ctx.beginPath()
-      ctx.setFontSize(12);
-      ctx.setFillStyle('#fff');
-      ctx.fillText(`最高返¥ ${that.data.shareData.cashBack}`, 0.1 * width + textWidth2 + 30, 0.48 * height);
-      ctx.closePath()
-      ctx.stroke();
-      // 绘制描述
-      ctx.setFontSize(14);
-      ctx.setFillStyle('#333');
-      var test = that.data.shareData.desc
-      let chr = test.split('') // 分割为字符串数组
-      let temp = ''
-      let row = []
-      for (let a = 0; a < chr.length; a++) {
-        if (ctx.measureText(temp).width < 0.7 * width) {
-          temp += chr[a]
-        } else {
-          a--
-          row.push(temp)
-          temp = ''
-        }
-      }
-      row.push(temp)
-      for (var b = 0; b < row.length; b++) {
-        ctx.fillText(row[b], 0.082 * width, 0.53 * height + b * 20);
-      }
-      ctx.stroke();
-      //绘制邀请码
-      ctx.drawImage(that.data.appletQrCodeUrl, 0.3 * width, 0.57 * height, 0.3 * width, 0.3 * width);
-      //绘制提示语
-      ctx.setFontSize(12);
-      ctx.setFillStyle('#999');
-      ctx.fillText('长按保存图片或识别二维码查看', 0.20 * width, 0.57 * height + 0.3 * width + 20);
-      ctx.stroke();
-      ctx.draw()
-      setTimeout(function() {
-        wx.canvasToTempFilePath({
-          canvasId: 'mycanvas',
-          success: function(res) {
-            console.log('res', res)
-            that.data.haibaoImg = res.tempFilePath
-          }
-        })
-      }, 1000)
-      that.setData({
-        showModalStatus1: false,
-        haibao: true
-      })
-    } else {
-      // wx.showLoading({
-      //   title: '加载中',
-      // })
-      // setTimeout(function() {
-      //   that.shareFriend()
-      //   wx.hideLoading()
-      // }, 2000)
     }
+    // 绘制最小矩形
+    ctx.beginPath()
+    ctx.setFillStyle('#fff')
+    ctx.setShadow(0, 0, 2, '#eee')
+    ctx.fillRect(0.1308 * width, 130, 0.617 * width, 0.3 * height)
+    ctx.closePath()
+    // 绘制商品图片
+    ctx.beginPath()
+    ctx.drawImage(that.data.path_img, 0.1308 * width + 7, 137, 0.617 * width - 14, 0.3 * height - 14);
+    ctx.closePath()
+    // 绘制已抢数量
+    ctx.beginPath()
+    var number = `已抢数量：${that.data.shareData.grabbed}`
+    var textWidth = inviterCode ? ctx.measureText(number).width : ctx.measureText(number).width + 50
+    ctx.setFillStyle('#F5BA2C');
+    ctx.moveTo(0.1308 * width, 174)
+    ctx.lineTo(0.1308 * width, 180)
+    ctx.lineTo(0.1308 * width - 10, 174)
+    ctx.lineTo(0.1308 * width - 10, 150)
+    ctx.lineTo(0.1308 * width + textWidth / 2 + 22, 150)
+    ctx.lineTo(0.1308 * width + textWidth / 2 + 22, 174)
+    ctx.lineTo(0.1308 * width - 10, 174)
+    ctx.arc(0.1308 * width + textWidth / 2 + 22, 162, 12, 1.5 * Math.PI, 0.5 * Math.PI, false)
+    ctx.closePath()
+    ctx.fill()
+    ctx.beginPath()
+    ctx.setFontSize(12);
+    ctx.setFillStyle('#fff');
+    ctx.setTextAlign("left")
+    ctx.fillText(number, 0.1308 * width, 167);
+    ctx.closePath()
+    ctx.stroke();
+    // 绘制0元购图标
+    var path_zero = "/assets/images/icon/apply free.png"
+    ctx.beginPath()
+    ctx.drawImage(path_zero, 0.52 * width, 0.36*height, 0.2 * width, 0.2 * width);
+    ctx.closePath()
+    // 绘制价格
+    ctx.beginPath()
+    var price = `¥${that.data.shareData.price}`
+    ctx.setFontSize(16);
+    ctx.setFillStyle('#F85A53');
+    ctx.setTextAlign("left")
+    ctx.fillText(price, 0.1308 * width, 0.525 * height - 4);
+    ctx.stroke();
+    ctx.closePath()
+    ctx.beginPath()
+    // 绘制参与返
+    ctx.setFillStyle('#F85A53');
+    ctx.setStrokeStyle('#F85A53')
+    var textWidth = ctx.measureText(`最高返¥ ${that.data.shareData.cashBack}`).width
+    var textWidth2 = ctx.measureText(price).width
+    ctx.moveTo(0.1 * width + textWidth2 + 24 - 6, 0.525 * height - 8)
+    ctx.lineTo(0.1 * width + textWidth2 + 24, 0.525 * height - 12)
+    ctx.lineTo(0.1 * width + textWidth2 + 24, 0.525 * height - 20)
+    ctx.lineTo(0.1 * width + textWidth2 + 24 + textWidth / 2 + 32, 0.525 * height - 20)
+    ctx.lineTo(0.1 * width + textWidth2 + 24 + textWidth / 2 + 32, 0.525 * height + 4)
+    ctx.lineTo(0.1 * width + textWidth2 + 24, 0.525 * height + 4)
+    ctx.lineTo(0.1 * width + textWidth2 + 24, 0.525 * height - 2)
+    ctx.lineTo(0.1 * width + textWidth2 + 24 - 6, 0.525 * height - 8)
+    ctx.closePath()
+    ctx.fill()
+    // 绘制参与返价格
+    var cashBack = `最高返¥ ${that.data.shareData.cashBack}`
+    ctx.beginPath()
+    ctx.setFontSize(12);
+    ctx.setFillStyle('#fff');
+    ctx.setTextAlign("left")
+    ctx.fillText(cashBack, 0.1 * width + textWidth2 + 28, 0.525 * height - 4);
+    ctx.stroke();
+    ctx.closePath()
+    // 绘制广告语
+    ctx.beginPath()
+    var adTips = that.data.shareData.desc
+    ctx.setFontSize(14);
+    ctx.setFillStyle('#333333');
+    ctx.setTextAlign("left")
+    let chr = adTips.split('') // 分割为字符串数组
+    let temp = ''
+    let row = []
+    for (let a = 0; a < chr.length; a++) {
+      if (ctx.measureText(temp).width < 0.65 * width) {
+        temp += chr[a]
+      } else {
+        a--
+        row.push(temp)
+        temp = ''
+      }
+    }
+    row.push(temp)
+    for (var b = 0; b < row.length; b++) {
+      ctx.fillText(row[b], 0.1308 * width - 6, 0.565 * height -4 + b * 20);
+    }
+    ctx.stroke();
+    ctx.closePath()
+    // 绘制二维码
+    ctx.setShadow(0, 0, 0, '#fff')
+    ctx.beginPath()
+    ctx.drawImage(that.data.appletQrCodeUrl, 0.3 * width, 0.6075 * height - 2, 0.3 * width, 0.3 * width);
+    ctx.closePath()
+    // 绘制扫码提示
+    ctx.beginPath()
+    var codeTips = '长按图片识别二维码查看领取'
+    ctx.setFontSize(12);
+    ctx.setFillStyle('#999999');
+    ctx.setTextAlign("center")
+    ctx.fillText(codeTips, 0.44 * width, 0.787 * height - 2);
+    ctx.stroke();
+    ctx.closePath()
+    ctx.draw()
+    setTimeout(function() {
+      wx.canvasToTempFilePath({
+        canvasId: 'mycanvas',
+        success: function(res) {
+          console.log('res', res)
+          that.data.haibaoImg = res.tempFilePath
+        }
+      })
+    }, 1000)
+    that.setData({
+      showModalStatus1: false,
+      haibao: true
+    })
   },
   // 长按保存到相册
   handleLongPress: function() {
@@ -393,30 +429,6 @@ Page({
       })
     }
   },
-  //客服
-  // customerService: function() {
-  //   var that = this;
-  //   that.setData({
-  //     showService: true
-  //   })
-  // },
-
-  //呼叫
-  // call: function() {
-  //   var that = this;
-  //   that.setData({
-  //     showService: false
-  //   })
-  //   wx.makePhoneCall({
-  //     phoneNumber: that.data.content.serviceTel // 仅为示例，并非真实的电话号码
-  //   })
-  // },
-  // hideService: function() {
-  //   var that = this;
-  //   that.setData({
-  //     showService: false
-  //   })
-  // },
   // 跳转到提交订单
   toPlaceorder: function(e) {
     if (count) { // 节流阀 - 限制订单重复提交
@@ -605,13 +617,6 @@ Page({
       })
     }
   },
-  //显示分期返弹框
-  showModalClick: function() {
-    var that = this;
-    that.setData({
-      showModal: true
-    })
-  },
   //显示对话框
   showModal: function() {
     // 显示遮罩层
@@ -620,12 +625,13 @@ Page({
       showModalStatus: true
     })
   },
-  //隐藏对话框
+  //隐藏规格对话框
   hideModal: function() {
     // 隐藏遮罩层
     var that = this
     that.setData({
-      showModalStatus: false
+      showModalStatus: false,
+      zero: false
     })
   },
   /**
@@ -650,25 +656,46 @@ Page({
           that.setData({
             goodsId: parseInt(arr[1]),
           })
+          //添加商品id缓存
+          wx.setStorage({
+            key: "goods_id",
+            data: parseInt(arr[1])
+          })
         }
       }
     } else {
       //不是扫描小程序码进入
       console.log("no scene");
       that.setData({
-        goodsId: parseInt(options.id),
+        goodsId: parseInt(options.id) || wx.getStorageSync('goods_id'),
         inviterCode: options.inviterCode || '',
         options: options
       })
-      //添加商品id缓存
-      wx.setStorage({
-        key: "goods_id",
-        data: parseInt(options.id)
-      })
+      if(options){
+        //添加商品id缓存
+        wx.setStorage({
+          key: "goods_id",
+          data: parseInt(options.id)
+        })
+      }
     }
+    // 请求商品详情
+    that.getGoodsData()
+    //商品评论
+    // that.comment();
+    //客服
+    // that.service();
+    //购物车种类
+    // that.queryCount();
+    //查询分享数据
+    that.chooseShare();
+  },
+  // 请求商品详情
+  getGoodsData: function() {
+    var that = this
     app.Util.ajax('mall/home/goodsDetail', {
       id: that.data.goodsId
-    }, 'GET').then((res) => { // 使用ajax函数
+    }, 'GET').then((res) => {
       if (res.messageCode = 'MSG_1001') {
         var saveAmount = ((res.data.content.orgPrice) - (res.data.content.dctPrice)).toFixed(2)
         that.setData({
@@ -730,14 +757,6 @@ Page({
         that.initgetMore1();
       }
     })
-    //商品评论
-    that.comment();
-    //客服
-    that.service();
-    //购物车种类
-    that.queryCount();
-    //查询分享数据
-    that.chooseShare();
   },
   //购物车种类
   queryCount: function() {
@@ -847,7 +866,15 @@ Page({
     that.setData({
       pageNumber: 1
     })
-    that.onLoad(that.data.options)
+    // that.onLoad(that.data.options)
+    // 请求商品详情
+    that.getGoodsData()
+    //商品评论
+    that.comment();
+    //客服
+    that.service();
+    //购物车种类
+    that.queryCount();
   },
 
   /**
@@ -935,7 +962,7 @@ Page({
       return {
         title: that.data.shareList.desc,
         path: that.data.shareList.link,
-        imageUrl: that.data.shareList.imageUrl,
+        imageUrl: that.data.shareImg,
         success: function(res) {
 
         },

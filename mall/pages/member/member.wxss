@@ -8,7 +8,7 @@ page {
 
 /*会员到期日*/
 
-.top {
+/* .top {
   height: 233rpx;
   position: relative;
 }
@@ -49,21 +49,63 @@ page {
 
 .expires-date {
   margin-top: 20rpx;
+} */
+.sologn{
+  width:100%;
+  height:863rpx;
+  position: absolute;
+  top:0;
+  z-index: -1;
 }
-
+.wrap{
+  width:710rpx;
+  background-color: #fff;
+  margin:0 auto;
+  border-radius: 8rpx 8rpx 0 0;
+  padding:0rpx 33rpx;
+  box-sizing: border-box;
+  margin-top: 629rpx;
+  padding-bottom: 20rpx;
+}
+.wrap .title{
+  font-size: 32rpx;
+  color:#333333;
+  font-weight: bold;
+  padding-top: 46rpx;
+}
+.wrap .content{
+  font-size: 28rpx;
+  color:#666666;
+  margin-top: 17rpx;
+}
+.content > image{
+  width:550rpx;
+  height:959rpx;
+  display: block;
+  margin:0 auto;
+  margin-top: 40rpx;
+  margin-bottom: 30rpx;
+}
+.tips{
+  width:100%;
+  font-size: 28rpx;
+  color:#333333;
+  font-weight: bold;
+}
 /*限时任务*/
 
 .active-wrapper-content {
   overflow: hidden;
-  width: 690rpx;
+  width: 710rpx;
   background: rgba(255, 255, 255, 1);
-  border-radius: 8rpx;
+  border-radius: 0rpx 0rpx 8rpx 8rpx;
   margin: 0 auto;
-  margin-top: 85rpx;
+  /* margin-top: 85rpx; */
+  margin-bottom: 73rpx;
 }
 
 .active-title {
-  margin-left: 149rpx;
+  margin-left: 35rpx;
   margin-top: 50rpx;
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;
@@ -150,6 +192,10 @@ page {
   border-bottom: 2rpx solid #f4f4f4;
 }
 
+.block{
+  height: 30rpx;
+  width: 750rpx;
+}
 /*会员权益*/
 
 .equity-middle {
@@ -198,12 +244,6 @@ page {
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
-}
-
-.block {
-  height: 80rpx;
-  width: 750rpx;
-  background: rgba(255,236,221,1);
 }
 
 /*弹窗*/
@@ -296,7 +336,7 @@ page {
 }
 
 .share-button {
-  width: 170rpx;
+  width: 198rpx;
   border-radius: 0;
   background: rgba(255, 255, 255, 1);
 }
@@ -445,10 +485,3 @@ button::after {
 .membership-box-btn::after {
   border: none;
 }
-/* 轮播展示组件 */
-/* .swiper-show{
-  position: fixed;
-  top:60rpx;
-  left:16rpx;
-  z-index: 9999;
-} */

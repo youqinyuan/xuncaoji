@@ -241,5 +241,4 @@
   color: rgba(153, 153, 153, 1);
   text-align: center;
   margin-top: 20rpx;
-  padding-bottom: 100rpx;
 }

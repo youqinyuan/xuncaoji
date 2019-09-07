@@ -90,6 +90,14 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    if (options) {
+      if (options.inviterCode) {
+        wx.setStorage({
+          key: "othersInviterCode",
+          data: options.inviterCode
+        })
+      }
+    }
     var status;
     that.setData({
       options:options
@@ -231,7 +239,10 @@ Page({
   },
   //终止0元购按钮
   stopZero:function(e){
-
+    var that = this
+    that.setData({
+      showDialog4:true
+    })
   },
   //去付款按钮
   toPay:function(e){
@@ -493,9 +504,13 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    wx.switchTab({
-      url: '/pages/mine/mine'
-    }) 
+    var pages = getCurrentPages()
+    // 如果是从提交订单页面跳转过来 页面返回的时候跳转到我的页面
+    if (pages[pages.length - 2].route == 'pages/paymentorder/paymentorder'){
+      wx.switchTab({
+        url: '/pages/mine/mine'
+      })
+    }
   },
 
   /**
@@ -521,8 +536,10 @@ Page({
   /**
  * 用户点击右上角分享
  */
-  onShareAppMessage: function (ops) {
-   
+  onShareAppMessage: function () {
+    return {
+      path: "/pages/myorder/myorder?inviterCode=" + wx.getStorageSync('inviterCode'),
+    }
   },
   tab: function(e) {
     var that = this;    

@@ -19,7 +19,7 @@
   </view>
 </view>
 <view class="evaluate-content-wrap">
-  <view class="evaluate-content" wx:for="{{comment}}" wx:key="{{item.id}}">
+  <view class="evaluate-content" wx:for="{{comment}}" wx:key="{{item.id}}" bindtap="getIdex" data-index="{{index}}">
     <view class="evaluate-content-top">
       <view class="evaluate-content-img">
         <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}"></image>
@@ -51,7 +51,7 @@
       {{item.content}}
     </view>
     <scroll-view class="evaluate-list-scroll" scroll-x="true">
-     <view class="evaluate-list-img" wx:for="{{item.interactImageUrlList}}" wx:key="{{}}" wx:for-item="itemName" >
+     <view class="evaluate-list-img" wx:for="{{item.interactImageUrlList}}" wx:key="{{}}" wx:for-item="itemName" bindtap="imgYu" data-src="{{itemName}}">
         <image src="{{itemName}}"></image>
       </view>
     </scroll-view>

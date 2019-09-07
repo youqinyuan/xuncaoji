@@ -87,6 +87,10 @@ Page({
 
   //表单提交（保存资料）
   formSubmit: function(e) {
+    // wx.switchTab({
+    //   url: '/pages/index/index',
+    // })
+    // return
     var that = this
     var adds = e.detail.value;
     if (that.data.isUpHeader === true) {
@@ -137,8 +141,8 @@ Page({
     }
     var token = wx.getStorageSync('token')
     wx.uploadFile({
-      // url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
-      url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
+      url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
+      // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
       filePath: that.data.avatarKey,
       name: 'avatarKey',
       formData: userInfo,
@@ -190,8 +194,8 @@ Page({
     }
     var token = wx.getStorageSync('token')
     wx.request({
-      // url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
-      url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
+      url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
+      // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
       method: "POST",
       data: userInfo,
       header: {
@@ -225,6 +229,14 @@ Page({
    */
   onLoad: function(options) {
     let that = this
+    if (options) {
+      if (options.inviterCode) {
+        wx.setStorage({
+          key: "othersInviterCode",
+          data: options.inviterCode
+        })
+      }
+    }
     that.setData({
       isUpHeader: false
     })
@@ -286,6 +298,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: "/pages/mine/personal/personal?inviterCode=" + wx.getStorageSync('inviterCode'),
+    }
   }
 })

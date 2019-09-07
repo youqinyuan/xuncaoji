@@ -1,6 +1,6 @@
 <!--pages/mine/member/member.wxml-->
 <!--会员到期日-->
-<view class="top">
+<!-- <view class="top">
   <view class="top-img">
     <image src="../../assets/images/icon/vip_radian_bg.png"></image>
   </view>
@@ -15,11 +15,77 @@
       </view>
     </view>
   </view>
+</view> -->
+
+
+
+<!-- 寻草记介绍 -->
+<image src="/assets/images/icon/xuncaoji_slogan.png" class="sologn"></image>
+<view class="wrap">
+  <view class="title">一、我们是谁？</view>
+  <view class="content">我们是中国第一家全品类FreeBuy电商种草平台，在这里让你的存钱速度超过花钱速度。</view>
+  <view class="title">二、我们的理念是什么？</view>
+  <view class="content">
+    <view>我们的理念是让所有人习惯“Free Buy”（自由买免费拿；随时购随时取）的生活消费方式。</view>
+    <view>
+      <view>普通人所向往的三大自由：人身自由、消费自由、财务自由。</view>大部分人都得到了人身自由，向往财务自由，但得到的人却很少。要实现财务自由首先得实现消费自由，财务自由不是一蹴而就，需要慢慢积累，学会积攒，这是前提。</view>
+    <view>我们平台的初衷是让消费者实现消费自由（Free Buy），买任何东西不用担心钱被消耗掉了。为此我们构建了这个平台，用Free Buy(自由买免费拿)，让你的攒钱速度超过花钱的节奏。</view>
+    <view>举一个例子，现在一线城市一个孩子每月平均消费至少2000元，一年消费就需要2.4万元，按照我国人均年龄75岁来算，一辈子需要消费2.4*75=180万元。假设你用于消费，这些钱花掉了也就没有了。如果用Free Buy这种消费方式，不用花掉一分钱，180万还帮你攒起来了。</view>
+    <view>是不是要等有足够的钱才能用得起这种消费方式呢？不用，哪怕你只有几百元，也可以开始这种新的消费方式，积少成多。通过Free Buy在寻草记商城消费，所有消费全额返现给你，你可以在我们平台任意免费拿，为你的人生节省下这笔开销，同时还会将你没在银行存款的利息损失赔付给你。</view>
+  </view>
+  <view class="title">三、用Free buy这种消费，我需要随时用钱怎么办?</view>
+  <view class="content">
+    <view>为了你随时可以把你的钱取走，我们设置了一键取消，将你的钱退还给你，随时购随时取，保证你资金的流动性，同时给你银行同期利息补偿。</view>
+    <view>当你取消时，如果你收到的物品，已经使用，无法退还，我们会按你购买时的优惠价给你折价转成正常的购买模式，将剩余钱加银行同期利息退给你。你放心，给你折价的优惠价比同类平台价格都要低一些。 </view>
+    <view>例如小王每月工资6000，除了日常开销，还剩2000元，他在寻草记商城购买了一个价值200元的产品，申请了0元购，花了这2000元分10期返现，但是两个月后，小王突然要用钱，于是停止0元购，寻草记平台会返还他1800元，还补偿了他两个月的利息。总之你可以把闲钱存在这里，随时提取，还有利息拿。</view>
+  </view>
+  <view class="title">四、你们平台有什么优势？</view>
+  <view class="content">
+    <view>为了满足不同用户的需求，我们平台分三类商品： </view>
+    <view style="padding-top:40rpx;">（1）全网低价（专区）</view>
+    <view style="padding-top:40rpx;">（2）品牌商品（正常区域）</view>
+    <view style="padding-top:40rpx;">（3）新奇潮品（专区）。</view>
+    <view style="padding-top:40rpx;">优势1：在价格上我们比同类竞品价格都要低10%至30%。在正常购买模式下，我们会将优惠通过返现的方式给与用户。 </view>
+    <view style="padding-top:40rpx;">优势2：我们平台不设券，返现都返现金，到你的账户余额里。你可以通过寻草记商城账户余额，随时提现到微信或支付宝。我们没有任何限制。</view>
+    <view style="padding-top:40rpx;">优势3：所有商品都可申请0元购（freebuy方式），自由买免费拿、随时购随时取。 </view>
+    <view style="padding-top:40rpx;">优势4：我们在银行存入了消费者保护基金，保护你消费者权益、账户安全和资金流动性。</view>
+    <view style="padding-top:40rpx;">优势5：加入成为商城合伙人后，如果您分享好友，帮助朋友省钱，还能赚取一定的佣金，省钱赚钱一举两得。</view>
+  </view>
+  <view class="title">五、对消费者有何保障措施？</view>
+  <view class="content">
+    <view>(1)我们是新三板上市公司（股票代码837939）旗下电商平台，有较强的资金和资本实力。</view>
+    <view>(2)我们为保障消费者权益，为消费者存入100万保障基金，保证消费者正常利益。 </view>
+    <view>(3)所有品牌商品，我们保证正品，保证假一罚十。</view>
+  </view>
+  <view class="title">六、如何加入寻草记商城？</view>
+  <view class="content">
+    <view>
+      <view style="padding-top:40rpx;">(1)普通合伙人</view>
+    通过下单（两次以上）和分享好友（三人以上），你可以成为普通合伙人。普通合伙人享有销售提成，提成在平台的“”我的-佣金” 可以看到明细。每个商品能拿到的提成，在平台每个商品的“分享赚”中可以看到。分享的朋友越多、朋友下单越多，你的佣金越多。包括用freebuy方式消费的，你也有提成（目前政策不低于2%），帮朋友节约得越多赚得越多。假如你身边有500个朋友，35岁认识你，后40年平均消费90万。假如有一半消费来自我们平台，那么你可以帮周边朋友累计消费省2.25亿（90万*500人*50%），可以最高获得450万佣金（2.25亿*2%）。</view>
+    <view style="padding-top:40rpx;">(2)区域合伙人 </view>
+    <view>平台在各个地区设置独家区域合伙人，通过我们授权在该地区拓展市场。对该合伙人要求具有一定的市场推广能力和高效的执行力。名额不多，可致电商城联系人咨询详情，联系电话：189-1026-0114。</view>
+    <view style="padding-top:40rpx;">(3)创始合伙人 </view>
+    <view>对平台有特殊贡献的合伙人。比如在业务拓展、流量、成交额、资本等方面，我们将给与创始人身份，并给与相应价值的股份。可致电商城联系人咨询详情，联系电话：189-1026-0114。</view>
+  </view>
+  <view class="title">七、如何将平台分享给朋友呢？</view>
+  <view class="content">
+    <view>结合你的情况，可以用以下几种方式之一：</view>
+    <view>（1）可以直接将本平台介绍分享给朋友或群；也可以将本平台介绍分享到朋友圈。</view>
+    <view style="padding-top:40rpx;">（2）可以点击商品界面下面的“分享赚”，将该商品信息分享给朋友或群；也可以分享到朋友圈。图：</view>
+    <image src="/assets/images/icon/app_screen.png"></image>
+    <view>（3）我们有免费产品专区，通过免费产品的分享，将免费产品分享给朋友或群；也可以分享到朋友圈。图：</view>
+    <image src="/assets/images/icon/app_screen_share.png"></image>
+  </view>
+  <view class="tips">以上最终解释权规寻草记商城。</view>
 </view>
+
+
+
+
 <!--限时任务-->
-<view class="active-wrapper-content">
+<view class="active-wrapper-content" wx:if="{{token}}">
   <view class="active-title">
-    跟我做任务 一起当Plus会员
+    跟我做任务 一起当合伙人
   </view>
   <view class="active-wrapper1" wx:for="{{taskItems}}" wx:key="">
     <view class="active-wrapper" wx:if="{{item.key==='INVITEES_COUNT'}}">
@@ -33,7 +99,7 @@
         </view>
         <view class="active-item-mission" bindtap='recurit'>做任务</view>
       </view>
-      <view class="active-bottom">邀请{{item.value}}位好友成功注册即送1个月会员特权</view>
+      <view class="active-bottom">邀请{{item.value}}位好友注册即送1年普通合伙人特权</view>
     </view>
     <view class="active-wrapper" wx:if="{{item.key==='RECHARGE_AMOUNT'}}">
       <view class="active-list">
@@ -41,12 +107,12 @@
           <image src="../../assets/images/icon/vip_friends1.png"></image>
         </view>
         <view class="active-item">
-          <view class="active-item-invite">充值满额送会员</view>
+          <view class="active-item-invite">充值满额</view>
           <view class="active-item-text">已完成{{item.count}}/{{item.value}}</view>
         </view>
         <view class="active-item-mission" bindtap='jumpRecharge'>做任务</view>
       </view>
-      <view class="active-bottom">累计充值金额为{{item.value}}元送1个月会员特权</view>
+      <view class="active-bottom">累计充值{{item.value}}元送1年普通合伙人特权</view>
     </view>
     <view class="active-wrapper" wx:if="{{item.key==='ORDERS_COUNT'}}">
       <view class="active-list">
@@ -54,17 +120,17 @@
           <image src="../../assets/images/icon/vip_get_vip(1).png"></image>
         </view>
         <view class="active-item">
-          <view class="active-item-invite">购买即送会员</view>
+          <view class="active-item-invite">购买下单</view>
           <view class="active-item-text">已完成{{item.count}}/{{item.value}}</view>
         </view>
         <view class="active-item-mission" bindtap='jumpIndex'>做任务</view>
       </view>
-      <view class="active-bottom1">下单次数大于等于{{item.value}}次送1个月会员特权</view>
+      <view class="active-bottom1">下单次数大于{{item.value}}次送1年普通合伙人特权</view>
     </view>
   </view>
 </view>
 <!--会员权益-->
-<view class="equity-middle">
+<!-- <view class="equity-middle">
   <view class="equity-middle-title">会员权益</view>
   <view class="equity-middle-list">
     <view class="equity-middle-img">
@@ -96,7 +162,7 @@
     </view>
     <view class="equity-middle-text">尊享特殊身份标识，彰显会员魅力！</view>
   </view>
-</view>
+</view> -->
 <view class="block"></view>
 <!-- 邀请好友弹框 -->
 <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
@@ -114,11 +180,11 @@
       <view class="share-wrap">
         <button class="share-button" id='btn' open-type="share">
           <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
-          <view class="wx">微信</view>
+          <view class="wx">分享好友</view>
         </button>
         <button class="share-button" bindtap='shareFriend'>
           <image class="photo" src="../../assets/images/icon/share_friends.png"></image>
-          <view class="wx">朋友圈</view>
+          <view class="wx">分享图片</view>
         </button>
       </view>
     </view>
@@ -131,7 +197,7 @@
 <!-- 海报弹框 -->
 <view class="mask_hb" wx:if="{{haibao}}"></view>
 <view class="canvas-box" hidden='{{haibao == false}}'>
-  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress"/>
+  <canvas class="canvas" canvas-id="mycanvas" catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
   <view class="close_hb" wx:if="{{haibao}}">
     <image src="/assets/images/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
   </view>
@@ -145,6 +211,3 @@
   <view class="membership-box-text1">我们将赠送您一个月会员表示感谢</view>
   <button class="membership-box-btn" bindtap='cancelBox'>谢谢</button>
 </view>
-
-<!-- 轮播展示组件 -->
-<!-- <swiper-show class="swiper-show"></swiper-show> -->

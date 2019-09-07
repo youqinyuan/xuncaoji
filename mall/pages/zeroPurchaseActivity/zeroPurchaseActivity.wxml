@@ -1,30 +1,34 @@
 <!--pages/zeroPurchaseActivity/zeroPurchaseActivity.wxml-->
 <view class="zero-purchase">
   <image class="zero-purchase-top" src="../../assets/images/icon/zero_banner.png"></image>
+  <view class="zero-purchase-text-wrap">
+    <view class="zero-purchase-text">需支付1分钱，支付成功后立刻返还至余额每期新品限领一份，分享好友即可再领一份</view>
+  </view>
   <view class="zero-purchase-bottom">
-    <view class="zero-purchase-title">距活动结束还剩</view>
-    <view class="zero-purchase-time">
-      <view class="zero-purchase-number">{{hours.length>1?hours[0]:0}}</view>
-      <view class="zero-purchase-number">{{hours.length>1?hours[1]:hours[0]}}</view>
-      <view class="zero-purchase-word">时</view>
-      <view class="zero-purchase-number">{{minutes.length>1?minutes[0]:0}}</view>
-      <view class="zero-purchase-number">{{minutes.length>1?minutes[1]:minutes[0]}}</view>
-      <view class="zero-purchase-word">分</view>
-      <view class="zero-purchase-number">{{seconds.length>1?seconds[0]:0}}</view>
-      <view class="zero-purchase-number">{{seconds.length>1?seconds[1]:seconds[0]}}</view>
-      <view class="zero-purchase-word">秒</view>
-      <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[0]:0}}</view>
-      <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[1]:haoSeconds[0]}}</view>
-      <view class="zero-purchase-word">毫秒</view>
-    </view>
-    <view class="zero-purchase-person">{{grabbedNumber}}
-      <text>人已抢到</text>
+    <view class="zero-purchase-container">
+      <view class="zero-purchase-time">
+        <view class="zero-purchase-number">{{hours.length>1?hours[0]:0}}</view>
+        <view class="zero-purchase-number">{{hours.length>1?hours[1]:hours[0]}}</view>
+        <view class="zero-purchase-word">时</view>
+        <view class="zero-purchase-number">{{minutes.length>1?minutes[0]:0}}</view>
+        <view class="zero-purchase-number">{{minutes.length>1?minutes[1]:minutes[0]}}</view>
+        <view class="zero-purchase-word">分</view>
+        <view class="zero-purchase-number">{{seconds.length>1?seconds[0]:0}}</view>
+        <view class="zero-purchase-number">{{seconds.length>1?seconds[1]:seconds[0]}}</view>
+        <view class="zero-purchase-word">秒</view>
+        <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[0]:0}}</view>
+        <view class="zero-purchase-number">{{haoSeconds.length>1?haoSeconds[1]:haoSeconds[0]}}</view>
+        <view class="zero-purchase-word">毫秒</view>
+      </view>
+      <view class="zero-purchase-person">{{grabbedNumber}}
+        <text>人已抢到</text>
+      </view>
     </view>
     <view class="zero-purchase-list-wrap">
       <swiper class="zero-purchase-list" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF2644" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
         <block wx:for="{{goodsItems}}" wx:key="{{item.id}}">
           <swiper-item>
-          <image class="zero-purchase-list-price-img" src="../../assets/images/icon/flag.png"></image>
+            <!-- <image class="zero-purchase-list-price-img" src="../../assets/images/icon/flag.png"></image> -->
             <view class="zero-purchase-list-item" data-id="{{item.id}}" bindtap='jumpDetail'>
               <view class="zero-purchase-list-price">
                 <view class="text1">原价</view>
@@ -33,7 +37,9 @@
               </view>
               <image class="zero-purchase-list-img" src="{{item.imageUrls[0]}}" />
               <view class="zero-purchase-list-text">{{item.name}}</view>
-              <view class="zero-purchase-list-sign">0元免费领后 还有钱送哦~
+              <view class="zero-purchase-list-sign">
+                <!-- <view>0元免费领后 还有钱送哦~</view> -->
+                <view></view>
                 <view class="sign">></view>
               </view>
             </view>
@@ -41,39 +47,45 @@
         </block>
       </swiper>
     </view>
-    <view class="block"></view>
+    <view class="block">更多新品，即将上线，敬请期待</view>
   </view>
 </view>
 <!-- 弹框 -->
 <view class="modal-mask" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
 <view class="modal-dialog" wx:if="{{show}}" bindtap="hide">
-  <!-- <view class="modal-dialog-container"> -->
   <image class="img1" src="../../assets/images/icon/left.png"></image>
   <view class="text">左右滑动选择商品哦</view>
   <image class="img2" src="../../assets/images/icon/right.png"></image>
-  <!-- </view> -->
 </view>
-
 <!-- 分享按钮 -->
-  <!-- <image src="/assets/images/icon/ic_share.png" class="share_img" bindtap="shares"></image> -->
-  <!-- 分享弹框 -->
-  <view class="commodity_screen1" bindtap="hideModal" wx:if="{{showModalStatus1}}"></view>
-  <view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+<image src="/assets/images/icon/ic_share.png" wx:if="{{!show}}" class="share_img" bindtap="shares"></image>
+<!-- 分享弹框 -->
+<view class="commodity_screen1" bindtap="hideModal" wx:if="{{showModalStatus1}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
   <view class="content-wrapper1">
     <image class="cancel" src="../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
     <view class="shareCommission">你喜欢那就分享给你朋友吧</view>
     <view class="share-wrap">
       <button class="share-button" id='btn' open-type="share">
         <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
-        <view class="wx">微信</view>
+        <view class="wx">分享好友</view>
       </button>
       <button class="share-button" bindtap='shareFriend'>
         <image class="photo" src="../../assets/images/icon/share_friends.png"></image>
-        <view class="wx">朋友圈</view>
+        <view class="wx">分享图片</view>
       </button>
     </view>
   </view>
 </view>
 
-<!-- 返回首页组件 -->
-<go_home class="go_home"></go_home>
+<!-- 返回首页按钮 -->
+<image class="go_home" src="/assets/images/icon/ic.png" catchtap="backHome"></image>
+
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="/assets/images/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>

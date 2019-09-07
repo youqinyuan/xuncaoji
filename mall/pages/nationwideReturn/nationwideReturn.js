@@ -19,6 +19,14 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    if (options) {
+      if (options.inviterCode) {
+        wx.setStorage({
+          key: "othersInviterCode",
+          data: options.inviterCode
+        })
+      }
+    }
     that.init()
 
   },
@@ -122,6 +130,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: "/pages/nationwideReturn/nationwideReturn?inviterCode=" + wx.getStorageSync('inviterCode'),
+    }
   }
 })

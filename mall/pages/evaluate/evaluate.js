@@ -77,6 +77,26 @@ Page({
       }
     })
   },
+  // 图片预览 - 获取需要预览的图片http连接列表
+  getIdex:function(e){
+    console.log(e)
+    var that = this
+    var index = e.currentTarget.dataset.index
+    var imgList = that.data.comment[index].interactImageUrlList; //获取data-list
+    var src = that.data.src 
+    //图片预览
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: imgList // 需要预览的图片http链接列表
+    })
+  },
+  //图片预览 - 获取当前显示的http连接
+  imgYu: function (e) {
+    var that = this
+    var src = e.currentTarget.dataset.src; //获取data-src
+    that.data.src = src
+  },
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

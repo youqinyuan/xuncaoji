@@ -72,7 +72,10 @@
         </view>
         <view class="expressfee">
           <view class="expressfee-text">运费(快递)</view>
-          <view class="expressfee-price">
+          <view class="expressfee-price" wx:if="{{item.orderGoods.expressFee == 0}}">
+            <text>包邮</text>
+          </view>
+          <view class="expressfee-price" wx:else>
             <text>￥</text>
             <text class="expressfee-price1">{{item.orderGoods.expressFee}}</text>
           </view>
@@ -83,6 +86,12 @@
             <text class="expressfee-price1">{{item.orderGoods.period}}期返现共返<text class="expressfee-price1-text">{{item.orderGoods.cashBack}}</text>元</text>
           </view>
         </view>
+        <!-- <view class="expressfee">
+          <view class="expressfee-text">分期返现</view>
+          <view class="expressfee-price">
+            <text class="expressfee-money">¥399<text class="expressfee-period">-6期返现</text></text>
+          </view>
+        </view> -->
       </view>
     </view>
   </view>

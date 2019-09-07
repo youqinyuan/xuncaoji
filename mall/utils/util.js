@@ -94,6 +94,10 @@ const ajax = (url, data, method, config = {}) => {
             resolve(res)
           } else if (res.data.messageCode == 'MSG_2001') {
             // console.log('未授权')
+            var pages = getCurrentPages()
+            if(pages[pages.length - 1].route == 'pages/index/index'){
+              return;
+            }
             wx.navigateTo({
               url: '/pages/invitationCode/invitationCode',
             })
