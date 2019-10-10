@@ -5,6 +5,7 @@
     <view class="title">
       <text></text>
       <text>商品返现</text>
+      <button class="stopzero" catchtap="stopZero" data-ordergoodsid="{{itemName.id}}" disabled="{{itemName.isStop==1?true:false}}" wx:if="{{itemName.stageInterest&&latestStatus!==1&&latestStatus!==7&&latestStatus!==9&&latestStatus!==10&&latestStatus!==12}}"> 终止FreeBuy转购买</button>
     </view>
   </view>
   <!-- 商品详情 -->
@@ -33,8 +34,8 @@
   </view>
   <!-- 返现明细 -->
   <view class="cashback-amount" wx:if="{{itemName.cashBack && itemName.period !==0}}">共分{{itemName.period}}期返现，已返现{{itemName.returnedPeriod}}期，剩余返现金额为{{itemName.remainingCashReturn}}元</view>
-  <view class="cashback-amount" wx:elif="{{itemName.cashBack && itemName.period ==0}}">立即返，剩余返现金额为
-  {{itemName.remainingCashReturn}}元</view>
+  <view class="cashback-amount" wx:elif="{{itemName.cashBack && itemName.period ==0}}">立即返，剩余返现金额为 {{itemName.remainingCashReturn}}元
+  </view>
   <view class="cashback-detail">
     <view class="list" wx:for="{{itemName.orderGoodsCashBackItem}}" wx:key="{{item.id}}">
       <view class="item">
@@ -47,7 +48,37 @@
       <view class="price1" wx:if="{{item.status===1}}">￥{{item.amount}}</view>
       <view class="text" wx:if="{{item.status===3}}">已返现</view>
       <view class="text1" wx:if="{{item.status===1}}">未返现</view>
-      <view class="refund" wx:if="{{item.status===2}}">订单<text wx:if="{{latestStatus !==12}}">退款</text><text wx:if="{{latestStatus ===12}}">取消</text>终止返现</view>
+      <view class="refund" wx:if="{{item.status===2}}">订单<text wx:if="{{latestStatus !==12}}">退款</text><text wx:else>取消</text>终止返现
+      </view>
+    </view>
+  </view>
+  <view class="stageInterest" wx:if="{{itemName.stageInterest}}">您共可获得利息：{{itemName.stageInterest}}元</view>
+  <view class="cashback-zero">
+    <view class="list" wx:for="{{itemName.orderGoodsStageInterestItem}}" wx:key="" wx:for-item="zero">
+      <view class="item">
+        <view class="period">{{zero.period}}月</view>
+        <view class="time">{{zero.returnTime}}返现</view>
+      </view>
+      <view class="price">￥{{zero.amount}}</view>
+      <view class="refund">
+        <text wx:if="{{zero.status==2}}">已终止</text>
+         <view class="text" wx:if="{{zero.status===3}}">已返现</view>
+      <view class="text1" wx:if="{{zero.status===1}}">未返现</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog4}}"></view>
+<view class="stop-zan-dialog__container" wx:if="{{showDialog4}}">
+  <view class='stop-content'>
+    <view class="stop-content-title">提示</view>
+    <view class="stop-content-container">
+      <view>确定终止0元购吗？</view>
+      <view>此刻取消将退您：{{refundAmount}}元</view>
+    </view>
+    <view class="stop-content-button">
+      <view class="stop-reject" catchtap='wait'>再想想</view>
+      <button class="stop-comfirm" bindtap="comfireCancel" data-orderid="{{orderId}}">确定取消</button>
     </view>
   </view>
 </view>

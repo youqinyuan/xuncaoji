@@ -1,0 +1,52 @@
+.vv {
+  width: 700rpx;
+  height: 500rpx;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+}
+
+/* 小图标 */
+
+.img1 {
+  width: 36rpx;
+  height: 28rpx;
+  margin-top: 30rpx;
+}
+
+/* 标题文字 */
+
+.text {
+  font-size: 28rpx;
+  color: #585858;
+  margin-left: 10rpx;
+}
+
+/* 视频 */
+
+.video {
+  width: 100%;
+  height: calc(9 * 750rpx / 16);
+  margin-top: 20rpx;
+  border-bottom-left-radius: 15rpx;
+  border-bottom-right-radius: 15rpx;
+}
+
+.videoVideo2 {
+  width: 703rpx;
+  height: calc(9 * 750rpx / 16);
+  position: absolute;
+  top: 20rpx;
+  /* left: -20rpx; */
+  z-index: 99;
+}
+
+.videoPlay {
+  position: absolute;
+  width: 80rpx;
+  height: 80rpx;
+  top: 45%;
+  left: 48%;
+  margin: -30rpx 0 0 -30rpx;
+  z-index: 100;
+}

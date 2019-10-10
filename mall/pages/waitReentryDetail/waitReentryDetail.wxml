@@ -1,0 +1,36 @@
+<!--pages/waitReentryDetail/waitReentryDetail.wxml-->
+<view class='cashBackBox1' wx:for="{{content}}" wx:key="">
+  <view class="cashBackTop" wx:if="{{item.status==2}}">
+    <image src="../../assets/images/icon/end_mark@3x.png" class="imgStyle" />
+    <text bindtap="showCause" data-type="{{item.type}}"> 查看原因</text>
+  </view>
+  <view class="cashBackButtom">
+    <view class="cashBackButtom1">
+      <view class="cashBackTitle {{item.status==2?stopOrder:'cashBackTitleColor'}}">{{item.remark}}</view>
+      <view class="cashBackValueWrap">
+        <text class="cashBackValue {{item.status==2?stopOrder:'cashBackValueColor'}}">已返：</text>
+        <text class="cashBackNum {{item.status==2?stopOrder:'cashBackNumColor'}}">{{item.amountReturned}}</text>
+      </view>
+    </view>
+    <view class="waitcashBackButtom">
+      <view class="cashBackTime">{{item.tradeTime}}</view>
+      <view class="waitCashBackValueWrap">
+        <text class="waitCashBackValue {{item.status==2?stopOrder:'waitCashBackValueColor'}}">待返：</text>
+        <text class="waitCashBackNum {{item.status==2?stopOrder:'waitCashBackNumColor'}}">{{item.noCashBackAmount}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+ <view class="cashBackBox-text" wx:if="{{text !==''}}">{{text}}</view>
+<!-- 查看原因弹窗 -->
+<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showCause}}">
+  <view class="zan-dialog__container" wx:if="{{showCause}}">
+    <view class="title">原因</view>
+    <view class="text">
+      <view>{{causeStatue==1?causeValue1.text1:causeValue2.text1}}
+      </view>
+      <view>{{causeStatue==1?causeValue1.text2:causeValue2.text2}} </view>
+    </view>
+  </view>
+  <image wx:if="{{showCause}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelCause'></image>
+</view>

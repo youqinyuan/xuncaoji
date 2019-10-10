@@ -32,6 +32,7 @@
     "pages/orderDetail/orderDetail",
     "pages/zeroPurchase/zeroPurchase",
     "pages/zeroPurchaseActivity/zeroPurchaseActivity",
+    "pages/cooperate/cooperate",
     "pages/applyRule/applyRule",
     "pages/applyZero/applyZero",
     "pages/cashBack/cashBack",
@@ -39,7 +40,10 @@
     "pages/logisticsDetail/logisticsDetail",
     "pages/undeveloped/undeveloped",
     "pages/zeroBuy/zeroBuy",
-    "pages/goodsComment/goodsComment"
+    "pages/goodsComment/goodsComment",
+    "pages/xuncaoji/xuncaoji",
+    "pages/waitReentryDetail/waitReentryDetail",
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -57,7 +61,7 @@
         "selectedIconPath": "assets/images/icon/ic_activehome_n.png"
       },
       {
-        "pagePath": "pages/member/member",
+        "pagePath": "pages/xuncaoji/xuncaoji",
         "text": "寻草记",
         "iconPath": "assets/images/icon/ic_member_n.png",
         "selectedIconPath": "assets/images/icon/ic_activemember_n.png"

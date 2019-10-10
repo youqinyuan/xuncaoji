@@ -208,9 +208,7 @@ page {
 }
 
 .button text {
-  display: block;
-  margin-right: 20rpx;
-  width: 150rpx;
+  margin-right: 15rpx;
   height: 56rpx;
   line-height: 56rpx;
   text-align: center;
@@ -219,11 +217,27 @@ page {
   font-size: 26rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
+  padding:0 15rpx;
 }
 
 .stopzero {
-  border: 2rpx solid rgba(153, 153, 153, 1);
-  color: rgba(153, 153, 153, 1);
+  /* border: 2rpx solid rgba(153, 153, 153, 1); */
+  border: #FF2644 2rpx solid;
+  color: #FF2644;
+  width: 270rpx;
+  padding: 0 5rpx;
+  height: 60rpx;
+  margin-right: 15rpx;
+  border-radius: 28rpx;
+  line-height: 60rpx;
+  font-size: 26rpx;
+  background: #fff;
+}
+
+.stopzero[disabled] {
+   color: #e9e6e6 !important;
+  border: 2rpx solid #e9e6e6 !important;
+  background: #fff !important;
 }
 
 .cancel {

@@ -66,24 +66,60 @@ Page({
   //可申请0元购
   applyZero: function(e) {
     var that = this
-    wx.showToast({
-      title: '开发中，敬请期待',
-      icon:'none',
-      duration:2000
-    })
-    // that.setData({
-    //   zero: true,
-    //   showModalStatus:true,
-    // })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      that.setData({
+        zero: true,
+        showModalStatus: true,
+      })
+    } else {
+      wx.navigateTo({
+        url: "/pages/invitationCode/invitationCode?inviterCode=" + that.data.inviterCode
+      })
+      that.setData({
+        num: 1
+      })
+    }
   },
   //跳转到申请0元购规则
   applyZeroBuy:function(e){
+    var that = this
     var goodsId = e.currentTarget.dataset.goodsid
     var stockId = e.currentTarget.dataset.stockid
     var quantity = e.currentTarget.dataset.quantity
-    wx.navigateTo({
-      url: `/pages/applyRule/applyRule?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}`,
-    })
+    var price = e.currentTarget.dataset.price
+    if (that.data.quantity === 0) {
+      wx.showToast({
+        title: '所选商品库存为0不可购买',
+        icon: 'none'
+      })
+    } else if (that.data.num > that.data.quantity) {
+      wx.showToast({
+        title: '已超出最大库存',
+        icon: 'none'
+      })
+    } else if (that.data.num < 1) {
+      wx.showToast({
+        title: '不能再少了哟',
+        icon: 'none'
+      })
+    } else if (isNaN(that.data.num)) {
+      wx.showToast({
+        title: '数量不能少于1',
+        icon: 'none'
+      })
+      that.setData({
+        num: 1
+      })
+    }else{
+      wx.navigateTo({
+        url: `/pages/applyRule/applyRule?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}`,
+      })
+      that.setData({
+        showModalStatus: false,
+        zero: false
+      })
+    } 
   },
   //客服分享图片回到指定的小程序页面
   handleContact: function(e) {
@@ -108,6 +144,15 @@ Page({
   },
   //图片预览 
   imgYu: function(e) {
+    var src = e.currentTarget.dataset.src; //获取data-src
+    var imgList = e.currentTarget.dataset.list; //获取data-list
+    //图片预览
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: imgList // 需要预览的图片http链接列表
+    })
+  },
+  watchImg: function (e) {
     var src = e.currentTarget.dataset.src; //获取data-src
     var imgList = e.currentTarget.dataset.list; //获取data-list
     //图片预览
@@ -149,7 +194,7 @@ Page({
       mode: 1,
       targetId: that.data.goodsId
     }, 'GET').then((res) => {
-      if (res.messageCode = 'MSG_1001') {
+      if (res.data.content) {
         var inviterCode = wx.getStorageSync('inviterCode')
         if (inviterCode) {
           res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
@@ -174,7 +219,6 @@ Page({
                 wx.canvasToTempFilePath({
                   canvasId: 'canvas',
                   success: function(res) {
-                    console.log('res', res)
                     that.data.shareImg = res.tempFilePath
                   }
                 })
@@ -185,7 +229,13 @@ Page({
         that.setData({
           shareList: res.data.content
         })
-        that.getShareData()
+        that.getShareData();
+      }else{
+        wx.showToast({
+          title: res.data.message,
+          icon:'none',
+          duration:3000
+        })
       }
     })
   },
@@ -196,8 +246,7 @@ Page({
       mode: 1,
       targetId: that.data.goodsId
     }, 'GET').then((res) => {
-      console.log(res)
-      if (res.messageCode = 'MSG_1001') {
+      if (res.data.messageCode = 'MSG_1001') {
         that.data.shareData = res.data.content
         // 产品图片路径转换为本地路径
         var imageUrl = res.data.content.imageUrl
@@ -342,7 +391,7 @@ Page({
     ctx.closePath()
     // 绘制广告语
     ctx.beginPath()
-    var adTips = that.data.shareData.desc
+    var adTips = '我是合伙人，上0元购，自由买免费拿，推荐此商品！'
     ctx.setFontSize(14);
     ctx.setFillStyle('#333333');
     ctx.setTextAlign("left")
@@ -383,7 +432,6 @@ Page({
       wx.canvasToTempFilePath({
         canvasId: 'mycanvas',
         success: function(res) {
-          console.log('res', res)
           that.data.haibaoImg = res.tempFilePath
         }
       })
@@ -396,19 +444,110 @@ Page({
   // 长按保存到相册
   handleLongPress: function() {
     var that = this
-    console.log('长按')
-    wx.saveImageToPhotosAlbum({
-      filePath: that.data.haibaoImg,
+    var tempFilePath = that.data.haibaoImg
+    wx.getSetting({
       success(res) {
-        wx.showToast({
-          title: '图片已保存到相册',
-          icon: 'none'
-        });
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success() {
+              console.log('授权相册')
+              wx.saveImageToPhotosAlbum({
+                filePath: tempFilePath,
+                success(res) {
+                  wx.hideLoading()
+                  console.log('保存图片成功回调')
+                  wx.showToast({
+                    title: '保存成功',
+                    icon: 'none'
+                  });
+                  that.setData({
+                    haibao: false
+                  })
+                },
+                fail(res) {
+                  wx.hideLoading()
+                  console.log('保存图片失败回调')
+                  console.log(res);
+                }
+              })
+            },
+            fail() {
+              wx.hideLoading();
+              wx.showModal({
+                title: '温馨提示',
+                content: '您已拒绝授权，是否去设置打开？',
+                confirmText: "确认",
+                cancelText: "取消",
+                success: function (res) {
+                  console.log(res);
+                  if (res.confirm) {
+                    console.log('用户点击确认')
+                    wx.openSetting({
+                      success: (res) => {
+                        console.log(res)
+                        res.authSetting = {
+                          "scope.writePhotosAlbum": true,
+                        }
+                        console.log("openSetting: success");
+                        wx.saveImageToPhotosAlbum({
+                          filePath: tempFilePath,
+                          success(res) {
+                            wx.hideLoading()
+                            wx.showToast({
+                              title: '保存成功',
+                              icon: 'none'
+                            });
+                            that.setData({
+                              haibao: false
+                            })
+                          },
+                          fail(res) {
+                            wx.hideLoading()
+                            console.log(res);
+                          }
+                        })
+                      }
+                    });
+                  } else {
+                    console.log('用户点击取消')
+                  }
+                }
+              });
+
+            }
+          })
+        } else {
+          console.log('保存图片')
+          wx.saveImageToPhotosAlbum({
+            filePath: tempFilePath,
+            success(res) {
+              wx.hideLoading()
+              console.log('保存图片成功回调')
+              wx.showToast({
+                title: '保存成功',
+                icon: 'none'
+              });
+
+              that.setData({
+                haibao: false
+              })
+            },
+            fail(res) {
+              wx.hideLoading()
+              console.log('saveImageToPhotosAlbum 失败回调')
+              console.log(res);
+            }
+          })
+        }
       },
       fail(res) {
-        console.log(res)
+        wx.hideLoading()
+        console.log('wx.getSetting 失败回调')
+        console.log(res);
       }
     })
+
   },
   // 关闭海报分享页面
   close_hb: function() {
@@ -451,6 +590,14 @@ Page({
         wx.showToast({
           title: '不能再少了哟',
           icon: 'none'
+        })
+      } else if (isNaN(this.data.num)) {
+        wx.showToast({
+          title: '数量不能少于1',
+          icon: 'none'
+        })
+        this.setData({
+          num:1
         })
       } else {
         wx.navigateTo({
@@ -645,13 +792,10 @@ Page({
         options: options
       })
       var scene = decodeURIComponent(options.scene);
-      console.log("scene is ", scene);
       var arrPara = scene.split("&");
-      console.log(arrPara)
       var arr = [];
       for (var i in arrPara) {
         arr = arrPara[i].split("=");
-        console.log(arr)
         if (arr[0] == 'id') {
           that.setData({
             goodsId: parseInt(arr[1]),
@@ -665,7 +809,6 @@ Page({
       }
     } else {
       //不是扫描小程序码进入
-      console.log("no scene");
       that.setData({
         goodsId: parseInt(options.id) || wx.getStorageSync('goods_id'),
         inviterCode: options.inviterCode || '',
@@ -681,12 +824,6 @@ Page({
     }
     // 请求商品详情
     that.getGoodsData()
-    //商品评论
-    // that.comment();
-    //客服
-    // that.service();
-    //购物车种类
-    // that.queryCount();
     //查询分享数据
     that.chooseShare();
   },
@@ -696,7 +833,7 @@ Page({
     app.Util.ajax('mall/home/goodsDetail', {
       id: that.data.goodsId
     }, 'GET').then((res) => {
-      if (res.messageCode = 'MSG_1001') {
+      if (res.data.content) {
         var saveAmount = ((res.data.content.orgPrice) - (res.data.content.dctPrice)).toFixed(2)
         that.setData({
           imageUrls: res.data.content.imageUrls,
@@ -755,6 +892,12 @@ Page({
         }
         //爆品推荐
         that.initgetMore1();
+      }else{
+        wx.showToast({
+          title: res.data.message,
+          icon:'none',
+          duration:3000
+        })
       }
     })
   },
@@ -864,9 +1007,9 @@ Page({
   onShow: function(options) {
     var that = this;
     that.setData({
-      pageNumber: 1
+      pageNumber: 1,
+      num:1
     })
-    // that.onLoad(that.data.options)
     // 请求商品详情
     that.getGoodsData()
     //商品评论
@@ -924,14 +1067,10 @@ Page({
               icon: 'none'
             })
           } else {
-            wx.showToast({
-              title: res.data.message,
-              icon: 'none'
-            })
           }
         })
         return {
-          title: that.data.shareList.desc,
+          title: '我是合伙人，上0元购，自由买免费拿，推荐此商品！',
           path: that.data.shareList.link,
           imageUrl: that.data.shareImg,
           success: function(res) {
@@ -941,6 +1080,27 @@ Page({
             // 转发失败
             console.log("转发失败:" + JSON.stringify(res));
           }
+        }
+      } else if (res.target.id === 'btnGroup') {
+        that.setData({
+          showModalStatus1: false
+        })
+        app.Util.ajax('mall/weChat/sharing/onSuccess', {
+          mode: 1
+        }, 'POST').then((res) => {
+          if (res.data.content) {
+            wx.showToast({
+              title: '分享成功',
+              icon: 'none'
+            })
+          } else {
+            
+          }
+        })
+        return {
+          title: '亲们，该品可申请0元购，给群做福利！我已申请到。',
+          path: that.data.shareList.link,
+          imageUrl: that.data.shareImg,
         }
       }
     } else {
@@ -953,10 +1113,7 @@ Page({
             icon: 'none'
           })
         } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
+         
         }
       })
       return {

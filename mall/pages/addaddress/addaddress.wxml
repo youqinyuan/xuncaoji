@@ -27,14 +27,14 @@
 </view>
 <!--弹框-->
 <view class="zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>
-<view class="zan-dialog__container" wx:if="{{showDialog}}">
-  <view class='content'>
-    <view class="content-title">提示</view>
-    <view class="content-container">确定保存此收货地址？
-    </view>
-    <view class="content-button">
-      <view class="reject" catchtap='reject'>取消</view>
-      <view class="comfirm" catchtap='comfirm'>确定</view>
-    </view>
-  </view>
-</view>
+<cover-view class="zan-dialog__container" wx:if="{{showDialog}}">
+  <cover-view class='content'>
+    <cover-view class="content-title">提示</cover-view>
+    <cover-view class="content-container">确定保存此收货地址？
+    </cover-view>
+    <cover-view class="content-button">
+      <cover-view class="reject" catchtap='reject'>取消</cover-view>
+      <cover-view class="comfirm" catchtap='comfirm'>确定</cover-view>
+    </cover-view>
+  </cover-view>
+</cover-view>

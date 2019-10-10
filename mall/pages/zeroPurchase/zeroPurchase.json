@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "go_home":"/components/go_home/go_home"
+    "go_home":"/components/go_home/go_home",
+    "creditCard":"/components/creditCard/creditCard"
   },
   "navigationBarBackgroundColor": "#FF2644",
   "navigationBarTitleText": "新品体验",

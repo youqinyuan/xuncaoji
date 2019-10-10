@@ -8,7 +8,7 @@ Page({
   data: {
     shops: [], //店铺以及商品
     pageNumber: 1,
-    pageSize: 5,
+    pageSize: 20,
     checkedAll: false, //全选
     showDialog:false,
     priceAll: 0,//选择的价格
@@ -298,6 +298,8 @@ Page({
         })
       } else {
         app.Util.ajax('mall/order/checkCart', cardIds, 'POST').then((res) => {
+        //  console.log('cardIds:'+cardIds)
+        //  console.log('购物车结算：'+JSON.stringify(res.data))
           if (res.data.content) {
             wx.navigateTo({
               url: `/pages/placeorder/placeorder?cardIds=${cardIds}`
@@ -363,10 +365,12 @@ Page({
       pageNumber: that.data.pageNumber,
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
-        that.setData({
-          shops: res.data.content.items
-        })
+    //  console.log("购物车详情:"+JSON.stringify(res.data))
+      if (res.data.content) {
+        console.log(res)
+          that.setData({
+            shops: res.data.content.items
+          })  
         for (var i = 0; i < that.data.shops.length; i++) {
           that.data.shops[i]['checkeedAll'] = false
           that.data.shops[i]['index'] = 0
@@ -375,6 +379,12 @@ Page({
             that.data.shops[i].cartDetails[j]['index'] = j
           }
         }
+      } else{
+        wx.showToast({
+          title: res.data.message,
+          icon:'none',
+          duration:1500
+        })
       }
     })
   },
@@ -453,6 +463,24 @@ Page({
       showDialog: false
     })
   },
+  toApplyZero:function(e){
+   // console.log("查看零元购"+JSON.stringify(e.target.dataset))
+    //零元购期数，预期钱，需要的钱，规格，数量
+    var arr = {}
+     arr.cashbackperiods = e.target.dataset.cashbackperiods
+     arr.expectedamount = e.target.dataset.expectedamount
+     arr.needpaymentamount = e.target.dataset.needpaymentamount
+     arr.quantity = e.target.dataset.quantity
+     arr.stockid = e.target.dataset.stockid
+     arr.goodsid = e.target.dataset.goodsid
+     arr.shoppingcartgoodsid = e.target.dataset.shoppingcartgoodsid,
+     arr.cashbackperiods = e.target.dataset.cashbackperiods,
+     arr.expectedAmount = e.target.dataset.expectedamount
+     var obj = JSON.stringify(arr)
+    wx.navigateTo({
+      url:'/pages/applyZero/applyZero?arr='+obj
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -510,5 +538,17 @@ Page({
     return {
       path: "/pages/index/cart/cart?inviterCode=" + wx.getStorageSync('inviterCode'),
     }
+  },
+  againCalculate:function(e){
+  //  console.log("重新计算:"+e.target.dataset.shoppingcartgoodsid)
+    var arr = {}
+    arr.stockId = e.target.dataset.stockid
+    arr.goodsId = e.target.dataset.goodsid
+    arr.quantity = e.target.dataset.quantity
+    e.target.dataset.shoppingcartgoodsid
+    var tempList = JSON.stringify(arr)
+    wx.navigateTo({
+      url:'/pages/applyZero/applyZero?detailObj='+tempList+'&&reviseStatus2=1'+'&&shoppingcartgoodsid='+e.target.dataset.shoppingcartgoodsid
+    })
   }
 })

@@ -6,52 +6,19 @@
     <view class="container-top-img">
       <image src="../../assets/images/icon/commission_not_vip.png"></image>
     </view>
-    <view class="container-top-text">您还不是会员无法获取佣金</view>
+    <view class="container-top-text">您还不是合伙人无法获取佣金</view>
   </view>
-  <!--会员权益-->
-  <!-- <view class="container-middle">
-    <view class="container-middle-title">会员权益</view>
-    <view class="container-middle-list">
-      <view class="container-middle-img">
-        <image src="../../assets/images/icon/vip_get_vip3.png"></image>
-      </view>
-      <view class="container-middle-text">成为会员预计平均每月获得1000元收入！</view>
-    </view>
-    <view class="container-middle-list">
-      <view class="container-middle-img">
-        <image src="../../assets/images/icon/vip_distribution3.png"></image>
-      </view>
-      <view class="container-middle-text">分销功能开启每月预计多赚700元收入！</view>
-    </view>
-    <view class="container-middle-list">
-      <view class="container-middle-img">
-        <image src="../../assets/images/icon/vip_cashback.png"></image>
-      </view>
-      <view class="container-middle-text">得到您所邀请用户消费金额的2%-4%的返现！</view>
-    </view>
-    <view class="container-middle-list">
-      <view class="container-middle-img">
-        <image src="../../assets/images/icon/vip_server.png"></image>
-      </view>
-      <view class="container-middle-text">专用客服接入通道，尽享VIP尊荣体验！</view>
-    </view>
-    <view class="container-middle-list">
-      <view class="container-middle-img">
-        <image src="../../assets/images/icon/vip_identity.png"></image>
-      </view>
-      <view class="container-middle-text">尊享特殊身份标识，彰显会员魅力！</view>
-    </view>
-  </view> -->
   <view class="container-wrap">
-    <view class="container-title title1">（1）普通合伙人</view>
-    <view class="container-text">通过下单（两次以上）和分享好友（三人以上），你可以成为普通合伙人。普通合伙人享有销售提成，提成在平台的我的-佣金” 可以看到明细。每个商品能拿到的提成，在平台每个商品的“分享赚”中可以看到。分享的朋友越多、朋友下单越多，你的佣金越多。包括用freebuy方式消费的，你也有提成（目前政策不低于2%），帮朋友节约得越多赚得越多。假如你身边有500个朋友，35岁认识你，后40年平均消费90万。假如有一半消费来自我们平台，那么你可以帮周边朋友累计消费省2.25亿（90万*500人*50%），可以最高获得450万佣金（2.25亿*2%）。</view>
+    <rich-text nodes="{{html}}"></rich-text>
+    <!-- <view class="container-title title1">（1）普通合伙人</view>
+    <view class="container-text">通过下单（两次以上）和分享好友（三人以上），你可以成为普通合伙人。普通合伙人享有销售提成，提成在平台的我的-佣金” 可以看到明细。每个商品能拿到的提成，在平台每个商品的“分享赚”中可以看到。分享的朋友越多、朋友下单越多，你的佣金越多。包括用FreeBuy方式消费的，你也有提成（目前政策不低于2%），帮朋友节约得越多赚得越多。假如你身边有500个朋友，35岁认识你，后40年平均消费90万。假如有一半消费来自我们平台，那么你可以帮周边朋友累计消费省2.25亿（90万*500人*50%），可以最高获得450万佣金（2.25亿*2%）。</view>
     <view class="container-title">（2）区域合伙人</view>
     <view class="container-text">平台在各个地区设置独家区域合伙人，通过我们授权在该地区拓展市场。对该合伙人要求具有一定的市场推广能力和高效的执行力。名额不多，可致电商城联系人咨询详情，联系电话：189-1026-0114。</view>
     <view class="container-title">（3）创始合伙人</view>
-    <view class="container-text">对平台有特殊贡献的合伙人。比如在业务拓展、流量、成交额、资本等方面，我们将给与创始人身份，并给与相应价值的股份。可致电商城联系人咨询详情，联系电话：189-1026-0114。</view>
+    <view class="container-text">对平台有特殊贡献的合伙人。比如在业务拓展、流量、成交额、资本等方面，我们将给与创始人身份，并给与相应价值的股份。可致电商城联系人咨询详情，联系电话：189-1026-0114。</view> -->
   </view>
   <!--开通会员-->
-  <view class="button" bindtap='jumpMember'>开通会员</view>
+  <view class="button" bindtap='jumpMember'>成为合伙人</view>
   <view class="block"></view>
 </view>
 <view class="member" wx:if="{{isMember==1}}">

@@ -43,7 +43,7 @@
         </view>
         <view class="comprehensive-list-text">
           <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-          <text class="item2">可申请0元购</text>{{item.name}}</view>
+          <text class="item2">支持0成本购</text>{{item.name}}</view>
         <view class="comprehensive-list-price">
           <view class="newprice">
             <text>￥</text>{{item.truePrice}}</view>

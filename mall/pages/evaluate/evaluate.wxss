@@ -127,16 +127,11 @@ page {
 }
 
 .evaluate-content-bottom {
-   margin:30rpx 30rpx;
-  margin-top:0;
-  display: -webkit-box;
-  word-break: break-all;
-  text-overflow: ellipsis;
+  margin: 30rpx 30rpx;
+  margin-top: 0;
   font-size: 28rpx;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
   margin-left: 31rpx;
+  word-break:break-all; 
   color: rgba(51, 51, 51, 1);
   line-height: 36rpx;
 }

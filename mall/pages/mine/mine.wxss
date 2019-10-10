@@ -78,9 +78,11 @@ page {
   background: rgba(255, 255, 255, 1);
 }
 
-.top {
+.content-top {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-left: 40rpx;
+  margin-right: 50rpx;
 }
 
 .top-left {
@@ -91,7 +93,6 @@ page {
   width: 128rpx;
   height: 128rpx;
   margin-top: 40rpx;
-  margin-left: 30rpx;
 }
 
 .sculpture image {
@@ -101,8 +102,9 @@ page {
 }
 
 .title {
-  margin-top: 54rpx;
-  margin-left: 40rpx;
+  /* margin-top: 50rpx; */
+  margin-top: 38rpx;
+  margin-left: 30rpx;
 }
 
 .big-title {
@@ -114,7 +116,12 @@ page {
 }
 
 .balance {
-  margin-top: 58rpx;
+  margin-top: 45rpx;
+  height: 45rpx;
+}
+.balance2 {
+  height: 40rpx;
+  
 }
 
 .balance-text {
@@ -134,14 +141,13 @@ page {
 
 .balance-num {
   font-size: 42rpx;
-  margin-right: 131rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: #ff2644;
 }
 
 .right {
-  margin-top: 109rpx;
+  margin-top: 108rpx;
   margin-right: 30rpx;
   background: #ff6417;
   border-radius: 22rpx;
@@ -157,7 +163,7 @@ page {
 
 .bottom {
   margin-left: 30rpx;
-  margin-top: 30rpx;
+  margin-top: 24rpx;
   width: 690rpx;
   height: 80rpx;
   display: flex;
@@ -449,7 +455,7 @@ button::after {
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  top: 300rpx;
+  top: 200rpx;
   left: 110rpx;
   z-index: 9999;
 }
@@ -562,4 +568,105 @@ button::after {
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(153, 153, 153, 1);
+}
+/* 下载APP弹窗 */
+.stop-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.stop-zan-dialog__mask .zan-dialog__container {
+  width: 560rpx;
+  height: 768rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 150rpx;
+  left: 104rpx;
+  z-index: 9999;
+}
+
+.stop-zan-dialog__mask .cancel-img {
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  right: 350rpx;
+  top: 970rpx;
+}
+
+.stop-zan-dialog__mask .zan-dialog__container .title {
+  width: 270rpx;
+  margin: 44rpx auto;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+  text-align: center;
+  margin-bottom: 22rpx;
+}
+.stop-zan-dialog__mask .zan-dialog__container .value{
+  color: #333333;
+  font-size: 26rpx;
+  margin-left: 20rpx;
+  margin-bottom: 50rpx;
+  margin-top: 26rpx;
+  margin-right: 20rpx;
+}
+.copyDownloadAddress{
+  color:#3C8AFF;
+  position: absolute;
+  right: 30rpx;
+  top: 545rpx;
+  line-height: 50rpx;
+}
+.DownloadAddress{
+  width: 350rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+line-height: 50rpx;
+}
+.value text{
+  display: inline-block;
+  line-height: 40rpx;
+}
+
+.stop-zan-dialog__mask .zan-dialog__container .text {
+  margin: 0 36rpx;
+  font-size: 25rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(34, 34, 34, 1);
+  line-height: 40rpx;
+}
+.font20{
+  font-size: 24rpx;
+  color: #AAAAAA;
+
+}
+.saveQR{
+  width: 280rpx;
+  height: 80rpx;
+  background-color: #ff2644;
+  font-size: 32rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  color: #fff;
+  /* margin-top: 50rpx; */
+  margin: 0 auto;
+}
+.saveQR text{
+  line-height: 80rpx;
+}
+.QR{
+  display: block;
+  width: 368rpx;
+  height: 366rpx;
+  margin: 0 auto;
 }

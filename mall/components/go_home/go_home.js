@@ -19,8 +19,6 @@ Component({
   attached() {
     var that = this
     var scene = app.globalData.scene
-    console.log(scene, 'scene')
-    console.log(that.data.img_show, 'img_show')
     if (scene == 1007 || scene == 1008 || scene == 1011 || scene == 1012 || scene == 1013 || scene == 1036 || scene == 1047 || scene == 1048 || scene == 1049) {
       that.setData({
         img_show: true

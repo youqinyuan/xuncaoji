@@ -30,10 +30,15 @@ Page({
     orderCount: [],
     waitCount: 0, //待发货待收货数量
     userInfo: wx.getStorageSync('userInfo'), //用户信息
-    token:null
+    token: null,
+    downAppStatus: false,
+    QRUrl: '',
+    noCashBackAmount: 0,
+    DownloadAddress: 'https://a.app.qq.com/o/simple.jsp?pkgname=com.jiutian.yzsotreapp',
+    imgSrc: app.Util.getUrlImg().hostUrl+'/download_android.png'
   },
   //客服分享图片回到指定的小程序页面
-  handleContact: function(e) {
+  handleContact: function (e) {
     var path = e.detail.path,
       query = e.detail.query,
       params = '';
@@ -48,28 +53,28 @@ Page({
     }
   },
   //跳转到登录页面
-  jumpLogin:function(){
+  jumpLogin: function () {
     wx.navigateTo({
       url: '/pages/invitationCode/invitationCode',
     })
   },
   //跳转到全部订单页面
-  nav: function(e) {
+  nav: function (e) {
     app.nav(e);
   },
   /**
    * 跳转到开通会员页面
    */
-  open: function() {
+  open: function () {
     var that = this
-    wx.switchTab({
+    wx.navigateTo({
       url: '/pages/member/member',
     })
   },
   /**
    * 跳转到充值页面
    */
-  recharge: function(e) {
+  recharge: function (e) {
     wx.navigateTo({
       url: '/pages/mine/recharge/recharge'
     })
@@ -77,78 +82,78 @@ Page({
   /**
    * 跳转到个人资料页面
    */
-  personalData: function(e) {
+  personalData: function (e) {
     let img = e.currentTarget.dataset.img
     wx.navigateTo({
       url: `/pages/mine/personal/personal?img=${img}`,
     })
   },
   //付钱页面
-  payMoney: function() {
+  payMoney: function () {
     wx.navigateTo({
       url: '/pages/undeveloped/undeveloped',
     })
   },
   //跳转到佣金页面
-  commission: function() {
+  commission: function () {
     var isMember = this.data.content.isMember
     wx.navigateTo({
       url: `/pages/commission/commission?isMember=${isMember}`,
     })
   },
   //跳转到我的团队页面
-  myTeam: function() {
+  myTeam: function () {
     wx.navigateTo({
       url: '/pages/myteam/myteam',
     })
   },
   //跳转到购物车
-  toCart: function() {
+  toCart: function () {
     wx.navigateTo({
       url: '/pages/index/cart/cart',
     })
   },
   //我的心情
-  myMood: function() {
+  myMood: function () {
     wx.navigateTo({
       url: '/pages/undeveloped/undeveloped',
     })
   },
   //跳转到修改地址页面
-  toAdress: function() {
+  toAdress: function () {
     wx.navigateTo({
       url: '/pages/address/address',
     })
   },
   //跳转到支付密码页面
-  toPassword: function() {
+  toPassword: function () {
     wx.navigateTo({
       url: '/pages/paypassword/paypassword',
     })
   },
   //邀请码
-  showInviterCode: function() {
+  showInviterCode: function () {
     var that = this;
     that.setData({
       showInviterCode: true
     })
   },
-  hideModal: function() {
+  hideModal: function () {
     var that = this
     that.setData({
       showInviterCode: false
     })
   },
   //点击复制
-  copyText: function(e) {
+  copyText: function (e) {
     var that = this
     var text = e.currentTarget.dataset.text
     var text1 = text.toString()
     wx.setClipboardData({
       data: text1,
-      success: function(res) {
+      success: function (res) {
         wx.getClipboardData({
-          success: function(res) {
+          success: function (res) {
             wx.showToast({
               title: '复制成功',
               icon: 'none'
@@ -161,7 +166,7 @@ Page({
       }
     })
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this
     if (options) {
       if (options.inviterCode) {
@@ -172,8 +177,9 @@ Page({
       }
     }
     var token = wx.getStorageSync('token')
+    console.log("token:" + token)
     that.setData({
-      token:token
+      token: token
     })
     if (!token) {
       return
@@ -181,68 +187,98 @@ Page({
       that.setData({
         userInfo: wx.getStorageSync('userInfo')
       })
-      app.Util.ajax('mall/personal/dashboard', null, 'GET').then((res) => { // 使用ajax函数
-        if (res.data.content) {
-          if (res.data.content.orderCount.length > 0) {
-            var waitCount = 0;
-            for (var i = 0; i < res.data.content.orderCount.length; i++) {
-              res.data.content.orderCount[i].count = res.data.content.orderCount[i].count > 99 ? res.data.content.orderCount[i].count + '+' : res.data.content.orderCount[i].count
-              if (res.data.content.orderCount[i].status == 2) {
-                waitCount += res.data.content.orderCount[i].count
-                that.setData({
-                  waitCount: waitCount
-                })
-              }
-              if (res.data.content.orderCount[i].status == 4) {
-                waitCount += res.data.content.orderCount[i].count
-                that.setData({
-                  waitCount: waitCount
-                })
-              }
+      that.init()      
+    }
+    //下载线上图片到本地，用于绘制分享图片
+    wx.downloadFile({
+      url: app.Util.getUrlImg().hostUrl+'/download_android.png',
+      success: function (res) {
+        console.log("背景图本地储存：" + JSON.stringify(res.tempFilePath));
+        that.setData({
+          QRUrl: res.tempFilePath
+        })
+      }, fail: function (res) {
+
+      }
+    })
+  },
+  init:function(){
+    var that = this
+    app.Util.ajax('mall/personal/dashboard', null, 'GET').then((res) => { // 使用ajax函数
+      if (res.data.content) {
+        if (res.data.content.orderCount.length > 0) {
+          var waitCount = 0;
+          for (var i = 0; i < res.data.content.orderCount.length; i++) {
+            res.data.content.orderCount[i].count = res.data.content.orderCount[i].count > 99 ? res.data.content.orderCount[i].count + '+' : res.data.content.orderCount[i].count
+            if (res.data.content.orderCount[i].status == 2) {
+              waitCount += res.data.content.orderCount[i].count
+              that.setData({
+                waitCount: waitCount
+              })
+            }
+            if (res.data.content.orderCount[i].status == 4) {
+              waitCount += res.data.content.orderCount[i].count
+              that.setData({
+                waitCount: waitCount
+              })
             }
           }
-          that.setData({
-            content: res.data.content ? res.data.content : '',
-            orderCount: res.data.content ? res.data.content.orderCount : [],
-          })
         }
+        that.setData({
+          content: res.data.content ? res.data.content : '',
+          orderCount: res.data.content ? res.data.content.orderCount : [],
+        })
+      }
+    })
+      //账户余额与未到账金额
+      app.Util.ajax('mall/personal/balanceDetails', {
+        pageNumber: 1,
+        pageSize: 1,
+        status: 1
+      }, 'GET').then((res) => {
+        //console.log("aa"+JSON.stringify(res.data.content))
+         // console.log(2)
+          that.setData({
+            noCashBackAmount: res.data.content.noCashBackAmount,
+            balance: res.data.content.balance
+          })
+        
       })
-    }
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-
-
+  onShow: function () {
+    var that =this
+    var token = wx.getStorageSync('token')
+    that.init();
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     var that = this
     that.onLoad(that.data.options)
     wx.stopPullDownRefresh() //停止下拉刷新
@@ -251,16 +287,184 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
     return {
       path: "/pages/mine/mine?inviterCode=" + wx.getStorageSync('inviterCode'),
     }
+  },
+  //下载APP弹窗(显示)
+  downAppShow: function () {
+    console.log("下载弹窗已显示")
+    this.setData({
+      downAppStatus: true
+    })
+  },
+  //下载APP弹窗(隐藏)
+  downAppHiden: function () {
+    console.log("下载弹窗已隐藏")
+    this.setData({
+      downAppStatus: false
+    })
+  },
+  //保存二维码到相册
+  saveQR: function () {
+    var that = this
+    var tempFilePath = that.data.QRUrl
+    wx.getSetting({
+      success(res) {
+          if (!res.authSetting['scope.writePhotosAlbum']) {
+              wx.authorize({
+                  scope: 'scope.writePhotosAlbum',
+                  success() {
+                      console.log('授权相册')
+                      wx.saveImageToPhotosAlbum({
+                          filePath: tempFilePath,
+                          success(res) {
+
+                              that.setData({
+                                downAppStatus: false
+                              });
+
+                              wx.hideLoading()
+                              console.log('保存图片成功回调')
+                              wx.showToast({
+                                  title: '保存成功',
+                                  icon:'none'
+                              },2000);
+
+                          },
+                          fail(res) {
+                              wx.hideLoading()
+                              console.log('保存图片失败回调')
+                              console.log(res);
+                              wx.showToast({
+                                title: '保存失败，请稍后重试',
+                                icon:'none'
+                            },2000);
+                              that.setData({
+                                downAppStatus: false
+                              });
+                          }
+                      })
+                  },
+                  fail() {
+                      wx.hideLoading();
+                      wx.showModal({
+                          title: '温馨提示',
+                          content: '您已拒绝授权，是否去设置打开？',
+                          confirmText: "确认",
+                          cancelText: "取消",
+                          success: function(res) {
+                              console.log(res);
+                              if (res.confirm) {
+                                  console.log('用户点击确认')
+                                  wx.openSetting({
+                                      success: (res) => {
+                                          console.log(res)
+                                          res.authSetting = {
+                                              "scope.writePhotosAlbum": true,
+                                          }
+                                          console.log("openSetting: success");
+                                          wx.saveImageToPhotosAlbum({
+                                              filePath: tempFilePath,
+                                              success(res) {
+
+                                                  that.setData({
+                                                    downAppStatus: false
+                                                  });
+
+                                                  wx.hideLoading()
+                                                  wx.showToast({
+                                                      title: '保存成功',
+                                                      icon:'none'
+                                                  },2000);
+                                              },
+                                              fail(res) {
+                                                  wx.hideLoading()
+                                                  console.log(res);
+                                                  wx.showToast({
+                                                    title: '保存失败，请稍后重试',
+                                                    icon:'none'
+                                                },2000);
+                                                  that.setData({
+                                                    downAppStatus: false
+                                                  });
+                                              }
+                                          })
+                                      }
+                                  });
+                              } else {
+                                  console.log('用户点击取消')
+                              }
+                          }
+                      });
+
+                  }
+              })
+          } else {
+              console.log('保存图片')
+              wx.saveImageToPhotosAlbum({
+                  filePath: tempFilePath,
+                  success(res) {
+                      wx.hideLoading()
+                      console.log('保存图片成功回调')
+                      wx.showToast({
+                          title: '保存成功',
+                          icon:'none'
+                      },2000);
+
+                      that.setData({
+                        downAppStatus: false
+                      });
+                  },
+                  fail(res) {
+                      wx.hideLoading()
+                      console.log('saveImageToPhotosAlbum 失败回调')
+                      console.log(res);
+                      wx.showToast({
+                        title: '保存失败，请稍后重试',
+                        icon:'none'
+                    },2000);
+                      that.setData({
+                        downAppStatus: false
+                      });
+                  }
+              })
+          }
+      },
+      fail(res) {
+          wx.hideLoading()
+          wx.showToast({
+            title: '保存失败，请稍后重试',
+            icon:'none'
+        },2000);
+          console.log('wx.getSetting 失败回调')
+          console.log(res);
+      }
+  })
+
+  },
+  copyDownloadAddress: function () {
+    var that = this
+    wx.setClipboardData({
+      //准备复制的数据
+      data: that.data.DownloadAddress,
+      success: function (res) {
+        wx.showToast({
+          title: '复制成功',
+          icon: "none"
+        },2000);
+        that.setData({
+          downAppStatus: false
+        });
+      }
+    });
   }
 })

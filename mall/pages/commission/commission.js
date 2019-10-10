@@ -14,7 +14,8 @@ Page({
     inputValue1:'',//提现金额
     show:false,//提现弹框
     isMember:null,//是否是会员
-    text:''
+    text:'',
+    html: '',
   },
   /**
    * 生命周期函数--监听页面加载
@@ -33,6 +34,20 @@ Page({
       isMember: parseInt(options.isMember)
     })
     that.init()
+    that.commission()
+  },
+  //合伙人介绍
+  commission: function () {
+    var that = this
+    app.Util.ajax('mall/page/queryByType', {
+      type: 2,
+    }, 'GET').then((res) => {
+      if (res.data.messageCode = 'MSG_1001') {
+        that.setData({
+          html: res.data.content.content
+        })
+      }
+    })
   },
   init:function(){
     let that = this
@@ -51,7 +66,7 @@ Page({
   getMore1: function () {
     var that = this
     var pageNumber = that.data.pageNumber + 1
-    app.Util.ajax('mall/personal/balanceDetails', { pageNumber: that.data.pageNumber, pageSize: that.data.pageSize, status: 2 }, 'GET').then((res) => { // 使用ajax函数
+    app.Util.ajax('mall/personal/balanceDetails', { pageNumber: pageNumber, pageSize: that.data.pageSize, status: 2 }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode = 'MSG_1001') {
         if (res.data.content.items.items == '' && that.data.items !== '') {
           that.setData({
@@ -72,7 +87,7 @@ Page({
   },
   //跳转至会员页面
   jumpMember:function(){
-    wx.switchTab({
+    wx.navigateTo({
       url: '/pages/member/member',
     })
   },
@@ -144,7 +159,7 @@ Page({
   onShow: function () {
     var that = this;
     that.setData({
-      pageNumber: 2
+      pageNumber: 1
     })
   },
 
@@ -174,7 +189,9 @@ Page({
    */
   onReachBottom: function () {
     var that = this;
-    that.getMore1(); 
+    if (that.data.isMember == 1){
+      that.getMore1(); 
+    }
   },
 
   /**

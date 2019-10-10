@@ -10,7 +10,8 @@ Page({
     pageSize: 6,
     content: {},
     inputValue: '', //充值金额
-    inputValue1: '' //提现金额
+    inputValue1: '', //提现金额
+    hostUrl: app.Util.getUrlImg().hostUrl
   },
   onLoad: function(options) {
     var that = this
@@ -25,6 +26,7 @@ Page({
       pageSize: pageSize,
       status: 1
     }, 'GET').then((res) => {
+      console.log("bbb"+JSON.stringify(res.data.content))
       if (res.data.content) {
         that.setData({
           content: res.data.content
@@ -191,9 +193,14 @@ Page({
       show: false,
     });
   },
+  toReentryDetail: function(){
+    wx.navigateTo({
+      url:'/pages/waitReentryDetail/waitReentryDetail'
+    })
+  },
   /**
    * 弹出框蒙层截断touchmove事件
    */
   preventTouchMove: function() {}
-
+  
 })

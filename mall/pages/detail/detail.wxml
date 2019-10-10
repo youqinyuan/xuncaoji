@@ -41,7 +41,7 @@
     <!--商品名称-->
     <view class="goods-title">
       <text class="goods-channel" wx:if="{{detail.tags==1}}">自营</text>
-      <text class="goods-zero">可申请0元购</text>
+      <text class="goods-zero">支持0成本购</text>
       <text selectable='true' bindlongtap='copy'>{{detail.name}}</text>
     </view>
     <!--商品比较-->
@@ -86,7 +86,7 @@
         <view class="platform-img">
           <image src="../../assets/images/icon/xqing_protect_changj_icon.png"></image>
         </view>
-        <view class="platform-text">0元购买即将上线</view>
+        <view class="platform-text">全场支持0成本购</view>
       </view>
     </view>
     <view class="block1"></view>
@@ -153,7 +153,7 @@
       {{comment[0].content}}
     </view>
     <scroll-view class="evaluate-list-scroll" scroll-x="true">
-      <view class="evaluate-list-img" wx:for="{{comment[0].interactImageUrlList}}" wx:key="{{}}" wx:for-item="itemName">
+      <view class="evaluate-list-img" wx:for="{{comment[0].interactImageUrlList}}" bindtap='watchImg' wx:key="{{}}" wx:for-item="itemName" data-list="{{comment[0].interactImageUrlList}}" data-src="{{itemName}}">
         <image src="{{itemName}}"></image>
       </view>
     </scroll-view>
@@ -179,7 +179,7 @@
       </view>
       <view class="recommend-list-text">
         <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-        <text class="item2">可申请0元购</text>{{item.name}}</view>
+        <text class="item2">支持0成本购</text>{{item.name}}</view>
       <view class="recommend-list-price">
         <view class="newprice">
           <text>￥</text>{{item.truePrice}}</view>
@@ -225,7 +225,6 @@
 </view>
 <image class="apply" catchtap='applyZero' src='/assets/images/icon/apply_icon.png' wx:if="{{imageUrls.length>0}}"></image>
 <view class="buy-model" wx:if="{{imageUrls.length>0}}">
-  <!-- <text class="buy-text">立即购买：</text> -->
   <text class="save savemoney" wx:if="{{detail.cashBack.totalAmount>0}}">共节约￥{{saveMoney}}：</text><text class="save">省￥{{saveAmount}},</text>
   <text class="back" wx:if="{{detail.cashBack.totalAmount>0}}">返￥{{foo.toStr(detail.cashBack.totalAmount)}}</text>
 </view>
@@ -253,7 +252,7 @@
       <view class="commodity-size">已选：{{selectName}}</view>
     </view>
   </view>
-  <view class="content-cashBack" wx:if="{{stockDetail1.cashbackItems}}">
+  <view class="content-cashBack" wx:if="{{stockDetail1.cashbackItems && zero==false}}">
     <image src="../../assets/images/icon/youhui_bqian.png"></image>
     <view class="content-cashBack-text">
       当前商品实付
@@ -261,6 +260,7 @@
       <text>{{foo.toStr(cashMoney)}}</text>元
     </view>
   </view>
+  <view class="content-zeroBack" wx:if="{{zero==true}}"></view>
   <view class="content-wrapper">
     <!--选择规格-->
     <block wx:for="{{spec}}" wx:key="{{item.id}}" wx:for-index="group_idx">
@@ -284,7 +284,7 @@
       </view>
     </view>
     <!-- 申请0元购 -->
-    <button class="application-zero" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" wx:if="{{zero==true}}">下一步</button>
+    <button class="application-zero" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" wx:if="{{zero==true}}">0成本购</button>
     <!-- 分期返现 -->
     <view class="return" wx:if="{{stockDetail1.cashbackItems.length>0 && zero==false}}">
       <view class="return-title">购物返现</view>
@@ -293,7 +293,7 @@
           <view class="order-item {{activeIndex===index? 'active1' : ''}}" data-id="{{item.cashbackId}}" data-gindex="{{index}}" bindtap='clickCashback' data-total="{{item.totalAmount}}">
             <view class="tabTitle" wx:if="{{item.period==0}}">立即返现</view>
             <view class="tabTitle1" wx:if="{{item.period==0}}">返现{{item.totalAmount}}元</view>
-            <view class="tabTitle" wx:if="{{item.period !== 0}}">{{item.period}}月返现{{item.totalAmount}}元</view>
+            <view class="tabTitle" wx:if="{{item.period !== 0}}">{{item.period}}期返现{{item.totalAmount}}元</view>
             <view class="tabTitle1" wx:if="{{item.period !== 0}}">每月返现{{item.amount}}元</view>
           </view>
         </view>
@@ -320,6 +320,10 @@
       <button class="share-button" id='btn' open-type="share">
         <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
         <view class="wx">分享好友</view>
+      </button>
+       <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="../../assets/images/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
       </button>
       <button class="share-button" bindtap='shareFriend'>
         <image class="photo" src="../../assets/images/icon/share_friends.png"></image>

@@ -18,11 +18,16 @@ Page({
       options: options
     })
   },
+  videoPlay:function(){
+    var videoContext = wx.createVideoContext('video')
+    videoContext.play()
+  },
   applyZeroBuy: function () {
     var that = this
-    let str = JSON.stringify(that.data.options);
+    let str = JSON.stringify(that.data.options)
+    //console.log('aaa'+JSON.stringify(that.data.options))
     wx.navigateTo({
-      url: '/pages/applyZero/applyZero?detailObj=' + str,
+      url: '/pages/applyZero/applyZero?detailObj=' + str
     })
   },
   /**
@@ -71,6 +76,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    
   }
 })

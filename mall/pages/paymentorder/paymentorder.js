@@ -29,10 +29,14 @@ Page({
     orderId: 1, //订单id
     options: {},
     showPassword: false, //设置支付密码弹框
+    showStop:false,
+    orderType:null,
+    message: '微信支付时，请在支付方式内选择信用卡支付，其他方式支付自动退款。'
   },
   //支付
   pay: function(e) {
     var that = this
+    // return
     if (that.data.channel == 1) {
       if (that.data.content.paymentAmount > 0 && that.data.content.paymentAmount < 10) {
         if (that.data.balance <= 0 || that.data.content.paymentAmount > that.data.balance) {
@@ -126,7 +130,13 @@ Page({
                 client: 2
               }, 'GET').then((res) => {
                 if (res.data.content) {
-                  if (res.data.content === 'SUCCESS') {
+                  if (res.data.content.status === 'SUCCESS') {
+                    console.log(JSON.stringify(res.data.content))
+                    if(res.data.content.bankCardType==2&&that.data.options.type==2){
+                      //信用卡用户
+                      console.log("支付卡类型:"+res.data.content.bankCardType)
+                      app.globalData.creditCard = 1
+                    }
                     wx.navigateTo({
                       url: `/pages/myorder/myorder?status=${0}`,
                     })
@@ -135,32 +145,32 @@ Page({
                       title: '订单不存在',
                       icon: 'none'
                     })
-                  } else if (res.data.content = 'REFUND') {
+                  } else if (res.data.content.status = 'REFUND') {
                     wx.showToast({
                       title: '转入退款',
                       icon: 'none'
                     })
-                  } else if (res.data.content = 'NOTPAY') {
+                  } else if (res.data.content.status = 'NOTPAY') {
                     wx.showToast({
                       title: '未支付',
                       icon: 'none'
                     })
-                  } else if (res.data.content = 'CLOSED') {
+                  } else if (res.data.content.status = 'CLOSED') {
                     wx.showToast({
                       title: '已关闭',
                       icon: 'none'
                     })
-                  } else if (res.data.content = 'REVOKED') {
+                  } else if (res.data.content.status = 'REVOKED') {
                     wx.showToast({
                       title: '已撤销',
                       icon: 'none'
                     })
-                  } else if (res.data.content = 'USERPAYING') {
+                  } else if (res.data.content.status = 'USERPAYING') {
                     wx.showToast({
                       title: '用户支付中',
                       icon: 'none'
                     })
-                  } else if (res.data.content = 'PAYERROR') {
+                  } else if (res.data.content.status = 'PAYERROR') {
                     wx.showToast({
                       title: '支付失败',
                       icon: 'none'
@@ -326,9 +336,18 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    console.log(options.orderType)
     that.setData({
-      options: options
+      options: options,
+      orderType: parseInt(options.orderType)
     })
+    if (that.data.orderType ===4){
+      that.setData({
+        payment_mode1:false,
+        payment_mode2:true,
+        channel:2
+      })
+    }
     var transStatementId = parseInt(options.id)
     var flag = Boolean(options.flag)
     var createTime = parseInt(options.createTime)
@@ -343,8 +362,8 @@ Page({
     let interval2 = setInterval(() => {
       if (lastTime > 0) {
         lastTime--
-        let minuteTime = parseInt(lastTime / 60)
-        let secondTime = parseInt(lastTime % 60)
+        let minuteTime = parseInt(lastTime / 60) > 10 ? parseInt(lastTime / 60) : '0'+parseInt(lastTime / 60) 
+        let secondTime = parseInt(lastTime % 60) > 10 ? parseInt(lastTime % 60) : '0' + parseInt(lastTime % 60) 
         that.setData({
           clientTime: `${minuteTime}:${secondTime}`
         })
@@ -511,5 +530,17 @@ Page({
   /**
    * 弹出框蒙层截断touchmove事件
    */
-  preventTouchMove: function() {}
+  preventTouchMove: function() {},
+  //可终止弹窗显示
+  payValueShow:function(){
+    this.setData({
+      showStop:true
+    })
+  },
+  //可终止弹窗隐藏
+  payValueHiden:function(){
+    this.setData({
+      showStop:false
+    })
+  }
 })

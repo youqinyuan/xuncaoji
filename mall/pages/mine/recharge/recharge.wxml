@@ -8,12 +8,13 @@
       <view class="balance-num">￥ {{content.balance}}</view>
       <view class="balance-text" wx:if="{{content.noCashBackAmount}}">未到账返现共计（不含退款）：{{content.noCashBackAmount}}元</view>
       <view class="balance-text" wx:else>未到账返现共计（不含退款）：0元</view>
+       <view class="select" bindtap="toReentryDetail">查看</view>
     </view>
   </view>
 </view>
 <!--充值、余额明细-->
 <view class="detail">
-  <view class="detail-list" bindtap="showRecharge">
+  <view class="detail-list bord" bindtap="showRecharge">
     <image class="detail-list-img" src="../../../assets/images/icon/recharge_money.png"></image>
     <view class="detail-list-text">充值</view>
   </view>
@@ -41,5 +42,6 @@
 <!--提现弹窗-->
 <view class="modal-mask1" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
 <view class="modal" wx:if="{{show}}" bindtap="hide">
-  <image class="modal-img" mode="widthFix" src="../../../assets/images/icon/withdraw_pop.png"></image>
+  <image class="modal-img" src="/assets/images/icon/withdraw.png"></image>
+  <image class="modal-cancel" src="/assets/images/icon/tanc_close_n.png" bindtap="hide"></image>
 </view>

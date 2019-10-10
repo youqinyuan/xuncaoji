@@ -1,7 +1,7 @@
 {
   "usingComponents": {},
   "navigationBarBackgroundColor": "#FF2644",
-  "navigationBarTitleText": "寻草记",
+  "navigationBarTitleText": "合伙人",
   "navigationBarTextStyle": "white",
   "enablePullDownRefresh": true
 }

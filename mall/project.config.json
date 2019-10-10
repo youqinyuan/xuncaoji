@@ -48,8 +48,12 @@
 		"game": {
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
-			"current": 5,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -80,23 +84,65 @@
 					"scene": null
 				},
 				{
-					"id": 5,
-					"name": "pages/zeroPurchase/zeroPurchase",
-					"pathName": "pages/zeroPurchase/zeroPurchase",
-					"query": "id=80",
+					"id": 4,
+					"name": "pages/xuncaoji/xuncaoji",
+					"pathName": "pages/xuncaoji/xuncaoji",
+					"query": "",
 					"scene": null
 				},
 				{
 					"id": 5,
-					"name": "pages/mine/mine",
-					"pathName": "pages/mine/mine",
-					"query": "",
+					"name": "pages/zeroPurchase/zeroPurchase",
+					"pathName": "pages/zeroPurchase/zeroPurchase",
+					"query": "id=132&type=1",
 					"scene": null
 				},
 				{
 					"id": 6,
 					"name": "pages/zeroPurchaseActivity/zeroPurchaseActivity",
 					"pathName": "pages/zeroPurchaseActivity/zeroPurchaseActivity",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "pages/xuncaoji/xuncaoji",
+					"pathName": "pages/xuncaoji/xuncaoji",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "pages/zeroBuy/zeroBuy",
+					"pathName": "pages/zeroBuy/zeroBuy",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/paymentorder/paymentorder",
+					"pathName": "pages/paymentorder/paymentorder",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 10,
+					"name": "合作活动",
+					"pathName": "pages/cooperate/cooperate",
+					"query": "type=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/invitationCode/invitationCode",
+					"pathName": "pages/invitationCode/invitationCode",
+					"query": "type=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/test/test",
+					"pathName": "pages/test/test",
 					"query": "",
 					"scene": null
 				}

@@ -9,15 +9,29 @@ page {
 .list {
   background: rgba(255, 255, 255, 1);
   border-bottom: 2rpx solid #f4f4f4;
+  /* display: flex;
+  justify-content: space-between; */
+}
+
+.box1 {
   display: flex;
   justify-content: space-between;
 }
 
 .list-left {
   margin-left: 30rpx;
+  display: inline-block;
 }
 
 .list-left-top {
+  width: 530rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  height: 80rpx;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   margin-top: 30rpx;
   font-size: 30rpx;
   color: rgba(51, 51, 51, 1);
@@ -34,17 +48,21 @@ page {
   margin-right: 25rpx;
   margin-top: 10rpx;
 }
-.list-right{
+
+.list-right {
   margin-right: 29rpx;
   margin-top: 40rpx;
-  
+  display: inline-block;
 }
-.list-right-item{
-  color:rgba(255,141,18,1);
+
+.list-right-item {
+  color: rgba(255, 141, 18, 1);
 }
-.list-right-item1{
- color:rgba(227,58,89,1)
+
+.list-right-item1 {
+  color: rgba(227, 58, 89, 1);
 }
+
 .list-text {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
@@ -53,7 +71,8 @@ page {
   text-align: center;
   margin-top: 20rpx;
 }
-.list1{
+
+.list1 {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
   font-weight: 400;
@@ -61,4 +80,99 @@ page {
   text-align: center;
   margin-top: 20rpx;
   margin-bottom: 20rpx;
+}
+
+.returnedMoney {
+  width: 136rpx;
+  height: 50rpx;
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  background-color: #ff6417;
+  margin: 0 auto;
+  line-height: 50rpx;
+  text-align: center;
+}
+
+.returnedMoneyBox {
+  height: 70rpx;
+}
+
+/* 退款弹框 */
+
+.stop-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.stop-zan-dialog__container {
+  width: 540rpx;
+  height: 282rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 110rpx;
+  z-index: 9999;
+}
+
+/* 弹框内容 */
+
+.stop-content {
+  text-align: center;
+  overflow: hidden;
+}
+
+.stop-content-title {
+  margin-top: 44rpx;
+  margin-bottom: 10rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.stop-content-container {
+  width: 357rpx;
+  height: 66rpx;
+  margin-left: 100rpx;
+  margin-bottom: 35rpx;
+  font-size: 30rpx;
+  text-align: center;
+  color: rgba(51, 51, 51, 1);
+}
+
+.stop-content-button {
+  display: flex;
+  height: 100rpx;
+  border-top: 2rpx solid #eaeaea;
+}
+
+.stop-reject {
+  border-right: 2rpx solid #eaeaea;
+  width: 270rpx;
+  height: 75rpx;
+  line-height: 75rpx;
+  font-size: 34rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.stop-comfirm {
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  text-align: center;
+  width: 270rpx;
+  background: rgba(255, 255, 255, 1);
+  color: #ff2644;
+}
+
+.stop-comfirm::after {
+  border: none;
 }

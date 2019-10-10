@@ -22,7 +22,7 @@
         </view>
         <view class="platform-list-item">
           <image class="platform-list-img" src="../../assets/images/icon/index_protect_changj_icon.png"></image>
-          <text class="platform-text">0元购买即将上线</text>
+          <text class="platform-text">全场支持0成本购</text>
         </view>
       </view>
     </view>
@@ -53,7 +53,7 @@
     </view> -->
     <!--零元购-->
     <view class="zerobuy" bindtap='toZeroPurchase' wx:if="{{bannerId !==''}}">
-      <image class="zerobuy-item" src="/assets/images/icon/index_zerobuy.png"></image>
+      <image class="zerobuy-item" src="{{bannerUrl}}"></image>
     </view>
     <!--0元购好物-->
     <!-- <view class="nationwideReturn">
@@ -126,7 +126,7 @@
           </view>
           <view class="quality-list-text">
             <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-            <text class="item2">可申请0元购</text>{{item.name}}</view>
+            <text class="item2">支持0成本购</text>{{item.name}}{{item.name}}</view>
           <view class="quality-list-price">
             <view class="newprice">
               <text>￥</text>{{item.truePrice}}</view>

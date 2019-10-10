@@ -8,7 +8,7 @@ Component({
     isShow: {
       type: Boolean,
       value: false,
-      observer: "onShow"
+      observer: "onLoad"
     }
   },
 
@@ -107,7 +107,7 @@ Component({
         tempRegionPos: [tempRegionPos]
       });
     },
-    onShow() {
+    onLoad() {
       this.setData({
         showPicker: this.data.isShow
       });

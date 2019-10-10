@@ -1,7 +1,6 @@
 //index.js
 //获取应用实例
 const app = getApp()
-var utils = require('../../utils/util.js');
 Page({
   data: {
     showDialog: false, //获取头像昵称弹框
@@ -37,7 +36,9 @@ Page({
     pricePhoto: '../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
     pricePhoto1: '../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
     options: {},
-    shareMessage: {} //叮咚信息
+    shareMessage: {}, //叮咚信息
+    newUserCourtesy: false,
+    hostUrl: app.Util.getUrlImg().hostUrl
   },
   //事件处理函数
   onLoad: function(options) {
@@ -54,6 +55,16 @@ Page({
       that.setData({
         showDialog: true
       })
+    }
+    //判断是否是新用户
+    var newUserCourtesyStatus1 = wx.getStorageSync('newUserCourtesyStatus')
+    // console.log("aa" + newUserCourtesyStatus1)
+    if (newUserCourtesyStatus1 == 1) {
+      setTimeout(function() {
+        that.setData({
+          newUserCourtesy: true
+        })
+      }, 5000)
     }
     //别人通过链接
     if (options.inviterCode) {
@@ -127,6 +138,13 @@ Page({
     })
     app.globalData.share = 1
   },
+  //取消弹框
+  cancel: function() {
+    var that = this
+    that.setData({
+      showReceived: false
+    })
+  },
   //导航栏
   navigationBar: function() {
     var that = this
@@ -167,7 +185,7 @@ Page({
   //查询0元购活动页
   zeroPurchaseMessage: function() {
     var that = this
-    app.Util.ajax(`mall/home/activity/freeShopping?mode=${1}`, null, 'GET').then((res) => { // 使用ajax函数
+    app.Util.ajax(`mall/home/activity/freeShopping?mode=${1}&type=${1}`, null, 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode = 'MSG_1001') {
         that.setData({
           bannerId: res.data.content ? res.data.content.id : ''
@@ -199,7 +217,7 @@ Page({
     var that = this
     app.Util.ajax('mall/home/lowPrice', 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode = 'MSG_1001') {
-        res.data.content.forEach((v,i)=>{
+        res.data.content.forEach((v, i) => {
           v.cashBackPrice = (v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2)
         })
         that.setData({
@@ -461,7 +479,7 @@ Page({
     wx.navigateTo({
       url: `/pages/index/twolist/twolist?id=${id}&name=${name}`,
     })
-  },  　　　　　
+  },
   switchNav(e) {
     var that = this
     var cur = e.currentTarget.dataset.current; //导航栏数组的index
@@ -563,10 +581,23 @@ Page({
   },
   //允许授权
   bindGetUserInfo: function(e) {
+    app.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
+      if (res.data.messageCode == 'MSG_1001') {
+        that.setData({
+          provinces: res.data.content
+        })
+        wx.setStorageSync('provinces', res.data.content)
+      }
+    }) 
     var that = this
     if (e.detail.errMsg == 'getUserInfo:ok') {
       app.globalData.flag = false
-      wx.setStorageSync("userInfo", e.detail.userInfo)
+      //登录成功，设置登录授权首选项
+      app.Util.ajax('mall/personal/preference', {
+        authAvatarNikeName: 1
+      }, 'POST').then((res) => {
+        console.log("设置登录授权1:" + res, res)
+      })
       that.setData({
         showDialog: false
       })
@@ -575,14 +606,12 @@ Page({
       app.Util.ajax('mall/personal/queryBaseData', null, 'POST').then((res) => { // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
           if (!res.data.content.nickname) {
-            console.log('需要发送个人资料给后台')
             wx.downloadFile({
               url: userInfo.avatarUrl,
               success(res) {
                 if (res.statusCode === 200) {
                   wx.uploadFile({
-                    url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
-                    // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
+                    url: app.Util.getUrlImg().publicUrl + 'mall/personal/modifyBaseData',
                     filePath: res.tempFilePath,
                     name: 'avatarKey',
                     formData: {
@@ -620,7 +649,9 @@ Page({
         wx.navigateTo({
           url: '/' + res.data
         })
-        wx.removeStorage({key: 'url'})
+        wx.removeStorage({
+          key: 'url'
+        })
       }
     })
   },
@@ -637,11 +668,14 @@ Page({
         wx.navigateTo({
           url: '/' + res.data
         })
-        wx.removeStorage({ key: 'url' })
+        wx.removeStorage({
+          key: 'url'
+        })
       }
     })
   },
-  　　　
+  
+
   onShow: function() {
     var that = this;
     var flag = app.globalData.flag
@@ -771,4 +805,32 @@ Page({
     that.onLoad(that.data.options)
     wx.stopPullDownRefresh() //停止下拉刷新
   },
+  //新用户好礼弹窗(隐藏)
+  newUserCourtesyCancel: function() {
+    this.setData({
+      newUserCourtesy: false
+    })
+    wx.setStorageSync('newUserCourtesyStatus', 2)
+  },
+  //领取新用户好礼
+  getNewUserCourtesy: function() {
+    app.Util.ajax('mall/order/newcomersReturnCash', null, 'POST').then((res) => {
+      console.log("新人好礼" + JSON.stringify(res))
+      if (res.data.messageCode == 'MSG_1001') {
+        wx.showToast({
+          title: '领取成功，请到余额查看',
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+      }
+    })
+    this.setData({
+      newUserCourtesy: false
+    })
+    wx.setStorageSync('newUserCourtesyStatus', 2)
+  }
 })

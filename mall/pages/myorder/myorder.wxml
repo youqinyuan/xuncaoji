@@ -63,12 +63,12 @@
     </view>
     <!-- 底部按钮 -->
     <view class="button">
-      <!-- <text class="stopzero" catchtap="stopZero">终止0元购</text> -->
-      <text class="cancel" wx:if="{{itemName.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{itemName.id}}">取消订单</text>
+      <button class="stopzero" catchtap="stopZero" wx:if="{{itemName.orderGoodsDetail[0].stageInterest&&itemName.latestStatus!==1&&itemName.latestStatus!==9&&itemName.latestStatus!==12&&itemName.latestStatus!==7&&itemName.latestStatus!==10}}" data-orderid="{{itemName.id}}" disabled="{{itemName.isStop==2?true:false}}">终止FreeBuy转购买</button>
+      <text class="cancel" wx:if="{{itemName.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{itemName.id}}" >取消订单</text>
       <text class="return-money" wx:if="{{itemName.isCashBack==true}}" catchtap='periodCash' data-lateststatus="{{itemName.latestStatus}}" data-orderid="{{itemName.id}}">分期返现</text>
       <text class="return" catchtap='refund' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==2 || itemName.latestStatus==5 || itemName.latestStatus==11}}">退款</text>
       <text class="return" catchtap='cancelRefund' wx:if="{{itemName.latestStatus==7 || itemName.latestStatus==8}}" data-orderid="{{itemName.id}}">取消退款</text>
-      <text class="pay" wx:if="{{itemName.latestStatus==1}}" catchtap='toPay' data-id="{{itemName.transStatementDetail.transId}}" data-orderid="{{itemName.id}}">付款</text>
+      <text class="pay" wx:if="{{itemName.latestStatus==1}}" catchtap='toPay' data-id="{{itemName.transStatementDetail.transId}}" data-orderid="{{itemName.id}}" data-ordertype="{{itemName.orderType}}">付款</text>
       <text class="pay" catchtap='toEvaluate' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==5}}">去评价</text>
       <text class="pay" catchtap='confirmReceipt' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==4}}">确认收货</text>
     </view>
@@ -99,7 +99,7 @@
       </view>
       <view class="recommend-list-text">
         <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-        <text class="item2">可申请0元购</text>{{item.name}}</view>
+        <text class="item2">支持0成本购</text>{{item.name}}</view>
       <view class="recommend-list-price">
         <view class="newprice">
           <text>￥</text>{{item.truePrice}}</view>
@@ -188,14 +188,15 @@
     <view class="stop-content-title">提示</view>
     <view class="stop-content-container">
       <view>确定终止0元购吗？</view>
-      <view>此刻取消将退您：99元</view>
+      <view>此刻取消将退您：{{refundAmount}}元</view>
     </view>
     <view class="stop-content-button">
       <view class="stop-reject" catchtap='wait'>再想想</view>
-      <button class="stop-comfirm" bindtap="comfireCancel">确定取消</button>
+      <button class="stop-comfirm" bindtap="comfireCancel" data-order="{{allOrder}}" data-latestStatus="{{allOrder.latestStatus}}">确定取消</button>
     </view>
   </view>
 </view>
+<!-- <creditCard wx:if="{{card}}"></creditCard> -->
 <!-- 去评价 -->
 <!-- <view class="zan-showDialog4 {{ showDialog4 ? 'zan-dialog--show4' : '' }}">
   <view class="zan-dialog__mask4" />

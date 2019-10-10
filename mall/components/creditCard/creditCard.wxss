@@ -1,0 +1,157 @@
+/* components/creditCard/creditCard.wxss */
+
+/* 终止说明 */
+
+.stop-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.bgimg {
+  height: 823rpx;
+  width: 630rpx;
+}
+
+.creditValue {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.stop-zan-dialog__mask .zan-dialog__container {
+  position: fixed;
+  left: 60rpx;
+  top: 100rpx;
+  z-index: 9999;
+}
+
+.stop-zan-dialog__mask .cancel-img {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  top: 30rpx;
+  right: 100rpx;
+}
+
+.stop-zan-dialog__mask .zan-dialog__container .title {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 44rpx;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.stop-zan-dialog__mask .zan-dialog__container .text {
+  margin: 0 36rpx;
+  font-size: 25rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(34, 34, 34, 1);
+  line-height: 40rpx;
+}
+
+.move {
+  color: #999;
+  font-size: 22rpx;
+  text-align: center;
+  padding-bottom: 10rpx;
+  height: 40rpx;
+}
+
+.num {
+  margin-left: 46rpx;
+  width: 26rpx;
+  height: 26rpx;
+  font-size: 22rpx;
+  line-height: 26rpx;
+  border-radius: 13rpx;
+  color: #fff;
+  background: #ff2644;
+  display: inline-block;
+  text-align: center;
+}
+.buttonStop{
+  width: 440rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  font-size: 32rpx;
+  color: #fff;
+  background: #ff2644;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 38rpx; 
+  position: absolute;
+  top: 710rpx;
+  left: 104rpx;
+}
+
+.name1 {
+  width: 118rpx;
+  height: 28rpx;
+  margin-left: 10rpx;
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #ff2644;
+  line-height: 46px;
+}
+
+.value1 {
+  /* width: 570rpx; */
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  line-height: 46rpx;
+  margin-left: 47rpx;
+}
+
+.value2 {
+  width: 530rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #999;
+  line-height: 46rpx;
+  padding-left: 46rpx;
+}
+
+.value3 {
+  width: 530rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  line-height: 46rpx;
+  padding-left: 46rpx;
+}
+
+.value4 {
+  width: 530rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  line-height: 46rpx;
+  padding-left: 46rpx;
+}
+
+.value5 {
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 38, 68, 1);
+  position: absolute;
+  top: 720rpx;
+  left: 104rpx;
+}
+

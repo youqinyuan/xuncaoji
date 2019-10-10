@@ -15,10 +15,10 @@ Page({
     shareList: {},
     inviterCode: '',
     text: '',
-    imageUrl: '../../assets/images/icon/team_share.png',
     haibao: false,
     haibaoImg: '',
-    top: ''
+    top: '',
+    hostUrl: app.Util.getUrlImg().hostUrl
   },
   //显示弹框
   recurit: function() {
@@ -124,7 +124,7 @@ Page({
       mode: 4,
     }, 'GET').then((res) => {
       console.log(res)
-      if (res.messageCode = 'MSG_1001') {
+      if (res.data.messageCode = 'MSG_1001') {
         wx.showLoading()
         var cashBack = res.data.content.cashBack
         var desc = res.data.content.desc
@@ -177,19 +177,19 @@ Page({
             ctx.setShadow(0, 0, 2, '#eee')
             ctx.fillRect(0.172 * width * 0.85, 0.205 * height * 0.89, 0.58 * width, 0.27 * height)
             //绘制产品图片
-            ctx.drawImage('/assets/images/icon/bg_pic.png', 0.183 * width * 0.85, 0.21 * height * 0.89, 0.56 * width, 0.26 * height);
-            ctx.setFontSize(13);
-            ctx.setFillStyle('#F85A53');
-            ctx.fillText('平台累计返现金额', 0.3 * width * 0.88, 0.49 * height);
-            ctx.stroke();
-            ctx.setFontSize(13);
-            ctx.setFillStyle('#F85A53');
-            ctx.fillText('￥', 0.52 * width * 0.88, 0.49 * height);
-            ctx.stroke();
-            ctx.setFontSize(19);
-            ctx.setFillStyle('#F85A53');
-            ctx.fillText(`${cashBack}`, 0.658 * width * 0.88, 0.49 * height);
-            ctx.stroke();
+            ctx.drawImage('/assets/images/icon/xuncaoji_cheats.png', 0.183 * width * 0.85, 0.21 * height * 0.89, 0.56 * width, 0.26 * height);
+            // ctx.setFontSize(13);
+            // ctx.setFillStyle('#F85A53');
+            // ctx.fillText('平台累计返现金额', 0.3 * width * 0.88, 0.49 * height);
+            // ctx.stroke();
+            // ctx.setFontSize(13);
+            // ctx.setFillStyle('#F85A53');
+            // ctx.fillText('￥', 0.52 * width * 0.88, 0.49 * height);
+            // ctx.stroke();
+            // ctx.setFontSize(19);
+            // ctx.setFillStyle('#F85A53');
+            // ctx.fillText(`${cashBack}`, 0.658 * width * 0.88, 0.49 * height);
+            // ctx.stroke();
             // 绘制描述
             ctx.setFontSize(13);
             ctx.setFillStyle('#333');
@@ -238,24 +238,119 @@ Page({
             wx.hideLoading()
           }
         })
+      } else if (res.data.messageCode == 'MSG_4001') {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none',
+          duration: 2000
+        })
       }
     })
   },
   // 长按保存到相册
   handleLongPress: function() {
     var that = this
-    console.log('长按')
-    console.log(that.data.haibaoImg)
-    wx.saveImageToPhotosAlbum({
-      filePath: that.data.haibaoImg,
+    var tempFilePath = that.data.haibaoImg
+    wx.getSetting({
       success(res) {
-        wx.showToast({
-          title: '图片已保存到相册',
-          icon: 'none'
-        });
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success() {
+              console.log('授权相册')
+              wx.saveImageToPhotosAlbum({
+                filePath: tempFilePath,
+                success(res) {
+                  wx.hideLoading()
+                  console.log('保存图片成功回调')
+                  wx.showToast({
+                    title: '保存成功',
+                    icon: 'none'
+                  });
+                  that.setData({
+                    haibao: false
+                  })
+                },
+                fail(res) {
+                  wx.hideLoading()
+                  console.log('保存图片失败回调')
+                  console.log(res);
+                }
+              })
+            },
+            fail() {
+              wx.hideLoading();
+              wx.showModal({
+                title: '温馨提示',
+                content: '您已拒绝授权，是否去设置打开？',
+                confirmText: "确认",
+                cancelText: "取消",
+                success: function (res) {
+                  console.log(res);
+                  if (res.confirm) {
+                    console.log('用户点击确认')
+                    wx.openSetting({
+                      success: (res) => {
+                        console.log(res)
+                        res.authSetting = {
+                          "scope.writePhotosAlbum": true,
+                        }
+                        console.log("openSetting: success");
+                        wx.saveImageToPhotosAlbum({
+                          filePath: tempFilePath,
+                          success(res) {
+                            wx.hideLoading()
+                            wx.showToast({
+                              title: '保存成功',
+                              icon: 'none'
+                            });
+                            that.setData({
+                              haibao: false
+                            })
+                          },
+                          fail(res) {
+                            wx.hideLoading()
+                            console.log(res);
+                          }
+                        })
+                      }
+                    });
+                  } else {
+                    console.log('用户点击取消')
+                  }
+                }
+              });
+
+            }
+          })
+        } else {
+          console.log('保存图片')
+          wx.saveImageToPhotosAlbum({
+            filePath: tempFilePath,
+            success(res) {
+              wx.hideLoading()
+              console.log('保存图片成功回调')
+              wx.showToast({
+                title: '保存成功',
+                icon: 'none'
+              });
+
+              that.setData({
+                haibao: false
+              })
+            },
+            fail(res) {
+              wx.hideLoading()
+              console.log('saveImageToPhotosAlbum 失败回调')
+              console.log(res);
+            }
+          })
+        }
       },
       fail(res) {
-        console.log(res)
+        wx.hideLoading()
+        console.log('wx.getSetting 失败回调')
+        console.log(res);
       }
     })
   },
@@ -280,8 +375,7 @@ Page({
   onShow: function() {
     var that = this;
     that.setData({
-      pageNumber: 1,
-      followers:[]
+      pageNumber: 1
     })
   },
 
@@ -317,39 +411,83 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function(ops) {
+ onShareAppMessage: function(ops) {
     var that = this
     if (ops.from === 'button') {
       // 来自页面内转发按钮
-      that.setData({
-        show: false
-      })
-      app.Util.ajax('mall/weChat/sharing/onSuccess', {
-        mode: 4
-      }, 'POST').then((res) => {
-        if (res.data.content) {
-          wx.showToast({
-            title: '分享成功',
-            icon: 'none'
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
-        }
-      })
-    }
-    return {
-      title: that.data.shareList.desc,
-      path: that.data.shareList.link,
-      imageUrl: that.data.imageUrl,
-      success: function(res) {
+      if (ops.target.id === 'btn') {
+        that.setData({
+          show: false
+        })
+        //显示tabbar
+        wx.showTabBar()
+        app.Util.ajax('mall/weChat/sharing/onSuccess', {
+          mode: 4
+        }, 'POST').then((res) => {
+          if (res.data.content) {
+            wx.showToast({
+              title: '分享成功',
+              icon: 'none'
+            })
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
+          }
+        })
+        return {
+          title: '我是合伙人，全品0元购，帮朋友省钱，也能赚钱！来加入吧',
+          path: that.data.shareList.link,
+          imageUrl: '../../assets/images/icon/xuncaoji_cheats.png',
+          success: function (res) {
 
-      },
-      fail: function(res) {
-        // 转发失败
-        console.log("转发失败:" + JSON.stringify(res));
+          },
+          fail: function (res) {
+            // 转发失败
+            console.log("转发失败:" + JSON.stringify(res));
+          }
+        }
+      } else if (ops.target.id === 'btnGroup') {
+        that.setData({
+          show: false
+        })
+        //显示tabbar
+        wx.showTabBar()
+        app.Util.ajax('mall/weChat/sharing/onSuccess', {
+          mode: 4
+        }, 'POST').then((res) => {
+          if (res.data.content) {
+            wx.showToast({
+              title: '分享成功',
+              icon: 'none'
+            })
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
+          }
+        })
+        return {
+          title: '亲们，全品0元购，省钱有赚钱，想成为合伙人的群友，加入吧',
+          path: that.data.shareList.link,
+          imageUrl: '../../assets/images/icon/xuncaoji_cheats.png',
+          success: function (res) {
+
+          },
+          fail: function (res) {
+            // 转发失败
+            console.log("转发失败:" + JSON.stringify(res));
+          }
+        }
+      }
+      
+    } else {
+      return {
+        title: '我是合伙人，全品0元购，帮朋友省钱，也能赚钱！来加入吧',
+        path: that.data.shareList.link,
+        imageUrl: '../../assets/images/icon/xuncaoji_cheats.png',
       }
     }
   }

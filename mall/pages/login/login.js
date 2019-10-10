@@ -22,47 +22,51 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this
     console.log(options)
     //给当前地址添加缓存，授权之后跳转回原页面
     var pages = getCurrentPages() //获取加载的页面
     var currentPage = pages[pages.length - Number(options.pageNum)] //获取当前页面的对象
-    console.log(pages)
-    console.log(currentPage)
     var url = currentPage.route
     if (url == 'pages/detail/detail') {
       that.data.url = '/' + url + '?id=' + wx.getStorageSync('goods_id')
     } else if (url == 'pages/zeroPurchase/zeroPurchase') {
-      that.data.url = '/' + url + '?id=' + wx.getStorageSync('zeroGoods_id')
+      that.data.url = '/' + url + '?id=' + wx.getStorageSync('zeroGoods_id') + '&&type=' + wx.getStorageSync('type') + '&&orgPrice=' + wx.getStorageSync('orgPrice')
+    } else if (url == 'pages/cooperate/cooperate'){
+      that.data.url = '/' + url
+    } else if (url == 'pages/zeroBuy/zeroBuy') {
+      that.data.url = '/' + url
+    } else if (url == 'pages/zeroPurchaseActivity/zeroPurchaseActivity') {
+      that.data.url = '/' + url
     }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
     // wx.switchTab({
     //   url: '/pages/index/index'
     // })
@@ -71,32 +75,32 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   //获取input的值
-  bindInput: function(e) {
+  bindInput: function (e) {
     var that = this;
     var value = e.detail.value
     that.setData({
       phoneNumber: value
     })
   },
-  bindCode: function(e) {
+  bindCode: function (e) {
     var that = this;
     var value1
     //验证码限制输入6位数字
@@ -110,7 +114,7 @@ Page({
     })
   },
   //获取验证码
-  getCode: function() {
+  getCode: function () {
     var that = this
     var phoneNumber = String(that.data.phoneNumber)
     var currentTime = that.data.currentTime
@@ -121,7 +125,7 @@ Page({
       return;
     }
     if (/^1[3456789]\d{9}$/.test(phoneNumber)) {
-      interval = setInterval(function() {
+      interval = setInterval(function () {
         currentTime--;
         that.setData({
           getcode: currentTime + 's再次获取',
@@ -152,7 +156,7 @@ Page({
     }
 
   },
-  toIndex: function() {
+  toIndex: function () {
     var that = this
     var phone = that.data.phoneNumber
     var codeNumber = that.data.codeNumber
@@ -182,44 +186,106 @@ Page({
           wx.setStorageSync('code', res.code)
           var code = res.code
           var inviterCode1 = wx.getStorageSync('inviterCode1') || ''
-          app.Util.ajax('mall/account/login', {
-            mobileNumber: phone,
+          wx.request({
+            url: app.Util.getUrlImg().publicUrl+'mall/account/login',
+            method: "POST",
+            data: {
+              mobileNumber: phone,
             captcha: codeNumber,
             source: 2,
             code: code,
             inviterCode: inviterCode1
-          }, 'POST').then((res) => { // 使用ajax函数
-            if (res.data.messageCode === 'MSG_1001') {
-              wx.setStorageSync('token', res.header.token)
-              wx.setStorageSync('inviterCode', res.data.content.inviterCode)
-              app.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
-                if (res.data.content) {
-                  that.setData({
-                    provinces: res.data.content
-                  })
-                  wx.setStorageSync('provinces', res.data.content)
-                }
-              })
-              wx.removeStorageSync('othersInviterCode')
-              if (that.data.url != '') {
-                wx.navigateTo({
-                  url: that.data.url
+            },
+            header: {
+              "content-type": 'application/json'
+            },
+            success: function(res) {
+              if (res.data.messageCode === 'MSG_1001') {
+                console.log(222)
+                wx.setStorageSync('token', res.header.token)
+                wx.setStorageSync('inviterCode', res.data.content.inviterCode)
+                wx.setStorageSync('newUserCourtesyStatus', res.data.content.fresher)
+                app.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
+                  if (res.data.content) {
+                    that.setData({
+                      provinces: res.data.content
+                    })
+                    wx.setStorageSync('provinces', res.data.content)
+                  }
                 })
+                wx.removeStorageSync('othersInviterCode')
+                if (that.data.url != '') {
+                  wx.navigateTo({
+                    url: that.data.url
+                  })
+                } else {
+                  wx.switchTab({
+                    url: '/pages/index/index'
+                  })
+                }
+              } else if (res.data.messageCode === 'MSG_4001') {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                  wx.setStorageSync('tips', '请填写正确的邀请码')
+                // wx.redirectTo({
+                //   url: '/pages/invitationCode/invitationCode?tips=' + '请填写正确的邀请码'
+                // })
               } else {
-                wx.switchTab({
-                  url: '/pages/index/index'
+                that.setData({
+                  text: '验证码输入错误'
                 })
               }
-            } else if (res.data.messageCode === 'MSG_4002') {
-              wx.redirectTo({
-                url: '/pages/invitationCode/invitationCode?tips=' + '请填写正确的邀请码'
-              })
-            } else {
-              that.setData({
-                text: '验证码输入错误'
-              })
+              
             }
           })
+          // app.Util.ajax('mall/account/login', {
+          //   mobileNumber: phone,
+          //   captcha: codeNumber,
+          //   source: 2,
+          //   code: code,
+          //   inviterCode: inviterCode1
+          // }, 'POST').then((res) => { // 使用ajax函数
+          //   console.log(111 + JSON.stringify(res))
+          //   if (res.data.messageCode === 'MSG_1001') {
+          //     //登录成功，设置登录授权首选项
+          //     // app.Util.ajax('mall/personal/preference', {
+          //     //   authAvatarNikeName: 1
+          //     // }, 'POST').then((res) => {
+          //     //   console.log("设置登录授权1:" + res, res)
+          //     // })
+          //     console.log(222)
+          //     wx.setStorageSync('token', res.header.token)
+          //     wx.setStorageSync('inviterCode', res.data.content.inviterCode)
+          //     wx.setStorageSync('newUserCourtesyStatus', res.data.content.fresher)
+          //     app.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
+          //       if (res.data.content) {
+          //         that.setData({
+          //           provinces: res.data.content
+          //         })
+          //         wx.setStorageSync('provinces', res.data.content)
+          //       }
+          //     })
+          //     wx.removeStorageSync('othersInviterCode')
+          //     if (that.data.url != '') {
+          //       wx.navigateTo({
+          //         url: that.data.url
+          //       })
+          //     } else {
+          //       wx.switchTab({
+          //         url: '/pages/index/index'
+          //       })
+          //     }
+          //   } else if (res.data.messageCode === 'MSG_4001') {
+          //     wx.redirectTo({
+          //       url: '/pages/invitationCode/invitationCode?tips=' + '请填写正确的邀请码'
+          //     })
+          //   } else {
+          //     that.setData({
+          //       text: '验证码输入错误'
+          //     })
+          //   }
+          // })
         }
       })
     }

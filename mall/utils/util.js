@@ -68,6 +68,11 @@ function getRouter() { //此方法跟上面一个方法前四行一致，只是�
 }
 
 const ajax = (url, data, method, config = {}) => {
+  var authLoginStatus = 0
+  var authLoginStatus2 = wx.getStorageSync('authLoginStatus')
+  if (authLoginStatus2) {
+    authLoginStatus = authLoginStatus2
+  }
   let token = wx.getStorageSync('token')
   let baseUrl = "https://xuncaoji.yzsaas.cn/"; //测试环境
   // let baseUrl = 'https://xuncj.yzsaas.cn/'; //正式环境
@@ -87,20 +92,28 @@ const ajax = (url, data, method, config = {}) => {
       header: Object.assign({}, headerConfig, config), // 合并传递进来的配置
       method: method,
       success(res) {
-        if (res.data.statusCode == 200) {
-            wx.hideLoading()
-          if (res.data.messageCode == 'MSG_1001') {
+       // console.log("接口信息："+JSON.stringify(res))
+        if (res.data.statusCode == 200 || authLoginStatus == 1) {
+          wx.hideLoading()
+          if (res.data.messageCode == 'MSG_1001' || authLoginStatus == 1) {
             // console.log('请求成功') 
             resolve(res)
           } else if (res.data.messageCode == 'MSG_2001') {
-            // console.log('未授权')
             var pages = getCurrentPages()
-            if(pages[pages.length - 1].route == 'pages/index/index'){
+            // console.log("11" + JSON.stringify(pages[pages.length - 1]))
+            if (pages.route == 'pages/index/index') {
               return;
             }
-            wx.navigateTo({
-              url: '/pages/invitationCode/invitationCode',
-            })
+            // if(authLoginStatus == 2){
+            //    // console.log('未授权')
+            // var pages = getCurrentPages()
+            // if (pages[pages.length - 1].route == 'pages/index/index') {
+            //   return;
+            // }
+            // wx.navigateTo({
+            //   url: '/pages/invitationCode/invitationCode',
+            // })
+            // }
           } else {
             resolve(res)
           }
@@ -110,11 +123,25 @@ const ajax = (url, data, method, config = {}) => {
         reject(res => console.log(err))
       },
       complete(res) {
-        wx.hideLoading()
+        // wx.hideLoading()
       }
     })
   })
 }
+
+function getUrlImg() {
+  var hostUrl = 'https://xuncj.yzsaas.cn/_download/img';
+  var hostVideo = 'https://xuncj.yzsaas.cn/_download/'
+    var publicUrl = "https://xuncaoji.yzsaas.cn/"; //测试环境
+  // var publicUrl = 'https://xuncj.yzsaas.cn/'; //正式环境
+  return {
+    hostUrl,
+    publicUrl,
+    hostVideo
+  }
+  console.log(url)
+}
+
 function deepCopy(o, c) {
   var c = c || {}
   for (var i in o) {
@@ -140,5 +167,6 @@ module.exports = {
   getUrl: getUrl,
   getRouter: getRouter,
   ajax: ajax,
+  getUrlImg: getUrlImg,
   deepCopy: deepCopy
 }

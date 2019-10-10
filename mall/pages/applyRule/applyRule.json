@@ -1,6 +1,8 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "selfVideo":"/components/video/video"
+  },
   "navigationBarBackgroundColor": "#FF2644",
-  "navigationBarTitleText": "申请0元购",
+  "navigationBarTitleText": "FreeBuy-使用须知",
   "navigationBarTextStyle": "white"
 }

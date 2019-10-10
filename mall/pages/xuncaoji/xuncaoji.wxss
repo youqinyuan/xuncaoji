@@ -1,0 +1,227 @@
+/* pages/xuncaoji/xuncaoji.wxss */
+
+page {
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  background: #f4edc4;
+}
+
+.sologn {
+  width: 100%;
+  height: 863rpx;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+.section-swiper {
+  width: 710rpx;
+  margin: 0 auto;
+  margin-top: 20rpx;
+  /* left: 20rpx;
+  position: absolute;
+  z-index: -1; */
+}
+
+.section-wrap {
+  height: 450rpx;
+}
+
+.section-video {
+  height: 400rpx;
+  width: 710rpx;
+  
+}
+
+.section-video video {
+  height: 100%;
+  width: 100%;
+}
+
+.play-img {
+  height: 400rpx;
+  width: 710rpx;
+}
+
+.play {
+  position: absolute;
+  top: 158rpx;
+  left: 297rpx;
+  width: 116rpx;
+  height: 116rpx;
+}
+
+.wrap {
+  width: 710rpx;
+  background-color: #fff;
+  border-radius: 8rpx 8rpx 0 0;
+  box-sizing: border-box;
+  height: auto; 
+  margin-left: 20rpx;
+  margin-bottom: 40rpx;
+  background: #fff;
+}
+
+rich-text {
+  display: block;
+  padding-top: 40rpx;
+  padding-bottom: 40rpx;
+  width: 650rpx;
+  font-size: 28rpx;
+  margin: 0 auto;
+  letter-spacing: 1rpx;
+  font-weight: normal;
+}
+
+.block {
+  background: #f4edc4; 
+  height: 30rpx;
+  width: 750rpx;
+}
+
+/* 分享小图标 */
+
+.small-share {
+  width: 108rpx;
+  height: 108rpx;
+  text-align: center;
+  background: #ff2644;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 75rpx;
+  right: 20rpx;
+}
+
+.small-share image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 分享弹框 */
+
+.commodity_screen1 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.4;
+  overflow: hidden;
+  z-index: 9999;
+  color: rgba(255, 255, 255, 1);
+}
+
+/*对话框 */
+
+.commodity_attr_box1 {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+  z-index: 99999;
+}
+
+.content-wrapper1 {
+  overflow: hidden;
+  height: 414rpx;
+  text-align: center;
+  position: relative;
+}
+
+.content-wrapper1 .cancel {
+  width: 44rpx;
+  height: 44rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 14rpx;
+}
+
+.content-wrapper1 .shareCommission {
+  margin-top: 70rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content-wrapper1 .shareText {
+  margin-top: 39rpx;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+}
+
+.content-wrapper1 .share-wrap {
+  width: 565rpx;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.content-wrapper1 .share-button {
+  background: rgba(255, 255, 255, 1);
+  width: 198rpx;
+  border-radius: 0;
+}
+
+button::after {
+  border: none;
+}
+
+.content-wrapper1 .photo {
+  margin-top: 30rpx;
+  width: 128rpx;
+  height: 128rpx;
+}
+
+.content-wrapper1 .wx {
+  margin-top: -35rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+/* 海报弹框 */
+
+.mask_hb {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+}
+
+.canvas-box {
+  width: 0;
+  height: 0;
+  position: fixed;
+  top: 3.9%;
+  left: 6%;
+}
+
+.canvas {
+  width: 88%;
+  height: 89%;
+  position: fixed;
+  top: 3.9%;
+  left: 6%;
+}
+
+.close_hb {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: 2%;
+}
+
+.close_hb image {
+  width: 50rpx;
+  height: 50rpx;
+}

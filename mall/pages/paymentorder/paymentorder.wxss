@@ -5,6 +5,35 @@ page {
   font-family: PingFang-SC-Medium;
   font-weight: 500;
 }
+/* 邀请好友 */
+
+.stock {
+  display: flex;
+  padding: 30rpx 0;
+  /* background: rgba(255, 255, 255, 1); */
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.stock-img {
+  margin-left: 30rpx;
+  margin-right: 10rpx;
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.stock-img image {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.stock-text {
+  margin-right: 50rpx;
+  font-size: 26rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #ff2644;
+}
 
 /* 支付价格 */
 
@@ -170,6 +199,23 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   line-height: 80rpx;
   font-size: 32rpx;
   color: rgba(255, 255, 255, 1);
+}
+.button2{
+  width: 240rpx;
+  height: 60rpx;
+  background: #FF6417;
+  border-radius: 38px;
+  margin-left: 256rpx;
+  margin-bottom: 40rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: #FFF;
+}
+.payValue{
+  color: #999999;
+  font-size: 26rpx;
+  padding:0 52rpx;
 }
 
 /* 余额不足弹框 */
@@ -389,4 +435,55 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   font-size: 34rpx;
   text-align: center;
   color: #FF2644;
+}
+/* 终止说明 */
+
+.stop-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.stop-zan-dialog__mask .zan-dialog__container {
+  width: 630rpx;
+  height: 230rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 320rpx;
+  left: 78rpx;
+  z-index: 9999;
+}
+
+.stop-zan-dialog__mask .cancel-img {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 78rpx;
+  top: 248rpx;
+}
+
+.stop-zan-dialog__mask .zan-dialog__container .title {
+  width: 270rpx;
+  margin: 0 auto;
+  margin-top: 44rpx;
+  margin-bottom: 30rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.stop-zan-dialog__mask .zan-dialog__container .text {
+  margin: 0 36rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #333333;
+  line-height: 40rpx;
 }

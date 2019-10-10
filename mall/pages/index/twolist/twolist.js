@@ -15,10 +15,6 @@ Page({
     textToast:'',
     pageNumber: 1, //分页记录数
     pageSize: 20, //分页大小
-    showModalStatus: false,//分享弹框
-    shareList:{},//分享数据
-    goodsId:1,
-    sharingProfit: '',//分享返利
     titleName:'',//标题
     pricePhoto: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
     pricePhoto1: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
@@ -256,6 +252,8 @@ Page({
  * 用户点击右上角分享
  */
   onShareAppMessage: function (ops) {
-    
+    return {
+      path: "/pages/index/twolist/twolist?inviterCode=" + wx.getStorageSync('inviterCode'),
+    }
   },
 })

@@ -39,7 +39,7 @@
   font-size: 24rpx;
   font-weight: 400;
   margin-right: 39rpx;
-  color: rgba(170, 170, 170, 1);
+  color: #FF2644;
 }
 
 /*Go*/

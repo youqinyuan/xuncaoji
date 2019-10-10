@@ -47,7 +47,7 @@
       </image>
     </view>
     <view class="content-middle-img">
-      <image src="../../assets/images/icon/pop_element.png"></image>
+      <image src="{{hostUrl}}/pop_element.png"></image>
     </view>
     <view class="content-wrapper1">
       <view class="share-text"> 我已经买了很多优惠商品了，赶快和我一起组团剁手吧!</view>
@@ -55,6 +55,10 @@
         <button class="share-button" id='btn' open-type="share">
           <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
           <view class="wx">分享好友</view>
+        </button>
+         <button class="share-button" id='btnGroup' open-type="share">
+          <image class="photo" src="../../assets/images/icon/share_tanc_qun_n.png"></image>
+          <view class="wx">分享群</view>
         </button>
         <button class="share-button" bindtap='shareFriend'>
           <image class="photo" src="../../assets/images/icon/share_friends.png"></image>

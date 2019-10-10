@@ -1,4 +1,5 @@
-<!--pages/orderDetail/orderDetail.wxml-->
+<!-- pages/orderDetail/orderDetail.wxml -->
+<wxs module="filters" src="filter.wxs"></wxs>
 <view class="orderDetail-wrapper">
   <!-- 状态 -->
   <view class="orderDetail">
@@ -62,21 +63,21 @@
     <view class="platform">
       <view class="platform-list">
         <view class="platform-list-item">
-          <image class="platform-list-img" src="../../assets/images/icon/xqing_protect_shouhou_icon1.png"></image>
+          <image class="platform-list-img" src="../../assets/images/icon/index_protect_shouhou_icon.png"></image>
           <text class="platform-text">源头直采</text>
         </view>
         <view class="platform-list-item">
-          <image class="platform-list-img" src="../../assets/images/icon/xqing_protect_renzheng_icon1.png"></image>
+          <image class="platform-list-img" src="../../assets/images/icon/index_protect_renzheng_icon.png"></image>
           <text class="platform-text">假一赔十</text>
         </view>
         <view class="platform-list-item">
-          <image class="platform-list-img" src="../../assets/images/icon/xqing_protect_changj_icon1.png"></image>
-          <text class="platform-text">0元购买即将上线</text>
+          <image class="platform-list-img" src="../../assets/images/icon/index_protect_changj_icon.png"></image>
+          <text class="platform-text">全场支持0成本购</text>
         </view>
       </view>
     </view>
   </view>
-  <!--物流详情-->
+  <!-- 物流详情 -->
   <view class="address" bindtap='jumpLogDetail' data-logisticsid="{{logisticsId}}" wx:if="{{logisticsDetailList.length===1}}">
     <view class="address-img">
       <image src="../../assets/images/icon/ic_logistics.png"></image>
@@ -96,7 +97,7 @@
     </view>
   </view>
   <view class="shops-wrap-container">
-    <!--店铺商品-->
+    <!-- 店铺商品 -->
     <view class="shops-wrap">
       <view class="shops-wrap-bottom-item" wx:for="{{content.orderGoodsDetail}}" wx:key="{{item.id}}">
         <view class="shops-wrap-bottom">
@@ -104,9 +105,7 @@
           <view class="shops-wrap-bottom-right">
             <view class="shops-wrap-bottom-right-item">
               <view class="shops-wrap-bottom-title">{{item.goodsName}}</view>
-              <view class="shops-wrap-bottom-size">
-                {{item.specDesc}}
-              </view>
+              <view class="shops-wrap-bottom-size">{{item.specDesc}}</view>
             </view>
             <view class="shops-wrap-bottom-right-list">
               <view class="shops-wrap-bottom-price">
@@ -121,7 +120,7 @@
           </view>
         </view>
         <view class="allprice">
-          <view class="expressfee">
+          <!-- <view class="expressfee">
             <view class="expressfee-text">商品总价</view>
             <view class="expressfee-price">
               <text>￥</text>
@@ -137,15 +136,88 @@
               <text>￥</text>
               <text class="expressfee-price1">{{item.expressFee}}</text>
             </view>
+          </view> -->
+          <view class="expressfee" wx:if="{{item.purchaseTotalPrice==null}}">
+          <view class="expressfee-text">商品总价</view>
+          <view class="expressfee-price">
+            <text>￥</text>
+            <text class="expressfee-price1">{{item.goodsTotalPrice}}</text>
           </view>
-          <view class="expressfee" wx:if="{{item.cashBack}}">
-            <view class="expressfee-text">分期返现</view>
+        </view>
+        <view class="expressfee_pay border2px" wx:if="{{item.purchaseTotalPrice}}">
+          <view class="expressfee-text2">您支付的金额信息</view>
+      </view>
+        <view class="expressfee">
+          <view class="expressfee-text">运费(快递)</view>
+          <view class="expressfee-price" wx:if="{{item.expressFee == 0}}">
+            <text>包邮</text>
+          </view>
+          <view class="expressfee-price" wx:else>
+            <text>￥</text>
+            <text class="expressfee-price1">{{item.expressFee}}</text>
+          </view>
+        </view>
+        <view class="expressfee" wx:if="{{item.purchaseTotalPrice}}">
+          <view class="expressfee-text">申请0成本购（FreeBuy）付款金额</view>
+          <view class="expressfee-price">
+            <text>￥</text>
+            <text class="expressfee-price1">{{item.purchaseTotalPrice}}</text>
+          </view>
+        </view>
+        <view class="expressfee" >
+            <view class="expressfee-text">合计金额</view>
             <view class="expressfee-price">
-              <text class="expressfee-price1" wx:if="{{item.period==0}}">立即返</text>
-              <text class="expressfee-price1" wx:else>{{item.period}}期返现</text>
+              <text class="expressfee-price1">￥<text class="expressfee-price1-text">{{item.purchaseTotalPrice?filters.toFix(item.purchaseTotalPrice+item.expressFee):filters.toFix(item.goodsTotalPrice+item.expressFee)}}</text></text>
             </view>
           </view>
-          <!-- <view class="expressfee">
+        <view class="expressfee_zeroRemind" wx:if="{{item.purchaseTotalPrice}}">
+          <view>温馨提示：所有品类保证正品，由于成本较大，因此全额返会比正常售价支付金额略高。</view>
+        </view>
+         <view class="expressfee_pay border2px" wx:if="{{item.purchaseTotalPrice}}">
+          <view class="expressfee-text2">您获得返现的信息</view>
+      </view>
+        <!-- <view class="cashBackPrice" wx:if="{{item.purchaseTotalPrice}}">
+          <view class="cashBackPrice-money">
+            <text>最终成本价：</text>
+            <text>￥</text>
+            <text>{{item.expectedAmount}}</text>
+          </view>
+          <view class="cashBackPrice-period">返还期（月）数：{{item.period}}个月</view>
+        </view> -->
+        <view class="expressfee" wx:if="{{item.purchaseTotalPrice}}">
+          <view class="expressfee-text">最终返后价</view>
+          <view class="expressfee-price">
+            <text class="expressfee-price1"><text class="expressfee-price1-text">￥{{item.expectedAmount}}</text></text>
+          </view>
+        </view>
+        <view class="expressfee" wx:if="{{item.purchaseTotalPrice}}">
+          <view class="expressfee-text">返还期(月)数</view>
+          <view class="expressfee-price">
+            <text class="expressfee-price1"><text class="expressfee-price1-text">{{item.period}}个月</text></text>
+          </view>
+        </view>
+          <view class="expressfee" wx:if="{{item.period}}">
+            <view class="expressfee-text">分期返现</view>
+            <view class="expressfee-price" wx:if="{{item.purchaseTotalPrice}}">
+              <text class="expressfee-price1">{{item.period}}期(月)共返现￥<text class="expressfee-price1-text">{{item.remainingCashReturn}}</text></text>
+            </view>
+            <view class="expressfee-price" wx:else>
+              <text class="expressfee-price1" wx:if="{{item.period==0}}">立即返现</text>
+              <text class="expressfee-price1" wx:elif="{{item.period !==0}}">{{item.period}}期返现共返现￥<text class="expressfee-price1-text">{{item.cashBack}}</text></text>
+            </view>
+          </view>
+          <view class="expressfee" wx:if="{{item.period>0 && item.purchaseTotalPrice}}">
+            <view class="expressfee-text">分期补偿利息</view>
+            <view class="expressfee-price">
+              <text class="expressfee-price1"><text class="expressfee-price1-text">￥{{item.stageInterest}}</text></text>
+            </view>
+          </view>
+           <view class="stopZero10" wx:if="{{item.purchaseTotalPrice}}">
+    <view class="stopZero-platform10">我们是上市挂牌公司（代码837939）旗下电商平台，为消费者存有壹亿消费保障基金，请放心使用！</view>
+    <view class="stopZero-btn10" bindtap="showBox">终止FreeBuy</view>
+    <!-- <view class="stopZero-message10">温馨提示：所有品类保证正品，由于成本较大，因此全额返会比正常售价支付金额略高。</view> -->
+  </view>
+          <!-- <view class="expressfee" wx:if="{{item.cashBack&&item.purchaseTotalPrice}}">
             <view class="expressfee-text">分期返现</view>
             <view class="expressfee-price">
               <text class="expressfee-money">399-6期返现</text>
@@ -155,6 +227,10 @@
       </view>
     </view>
   </view>
+  <view class="remarks" wx:if="{{content.orderAddressDetail.remark}}">
+    <text class="remarks-text">备注</text>
+    <text class="remarks-writes">{{content.orderAddressDetail.remark}}</text>
+  </view>
   <view class="payment">
     <view class="payment-text">实际付款</view>
     <view class="payment-price">
@@ -162,6 +238,8 @@
       <text class="payment-price1">{{content.orderAmount}}</text>
     </view>
   </view>
+  
+  <view class="blank"></view>
   <!-- 订单信息 -->
   <view class="order-message">
     <view class="title">
@@ -196,9 +274,9 @@
         </view>
       </view>
     </view>
-    <!-- <view class="stop-wrap">
-      <view class="stop-zero" bindtap="stopZero">终止0元购</view>
-    </view> -->
+    <view class="stop-wrap">
+      <button class="stopzero" bindtap="stopZero" disabled="{{content.isStop==2?true:false}}" wx:if="{{content.orderGoodsDetail[0].stageInterest&&content.latestStatus!==1&&content.latestStatus!==7&&content.latestStatus!==9&&content.latestStatus!==10&&content.latestStatus!==12}}">终止FreeBuy转购买</button>
+    </view>
   </view>
   <view class="order-block" wx:if="{{content.latestStatus ==1||content.latestStatus ==2||content.latestStatus ==3||content.latestStatus ==4 ||content.latestStatus ==6||content.latestStatus ==9||content.latestStatus ==12}}"></view>
   <!-- 退款信息 -->
@@ -246,13 +324,27 @@
   <!-- 按钮 -->
   <view class="order-bottom">
     <view class="order-bottom1">
-      <view class="cancel-order" wx:if="{{content.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{content.id}}">取消订单</view>
-      <view class="refund" wx:if="{{content.latestStatus==2||content.latestStatus==5||content.latestStatus==11}}" catchtap='refund' data-orderid="{{content.id}}">退款</view>
-      <view class="cancel-refund" wx:if="{{content.latestStatus==7||content.latestStatus==8}}" catchtap='cancelRefund' data-orderid="{{content.id}}">取消退款</view>
-      <view class="cash-back" wx:if="{{content.isCashBack==true}}" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}">分期返现</view>
-      <view class="pay-money" wx:if="{{content.latestStatus==1}}" catchtap='toPay' data-id="{{content.transStatementDetail.transId}}" data-orderid="{{content.id}}">立即付款</view>
-      <view class="sure-goods" catchtap='confirmReceipt' wx:if="{{content.latestStatus==4}}" data-orderid="{{content.id}}">确认收货</view>
-      <view class="evaluate" wx:if="{{content.latestStatus==5}}" catchtap='toEvaluate' data-orderid="{{content.id}}">去评价</view>
+      <view class="cancel-order" wx:if="{{content.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{content.id}}">
+        取消订单
+      </view>
+      <view class="refund" wx:if="{{content.latestStatus==2||content.latestStatus==5||content.latestStatus==11}}" catchtap='refund' data-orderid="{{content.id}}">
+        退款
+      </view>
+      <view class="cancel-refund" wx:if="{{content.latestStatus==7||content.latestStatus==8}}" catchtap='cancelRefund' data-orderid="{{content.id}}">
+        取消退款
+      </view>
+      <view class="cash-back" wx:if="{{content.isCashBack==true}}" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}">
+        分期返现
+      </view>
+      <view class="pay-money" wx:if="{{content.latestStatus==1}}" data-ordertype="{{content.orderType}}" catchtap='toPay' data-id="{{content.transStatementDetail.transId}}" data-orderid="{{content.id}}">
+        立即付款
+      </view>
+      <view class="sure-goods" catchtap='confirmReceipt' wx:if="{{content.latestStatus==4}}" data-orderid="{{content.id}}">
+        确认收货
+      </view>
+      <view class="evaluate" wx:if="{{content.latestStatus==5}}" catchtap='toEvaluate' data-orderid="{{content.id}}">
+        去评价
+      </view>
     </view>
   </view>
 </view>
@@ -261,8 +353,7 @@
 <view class="comfirm-zan-dialog__container" wx:if="{{showDialog}}">
   <view class='comfirm-content'>
     <view class="comfirm-content-title">提示</view>
-    <view class="comfirm-content-container">确认收货
-    </view>
+    <view class="comfirm-content-container">确认收货</view>
     <view class="comfirm-content-button">
       <view class="comfirm-reject" catchtap='cancel'>取消</view>
       <button class="comfirm-comfirm" bindtap="allow">收货</button>
@@ -274,8 +365,7 @@
 <view class="cancelorder-zan-dialog__container" wx:if="{{showDialog1}}">
   <view class='cancelorder-content'>
     <view class="cancelorder-content-title">提示</view>
-    <view class="cancelorder-content-container">是否取消当前订单退款申请？
-    </view>
+    <view class="cancelorder-content-container">是否取消当前订单退款申请？</view>
     <view class="cancelorder-content-button">
       <view class="cancelorder-reject" catchtap='cancelrefund'>取消</view>
       <button class="cancelorder-comfirm" bindtap="surerefund">确定</button>
@@ -289,7 +379,9 @@
     <view class='contentainer2'>
       <view class="contentainer2-title">申请退款</view>
       <view class="contentainer2-content">
-        <view class="contentainer2-content-text {{current == index ?'active1':''}}" bindtap="getText" wx:for="{{refund}}" wx:for-item="reasons" wx:key="{{reasons}}" data-current="{{index}}" data-text="{{reasons}}">{{reasons}}</view>
+        <view class="contentainer2-content-text {{current == index ?'active1':''}}" bindtap="getText" wx:for="{{refund}}" wx:for-item="reasons" wx:key="{{reasons}}" data-current="{{index}}" data-text="{{reasons}}">
+          {{reasons}}
+        </view>
       </view>
       <view class="contentainer2-text">提示：申请退款前请与商家电话沟通后在进行申请，将减少商家拒绝申请退款概率</view>
       <view class="contentainer2-button">
@@ -306,7 +398,9 @@
     <view class='contentainer3'>
       <view class="contentainer3-title">取消订单</view>
       <view class="contentainer3-content">
-        <view class="contentainer3-content-text {{current == index ?'active1':''}}" bindtap="getText1" wx:for="{{cancelOrder}}" wx:for-item="reasons1" wx:key="{{reasons1}}" data-current="{{index}}" data-text="{{reasons1}}">{{reasons1}}</view>
+        <view class="contentainer3-content-text {{current == index ?'active1':''}}" bindtap="getText1" wx:for="{{cancelOrder}}" wx:for-item="reasons1" wx:key="{{reasons1}}" data-current="{{index}}" data-text="{{reasons1}}">
+          {{reasons1}}
+        </view>
       </view>
       <view class="contentainer3-button">
         <view class="reject" bindtap='cancelorder'>取消</view>
@@ -322,11 +416,19 @@
     <view class="stop-content-title">提示</view>
     <view class="stop-content-container">
       <view>确定终止0元购吗？</view>
-      <view>此刻取消将退您：99元</view>
+      <view>此刻取消将退您：{{refundAmount}}元</view>
     </view>
     <view class="stop-content-button">
       <view class="stop-reject" catchtap='wait'>再想想</view>
-      <button class="stop-comfirm" bindtap="comfireCancel">确定取消</button>
+      <button class="stop-comfirm" bindtap="comfireCancel" data-orderid="{{orderId}}" data-latestStatus="{{content.latestStatus}}">确定取消</button>
     </view>
   </view>
+</view>
+<!-- 终止0元购弹框 -->
+<view class="stop-zan-dialog__mask10" catchtouchmove="preventTouchMove" wx:if="{{showBox}}">
+  <view class="zan-dialog__container" wx:if="{{showBox}}">
+    <view class="title">终止FreeBuy </view>
+    <view class="text">提交订单、支付后，您可在订单内随时终止 FreeBuy！剩余资金退还到您的账户。可随时提现至微信！！</view>
+  </view>
+  <image wx:if="{{showBox}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelBox'></image>
 </view>

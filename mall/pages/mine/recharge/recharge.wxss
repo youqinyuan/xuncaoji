@@ -49,6 +49,7 @@ page {
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
+  display: inline-block;
 }
 
 /*提现、充值、余额明细*/
@@ -157,7 +158,7 @@ page {
   position: absolute;
   width: 440rpx;
   height: 76rpx;
-  background: #FF6417;
+  background: #ff6417;
   border-radius: 38rpx;
   line-height: 76rpx;
   font-size: 32rpx;
@@ -171,7 +172,7 @@ page {
 .button {
   width: 690rpx;
   height: 76rpx;
-  background: #FF6417;
+  background: #ff6417;
   border-radius: 38px;
   margin-top: 60rpx;
   margin-left: 30rpx;
@@ -196,15 +197,41 @@ page {
 
 .modal {
   width: 620rpx;
+  height: 800rpx;
   border-radius: 24rpx;
-  overflow: hidden;
   position: fixed;
   top: 5rpx;
   left: 65rpx;
   z-index: 9999;
 }
-.modal-img{
+
+.modal-img {
   width: 620rpx;
+  height: 1130rpx;
   display: flex;
   justify-content: center;
+}
+.modal-cancel{
+  width: 44rpx;
+  height: 44rpx;
+  position: absolute;
+  right: 50rpx;
+  top:40rpx;
+}
+.select {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  color: rgba(255, 255, 255, 1);
+  display: inline-block;
+  margin-left: 34rpx;
+  width: 80rpx;
+  height: 44rpx;
+  background-color: #ff6417;
+  border-radius: 10rpx;
+  text-align: center;
+  line-height: 44rpx;
+}
+
+.bord {
+  border-right: #e7e7e7 1rpx solid;
 }

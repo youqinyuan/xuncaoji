@@ -2,21 +2,24 @@
 <!--我的信息-->
 <!-- 已登录 -->
 <view class="content" wx:if="{{token}}">
-  <view class="top">
+  <view class="content-top">
     <view class="top-left">
       <view class="sculpture" bindtap='personalData'>
         <image wx:if="{{content.avatarKey}}" src="{{content.avatarKey}}"></image>
-        <image wx:elif="{{userInfo.avatarUrl}}" src="{{userInfo.avatarUrl}}"></image>
         <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
       </view>
-      <view class="title">
+      <view class="title" bindtap="recharge">
         <view class="big-title" wx:if="{{content.nickname !==''}}">{{content.nickname}}</view>
-        <view class="big-title" wx:elif="{{userInfo.nickName}}">{{userInfo.nickName}}</view>
         <view class="big-title" wx:else>匿名用户</view>
         <view class="balance">
           <text class="balance-text">余额</text>
           <text class="balance-price">￥</text>
-          <text class="balance-num">{{content.balance?content.balance:0}}</text>
+          <text class="balance-num">{{balance?balance:0}}</text>
+        </view>
+        <view class="balance2">
+          <text class="balance-text font20">未到账</text>
+          <text class="balance-price font20">￥</text>
+          <text class="balance-num font20">{{noCashBackAmount?noCashBackAmount:0}}</text>
         </view>
       </view>
     </view>
@@ -147,6 +150,10 @@
     <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list5_icon.png"></image>
     <view class="mine-list-text">客服</view>
   </button>
+  <view class="mine-list" bindtap='downAppShow'>
+    <image class="mine-list-img" src="../../assets/images/icon/my_otherservice_list6_icon@3x.png"></image>
+    <view class="mine-list-text">下载APP</view>
+  </view>
 </view>
 <!-- 邀请码弹框 -->
 <view class="zan-dialog1" catchtouchmove="preventTouchMove" wx:if="{{showInviterCode}}" catchtap="hideModal"></view>
@@ -166,4 +173,20 @@
   <view class="text">我的推荐人</view>
   <view class="nickname" wx:if="{{!content.inviterNickname}}">寻草记</view>
   <view class="nickname" wx:else>{{content.inviterNickname}}</view>
+</view>
+<!-- 下载APP弹窗 -->
+<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{downAppStatus}}">
+  <view class="zan-dialog__container" wx:if="{{downAppStatus}}">
+    <view class="title">扫码下载APP</view>
+    <image src="{{QRUrl}}" class="QR"/>
+    <view class="value">
+      <text >如无法扫码下载请复制下方链接到浏览器打开</text>
+      <text class="DownloadAddress">下载：{{DownloadAddress}}</text>
+      <text class="copyDownloadAddress" bindtap="copyDownloadAddress">复制</text>
+    </view>
+     <view class="saveQR" bindtap="saveQR">
+        <text>保存二维码</text>
+      </view>
+  </view>
+  <image wx:if="{{downAppStatus}}" class="cancel-img" src="../../assets/images/icon/vip_close_Pop-ups.png" bindtap='downAppHiden'></image>
 </view>

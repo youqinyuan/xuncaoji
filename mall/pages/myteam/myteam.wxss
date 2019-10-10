@@ -222,7 +222,7 @@ page {
 }
 
 .share-wrap {
-  width: 500rpx;
+  width: 565rpx;
   margin: 0 auto;
   display: flex;
   justify-content: space-around;

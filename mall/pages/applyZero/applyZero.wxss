@@ -2,6 +2,7 @@
 
 page {
   background: #f4f4f4;
+  font-family: "PingFang-SC-Regular";
 }
 
 .wrapper-top {
@@ -127,7 +128,7 @@ page {
 }
 
 .btn .add {
-  width: 270rpx;
+  width: 330rpx;
   height: 80rpx;
   line-height: 80rpx;
   margin-left: 30rpx;
@@ -153,7 +154,7 @@ page {
 }
 
 .btn .pay-zero {
-  width: 390rpx;
+  width: 330rpx;
   height: 80rpx;
   background: rgba(255, 38, 68, 1);
   border-radius: 40rpx;
@@ -165,14 +166,13 @@ page {
 }
 
 .stop {
-  display: flex;
-  width: 556rpx;
-  margin: 0 auto;
+  width: 100%;
   height: 24rpx;
   font-size: 24rpx;
   font-family: PingFang SC;
   font-weight: 400;
   color: rgba(102, 102, 102, 1);
+  text-align: center;
 }
 
 .stop image {
@@ -204,7 +204,7 @@ page {
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  top: 300rpx;
+  top: 100rpx;
   left: 60rpx;
   z-index: 9999;
 }
@@ -214,7 +214,7 @@ page {
   height: 74rpx;
   position: absolute;
   right: 68rpx;
-  top: 226rpx;
+  top: 26rpx;
 }
 
 .period-zan-dialog__mask .zan-dialog__container .title {
@@ -226,23 +226,53 @@ page {
   color: rgba(34, 34, 34, 1);
 }
 
-.period-zan-dialog__mask .period-month {
+.period-zan-dialog__mask .period-month-wrap {
+  border-top: 2rpx solid #dbdbdb;
   height: auto;
-  max-height: 320rpx;
-  overflow-y: scroll;
+  margin-top: 20rpx;
+  max-height: 640rpx;
+  /* max-height: 400rpx; */
+  /* overflow-y: scroll;
   overflow: -Scroll;
   overflow-x: hidden;
+  text-align: center; */
+}
+
+.period-detail {
   text-align: center;
 }
 
-.period-zan-dialog__mask .period-detail {
+/* ::-webkit-scrollbar {
+  width: 6rpx;
+  height: 8rpx;
+  color: transparent;
+} */
+/* 定义滚动条轨道 内阴影+圆角 */
+
+/* ::-webkit-scrollbar-track {
+  border-radius: 20rpx;
+  background-color: #fff;
+} */
+
+/*定义滑块 内阴影+圆角*/
+
+/* ::-webkit-scrollbar-thumb {
+  border-radius: 20rpx;
+  background-color: #ccc;
+} */
+
+.period-zan-dialog__mask .period-month {
   height: 80rpx;
   line-height: 80rpx;
   font-size: 28rpx;
   font-family: PingFang SC;
   font-weight: 400;
   color: rgba(34, 34, 34, 1);
-  border-top: 2rpx solid #dbdbdb;
+  border-bottom: 2rpx solid #dbdbdb;
+}
+
+.period-zan-dialog__mask .period-month:last-child {
+  border-bottom: none;
 }
 
 .period-zan-dialog__mask .custom {
@@ -274,7 +304,7 @@ page {
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  top: 300rpx;
+  top: 200rpx;
   left: 60rpx;
   z-index: 9999;
 }
@@ -284,7 +314,7 @@ page {
   height: 74rpx;
   position: absolute;
   right: 68rpx;
-  top: 226rpx;
+  top: 126rpx;
 }
 
 .return-zan-dialog__mask .zan-dialog__container .title {
@@ -302,7 +332,7 @@ page {
   border: 2rpx solid #dbdbdb;
   border-bottom: none;
   border-right: none;
-  margin-bottom: 50rpx;
+  margin-bottom: 20rpx;
 }
 
 .return-zan-dialog__mask .th {
@@ -447,14 +477,14 @@ page {
 }
 
 .stop-zan-dialog__mask .zan-dialog__container {
-  width: 630rpx;
-  height: 440rpx;
+  width: 540rpx;
+  /* height: 474rpx; */
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
   top: 300rpx;
-  left: 60rpx;
+  left: 104rpx;
   z-index: 9999;
 }
 
@@ -462,8 +492,8 @@ page {
   width: 44rpx;
   height: 74rpx;
   position: absolute;
-  right: 68rpx;
-  top: 226rpx;
+  right: 108rpx;
+  top: 228rpx;
 }
 
 .stop-zan-dialog__mask .zan-dialog__container .title {
@@ -477,11 +507,19 @@ page {
 
 .stop-zan-dialog__mask .zan-dialog__container .text {
   margin: 0 36rpx;
-  font-size: 28rpx;
+  font-size: 25rpx;
   font-family: PingFang SC;
   font-weight: 400;
   color: rgba(34, 34, 34, 1);
   line-height: 40rpx;
+}
+
+.move {
+  color: #999;
+  font-size: 22rpx;
+  text-align: center;
+  padding-bottom: 10rpx;
+  height: 40rpx;
 }
 
 /* 怎么赚的钱 */
@@ -546,4 +584,295 @@ page {
   font-family: PingFang SC;
   font-weight: 400;
   color: rgba(255, 255, 255, 1);
+}
+
+.expectedAmountButton {
+  width: 440rpx;
+  height: 80rpx;
+  background-color: #ff2644;
+  font-size: 32rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  margin-top: 25rpx;
+  color: #fff;
+  margin-left: 10rpx;
+  margin-bottom: 30rpx;
+}
+
+.expectedAmountButton text {
+  display: inline-block;
+  margin-top: 20rpx;
+}
+
+.monthButton {
+  width: 440rpx;
+  height: 80rpx;
+  background-color: #ff2644;
+  font-size: 32rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  margin-top: 20rpx;
+  color: #fff;
+  margin-left: 10rpx;
+}
+
+.applyZeroRegular {
+  width: 100%;
+  background-color: #f4f4f4;
+  color: #333;
+  font-family: PingFang SC;
+  font-weight: PingFang-SC-Medium;
+  font-size: 28rpx;
+  padding: 30rpx 0rpx 30rpx 0rpx;
+}
+
+.applyZeroRegular text {
+  font-weight: bold;
+  display: block;
+  margin-left: 38rpx;
+  margin-right: 38rpx;
+}
+
+.applyZeroMoneyBox1 {
+  background: #fff;
+  padding-top: 25rpx;
+}
+
+.applyZeroMoneyBox3 {
+  color: #666;
+  font-size: 28rpx;
+  margin-top: 38rpx;
+  height: 120rpx;
+  border-bottom: #dbdbdb 2rpx solid;
+  margin-left: 68rpx;
+}
+
+.regularNumber {
+  margin-left: 24rpx;
+  display: inline-block;
+  background: #ff2644;
+  height: 30rpx;
+  width: 30rpx;
+  line-height: 30rpx;
+  border-radius: 50%;
+  font-size: 24rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.regularFont {
+  margin-left: 18rpx;
+  display: inline-block;
+  color: #333;
+  font-size: 28rpx;
+}
+
+.applyZeroRevise {
+  margin-top: 38rpx;
+  display: inline-block;
+  color: #ff6417;
+  font-size: 24rpx;
+  position: absolute;
+  right: 24rpx;
+  border: #ff6417 2rpx solid;
+  width: 80rpx;
+  height: 34rpx;
+  border-radius: 18rpx;
+  text-align: center;
+}
+
+.applyZeroRevise11 {
+  margin-top: 10rpx;
+  display: inline-block;
+  color: #ff6417;
+  font-size: 24rpx;
+  position: absolute;
+  right: 24rpx;
+  border: #ff6417 2rpx solid;
+  width: 80rpx;
+  height: 34rpx;
+  border-radius: 18rpx;
+  text-align: center;
+}
+
+.expectedAmountNumber {
+  margin-left: 18rpx;
+  color: #ff2644;
+  display: inline-block;
+  width: 120rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  background: #f4f4f4;
+  text-align: center;
+}
+
+.applyZeroFont1 {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.applyZeroFont2 {
+  margin-left: 18rpx;
+  display: inline-block;
+  color: #666;
+  font-size: 28rpx;
+}
+
+.applyZeroFont3 {
+  margin-top: 18rpx;
+  display: inline-block;
+  color: #666;
+  font-size: 28rpx;
+}
+
+.applyZeroMoneyBox4 {
+  color: #666;
+  font-size: 28rpx;
+  margin-top: 30rpx;
+  height: 80rpx;
+  margin-left: 68rpx;
+}
+
+.computeButton {
+  width: 200rpx;
+  height: 64rpx;
+  background: #ff2644;
+  color: #fff;
+  border-radius: 40rpx;
+  text-align: center;
+  margin-right: 30rpx;
+  font-size: 30rpx;
+  line-height: 64rpx;
+}
+
+.computeButtonBox {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #fff;
+  height: 98rpx;
+}
+
+.reviseResultBox {
+  background: #ffedd0;
+  height: 546rpx;
+}
+
+.reviseResultBox1 {
+  padding-top: 30rpx;
+  padding-left: 40rpx;
+  padding-right: 34rpx;
+  height: 98rpx;
+  font-size: 28rpx;
+  background: #f7e1b1;
+}
+
+.reviseText1 {
+  color: #333;
+  font-weight: bold;
+  line-height: 86rpx;
+  margin-left: 40rpx;
+}
+
+.reviseText2 {
+  color: #666;
+}
+
+.regularNumber2 {
+  margin-left: 24rpx;
+  display: inline-block;
+  background: #ffbf63;
+  height: 30rpx;
+  width: 30rpx;
+  border-radius: 12rpx;
+  font-size: 24rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.applyZeroFont6 {
+  display: inline-block;
+  color: #666;
+  font-size: 24rpx;
+}
+
+.applyZeroMoneyBox6 {
+  color: #666;
+  font-size: 28rpx;
+  margin-top: 25rpx;
+  height: 80rpx;
+  margin-left: 68rpx;
+}
+
+.applyZeroRevise6 {
+  display: inline-block;
+  position: absolute;
+  right: 24rpx;
+  margin-top: 38rpx;
+  color: #ff6417;
+  font-size: 24rpx;
+  border: #ff6417 2rpx solid;
+  width: 80rpx;
+  height: 34rpx;
+  border-radius: 18rpx;
+  text-align: center;
+}
+
+.applyZeroFont7 {
+  display: block;
+  color: #666;
+  font-size: 24rpx;
+}
+
+.stopValue {
+  color: #ff6417;
+  margin-left: 10rpx;
+}
+
+.payMoney {
+  color: #ff2644;
+  margin-left: 15rpx;
+  font-size: 28rpx;
+}
+
+.payMoney3 {
+  width: 70rpx;
+  color: #ff2644;
+  font-size: 28rpx;
+}
+
+.expectedAmountInput {
+  border: #dbdbdb 2rpx solid;
+  width: 440rpx;
+  height: 60rpx;
+  margin-top: 30rpx;
+  margin-left: 10rpx;
+  padding-left: 10rpx;
+}
+
+.placeholder {
+  color: #aaa;
+  margin-left: 10rpx;
+}
+
+.monthFont {
+  display: block;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(34, 34, 34, 1);
+  line-height: 40rpx;
+  padding: 0 40rpx;
+  padding-bottom: 20rpx;
+}
+
+.applyZeroMoneyBox8 {
+  background: #fff;
+}
+
+.applyZeroFont12 {
+  /* margin-left: 18rpx; */
+  margin-top: 16rpx;
+  display: inline-block;
+  color: #666;
+  font-size: 24rpx;
 }

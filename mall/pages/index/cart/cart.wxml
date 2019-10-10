@@ -15,6 +15,12 @@
         <view class="shop-view" style="margin-bottom: 400rpx;">
           <view class="shop-view-wrapper" wx:for="{{shops}}" wx:key="{{index}}" wx:for-index="groupIndex">
             <checkbox-group data-groupIndex="{{groupIndex}}" wx:for="{{item.cartDetails}}" data-kc="{{item}}" wx:key="{{index}}" data-index="{{index}}" bindchange="Checks1" class="store-box1">
+              <view wx:if="{{item.applyStatus==0}}" class="applyStatus">
+                <view class="againCalculate-wrap">
+                  <view class="calculateInvalid">计算价格失效</view>
+                  <view class="againCalculate" catchtap="againCalculate" data-goodsid='{{item.goodsId}}' data-stockid='{{item.stockId}}' data-quantity="{{item.quantity}}" data-shoppingCartGoodsId='{{item.id}}'>重新计算</view>
+                </view>
+              </view>
               <checkbox class="goods-view" checked="{{item.checked}}"></checkbox>
               <image src="{{item.imageUrl}}" class="goods-view-img"></image>
               <view class="goods-view-wrapper" data-id="{{item.goodsId}}" bindtap='toDetail'>
@@ -33,7 +39,8 @@
                   <view class="num-item2" wx:if="{{item.status==3}}">商品已失效</view>
                 </view>
                 <view class="zero-wrap">
-                  <!-- <view class="zero-message">查看0元申请信息</view> -->
+                  <view class="zero-message" catchtap='toApplyZero' wx:if="{{item.expectedAmount!==null}}" data-stockid='{{item.stockId}}' data-quantity='{{item.quantity}}' data-expectedAmount='{{item.expectedAmount}}' data-cashBackPeriods='{{item.cashBackPeriods}}' data-needPaymentAmount='{{item.goodsPrice}}'
+                    data-goodsid='{{item.goodsId}}' data-shoppingCartGoodsId='{{item.id}}'>查看0元申请信息</view>
                   <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
                 </view>
               </view>
@@ -59,17 +66,17 @@
 </view>
 <!--弹框-->
 <view class="zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>
-  <view class="zan-dialog__container" wx:if="{{showDialog}}">
-    <view class='content'>
-      <view class="content-title">提示</view>
-      <view class="content-container">确认删除购物车所选商品？
-      </view>
-      <view class="content-button">
-        <view class="reject" catchtap='reject'>取消</view>
-        <view class="comfirm" catchtap='comfirm'>删除</view>
-      </view>
+<view class="zan-dialog__container" wx:if="{{showDialog}}">
+  <view class='content'>
+    <view class="content-title">提示</view>
+    <view class="content-container">确认删除购物车所选商品？
+    </view>
+    <view class="content-button">
+      <view class="reject" catchtap='reject'>取消</view>
+      <view class="comfirm" catchtap='comfirm'>删除</view>
     </view>
   </view>
+</view>
 
 <!-- 轮播展示组件 -->
 <swiper-show class="swiper-show"></swiper-show>

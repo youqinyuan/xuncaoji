@@ -31,14 +31,18 @@
     </view>
   </view>
   <!-- 首页叮咚弹窗-->
-  <view class="show-received" catchtouchmove="preventTouchMove" wx:if="{{showReceived}}"></view>
+  <view class="show-received" catchtouchmove="preventTouchMove" wx:if="{{showReceived}}">
   <view class="show-received-container" wx:if="{{showReceived}}">
-    <image class="show-received-top" src="/assets/images/icon/index_ddong_tb.png"></image>
+    <image class="show-received-top" src="{{hostUrl}}/index_ddong_tb.png"></image>
     <view class="show-received-bottom">
       <view class="show-received-text">{{shareMessage.content}}</view>
       <button class="show-received-button" catchtap='go_zeroActivity' wx:if="{{shareMessage.flag == 2}}">立即去</button>
       <button class="show-received-button" catchtap='go_zeroBuy' wx:if="{{shareMessage.flag == 1}}">催催去</button>
     </view>
+  </view>
+  <view class="show-received-cancel" wx:if="{{showReceived}}" bindtap='cancel'>
+    <image src="../../assets/images/icon/vip_close_Pop-ups.png"></image>
+  </view>
   </view>
   <!--购物小图标-->
   <view class="small-cart" bindtap='toCart' data-url='/pages/index/cart/cart'>
@@ -55,3 +59,18 @@
 </view>
 <!-- 轮播展示组件 -->
 <swiper-show class="swiper-show"></swiper-show>
+<!-- 首页新用户弹窗-->
+  <view class="show-received2" catchtouchmove="preventTouchMove" wx:if="{{newUserCourtesy}}">
+  <view class="show-received-container2" wx:if="{{newUserCourtesy}}">
+    <image class="show-received-top2" src="../../assets/images/icon/liwu_icon.png"></image>
+    <view class="newPeople">
+      <text > 新人好礼：赠送12元现金</text>
+      <text > 每月赠送1元，12个月全部赠送</text>
+    </view>
+    <view class="look">请在余额查看</view>
+    <view class="show-received-bottom2">
+      <button class="show-received-button2" bindtap='newUserCourtesyCancel'>有钱不要</button>
+      <button class="show-received-button3" bindtap="getNewUserCourtesy">领取</button>
+    </view>
+  </view>
+  </view>

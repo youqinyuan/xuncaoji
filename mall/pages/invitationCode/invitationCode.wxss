@@ -4,7 +4,7 @@
   width: 540rpx;
   border-bottom: 2rpx solid rgba(221, 221, 221, 1);
   margin: 129rpx auto;
-  margin-top: 261rpx;
+  margin-top: 224rpx;
 }
 
 .code-input input {
@@ -24,7 +24,7 @@
   background: #ff2644;
   border-radius: 40rpx;
   font-size: 32rpx;
-  margin-bottom: 111rpx;
+  margin-bottom: 100rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
@@ -36,20 +36,20 @@
 .application-code {
   background: #fff;
   margin-left: 20rpx;
-  font-size: 26rpx;
+  font-size: 30rpx;
   font-family: PingFang SC;
   font-weight: 500;
-  color: rgba(255, 100, 23, 1);
+  color:#FF6417;
   border-radius: 0;
 }
 
 .writed {
   margin-right: 20rpx;
   background: #fff;
-  font-size: 26rpx;
+  font-size: 30rpx;
   font-family: PingFang SC;
   font-weight: 500;
-  color: rgba(60, 138, 255, 1);
+  color:#3C8AFF;
   border-radius: 0;
 }
 button::after {

@@ -9,6 +9,21 @@ page {
   margin-bottom: 20rpx;
 }
 
+.stop-zero {
+  width: 150rpx;
+  height: 46rpx;
+  border: 2rpx solid rgba(255, 38, 68, 1);
+  border-radius: 23rpx;
+  margin-top: 20rpx;
+  margin-left: 50%;
+  font-size: 26rpx;
+  line-height: 46rpx;
+  text-align: center;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 38, 68, 1);
+}
+
 .cashback-message .title {
   display: flex;
   width: 750rpx;
@@ -81,6 +96,7 @@ page {
 .size1 {
   margin-left: 20rpx;
 }
+
 .shops-wrap-bottom-price {
   font-size: 24rpx;
   color: rgba(153, 153, 153, 1);
@@ -161,7 +177,12 @@ page {
   font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
-
+.cashback-detail .list .text1 {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(170, 170, 170, 1);
+}
 .cashback-detail .list .refund {
   width: 113rpx;
   font-size: 26rpx;
@@ -170,23 +191,175 @@ page {
   color: rgba(227, 58, 89, 1);
 }
 
-.period1 {
+.cashback-detail .list .period1 {
   font-size: 28rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
   color: rgba(170, 170, 170, 1);
 }
 
-.price1 {
+.cashback-detail .list .price1 {
   font-size: 28rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(170, 170, 170, 1);
 }
 
-.text1 {
+.stageInterest {
+  height: 90rpx;
+  line-height: 90rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(153, 153, 153, 1);
+  padding: 0 30rpx;
+}
+
+.cashback-zero .list {
+  display: flex;
+  height: 90rpx;
+  justify-content: space-between;
+  padding-left: 30rpx;
+  align-items: center;
+  border-bottom: 2rpx solid #f4f4f4;
+}
+
+.cashback-zero .list .item .period {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(51, 51, 51, 1);
+}
+
+.cashback-zero .list .item .time {
+  font-size: 22rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(153, 153, 153, 1);
+}
+
+.cashback-zero .list .price {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: #666;
+}
+
+.cashback-zero .list .text {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+}
+.cashback-zero .list .text1 {
   font-size: 28rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(170, 170, 170, 1);
+}
+
+.cashback-zero .list .refund {
+  width: 113rpx;
+  font-size: 26rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(227, 58, 89, 1);
+}
+
+
+.stop-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.stop-zan-dialog__container {
+  width: 540rpx;
+  height: 282rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 110rpx;
+  z-index: 9999;
+}
+
+/* 弹框内容 */
+
+.stop-content {
+  text-align: center;
+  overflow: hidden;
+}
+
+.stop-content-title {
+  margin-top: 44rpx;
+  margin-bottom: 10rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.stopzero {
+  border: 2rpx solid #FF2644;
+  color: #FF2644;
+  width: 270rpx;
+  padding: 0 5rpx;
+  height: 60rpx;
+  margin-right: 50rpx;
+  margin-top: 20rpx;
+  border-radius: 28rpx;
+  line-height: 56rpx;
+  font-size: 26rpx;
+  background: #fff;
+}
+
+.stopzero[disabled] {
+  color: #e9e6e6 !important;
+  border: 2rpx solid #e9e6e6 !important;
+  background: #fff !important;
+}
+
+.stop-content-container {
+  width: 357rpx;
+  height: 66rpx;
+  margin-left: 100rpx;
+  margin-bottom: 35rpx;
+  font-size: 30rpx;
+  text-align: center;
+  color: rgba(51, 51, 51, 1);
+}
+
+.stop-content-button {
+  display: flex;
+  height: 100rpx;
+  border-top: 2rpx solid #eaeaea;
+}
+
+.stop-reject {
+  border-right: 2rpx solid #eaeaea;
+  width: 270rpx;
+  height: 75rpx;
+  line-height: 75rpx;
+  font-size: 34rpx;
+  color: #ff2644;
+}
+
+.stop-comfirm {
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  text-align: center;
+  width: 270rpx;
+  background: rgba(255, 255, 255, 1);
+  color: rgba(51, 51, 51, 1);
+}
+
+.stop-comfirm::after {
+  border: none;
 }

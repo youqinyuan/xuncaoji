@@ -45,13 +45,13 @@ page {
   justify-content: center;
 }
 
-.apply{
+.apply {
   position: absolute;
   top: 642rpx;
   right: 36rpx;
-  width: 177rpx;
-  height: 74rpx;
-  animation: pulse .8s infinite;
+  width: 180rpx;
+  height: 88rpx;
+  animation: pulse 0.8s infinite;
 }
 
 @-webkit-keyframes pulse {
@@ -92,6 +92,7 @@ page {
   -webkit-animation-name: pulse;
   animation-name: pulse;
 }
+
 /*价格*/
 
 .price-wrap {
@@ -239,7 +240,7 @@ page {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
   font-weight: 400;
-  color: rgba(102, 102, 102, 1);
+  color: #FF2644;
 }
 
 .block1 {
@@ -419,14 +420,11 @@ page {
 .evaluate-content-bottom {
   margin: 30rpx 30rpx;
   margin-top: 0;
-  display: -webkit-box;
-  word-break: break-all;
-  text-overflow: ellipsis;
   font-size: 28rpx;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  margin-left: 31rpx;
+  word-break:break-all; 
   color: rgba(51, 51, 51, 1);
+  line-height: 36rpx;
 }
 
 .evaluate-list-scroll {
@@ -813,10 +811,11 @@ button::after {
   padding: 0 4rpx;
 }
 
-.savemoney{
+.savemoney {
   padding-right: 0;
   padding-left: 6rpx;
 }
+
 .jian-img {
   width: 36rpx;
   height: 18rpx;
@@ -868,7 +867,7 @@ button::after {
 /*对话框 */
 
 .commodity_attr_box {
-  height: 1000rpx;
+  height: 1035rpx;
   width: 100%;
   overflow: hidden;
   position: fixed;
@@ -953,7 +952,7 @@ button::after {
 
 .content-wrapper {
   height: auto;
-  max-height: 495rpx;
+  max-height: 585rpx;
   overflow-y: scroll;
   overflow: -Scroll;
   overflow-x: hidden;
@@ -963,13 +962,16 @@ button::after {
 
 .content-cashBack {
   position: relative;
-  width: 702rpx;
-  height: 60rpx;
   line-height: 60rpx;
   margin: 30rpx auto;
   font-size: 24rpx;
   background: rgba(252, 243, 237, 1);
   border-radius: 30rpx;
+}
+
+.content-zeroBack {
+  width: 750rpx;
+  height: 40rpx;
 }
 
 .content-cashBack image {
@@ -989,6 +991,10 @@ button::after {
 }
 
 /*尺码*/
+
+.color-size {
+  padding-bottom: 30rpx;
+}
 
 .color-size-title {
   margin-left: 24rpx;
@@ -1023,6 +1029,7 @@ button::after {
   margin-left: 24rpx;
   padding-bottom: 40rpx;
   border-bottom: 2rpx solid #f4f4f4;
+  border-top: 2rpx solid #f4f4f4;
 }
 
 .num-title {
@@ -1067,10 +1074,11 @@ button::after {
 }
 
 /* 申请0元购 */
-.application-zero{
+
+.application-zero {
   position: fixed;
   bottom: 40rpx;
-  left:40rpx;
+  left: 40rpx;
   width: 670rpx;
   height: 80rpx;
   background: #ff2644;
@@ -1254,7 +1262,7 @@ button::after {
 }
 
 .content-wrapper1 .share-wrap {
-  width: 500rpx;
+  width: 565rpx;
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
@@ -1272,8 +1280,8 @@ button::after {
 
 .content-wrapper1 .photo {
   margin-top: 30rpx;
-  width: 84rpx;
-  height: 84rpx;
+  width: 128rpx;
+  height: 128rpx;
 }
 
 .content-wrapper1 .wx {
@@ -1396,7 +1404,7 @@ button::after {
 
 .swiper-show {
   position: fixed;
-  top: 76rpx;
+  top: 30rpx;
   left: 16rpx;
   z-index: 9999;
 }

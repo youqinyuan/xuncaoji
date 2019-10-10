@@ -141,8 +141,7 @@ Page({
     }
     var token = wx.getStorageSync('token')
     wx.uploadFile({
-      url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
-      // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
+      url: app.Util.getUrlImg().publicUrl+'mall/personal/modifyBaseData',
       filePath: that.data.avatarKey,
       name: 'avatarKey',
       formData: userInfo,
@@ -167,7 +166,7 @@ Page({
           }, 500)
         } else {
           wx.showToast({
-            title: '资料更新失败',
+            title: res.data.message,
             icon: 'none',
             duration: 1500
           })
@@ -194,8 +193,7 @@ Page({
     }
     var token = wx.getStorageSync('token')
     wx.request({
-      url: 'https://xuncaoji.yzsaas.cn/mall/personal/modifyBaseData', //测试环境
-      // url: 'https://xuncj.yzsaas.cn/mall/personal/modifyBaseData', //正式环境
+      url: app.Util.getUrlImg().publicUrl +'mall/personal/modifyBaseData',
       method: "POST",
       data: userInfo,
       header: {
@@ -217,7 +215,7 @@ Page({
           }, 500)
         } else {
           wx.showToast({
-            title: '资料更新失败',
+            title: res.data.message,
             icon: 'none'
           })
         }

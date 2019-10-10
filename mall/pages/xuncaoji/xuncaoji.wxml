@@ -1,0 +1,59 @@
+<!--pages/xuncaoji/xuncaoji.wxml-->
+<!-- 寻草记介绍 -->
+<!-- <image src="{{hostUrl}}/xuncaoji_slogan.png" class="sologn"></image> -->
+<view class="section-swiper">
+  <swiper class="section-wrap" autoplay="{{false}}" circular="{{false}}" interval="5000" bindchange="countIndex" indicator-color="#FF93A8" indicator-active-color="#FF2644" indicator-dots="true">
+    <block wx:for="{{courseList.videoUrl}}" wx:for-item="course" wx:for-index="idx" wx:key="">
+      <swiper-item>
+        <view class="section-video">
+          <video wx:if='{{idx==playIndex}}' id='video{{idx}}' autoplay="{{false}}" show-center-play-btn="{{false}}" objectFit="cover" src='{{course}}' enable-play-gesture="{{true}}" vslide-gesture-in-fullscreen="{{true}}" direction="90"></video>
+          <image class="play-img" wx:if='{{idx!=playIndex}}' mode='widthFix' src='{{courseList.coverUrl}}'></image>
+          <image class="play" wx:if='{{idx!=playIndex}}' mode='widthFix' data-index='{{idx}}' bindtap='videoPlay' src='{{courseList.coverImg}}'></image>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="wrap">
+  <rich-text nodes="{{html}}" />
+</view>
+<view class="block"></view>
+
+<!-- 分享小图标 -->
+<view class="small-share" bindtap='showShare'>
+  <image src="/assets/images/icon/platform_share.png" class="section-img"></image>
+</view>
+<!-- 分享弹框 -->
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen1" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="shareCommission">你喜欢那就分享给你朋友吧</view>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="../../assets/images/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="../../assets/images/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
+    </view>
+  </view>
+</view>
+
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="/assets/images/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>
+

@@ -1,73 +1,104 @@
-<!--pages/applyZero/applyZero.wxml-->
-<view class="wrapper-top">
-  <view class="spend">
-    <view class="spend-left">我想花</view>
-    <view class="spend-right">
-      <input value="{{cashMsg.expectedAmount}}" type="digit" bindinput="wantAmount" />
-      <view class="spend-money">元</view>
-      <view class="spend-text">钱拿这件好物</view>
-    </view>
+<!-- pages/applyZero/applyZero.wxml -->
+<wxs module="filters" src="filter.wxs"></wxs>
+<view class="applyZeroRegular">
+  <text>一、可修改选项：您可以修改以下两个选项，选项决定了支付的金额。您想要支付的金额越低，输入的【最终成本价】就要越高或者输入【返还期(月)数】越长。</text>
+</view>
+<view class="applyZeroMoneyBox1">
+  <view class="applyZeroMoneyBox2">
+    <text class="regularNumber">1</text>
+    <text class="regularFont">最终成本价</text>
+    <text class="applyZeroRevise11" bindtap="expectedAmountShow">修改</text>
   </view>
-  <view class="platform" catchtap="periodMonth">
-    <view class="platform-left">我要平台</view>
-    <view class="platform-right">
-      <input disabled="{{disabled}}" type="digit" focus="{{isFocus}}" value="{{cashMsg.cashBackPeriods}}" bindinput="needAmount" />
-      <view class="platform-month">月</view>
-      <view class="platform-text">返现给我</view>
-    </view>
-  </view>
-  <view class="interest">
-    <view class="interest-left">平台给您的银行活期存款利率</view>
-    <view class="interest-right">{{cashMsg.interestRate}}%</view>
+  <view class="applyZeroMoneyBox3">
+    <text class="applyZeroFont1">您想最终用</text>
+    <text class="expectedAmountNumber">{{cashMsg.expectedAmount}}元</text>
+    <text class="applyZeroFont2">拿此商品【最终成本价】</text>
+    <text class="applyZeroFont12">最终成本价格: 系统默认为0，即0元购，支付金额全额返给您</text>
   </view>
 </view>
-<view class="wrapper-bottom">
-  <view class="pay">
-    <view class="pay-money">您需要马上支付的金额</view>
-    <view class="pay-num">￥{{payMsg.needPaymentAmount}}元</view>
+<view class="applyZeroMoneyBox1">
+  <view class="applyZeroMoneyBox2">
+    <text class="regularNumber">2</text>
+    <text class="regularFont">返还期(月)数</text>
+    <text class="applyZeroRevise11" catchtap="periodMonth">修改</text>
   </view>
-  <view class="pay">
-    <view class="pay-money">
-      <view class="left">{{payMsg.needPaymentAmount}}元会在{{payMsg.actualCashBackPeriods}}个月内返还给您（可在余额随时提现）：</view>
-      <view class="right" catchtap="returnDetail">明细</view>
+  <view class="applyZeroMoneyBox4">
+    <text class="applyZeroFont1">您想要平台分</text>
+    <text class="expectedAmountNumber">{{cashMsg.cashBackPeriods}}</text>
+    <text class="applyZeroFont2">期(月),每期(月)把支付金额</text>
+    <text class="applyZeroFont3">平均等额返现给您</text>
+  </view>
+  <view class="computeButtonBox">
+    <view class="computeButton" bindtap="refurbish">
+      <text>刷新计算</text>
     </view>
-    <view class="pay-num">每月必返您现金{{payMsg.periodicCashBackAmount}}元</view>
   </view>
-  <view class="pay">
-    <view class="pay-money">
-      <view class="left">平台按银行存款利率给您的利息奖励是：</view>
-      <view class="right" catchtap="interestDetail">明细</view>
+</view>
+<view class="reviseResultBox">
+  <view class="reviseResultBox1">
+    <text>二、计算结果：</text>
+    <text style="color:#666">所有品类保证正品，由于成本较大，因此全额返会比正常售价支付金额略高。</text>
+  </view>
+  <view class="reviseResultBox2">
+    <view class="applyZeroMoneyBox8" style="background-color:#FFEDD0">
+      <view class="applyZeroMoneyBox2">
+        <text class="regularNumber2">1</text>
+        <text class="regularFont">
+          您需要支付的金额
+        </text>
+        <text class="payMoney">￥{{payMsg.needPaymentAmount}}</text>
+        <text class="applyZeroRevise6" catchtap="returnDetail">明细</text>
+        <!-- <text class="applyZeroRevise">修改</text> -->
+      </view>
+      <view class="applyZeroMoneyBox6">
+        <text class="applyZeroFont6">其中{{filters.toFix(payMsg.needPaymentAmount-cashMsg.expectedAmount)}}元将在{{cashMsg.cashBackPeriods}}期(月)内平均等额的返还到您的账户</text>
+        <text class="applyZeroFont6">温馨提示：（返还金额可在余额随时提现）</text>
+      </view>
     </view>
-    <view class="pay-num">{{payMsg.interestAmount}}元</view>
   </view>
-  <view class="pay">
-    <view class="pay-money">您此次申请0元购的花销：</view>
-    <view class="pay-num">{{cashMsg.expectedAmount}}元</view>
-  </view>
-  <view class="pay">
-    <view class="pay-money">
-      <view class="left">您此次申请0元共计可赚：</view>
-      <view class="right" catchtap="payNum">怎么赚的钱?</view>
+  <view class="reviseResultBox2">
+    <view class="applyZeroMoneyBox8" style="background-color:#FFEDD0">
+      <view class="applyZeroMoneyBox2">
+        <text class="regularNumber2">2</text>
+        <text class="regularFont">
+          您本次参与Freebuy，赚的钱
+        </text>
+        <text class="payMoney">￥{{payMsg.gainedAmount}}</text>
+        <text class="applyZeroRevise" catchtap="payNum">说明</text>
+      </view>
+      <view class="applyZeroMoneyBox6">
+        <text class="applyZeroFont7">其中：</text>
+        <view>
+          <text class="applyZeroFont6">1.按银行同期存款利率({{cashMsg.interestRate}}%)给您的利息补偿：</text>
+          <text class="payMoney3">￥{{payMsg.interestAmount}}</text>
+        </view>
+
+        <!-- <text class="applyZeroRevise6">明细</text> -->
+        <text class="applyZeroFont6">2.商品购买原价:</text>
+        <text class="payMoney">￥{{payMsg.totalOrgAmount}}</text>
+      </view>
     </view>
-    <view class="pay-num">赚：{{payMsg.gainedAmount}}元</view>
   </view>
 </view>
 <view class="btn">
   <button class="add" bindtap="addOrCompute">{{buttonText}}</button>
-  <button class="pay-zero">立即支付0元获得！</button>
+  <button class="pay-zero" bindtap="payNow">{{buttonText2}}</button>
 </view>
-<view class="stop" catchtap="stopZero">
-  可随时终止0元购，取消后将钱退到您的账户余额
-  <image src="/assets/images/icon/wenhao_icon.png"></image>
+<view class="stop" bindtap="stopZero">
+  <text class="">可随时终止freebuy</text>
+  <text class="stopValue">点击查看终止说明</text>
 </view>
 <view class="block"></view>
 <!-- 您想要分期的月数 -->
-<view class="period-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showPeriod}}">
-  <view class="zan-dialog__container" wx:if="{{showPeriod}}">
+<view class="period-zan-dialog__mask" wx:if="{{showPeriod}}">
+  <view class="zan-dialog__container" animation="{{animationData}}" wx:if="{{showPeriod}}">
     <view class="title">您想要分期的月数</view>
-    <view class="period-month" wx:for="{{cashMsg.selectablePeriods}}" wx:key="">
-      <view class="period-detail" catchtap="getMonthText" data-text="{{item}}">{{item}}月</view>
-    </view>
+    <text class="monthFont">温馨提示：您选择或自定义的分期(月数)越长，支付的金额越低，选择或自定义分期的(月数)越短，支付的金额就越高。</text>
+    <scroll-view class="period-month-wrap" scroll-y="{{true}}">
+      <view class="period-month" wx:for="{{cashMsg.selectablePeriods}}" wx:key="">
+        <view class="period-detail" catchtap="getMonthText" data-text="{{item}}">{{item}}月</view>
+      </view>
+    </scroll-view>
     <view class="custom" catchtap="custom">自定义</view>
   </view>
   <image wx:if="{{showPeriod}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelPeriod'></image>
@@ -92,6 +123,7 @@
         </view>
       </view>
     </view>
+    <view class="move">滑动查询更多</view>
   </view>
   <image wx:if="{{showDialog}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelDialog'></image>
 </view>
@@ -100,7 +132,7 @@
   <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{showModal}}">
     <view class="title">利息明细表</view>
     <view class="table">
-      <view class="tr bg-w">
+      <view class="tr bg-w" catchtouchmove="preventTouchMove">
         <view class="th">返现时间</view>
         <view class="th">第几个月</view>
         <view class="th">利息金额</view>
@@ -121,8 +153,10 @@
   <view class="zan-dialog__container" wx:if="{{showStop}}">
     <view class="title">可随时终止说明</view>
     <view class="text">
-      <view>申请0元购终止，需要您在订单页面，在订单下就可以点击终止操作，终止后，您支付的金额将减去商品的原付款价再减去总共给您返现的金额。剩余的钱将返现到您的账户余额，可随时提现！</view>
-      <view>您的利息也将在当月停止发放，给到您到当月的利息！</view>
+      <view>
+        申请终止FreeBuy，需要您在订单页面，在订单下就可以点击终止操作，终止后，您支付的金额将减去商品的原付款价再减去总共给您返现的金额。剩余的钱将返现到您的账户余额，可随时提现！
+      </view>
+      <view style="margin-bottom:20rpx;">您的利息也将在当月停止发放，给到您到当月的利息！</view>
     </view>
   </view>
   <image wx:if="{{showStop}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelStop'></image>
@@ -132,9 +166,39 @@
   <view class="zan-dialog__container" wx:if="{{showGet}}">
     <view class="title">您赚的钱是这么来的哦</view>
     <view class="text">
-      <view>商品原售价（100元）-您最终得到商品付出的成本（30元）+你支付金额的利息（10元）</view>
+      <view>商品原售价({{payMsg.totalOrgAmount}}元“此价格不参与任何优惠”) - 您最终得到商品付出的成本({{cashMsg.expectedAmount}}元) + 你支付金额的利息({{payMsg.interestAmount}}元)</view>
     </view>
     <button bindtap="understand">懂了</button>
   </view>
   <image wx:if="{{showGet}}" class="cancel-get" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
+</view>
+<!-- 期望价格输入框 -->
+<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{expectedAmountStatus}}">
+  <view class="zan-dialog__container" wx:if="{{expectedAmountStatus}}">
+    <view class="title">修改最终成本价</view>
+    <view class="text">
+      <view>温馨提示：您输入的【最终成本价】越低，支付的金额就越高，您输入的【最终成本价】越高，支付的金额就越低。</view>
+      <!-- <view>您的利息也将在当月停止发放，给到您到当月的利息！</view> -->
+      <input placeholder-class="placeholder" placeholder="{{expectedAmountInput}}" type="digit" bindinput="expectedAmountNumber" name="expectedAmount" class="expectedAmountInput" value="{{expectedAmountValue}}" style="{{inputBorder}}" />
+      <view class="expectedAmountButton" bindtap="expectedAmountButton">
+        <text>确定</text>
+      </view>
+    </view>
+  </view>
+  <image wx:if="{{expectedAmountStatus}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='expectedAmountStop'></image>
+</view>
+<!-- 自定义分期数输入框 -->
+<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{monthStatus}}">
+  <view class="zan-dialog__container" wx:if="{{monthStatus}}">
+    <view class="title">自定义分期数</view>
+    <view class="text">
+      <view>温馨提示：您选择或自定义的分期（月数）越长，支付的金额越低，选择或自定义分期的（月数）越短，支付的金额就越高。</view>
+      <!-- <view>您的利息也将在当月停止发放，给到您到当月的利息！</view> -->
+      <input placeholder-class="placeholder" placeholder="{{monthInput}}" type="digit" bindinput="monthNumber" name="month" class="expectedAmountInput" value="{{monthValue}}" style="{{inputBorder}}" />
+      <view class="expectedAmountButton" bindtap="monthButton">
+        <text class>确定</text>
+      </view>
+    </view>
+  </view>
+  <image wx:if="{{monthStatus}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='monthStop'></image>
 </view>

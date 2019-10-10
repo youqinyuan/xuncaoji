@@ -10,7 +10,8 @@ Page({
     pageNumber:1,
     pageSize:10,
     items:[],
-    text:''
+    text:'',
+    showDialog:false
   },
 
   /**
@@ -23,6 +24,7 @@ Page({
   init:function(){
     let that = this
     app.Util.ajax('mall/personal/balanceDetails', { pageNumber: that.data.pageNumber, pageSize: that.data.pageSize, status: 1 }, 'GET').then((res) => { // 使用ajax函数
+      //console.log(111+JSON.stringify(res.data.content))
       if (res.data.content) {
         for (var i = 0; i < res.data.content.items.items.length; i++) {
           res.data.content.items.items[i].tradeTime = time.formatTimeTwo(res.data.content.items.items[i].tradeTime, 'Y-M-D h:m:s');
@@ -109,5 +111,30 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  //显示
+  returnedMoney(){
+    this.setData({
+      showDialog:true
+    })
+  },
+  //隐藏
+  cancel:function(){
+    this.setData({
+      showDialog:false
+    })
+  },
+  //确定
+  comfire:function(){
+    var that = this
+    wx.showToast({
+      title:'退款成功'
+    })
+    setTimeout(function(){
+      that.init()
+    },1000)
+    that.setData({
+      showDialog:false
+    })
   }
 })

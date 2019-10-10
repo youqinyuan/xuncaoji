@@ -1,15 +1,15 @@
 <!--pages/paymentorder/paymentorder.wxml-->
 <!--支付价格-->
 <view class="payprice-wrap">
-  <view class="payprice" wx:if="{{flag===false}}">
+  <view class="payprice">
     <text>￥</text>
     <text class="payprice1">{{content.paymentAmount}}</text>
   </view>
-  <view class="payprice" wx:if="{{flag===true}}">
+  <!-- <view class="payprice" wx:if="{{flag===true}}">
     支付
     <text>￥</text>{{content.paymentAmount}}元返
     <text>￥</text>{{cashBack}}元
-  </view>
+  </view> -->
   <view class="paytime">
     <text>支付剩余时间</text>
     <text class="paytime1" wx:if="{{flag===false}}">{{time}}</text>
@@ -18,7 +18,7 @@
 </view>
 <!--支付方式-->
 <view class="payway-wrap">
-  <view class="payway">
+  <view class="payway" wx:if="{{orderType !==4}}">
     <view class="payway-img">
       <image src="../../assets/images/icon/order_yhk_icon.png"></image>
     </view>
@@ -34,7 +34,7 @@
       </checkbox-group>
     </view>
   </view>
-  <view class="wx" wx:if="{{content.paymentAmount !==0}}">
+  <view class="wx">
     <view class="wx-img">
       <image src="../../assets/images/icon/order_weixin_icon.png"></image>
     </view>
@@ -50,6 +50,25 @@
 </view>
 <!--确认支付-->
 <view class="button" bindtap='pay'>确认支付</view>
+<view class="button2" bindtap='payValueShow' wx:if="{{options.buymode==2}}">终止FreeBuy</view>
+<view class="payValue" wx:if="{{options.buymode==2}}">我们是上市挂牌公司（代码837939）旗下电商平台，为消费者存有壹亿消费保障基金，请放心使用！</view>
+<view class="stock" wx:if="{{orderType ==4}}">
+    <view class="stock-img">
+      <image src="../../assets/images/icon/ic_hint.png"></image>
+    </view>
+    <view class="stock-text">{{message}}</view>
+  </view>
+<!-- 可随时终止说明 -->
+<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showStop}}">
+  <view class="zan-dialog__container" wx:if="{{showStop}}">
+    <view class="title">终止FreeBuy</view>
+    <view class="text">
+      <view>提交订单，支付后，您可在订单内随时终止FreeBuy！
+      </view>
+    </view>
+  </view>
+  <image wx:if="{{showStop}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='payValueHiden'></image>
+</view>
 <!-- 弹出框 -->
 <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{show}}">
   <view class="zan-dialog__container1" wx:if="{{show}}">

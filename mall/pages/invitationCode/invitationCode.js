@@ -1,4 +1,5 @@
 // pages/invitationCode/invitationCode.js
+let app = getApp()
 Page({
 
   /**
@@ -39,18 +40,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options, 'options')
-    if (options.tips) {
-      wx.showToast({
-        title: options.tips,
-        icon: 'none',
-        duration: 2000
-      })
-      return;
-    }
-    this.setData({
-      inputValue: options.inviterCode || wx.getStorageSync('othersInviterCode') || ''
+    wx.removeStorage({
+      key: 'tips',
+      success: function(res) {},
     })
+    var that = this
+    console.log(options.type)
+    if(options.type==3){
+      that.setData({
+        inputValue: app.globalData.cooperateInvitionCode || 17511690
+      })
+    }else{
+      that.setData({
+        inputValue: options.inviterCode || wx.getStorageSync('othersInviterCode') || ''
+      })
+    }
   },
 
   /**
@@ -64,7 +68,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    var that = this
+    var tips = wx.getStorageSync('tips')
+    if(tips){
+      wx.showToast({
+        title: tips,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    setTimeout(function () {
+      wx.removeStorage({
+        key: 'tips',
+        success: function(res) {},
+      })
+    }, 1000);
+    // that.onLoad(options)
   },
 
   /**
@@ -78,9 +97,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    wx.reLaunch({
-      url: '/pages/index/index',
-    })
+    // wx.reLaunch({
+    //   url: '/pages/index/index',
+    // })
   },
 
   /**

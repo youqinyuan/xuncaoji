@@ -1,13 +1,12 @@
 /* pages/applyRule/applyRule.wxss */
 
 page {
-  background: #f4f4f4;
+  background: #fff;
 }
 
 /* 对话框 */
 
 .wrapper {
-  background: #fff;
   padding-bottom: 30rpx;
   overflow: hidden;
 }
@@ -72,19 +71,28 @@ page {
 
 /* 申请0元购买 */
 
+.application-wrap {
+  height: 200rpx;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+}
+
 .application-zero {
-  width: 630rpx;
+  width: 670rpx;
   height: 80rpx;
-  margin-top: 50rpx;
+  margin-top: 80rpx;
   background: #ff2644;
   border-radius: 40rpx;
   font-size: 32rpx;
-  margin-bottom: 111rpx;
+  position: fixed;
+  bottom: 30rpx;
+  left: 40rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
 .block {
-  height: 40rpx;
+  height: 80rpx;
 }

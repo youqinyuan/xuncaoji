@@ -190,11 +190,11 @@ page {
 .content-button {
   display: flex;
   height: 66rpx;
-  border-top: 2rpx solid #eaeaea;
+  /* border: 2rpx solid #eaeaea; */
 }
 
 .reject {
-  border-right: 2rpx solid #eaeaea;
+  border-top: 2rpx solid #eaeaea;
   width: 270rpx;
   height: 75rpx;
   line-height: 75rpx;
@@ -203,11 +203,12 @@ page {
 }
 
 .comfirm {
+  border-top: 2rpx solid #eaeaea;
   height: 66rpx;
   line-height: 66rpx;
   font-size: 34rpx;
   text-align: center;
-  width: 270rpx;
+  width: 280rpx;
   background: rgba(255, 255, 255, 1);
   color: #ff2644;
 }

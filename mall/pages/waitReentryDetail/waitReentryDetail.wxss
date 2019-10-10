@@ -1,0 +1,160 @@
+/* pages/waitReentryDetail/waitReentryDetail.wxss */
+
+page {
+  font-family: "PingFang-SC-Medium";
+  background: #fff;
+}
+
+.cashBackBox1 {
+  /* height: 188rpx; */
+  width: 100%;
+  border-bottom: #e7e7e7 1rpx solid;
+}
+
+.cashBackTop {
+  height: 58rpx;
+  width: 100%;
+}
+
+.imgStyle {
+  height: 48rpx;
+  width: 150rpx;
+}
+
+.cashBackTop text {
+  color: #3c8aff;
+  font-size: 28rpx;
+  display: inline-block;
+  position: absolute;
+  right: 52rpx;
+  line-height: 48rpx;
+  margin-top: 12rpx;
+}
+
+.cashBackButtom {
+  height: 120rpx;
+  width: 100%;
+}
+
+.cashBackButtom1 {
+  margin-top: 18rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+}
+
+.cashBackTitle { 
+  width: 410rpx;
+  display: inline-block;
+  font-size: 30rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cashBackTitleColor {
+  color: #333;
+}
+
+.cashBackValue {
+  margin-top: 8rpx;
+  font-size: 28rpx;
+}
+
+.cashBackTime {
+  color: #999;
+  font-size: 24rpx;
+}
+
+.cashBackValueColor {
+  color: #333;
+}
+
+.cashBackNumColor {
+  color: #ff6417;
+}
+
+.waitcashBackButtom {
+  margin-top: 18rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+}
+
+.waitCashBackValueColor {
+  color: #333;
+}
+
+.waitCashBackNumColor {
+  color: #ff2644;
+}
+
+.cashBackBox-text {
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #f4f4f4;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  text-align: center;
+}
+
+/* 查看原因弹窗 */
+
+.stop-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.stop-zan-dialog__mask .zan-dialog__container {
+  width: 630rpx;
+  height: 324rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 60rpx;
+  z-index: 9999;
+}
+
+.stop-zan-dialog__mask .cancel-img {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 108rpx;
+  top: 228rpx;
+}
+
+.stop-zan-dialog__mask .zan-dialog__container .title {
+  width: 270rpx;
+  margin: 0 auto;
+  margin-top: 46rpx;
+  margin-bottom: 30rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #222;
+  text-align: center;
+}
+
+.stop-zan-dialog__mask .zan-dialog__container .text {
+  margin: 0 36rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #222;
+  line-height: 40rpx;
+}
+
+.stopOrder {
+  color: #aaa;
+}
