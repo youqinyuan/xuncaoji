@@ -1,6 +1,4 @@
 /* pages/index/twolist/twolist.wxss */
-@import '/weui.wxss';
-
 page {
   background: #f4f4f4;
 }
@@ -103,7 +101,7 @@ page {
 .comprehensive-list-text {
   margin-left: 16rpx;
   margin-top: 10rpx;
-  height: 90rpx;
+  height: 77rpx;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;

@@ -24,7 +24,6 @@ Page({
       orderId: orderId
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
-        console.log(res)
         var logisticsDetailList = res.data.content.logisticsDetailList
         logisticsDetailList.forEach((v,i)=>{
           v.logisticsDto.list = (v.logisticsDto.list.reverse())[0]

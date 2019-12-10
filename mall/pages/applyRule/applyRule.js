@@ -25,7 +25,6 @@ Page({
   applyZeroBuy: function () {
     var that = this
     let str = JSON.stringify(that.data.options)
-    //console.log('aaa'+JSON.stringify(that.data.options))
     wx.navigateTo({
       url: '/pages/applyZero/applyZero?detailObj=' + str
     })

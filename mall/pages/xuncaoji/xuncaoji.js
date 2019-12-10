@@ -7,6 +7,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tempInfo:[],
+    returnContent:[],
+    returnContent2:[],
+    waitReentry3:false,
+    waitReentry:false,
+    waitReentry2:false,
     autoplay: false,
     showBtn: true, //是否显示首图
     showModalStatus: false, //是否显示底部弹框
@@ -40,27 +46,27 @@ Page({
     }
   },
   //求当前轮播图的索引
-  countIndex: function(e) {
-    var curIdx = e.detail.current;
-    // 没有播放时播放视频
-    if (!this.data.playIndex) {
-      this.setData({
-        playIndex: curIdx
-      })
-      var videoContext = wx.createVideoContext('video' + curIdx) //这里对应的视频id
-      videoContext.play()
-    } else { // 有播放时先将prev暂停，再播放当前点击的current
-      var videoContextPrev = wx.createVideoContext('video' + this.data.playIndex)
-      if (this.data.playIndex != curIdx) {
-        videoContextPrev.pause()
-      }
-      this.setData({
-        playIndex: curIdx
-      })
-      var videoContextCurrent = wx.createVideoContext('video' + curIdx)
-      videoContextCurrent.play()
-    }
-  },
+  // countIndex: function(e) {
+  //   var curIdx = e.detail.current;
+  //   // 没有播放时播放视频
+  //   if (!this.data.playIndex) {
+  //     this.setData({
+  //       playIndex: curIdx
+  //     })
+  //     var videoContext = wx.createVideoContext('video' + curIdx) //这里对应的视频id
+  //     videoContext.play()
+  //   } else { // 有播放时先将prev暂停，再播放当前点击的current
+  //     var videoContextPrev = wx.createVideoContext('video' + this.data.playIndex)
+  //     if (this.data.playIndex != curIdx) {
+  //       videoContextPrev.pause()
+  //     }
+  //     this.setData({
+  //       playIndex: curIdx
+  //     })
+  //     var videoContextCurrent = wx.createVideoContext('video' + curIdx)
+  //     videoContextCurrent.play()
+  //   }
+  // },
   /**
    * 弹出框蒙层截断touchmove事件
    */
@@ -145,7 +151,7 @@ Page({
             //绘制logo
             ctx.drawImage('/assets/images/icon/partner.png', 0.35 * width, 44, 64, 51);
             //绘制邀请码
-            if (inviterCode != 'undefined') {
+            if (inviterCode) {
               ctx.setFontSize(19);
               ctx.setFillStyle('#F85A53');
               ctx.setTextAlign("center")
@@ -216,7 +222,6 @@ Page({
               showModalStatus: false,
               haibao: true
             })
-            wx.hideTabBar()
           }
         })
       } else if (res.data.messageCode == 'MSG_4001') {
@@ -248,7 +253,6 @@ Page({
                     title: '保存成功',
                     icon: 'none'
                   });
-                  wx.showTabBar()
                   that.setData({
                     haibao: false
                   })
@@ -289,7 +293,6 @@ Page({
                             that.setData({
                               haibao: false
                             })
-                            wx.showTabBar()
                           },
                           fail(res) {
                             wx.hideLoading()
@@ -317,7 +320,6 @@ Page({
                 title: '保存成功',
                 icon: 'none'
               });
-              wx.showTabBar()
               that.setData({
                 haibao: false
               })
@@ -344,7 +346,6 @@ Page({
       haibao: false
     })
     // 显示tabbar
-    wx.showTabBar()
   },
   init: function() {
     var that = this
@@ -352,11 +353,10 @@ Page({
       type: 1,
     }, 'GET').then((res) => {
       if (res.data.messageCode = 'MSG_1001') {
-         var courseList1 = res.data.content.videoUrls
-        var courseList={}
+        var courseList1 = res.data.content.pageSetVideos
+        var courseList = {}
         courseList['videoUrl'] = courseList1
-        courseList['coverUrl'] = '/assets/images/icon/video_cover.png'
-        courseList['coverImg'] = '/assets/images/icon/video_play.png'
+        courseList['coverImg'] = 'https://xuncj.yzsaas.cn/_download/img/icon/video_play.png'
         that.setData({
           html: res.data.content.content,
           courseList: courseList
@@ -378,20 +378,20 @@ Page({
   onReady: function() {
     
   },
-  onPageScroll(e) {
-    console.log(e.scrollTop)
-  },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
     var that = this
+    if(wx.getStorageSync("token")){
+      that.returnInfo()
+    }
     that.init()
     that.setData({
       showModalStatus:false,
       playIndex:null
-    })
+    })  
   },
 
   /**
@@ -435,7 +435,6 @@ Page({
         that.setData({
           showModalStatus: false
         })
-        wx.showTabBar()
         app.Util.ajax('mall/weChat/sharing/onSuccess', {
           mode: 5
         }, 'POST').then((res) => {
@@ -467,7 +466,6 @@ Page({
         that.setData({
           showModalStatus: false
         })
-        wx.showTabBar()
         app.Util.ajax('mall/weChat/sharing/onSuccess', {
           mode: 5
         }, 'POST').then((res) => {
@@ -504,5 +502,105 @@ Page({
         imageUrl: '/assets/images/icon/xuncaoji_cheats.png',
       }
     }
-  }
+  },
+   //转让弹窗
+   waitReentryClose:function(){
+    this.setData({
+      waitReentry:false
+    })
+    this.returnInfo3()
+  },
+  waitReentryClose2:function(){
+    this.setData({
+      waitReentry2:false
+    })
+    this.returnInfo2()
+  },
+  waitReentryClose3:function(){
+    this.setData({
+      waitReentry3:false
+    })
+    wx.navigateTo({
+      url:"/pages/waitReentryDetail/waitReentryDetail"
+    })
+  },
+  //转让信息弹窗查询
+  returnInfo: function () {
+    var that = this
+    app.Util.ajax('mall/transfer/gainNotice', null, 'GET').then((res) => {
+      if (res.data.content.length > 0) {
+        that.setData({
+          tempInfo: res.data.content
+        })
+        for (let i of res.data.content) {
+          if (i.type == 2) {
+            //转让完成消息
+            that.setData({
+              waitReentry2: true,
+              returnContent2: i.standard
+            })
+          }
+        }
+        if (that.data.waitReentry2 == false) {
+          for (let i of res.data.content) {
+            if (i.type == 3) {
+              //转让取消消息
+              that.setData({
+                waitReentry: true,
+                returnContent: i.standard
+              })
+            }
+          }
+        }
+        if (that.data.waitReentry == false) {
+          for (let i of res.data.content) {
+            if (i.type == 1) {
+              //转让消息
+              that.setData({
+                waitReentry3: true,
+              })
+            }
+          }
+        }
+      }
+    })
+  },
+  returnInfo2:function(){
+    var that = this
+      if(that.data.tempInfo.length>0){
+        for(let i of that.data.tempInfo){
+          if(i.type==3){
+            //转让取消消息
+            that.setData({
+            waitReentry:true,
+            returnContent:i.standard
+          })
+        }
+      }
+      if( that.data.waitReentry == false){
+          for (let i of that.data.tempInfo) {
+            if (i.type == 1) {
+              //转让消息
+              that.setData({
+                waitReentry3: true,
+              })
+            }
+          }
+        }
+      
+    } 
+  },
+  returnInfo3:function(){
+    var that = this
+      if(that.data.tempInfo.length>0){
+        for(let i of that.data.tempInfo){
+          if(i.type==1){
+          //转让消息
+          that.setData({
+            waitReentry3:true,
+          })
+        }
+      }
+    } 
+  },
 })

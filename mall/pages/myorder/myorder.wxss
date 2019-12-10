@@ -4,47 +4,47 @@ page {
   background: #f4f4f4;
 }
 
-.orderTab-wrap {
-  position: fixed;
-  top: 0;
-  z-index: 999;
-}
-
-.orderTab {
+.nav {
   width: 100%;
+  display: flex;
+  background: #fff;
+  position: fixed;
+  top: 0rpx;
   height: 80rpx;
-  background-color: #fff;
-  font-size: 0;
-  margin-bottom: 20rpx;
+  line-height: 72rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+  z-index: 999;
+  box-sizing: border-box;
+  font-size: 30rpx;
   white-space: nowrap;
 }
 
-.orderTabItem {
-  padding: 0 30rpx;
-  height: 79rpx;
-  font-size: 30rpx;
-  text-align: center;
-  position: relative;
-  vertical-align: middle;
+.nav-box {
   display: inline-block;
+  padding: 0 20rpx;
 }
 
-.tabTitle {
-  line-height: 75rpx;
+.nav-item {
+  text-align: center;
+  color: #555;
 }
 
-.active {
-  font-family: PingFang-SC-Bold;
-  font-weight: bold;
+.nav-item.active {
   color: #ff6417;
-  border-bottom: 6rpx solid #ff6417;
+}
+
+.nav-item.active1 {
+  width: 60rpx;
+  height: 6rpx;
+  background: #ff6417;
+  margin-left: 10rpx;
 }
 
 /* 列表 */
 
 .myOrder-wrapper-content {
   overflow: hidden;
-  margin-top: 100rpx;
+  margin-top: 80rpx;
 }
 
 .myOrder-wrapper {
@@ -96,18 +96,25 @@ page {
   right: 30rpx;
 }
 
-.shops-wrap-bottom {
-  height: 180rpx;
+.shops-wrap-bottom-wrap {
   display: flex;
-  border-bottom: 2rpx solid #f4f4f4;
+  height: 160rpx;
 }
 
 .shops-wrap-bottom-img {
+  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   width: 120rpx;
   height: 120rpx;
   margin-left: 30rpx;
   margin-top: 24rpx;
   border-radius: 8rpx;
+}
+
+.shops-wrap-bottom-img image {
+  width: 120rpx;
+  height: 120rpx;
 }
 
 .shops-wrap-bottom-right {
@@ -217,13 +224,13 @@ page {
   font-size: 26rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
-  padding:0 15rpx;
+  padding: 0 15rpx;
 }
 
 .stopzero {
   /* border: 2rpx solid rgba(153, 153, 153, 1); */
-  border: #FF2644 2rpx solid;
-  color: #FF2644;
+  border: #ff2644 2rpx solid;
+  color: #ff2644;
   width: 270rpx;
   padding: 0 5rpx;
   height: 60rpx;
@@ -235,7 +242,7 @@ page {
 }
 
 .stopzero[disabled] {
-   color: #e9e6e6 !important;
+  color: #e9e6e6 !important;
   border: 2rpx solid #e9e6e6 !important;
   background: #fff !important;
 }
@@ -277,6 +284,52 @@ page {
   color: rgba(153, 153, 153, 1);
   text-align: center;
   margin-bottom: 20rpx;
+}
+
+/* 优惠 */
+
+.content-cashBack-wrap {
+  background: #fff;
+  padding-bottom: 30rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+}
+
+.content-cashBack {
+  position: relative;
+  margin-left: 172rpx;
+  width: 547rpx;
+  /* height: 50rpx; */
+  line-height: 60rpx;
+  font-size: 24rpx;
+  background: rgba(252, 243, 237, 1);
+  border-radius: 8rpx;
+}
+
+.content-zeroBack {
+  width: 750rpx;
+  height: 40rpx;
+}
+
+.content-cashBack image {
+  width: 50rpx;
+  height: 30rpx;
+  position: absolute;
+  left: 25rpx;
+  top: 16rpx;
+}
+
+.content-cashBack-text {
+  margin-left: 85rpx;
+}
+
+.content-cashBack-text text {
+  color: #ff2644;
+}
+
+.line-border {
+  height: 2rpx;
+  width: 750rpx;
+  background: #f4f4f4;
 }
 
 /* 无订单的时候 */
@@ -361,7 +414,6 @@ page {
   margin-left: 16rpx;
   margin-right: 16rpx;
   margin-top: 10rpx;
-  height: 85rpx;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;

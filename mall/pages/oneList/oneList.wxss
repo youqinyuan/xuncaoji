@@ -1,0 +1,243 @@
+/* pages/oneList/oneList.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+/*轮播图*/
+
+.swiper-wrapper-item {
+  height: 320rpx;
+}
+
+.slide-image {
+  height: 320rpx;
+  background-size: cover;
+  width: 100%;
+}
+
+/*二级分类*/
+
+.two-classification-wrapper {
+  margin-bottom: 20rpx;
+  padding-left: 10rpx;
+  display: flex;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 1);
+}
+
+.two-classification-list {
+  width: 146rpx;
+  height: 172rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.two-classification-img {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.two-classification-text {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  margin-top: 20rpx;
+  color: rgba(102, 102, 102, 1);
+}
+
+/*综合、价格、上新*/
+
+.title {
+  height: 108rpx;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 1);
+}
+
+.comprehensive {
+  font-size: 30rpx;
+  width: 136rpx;
+  line-height: 108rpx;
+  text-align: center;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+}
+
+.active {
+  color: #ff6417;
+}
+
+.price {
+  font-size: 30rpx;
+  width: 136rpx;
+  line-height: 108rpx;
+  text-align: center;
+  display: flex;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.price-img {
+  margin-top: 10rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.price-img image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.new {
+  font-size: 30rpx;
+  width: 136rpx;
+  display: flex;
+  line-height: 108rpx;
+  text-align: center;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.new-img {
+  margin-top: 10rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.new-img image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+/*列表*/
+
+.comprehensive-list-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.comprehensive-list {
+  width: 348rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  margin-left: 18rpx;
+  border-radius: 8rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
+.comprehensive-list-img {
+  width: 348rpx;
+  height: 348rpx;
+}
+
+.comprehensive-list-img image {
+  width: 348rpx;
+  height: 348rpx;
+  border-radius: 8rpx 8rpx 0px 0px;
+}
+
+.comprehensive-list-text {
+  margin-left: 16rpx;
+  height: 85rpx;
+  margin-top: 10rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  font-size: 28rpx;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: rgba(51, 51, 51, 1);
+}
+
+.comprehensive-list-text .item1 {
+  padding: 2rpx 12rpx;
+  margin-right: 13rpx;
+  font-size: 20rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  background: #ff2644;
+  border-radius: 14rpx;
+}
+
+.comprehensive-list-text .item2 {
+  padding: 2rpx 12rpx;
+  margin-right: 13rpx;
+  font-size: 20rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 100, 23, 1);
+  border: 2rpx solid rgba(255, 100, 23, 1);
+  border-radius: 14rpx;
+}
+
+.comprehensive-list-price {
+  display: flex;
+  margin-left: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.newprice {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  font-size: 36rpx;
+  color: #ff6417;
+}
+
+.newprice text {
+  font-size: 24rpx;
+}
+
+.oldprice {
+  margin-left: 16rpx;
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  text-decoration: line-through;
+  color: rgba(153, 153, 153, 1);
+}
+
+.return-wrap {
+  display: flex;
+  height: 40rpx;
+  margin-right: 16rpx;
+  line-height: 40rpx;
+  background: rgba(252, 243, 237, 1);
+  border-radius: 8rpx;
+  margin-left: 16rpx;
+  font-size: 22rpx;
+  color: #ff2644;
+  font-family: PingFang-SC-Bold;
+  font-weight: Bold;
+}
+
+.return-wrap .return-money text:nth-child(1) {
+  color: #ff6417;
+  padding: 0 8rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+}
+
+.return-wrap .pay-money text:nth-child(1) {
+  color: #ff6417;
+  padding: 0 8rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+}
+
+/* 底部到底啦 */
+
+.page-bottom {
+  margin: 20rpx auto;
+  text-align: center;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+}

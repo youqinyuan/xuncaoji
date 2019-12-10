@@ -130,6 +130,9 @@ Page({
    */
   onPullDownRefresh: function () {
     var that = this
+    that.setData({
+      pageNumber:1
+    })
     that.onLoad(that.data.options)
     wx.stopPullDownRefresh() //停止下拉刷新
   },

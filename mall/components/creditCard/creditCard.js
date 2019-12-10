@@ -12,20 +12,20 @@ Component({
    * 组件的初始数据
    */
   data: {
-    showStop:true,
-    stopStatus:1
+    showStop: true,
+    stopStatus: 1
   },
-  ready: function(){
-     var that = this
+  ready: function() {
+    var that = this
+    that.setData({
+      stopStatus: 1
+    })
+    console.log("status:" + that.data.stopStatus)
+    setTimeout(function() {
       that.setData({
-        stopStatus:1
+        stopStatus: 2
       })
-      console.log("status:"+that.data.stopStatus)
-        setTimeout(function () {
-          that.setData({
-            stopStatus:2
-          })
-        }, 5000)
+    }, 5000)
   },
   /**
    * 组件的方法列表
@@ -39,11 +39,11 @@ Component({
     //     showStop:false
     //   })
     // },
-    know:function(){
+    know: function() {
       app.globalData.creditCard = 1
-        this.setData({
-          showStop:false
-        })
+      this.setData({
+        showStop: false
+      })
     }
   }
 })

@@ -1,0 +1,9 @@
+/* pages/userAgreement/userAgreement.wxss */
+.wrap{
+  padding: 20rpx 20rpx;
+  font-size: 28rpx;
+}
+.title{
+  font-weight: bold;
+  margin: 10rpx 0;
+}

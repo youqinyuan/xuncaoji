@@ -1,0 +1,534 @@
+/* pages/myForum/myForum.wxss */
+
+page {
+  background: #fff;
+}
+
+/*导航栏*/
+
+.content_top {
+  width: 100%;
+  background: #fff;
+  position: fixed;
+  top: 0rpx;
+  height: 80rpx;
+  line-height: 72rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+  z-index: 97;
+}
+
+.nav {
+  box-sizing: border-box;
+  font-size: 30rpx;
+  white-space: nowrap;
+}
+
+.nav-box {
+  display: inline-block;
+  width: 375rpx;
+}
+
+.nav-item {
+  text-align: center;
+  color: #555;
+}
+
+.nav-item.active {
+  color: #ff6417;
+}
+
+.nav-item.active1 {
+  width: 60rpx;
+  height: 6rpx;
+  background: #ff6417;
+  margin-left: 160rpx;
+}
+
+.block {
+  width: 750rpx;
+  height: 20rpx;
+  margin-top: 80rpx;
+  background: #fff;
+}
+
+/* 新消息 */
+
+.new_meg {
+  display: flex;
+  align-items: center;
+  width: 750rpx;
+  height: 104rpx;
+  background: rgba(255, 255, 255, 1);
+}
+
+.new_btn {
+  width: 260rpx;
+  height: 64rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 32rpx;
+  color: #fff;
+  text-align: center;
+  margin: 0 auto;
+  line-height: 64rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+/* 图片以下 */
+
+.notcontainer {
+  display: flex;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 100rpx;
+}
+
+.container {
+  border-bottom: 2rpx solid #f4f4f4;
+}
+
+.content_box {
+  margin: 0 30rpx;
+}
+
+.content_box_photo {
+  display: flex;
+  justify-content: space-between;
+  height: 114rpx;
+  align-items: center;
+}
+
+.content_box_left {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+}
+
+.content_box_left image {
+  background: #e7e7e7;
+  height: 64rpx;
+  width: 64rpx;
+  margin-right: 24rpx;
+  border-radius: 50%;
+}
+
+.content_box_right {
+  display: flex;
+  align-items: center;
+}
+
+.content_box_right image {
+  width: 100rpx;
+  height: 50rpx;
+}
+
+.content_box_right .follow {
+  width: 100rpx;
+  height: 50rpx;
+  margin-left: 24rpx;
+}
+
+.content-text {
+  width: 672rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+  line-height: 48rpx;
+}
+
+.content-item {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.all_text {
+  color: #ff6417;
+  text-decoration: underline;
+}
+
+.content_img {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 520rpx;
+  margin-top: 30rpx;
+}
+
+.content_img image {
+  width: 158rpx;
+  height: 158rpx;
+  margin-right: 10rpx;
+  margin-top: 10rpx;
+}
+
+/* 可买 */
+
+.content_imgBuy {
+  position: relative;
+}
+
+.content_imgBuy .img {
+  margin-top: 30rpx;
+  width: 690rpx;
+  height: 370rpx;
+}
+
+.content_imgBuy .imgs {
+  margin-top: 30rpx;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 96;
+}
+
+.buy_price {
+  position: absolute;
+  top: 66rpx;
+  left: 40rpx;
+  font-size: 30rpx;
+  color: #fff;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.expect_buy {
+  display: flex;
+  margin-bottom: 32rpx;
+}
+
+.expect_buy3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+.expect_back {
+  display: flex;
+  margin-bottom: 32rpx;
+}
+
+.expect_back3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+.expect_leave {
+  position: relative;
+  margin-bottom: 32rpx;
+}
+
+.expect_leave1 {
+  line-height: 44rpx;
+}
+
+.expect_leave2 {
+  display: flex;
+}
+
+.expect_leave2 .box3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+.expect_year {
+  display: flex;
+}
+
+.expect_year3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+/* 可卖 */
+
+.content_sale {
+  position: relative;
+}
+
+.content_sale .img {
+  margin-top: 30rpx;
+  width: 690rpx;
+  height: 370rpx;
+}
+
+.sale_price {
+  position: absolute;
+  top: 118rpx;
+  left: 40rpx;
+  font-size: 30rpx;
+  color: #fff;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.sale_back {
+  display: flex;
+  margin-bottom: 32rpx;
+}
+
+.sale_back3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+.sale_leave {
+  display: flex;
+  margin-bottom: 32rpx;
+}
+
+.sale_leave3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+.sale_year {
+  display: flex;
+}
+
+.sale_year3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+.content_time {
+  display: flex;
+  justify-content: space-between;
+  height: 44rpx;
+  margin-top: 30rpx;
+  align-items: center;
+}
+
+.content_time_left {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+}
+
+.content_time_left .content_time_item {
+  color: #999;
+  margin-right: 24rpx;
+}
+
+.content_time_right {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.content_time_img {
+  display: flex;
+  align-items: center;
+  margin-right: 15rpx;
+}
+
+.content_time_imgs {
+  display: flex;
+  align-items: center;
+}
+
+.content_time_right .collect {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 12rpx;
+}
+
+.content_time_imgs .content_time_text {
+  color: #666;
+}
+
+.content_time_right .comment {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 12rpx;
+}
+
+.content_comment {
+  width: 690rpx;
+  background: rgba(244, 244, 244, 1);
+  border-radius: 8rpx;
+  margin: 30rpx 0;
+}
+
+.content_comment_text {
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+  margin: 0 20rpx;
+  line-height: 1.5;
+}
+
+.content_comment_text .item {
+  font-weight: normal;
+  color: #666;
+}
+
+.all_comment {
+  color: #999;
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  margin-left: 20rpx;
+}
+
+/* 删除帖子弹框 */
+
+.del-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 97;
+}
+
+.del-zan-dialog__mask .zan-dialog__container1 {
+  width: 630rpx;
+  height: 365rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  position: absolute;
+  right: 112rpx;
+  top: 300rpx;
+  left: 62rpx;
+  text-align: center;
+  z-index: 97;
+}
+
+.del-zan-dialog__mask .zan-dialog__container1 .msg {
+  margin: 44rpx auto;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.del-zan-dialog__mask .zan-dialog__container1 .msg_content {
+  margin: 0 auto;
+  width: 358rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  line-height: 40rpx;
+}
+
+.del-zan-dialog__mask .zan-dialog__container1 .btn {
+  display: flex;
+  justify-content: space-between;
+  width: 550rpx;
+  margin-left: 40rpx;
+  margin-top: 63rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+}
+
+.del-zan-dialog__mask .zan-dialog__container1 .cancelDel {
+  width: 264rpx;
+  margin-right: 22rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  border: 2rpx solid #ff2644;
+  color: #ff2644;
+}
+
+.del-zan-dialog__mask .zan-dialog__container1 .confirmDel {
+  width: 264rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #ff2644;
+  border-radius: 40rpx;
+  color: #fff;
+}
+
+/* 取消关注弹框 */
+
+.follow-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 97;
+}
+
+.follow-zan-dialog__mask .zan-dialog__container1 {
+  width: 630rpx;
+  height: 365rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  position: absolute;
+  right: 112rpx;
+  top: 300rpx;
+  left: 62rpx;
+  text-align: center;
+  z-index: 97;
+}
+
+.follow-zan-dialog__mask .zan-dialog__container1 .msg {
+  margin: 44rpx auto;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.follow-zan-dialog__mask .zan-dialog__container1 .msg_content {
+  margin: 0 auto;
+  width: 358rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  line-height: 40rpx;
+}
+
+.follow-zan-dialog__mask .zan-dialog__container1 .btn {
+  display: flex;
+  justify-content: space-between;
+  width: 550rpx;
+  margin-left: 40rpx;
+  margin-top: 63rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+}
+
+.follow-zan-dialog__mask .zan-dialog__container1 .cancelFollow {
+  width: 264rpx;
+  margin-right: 22rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  border: 2rpx solid #ff2644;
+  color: #ff2644;
+}
+
+.follow-zan-dialog__mask .zan-dialog__container1 .confirmFollow {
+  width: 264rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #ff2644;
+  border-radius: 40rpx;
+  color: #fff;
+}

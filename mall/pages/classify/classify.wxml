@@ -1,0 +1,21 @@
+<!--pages/classify/classify.wxml-->
+<view class="wrap">
+  <scroll-view scroll-y class="nav">
+    <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
+      <view class="nav-box">
+        <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" data-id="{{item.id}}" bindtap="switchNav">{{item.name}}</view>
+        <view class="nav-item {{currentTab == idx ?'active1':''}}"  data-current="{{idx}}" data-id="{{item.id}}" bindtap="switchNav"></view>
+      </view>
+    </block>
+  </scroll-view>
+  <view class="two-classification">
+    <view class="two-classification-wrapper" wx:if="{{classfy.length>0}}">
+      <view class="two-classification-list" wx:for="{{classfy}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="twoList">
+        <image class="two-classification-img" mode="aspectFit" wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}"></image>
+        <image class="two-classification-img" mode="aspectFit" wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+        <view class="two-classification-text">{{item.name}}</view>
+      </view>     
+    </view>
+     <view class="two-classification-not" wx:else>{{text}}</view>
+  </view>
+</view>

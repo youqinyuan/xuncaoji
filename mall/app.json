@@ -1,6 +1,13 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/wishpool/wishpool",
+    "pages/leaveWish/leaveWish",
+    "pages/myWish/myWish",
+    "pages/userAgreement/userAgreement",
+    "pages/cityPartner/cityPartner",
+    "pages/diamondPartner/diamondPartner",
+    "pages/diamondPay/diamondPay",
     "pages/login/login",
     "pages/loginWay/loginWay",
     "pages/invitationCode/invitationCode",
@@ -26,6 +33,7 @@
     "pages/paypassword/paypassword",
     "pages/forgetpassword/forgetpassword",
     "pages/index/twolist/twolist",
+    "pages/oneList/oneList",
     "pages/shopAddress/shopAddress",
     "pages/averageDiscount/averageDiscount",
     "pages/nationwideReturn/nationwideReturn",
@@ -43,7 +51,20 @@
     "pages/goodsComment/goodsComment",
     "pages/xuncaoji/xuncaoji",
     "pages/waitReentryDetail/waitReentryDetail",
-    "pages/test/test"
+    "pages/refundDetail/refundDetail",
+    "pages/cancleDetail/cancleDetail",
+    "pages/freeBuy/freeBuy",
+    "pages/seed/seed",
+    "pages/classify/classify",
+    "pages/seedDetail/seedDetail",
+    "pages/forum/forum",
+    "pages/myForum/myForum",
+    "pages/forumDetail/forumDetail",
+    "pages/posting/posting",
+    "pages/finishPosting/finishPosting",
+    "pages/newMessage/newMessage",
+    "pages/returnMoney/returnMoney",
+    "pages/dealWithReturn/dealWithReturn"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -61,10 +82,16 @@
         "selectedIconPath": "assets/images/icon/ic_activehome_n.png"
       },
       {
-        "pagePath": "pages/xuncaoji/xuncaoji",
-        "text": "寻草记",
-        "iconPath": "assets/images/icon/ic_member_n.png",
-        "selectedIconPath": "assets/images/icon/ic_activemember_n.png"
+        "pagePath": "pages/wishpool/wishpool",
+        "text": "心愿池",
+        "iconPath": "assets/images/icon/ic_play_n.png",
+        "selectedIconPath": "assets/images/icon/ic_activeplay_n.png"
+      },
+      {
+        "pagePath": "pages/forum/forum",
+        "text": "论坛",
+        "iconPath": "assets/images/icon/ic_forum_n.png",
+        "selectedIconPath": "assets/images/icon/ic_activeforum_n.png"
       },
       {
         "pagePath": "pages/mine/mine",

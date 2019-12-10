@@ -43,7 +43,7 @@ page {
 .recurit {
   width: 690rpx;
   height: 76rpx;
-  background: #FF6417;
+  background: #ff6417;
   border-radius: 38px;
   margin-top: 60rpx;
   margin-left: 30rpx;
@@ -56,25 +56,38 @@ page {
 
 /* 我的团队 */
 
+.more {
+  width: 16rpx;
+  height: 8rpx;
+  margin-left: 20rpx;
+}
+
 .recurit-details {
   height: 90rpx;
   background: rgba(255, 255, 255, 1);
   line-height: 90rpx;
   border-bottom: 2rpx solid #f4f4f4;
   display: flex;
+  justify-content: space-between;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
 }
 
 .recurit-img {
-  width: 36rpx;
-  height: 36rpx;
-  margin-left: 30rpx;
-  margin-right: 15rpx;
-  margin-top: 5rpx;
+  display: flex;
+  align-items: center;
 }
 
 .recurit-img image {
   width: 36rpx;
   height: 36rpx;
+  margin-right: 20rpx;
+}
+
+.recurit-wrap {
+  display: flex;
+  align-items: center;
+  color: #999;
 }
 
 .recurit-title {
@@ -87,7 +100,7 @@ page {
 /* 明细 */
 
 .list {
-  height: 120rpx;
+  height: 130rpx;
   background: rgba(255, 255, 255, 1);
   border-bottom: 2rpx solid #f4f4f4;
   display: flex;
@@ -99,21 +112,38 @@ page {
 }
 
 .list-left-top {
-  margin-top: 30rpx;
+  margin-top: 20rpx;
   height: 50rpx;
   line-height: 50rpx;
   font-size: 30rpx;
   color: rgba(51, 51, 51, 1);
 }
 
+.list-left-top text {
+  margin-left: 20rpx;
+  display: inline-block;
+  height: 50rpx;
+  line-height: 50rpx;
+  background: rgba(255, 224, 208, 1);
+  border-radius: 4px;
+  color: #ff6417;
+  width: 120rpx;
+  text-align: center;
+}
+
 .list-left-bottom {
   display: flex;
+  padding-top: 10rpx;
   font-size: 24rpx;
   color: rgba(153, 153, 153, 1);
+  height: 30rpx;
+  padding-bottom: 10rpx;
 }
 
 .list-left-bottom-year {
   margin-right: 25rpx;
+  height: 30rpx;
+  line-height: 30rpx;
 }
 
 .list-right-item {
@@ -127,10 +157,10 @@ page {
   font-size: 32rpx;
   margin-right: 29rpx;
   margin-top: 40rpx;
-  color: #FF6417;
+  color: #ff6417;
 }
 
-.myteam-bottom{
+.myteam-bottom {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
   font-weight: 400;
@@ -140,6 +170,7 @@ page {
   line-height: 80rpx;
   background: #f4f4f4;
 }
+
 /*弹窗*/
 
 .modal-mask {
@@ -253,50 +284,150 @@ button::after {
 }
 
 .content-cancel {
-  width:100%;
-  height:76rpx;
+  width: 100%;
+  height: 76rpx;
   display: flex;
   justify-content: center;
   position: fixed;
-  left:0;
-  top:1111rpx;
+  left: 0;
+  top: 1111rpx;
 }
 
 .content-cancel image {
   width: 76rpx;
   height: 76rpx;
 }
+
 /* 海报弹框 */
-.mask_hb{
-  width:100%;
-  height:100%;
+
+.mask_hb {
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
-  top:0;
+  top: 0;
 }
-.canvas-box{
-  width:0;
-  height:0;
+
+.canvas-box {
+  width: 0;
+  height: 0;
   position: fixed;
-  top:3.9%;
-  left:6%;
+  top: 3.9%;
+  left: 6%;
 }
-.canvas{
-  width:88%;
-  height:89%;
+
+.canvas {
+  width: 88%;
+  height: 89%;
   position: fixed;
-  top:3.9%;
-  left:6%;
+  top: 3.9%;
+  left: 6%;
 }
-.close_hb{
+
+.close_hb {
   width: 100%;
   display: flex;
   justify-content: center;
   position: fixed;
-  left:0;
-  bottom:2%;
+  left: 0;
+  bottom: 2%;
 }
-.close_hb image{
-  width:50rpx;
-  height:50rpx;
+
+.close_hb image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+/* 多项选择 */
+
+.shure-one-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.shure-one-dialog__mask .zan-dialog__container {
+  width: 750rpx;
+  height: 280rpx;
+  background: rgba(255, 255, 255, 1);
+  overflow: hidden;
+  position: fixed;
+  top: 360rpx;
+  z-index: 9999;
+}
+
+.shure-one-dialog__mask .cancel-img {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: 50rpx;
+  right: 50rpx;
+}
+
+.shure-one-dialog__mask .zan-dialog__container .title {
+  width: 520rpx;
+  margin: 0 auto;
+  margin-top: 46rpx;
+  margin-bottom: 30rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #222;
+  text-align: left;
+}
+
+.shure-one-dialog__mask .zan-dialog__container .text {
+  margin: 0 51rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #222;
+  line-height: 40rpx;
+}
+
+.more2 {
+  width: 16rpx;
+  height: 8rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 400rpx;
+}
+
+.choose {
+  width: 100%;
+  position: absolute;
+  background-color: #fff;
+  top: 446rpx;
+}
+
+.tab {
+  height: 70rpx;
+  line-height: 70rpx;
+  margin-left: 41rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(153, 153, 153, 1);
+  position: relative;
+}
+
+.tab text {
+  display: inline-block;
+  height: 50rpx;
+  line-height: 50rpx;
+}
+
+.choose_img {
+  display: inline-block;
+  position: absolute;
+  top: 18rpx;
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 20rpx;
+  line-height: 70rpx;
+  /* margin-top: 20rpx; */
 }

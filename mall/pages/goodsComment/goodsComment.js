@@ -30,7 +30,6 @@ Page({
     app.Util.ajax('mall/order/queryOrder', {
       orderId: orderId
     }, 'GET').then((res) => {
-      console.log(res.data.content.orderGoodsDetail)
       if (res.data.messageCode == 'MSG_1001') {
         var orderGoodsDetail = res.data.content.orderGoodsDetail
         for (let item in res.data.content.orderGoodsDetail) {
@@ -42,7 +41,6 @@ Page({
         that.setData({
           goodsData: orderGoodsDetail
         })
-        console.log(that.data.goodsData)
       }
     })
   },
@@ -50,7 +48,6 @@ Page({
   //评分
   getScore: function(e) {
     var that = this
-    console.log(e)
     let num = e.target.dataset.num
     let index = e.target.dataset.index
     let goodsData = that.data.goodsData
@@ -58,18 +55,15 @@ Page({
     that.setData({
       goodsData: goodsData
     })
-    console.log(that.data.goodsData)
   },
   // 获取textarea输入内容
   getTextareaValue: function(e) {
-    console.log(e)
     var that = this
     that.data.goodsData[e.target.dataset.index].goodsComment = e.detail.value
   },
   // 添加图片
   choiceImg: function(e) {
     var that = this
-    console.log(e)
     var index = e.target.dataset.index
     that.data.index = e.target.dataset.index
     wx.chooseImage({
@@ -95,30 +89,23 @@ Page({
         that.setData({
           goodsData: goodsData
         })
-        console.log(that.data.goodsData)
         that.getCanvasImg(0, 0, imgs)
-        console.log(JSON.stringify(that.data.imgList))
       }
     })
   },
   // 删除用户上传的图片评论
   deleteImg: function(e) {
     var that = this
-    console.log(e)
     let dex = e.target.dataset.index
     that.data.idx = e.target.dataset.index
   },
   //获取产品index
   getIndex: function(e) {
-    console.log(e)
     var that = this
     var index = e.currentTarget.dataset.index
     var dex = that.data.idx
-    console.log(dex)
     if (dex !== '') {
       var goodsData = that.data.goodsData
-      console.log(goodsData)
-      console.log(index)
       goodsData[index].imgList.splice(dex, 1)
       that.data.goodsData[index].img_compress.splice(dex, 1)
       that.setData({
@@ -129,7 +116,6 @@ Page({
   },
   //图片预览 
   imgYu: function(e) {
-    console.log(e)
     var that = this
     var src = e.currentTarget.dataset.src; //获取data-src
     var imgList = that.data.goodsData[that.data.index].imgList; //获取data-list
@@ -158,11 +144,9 @@ Page({
                 // that.data.imgList_compress.push({
                 //   url: data.data
                 // })
-                console.log(that.data.goodsData[that.data.index].img_compress)
                 that.data.goodsData[that.data.index].img_compress.push({
                   url: data.data
                 })
-                console.log(that.data.goodsData[that.data.index].img_compress)
                 that.getCanvasImg(index, failNum, tempFilePaths);
               }
             })
@@ -180,7 +164,6 @@ Page({
     var that = this
     let goodsComment = that.data.goodsComment
     var goodsData = that.data.goodsData
-    console.log(that.data.goodsData)
     var userInteractGoodsList = []
     var userInteractGoodsList_item = {}
     for (var item in goodsData) {
@@ -193,13 +176,12 @@ Page({
       }
       userInteractGoodsList.push(userInteractGoodsList_item)
     }
-    console.log(userInteractGoodsList)
     app.Util.ajax('mall/interact/addUserInteractGoods', {
       orderId: goodsData[0].orderId,
       action: 1,
       userInteractGoodsList: userInteractGoodsList
     }, 'POST').then((res) => {
-      console.log(res)
+      console.log(res.data)
       if (res.data.messageCode == 'MSG_1001') {
         wx.redirectTo({
           url: '/pages/goodsEvaluate/goodsEvaluate',

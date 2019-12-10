@@ -1,5 +1,10 @@
 <!-- pages/applyZero/applyZero.wxml -->
 <wxs module="filters" src="filter.wxs"></wxs>
+<view class="shuoming_box">
+  <text class="shuoming_one">FreeBuy使用须知</text>
+  <text class="shuoming_two" bindtap="toapplyRule">戳这里了解详情</text>
+  <image src="/assets/images/freeBuy/ic_more.png" class="shuoming_img" bindtap="toapplyRule"/>
+</view>
 <view class="applyZeroRegular">
   <text>一、可修改选项：您可以修改以下两个选项，选项决定了支付的金额。您想要支付的金额越低，输入的【最终成本价】就要越高或者输入【返还期(月)数】越长。</text>
 </view>
@@ -80,9 +85,12 @@
     </view>
   </view>
 </view>
-<view class="btn">
-  <button class="add" bindtap="addOrCompute">{{buttonText}}</button>
+<view class="btn" wx:if="{{buyType==1}}">
+  <button class="add" bindtap="addOrCompute">{{buttonText}}{{goodsType}}</button>
   <button class="pay-zero" bindtap="payNow">{{buttonText2}}</button>
+</view>
+<view class="btn" wx:else>
+  <button class="pay-zero1" bindtap="payNow">{{buttonText2}}</button>
 </view>
 <view class="stop" bindtap="stopZero">
   <text class="">可随时终止freebuy</text>
@@ -101,7 +109,7 @@
     </scroll-view>
     <view class="custom" catchtap="custom">自定义</view>
   </view>
-  <image wx:if="{{showPeriod}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelPeriod'></image>
+  <image wx:if="{{showPeriod}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelPeriod'></image>
 </view>
 <!-- 返现明细表 -->
 <view class="return-zan-dialog__mask" wx:if="{{showDialog}}">
@@ -125,7 +133,7 @@
     </view>
     <view class="move">滑动查询更多</view>
   </view>
-  <image wx:if="{{showDialog}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelDialog'></image>
+  <image wx:if="{{showDialog}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelDialog'></image>
 </view>
 <!-- 利息明细表 -->
 <view class="interest-zan-dialog__mask" wx:if="{{showModal}}">
@@ -146,7 +154,7 @@
       </view>
     </view>
   </view>
-  <image wx:if="{{showModal}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelModal'></image>
+  <image wx:if="{{showModal}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelModal'></image>
 </view>
 <!-- 可随时终止说明 -->
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showStop}}">
@@ -159,7 +167,7 @@
       <view style="margin-bottom:20rpx;">您的利息也将在当月停止发放，给到您到当月的利息！</view>
     </view>
   </view>
-  <image wx:if="{{showStop}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelStop'></image>
+  <image wx:if="{{showStop}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelStop'></image>
 </view>
 <!-- 怎么赚的钱 -->
 <view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showGet}}">
@@ -170,7 +178,7 @@
     </view>
     <button bindtap="understand">懂了</button>
   </view>
-  <image wx:if="{{showGet}}" class="cancel-get" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
+  <image wx:if="{{showGet}}" class="cancel-get" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
 </view>
 <!-- 期望价格输入框 -->
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{expectedAmountStatus}}">
@@ -185,7 +193,7 @@
       </view>
     </view>
   </view>
-  <image wx:if="{{expectedAmountStatus}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='expectedAmountStop'></image>
+  <image wx:if="{{expectedAmountStatus}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='expectedAmountStop'></image>
 </view>
 <!-- 自定义分期数输入框 -->
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{monthStatus}}">
@@ -200,5 +208,5 @@
       </view>
     </view>
   </view>
-  <image wx:if="{{monthStatus}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='monthStop'></image>
+  <image wx:if="{{monthStatus}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='monthStop'></image>
 </view>

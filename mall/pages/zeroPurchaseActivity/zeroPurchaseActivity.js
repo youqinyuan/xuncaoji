@@ -16,23 +16,24 @@ Page({
     haibao: false, // 是否显示海报
     showModalStatus1: false, //分享弹框
     shareList: '', //分享数据详情
-    // shareBgImg: '', //分享图片转换为本地图片
+    showGet: false, //提示
+    showText:'',
     btnText: '免费领取', //按钮
     orderTabItem: [{
-      title: '信用卡用户免费领',
-      select: true,
-      type: 2
-    },
-    {
-      title: '新人免费领',
-      select: false,
-      type: 1
-    },
-    {
-      title: 'Freebuy首单免费领',
-      select: false,
-      type: 4
-    }
+        title: '信用卡用户免费领',
+        select: true,
+        type: 2
+      },
+      {
+        title: '新人免费领',
+        select: false,
+        type: 1
+      },
+      {
+        title: 'Freebuy首单免费领',
+        select: false,
+        type: 4
+      }
     ],
   },
 
@@ -49,20 +50,24 @@ Page({
         })
       }
     }
-    if (options.type) {
-      app.Util.ajax(`mall/home/activity/freeShopping?mode=${2}&type=${options.type}`, null, 'GET').then((res) => {
+    if (options.scene) {
+      var scene = decodeURIComponent(options.scene);
+      var arrPara = scene.split("&");
+      var arr = [];
+      for (var i in arrPara) {
+        arr = arrPara[i].split("=");
+        console.log(arr)
+        if (arr[0] == 'type') {
+          that.setData({
+            type: parseInt(arr[1]),
+          })
+        }
+      }
+      app.Util.ajax(`mall/home/activity/freeShopping?mode=${2}&type=${that.data.type}`, null, 'GET').then((res) => {
         if (res.data.content) {
           if (res.data.content.type == 1) {
-            if (res.data.content.shoppingCount >= 1) {
-              that.setData({
-                btnText: '免费领取'
-              })
-            } else if (res.data.content.shoppingCount === 0) {
-              that.setData({
-                btnText: '进入公众号免费拿'
-              })
-            }
             that.setData({
+              btnText: '免费领取',
               zeroText: '需支付1分钱，支付成功后立刻返还至余额;每期新品限领一份，分享好友即可再领一份。'
             })
             let current = res.data.content.remainingTime
@@ -78,8 +83,36 @@ Page({
                 })
               }
             }, 1000)
+            if (priceActivityTimeIntervalList.length == 1) {
+              that.setData({
+                numCh: '一'
+              })
+            } else if (priceActivityTimeIntervalList.length == 2) {
+              that.setData({
+                numCh: '二'
+              })
+            } else if (priceActivityTimeIntervalList.length == 3) {
+              that.setData({
+                numCh: '三'
+              })
+            } else if (priceActivityTimeIntervalList.length == 4) {
+              that.setData({
+                numCh: '四'
+              })
+            } else if (priceActivityTimeIntervalList.length == 5) {
+              that.setData({
+                numCh: '五'
+              })
+            }
+            var priceActivityTimeIntervalList = res.data.content.priceActivityTimeIntervalList
+            for (var i = 0; i < priceActivityTimeIntervalList.length; i++) {
+              if (i !== priceActivityTimeIntervalList.length - 1) {
+                priceActivityTimeIntervalList[i].endTime = priceActivityTimeIntervalList[i].endTime + ','
+              }
+            }
             that.setData({
-              content: res.data.content
+              content: res.data.content,
+              type: res.data.content.type
             })
           } else if (res.data.content.type == 2) {
             that.setData({
@@ -100,36 +133,198 @@ Page({
               }
             }, 1000)
             that.setData({
-              content: res.data.content
+              content: res.data.content,
+              type: res.data.content.type
+            })
+          } else if (res.data.content.type == 4) {
+            // let cur = res.data.content.remainingTime
+            // that.formatDuring1(cur)
+            // let interval2 = setInterval(() => {
+            //   if (cur > 0) {
+            //     cur -= 1000
+            //     that.formatDuring1(cur)
+            //   } else {
+            //     clearInterval(interval2)
+            //     that.setData({
+            //       hours1: '00:00:00:00',
+            //     })
+            //   }
+            // }, 1000)
+            that.setData({
+              btnText: '免费领取',
+              content: res.data.content,
+              type: res.data.content.type
             })
           }
-        } else {
-          wx.showToast({
-            title: '活动即将上线',
-            icon: 'none',
-            duration: 1500
-          })
         }
       })
-      if (parseInt(options.type) === 1) {
-        console.log("aa" + options.type)
+      if (that.data.type === 1) {
         that.setData({
           [`orderTabItem[${1}].select`]: true
         });
         that.setData({
           [`orderTabItem[${0}].select`]: false
         });
-      } else if (parseInt(options.type) === 2) {
-        console.log("bb" + options.type)
+        that.setData({
+          [`orderTabItem[${2}].select`]: false
+        });
+      } else if (that.data.type === 2) {
         that.setData({
           [`orderTabItem[${0}].select`]: true
         });
         that.setData({
           [`orderTabItem[${1}].select`]: false
         });
+        that.setData({
+          [`orderTabItem[${2}].select`]: false
+        });
+      } else if (that.data.type === 4) {
+        that.setData({
+          [`orderTabItem[${2}].select`]: true
+        });
+        that.setData({
+          [`orderTabItem[${1}].select`]: false
+        });
+        that.setData({
+          [`orderTabItem[${0}].select`]: false
+        });
       }
-
-    } else {
+    } else if (options.type) {
+        app.Util.ajax(`mall/home/activity/freeShopping?mode=${2}&type=${options.type}`, null, 'GET').then((res) => {
+          if (res.data.content) {
+            if (res.data.content.type == 1) {
+              if (res.data.content.shoppingCount >= 1) {
+                that.setData({
+                  btnText: '免费领取'
+                })
+              } else if (res.data.content.shoppingCount === 0) {
+                that.setData({
+                  btnText: '进入公众号免费拿'
+                })
+              }
+              that.setData({
+                zeroText: '需支付1分钱，支付成功后立刻返还至余额;每期新品限领一份，分享好友即可再领一份。'
+              })
+              let current = res.data.content.remainingTime
+              that.formatDuring(current)
+              let interval = setInterval(() => {
+                if (current > 0) {
+                  current -= 1000
+                  that.formatDuring(current)
+                } else {
+                  clearInterval(interval)
+                  this.setData({
+                    hours: '00:00:00:00',
+                  })
+                }
+              }, 1000)
+              if (priceActivityTimeIntervalList.length == 1) {
+                that.setData({
+                  numCh: '一'
+                })
+              } else if (priceActivityTimeIntervalList.length == 2) {
+                that.setData({
+                  numCh: '二'
+                })
+              } else if (priceActivityTimeIntervalList.length == 3) {
+                that.setData({
+                  numCh: '三'
+                })
+              } else if (priceActivityTimeIntervalList.length == 4) {
+                that.setData({
+                  numCh: '四'
+                })
+              } else if (priceActivityTimeIntervalList.length == 5) {
+                that.setData({
+                  numCh: '五'
+                })
+              }
+              var priceActivityTimeIntervalList = res.data.content.priceActivityTimeIntervalList
+              for (var i = 0; i < priceActivityTimeIntervalList.length; i++) {
+                if (i !== priceActivityTimeIntervalList.length - 1) {
+                  priceActivityTimeIntervalList[i].endTime = priceActivityTimeIntervalList[i].endTime + ','
+                }
+              }
+              that.setData({
+                content: res.data.content,
+                type: res.data.content.type
+              })
+            } else if (res.data.content.type == 2) {
+              that.setData({
+                zeroText: '领取商品，支付时选择微信绑定的信用卡支付一分钱，支付成功后立刻返还至余额，仅限领取一份！',
+                btnText: '免费领取'
+              })
+              let cur = res.data.content.remainingTime
+              that.formatDuring1(cur)
+              let interval2 = setInterval(() => {
+                if (cur > 0) {
+                  cur -= 1000
+                  that.formatDuring1(cur)
+                } else {
+                  clearInterval(interval2)
+                  that.setData({
+                    hours1: '00:00:00:00',
+                  })
+                }
+              }, 1000)
+              that.setData({
+                content: res.data.content,
+                type: res.data.content.type
+              })
+            } else if (res.data.content.type == 4) {
+              // let cur = res.data.content.remainingTime
+              // that.formatDuring1(cur)
+              // let interval2 = setInterval(() => {
+              //   if (cur > 0) {
+              //     cur -= 1000
+              //     that.formatDuring1(cur)
+              //   } else {
+              //     clearInterval(interval2)
+              //     that.setData({
+              //       hours1: '00:00:00:00',
+              //     })
+              //   }
+              // }, 1000)
+              that.setData({
+                btnText: '免费领取',
+                content: res.data.content,
+                type: res.data.content.type
+              })
+            }
+          }
+        })
+        if (parseInt(options.type) === 1) {
+          that.setData({
+            [`orderTabItem[${1}].select`]: true
+          });
+          that.setData({
+            [`orderTabItem[${0}].select`]: false
+          });
+          that.setData({
+            [`orderTabItem[${2}].select`]: false
+          });
+        } else if (parseInt(options.type) === 2) {
+          that.setData({
+            [`orderTabItem[${0}].select`]: true
+          });
+          that.setData({
+            [`orderTabItem[${1}].select`]: false
+          });
+          that.setData({
+            [`orderTabItem[${2}].select`]: false
+          });
+        } else if (parseInt(options.type) === 4) {
+          that.setData({
+            [`orderTabItem[${2}].select`]: true
+          });
+          that.setData({
+            [`orderTabItem[${1}].select`]: false
+          });
+          that.setData({
+            [`orderTabItem[${0}].select`]: false
+          });
+        }
+      }else {
       that.init()
     }
 
@@ -149,8 +344,15 @@ Page({
     // })
 
   },
+  // 取消未满足条件弹框
+  cancelGet: function() {
+    var that = this
+    that.setData({
+      showGet: false
+    })
+  },
   //切换导航栏
-  tabTop: function (e) {
+  tabTop: function(e) {
     var that = this
     var type = e.currentTarget.dataset.type
     that.setData({
@@ -175,10 +377,37 @@ Page({
               })
             }
           }, 1000)
+          if (priceActivityTimeIntervalList.length == 1) {
+            that.setData({
+              numCh: '一'
+            })
+          } else if (priceActivityTimeIntervalList.length == 2) {
+            that.setData({
+              numCh: '二'
+            })
+          } else if (priceActivityTimeIntervalList.length == 3) {
+            that.setData({
+              numCh: '三'
+            })
+          } else if (priceActivityTimeIntervalList.length == 4) {
+            that.setData({
+              numCh: '四'
+            })
+          } else if (priceActivityTimeIntervalList.length == 5) {
+            that.setData({
+              numCh: '五'
+            })
+          }
+          var priceActivityTimeIntervalList = res.data.content.priceActivityTimeIntervalList
+          for (var i = 0; i < priceActivityTimeIntervalList.length; i++) {
+            if (i !== priceActivityTimeIntervalList.length - 1) {
+              priceActivityTimeIntervalList[i].endTime = priceActivityTimeIntervalList[i].endTime + ','
+            }
+          }
           that.setData({
             content: res.data.content
           })
-        } else if (res.data.content.type == 2) {
+        } else {
           that.setData({
             zeroText: '领取商品，支付时选择微信绑定的信用卡支付一分钱，支付成功后立刻返还至余额，仅限领取一份！'
           })
@@ -200,10 +429,8 @@ Page({
           })
         }
       } else {
-        wx.showToast({
-          title: '活动即将上线',
-          icon: 'none',
-          duration: 1500
+        that.setData({
+          content: []
         })
       }
     })
@@ -217,13 +444,35 @@ Page({
     });
   },
   //跳转到详情页
-  jumpDetail: function (e) {
+  jumpDetail: function(e) {
     var that = this
-    wx.navigateTo({
-      url: `/pages/zeroPurchase/zeroPurchase?orgPrice=${e.currentTarget.dataset.price}&id=${e.currentTarget.dataset.id}&text=${e.currentTarget.dataset.text}&type=${that.data.type}`,
-    })
+    if (that.data.type == 4) {
+      app.Util.ajax('mall/home/activity/freeShopping/obtaining/validate', {
+        type: that.data.type,
+        goodsId: e.currentTarget.dataset.id
+      }, 'POST').then((res) => {
+        if (res.data.messageCode == 'MSG_1001') {
+          wx.navigateTo({
+            url: `/pages/zeroPurchase/zeroPurchase?orgPrice=${e.currentTarget.dataset.price}&id=${e.currentTarget.dataset.id}&type=${that.data.type}&text=${e.currentTarget.dataset.text}`
+          })
+        } else {
+          that.setData({
+            showText: res.data.message
+          })
+          setTimeout(function () {
+            that.setData({
+              showGet: true
+            })
+          }, 100)
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: `/pages/zeroPurchase/zeroPurchase?orgPrice=${e.currentTarget.dataset.price}&id=${e.currentTarget.dataset.id}&text=${e.currentTarget.dataset.text}&type=${that.data.type}`,
+      })
+    } 
   },
-  init: function () {
+  init: function() {
     var that = this
     app.Util.ajax(`mall/home/activity/freeShopping?mode=${2}&type=${that.data.type}`, null, 'GET').then((res) => {
       if (res.data.content) {
@@ -288,18 +537,30 @@ Page({
   },
   showBtn: function(e) {
     var that = this
-    var token = wx.getStorageSync('token')
-    console.log(token)
-    if (!token) {
-      wx.navigateTo({
-        url: '/pages/invitationCode/invitationCode',
+    if (that.data.type == 4) {
+      app.Util.ajax('mall/home/activity/freeShopping/obtaining/validate', {
+        type: that.data.type,
+        goodsId: e.currentTarget.dataset.goodsid
+      }, 'POST').then((res) => {
+        if (res.data.messageCode == 'MSG_1001') {
+          wx.navigateTo({
+            url: `/pages/zeroPurchase/zeroPurchase?orgPrice=${e.currentTarget.dataset.price}&id=${e.currentTarget.dataset.goodsid}&type=${that.data.type}&text=${e.currentTarget.dataset.text}`
+          })
+        } else {
+          that.setData({
+            showText: res.data.message
+          })
+          setTimeout(function () {
+            that.setData({
+              showGet: true
+            })
+          }, 100)
+        }
       })
-      return;
     } else {
       wx.navigateTo({
         url: `/pages/zeroPurchase/zeroPurchase?orgPrice=${e.currentTarget.dataset.price}&id=${e.currentTarget.dataset.goodsid}&type=${that.data.type}&text=${e.currentTarget.dataset.text}`,
       })
-
     }
   },
   //显示或隐藏弹框
@@ -316,17 +577,9 @@ Page({
   // 点击橘色的分享按钮
   shares: function() {
     var that = this
-    if (that.data.type == 1 || that.data.type == 2) {
-      that.setData({
-        showModalStatus1: true
-      })
-    } else {
-      wx.showToast({
-        title: '活动即将上线',
-        icon: 'none',
-        duration: 1500
-      })
-    }
+    that.setData({
+      showModalStatus1: true
+    })
   },
   // 取消分享
   cancelShare: function() {
@@ -365,8 +618,6 @@ Page({
                   height = res.screenHeight
                 }
               })
-              console.log(width, height)
-
               var ctx = wx.createCanvasContext('mycanvas');
               var path_bg = '/assets/images/icon/bg.png'; //背景图片
               var path_bg2 = '/assets/images/icon/canvas_title.png';
@@ -662,7 +913,7 @@ Page({
               ctx.beginPath()
               ctx.setFontSize(15);
               ctx.setFillStyle('#F85A53');
-              ctx.fillText('活动需支付1分钱，即可返还到账户内', 0.1308 * width +120, 0.442 * height + 60);
+              ctx.fillText('活动需支付1分钱，即可返还到账户内', 0.1308 * width + 120, 0.442 * height + 60);
               ctx.stroke();
               ctx.closePath()
               // 绘制广告语
@@ -728,11 +979,202 @@ Page({
           })
         }
       })
-    } else if (that.data.type == 3) {
-      wx.showToast({
-        title: '活动即将上线',
-        icon: 'none',
-        duration: 1500
+    } else if (that.data.type == 4) {
+      app.Util.ajax('mall/weChat/sharing/snapshot/target', {
+        mode: 11,
+      }, 'GET').then((res) => {
+        if (res.data.messageCode == 'MSG_1001') {
+          var cashBack = res.data.content.cashBack
+          var desc = res.data.content.desc
+          var participants = res.data.content.participants
+          var inviterCode = res.data.content.inviterCode
+          var price = res.data.content.price
+          var appletQrCodeUrl = res.data.content.appletQrCodeUrl
+          //邀请码转换为本地路径
+          wx.getImageInfo({
+            src: appletQrCodeUrl,
+            success(res) {
+              appletQrCodeUrl = res.path
+              var width
+              var height
+              wx.getSystemInfo({
+                success(res) {
+                  width = res.screenWidth
+                  height = res.screenHeight
+                }
+              })
+              console.log(width, height)
+
+              var ctx = wx.createCanvasContext('mycanvas');
+              var path_bg = '/assets/images/icon/bg.png'; //背景图片
+              var path_bg2 = '/assets/images/icon/canvas_title.png';
+              var path_logo = '/assets/images/icon/xuncaoji_icon.png'
+              var path_partner = '/assets/images/icon/partner.png'
+              var title = '"Free Buy"，自由买，免费拿'
+              //绘制图片模板的背景图片
+              ctx.drawImage(path_bg, 0, 0, 0.88 * width, 0.89 * height);
+              //绘制红色背景
+              ctx.drawImage(path_bg2, 0, 0, 0.885 * width, 0.224 * height);
+              // 绘制标题
+              ctx.setFontSize(13);
+              ctx.setFillStyle('#fff');
+              ctx.setTextAlign("center")
+              ctx.fillText(title, 0.442 * width, 25);
+              ctx.stroke();
+              // 绘制中间矩形
+              ctx.beginPath()
+              ctx.setFillStyle('#fff')
+              ctx.setShadow(0, 0, 2, '#eee')
+              ctx.fillRect(0.057 * width, 0.08 * height, 0.76 * width, 0.522 * height - 2)
+              ctx.closePath()
+              //绘制合伙人图标
+              ctx.beginPath()
+              ctx.drawImage(path_partner, 0.35 * width, 44, 64, 51);
+              ctx.closePath()
+              // 绘制邀请码
+              if (inviterCode) {
+                ctx.beginPath()
+                ctx.setFontSize(19);
+                ctx.setFillStyle('#F85A53');
+                ctx.fillText(`我的邀请码：${inviterCode}`, 0.442 * width, 120);
+                ctx.stroke();
+                ctx.closePath()
+              }
+              // 绘制最小矩形
+              ctx.beginPath()
+              ctx.setFillStyle('#fff')
+              ctx.setShadow(0, 0, 2, '#eee')
+              ctx.fillRect(0.1308 * width, 130, 0.617 * width, 0.3 * height)
+              ctx.closePath()
+              // 绘制商品图片
+              ctx.beginPath()
+              ctx.drawImage('/assets/images/icon/xuncaoji_cheats.png', 0.1308 * width + 7, 137, 0.617 * width - 14, 0.3 * height - 14);
+              ctx.closePath()
+              // 绘制参与人数
+              // ctx.beginPath()
+              // var number = `参与人数：${participants}`
+              // var textWidth = inviterCode ? ctx.measureText(number).width : ctx.measureText(number).width + 50
+              // ctx.setFillStyle('#F5BA2C');
+              // ctx.moveTo(0.1308 * width, 174)
+              // ctx.lineTo(0.1308 * width, 180)
+              // ctx.lineTo(0.1308 * width - 10, 174)
+              // ctx.lineTo(0.1308 * width - 10, 150)
+              // ctx.lineTo(0.1308 * width + textWidth / 2 + 22, 150)
+              // ctx.lineTo(0.1308 * width + textWidth / 2 + 22, 174)
+              // ctx.lineTo(0.1308 * width - 10, 174)
+              // ctx.arc(0.1308 * width + textWidth / 2 + 22, 162, 12, 1.5 * Math.PI, 0.5 * Math.PI, false)
+              // ctx.closePath()
+              // ctx.fill()
+              // ctx.beginPath()
+              // ctx.setFontSize(12);
+              // ctx.setFillStyle('#fff');
+              // ctx.setTextAlign("left")
+              // ctx.fillText(number, 0.1308 * width, 167);
+              // ctx.stroke();
+              // ctx.closePath()
+              // // 绘制价格
+              // ctx.beginPath()
+              // price = `¥${price}`
+              // ctx.setFontSize(16);
+              // ctx.setFillStyle('#F85A53');
+              // ctx.setTextAlign("left")
+              // ctx.fillText(price, 0.1308 * width, 0.525 * height - 4);
+              // ctx.stroke();
+              // ctx.closePath()
+              // ctx.beginPath()
+              // // 绘制参与返
+              // ctx.setFillStyle('#F85A53');
+              // ctx.setStrokeStyle('#F85A53')
+              // var textWidth = ctx.measureText(`参与返¥ ${cashBack}`).width
+              // var textWidth2 = ctx.measureText(price).width
+              // ctx.moveTo(0.1 * width + textWidth2 + 24 - 6, 0.525 * height - 8)
+              // ctx.lineTo(0.1 * width + textWidth2 + 24, 0.525 * height - 12)
+              // ctx.lineTo(0.1 * width + textWidth2 + 24, 0.525 * height - 20)
+              // ctx.lineTo(0.1 * width + textWidth2 + 24 + textWidth / 2 + 32, 0.525 * height - 20)
+              // ctx.lineTo(0.1 * width + textWidth2 + 24 + textWidth / 2 + 32, 0.525 * height + 4)
+              // ctx.lineTo(0.1 * width + textWidth2 + 24, 0.525 * height + 4)
+              // ctx.lineTo(0.1 * width + textWidth2 + 24, 0.525 * height - 2)
+              // ctx.lineTo(0.1 * width + textWidth2 + 24 - 6, 0.525 * height - 8)
+              // ctx.closePath()
+              // ctx.fill()
+              // // 绘制参与返价格
+              // cashBack = `参与返¥ ${cashBack}`
+              // ctx.beginPath()
+              // ctx.setFontSize(12);
+              // ctx.setFillStyle('#fff');
+              // ctx.setTextAlign("left")
+              // ctx.fillText(cashBack, 0.1 * width + textWidth2 + 28, 0.525 * height - 4);
+              // ctx.stroke();
+              // ctx.closePath()
+              //绘制活动支付一分
+              // ctx.beginPath()
+              // ctx.setFontSize(15);
+              // ctx.setFillStyle('#F85A53');
+              // ctx.fillText('活动需支付1分钱，即可返还到账户内', 0.1308 * width + 120, 0.442 * height + 60);
+              // ctx.stroke();
+              // ctx.closePath()
+              // 绘制广告语
+              ctx.beginPath()
+              var adTips = '我用FreeBuy下首单后真的可以免费领商品，亲测真实有效！'
+              ctx.setFontSize(14);
+              ctx.setFillStyle('#333333');
+              ctx.setTextAlign("left")
+              let chr = adTips.split('') // 分割为字符串数组
+              let temp = ''
+              let row = []
+              for (let a = 0; a < chr.length; a++) {
+                if (ctx.measureText(temp).width < 0.65 * width) {
+                  temp += chr[a]
+                } else {
+                  a--
+                  row.push(temp)
+                  temp = ''
+                }
+              }
+              row.push(temp)
+              for (var b = 0; b < row.length; b++) {
+                ctx.fillText(row[b], 0.1308 * width - 6, 0.565 * height - 24 + b * 20);
+              }
+              ctx.stroke();
+              ctx.closePath()
+              // 绘制二维码
+              ctx.setShadow(0, 0, 0, '#fff')
+              ctx.beginPath()
+              ctx.drawImage(appletQrCodeUrl, 0.3 * width, 0.6075 * height - 2, 0.3 * width, 0.3 * width);
+              ctx.closePath()
+              // 绘制扫码提示
+              ctx.beginPath()
+              var codeTips = '长按图片识别二维码查看领取'
+              ctx.setFontSize(12);
+              ctx.setFillStyle('#999999');
+              ctx.setTextAlign("center")
+              ctx.fillText(codeTips, 0.44 * width, 0.787 * height - 2);
+              ctx.stroke();
+              ctx.closePath()
+              ctx.draw()
+              setTimeout(function() {
+                wx.canvasToTempFilePath({
+                  canvasId: 'mycanvas',
+                  success: function(res) {
+                    console.log('res', res)
+                    that.data.haibaoImg = res.tempFilePath
+                  }
+                })
+              }, 1000)
+              that.setData({
+                showModalStatus1: false,
+                haibao: true
+              })
+              wx.hideLoading()
+            }
+          })
+        } else if (res.data.messageCode == 'MSG_4001') {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 2000
+          })
+        }
       })
     }
 
@@ -902,7 +1344,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (ops) {
+  onShareAppMessage: function(ops) {
     var that = this
     if (ops.from === 'button') {
       console.log(ops.target.id)
@@ -946,13 +1388,24 @@ Page({
             path: "/pages/zeroPurchaseActivity/zeroPurchaseActivity?inviterCode=" + wx.getStorageSync('inviterCode') + "&&type=" + 2,
             imageUrl: '/assets/images/icon/xuncaoji_cheats.png',
           }
-        } else if (that.data.type == 3) {
-          console.log(that.data.type)
-          wx.showToast({
-            title: '活动即将上线',
-            icon: 'none',
-            duration: 1500
+        } else if (that.data.type == 4) {
+          app.Util.ajax('mall/weChat/sharing/onSuccess', {
+            mode: 11
+          }, 'POST').then((res) => {
+            if (res.data.content) {
+              wx.showToast({
+                title: '分享成功',
+                icon: 'none'
+              })
+            } else {
+
+            }
           })
+          return {
+            title: '我用FreeBuy下首单后真的可以免费领商品，亲测真实有效！',
+            path: "/pages/zeroPurchaseActivity/zeroPurchaseActivity?inviterCode=" + wx.getStorageSync('inviterCode') + "&&type=" + 4,
+            imageUrl: '/assets/images/icon/xuncaoji_cheats.png',
+          }
         }
       } else if (ops.target.id === 'btnGroup') {
         that.setData({
@@ -977,7 +1430,6 @@ Page({
             imageUrl: '/assets/images/icon/xuncaoji_cheats.png',
           }
         } else if (that.data.type == 2) {
-
           app.Util.ajax('mall/weChat/sharing/onSuccess', {
             mode: 6
           }, 'POST').then((res) => {
@@ -995,12 +1447,24 @@ Page({
             path: "/pages/zeroPurchaseActivity/zeroPurchaseActivity?inviterCode=" + wx.getStorageSync('inviterCode') + "&&type=" + 2,
             imageUrl: '/assets/images/icon/xuncaoji_cheats.png',
           }
-        } else if (that.data.type == 3) {
-          wx.showToast({
-            title: '活动即将上线',
-            icon: 'none',
-            duration: 1500
+        } else if (that.data.type == 4) {
+          app.Util.ajax('mall/weChat/sharing/onSuccess', {
+            mode: 11
+          }, 'POST').then((res) => {
+            if (res.data.content) {
+              wx.showToast({
+                title: '分享成功',
+                icon: 'none'
+              })
+            } else {
+
+            }
           })
+          return {
+            title: '「群福利」用FreeBuy下首单后真的可以免费领商品，亲测真实有效',
+            path: "/pages/zeroPurchaseActivity/zeroPurchaseActivity?inviterCode=" + wx.getStorageSync('inviterCode') + "&&type=" + 4,
+            imageUrl: '/assets/images/icon/xuncaoji_cheats.png',
+          }
         }
       }
     } else {
@@ -1040,12 +1504,24 @@ Page({
           path: "/pages/zeroPurchaseActivity/zeroPurchaseActivity?inviterCode=" + wx.getStorageSync('inviterCode') + "&&type=" + 2,
           imageUrl: '/assets/images/icon/xuncaoji_cheats.png',
         }
-      } else if (that.data.type == 3) {
-        wx.showToast({
-          title: '活动即将上线',
-          icon: 'none',
-          duration: 1500
+      } else if (that.data.type == 4) {
+        app.Util.ajax('mall/weChat/sharing/onSuccess', {
+          mode: 11
+        }, 'POST').then((res) => {
+          if (res.data.content) {
+            wx.showToast({
+              title: '分享成功',
+              icon: 'none'
+            })
+          } else {
+
+          }
         })
+        return {
+          title: '我用FreeBuy下首单后真的可以免费领商品，亲测真实有效！',
+          path: "/pages/zeroPurchaseActivity/zeroPurchaseActivity?inviterCode=" + wx.getStorageSync('inviterCode') + "&&type=" + 4,
+          imageUrl: '/assets/images/icon/xuncaoji_cheats.png',
+        }
       }
     }
   }

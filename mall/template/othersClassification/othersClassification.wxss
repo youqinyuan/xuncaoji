@@ -1,8 +1,11 @@
 /*轮播图*/
 
 .swiper-wrapper-item {
+  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   height: 320rpx;
-  margin-top: 148rpx;
+  margin-top: 160rpx;
 }
 
 .slide-image {
@@ -13,19 +16,12 @@
 
 /*二级分类*/
 
-.two-classification {
-  height: auto;
-  margin-bottom: 20rpx;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 1);
-}
-
 .two-classification-wrapper {
-  height: auto;
-  margin-top: 30rpx;
-  margin-left: 10rpx;
+  margin-bottom: 20rpx;
+  padding-left: 10rpx;
   display: flex;
   flex-wrap: wrap;
+  background: rgba(255, 255, 255, 1);
 }
 
 .two-classification-list {
@@ -68,7 +64,7 @@
 }
 
 .active {
-  color: #FF6417;
+  color: #ff6417;
 }
 
 .price {
@@ -134,6 +130,9 @@
 }
 
 .comprehensive-list-img {
+  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   width: 348rpx;
   height: 348rpx;
 }

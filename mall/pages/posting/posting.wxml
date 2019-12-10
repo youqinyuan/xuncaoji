@@ -1,0 +1,93 @@
+<!--pages/posting/posting.wxml-->
+<!-- 普通帖 -->
+<view class="ordinary" wx:if="{{postingStatus===1}}">
+  <textarea placeholder="这一刻的想法..." maxlength="{{201}}" placeholder-style="color:#AAAAAA" bindinput="getTextareaValue" data-index="{{index}}" class="ordinary_text">
+  </textarea>
+  <view class="img_wrap">
+    <view class="commentImg_wrap" wx:for="{{goodsData.imgList}}" wx:key="items" wx:for-item="items">
+      <image src="{{items}}" catchtap="imgYu" data-src="{{items}}"></image>
+      <image src="/assets/images/add/ic_del.png" class="close" catchtap="deleteImg" data-index="{{index}}"></image>
+    </view>
+    <image src="/assets/images/add/img_add.png" catchtap="choiceImg" data-index="{{index}}" wx:if="{{goodsData.imgList.length<9}}"></image>
+  </view>
+</view>
+<!-- 买帖 -->
+<view class="buy" wx:if="{{postingStatus===2}}">
+  <view class="listItem">
+    <view class="listLeft">期望共返金额</view>
+    <view class="listRight">
+      <input class="input1" maxlength="{{7}}" bindinput="cashBackAmount" type="number" placeholder="最低共返金额" placeholder-style="color:#AAAAAA" value="{{cashBackAmount}}" />
+      <view class="reduce">-</view>
+      <input class="input2" maxlength="{{7}}" bindinput="cashBackAmountEnd" type="number" placeholder="最高共返金额" placeholder-style="color:#AAAAAA" value="{{cashBackAmountEnd}}" />
+      <view class="price">元</view>
+    </view>
+  </view>
+  <view class="listItem">
+    <view class="listLeft">期望返还期数</view>
+    <view class="listRight">
+      <input class="input1" type="number" bindinput="periodLeft" maxlength="{{2}}" placeholder="最短返还期数" placeholder-style="color:#AAAAAA" value="{{periodLeft}}" />
+      <view class="reduce">-</view>
+      <input class="input2" type="number" bindinput="periodLeftEnd" maxlength="{{2}}" placeholder="最长返还期数" placeholder-style="color:#AAAAAA" value="{{periodLeftEnd}}" />
+      <view class="price">期</view>
+    </view>
+  </view>
+  <view class="listItem">
+    <view class="listLeft">期望年收益率</view>
+    <view class="listRight1">
+      <input class="input1" type="digit" bindinput="annualizedRateBegin" maxlength="{{3}}" placeholder="最小年收益率" placeholder-style="color:#AAAAAA" value="{{annualizedRateBegin}}" />
+      <view class="reduce">-</view>
+      <input class="input2" type="digit" bindinput="annualizedRateEnd" maxlength="{{3}}" placeholder="最大年收益率" placeholder-style="color:#AAAAAA" value="{{annualizedRateEnd}}" />
+      <view class="price">%</view>
+    </view>
+  </view>
+  <textarea class="buy_text" placeholder="有什么想对潜在卖家说的吗..." maxlength="{{201}}" placeholder-style="color:#AAAAAA" bindinput="getBuyTextarea" data-index="{{index}}" value="{{buyText}}"></textarea>
+</view>
+<!-- 卖帖 -->
+<view class="sale" wx:if="{{postingStatus===3}}">
+  <view class="sale_listItem" bindtap="jumpWaitReentry" wx:if="{{isShow==false}}">
+    <view class="sale_listLeft">选择待返订单</view>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/data_narrow.png" class="sale_listRight"></image >
+  </view>
+  <view class="sale_expect" wx:if="{{isShow==true}}">
+    <view class="saleListTop">
+      <view class="saleLeft" bindtap="showModal">
+        <view class="jia">￥</view>
+        <view class="textPrice">{{expectAmount}}</view>
+      </view>
+      <view class="saleRight">共返￥{{waitReentry.cashBackAmount}}</view>
+    </view>
+    <view class="saleLeave">剩余{{waitReentry.periodLeft}}期，截止{{waitReentry.maxReturnTime}}，每月{{waitReentry.perReturnDay}}号，每期返还{{waitReentry.perReturnAmount}}</view>
+    <view class="saleYear" wx:if="{{annualizedRate}}">参考年化率：<text>{{annualizedRate}}%</text></view>
+    <view class="saleText">年化率会随剩余时间的变化不断降低，建议及时关注并重新发布。</view>
+    <view class="replyChoose" bindtap="jumpWaitReentry">重选</view>
+  </view>
+  <textarea class="sale_text" placeholder="有什么想对潜在买家说的吗..." placeholder-style="color:#AAAAAA" maxlength="{{201}}" bindinput="getSaleTextarea" data-index="{{index}}" wx:if="{{isdisabled}}" value="{{saleText}}"></textarea>
+</view>
+<view class="msgText">{{msgText}}</view>
+<image src="/assets/images/add/btn_ordinary.png" class="ordinaryPosting" wx:if="{{postingStatus===1}}"></image>
+<image src="/assets/images/add/buyPosting.png" class="buyPosting" wx:if="{{postingStatus===2}}"></image>
+<image src="/assets/images/add/salePosting.png" class="salePosting" wx:if="{{postingStatus===3}}"></image>
+<view class="btn">
+  <view class="btn2" bindtap="submit">发布</view>
+</view>
+
+
+<!-- 压缩上传图片使用 -->
+<canvas canvas-id="canvas" style="width:250px;height:400px;position: absolute;left:-1000px;top:-1000px;"></canvas>
+<!-- 期望弹窗 -->
+<view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class="modal-title">期望售价</view>
+  <view class="modal-img" bindtap="hideModal">
+    <image class="modal-imgs" src="/assets/images/add/withdraw_close.png"></image>
+  </view>
+  <view class="section">
+    <view class="input-price">￥</view>
+    <input class="input-text" placeholder="请输入期望售价" focus="true" type="digit" value="{{inputValue}}" placeholder-style="color:#AAAAAA" bindinput="btnInput" />
+  </view>
+  <view class="prompt">{{showMessage}}</view>
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="onCancel">取消</view>
+    <view class="btn-confirm" bindtap="onConfirm">确认</view>
+  </view>
+</view>

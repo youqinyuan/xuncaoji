@@ -1,0 +1,91 @@
+/* pages/classify/classify.wxss */
+
+.wrap {
+  display: flex;
+}
+
+.nav {
+  position: fixed;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  background: #fff;
+  width: 178rpx;
+  max-height: 1113rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.08);
+  border-bottom: 2rpx solid #f4f4f4;
+  z-index: 99;
+}
+
+.nav-box {
+  width: 178rpx;
+  margin: 0 auto;
+  height: 120rpx;
+  line-height: 120rpx;
+  position: relative;
+}
+
+.nav-item {
+  text-align: center;
+  color: #555;
+}
+
+.nav-item.active {
+  color: #ff6417;
+}
+
+.nav-item.active1 {
+  width: 60rpx;
+  height: 6rpx;
+  background: #ff6417;
+  position: absolute;
+  left: 60rpx;
+  bottom: 20rpx;
+}
+
+/*二级分类*/
+
+.two-classification {
+  height: auto;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 1);
+}
+
+.two-classification-wrapper {
+  height: auto;  
+  margin-left:212rpx;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.two-classification-list {
+  width: 120rpx;
+  margin-right: 58rpx;
+  margin-top: 51rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.two-classification-img {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.two-classification-text {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  margin-top: 40rpx;
+  color: rgba(102, 102, 102, 1);
+}
+
+.two-classification-not{
+  width: 200rpx;
+  margin-left: 378rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  color: rgb(114, 113, 113);
+  font-size: 28rpx;
+}

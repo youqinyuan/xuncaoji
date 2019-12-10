@@ -4,19 +4,27 @@
 <!--搜索-->
 <view class="section-wrapper">
   <view class="section" bindtap='focus' data-url='/pages/search/search'>
-    <image src="../../assets/images/icon/index_nav_search_n.png" class="section-img"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/index_nav_search_n.png" class="section-img"></image>
     <view class="input">更多好货等你来发现</view>
   </view>
 </view>
 <view class="container" wx:if="{{navData.length>0}}">
   <!-- scroll-left属性可以控制滚动条位置 -->
-  <scroll-view scroll-x="true" class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}" scroll-into-view="{{toView}}">
-    <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
-      <view class="nav-box">
-        <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" data-id="{{item.id}}" bindtap="switchNav">{{item.name}}</view>
-      </view>
-    </block>
-  </scroll-view>
+  <view class="content_top">
+    <scroll-view scroll-x class="nav" scroll-left="{{navScrollLeft}}">
+      <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
+        <view class="nav-box">
+          <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" data-id="{{item.id}}" bindtap="switchNav">{{item.name}}</view>
+          <view class="nav-item {{currentTab == idx ?'active1':''}}"></view>
+        </view>
+      </block>
+    </scroll-view>
+    <view class="content_all" bindtap="jumpClassify">
+      <image src="/assets/images/add/ic_all.png"></image>
+      <text>全部</text>
+    </view>
+  </view>
+
   <!-- 微信授权弹框 -->
   <view class="zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>
   <view class="zan-dialog__container" wx:if="{{showDialog}}">
@@ -32,40 +40,56 @@
   </view>
   <!-- 首页叮咚弹窗-->
   <view class="show-received" catchtouchmove="preventTouchMove" wx:if="{{showReceived}}">
-  <view class="show-received-container" wx:if="{{showReceived}}">
-    <image class="show-received-top" src="{{hostUrl}}/index_ddong_tb.png"></image>
-    <view class="show-received-bottom">
-      <view class="show-received-text">{{shareMessage.content}}</view>
-      <button class="show-received-button" catchtap='go_zeroActivity' wx:if="{{shareMessage.flag == 2}}">立即去</button>
-      <button class="show-received-button" catchtap='go_zeroBuy' wx:if="{{shareMessage.flag == 1}}">催催去</button>
+    <view class="show-received-container" wx:if="{{showReceived}}">
+      <image class="show-received-top" src="{{hostUrl}}/index_ddong_tb.png"></image>
+      <view class="show-received-bottom">
+        <view class="show-received-text">{{shareMessage.content}}</view>
+        <button class="show-received-button" catchtap='go_zeroActivity' wx:if="{{shareMessage.flag == 2}}">立即去</button>
+        <button class="show-received-button" catchtap='go_zeroBuy' wx:if="{{shareMessage.flag == 1}}">催催去</button>
+      </view>
+    </view>
+    <view class="show-received-cancel" wx:if="{{showReceived}}" bindtap='cancel'>
+      <image src="https://xuncj.yzsaas.cn/_download/img/icon/vip_close_Pop-ups.png"></image>
     </view>
   </view>
-  <view class="show-received-cancel" wx:if="{{showReceived}}" bindtap='cancel'>
-    <image src="../../assets/images/icon/vip_close_Pop-ups.png"></image>
+  <!-- 公告弹窗 -->
+  <view class="show-showNotice" wx:if="{{showNotice}}">
+    <view class="show-showNotice-container" animation="{{animationData}}" wx:if="{{showNotice}}">
+      <view class="rule">公告</view>
+      <view class="rule_text">
+        <view class="rule_wrap" wx:for="{{noticeList}}" wx:key="{{item.id}}">
+           <view class="rule_title">{{item.title}}</view>
+           <view class="rule_content">{{item.content}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="show-showNotice-cancel" wx:if="{{showNotice}}" bindtap='cancelNotice'>
+      <image src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png"></image>
+    </view>
   </view>
-  </view>
+
   <!--购物小图标-->
   <view class="small-cart" bindtap='toCart' data-url='/pages/index/cart/cart'>
-    <image src="../../assets/images/icon/gouwuc_ceb_n.png" class="section-img"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/gouwuc_ceb_n.png" class="section-img"></image>
   </view>
   <view class="small-wrapper" wx:if="{{count}}">
     <view class="small-num">{{count}}</view>
   </view>
   <!-- 页面内容 -->
-  <template wx:if="{{currentTab === 0}}" is='exProducts' data="{{imgUrls:imgUrls,autoplay:autoplay,circular:circular,interval:interval,duration:duration,goods:goods,list:list,trend:trend,wholeNation:wholeNation,totalAmount:totalAmount,text:text,bannerId:bannerId,bannerUrl:bannerUrl}}"
+  <template wx:if="{{currentTab === 0}}" is='exProducts' data="{{imgUrls:imgUrls,autoplay:autoplay,circular:circular,interval:interval,duration:duration,goods:goods,list:list,trend:trend,wholeNation:wholeNation,totalAmount:totalAmount,text:text,bannerId:bannerId,bannerUrl:bannerUrl,showNotice:showNotice,noticeList:noticeList,navigationList:navigationList,navigationList1:navigationList1,navigationList2:navigationList2,indicatorDots:indicatorDots,paddingTop:paddingTop,height:height}}"
   />
-  <template wx:if="{{currentTab !== 0}}" is='othersClassification' data="{{imageUrl:imageUrl,autoplay:autoplay,circular:circular,interval:interval,duration:duration,navData:navData,classfy:classfy,comprehensive:comprehensive,pricePhoto:pricePhoto,pricePhoto1:pricePhoto1,color:color,color1:color1,color2:color2,text1:text1}}"
+  <template wx:if="{{currentTab !== 0}}" is='othersClassification' data="{{imageUrl:imageUrl,autoplay:autoplay,circular:circular,interval:interval,duration:duration,navData:navData,classfy:classfy,comprehensive:comprehensive,pricePhoto:pricePhoto,pricePhoto1:pricePhoto1,color:color,color1:color1,color2:color2,text1:text1,heightTop:heightTop}}"
   />
 </view>
 <!-- 轮播展示组件 -->
 <swiper-show class="swiper-show"></swiper-show>
 <!-- 首页新用户弹窗-->
-  <view class="show-received2" catchtouchmove="preventTouchMove" wx:if="{{newUserCourtesy}}">
+<!-- <view class="show-received2" catchtouchmove="preventTouchMove" wx:if="{{newUserCourtesy}}">
   <view class="show-received-container2" wx:if="{{newUserCourtesy}}">
-    <image class="show-received-top2" src="../../assets/images/icon/liwu_icon.png"></image>
+    <image class="show-received-top2" src="https://xuncj.yzsaas.cn/_download/img/icon/liwu_icon.png"></image>
     <view class="newPeople">
-      <text > 新人好礼：赠送12元现金</text>
-      <text > 每月赠送1元，12个月全部赠送</text>
+      <text> 新人好礼：赠送12元现金</text>
+      <text> 每月赠送1元，12个月全部赠送</text>
     </view>
     <view class="look">请在余额查看</view>
     <view class="show-received-bottom2">
@@ -73,4 +97,60 @@
       <button class="show-received-button3" bindtap="getNewUserCourtesy">领取</button>
     </view>
   </view>
+</view> -->
+<!-- 待返转让弹窗 -->
+<view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry}}">
+  <view class="zan-dialog__container1" wx:if="{{waitReentry}}">
+    <image wx:if="{{waitReentry}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose'></image>
+    <view class="title1">待返转让</view>
+    <view class="text1">
+      <view class="cause_box">
+        <view class="cause">购买方取消了交易，您的待返将正常返</view>
+        <view class="cause">现给您！</view>
+      </view>
+      <view class="wait_box" wx:for="{{returnContent}}" wx:key="">
+        <text class="wait_name">购买方:</text>
+        <text class="wait_value">{{item}}</text>
+      </view>
+      <view class="know_box">
+        <text class="know" bindtap="waitReentryClose">我知道了</text>
+      </view>
+    </view>
   </view>
+</view>
+<!-- 待返转让弹窗2 -->
+<view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry2}}">
+  <view class="zan-dialog__container1" wx:if="{{waitReentry2}}">
+    <image wx:if="{{waitReentry2}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose2'></image>
+    <view class="title1">待返转让</view>
+    <view class="text1">
+      <view class="cause_box">
+        <view class="cause">购买方完成了交易，返现金额将进入您</view>
+        <view class="cause">的待返明细中，请查看！</view>
+      </view>
+      <view class="wait_box" wx:for="{{returnContent2}}" wx:key="">
+        <text class="wait_name">购买方:</text>
+        <text class="wait_value">{{item}}</text>
+      </view>
+      <view class="know_box">
+        <text class="know" bindtap="waitReentryClose2">我知道了</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 有人出售弹窗 -->
+<view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry3}}">
+  <view class="zan-dialog__container1" wx:if="{{waitReentry3}}">
+    <!-- <image wx:if="{{waitReentry3}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose3'></image> -->
+    <view class="title1">待返转让</view>
+    <view class="text1">
+      <view class="cause_box">
+        <view class="cause">有人向你低价出售待返金额，快去待返</view>
+        <view class="cause">明细确认！</view>
+      </view>
+      <view class="know_box">
+        <text class="know" bindtap="waitReentryClose3">去看看</text>
+      </view>
+    </view>
+  </view>
+</view>

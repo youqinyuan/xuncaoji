@@ -1,0 +1,411 @@
+/* pages/wishpool/wishpool.wxss */
+
+/* 背景图 */
+
+page {
+  background: #aa49d7;
+}
+
+/* 无心愿的时候 */
+
+.star_bg {
+  width: 750rpx;
+  height: 544rpx;
+}
+
+.star_pool {
+  width: 235rpx;
+  height: 231rpx;
+  position: absolute;
+  top: 37rpx;
+  left: 252rpx;
+  animation: bounce 0.8s infinite;
+}
+
+@-webkit-keyframes bounce {
+  from, 20%, 53%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  40%, 43% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    -webkit-transform: translate3d(0, -6px, 0);
+    transform: translate3d(0, -6px, 0);
+  }
+
+  70% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    -webkit-transform: translate3d(0, -3px, 0);
+    transform: translate3d(0, -3px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0, 0px, 0);
+    transform: translate3d(0, 0px, 0);
+  }
+}
+
+@keyframes bounce {
+  from, 20%, 53%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  40%, 43% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    -webkit-transform: translate3d(0, -6px, 0);
+    transform: translate3d(0, -6px, 0);
+  }
+
+  70% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    -webkit-transform: translate3d(0, -3px, 0);
+    transform: translate3d(0, -3px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0, 0px, 0);
+    transform: translate3d(0, 0px, 0);
+  }
+}
+
+.bounce {
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+  -webkit-transform-origin: center bottom;
+  transform-origin: center bottom;
+}
+
+.leave_wish {
+  position: absolute;
+  top: 252rpx;
+  left: 260rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: rgba(255, 234, 144, 1);
+  letter-spacing: 4rpx;
+}
+
+.what_wish {
+  position: absolute;
+  top: 455rpx;
+  left: 242rpx;
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(73, 18, 92, 1);
+}
+
+.star_lang {
+  margin-left: 245rpx;
+  height: 24rpx;
+  width: 261rpx;
+}
+
+.wish_pool {
+  position: absolute;
+  top: 554rpx;
+  left: 306rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.activity_11 {
+  position: absolute;
+  top: 57rpx;
+  right: 29rpx;
+  height: 125rpx;
+  width: 125rpx;
+}
+
+.wrap {
+  margin-top: 40rpx;
+  margin-left: 30rpx;
+  width: 690rpx;
+  box-sizing: border-box;
+}
+
+.items {
+  width: 100%;
+  height: 300rpx;
+  display: flex;
+  padding-left: 24rpx;
+  padding-right: 27rpx;
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 8rpx;
+}
+
+.img_wrap {
+  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 240rpx;
+  height: 240rpx;
+  margin-right: 34rpx;
+  margin-top: 40rpx;
+}
+
+.img_wrap image {
+  width: 240rpx;
+  height: 240rpx;
+}
+
+.goodsDetail {
+  width: 366rpx;
+  height: 100%;
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  box-sizing: border-box;
+}
+
+.goodsName {
+  text-align: left;
+  height: 80rpx;
+  width: 100%;
+  font-size: 28rpx;
+  color: #333;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.goodsText {
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(153, 153, 153, 1);
+}
+
+.goodsPrice {
+  width: 100%;
+  text-align: left;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #a948d6;
+}
+
+.goodsPrice text:first-child {
+  font-size: 26rpx;
+  font-weight: bold;
+}
+
+.goodsPrice text:nth-child(2) {
+  font-size: 38rpx;
+  font-weight: bold;
+}
+
+.btn-wrap {
+  position: relative;
+  line-height: 56rpx;
+  width: 357rpx;
+  height: 56rpx;
+  background: rgba(241, 176, 0, 1);
+  border-radius: 28px;
+  font-size: 26rpx;
+  color: #fff;
+  margin-top: 28rpx;
+}
+
+.btn-wrap image {
+  width: 29rpx;
+  height: 29rpx;
+  position: absolute;
+  left: 96rpx;
+  top: 14rpx;
+}
+
+.btn {
+  font-size: 30rpx;
+  margin-left: 140rpx;
+}
+
+/* FreeBuy心愿池是什么？ */
+
+.get-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask .zan-dialog__container {
+  width: 630rpx;
+  height: 694rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 200rpx;
+  left: 60rpx;
+  text-align: center;
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask .cancel-get {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 81rpx;
+  top: 126rpx;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .title {
+  margin: 44rpx auto;
+  margin-bottom: 57rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.get-zan-dialog__mask .zan-dialog__container .text {
+  text-align: left;
+  margin: 0 36rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(34, 34, 34, 1);
+  line-height: 46rpx;
+}
+
+.get-zan-dialog__mask .zan-dialog__container button {
+  width: 440rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 65rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+}
+
+
+/* 待返转让弹窗 */
+
+.wait_shure-one-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 {
+  width: 630rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 60rpx;
+  z-index: 9999;
+}
+
+.wait_shure-one-dialog__mask .cancel-img {
+  width: 30rpx !important;
+  height: 30rpx !important;
+  position: absolute;
+  top: 50rpx;
+  right: 50rpx;
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 .title1 {
+  width: 520rpx;
+  margin: 0 auto;
+  margin-top: 46rpx;
+  margin-bottom: 60rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: 500;
+  color: #222;
+  text-align: left;
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 .text1 {
+  margin: 0 51rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #222;
+  line-height: 40rpx;
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 .cause {
+  letter-spacing: 3rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+  text-align: left !important;
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 .wait_name {
+  color: #666 !important;
+  letter-spacing: 2rpx;
+  position: absolute;
+  left: 0;
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 .wait_value {
+  color: #666 !important;
+  position: absolute;
+  right: 40rpx;
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 .wait_box {
+  position: relative;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(102, 102, 102, 1);
+  height: 40rpx;
+  line-height: 40rpx;
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 .know {
+  margin-top: 40rpx;
+  line-height: 76rpx;
+  text-align: center;
+  display: inline-block;
+  font-size: 32rpx;
+  color: #fff;
+  width: 500rpx;
+  height: 76rpx;
+  border: 2rpx solid rgba(255, 100, 23, 1);
+  background-color: rgba(255, 100, 23, 1);
+  border-radius: 38rpx;
+  /* margin-left: 20rpx; */
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 .know_box {
+  height: 190rpx;
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 .cause_box {
+  margin-bottom: 10rpx;
+}

@@ -22,7 +22,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.5",
+	"libVersion": "2.7.3",
 	"appid": "wx49f6da054a1eb413",
 	"projectname": "xcj",
 	"cloudfunctionTemplateRoot": "",
@@ -53,7 +53,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 12,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
@@ -71,23 +71,23 @@
 				},
 				{
 					"id": 2,
-					"name": "商品评价",
-					"pathName": "pages/goodsEvaluate/goodsEvaluate",
+					"name": "pages/myForum/myForum",
+					"pathName": "pages/myForum/myForum",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "商品评论",
-					"pathName": "pages/goodsComment/goodsComment",
-					"query": "",
+					"id": 3,
+					"name": "pages/finishPosting/finishPosting",
+					"pathName": "pages/finishPosting/finishPosting",
+					"query": "topicId=263",
 					"scene": null
 				},
 				{
 					"id": 4,
-					"name": "pages/xuncaoji/xuncaoji",
-					"pathName": "pages/xuncaoji/xuncaoji",
-					"query": "",
+					"name": "pages/forumDetail/forumDetail",
+					"pathName": "pages/forumDetail/forumDetail",
+					"query": "id=63",
 					"scene": null
 				},
 				{
@@ -99,37 +99,30 @@
 				},
 				{
 					"id": 6,
-					"name": "pages/zeroPurchaseActivity/zeroPurchaseActivity",
-					"pathName": "pages/zeroPurchaseActivity/zeroPurchaseActivity",
+					"name": "pages/newMessage/newMessage",
+					"pathName": "pages/newMessage/newMessage",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": 7,
-					"name": "pages/xuncaoji/xuncaoji",
-					"pathName": "pages/xuncaoji/xuncaoji",
+					"name": "pages/applyingPartner/applyingPartner",
+					"pathName": "pages/applyingPartner/applyingPartner",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": 8,
+					"id": 9,
 					"name": "pages/zeroBuy/zeroBuy",
 					"pathName": "pages/zeroBuy/zeroBuy",
 					"query": "",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/paymentorder/paymentorder",
-					"pathName": "pages/paymentorder/paymentorder",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 10,
-					"name": "合作活动",
-					"pathName": "pages/cooperate/cooperate",
-					"query": "type=1",
+					"id": 9,
+					"name": "pages/forum/forum",
+					"pathName": "pages/forum/forum",
+					"query": "id=184",
 					"scene": null
 				},
 				{
@@ -140,10 +133,164 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/test/test",
-					"pathName": "pages/test/test",
+					"id": 11,
+					"name": "pages/myWish/myWish",
+					"pathName": "pages/myWish/myWish",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": 12,
+					"name": "pages/posting/posting",
+					"pathName": "pages/posting/posting",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 13,
+					"name": "pages/undeveloped/undeveloped",
+					"pathName": "pages/undeveloped/undeveloped",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 14,
+					"name": "pages/forgetpassword/forgetpassword",
+					"pathName": "pages/forgetpassword/forgetpassword",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/freeBuy/freeBuy",
+					"pathName": "pages/freeBuy/freeBuy",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/waitReentryDetail/waitReentryDetail",
+					"pathName": "pages/waitReentryDetail/waitReentryDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/diamondPartner/diamondPartner",
+					"pathName": "pages/diamondPartner/diamondPartner",
+					"query": "id=43",
+					"scene": null
+				},
+				{
+					"id": 18,
+					"name": "pages/diamondPay/diamondPay",
+					"pathName": "pages/diamondPay/diamondPay",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/myteam/myteam",
+					"pathName": "pages/myteam/myteam",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 20,
+					"name": "pages/placeorder/placeorder",
+					"pathName": "pages/placeorder/placeorder",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/invitationCode/invitationCode",
+					"pathName": "pages/invitationCode/invitationCode",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 22,
+					"name": "pages/newMessage/newMessage",
+					"pathName": "pages/newMessage/newMessage",
+					"query": "scene=%3Fid%3D31%26remarks%3Dnull",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/mine/mine",
+					"pathName": "pages/mine/mine",
+					"query": "scene=%3Fid%3D31%26remarks%3Dnull",
+					"scene": null
+				},
+				{
+					"id": 26,
+					"name": "商品详情",
+					"pathName": "pages/detail/detail",
+					"query": "id=12",
+					"scene": null
+				},
+				{
+					"id": 29,
+					"name": "pages/cityPartner/cityPartner",
+					"pathName": "pages/cityPartner/cityPartner",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "种子",
+					"pathName": "pages/seed/seed",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/classify/classify",
+					"pathName": "pages/classify/classify",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "种子明细",
+					"pathName": "pages/seedDetail/seedDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 29,
+					"name": "pages/finishPosting/finishPosting",
+					"pathName": "pages/finishPosting/finishPosting",
+					"query": "topicId=263",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "退款",
+					"pathName": "pages/returnMoney/returnMoney",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/detail/detail",
+					"pathName": "pages/detail/detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/myorder/myorder",
+					"pathName": "pages/myorder/myorder",
+					"query": "topicId=263",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/placeorder/placeorder",
+					"pathName": "pages/detail/detail",
+					"query": "scene=id%3D134%26remarks%3Dnull%26type%3D1",
 					"scene": null
 				}
 			]

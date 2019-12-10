@@ -119,7 +119,7 @@ Page({
     var that = this
     if (that.data.name == '') {
       wx.showToast({
-        title: '请填写姓名',
+        title: '请填写收货人姓名',
         icon: 'none'
       })
     } else if (that.data.phoneNumber == '') {

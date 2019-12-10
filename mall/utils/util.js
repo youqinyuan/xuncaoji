@@ -57,7 +57,20 @@ function getUrl() {
   urlWithArgs = urlWithArgs.substring(0, urlWithArgs.length - 1)
   wx.setStorageSync('Url', `/${urlWithArgs}`)
 }
-
+function formatSplitString(str, gap, sep) {
+  if (!str) {
+    return '';
+  }
+  let l = str.length - 1;
+  let strArr = str.split(''); // 将字符串分割成字符串数组
+  return strArr.map((elem, i) => {
+    if (i % gap === gap - 1 && i !== l) {
+      return elem + sep; // 当前元素+分隔符
+    } else {
+      return elem;
+    }
+  }).join(''); // 放入一个字符串
+}
 // 获取当前页面路由
 function getRouter() { //此方法跟上面一个方法前四行一致，只是这里是获取路由不是拼接参数的
   var pages = getCurrentPages() //获取加载的页面
@@ -93,28 +106,28 @@ const ajax = (url, data, method, config = {}) => {
       method: method,
       success(res) {
        // console.log("接口信息："+JSON.stringify(res))
+       var pages = getCurrentPages()
         if (res.data.statusCode == 200 || authLoginStatus == 1) {
           wx.hideLoading()
           if (res.data.messageCode == 'MSG_1001' || authLoginStatus == 1) {
             // console.log('请求成功') 
             resolve(res)
           } else if (res.data.messageCode == 'MSG_2001') {
-            var pages = getCurrentPages()
-            // console.log("11" + JSON.stringify(pages[pages.length - 1]))
-            if (pages.route == 'pages/index/index') {
+            console.log(res.data.messageCode)
+            wx.removeStorageSync('token')
+            if (pages[pages.length - 1].route == "pages/index/index" || pages[pages.length - 1].route == "pages/wishpool/wishpool" || pages[pages.length - 1].route == "pages/xuncaoji/xuncaoji" || pages[pages.length - 1].route == "pages/mine/mine" || pages[pages.length - 1].route == "pages/freeBuy/freeBuy") {
               return;
+            }else{
+                wx.navigateTo({
+                 url: '/pages/invitationCode/invitationCode',
+              })
             }
-            // if(authLoginStatus == 2){
-            //    // console.log('未授权')
-            // var pages = getCurrentPages()
-            // if (pages[pages.length - 1].route == 'pages/index/index') {
-            //   return;
-            // }
-            // wx.navigateTo({
-            //   url: '/pages/invitationCode/invitationCode',
-            // })
-            // }
-          } else {
+          } else if (res.data.messageCode == 'MSG_5001') {
+            wx.showToast({
+              title: '服务器内部错误',
+              icon: 'none'
+            })
+          }else{
             resolve(res)
           }
         }
@@ -132,7 +145,7 @@ const ajax = (url, data, method, config = {}) => {
 function getUrlImg() {
   var hostUrl = 'https://xuncj.yzsaas.cn/_download/img';
   var hostVideo = 'https://xuncj.yzsaas.cn/_download/'
-    var publicUrl = "https://xuncaoji.yzsaas.cn/"; //测试环境
+  var publicUrl = "https://xuncaoji.yzsaas.cn/"; //测试环境
   // var publicUrl = 'https://xuncj.yzsaas.cn/'; //正式环境
   return {
     hostUrl,
@@ -166,6 +179,7 @@ module.exports = {
   formatTimeTwo: formatTimeTwo,
   getUrl: getUrl,
   getRouter: getRouter,
+  formatSplitString: formatSplitString,
   ajax: ajax,
   getUrlImg: getUrlImg,
   deepCopy: deepCopy

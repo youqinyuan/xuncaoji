@@ -16,8 +16,9 @@ Page({
     pageNumber: 1, //分页记录数
     pageSize: 20, //分页大小
     titleName:'',//标题
-    pricePhoto: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
-    pricePhoto1: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
+    pricePhoto: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png',
+    pricePhoto1: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png',
+    name:''
   },
   //跳转到详情页
   toDetail: function (e) {
@@ -33,7 +34,6 @@ Page({
   initgetMore: function () {
     var that = this
     var pageNumber = that.data.pageNumber
-    // //品质优选
     app.Util.ajax('mall/home/goods', {
       categoryId: that.data.id, sortBy: 1, pageNumber: pageNumber,
       pageSize: that.data.pageSize
@@ -52,7 +52,6 @@ Page({
   getMore: function () {
     var that = this
     var pageNumber = that.data.pageNumber+1
-    // //品质优选
     app.Util.ajax('mall/home/goods', {
       categoryId: that.data.id, sortBy: 1, pageNumber: pageNumber,
       pageSize: that.data.pageSize
@@ -77,12 +76,13 @@ Page({
   },
   onLoad: function (options) {
     var that = this
-    this.data.titleName = options.name;
+    this.data.titleName = decodeURIComponent(options.name);
     wx.setNavigationBarTitle({
-      title: options.name
+      title: decodeURIComponent(options.name)
     });
     that.setData({
-      id:options.id
+      id:options.id,
+      name:options.name
     })
     that.initgetMore()
   },
@@ -105,8 +105,13 @@ Page({
           color: "#FF8D12",
           color1: "black",
           color2: "black",
-          pricePhoto: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
-          pricePhoto1: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png'
+          pricePhoto: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png',
+          pricePhoto1: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png'
+        })
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
         })
       }
     })
@@ -132,8 +137,13 @@ Page({
             color: "black",
             color1: "#FF8D12",
             color2: "black",
-            pricePhoto: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_down.png',
-            pricePhoto1: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',
+            pricePhoto: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_down.png',
+            pricePhoto1: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png',
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
           })
         }
       })
@@ -150,8 +160,13 @@ Page({
             color: "black",
             color1: "#FF8D12",
             color2: "black",
-            pricePhoto: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_up.png',
-            pricePhoto1: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png',         
+            pricePhoto: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_up.png',
+            pricePhoto1: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png',         
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
           })
         }
       })
@@ -179,8 +194,13 @@ Page({
             color: "black",
             color1: "black",
             color2: "#FF8D12",
-            pricePhoto1: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_up.png',
-            pricePhoto: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png'
+            pricePhoto1: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_up.png',
+            pricePhoto: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png'
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
           })
         }
       })
@@ -197,8 +217,13 @@ Page({
             color: "black",
             color1: "black",
             color2: "#FF8D12",
-            pricePhoto1: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_down.png',
-            pricePhoto: '../../../assets/images/icon/fenlei_tuijian_pinzhi_title_updown.png'
+            pricePhoto1: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_down.png',
+            pricePhoto: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png'
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
           })
         }
       })
@@ -252,8 +277,25 @@ Page({
  * 用户点击右上角分享
  */
   onShareAppMessage: function (ops) {
+    var that = this
     return {
-      path: "/pages/index/twolist/twolist?inviterCode=" + wx.getStorageSync('inviterCode'),
+      path: "/pages/index/twolist/twolist?inviterCode=" + wx.getStorageSync('inviterCode')+'&id='+that.data.id+'&name='+that.data.name,
     }
+  },
+   //转让弹窗
+   waitReentryClose:function(){
+    this.setData({
+      waitReentry:false
+    })
+  },
+  waitReentryClose2:function(){
+    this.setData({
+      waitReentry2:false
+    })
+  },
+  waitReentryClose3:function(){
+    this.setData({
+      waitReentry3:false
+    })
   },
 })

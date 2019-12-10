@@ -36,7 +36,7 @@
               <view class="goodsPrice">原价：¥
                 <text>{{item.orgPrice}}</text>
               </view>
-              <view class="btn" catchtap="showBtn" data-price="{{item.orgPrice}}" data-goodsid="{{item.id}}" data-text="{{btnText}}">{{btnText}}</view>
+              <view class="btn" data-price="{{item.orgPrice}}" data-goodsid="{{item.id}}" data-text="{{btnText}}">{{btnText}}</view>
             </view>
           </view>
         </view>

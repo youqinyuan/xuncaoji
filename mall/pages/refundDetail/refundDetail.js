@@ -1,0 +1,169 @@
+// pages/mine/recharge/details/details.js
+var time = require('../../utils/util.js');
+let app = getApp();
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    pageNumber:1,
+    pageSize:9,
+    items:[],
+    text:'',
+    showDialog:false,
+    orderId:0
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    let that = this
+    that.init();
+  },
+  init:function(){
+    let that = this
+    app.Util.ajax('mall/order/queryRechargeOrderByUserId', { pageNumber: that.data.pageNumber, pageSize: that.data.pageSize}, 'GET').then((res) => { // 使用ajax函数
+       console.log(111+JSON.stringify(res.data.content.items))
+      console.log(that.data.pageNumber,that.data.pageSize)
+      if (res.data.content) {
+        for (var i = 0; i < res.data.content.items.length; i++) {
+          res.data.content.items[i].statusTime = time.formatTimeTwo(res.data.content.items[i].statusTime, 'Y-M-D h:m:s');
+        }
+        that.setData({
+          items: res.data.content.items
+        })
+        console.log(22+JSON.stringify(res.data.content.items))
+      }
+    })
+  },
+  getMore:function(){
+    var that = this
+    var pageNumber = that.data.pageNumber + 1
+    app.Util.ajax('mall/order/queryRechargeOrderByUserId', { pageNumber: pageNumber, pageSize: that.data.pageSize},'GET').then((res) => { // 使用ajax函数
+      if (res.data.content) {
+        if (res.data.content.items == '' && that.data.items !== '') {
+          that.setData({
+            text: '已经到底啦'
+          })
+        }
+        var arr = that.data.items
+        for (var i = 0; i < res.data.content.items.length; i++) {
+          res.data.content.items[i].statusTime = time.formatTimeTwo(res.data.content.items[i].statusTime, 'Y-M-D h:m:s');
+          arr.push(res.data.content.items[i])
+        }
+        that.setData({
+          items: arr,
+        })
+        that.setData({
+          pageNumber: pageNumber
+        })
+      }
+    })
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    var that = this
+    // that.setData({
+    //   pageNumber: 1
+    // })
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    var that = this
+    that.setData({
+      pageNumber:1
+    })
+    that.init()
+    setTimeout(function(){
+      wx.stopPullDownRefresh() //停止下拉刷新
+    },1000)
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    var that = this
+    that.getMore();
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
+
+  //显示
+  returnedMoney(e){
+    console.log(e.currentTarget.dataset.orderid)
+    var orderId = parseInt(e.currentTarget.dataset.orderid)
+    this.setData({
+      orderId:orderId,
+      showDialog:true
+    })
+  },
+  //隐藏
+  cancel:function(){
+    this.setData({
+      showDialog:false
+    })
+  },
+  //确定
+  comfire:function(){
+    var that = this
+    app.Util.ajax('mall/order/orderRefund', {id:that.data.orderId}, 'POST').then((res) => { // 使用ajax函数
+      console.log(111+JSON.stringify(res.data))
+        if (res.data.messageCode == 'MSG_1001') {
+          that.setData({
+            showDialog:false,
+            pageNumber:1
+          })
+          wx.showToast({
+            title:'退款成功',
+            icon:"none"
+          })
+          setTimeout(function(){
+            that.init()
+          },1000)
+        }else{
+          wx.showToast({
+            title:res.data.message,
+            icon:"none"
+          })
+          that.setData({
+            showDialog:false
+          })
+        }
+      
+    })
+  }
+})

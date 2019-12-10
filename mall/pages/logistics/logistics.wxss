@@ -1,7 +1,57 @@
 /* pages/logistics/logistics.wxss */
-.logistics{
-  margin-top: 63rpx;
+
+.logistics {
+  margin-top: 30rpx;
 }
+
+.logistics-top {
+  width: 750rpx;
+  height: 138rpx;
+}
+
+.logistics-item {
+  margin-left: 30rpx;
+  margin-top: 30rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+}
+
+.logistics-item text:nth-child(1) {
+  color: #666;
+  margin-right: 50rpx;
+}
+
+.logistics-item1 {
+  margin-left: 30rpx;
+  margin-top: 30rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+}
+
+.logistics-item1 text:nth-child(1) {
+  color: #666;
+  margin-right: 25rpx;
+}
+
+.logistics-item1 text:nth-child(3) {
+  border: 2rpx solid #999;
+  border-radius:16rpx;
+  font-size: 22rpx;
+  color:#999;
+  margin-left: 20rpx;
+  padding: 0 13rpx;
+}
+
+.logistics-block {
+  width: 750rpx;
+  height: 20rpx;
+  background: #f1f1f1;
+}
+
 .logistics-list {
   display: flex;
   position: relative;
@@ -18,6 +68,7 @@
   font-weight: 500;
   color: #999;
 }
+
 .logistics-list-left .date1 {
   width: 85rpx;
   font-size: 18rpx;
@@ -25,6 +76,7 @@
   font-weight: 500;
   color: #999;
 }
+
 .logistics-list-right .img {
   width: 45rpx;
   height: 45rpx;
@@ -47,8 +99,9 @@
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
+
 .logistics-list-right .text {
-  color: #999999;
+  color: #999;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
@@ -57,6 +110,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
+
 .logistics-list-right .circle {
   width: 12rpx;
   height: 12rpx;
@@ -64,31 +118,35 @@
   border-radius: 50%;
   position: absolute;
   left: 126rpx;
-  top:10rpx;
+  top: 10rpx;
 }
+
 .logistics-list-right .circle1 {
   position: absolute;
   left: 109rpx;
-  top:-6rpx;
+  top: -6rpx;
 }
+
 .logistics-list-right .circle2 {
   position: absolute;
   left: 109rpx;
-  top:-6rpx;
+  top: -6rpx;
 }
+
 .logistics-list-right .block {
   width: 1rpx;
   height: 108rpx;
-  background: #E7E7E7;
+  background: #e7e7e7;
   position: absolute;
   left: 130rpx;
-  top:23rpx;
+  top: 23rpx;
 }
+
 .logistics-list-right .block1 {
   width: 1rpx;
   height: 102rpx;
-  background: #E7E7E7;
+  background: #e7e7e7;
   position: absolute;
   left: 130rpx;
-  top:29rpx;
+  top: 29rpx;
 }

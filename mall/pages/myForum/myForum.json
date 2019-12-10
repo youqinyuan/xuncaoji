@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarTitleText": "论坛",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
+}

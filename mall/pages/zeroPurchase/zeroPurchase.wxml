@@ -1,6 +1,6 @@
 <!--pages/zeroPurchase/zeroPurchase.wxml-->
 <!-- 分享按钮 -->
-<image src="/assets/images/icon/ic_shareDetail.png" class="share_img" bindtap="shares"></image>
+<image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_shareDetail.png" class="share_img" bindtap="shares"></image>
 <view class="wrap">
   <!--轮播图-->
   <view class="swiper-wrap">
@@ -12,7 +12,7 @@
     <view class="currentIndex">{{current+1}}/{{imageUrls.length}}</view>
   </view>
   <view class="zero-purchase-time" wx:if="{{detail.status == 2}}">
-    <image src="/assets/images/icon/zero_p.png"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/zero_p.png"></image>
     <view class="zero-purchase-text">本活动正在进行中</view>
     <!-- <view class="zero-purchase-word">距结束仅剩</view>
     <view class="zero-purchase-number">{{hours}}</view>
@@ -25,7 +25,7 @@
     <view class="zero-purchase-word">毫秒</view> -->
   </view>
   <view class="zero-purchase-time" wx:if="{{!detail.remainingTime}}">
-    <image src="/assets/images/icon/zero_p.png"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/zero_p.png"></image>
     <view class="zero-purchase-text">活动暂未开始，请等待哦</view>
   </view>
   <view class="content">
@@ -33,7 +33,7 @@
     <view class="price-wrap">
       <view class="price">
         <view class="new-price">
-          <text class="price-text">￥</text>{{stockDetail1.dctPrice}}</view>
+          <text class="price-text">￥</text>{{orgPrice}}</view>
         <view class="old-price" wx:if="{{detail.goodsItem.expressFee>0}}">
           快递：￥{{detail.goodsItem.expressFee}}
         </view>
@@ -48,25 +48,26 @@
     <!--商品名称-->
     <view class="goods-title">
       <text class="goods-channel" wx:if="{{detail.tags==1}}">自营</text>
+       <text class="goods-channel2" wx:if="{{detail.sendSeed&&detail.sendSeed!==0}}">最高送{{detail.sendSeed}}颗种子</text>
       <text selectable='true' bindlongtap='copy'>{{detail.goodsItem.name}}</text>
     </view>
     <!--售后无忧-->
     <view class="platform-compare">
       <view class="platform-wrap">
         <view class="platform-img">
-          <image src="../../assets/images/icon/index_protect_shouhou_icon.png"></image>
+          <image src="https://xuncj.yzsaas.cn/_download/img/icon/index_protect_shouhou_icon.png"></image>
         </view>
         <view class="platform-text">源头直采</view>
       </view>
       <view class="platform-wrap">
         <view class="platform-img">
-          <image src="../../assets/images/icon/index_protect_renzheng_icon.png"></image>
+          <image src="https://xuncj.yzsaas.cn/_download/img/icon/index_protect_renzheng_icon.png"></image>
         </view>
         <view class="platform-text">假一赔十</view>
       </view>
       <view class="platform-wrap">
         <view class="platform-img">
-          <image src="../../assets/images/icon/index_protect_changj_icon.png"></image>
+          <image src="https://xuncj.yzsaas.cn/_download/img/icon/index_protect_changj_icon.png"></image>
         </view>
         <view class="platform-text">全场支持0成本购</view>
       </view>
@@ -79,7 +80,7 @@
   <!--邀请好友-->
   <view class="stock" wx:if="{{message!==''}}">
     <view class="stock-img">
-      <image src="../../assets/images/icon/ic_hint.png"></image>
+      <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_hint.png"></image>
     </view>
     <view class="stock-text">{{message}}</view>
   </view>
@@ -91,7 +92,7 @@
         <text class="percent">{{goodInteractRate}}%</text> 的人觉得好
       </view>
       <view class="evaluate-right-img">
-        <image src="../../assets/images/icon/xiangqing_more_n.png"></image>
+        <image src="https://xuncj.yzsaas.cn/_download/img/icon/xiangqing_more_n.png"></image>
       </view>
     </view>
   </view>
@@ -99,17 +100,17 @@
     <view class="evaluate-content-top">
       <view class="evaluate-content-img">
         <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}"></image>
-        <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
+        <image wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
       </view>
       <view class="evaluate-content-right">
         <view class="evaluate-content-right-top">
           <view class="evaluate-content-title">{{comment[0].nickname}}</view>
           <view class="evaluate-content-start">
             <block wx:for="{{comment[0].score}}" wx:key=''>
-              <image src='../../assets/images/icon/pingj_xinxin.png'></image>
+              <image src='https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin.png'></image>
             </block>
             <block wx:for="{{5-comment[0].score}}" wx:key=''>
-              <image src='../../assets/images/icon/pingj_xinxin_l.png'></image>
+              <image src='https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin_l.png'></image>
             </block>
           </view>
         </view>
@@ -150,7 +151,7 @@
   <view class="commodity-top">
     <view class="commodity-top-img">
       <image wx:if="{{iconUrl}}" src="{{iconUrl}}"></image>
-      <image wx:else src="../../assets/images/icon/zhanw_tb_n.png"></image>
+      <image wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
     </view>
     <view class="commodity-top-right">
       <view class="commodity-top-right-item">
@@ -159,7 +160,7 @@
           <view class="price">{{stockDetail1.dctPrice}}</view>
         </view>
         <view class="commodity-top-right-cancel" bindtap="hideModal">
-          <image src="../../assets/images/icon/tanc_close_n.png"></image>
+          <image src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_close_n.png"></image>
         </view>
       </view>
       <view class="commodity-save">库存{{stockDetail1.quantity}}件</view>
@@ -207,20 +208,20 @@
   </view>
   <view class="share-btn">
       <button class="share-btn-friend" style="background-color:transparent" id='btn' open-type="share">
-        <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
+        <image class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/share_wechat.png"></image>
         <view class="wx">分享好友</view>
       </button>
       <button class="share-btn-friend" id='btnGroup' style="background-color:transparent" open-type="share">
-        <image class="photo" src="../../assets/images/icon/share_tanc_qun_n.png"></image>
+        <image class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/share_tanc_qun_n.png"></image>
         <view class="wx">分享群</view>
       </button>
       <button class="share-btn-friend" bindtap='shareFriend' style="background-color:transparent">
-        <image class="photo" src="../../assets/images/icon/share_friends.png"></image>
+        <image class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/share_friends.png"></image>
         <view class="wx">分享图片</view>
       </button>
     </view>
-  <image class="img" src="../../assets/images/icon/pic.png"></image>
-  <image wx:if="{{show}}" class="cancel-img" src="/assets/images/icon/vip_close_Pop-ups.png" bindtap='cancelShow'></image>
+  <image class="img" src="https://xuncj.yzsaas.cn/_download/img/icon/pic.png"></image>
+  <image wx:if="{{show}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/vip_close_Pop-ups.png" bindtap='cancelShow'></image>
 </view>
 <!-- 分享弹框 -->
 <!--屏幕背景变暗的背景  -->
@@ -228,19 +229,19 @@
 <!--弹出框 选择开始 -->
 <view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
   <view class="content-wrapper1">
-    <image class="cancel" src="../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <image class="cancel" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_close_n.png" catchtap='cancelShare'></image>
     <view class="shareCommission">你喜欢那就分享给你朋友吧</view>
     <view class="share-wrap">
       <button class="share-button" id='btn' open-type="share">
-        <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
+        <image class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/share_wechat.png"></image>
         <view class="wx">分享好友</view>
       </button>
       <button class="share-button" id='btnGroup' open-type="share">
-        <image class="photo" src="../../assets/images/icon/share_tanc_qun_n.png"></image>
+        <image class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/share_tanc_qun_n.png"></image>
         <view class="wx">分享群</view>
       </button>
       <button class="share-button" bindtap='shareFriend'>
-        <image class="photo" src="../../assets/images/icon/share_friends.png"></image>
+        <image class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/share_friends.png"></image>
         <view class="wx">分享图片</view>
       </button>
     </view>
@@ -249,29 +250,28 @@
 <!-- 提示关注公众号弹框 -->
 <view class="mask" wx:if="{{showMask}}" catchtouchmove="preventTouchMove">
   <view class="content_wrap" bindlongpress="saveImg">
-    <image src="/assets/images/icon/bg_gzh.png"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/bg_gzh.png"></image>
     <view class="container">
-      <view class="title">如何关注「寻草记商城」</view>
-      <view class="step">1、微信搜索公众号
-        <text>「寻草记商城」</text>，点击
-        <text>关注。</text>
+      <view class="title">添加寻草记小姐姐微信领取</view>
+      <view class="step">1、可微信搜索小姐姐微信号：                
+        <text>jishi186</text>加好友。
       </view>
       <view class="step">2、长按即可保存二维码至相册，打开微信
         <text>“扫一扫”</text>点击右上角“相册”，选择二维码图片。
       </view>
       <view class="code_wrap">
-        <image src="/assets/images/icon/code.png" class="code"></image>
+        <image src="https://xuncj.yzsaas.cn/_download/img/icon/code.png" class="code"></image>
       </view>
     </view>
   </view>
-  <image src="/assets/images/icon/ic_cancel.png" class="close" bindtap="show"></image>
+  <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_cancel.png" class="close" bindtap="show"></image>
 </view>
 <!-- 海报弹框 -->
 <view class="mask_hb" wx:if="{{haibao}}"></view>
 <view class="canvas-box" hidden='{{haibao == false}}'>
   <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
   <view class="close_hb" wx:if="{{haibao}}">
-    <image src="/assets/images/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
   </view>
 </view>
 
@@ -284,7 +284,7 @@
 
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{card}}">
     <view class="zan-dialog__container" >
-        <image src="../../assets/images/icon/creditCard@2x.png" class="bgimg" />
+        <image src="https://xuncj.yzsaas.cn/_download/img/icon/creditCard@2x.png" class="bgimg" />
         <view class="creditValue">
                  <view class="title">信用卡使用秘籍</view>
         <view>

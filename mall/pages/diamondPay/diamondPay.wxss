@@ -1,0 +1,145 @@
+/* pages/diamondPay/diamondPay.wxss */
+
+page {
+  background: #f1f1f1;
+}
+
+.orderTab {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80rpx;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+  white-space: nowrap;
+}
+
+.orderTabItem {
+  padding: 0 20rpx;
+  height: 90rpx;
+  font-size: 28rpx;
+  text-align: center;
+  position: relative;
+  vertical-align: middle;
+  display: inline-block;
+  color: #666;
+  z-index: 9999;
+}
+
+.tabTitle {
+  line-height: 80rpx;
+}
+
+.on {
+  color: #333;
+}
+
+.active {
+  width: 100rpx;
+  height: 8rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 4rpx;
+  position: absolute;
+  top: 73rpx;
+  left: 50rpx;
+}
+
+.swiper-out {
+  width: 750rpx;
+  height: 1100rpx;
+  position: absolute;
+  top:60rpx;
+}
+
+.slide-image {
+  height: 700rpx;
+  width: 596rpx;
+  margin-top: 160rpx;
+}
+
+.active-item {
+  height: 900rpx;
+  margin-top: 80rpx;
+}
+
+.swp-item {
+  width: 400rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4rpx;
+}
+
+.wrap {
+  text-align: center;
+  width: 414rpx;
+  max-height: 271rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  line-height: 48rpx;
+  margin: 0 auto;
+  margin-top: 142rpx;
+}
+
+.title {
+  text-align: center;
+  color: #d35c57;
+  font-size: 36rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  margin-top: 33rpx;
+}
+
+.title {
+  text-align: center;
+  color: #d35c57;
+  font-size: 36rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  margin-top: 33rpx;
+}
+
+.title3 {
+  color: #af9243;
+}
+
+.title4 {
+  color: #5b80a5;
+}
+
+.title5 {
+  color: #aa5faa;
+}
+
+.title6 {
+  color: #b0774c;
+}
+
+.item4 {
+  text-align: left;
+  margin-top: 65rpx;
+  width: 493rpx;
+  height: 607rpx;
+}
+
+.item6 {
+  width: 447rpx;
+}
+
+.btn {
+  position: fixed;
+  bottom: 72rpx;
+  left: 30rpx;
+  width: 690rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background: rgba(255, 141, 141, 1);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #fff;
+}

@@ -14,7 +14,7 @@ Page({
       url: '/pages/login/login?pageNum=' + 4,
     })
   },
-  getPhoneNumber: function(e) {
+  getPhoneNumber: function(e){
     console.log(e)
     var that = this
     //给当前地址添加缓存，授权之后跳转回原页面
@@ -57,12 +57,22 @@ Page({
               key: "url",
               data: url
             })
+          } else if (url == 'pages/zeroPurchaseActivity/zeroPurchaseActivity') {
+            wx.setStorage({
+              key: "url",
+              data: url
+            })
+          } else if (url == 'pages/wishpool/wishpool') {
+            wx.setStorage({
+              key: "url",
+              data: url
+            })
+          }else if (url == 'pages/freeBuy/freeBuy') {
+            wx.setStorage({
+              key: "url",
+              data: url
+            })
           }
-          console.log("iiii")
-          console.log(encryptedData)
-          console.log(iv)
-          console.log(code)
-          console.log(inviterCode1)
           app.Util.ajax('mall/account/authLogin', {
             encryptedData: encryptedData,
             iv: iv,

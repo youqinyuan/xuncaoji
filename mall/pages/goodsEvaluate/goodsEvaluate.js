@@ -9,6 +9,7 @@ Page({
   },
   //返回首页
   go_home: function () {
+    wx.setStorageSync('tempStatus', 1)
     wx.switchTab({
       url: '/pages/index/index'
     })

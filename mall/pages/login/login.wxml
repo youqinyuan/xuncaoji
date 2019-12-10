@@ -2,11 +2,11 @@
 <!--请输入手机号-->
 <view class="section-wrapper">
   <view class="section">
-    <image src="../../assets/images/icon/login_phone.png" class="section-img"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/login_phone.png" class="section-img"></image>
     <input placeholder="请输入手机号" placeholder-style="color:#AAAAAA" type="number" name="phone" value="{{phoneNumber}}" bindinput='bindInput' maxlength="11"/>
   </view>
    <view class="section1">
-    <image src="../../assets/images/icon/login_code.png" class="section-img"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/login_code.png" class="section-img"></image>
     <input placeholder="请输入验证码" placeholder-style="color:#AAAAAA" type="number" name="code" value="{{codeNumber}}" bindinput='bindCode' />
     <button class="code" style="color:{{color}}" bindtap='getCode' disabled='{{disabled}}'>{{getcode}}</button>
   </view>

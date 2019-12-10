@@ -13,13 +13,11 @@ page {
   top: 0;
   z-index: -1;
 }
+
 .section-swiper {
   width: 710rpx;
   margin: 0 auto;
   margin-top: 20rpx;
-  /* left: 20rpx;
-  position: absolute;
-  z-index: -1; */
 }
 
 .section-wrap {
@@ -29,12 +27,21 @@ page {
 .section-video {
   height: 400rpx;
   width: 710rpx;
-  
 }
 
 .section-video video {
   height: 100%;
   width: 100%;
+}
+
+.mask_block {
+  height: 400rpx;
+  width: 710rpx;
+  background: #000;
+  position: absolute;
+  top: 0rpx;
+  opacity: 0.2;
+  border-radius: 8rpx;
 }
 
 .play-img {
@@ -55,16 +62,15 @@ page {
   background-color: #fff;
   border-radius: 8rpx 8rpx 0 0;
   box-sizing: border-box;
-  height: auto; 
+  height: auto;
   margin-left: 20rpx;
   margin-bottom: 40rpx;
   background: #fff;
+  padding: 40rpx 0;
 }
 
 rich-text {
   display: block;
-  padding-top: 40rpx;
-  padding-bottom: 40rpx;
   width: 650rpx;
   font-size: 28rpx;
   margin: 0 auto;
@@ -73,7 +79,7 @@ rich-text {
 }
 
 .block {
-  background: #f4edc4; 
+  background: #f4edc4;
   height: 30rpx;
   width: 750rpx;
 }
@@ -225,3 +231,103 @@ button::after {
   width: 50rpx;
   height: 50rpx;
 }
+/* 待返转让弹窗 */
+
+.wait_shure-one-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 {
+  width: 630rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 60rpx;
+  z-index: 9999;
+}
+
+.wait_shure-one-dialog__mask .cancel-img {
+  width: 30rpx !important;
+  height: 30rpx !important;
+  position: absolute;
+  top: 50rpx;
+  right: 50rpx;
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 .title1 {
+  width: 520rpx;
+  margin: 0 auto;
+  margin-top: 46rpx;
+  margin-bottom: 60rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight:500;
+  color: #222;
+  text-align: left;
+}
+
+.wait_shure-one-dialog__mask .zan-dialog__container2 .text1 {
+  margin: 0 51rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #222;
+  line-height: 40rpx;
+}
+.wait_shure-one-dialog__mask .zan-dialog__container2 .cause{
+  letter-spacing: 3rpx;
+  font-size: 28rpx;
+  font-weight:500;
+  color:#333;
+  text-align: left !important;
+}
+.wait_shure-one-dialog__mask .zan-dialog__container2 .wait_name{
+  color: #666666 !important;
+  letter-spacing: 2rpx;
+  position: absolute;
+  left: 0;
+}
+.wait_shure-one-dialog__mask .zan-dialog__container2 .wait_value{
+  color: #666666 !important;
+  position: absolute;
+  right: 40rpx;
+}
+.wait_shure-one-dialog__mask .zan-dialog__container2 .wait_box{
+  position: relative;
+  font-size:24rpx;
+  font-family:PingFang SC;
+  font-weight:400;
+  color:rgba(102,102,102,1);
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.wait_shure-one-dialog__mask .zan-dialog__container2 .know{
+  margin-top: 40rpx;
+  line-height: 76rpx;
+  text-align: center;
+  display: inline-block;
+  font-size: 32rpx;
+  color: #fff;
+  width:500rpx;
+  height:76rpx;
+  border:2rpx solid rgba(255,100,23,1);
+  background-color: rgba(255,100,23,1);
+  border-radius:38rpx;
+  /* margin-left: 20rpx; */
+}
+.wait_shure-one-dialog__mask .zan-dialog__container2 .know_box{
+  height: 190rpx;
+}
+.wait_shure-one-dialog__mask .zan-dialog__container2 .cause_box{
+  margin-bottom: 10rpx;
+}
+
+

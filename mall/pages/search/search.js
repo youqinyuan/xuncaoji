@@ -65,25 +65,19 @@ Page({
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
       }, 'GET').then((res) => {  // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.messageCode == 'MSG_1001') {
           res.data.content.goodsResult.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           })
           that.setData({
-            goodsResult: res.data.content.goodsResult.items,
-            // storeResult: res.data.content.storeResult.items
+            goodsResult: res.data.content.goodsResult.items
           }) 
-          // if (res.data.content.goodsResult.items.length !== 0 && res.data.content.storeResult.items.length !==0){
-          //   that.setData({
-          //     goodsResult: res.data.content.goodsResult.items.slice(0, 5),
-          //     storeResult: res.data.content.storeResult.items.slice(0, 5)
-          //   }) 
-          // }else{
-          //   that.setData({
-          //     goodsResult: res.data.content.goodsResult.items,
-          //     storeResult: res.data.content.storeResult.items
-          //   })
-          // }         
+          wx.setStorageSync('inputValue', that.data.inputValue)    
+        }else{
+          wx.showToast({
+            title: res.data.message,
+            icon:'none'
+          })
         }
       })  
     }
@@ -118,25 +112,19 @@ Page({
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
       }, 'GET').then((res) => {  // 使用ajax函数
-        if (res.messageCode = 'MSG_1001') {
+        if (res.data.messageCode == 'MSG_1001') {
           res.data.content.goodsResult.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           })
           that.setData({
             goodsResult: res.data.content.goodsResult.items,
-            // storeResult: res.data.content.storeResult.items
           })
-          // if (res.data.content.goodsResult.items.length !== 0 && res.data.content.storeResult.items.length !==0){
-          //   that.setData({
-          //     goodsResult: res.data.content.goodsResult.items.slice(0, 5),
-          //     storeResult: res.data.content.storeResult.items.slice(0, 5)
-          //   }) 
-          // }else{
-          //   that.setData({
-          //     goodsResult: res.data.content.goodsResult.items,
-          //     storeResult: res.data.content.storeResult.items
-          //   })
-          // }         
+          wx.setStorageSync('inputValue', that.data.inputValue)
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
         }
       })
     }
@@ -156,27 +144,19 @@ Page({
       pageNumber: that.data.pageNumber,
       pageSize: that.data.pageSize
     }, 'GET').then((res) => {  // 使用ajax函数
-      if (res.messageCode = 'MSG_1001') {
+      if (res.data.messageCode == 'MSG_1001') {
         res.data.content.goodsResult.items.forEach((v, i) => {
           v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
         })
         that.setData({
-          goodsResult: res.data.content.goodsResult.items,
-          // storeResult: res.data.content.storeResult.items
-        }) 
-        // if (res.data.content.goodsResult.items.length !== 0 && res.data.content.storeResult.items.length !== 0) {
-        //   res.data.content.goodsResult.items = res.data.content.goodsResult.items.slice(0, 5)
-        //   res.data.content.storeResult.items = res.data.content.storeResult.items.slice(0, 5)
-        //   that.setData({
-        //     goodsResult: res.data.content.goodsResult.items,
-        //     storeResult: res.data.content.storeResult.items
-        //   })
-        // } else {
-        //   that.setData({
-        //     goodsResult: res.data.content.goodsResult.items,
-        //     storeResult: res.data.content.storeResult.items
-        //   })
-        // }       
+          goodsResult: res.data.content.goodsResult.items
+        })
+        wx.setStorageSync('inputValue', that.data.inputValue)  
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
       }
     })  
   },
@@ -188,7 +168,7 @@ Page({
     app.Util.ajax('mall/home/_search', {
       keyword: that.data.inputValue,
       scope: 4,
-      pageNumber: that.data.pageNumber,
+      pageNumber: pageNumber,
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
@@ -295,9 +275,34 @@ Page({
    */
   onShow: function() {
    var that = this
-  //  that.setData({
-  //    pageNumber:1
-  //  })
+    if (wx.getStorageSync('inputValue')){
+     that.setData({
+       template: 2,
+       show: true,
+       inputValue: wx.getStorageSync('inputValue')
+     })
+     app.Util.ajax('mall/home/_search', {
+       keyword: that.data.inputValue,
+       scope: 4,
+       pageNumber: that.data.pageNumber,
+       pageSize: that.data.pageSize
+     }, 'GET').then((res) => {  // 使用ajax函数
+       if (res.data.messageCode == 'MSG_1001') {
+         res.data.content.goodsResult.items.forEach((v, i) => {
+           v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
+         })
+         that.setData({
+           goodsResult: res.data.content.goodsResult.items
+         })
+         wx.removeStorageSync('inputValue')
+       } else {
+         wx.showToast({
+           title: res.data.message,
+           icon: 'none'
+         })
+       }
+     })  
+   }
   },
 
   /**
@@ -311,7 +316,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    wx.removeStorageSync('inputValue')
   },
 
   /**

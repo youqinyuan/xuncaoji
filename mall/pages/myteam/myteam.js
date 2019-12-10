@@ -7,6 +7,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tabName:'全部',
+    aa:0,
+    index:0,
+    choose:false,
     show: false,
     pageNumber: 1,
     pageSize: 20,
@@ -18,7 +22,15 @@ Page({
     haibao: false,
     haibaoImg: '',
     top: '',
-    hostUrl: app.Util.getUrlImg().hostUrl
+    hostUrl: app.Util.getUrlImg().hostUrl,
+    arry:['全部','普通用户','合伙人','钻石合伙人',]
+  },
+  //多项选择
+  bindPickerChange: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      index: e.detail.value
+    })
   },
   //显示弹框
   recurit: function() {
@@ -72,50 +84,195 @@ Page({
   },
   init: function () {
     var that = this
-    app.Util.ajax('mall/personal/followers', {
-      pageNumber: that.data.pageNumber,
-      pageSize: that.data.pageSize
-    }, 'GET').then((res) => {
-      if (res.data.messageCode = 'MSG_1001') {
-        var inviterCode = wx.getStorageSync('inviterCode')
-        for (var i = 0; i < res.data.content.followers.items.length; i++) {
-          res.data.content.followers.items[i].regTime = time.formatTimeTwo(res.data.content.followers.items[i].regTime, 'Y-M-D h:m:s');
+    if(that.data.aa==0){
+      //查询所有
+      app.Util.ajax('mall/personal/followers', {
+        pageNumber: that.data.pageNumber,
+        pageSize: that.data.pageSize
+      }, 'GET').then((res) => {
+        if (res.data.messageCode = 'MSG_1001') {
+          var inviterCode = wx.getStorageSync('inviterCode')
+          for (var i = 0; i < res.data.content.followers.items.length; i++) {
+            res.data.content.followers.items[i].regTime = time.formatTimeTwo(res.data.content.followers.items[i].regTime, 'Y-M-D h:m:s');
+          }
+          // console.log(JSON.stringify(res.data.content))
+          that.setData({
+            content: res.data.content,
+            followers: res.data.content.followers.items,
+            inviterCode: inviterCode
+          })
         }
-        that.setData({
-          content: res.data.content,
-          followers: res.data.content.followers.items,
-          inviterCode: inviterCode
-        })
-      }
-    })
+      })
+    }else if(that.data.aa==1){
+      //普通用户
+      app.Util.ajax('mall/personal/followers', {
+        pageNumber: that.data.pageNumber,
+        pageSize: that.data.pageSize,
+        role:2
+      }, 'GET').then((res) => {
+        if (res.data.messageCode = 'MSG_1001') {
+          var inviterCode = wx.getStorageSync('inviterCode')
+          for (var i = 0; i < res.data.content.followers.items.length; i++) {
+            res.data.content.followers.items[i].regTime = time.formatTimeTwo(res.data.content.followers.items[i].regTime, 'Y-M-D h:m:s');
+          }
+          // console.log(JSON.stringify(res.data.content))
+          that.setData({
+            content: res.data.content,
+            followers: res.data.content.followers.items,
+            inviterCode: inviterCode
+          })
+        }
+      })
+    }else if(that.data.aa==2){
+      //合伙人
+      app.Util.ajax('mall/personal/followers', {
+        pageNumber: that.data.pageNumber,
+        pageSize: that.data.pageSize,
+        role:3
+      }, 'GET').then((res) => {
+        if (res.data.messageCode = 'MSG_1001') {
+          var inviterCode = wx.getStorageSync('inviterCode')
+          for (var i = 0; i < res.data.content.followers.items.length; i++) {
+            res.data.content.followers.items[i].regTime = time.formatTimeTwo(res.data.content.followers.items[i].regTime, 'Y-M-D h:m:s');
+          }
+          // console.log(JSON.stringify(res.data.content))
+          that.setData({
+            content: res.data.content,
+            followers: res.data.content.followers.items,
+            inviterCode: inviterCode
+          })
+        }
+      })
+    }else{
+      //钻石合伙人
+      app.Util.ajax('mall/personal/followers', {
+        pageNumber: that.data.pageNumber,
+        pageSize: that.data.pageSize,
+        role:6
+      }, 'GET').then((res) => {
+        if (res.data.messageCode = 'MSG_1001') {
+          var inviterCode = wx.getStorageSync('inviterCode')
+          for (var i = 0; i < res.data.content.followers.items.length; i++) {
+            res.data.content.followers.items[i].regTime = time.formatTimeTwo(res.data.content.followers.items[i].regTime, 'Y-M-D h:m:s');
+          }
+          // console.log(JSON.stringify(res.data.content))
+          that.setData({
+            content: res.data.content,
+            followers: res.data.content.followers.items,
+            inviterCode: inviterCode
+          })
+        }
+      })
+    }
+    
   },
   getMore: function () {
     var that = this
     var pageNumber = that.data.pageNumber + 1
-    app.Util.ajax('mall/personal/followers', {
-      pageNumber: pageNumber,
-      pageSize: that.data.pageSize
-    }, 'GET').then((res) => {
-      if (res.data.messageCode = 'MSG_1001') {
-        var inviterCode = wx.getStorageSync('inviterCode')
-        var followers = res.data.content.followers.items
-        if (followers == '' && that.data.followers !== '') {
+    if(that.data.aa==0){
+      app.Util.ajax('mall/personal/followers', {
+        pageNumber: pageNumber,
+        pageSize: that.data.pageSize
+      }, 'GET').then((res) => {
+        if (res.data.messageCode = 'MSG_1001') {
+          var inviterCode = wx.getStorageSync('inviterCode')
+          var followers = res.data.content.followers.items
+          if (followers == '' && that.data.followers !== '') {
+            that.setData({
+              text: '已经到底啦'
+            })
+          }
+          var arr = that.data.followers
+          for (var i = 0; i < res.data.content.followers.items.length; i++) {
+            res.data.content.followers.items[i].regTime = time.formatTimeTwo(res.data.content.followers.items[i].regTime, 'Y-M-D h:m:s');
+            arr.push(res.data.content.followers.items[i])
+          }
           that.setData({
-            text: '已经到底啦'
+            followers: arr,
+            inviterCode: inviterCode,
+            pageNumber: pageNumber
           })
         }
-        var arr = that.data.followers
-        for (var i = 0; i < res.data.content.followers.items.length; i++) {
-          res.data.content.followers.items[i].regTime = time.formatTimeTwo(res.data.content.followers.items[i].regTime, 'Y-M-D h:m:s');
-          arr.push(res.data.content.followers.items[i])
+      })
+    }else if(that.data.aa==1){
+      app.Util.ajax('mall/personal/followers', {
+        pageNumber: pageNumber,
+        pageSize: that.data.pageSize,
+        role:2
+      }, 'GET').then((res) => {
+        if (res.data.messageCode = 'MSG_1001') {
+          var inviterCode = wx.getStorageSync('inviterCode')
+          var followers = res.data.content.followers.items
+          if (followers == '' && that.data.followers !== '') {
+            that.setData({
+              text: '已经到底啦'
+            })
+          }
+          var arr = that.data.followers
+          for (var i = 0; i < res.data.content.followers.items.length; i++) {
+            res.data.content.followers.items[i].regTime = time.formatTimeTwo(res.data.content.followers.items[i].regTime, 'Y-M-D h:m:s');
+            arr.push(res.data.content.followers.items[i])
+          }
+          that.setData({
+            followers: arr,
+            inviterCode: inviterCode,
+            pageNumber: pageNumber
+          })
         }
-        that.setData({
-          followers: arr,
-          inviterCode: inviterCode,
-          pageNumber: pageNumber
-        })
-      }
-    })
+      })
+    }else if(that.data.aa==2){
+      app.Util.ajax('mall/personal/followers', {
+        pageNumber: pageNumber,
+        pageSize: that.data.pageSize,
+        role:3
+      }, 'GET').then((res) => {
+        if (res.data.messageCode = 'MSG_1001') {
+          var inviterCode = wx.getStorageSync('inviterCode')
+          var followers = res.data.content.followers.items
+          if (followers == '' && that.data.followers !== '') {
+            that.setData({
+              text: '已经到底啦'
+            })
+          }
+          var arr = that.data.followers
+          for (var i = 0; i < res.data.content.followers.items.length; i++) {
+            res.data.content.followers.items[i].regTime = time.formatTimeTwo(res.data.content.followers.items[i].regTime, 'Y-M-D h:m:s');
+            arr.push(res.data.content.followers.items[i])
+          }
+          that.setData({
+            followers: arr,
+            inviterCode: inviterCode,
+            pageNumber: pageNumber
+          })
+        }
+      })
+    }else{
+      app.Util.ajax('mall/personal/followers', {
+        pageNumber: pageNumber,
+        pageSize: that.data.pageSize,
+        role:6
+      }, 'GET').then((res) => {
+        if (res.data.messageCode = 'MSG_1001') {
+          var inviterCode = wx.getStorageSync('inviterCode')
+          var followers = res.data.content.followers.items
+          if (followers == '' && that.data.followers !== '') {
+            that.setData({
+              text: '已经到底啦'
+            })
+          }
+          var arr = that.data.followers
+          for (var i = 0; i < res.data.content.followers.items.length; i++) {
+            res.data.content.followers.items[i].regTime = time.formatTimeTwo(res.data.content.followers.items[i].regTime, 'Y-M-D h:m:s');
+            arr.push(res.data.content.followers.items[i])
+          }
+          that.setData({
+            followers: arr,
+            inviterCode: inviterCode,
+            pageNumber: pageNumber
+          })
+        }
+      })
+    }
   },
   // 分享朋友圈 生成海报
   shareFriend: function() {
@@ -123,7 +280,6 @@ Page({
     app.Util.ajax('mall/weChat/sharing/snapshot/target', {
       mode: 4,
     }, 'GET').then((res) => {
-      console.log(res)
       if (res.data.messageCode = 'MSG_1001') {
         wx.showLoading()
         var cashBack = res.data.content.cashBack
@@ -143,9 +299,7 @@ Page({
                 height = res.screenHeight
               }
             })
-            console.log(width, height)
             var ctx = wx.createCanvasContext('mycanvas');
-            console.log(ctx)
             //绘制图片模板的背景图片
             ctx.drawImage('/assets/images/icon/bg.png', 0, 0, 0.88 * width, 0.89 * height);
             //绘制顶部红色背景
@@ -439,7 +593,7 @@ Page({
         return {
           title: '我是合伙人，全品0元购，帮朋友省钱，也能赚钱！来加入吧',
           path: that.data.shareList.link,
-          imageUrl: '../../assets/images/icon/xuncaoji_cheats.png',
+          imageUrl: 'https://xuncj.yzsaas.cn/_download/img/icon/xuncaoji_cheats.png',
           success: function (res) {
 
           },
@@ -472,7 +626,7 @@ Page({
         return {
           title: '亲们，全品0元购，省钱有赚钱，想成为合伙人的群友，加入吧',
           path: that.data.shareList.link,
-          imageUrl: '../../assets/images/icon/xuncaoji_cheats.png',
+          imageUrl: 'https://xuncj.yzsaas.cn/_download/img/icon/xuncaoji_cheats.png',
           success: function (res) {
 
           },
@@ -487,8 +641,65 @@ Page({
       return {
         title: '我是合伙人，全品0元购，帮朋友省钱，也能赚钱！来加入吧',
         path: that.data.shareList.link,
-        imageUrl: '../../assets/images/icon/xuncaoji_cheats.png',
+        imageUrl: 'https://xuncj.yzsaas.cn/_download/img/icon/xuncaoji_cheats.png',
       }
     }
+  },
+  showChoose:function(){
+    var that = this
+    if(that.data.choose){
+      that.setData({
+        choose:false
+      })
+    }else{
+      that.setData({
+        choose:true
+      })
+    }
+    
+  },
+  tap:function(e){
+    var that =this
+    // console.log(e.currentTarget.dataset.index)
+    if(e.currentTarget.dataset.index==0){
+      that.setData({
+        aa:0,
+        tabName:'全部',
+        pageNumber: 1,
+        pageSize: 20,
+        text: ''
+      })
+    }else if(e.currentTarget.dataset.index==1){
+      that.setData({
+        aa:1,
+        tabName:'普通会员',
+        pageNumber: 1,
+        pageSize: 20,
+        text: ''
+      })
+    }else if(e.currentTarget.dataset.index==2){
+      that.setData({
+        aa:2,
+        tabName:'合伙人',
+        pageNumber: 1,
+        pageSize: 20,
+        text: ''
+      })
+    }else if(e.currentTarget.dataset.index==3){
+      that.setData({
+        aa:3,
+        tabName:'钻石合伙人',
+        pageNumber: 1,
+        pageSize: 20,
+        text: ''
+      })
+    }
+    setTimeout(function(){
+      // that.init()
+    },300)
+    //关闭下拉列表
+    setTimeout(function(){
+      that.showChoose()
+    },300)
   }
 })

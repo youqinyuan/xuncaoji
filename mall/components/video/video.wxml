@@ -1,16 +1,16 @@
 <view class='vv'>
   <!-- <view class='block' style='margin-left:20rpx;'> -->
-    <!-- <image src='/img/1.png' class='img1' style='margin-left:20rpx'></image>
+  <!-- <image src='/img/1.png' class='img1' style='margin-left:20rpx'></image>
     <text class='text'>{{item.title}} </text> -->
-    <view  class="cover" style="display:{{videoimage}}" bindtap="videoPlay">
-      <!-- 视频图层 -->
-      <image class="videoVideo2" src="/assets/images/icon/video_cover.png" mode="scaleToFill">
-        <!-- 视频按钮 -->
-        <image  class="videoPlay" src="/assets/images/icon/video_play.png" mode="scaleToFill" ></image>
-      </image>
-    </view>
+  <view class="cover" style="display:{{videoimage}}" bindtap="videoPlay">
+    <!-- 视频图层 -->
+    <image class="videoVideo2" src="https://xuncj.yzsaas.cn/_download/img/icon/xuncaoji_fbjieshao.png" mode="scaleToFill">
+      <!-- 视频按钮 -->
+      <image class="videoPlay" src="https://xuncj.yzsaas.cn/_download/img/icon/video_play.png" mode="scaleToFill"></image>
+    </image>
+  </view>
   <!-- </view> -->
   <!-- 视频 -->
   <video src="{{videoUrl}}" id="myVideo" class='video' enable-play-gesture="{{true}}" vslide-gesture-in-fullscreen="{{true}}" direction="90">
   </video>
-  </view>
+</view>

@@ -18,46 +18,49 @@
 </view>
 <!--支付方式-->
 <view class="payway-wrap">
-  <view class="payway" wx:if="{{orderType !==4}}">
-    <view class="payway-img">
-      <image src="../../assets/images/icon/order_yhk_icon.png"></image>
+  <block wx:for="{{content.channels}}" wx:key="">
+    <view class="payway" wx:if="{{item.channel==1}}">
+      <view class="payway-img">
+        <image src="https://xuncj.yzsaas.cn/_download/img/icon/order_yhk_icon.png"></image>
+      </view>
+      <view class="payway-text">
+        <view class="payway-title">余额支付</view>
+        <view class="payway-price">余额:￥{{content.balance}}</view>
+      </view>
+      <view class="payway-right-img" catchtap='wallet_pay'>
+        <checkbox-group class="store-box">
+          <label class="checkbox">
+            <checkbox checked="{{payment_mode1}}" />
+          </label>
+        </checkbox-group>
+      </view>
     </view>
-    <view class="payway-text">
-      <view class="payway-title">余额支付</view>
-      <view class="payway-price">余额:￥{{balance}}</view>
+    <view class="wx" wx:if="{{item.channel==2}}">
+      <view class="wx-img">
+        <image src="https://xuncj.yzsaas.cn/_download/img/icon/order_weixin_icon.png"></image>
+      </view>
+      <view class="wx-text">微信支付</view>
+      <view class="wx-right-img" catchtap="wx_pay">
+        <checkbox-group class="store-box">
+          <label class="checkbox">
+            <checkbox checked="{{payment_mode2}}" />
+          </label>
+        </checkbox-group>
+      </view>
     </view>
-    <view class="payway-right-img" catchtap='wallet_pay'>
-      <checkbox-group class="store-box">
-        <label class="checkbox">
-          <checkbox checked="{{payment_mode1}}" />
-        </label>
-      </checkbox-group>
-    </view>
-  </view>
-  <view class="wx">
-    <view class="wx-img">
-      <image src="../../assets/images/icon/order_weixin_icon.png"></image>
-    </view>
-    <view class="wx-text">微信支付</view>
-    <view class="wx-right-img" catchtap="wx_pay">
-      <checkbox-group class="store-box">
-        <label class="checkbox">
-          <checkbox checked="{{payment_mode2}}" />
-        </label>
-      </checkbox-group>
-    </view>
-  </view>
+  </block>
+
 </view>
 <!--确认支付-->
 <view class="button" bindtap='pay'>确认支付</view>
 <view class="button2" bindtap='payValueShow' wx:if="{{options.buymode==2}}">终止FreeBuy</view>
 <view class="payValue" wx:if="{{options.buymode==2}}">我们是上市挂牌公司（代码837939）旗下电商平台，为消费者存有壹亿消费保障基金，请放心使用！</view>
 <view class="stock" wx:if="{{orderType ==4}}">
-    <view class="stock-img">
-      <image src="../../assets/images/icon/ic_hint.png"></image>
-    </view>
-    <view class="stock-text">{{message}}</view>
+  <view class="stock-img">
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_hint.png"></image>
   </view>
+  <view class="stock-text">{{message}}</view>
+</view>
 <!-- 可随时终止说明 -->
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showStop}}">
   <view class="zan-dialog__container" wx:if="{{showStop}}">
@@ -67,7 +70,7 @@
       </view>
     </view>
   </view>
-  <image wx:if="{{showStop}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='payValueHiden'></image>
+  <image wx:if="{{showStop}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='payValueHiden'></image>
 </view>
 <!-- 弹出框 -->
 <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{show}}">
@@ -83,7 +86,7 @@
       <input name="password" value="{{Value}}" adjust-position="{{false}}" password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus" type="number"></input>
     </view>
   </view>
-  <image wx:if="{{show}}" class="pwd-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelShow'></image>
+  <image wx:if="{{show}}" class="pwd-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelShow'></image>
 </view>
 <!--弹框-->
 <view class="zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}">

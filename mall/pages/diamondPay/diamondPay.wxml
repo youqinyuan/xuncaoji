@@ -1,0 +1,79 @@
+<!--pages/diamondPay/diamondPay.wxml-->
+<scroll-view scroll-x class="orderTab" scroll-left="{{navScrollLeft}}">
+  <view class="orderTabItem" wx:for="{{list}}" data-current="{{index}}" bindtap="swichNav" wx:key="">
+    <view class="order-item">
+      <view class="tabTitle {{item.select==true?'on':''}}">{{item.title}}</view>
+      <view class="{{item.select==true?'active':''}}"></view>
+    </view>
+  </view>
+</scroll-view>
+<swiper previous-margin="65rpx" next-margin="65rpx" bindchange="bindChange" class="swiper-out" current="{{currentTab}}">
+  <swiper-item class="swp-item" wx:for="{{list}}" wx:key="">
+    <view wx:if="{{item.status==1}}" class="slide-image {{currentTab === index ?'active-item': ''}}" style="background: url({{item.bannerUrl}}) no-repeat center center;background-size: 100% 100%;">
+      <view class="title">{{initialize.payMent||299}}元奖励金</view>
+      <view class="wrap">
+        <view>自成为钻石合伙人起一年内，</view>
+        <view>如果您的团队成员</view>
+        <view>达到≥{{initialize.subordiates||500}}人，</view>
+        <view>您将获得平台{{initialize.payMent||299}}元奖励金，</view>
+        <view>一次性发放到您寻草记个人</view>
+        <view>中心的「余额」里。</view>
+      </view>
+    </view>
+    <view wx:if="{{item.status==6}}" class="slide-image {{currentTab === index ?'active-item': ''}}" style="background: url({{item.bannerUrl}}) no-repeat center center;background-size: 100% 100%;">
+      <view class="title">待返转让分佣</view>
+      <view class="wrap">
+        <view>您的下级进行待返出售，</view>
+        <view>您可赚取转让手续费的{{initialize.transfer||30}}%</view>
+        <view>您的下级进行待返购买，</view>
+        <view>您可赚取转让手续费的{{initialize.purchase||30}}%</view>
+      </view>
+    </view>
+    <view wx:if="{{item.status==2}}" class="slide-image {{currentTab === index ?'active-item': ''}}" style="background: url({{item.bannerUrl}}) no-repeat center center;background-size: 100% 100%;">
+    <view class="title title3">{{initialize.diamond||300}}元购物金</view>
+      <view class="wrap">
+        <view>您购买的{{initialize.diamond||300}}元购物金</view>
+        <view>分{{initialize.frequency||10}}次使用，</view>
+        <view>仅用于FreeBuy方式购买，</view>
+        <view>可用于购买寻草记商城</view>
+        <view>任何商品，</view>
+        <view>有效期为成为钻石合伙人起</view>
+        <view>一年内。</view>
+      </view>
+    </view>
+    <view wx:if="{{item.status==3}}" class="slide-image {{currentTab === index ?'active-item': ''}}" style="background: url({{item.bannerUrl}}) no-repeat center center;background-size: 100% 100%;">
+    <view class="title title4">坐享下级消费提成</view>
+      <view class="wrap item4">
+        <view>您的下级团队即为使用你邀请码注册的人，简称团队成员。</view>
+        <view>1、赚取团队成员消费金额（非FreeBuy购买）的2%-15%的返现；</view>
+        <view>2、赚取团队成员FreeBuy消费金额的1%-5%的返现；</view>
+        <view>3、团队成员成为钻石会员，获100元奖励；</view>
+        <view>4、赚取第5级团队成员消费金额（非FreeBuy购买）的1%-7.5%的返现；</view>
+        <view>5、赚取第5级团队成员FreeBuy消费金额的0.5%的返现</view>
+      </view>
+    </view>
+    <view wx:if="{{item.status==4}}" class="slide-image {{currentTab === index ?'active-item': ''}}" style="background: url({{item.bannerUrl}}) no-repeat center center;background-size: 100% 100%;">
+    <view class="title title5">享FreeBuy下单优惠</view>
+      <view class="wrap">
+        <view>您的所有FreeBuy订单</view>
+        <view>均享受{{initialize.discount||9.5}}折优惠，</view>
+        <view>有效期为成为钻石合伙人起</view>
+        <view>一年内。</view>
+      </view>
+    </view>
+    <view wx:if="{{item.status==5}}" class="slide-image {{currentTab === index ?'active-item': ''}}" style="background: url({{item.bannerUrl}}) no-repeat center center;background-size: 100% 100%;">
+    <view class="title title6">优先成为城市合伙人</view>
+      <view class="wrap item6">
+        <view>城市合伙人(买手)享有寻草记</view>
+        <view>给与的丰厚抽成政策，</view>
+        <view>可发展所在城市线下商家入驻，</view>
+        <view>商家所有在寻草记</view>
+        <view>售出的商品利润，</view>
+        <view>均需按比例支付给城市合伙人；</view>
+        <view style="margin-top:60rpx;">钻石合伙人在同等条件下，</view>
+        <view>可优先被选为城市合伙人。</view>
+      </view>
+    </view>
+  </swiper-item>
+</swiper>
+<view class="btn" bindtap="openDiamond" wx:if="{{initMember.memberType!==2}}">开通</view>

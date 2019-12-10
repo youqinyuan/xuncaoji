@@ -41,6 +41,9 @@
 }
 
 .goods-list-img {
+  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   width: 240rpx;
   height: 240rpx;
   margin-top: 20rpx;
@@ -60,8 +63,7 @@
 }
 
 .goods-list-text {
-  height: 110rpx;
-  /* margin-bottom: 20rpx; */
+  height: 120rpx;
   width: 428rpx;
   display: -webkit-box;
   word-break: break-all;
@@ -69,16 +71,10 @@
   font-size: 28rpx;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp:2;
+  -webkit-line-clamp:3;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
-  display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-all;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
 }
 
 .goods-list-text text {
@@ -186,6 +182,9 @@
 }
 
 .shops-list-img {
+  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   width: 100rpx;
   height: 100rpx;
   margin-right: 20rpx;
@@ -228,6 +227,9 @@
 }
 
 .shops-right-img {
+  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   position: absolute;
   right: 0;
   top: 42rpx;

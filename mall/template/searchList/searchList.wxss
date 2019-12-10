@@ -1,7 +1,7 @@
 /*搜索历史*/
 .wrapper{
   background: #fff;
-  height: 1095rpx;
+  min-height: 1095rpx;
 }
 .history {
   height: 80rpx;

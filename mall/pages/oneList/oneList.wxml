@@ -1,0 +1,63 @@
+<!--pages/oneList/oneList.wxml-->
+<swiper class="swiper-wrapper-item" indicator-dots="{{false}}" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <swiper-item wx:if="{{imageUrl.length>0}}" wx:for="{{imageUrl}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}">
+    <image wx:if="{{imageUrl.length===0}}" src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png" class="slide-image" />
+    <image wx:else src="{{item.imageUrl}}" class="slide-image" />
+  </swiper-item>
+  <swiper-item wx:if="{{imageUrl.length===0}}">
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png" class="slide-image" />
+  </swiper-item>
+</swiper>
+<!--二级分类-->
+<view class="two-classification-wrapper" style="padding-top:{{heightTop}}rpx;" wx:if="{{classfy.length>0}}">
+  <view class="two-classification-list" wx:for="{{classfy}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="twoList">
+    <image class="two-classification-img" mode="aspectFit" wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}"></image>
+    <image class="two-classification-img" mode="aspectFit" wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+    <view class="two-classification-text">{{item.name}}</view>
+  </view>
+</view>
+<!--综合、价格、上新-->
+<view class="title">
+  <view class="comprehensive" style="color:{{color}};" data-id="{{item.id}}" bindtap='comprehensive'>综合</view>
+  <view class="price" style="color:{{color1}};" bindtap="toPrice">
+    <view class="price-text">价格</view>
+    <view class="price-img">
+      <image src="{{pricePhoto}}"></image>
+    </view>
+  </view>
+  <view class="new" style="color:{{color2}};" bindtap='newGoods'>
+    <view class="new-text">上新</view>
+    <view class="new-img">
+      <image src="{{pricePhoto1}}"></image>
+    </view>
+  </view>
+</view>
+<view class="comprehensive-list-wrapper">
+  <view class="comprehensive-list" wx:for="{{category}}" wx:key="item.id" bindtap='toDetail' data-id="{{item.id}}">
+    <view class="comprehensive-list-img">
+      <image src="{{item.imageUrls[0]}}"></image>
+    </view>
+    <view class="comprehensive-list-text">
+      <text class="item1" wx:if="{{item.tags==1}}">自营</text>
+      <text class="item2">支持0成本购</text>{{item.name}}
+    </view>
+    <view class="comprehensive-list-price">
+      <view class="newprice">
+        <text>￥</text>{{item.truePrice}}</view>
+      <view class="oldprice">￥{{item.orgPrice}}</view>
+    </view>
+    <view class="return-wrap">
+      <view class="return-money">
+        <text>实付</text>
+        <text>￥</text>
+        <text>{{item.dctPrice}}</text>
+      </view>
+      <view class="pay-money">
+        <text>返现</text>
+        <text>￥</text>
+        <text>{{item.marketingCashBack.totalAmount}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="page-bottom">{{textToast}}</view>

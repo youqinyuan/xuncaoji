@@ -1,6 +1,7 @@
 // pages/orderDetail/orderDetail.js
 var time = require('../../utils/util.js');
 let app = getApp();
+var newCount = true //节流阀-限制购买提交次数
 Page({
 
   /**
@@ -28,7 +29,8 @@ Page({
     orderTimeDetail: [], //订单信息时间
     userInteractDetail: [], //商家回复
     autoProcessTime: '',
-    showBox:false
+    showBox: false,
+    seedDetailShow:false
   },
   //跳转到分期返现明细
   periodCash: function(e) {
@@ -43,7 +45,7 @@ Page({
     var that = this
     var orderId = e.currentTarget.dataset.orderid
     var logisticsId = e.currentTarget.dataset.logisticsid
-  //  console.log(logisticsId)
+    //  console.log(logisticsId)
     if (that.data.logisticsDetailList.length > 1) {
       wx.navigateTo({
         url: `/pages/logisticsDetail/logisticsDetail?orderId=${orderId}`,
@@ -63,85 +65,15 @@ Page({
     that.setData({
       orderId: orderId
     })
-    app.Util.ajax('mall/order/queryOrder', {
-      orderId: orderId
-    }, 'GET').then((res) => { // 使用ajax函数
-      if (res.data.content) {
-        let lastTime = res.data.content.remainingTime / 1000
-        let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
-        let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
-        this.setData({
-          waitPay: `00:${minuteTime}:${secondTime}`
-        })
-        if (lastTime > 0) {
-          let interval2 = setInterval(() => {
-            if (lastTime > 0) {
-              lastTime--
-              let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
-              let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
-              this.setData({
-                waitPay: `00:${minuteTime}:${secondTime}`
-              })
-            } else {
-              clearInterval(interval2)
-              wx.navigateBack({
-                url: `/pages/myorder/myorder?status=${1}`
-              })
-              this.setData({
-                waitPay: ''
-              })
-            }
-          }, 1000)
-        }
-        for (var i = 0; i < res.data.content.orderTimeDetail.length; i++) {
-          res.data.content.orderTimeDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeDetail[i].statusTime, 'Y-M-D h:m:s');
-        }
-        if (res.data.content.orderTimeRefundDetail.length > 0) {
-          for (var i = 0; i < res.data.content.orderTimeRefundDetail.length; i++) {
-            if (res.data.content.latestStatus == 7 || res.data.content.latestStatus == 8) {
-              if (res.data.content.orderTimeRefundDetail[i].status == 7 || res.data.content.orderTimeRefundDetail[i].status == 8) {
-                let current = res.data.content.orderTimeRefundDetail[i].autoProcessTime
-                that.formatDuring(current)
-                let interval = setInterval(() => {
-                  if (current > 0) {
-                    current -= 1000
-                    that.formatDuring(current)
-                  } else {
-                    clearInterval(interval)
-                    this.setData({
-                      autoProcessTime: ''
-                    })
-                  }
-                }, 1000)
-              }
-            }
-            res.data.content.orderTimeRefundDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeRefundDetail[i].statusTime, 'Y-M-D h:m:s');
-          }
-        }
-        var orderTimeDetail = res.data.content.orderTimeDetail.reverse()
-        orderTimeDetail.forEach((v, i) => {
-          if (v.status == 4) {
-            orderTimeDetail[2].show = true
-          }
-        })
-
-        that.setData({
-          content: res.data.content,
-          orderTimeDetail: orderTimeDetail,
-          orderTimeRefundDetail: (res.data.content.orderTimeRefundDetail).reverse(),
-          // list: res.data.content.orderLogisticsDetail && res.data.content.orderLogisticsDetail.logisticsDto ? (res.data.content.orderLogisticsDetail.logisticsDto.list.reverse())[0] : '',
-        })
-      }
-    })
     //物流详情
     app.Util.ajax('mall/order/queryLogistics', {
       orderId: orderId
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode == 'MSG_1001') {
         that.setData({
-          list: res.data.content.logisticsDetailList.length>0 ? (res.data.content.logisticsDetailList[0].logisticsDto.list.reverse())[0] : '',
+          list: res.data.content.logisticsDetailList.length > 0 ? (res.data.content.logisticsDetailList[0].logisticsDto.list.reverse())[0] : '',
           logisticsDetailList: res.data.content.logisticsDetailList,
-          logisticsId: res.data.content.logisticsDetailList.length > 0? res.data.content.logisticsDetailList[0].id:''
+          logisticsId: res.data.content.logisticsDetailList.length > 0 ? res.data.content.logisticsDetailList[0].id : ''
         })
       } else if (res.data.messageCode == 'MSG_5001') {
         that.setData({
@@ -170,63 +102,76 @@ Page({
     app.Util.ajax('mall/order/queryStopApplyZeroPurchase', {
       orderId: that.data.orderId
     }, 'GET').then((res) => {
-       // console.log("终止零元购剩余返现:"+JSON.stringify(res.data.content))
+      if(res.data.messageCode=="MSG_1001"){
         that.setData({
           refundAmount: res.data.content.refundAmount,
         })
-    })
-    that.setData({
-      showDialog4: true
+        that.setData({
+          showDialog4: true
+        })
+      }else{
+        wx.showToast({
+          title:res.data.message,
+          icon:"none"
+        })
+      }
     })
   },
   wait: function(e) {
     var that = this
-    
+
     that.setData({
       showDialog4: false
     })
   },
   comfireCancel: function(e) {
     var that = this
-    var latestStatus = e.currentTarget.dataset.lateststatus
-  //  console.log('点击的订单Id:'+that.data.orderId)
-    app.Util.ajax('mall/order/queryOrder', {
-      orderId: that.data.orderId
-    }, 'GET').then((res) => {
-      //  console.log('订单详情：'+JSON.stringify(res.data.content.orderGoodsDetail.length))
-        if(res.data.content.orderGoodsDetail.length>1){
+    if(newCount){
+      newCount = false
+      var latestStatus = e.currentTarget.dataset.lateststatus
+      //  console.log('点击的订单Id:'+that.data.orderId)
+      app.Util.ajax('mall/order/queryOrder', {
+        orderId: that.data.orderId
+      }, 'GET').then((res) => {
+        //  console.log('订单详情：'+JSON.stringify(res.data.content.orderGoodsDetail.length))
+        if (res.data.content.orderGoodsDetail.length > 1) {
           //订单内有多个商品，进入返现明细
           wx.navigateTo({
             url: `/pages/cashBack/cashBack?orderId=${that.data.orderId}&latestStatus=${latestStatus}`
           })
-        }else{
+        } else {
           //订单内只有单个商品，直接终止
-       //   console.log("aaaaaaa"+that.data.orderId)
+          //   console.log("aaaaaaa"+that.data.orderId)
           app.Util.ajax('mall/order/stopApplyZeroPurchase', {
             orderId: that.data.orderId
           }, 'POST').then((res) => {
-        if(res.data.messageCode=="MSG_1001"){
-          wx.showToast({
-            title:'终止成功,钱款已进入余额,可随时体现哦!',
-            icon:"none",
-            during:2000
-          })
-          setTimeout(function () {
-            that.orderDetail();
-           }, 2000) //延迟时间 这里是1秒
-          
-        }else{
-          wx.showToast({
-            title:'终止失败,请稍后再试',
-            icon:'none'
+            if (res.data.messageCode == "MSG_1001") {
+              wx.showToast({
+                title: '终止成功,钱款已进入余额,可随时体现哦!',
+                icon: "none",
+                during: 2000
+              })
+              setTimeout(function() {
+                that.orderDetail();
+              }, 2000) //延迟时间 这里是1秒
+  
+            } else {
+              wx.showToast({
+                title: '终止失败,请稍后再试',
+                icon: 'none'
+              })
+            }
           })
         }
-          })
-        }
-    })
-    that.setData({
-      showDialog4: false
-    })
+      })
+      that.setData({
+        showDialog4: false
+      })
+    }
+    setTimeout(function(){
+      newCount=true
+    },2000)
+    
   },
   //付款
   toPay: function(e) {
@@ -412,21 +357,16 @@ Page({
   //去评价
   toEvaluate: function(e) {
     var that = this
-    // that.setData({
-    //   showDialog4: true,
-    //   multiShow: false,
-    //   refundorderId: e.currentTarget.dataset.orderid
-    // })
     wx.navigateTo({
       url: '/pages/goodsComment/goodsComment?orderid=' + e.currentTarget.dataset.orderid
     })
   },
-  orderDetail:function(){
+  orderDetail: function() {
     var that = this
     app.Util.ajax('mall/order/queryOrder', {
       orderId: that.data.orderId
     }, 'GET').then((res) => { // 使用ajax函数
-    //  console.log("订单详情："+JSON.stringify(res.data.content))
+      //  console.log("订单详情："+JSON.stringify(res.data.content))
       if (res.data.content) {
         let lastTime = res.data.content.remainingTime / 1000
         let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
@@ -500,9 +440,9 @@ Page({
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode == 'MSG_1001') {
         that.setData({
-          list: res.data.content.logisticsDetailList.length>0 ? (res.data.content.logisticsDetailList[0].logisticsDto.list.reverse())[0] : '',
+          list: res.data.content.logisticsDetailList.length > 0 ? (res.data.content.logisticsDetailList[0].logisticsDto.list.reverse())[0] : '',
           logisticsDetailList: res.data.content.logisticsDetailList,
-          logisticsId: res.data.content.logisticsDetailList.length > 0? res.data.content.logisticsDetailList[0].id:''
+          logisticsId: res.data.content.logisticsDetailList.length > 0 ? res.data.content.logisticsDetailList[0].id : ''
         })
       } else if (res.data.messageCode == 'MSG_5001') {
         that.setData({
@@ -523,6 +463,84 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    var that = this 
+    app.Util.ajax('mall/order/queryOrder', {
+      orderId: that.data.orderId
+    }, 'GET').then((res) => { // 使用ajax函数
+      if (res.data.content) {
+        let lastTime = res.data.content.remainingTime / 1000
+        let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+        let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
+        this.setData({
+          waitPay: `00:${minuteTime}:${secondTime}`
+        })
+        if (lastTime > 0) {
+          let interval2 = setInterval(() => {
+            if (lastTime > 0) {
+              lastTime--
+              let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+              let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
+              this.setData({
+                waitPay: `00:${minuteTime}:${secondTime}`
+              })
+            } else {
+              console.log(getCurrentPages())
+              clearInterval(interval2)
+              let pages = getCurrentPages()
+              console.log(pages[pages.length - 1].route)
+              if (pages[pages.length - 1].route == 'pages/paymentorder/paymentorder' || pages[pages.length - 1].route == 'pages/orderDetail/orderDetail') {
+                wx.navigateTo({
+                  url: `/pages/myorder/myorder?status=${1}`
+                })
+              }
+              this.setData({
+                waitPay: ''
+              })
+            }
+          }, 1000)
+        }
+        res.data.content.orderGoodsDetail.forEach((v, i) => {
+          v.discountRatio = v.discountRatio / 10
+        })
+        for (var i = 0; i < res.data.content.orderTimeDetail.length; i++) {
+          res.data.content.orderTimeDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeDetail[i].statusTime, 'Y-M-D h:m:s');
+        }
+        if (res.data.content.orderTimeRefundDetail.length > 0) {
+          for (var i = 0; i < res.data.content.orderTimeRefundDetail.length; i++) {
+            if (res.data.content.latestStatus == 7 || res.data.content.latestStatus == 8) {
+              if (res.data.content.orderTimeRefundDetail[i].status == 7 || res.data.content.orderTimeRefundDetail[i].status == 8) {
+                let current = res.data.content.orderTimeRefundDetail[i].autoProcessTime
+                that.formatDuring(current)
+                let interval = setInterval(() => {
+                  if (current > 0) {
+                    current -= 1000
+                    that.formatDuring(current)
+                  } else {
+                    clearInterval(interval)
+                    this.setData({
+                      autoProcessTime: ''
+                    })
+                  }
+                }, 1000)
+              }
+            }
+            res.data.content.orderTimeRefundDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeRefundDetail[i].statusTime, 'Y-M-D h:m:s');
+          }
+        }
+        var orderTimeDetail = res.data.content.orderTimeDetail.reverse()
+        orderTimeDetail.forEach((v, i) => {
+          if (v.status == 4) {
+            orderTimeDetail[2].show = true
+          }
+        })
+
+        that.setData({
+          content: res.data.content,
+          orderTimeDetail: orderTimeDetail,
+          orderTimeRefundDetail: (res.data.content.orderTimeRefundDetail).reverse(),
+        })
+      }
+    })
   },
 
   /**
@@ -563,15 +581,47 @@ Page({
 
   },
   //显示弹窗
-  showBox:function(){
+  showBox: function() {
     this.setData({
-      showBox:true
+      showBox: true
     })
   },
   //隐藏弹窗
-  cancelBox:function(){
+  cancelBox: function() {
     this.setData({
-      showBox:false
+      showBox: false
+    })
+  },
+  toReturnMoney:function(e){
+    console.log(e.currentTarget.dataset.index,e.currentTarget.dataset.goodsdetail)
+    wx.setStorageSync("goodsList",e.currentTarget.dataset.goodsdetail)
+    if(e.currentTarget.dataset.index==1){
+        wx.navigateTo({
+          url:"/pages/returnMoney/returnMoney"
+        })
+    }else{
+      wx.navigateTo({
+        url:"/pages/dealWithReturn/dealWithReturn"
+      })
+    }
+  },
+  seedDetail:function(){
+    console.log("种子抵扣明细")
+    this.setData({
+      seedDetailShow:true
+    })
+  },
+  seedDetailShowClose:function(){
+    this.setData({
+      seedDetailShow:false
+    })
+  },
+  //跳转商品详情
+  toGoodsDetail:function(e){
+    console.log(e.currentTarget.dataset.goodsid)
+    var goodsId = e.currentTarget.dataset.goodsid
+    wx.navigateTo({
+      url:"/pages/detail/detail?id="+goodsId
     })
   }
 })

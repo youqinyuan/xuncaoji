@@ -1,30 +1,80 @@
 <template name="exProducts">
   <view class="container-wrapper">
     <!--轮播图-->
-    <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF2644" indicator-dots="true" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF2644" indicator-dots="true" circular="{{circular}}" interval="{{interval}}" duration="{{duration}}">
       <swiper-item wx:if="{{imgUrls.length>0}}" wx:for="{{imgUrls}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}" data-name="{{item.name}}">
-        <image wx:if="{{imgUrls.length===0}}" src="../../assets/images/icon/zhanw_tb_n.png" class="slide-image" />
+        <image wx:if="{{imgUrls.length===0}}" src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png" class="slide-image" />
         <image wx:else src="{{item.imageUrl}}" class="slide-image" />
       </swiper-item>
       <swiper-item wx:if="{{imgUrls.length===0}}">
-        <image src="../../assets/images/icon/zhanw_tb_n.png" class="slide-image" />
+        <image src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png" class="slide-image" />
       </swiper-item>
     </swiper>
     <view class="platform">
       <view class="platform-list">
         <view class="platform-list-item">
-          <image class="platform-list-img" src="../../assets/images/icon/index_protect_shouhou_icon.png"></image>
+          <image class="platform-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/index_protect_shouhou_icon.png"></image>
           <text class="platform-text">源头直采</text>
         </view>
         <view class="platform-list-item">
-          <image class="platform-list-img" src="../../assets/images/icon/index_protect_renzheng_icon.png"></image>
+          <image class="platform-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/index_protect_renzheng_icon.png"></image>
           <text class="platform-text">假一赔十</text>
         </view>
         <view class="platform-list-item">
-          <image class="platform-list-img" src="../../assets/images/icon/index_protect_changj_icon.png"></image>
+          <image class="platform-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/index_protect_changj_icon.png"></image>
           <text class="platform-text">全场支持0成本购</text>
         </view>
       </view>
+    </view>
+    <!-- 公告 -->
+    <view class="notice-swiper" wx:if="{{noticeList.length>0}}">
+      <image src="/assets/images/add/ic_msg.png"></image>
+      <swiper class="notice" vertical="true" autoplay="true" circular="true" interval="3000">
+        <block wx:for="{{noticeList}}" wx:key="{{item.id}}">
+          <swiper-item>
+            <view class="notice-swiper_item" bindtap="showNotice" data-id="{{item.id}}">
+              <text>{{item.title}}</text>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <!-- 类别 -->
+    <view class="section-swiper">
+      <swiper class="section-wrap" autoplay="{{false}}" circular="{{false}}" interval="5000" indicator-color="#CCCCCC" indicator-active-color="#FF6417" indicator-dots="{{indicatorDots}}" style="height:{{height}}rpx;padding-top:{{paddingTop}}rpx;">
+        <swiper-item class="section-classify">
+          <view class="section-list" wx:for="{{navigationList1}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}">
+            <view class="section-list_wrap" wx:if="{{item.param !==8}}">
+              <view class="section-list-img">
+                <image src="{{item.iconUrl}}"></image>
+              </view>
+              <view class="section-list-text">{{item.title}}</view>
+            </view>
+            <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.param===8}}">
+               <view class="section-list-img1">
+                <image src="{{item.iconUrl}}"></image>
+              </view>
+              <view class="section-list-text">{{item.title}}</view>
+            </button>
+          </view>
+        </swiper-item>
+        <swiper-item class="section-classify" wx:if="{{navigationList.length>10}}">
+          <view class="section-list" wx:for="{{navigationList2}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}">
+            <view class="section-list_wrap" wx:if="{{item.param !==8}}">
+              <view class="section-list-img">
+                <image src="{{item.iconUrl}}"></image>
+              </view>
+              <view class="section-list-text">{{item.title}}</view>
+            </view>
+            <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.param===8}}">
+               <view class="section-list-img1">
+                <image src="{{item.iconUrl}}"></image>
+              </view>
+              <view class="section-list-text">{{item.title}}</view>
+            </button>
+          </view>
+        </swiper-item>
+      </swiper>
     </view>
     <!--Go-->
     <!-- <view class="activity">
@@ -32,33 +82,37 @@
         <view class="activity-list-item1">
           <view class="activity-list-text">美食优选</view>
           <view class="activity-list-go">Go></view>
-          <image class="activity-list-img1" src="../../assets/images/icon/index_chihewanle_list1_bg.png"></image>
+          <image class="activity-list-img1" src="https://xuncj.yzsaas.cn/_download/img/icon/index_chihewanle_list1_bg.png"></image>
         </view>
         <view class="activity-list-item2">
           <view class="activity-list-text" style="color:#78551B;">夏日冰饮</view>
           <view class="activity-list-go" style="background:#E7B473;">Go></view>
-          <image class="activity-list-img2" src="../../assets/images/icon/index_chihewanle_list2_bg.png"></image>
+          <image class="activity-list-img2" src="https://xuncj.yzsaas.cn/_download/img/icon/index_chihewanle_list2_bg.png"></image>
         </view>
         <view class="activity-list-item3">
           <view class="activity-list-text" style="color:#68448A;">采摘园</view>
           <view class="activity-list-go" style="background:#D4A4FA;">Go></view>
-          <image class="activity-list-img3" src="../../assets/images/icon/index_chihewanle_list3_bg.png"></image>
+          <image class="activity-list-img3" src="https://xuncj.yzsaas.cn/_download/img/icon/index_chihewanle_list3_bg.png"></image>
         </view>
         <view class="activity-list-item4">
           <view class="activity-list-text" style="color:#015D82;">精选蓝莓</view>
           <view class="activity-list-go" style="background:#83CDF0;">Go></view>
-          <image class="activity-list-img4" src="../../assets/images/icon/index_chihewanle_list4_bg.png"></image>
+          <image class="activity-list-img4" src="https://xuncj.yzsaas.cn/_download/img/icon/index_chihewanle_list4_bg.png"></image>
         </view>
       </view>
     </view> -->
     <!--零元购-->
-    <view class="zerobuy" bindtap='toZeroPurchase' wx:if="{{bannerId !==''}}">
-      <image class="zerobuy-item" src="{{bannerUrl}}"></image>
-    </view>
+    <!-- <view class="zerobuy" wx:if="{{bannerId !==''}}">
+      <form report-submit='true' bindsubmit='toZeroPurchase'>
+        <button form-type="submit">
+          <image class="zerobuy-item" src="{{bannerUrl}}"></image>
+        </button>
+      </form>
+    </view> -->
     <!--0元购好物-->
     <!-- <view class="nationwideReturn">
       <view class="nationwideReturn-title">
-        <image class="nationwideReturn-img" src="../../assets/images/icon/quanmfan_icon.png"></image>
+        <image class="nationwideReturn-img" src="https://xuncj.yzsaas.cn/_download/img/icon/quanmfan_icon.png"></image>
         <text class="nationwideReturn-text">0元购好物</text>
       </view>
       <view class="nationwideReturn-wrapper">
@@ -76,7 +130,7 @@
     <!-- 全网低价 -->
     <view class="goodlist">
       <view class="goodlist-title">
-        <image class="goodlist-img" src="../../assets/images/icon/tuijian_haowu_icon.png"></image>
+        <image class="goodlist-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tuijian_haowu_icon.png"></image>
         <text class="goodlist-text">全网低价</text>
       </view>
       <view class="goodlist-list">
@@ -98,7 +152,7 @@
     <!--口碑爆品榜-->
     <view class="trend">
       <view class="trend-title">
-        <image class="trend-img" src="../../assets/images/icon/tuijian_qushi_icon.png"></image>
+        <image class="trend-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tuijian_qushi_icon.png"></image>
         <text class="trend-text">口碑爆品榜</text>
       </view>
       <view class="trend-wrapper">
@@ -111,12 +165,13 @@
             <image src="{{item.imageUrls[0]}}"></image>
           </view>
         </view>
+        <view class="toto"></view>
       </view>
     </view>
     <!--销量排行榜-->
     <view class="quality">
       <view class="quality-title">
-        <image class="quality-img" src="../../assets/images/icon/tuijian_pinzhi_icon.png"></image>
+        <image class="quality-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tuijian_pinzhi_icon.png"></image>
         <text class="quality-text">销量排行榜</text>
       </view>
       <view class="quality-list-wrapper">
@@ -126,7 +181,7 @@
           </view>
           <view class="quality-list-text">
             <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-            <text class="item2">支持0成本购</text>{{item.name}}{{item.name}}</view>
+            <text class="item2">支持0成本购</text>{{item.name}}</view>
           <view class="quality-list-price">
             <view class="newprice">
               <text>￥</text>{{item.truePrice}}</view>

@@ -3,11 +3,11 @@
 <import src='/template/searchList1/searchList1'/>
 <view class="section-wrapper">
   <view class="section">
-    <image src="../../assets/images/icon/index_nav_search_n.png" class="section-img"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/index_nav_search_n.png" class="section-img"></image>
     <input value="{{inputValue}}" confirm-type="search" bindconfirm='confirmTap' focus="{{true}}" placeholder="更多好货等你来发现" placeholder-style="color:#AAAAAA" bindinput='bindInput'/>
   </view>
   <view class="cancel" wx:if="{{show}}" catchtap='cancel'>
-    <image src="../../assets/images/icon/nav_search_delete_n.png"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/nav_search_delete_n.png"></image>
   </view>
   <view class="search" bindtap="search">搜索</view>
 </view>

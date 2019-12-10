@@ -20,7 +20,6 @@ Page({
   bindPhone:function(e){
     var that = this;
     var phoneNumber
-    //限制输入6位数字
     if (e.detail.value.toString().length > 11) {
       phoneNumber = e.detail.value.substring(0, e.detail.value.length - 1);
     } else {
@@ -33,7 +32,6 @@ Page({
   bindCode: function (e) {
     var that = this;
     var codeNumber
-    //限制输入6位数字
     if (e.detail.value.toString().length > 6) {
       codeNumber = e.detail.value.substring(0, e.detail.value.length - 1);
     } else {
@@ -46,7 +44,6 @@ Page({
   bindPassword: function (e) {
     var that = this;
     var passwordNumber
-    //限制输入6位数字
     if (e.detail.value.toString().length > 6) {
       passwordNumber = e.detail.value.substring(0, e.detail.value.length - 1);
     } else {
@@ -59,7 +56,6 @@ Page({
   bindPassword1: function (e) {
     var that = this;
     var passwordNumber1
-    //限制输入6位数字
     if (e.detail.value.toString().length > 6) {
       passwordNumber1 = e.detail.value.substring(0, e.detail.value.length - 1);
     } else {
@@ -111,7 +107,7 @@ Page({
   //保存密码
   submit:function(){
     var that = this
-    if (!(/^[0-9]{6}$/.test(that.data.password))) {
+    if (!(/^[0-9]{6}$/.test(that.data.phoneNum))) {
       wx.showToast({
         title: '请输入正确的手机号码',
         icon:'none'

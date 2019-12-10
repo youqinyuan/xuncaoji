@@ -15,6 +15,14 @@ Page({
   },
   onLoad: function(options) {
     var that = this
+    if(options.temp){
+      setTimeout(function(){
+        wx.showToast({
+          title:"账户余额存的越多种子奖励越多哦",
+          icon:"none"
+        })
+      },1000)
+    }
     that.getMessage()
   },
   getMessage: function() {
@@ -26,7 +34,6 @@ Page({
       pageSize: pageSize,
       status: 1
     }, 'GET').then((res) => {
-      console.log("bbb"+JSON.stringify(res.data.content))
       if (res.data.content) {
         that.setData({
           content: res.data.content
@@ -90,28 +97,27 @@ Page({
       app.Util.ajax('mall/order/addRechargeOrder', {
         amount: amount
       }, 'POST').then((res) => { // 使用ajax函数
-        if (res.data.content) {
+        if (res.data.messageCode === 'MSG_1001') {
           var id = res.data.content.id
           app.Util.ajax('mall/payment/pay', {
             transStatementId: id,
             channel: 2,
             client: 2
           }, 'POST').then((res) => {
-            console.log(res)
-            if (res.data.content) {             
+            if (res.data.messageCode == 'MSG_1001') {             
               wx.requestPayment({
                 timeStamp: res.data.content.wechat.appletPrepay.timeStamp,
                 nonceStr: res.data.content.wechat.appletPrepay.nonceStr,
                 package: res.data.content.wechat.appletPrepay.pkg,
                 signType: res.data.content.wechat.appletPrepay.signType,
                 paySign: res.data.content.wechat.appletPrepay.paySign,
-                success(res) {
+                success:function(res) {
                   app.Util.ajax('mall/payment/wechat/result', {
                     transStatementId: id,
                     client: 2
                   }, 'GET').then((res) => {
                     if (res.data.content) {
-                      if (res.data.content === 'SUCCESS') {
+                      if (res.data.content.status === 'SUCCESS') {
                         wx.showToast({
                           title: '余额充值成功',
                           icon: 'none'
@@ -120,56 +126,69 @@ Page({
                           showModal: false,
                           inputValue: ''
                         })
-                        that.getMessage();
-                      } else if (res.data.content = null) {
-                        wx.showToast({
-                          title: '订单不存在',
-                          icon: 'none'
-                        })
-                      } else if (res.data.content = 'REFUND') {
+                        setTimeout(function(){
+                          that.getMessage();
+                        },2000)                       
+                      }else if (res.data.content.status === 'REFUND') {
                         wx.showToast({
                           title: '转入退款',
                           icon: 'none'
                         })
-                      } else if (res.data.content = 'NOTPAY') {
+                      } else if (res.data.content.status === 'NOTPAY') {
                         wx.showToast({
                           title: '未支付',
                           icon: 'none'
                         })
-                      } else if (res.data.content = 'CLOSED') {
+                      } else if (res.data.content.status === 'CLOSED') {
                         wx.showToast({
                           title: '已关闭',
                           icon: 'none'
                         })
-                      } else if (res.data.content = 'REVOKED') {
+                      } else if (res.data.content.status === 'REVOKED') {
                         wx.showToast({
                           title: '已撤销',
                           icon: 'none'
                         })
-                      } else if (res.data.content = 'USERPAYING') {
+                      } else if (res.data.content.status === 'USERPAYING') {
                         wx.showToast({
                           title: '用户支付中',
                           icon: 'none'
                         })
-                      } else if (res.data.content = 'PAYERROR') {
+                      } else if (res.data.content.status === 'PAYERROR') {
                         wx.showToast({
                           title: '支付失败',
                           icon: 'none'
                         })
                       }
+                    }else{
+                      wx.showToast({
+                        title: res.data.message,
+                        icon:'none',
+                        duration:1000
+                      })
                     }
                   })
                 },
-                fail(err) {
+                fail:function(err) {
                   console.log(err)
                 }
               })
-            } else {
+            }else{
               wx.showToast({
                 title: res.data.message,
                 icon: 'none'
               })
             }
+          })
+        } else if (res.data.messageCode === 'MSG_3002') {
+          that.setData({
+            showMessage: '请将金额限制在50000元以内'
+          })
+        } else {
+          console.log(res.data.messageCode)
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
           })
         }
       })
@@ -201,6 +220,17 @@ Page({
   /**
    * 弹出框蒙层截断touchmove事件
    */
-  preventTouchMove: function() {}
-  
+  preventTouchMove: function() {},
+  //充值退款
+  refundDetail:function(){
+    wx.navigateTo({
+        url:'/pages/refundDetail/refundDetail'
+    })
+  },
+  //取消提现
+  cancleDetail:function(){
+    wx.navigateTo({
+      url:'/pages/cancleDetail/cancleDetail'
+    })
+  }
 })

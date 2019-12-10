@@ -11,9 +11,9 @@
   </view>
   <view class="listItems" bindtap="showCityPicker">
     <text class="listLeft">所在地区: </text>
-    <view class="listRight1">{{city}}</view>
+    <view class="listRight">{{city}}</view>
     <city-picker id="city-picker" value="{{cityPickerValue}}" isShow="{{cityPickerIsShow}}" bindsureclick="cityPickerOnSureClick" bindcancelclick="cityPickerOnCancelClick" />
-    <image class="img" src="../../assets/images/icon/data_narrow.png"></image>
+    <image class="img" src="https://xuncj.yzsaas.cn/_download/img/icon/data_narrow.png"></image>
   </view>
   <view class="listItems1">
     <text class="listLeft">详细地址: </text>

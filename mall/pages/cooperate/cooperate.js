@@ -736,7 +736,7 @@ Page({
         return {
           title: '【新品免费体验】我是合伙人，快来免费尝鲜，保证能领到',
           path: "/pages/cooperate/cooperate?inviterCode=" + app.globalData.cooperateInvitionCode,
-          imageUrl: '/assets/images/icon/xuncaoji_cheats.png',
+          imageUrl: 'https://xuncj.yzsaas.cn/_download/img/icon/xuncaoji_cheats.png',
         }
       } else if (ops.target.id === 'btnGroup') {
         that.setData({
@@ -757,7 +757,7 @@ Page({
         return {
           title: '亲们，新品免费体验，给群做福利！我已免费拿',
           path: "/pages/cooperate/cooperate?inviterCode=" + app.globalData.cooperateInvitionCode,
-          imageUrl: '/assets/images/icon/xuncaoji_cheats.png',
+          imageUrl: 'https://xuncj.yzsaas.cn/_download/img/icon/xuncaoji_cheats.png',
         }
       } else {
         app.Util.ajax('mall/weChat/sharing/onSuccess', {
@@ -775,7 +775,7 @@ Page({
         return {
           title: '【新品免费体验】我是合伙人，快来免费尝鲜，保证能领到',
           path: "/pages/cooperate/cooperate?inviterCode=" + app.globalData.cooperateInvitionCode,
-          imageUrl: '/assets/images/icon/xuncaoji_cheats.png',
+          imageUrl: 'https://xuncj.yzsaas.cn/_download/img/icon/xuncaoji_cheats.png',
         }
       }
     }

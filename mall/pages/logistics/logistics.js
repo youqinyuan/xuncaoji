@@ -9,7 +9,7 @@ Page({
     logisticsId:null,//订单id
     list:[],//物流列表
     options:{},
-    status:null
+    status:null,
   },
 
   /**
@@ -17,7 +17,6 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    console.log(options)
     that.setData({
       logisticsId: parseInt(options.logisticsId),
       options: options
@@ -35,8 +34,14 @@ Page({
           res.data.content.list[i].time = (res.data.content.list[i].datetime).slice(11, 16);
         }
         that.setData({
+          content: res.data.content,
           list: (res.data.content.list).reverse(),
           status:res.data.content.status
+        })
+      }else{
+        wx.showToast({
+          title: res.data.message,
+          icon:'none'
         })
       }
     }) 
@@ -90,5 +95,27 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  //点击复制
+  copyText: function (e) {
+    var that = this
+    var text = e.currentTarget.dataset.text
+    var text1 = text.toString()
+    wx.setClipboardData({
+      data: text1,
+      success: function (res) {
+        wx.getClipboardData({
+          success: function (res) {
+            wx.showToast({
+              title: '复制成功',
+              icon: 'none'
+            })
+            that.setData({
+              showInviterCode: false
+            })
+          }
+        })
+      }
+    })
+  },
 })

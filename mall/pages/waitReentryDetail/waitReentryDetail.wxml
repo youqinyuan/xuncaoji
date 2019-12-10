@@ -1,36 +1,264 @@
 <!--pages/waitReentryDetail/waitReentryDetail.wxml-->
-<view class='cashBackBox1' wx:for="{{content}}" wx:key="">
-  <view class="cashBackTop" wx:if="{{item.status==2}}">
-    <image src="../../assets/images/icon/end_mark@3x.png" class="imgStyle" />
-    <text bindtap="showCause" data-type="{{item.type}}"> 查看原因</text>
+<view class="box" wx:for="{{content}}" wx:key="" wx:if="{{!goWaitReentry}}">
+  <image src="https://xuncj.yzsaas.cn/_download/img/mine/bg_card3.png" class="img_bg" wx:if="{{item.status==1}}" />
+  <image src="https://xuncj.yzsaas.cn/_download/img/mine/bg_card1.png" class="img_bg" wx:if="{{item.status==2&&item.userId==item.purchaserId}}" />
+  <image src="https://xuncj.yzsaas.cn/_download/img/mine/bg_card2.png" class="img_bg" wx:if="{{item.status==2&&item.userId!==item.purchaserId}}" />
+  <image src="https://xuncj.yzsaas.cn/_download/img/mine/bg_card4.png" class="img_bg" wx:if="{{item.status==4||item.status==3}}" />
+  <view class="ReentryStatus">
+    <text class="ReentryStatusValue color3" wx:if="{{item.status==1&&item.transferorId!==item.userId&&item.transferorId!==null}}">转让完成-转让人：{{item.phone}}</text>
+    <text class="ReentryStatusValue color2" wx:if="{{item.status==2&&item.userId==item.transferorId}}">待返转让-购买人：{{item.mobileNumber}}<text >{{item.hours}}小时后自动取消</text></text>
+    <text class="ReentryStatusValue color1" wx:if="{{item.status==2&&item.userId!==item.transferorId}}">待返待确认-转让人：{{item.phone}}<text >{{item.hours}}小时后自动取消</text></text>
+    <text class="ReentryStatusValue color4" wx:if="{{item.status==3}}">转让完成-购买人：{{item.mobileNumber}}</text>
+    <text class="ReentryStatusValue color4" wx:if="{{item.status==4&&item.type==3}}">终止返现-取消交易</text>
+    <text class="ReentryStatusValue color4" wx:if="{{item.status==4&&item.type==1}}">终止返现-退款</text>
+    <text class="ReentryStatusValue color4" wx:if="{{item.status==4&&item.type==2}}">终止返现-终止</text>
+    <image src="https://xuncj.yzsaas.cn/_download/img/mine/tab_33.png" class="img_tab11" wx:if="{{item.status==1&&item.transferorId!==item.userId&&item.transferorId!==null}}" />
+    <image src="https://xuncj.yzsaas.cn/_download/img/mine/tab_11.png" class="img_tab11" wx:if="{{item.status==2&&item.userId==item.purchaserId}}" />
+    <image src="https://xuncj.yzsaas.cn/_download/img/mine/tab_22.png" class="img_tab11" wx:if="{{item.status==2&&item.userId!==item.purchaserId}}" />
+    <image src="https://xuncj.yzsaas.cn/_download/img/mine/tab_44.png" class="img_tab11" wx:if="{{item.status==4||item.status==3}}" />
   </view>
-  <view class="cashBackButtom">
-    <view class="cashBackButtom1">
-      <view class="cashBackTitle {{item.status==2?stopOrder:'cashBackTitleColor'}}">{{item.remark}}</view>
-      <view class="cashBackValueWrap">
-        <text class="cashBackValue {{item.status==2?stopOrder:'cashBackValueColor'}}">已返：</text>
-        <text class="cashBackNum {{item.status==2?stopOrder:'cashBackNumColor'}}">{{item.amountReturned}}</text>
+  <view class="Reentry_title">
+    <text>{{item.remark}}</text>
+  </view>
+  <view class="Reentry_time">
+    <text>{{item.tradeTime}}</text>
+    <!-- <text >12:45:12</text> -->
+  </view>
+  <view class="sellPrice_box" wx:if="{{item.status==2&&item.userId!==item.transferorId}}">
+    <text>对方售价</text>
+  </view>
+  <view class="sellPrice_box2" wx:if="{{item.status==2&&item.userId!==item.transferorId}}">
+    <text>￥{{item.sellPrice}}</text>
+  </view>
+  <view class="postingCard" wx:if="{{item.status==1}}" bindtap='postingCard' data-index="{{index}}">发卖帖</view>
+  <view class="Reentry_money">
+    <text>待返：￥{{item.noCashBackAmount}}</text>
+    <text>已返：￥{{item.amountReturned}}</text>
+  </view>
+  <view class="botton_box" wx:if="{{item.status==2&&item.userId!==item.transferorId}}">
+    <text class="Reentry_detail" bindtap="Reentry_detail" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" wx:if="{{item.returnType!==2}}" data-proStatus="{{item.proStatus}}">返现明细</text>
+    <text class="shure" bindtap="shure" data-transferId="{{item.transferId}}" data-avatarKey="{{item.avatarKey}}" data-nickname="{{item.nickname}}" data-sellPrice="{{item.sellPrice}}" data-phone="{{item.phone}}" data-cycle="{{item.cycle}}" data-returnAmount="{{item.returnAmount}}">确认交易</text>
+  </view>
+  <view class="botton_box" wx:if="{{item.status==2&&item.userId==item.transferorId}}">
+    <text class="return_loding" bindtap="return_lod">转让中</text>
+  </view>
+  <view class="botton_box" wx:if="{{item.status==1}}">
+    <text class="Reentry_detail1" bindtap="Reentry_detail" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" wx:if="{{item.returnType!==2}}" data-proStatus="{{item.proStatus}}">返现明细</text>
+    <text class="return" bindtap="return" data-returnType="{{item.returnType}}" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" data-money="{{item.noCashBackAmount}}">转让</text>
+  </view>
+</view>
+<view class="box" wx:for="{{contentPsoting}}" wx:key="" bindtap='backPosting' data-index="{{index}}" wx:if="{{goWaitReentry}}">
+  <image src="https://xuncj.yzsaas.cn/_download/img/mine/bg_card3.png" class="img_bg" wx:if="{{item.status==1}}" />
+  <view class="ReentryStatus">
+    <text class="ReentryStatusValue color3" wx:if="{{item.status==1&&item.transferorId!==item.userId&&item.transferorId!==null}}">转让完成-转让人：{{item.phone}}</text>
+    <image src="https://xuncj.yzsaas.cn/_download/img/mine/tab_33.png" class="img_tab11" wx:if="{{item.status==1&&item.transferorId!==item.userId&&item.transferorId!==null}}" />
+  </view>
+  <view class="Reentry_title">
+    <text>{{item.remark}}</text>
+  </view>
+  <view class="Reentry_time">
+    <text>{{item.tradeTime}}</text>
+  </view>
+  <view class="Reentry_money">
+    <text>待返：￥{{item.noCashBackAmount}}</text>
+    <text>已返：￥{{item.amountReturned}}</text>
+  </view>
+</view>
+<view class="cashBackBox-text" wx:if="{{text !==''}}">{{text}}</view>
+<!-- 一次确认弹窗 -->
+<view class="shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{shureOne}}">
+  <view class="zan-dialog__container" wx:if="{{shureOne}}">
+    <image wx:if="{{shureOne}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='shureOneClose'></image>
+    <view class="title">交易确认</view>
+    <view class="text">
+      <view class="head_box">
+        <image src="{{avatarKey}}" class="head_img" />
+        <text class="name">{{nickname}}</text>
       </view>
-    </view>
-    <view class="waitcashBackButtom">
-      <view class="cashBackTime">{{item.tradeTime}}</view>
-      <view class="waitCashBackValueWrap">
-        <text class="waitCashBackValue {{item.status==2?stopOrder:'waitCashBackValueColor'}}">待返：</text>
-        <text class="waitCashBackNum {{item.status==2?stopOrder:'waitCashBackNumColor'}}">{{item.noCashBackAmount}}</text>
+      <view class="info">
+        <text class="phoneNumber_key">对方手机号:</text>
+        <text class="phoneNumber_value">{{phone}}</text>
+      </view>
+      <view class="info">
+        <text class="phoneNumber_key">返现金额:</text>
+        <text class="phoneNumber_value">{{returnAmount}}元</text>
+      </view>
+      <view class="info">
+        <text class="phoneNumber_key">返现周期:</text>
+        <text class="phoneNumber_value">{{cycle}}</text>
+      </view>
+      <view class="info">
+        <text class="phoneNumber_key">出售价格:</text>
+        <text class="phoneNumber_value">{{sellPrice}}元</text>
+      </view>
+      <view class="but_box">
+        <text class="cancle_one" bindtap="cancle_one">取消交易</text>
+        <text class="shure_one" bindtap="shure_one">确认交易</text>
       </view>
     </view>
   </view>
 </view>
- <view class="cashBackBox-text" wx:if="{{text !==''}}">{{text}}</view>
-<!-- 查看原因弹窗 -->
-<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showCause}}">
-  <view class="zan-dialog__container" wx:if="{{showCause}}">
-    <view class="title">原因</view>
+<!-- 二次确认弹窗 -->
+<view class="shure-two-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{shureTwo}}">
+  <view class="zan-dialog__container" wx:if="{{shureTwo}}">
+    <image wx:if="{{shureTwo}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='shureTwoClose'></image>
+    <view class="title">交易确认</view>
     <view class="text">
-      <view>{{causeStatue==1?causeValue1.text1:causeValue2.text1}}
+      <view class="shure_two_value">
+        本次交易将在您的账户余额内扣除{{sellPrice}}元待返金额将进入您的带返明细内。
       </view>
-      <view>{{causeStatue==1?causeValue1.text2:causeValue2.text2}} </view>
+      <view class="shure_two_tishi">
+        {{shure_two_tishi}}
+      </view>
+      <view class="but_box">
+        <text class="cancle_one" bindtap="cancle_two">再想想</text>
+        <text class="shure_one" bindtap="shure_two">确认</text>
+      </view>
     </view>
   </view>
-  <image wx:if="{{showCause}}" class="cancel-img" src="../../assets/images/icon/tanc_closecutline_n.png" bindtap='cancelCause'></image>
+</view>
+<!-- 取消交易弹窗 -->
+<view class="shure-two-cancel-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{shureTwo_cancle}}">
+  <view class="zan-dialog__container" wx:if="{{shureTwo_cancle}}">
+    <image wx:if="{{shureTwo_cancle}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='shureOneCancle'></image>
+    <view class="title">取消交易</view>
+    <view class="text">
+      <view class="shure_two_value">
+        是否取消本次交易?
+      </view>
+      <view class="but_box">
+        <text class="cancle_one" bindtap="shureTwo_loding">再想想</text>
+        <text class="shure_one" bindtap="shureTwo_cancle">确认</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 输入密码弹出框 -->
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{show}}">
+  <view class="zan-dialog__container1" wx:if="{{show}}">
+    <image wx:if="{{show}}" class="pwd-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='cancelShow'></image>
+    <view class="pwd-text">请输入支付密码</view>
+    <!-- <view class="text">{{passtext}}</view> -->
+    <view bindsubmit="formSubmit">
+      <view class='iptbox-wrapper'>
+        <block wx:for="{{Length}}" wx:key="item">
+          <input class='iptbox' value="{{Value.length>=index+1?Value[index]:''}}" disabled password='{{ispassword}}' type="number" catchtap='Tap'></input>
+        </block>
+      </view>
+      <input name="password" value="{{Value}}" adjust-position="{{false}}" password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus" type="number"></input>
+    </view>
+  </view>
+</view>
+<!--是否设置支付弹框-->
+<view class="zan-dialog1" catchtouchmove="preventTouchMove" wx:if="{{showPassword}}" bindtap='hidePassword'></view>
+<view class="zan-dialog1__container" wx:if="{{showPassword}}">
+  <view class='content1'>
+    <view class="content1-title">提示</view>
+    <view class="content1-container">为了您账户余额安全，请您先设置账户支付密码哦</view>
+    <view class="content1-button">
+      <view class="cancel-password" bindtap='cancel'>取消</view>
+      <view class="sure-password" bindtap='sure'>马上设置</view>
+    </view>
+  </view>
+</view>
+<!-- 待返转让弹窗 -->
+<view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry}}">
+  <view class="zan-dialog__container" wx:if="{{waitReentry}}">
+    <image wx:if="{{waitReentry}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose'></image>
+    <view class="title">待返转让</view>
+    <view class="text">
+      <view class="cause_box">
+        <view class="cause">
+          购买方取消了交易，您的待返将正常返
+        </view>
+        <view class="cause">现给您！</view>
+      </view>
+      <view class="wait_box" wx:for="{{returnContent}}" wx:key="">
+        <text class="wait_name">购买方:</text>
+        <text class="wait_value">{{item}}</text>
+      </view>
+      <view class="know_box">
+        <text class="know" bindtap="waitReentryClose">我知道了</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 待返转让弹窗2 -->
+<view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry2}}">
+  <view class="zan-dialog__container" wx:if="{{waitReentry2}}">
+    <image wx:if="{{waitReentry2}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose2'></image>
+    <view class="title">待返转让</view>
+    <view class="text">
+      <view class="cause_box">
+        <view class="cause">购买方完成了交易，返现金额将进入您</view>
+        <view class="cause">的待返明细中，请查看！</view>
+      </view>
+      <view class="wait_box" wx:for="{{returnContent2}}" wx:key="">
+        <text class="wait_name">购买方:</text>
+        <text class="wait_value">{{item}}</text>
+      </view>
+      <view class="know_box">
+        <text class="know" bindtap="waitReentryClose2">我知道了</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 有人出售弹窗 -->
+<view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry3}}">
+  <view class="zan-dialog__container" wx:if="{{waitReentry3}}">
+    <!-- <image wx:if="{{waitReentry3}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose3'></image> -->
+    <view class="title">待返转让</view>
+    <view class="text">
+      <view class="cause_box">
+        <view class="cause">有人向你低价出售待返金额，快去待返</view>
+        <view class="cause">明细确认！</view>
+      </view>
+      <view class="know_box">
+        <text class="know" bindtap="waitReentryClose3">去看看</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 转让确认弹窗 -->
+<view class="return-two-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{returnTwo}}">
+  <view class="zan-dialog__container" wx:if="{{returnTwo}}">
+    <image wx:if="{{returnTwo}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='returnTwoClose'></image>
+    <view class="title">待返转让</view>
+    <view class="text">
+      <view class="shure_two_value">
+        对方确认收到后，会将金额自动转到您的余额，同时扣除手续费{{service_charge}}元。
+      </view>
+      <view class="shure_two_tishi">
+        友情提示：转让后不可取消交易。若急需取消，请找对方联系。
+      </view>
+      <view class="but_box">
+        <text class="shure_one" bindtap="return_two">确认转让</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 转让信息填写弹窗 -->
+<view class="return-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{returnOne}}">
+  <view class="zan-dialog__container" wx:if="{{returnOne}}">
+    <image wx:if="{{returnOne}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='returnOneClose'></image>
+    <view class="title">待返转让</view>
+    <form report-submit='true' bindsubmit='return_one'>
+      <view class="text">
+        <view class="info_content">
+          <view class="info_one">
+            <input placeholder="请输入对方账户（手机号码）" name="phonenumber" type="number" maxlength="11" />
+          </view>
+          <view class="info_one">
+            <input placeholder="请输入对方邀请码" name="incode" type="number" maxlength="8" />
+          </view>
+          <view class="info_one">
+            <input placeholder="您转让后想要收到的金额（出售价格）" name="price" type="digit" />
+          </view>
+        </view>
+      </view>
+      <view class="but_box1">
+        <button class="shure_one1" form-type="submit">确认转让</button>
+      </view>
+    </form>
+  </view>
 </view>

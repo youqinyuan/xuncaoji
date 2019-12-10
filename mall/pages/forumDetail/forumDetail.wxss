@@ -1,0 +1,560 @@
+/* pages/forumDetail/forumDetail.wxss */
+
+/* 帖子详情 */
+
+/* 图片以下 */
+
+.content_box {
+  margin: 0 30rpx;
+}
+
+.content_box_photo {
+  display: flex;
+  justify-content: space-between;
+  height: 114rpx;
+  align-items: center;
+}
+
+.content_box_left {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+}
+
+.content_box_left image {
+  background: #e7e7e7;
+  border-radius: 50%;
+  height: 64rpx;
+  width: 64rpx;
+  margin-right: 24rpx;
+}
+
+.content_box_right {
+  display: flex;
+  align-items: center;
+}
+
+.content_box_right image {
+  width: 100rpx;
+  height: 50rpx;
+}
+
+.content_box_right .follow {
+  width: 100rpx;
+  height: 50rpx;
+  margin-left: 24rpx;
+}
+
+.content-text {
+  width: 67r2px;
+  height: auto;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+  line-height: 48rpx;
+}
+
+.content-item {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 0;
+  word-break: break-all
+}
+
+.all_text {
+  color: #ff6417;
+  text-decoration: underline;
+}
+
+.content_img {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 520rpx;
+  margin-top: 30rpx;
+}
+
+.content_img image {
+  width: 158rpx;
+  height: 158rpx;
+  margin-right: 10rpx;
+  margin-top: 10rpx;
+}
+
+/* 可买 */
+
+.content_imgBuy {
+  position: relative;
+}
+
+.content_imgBuy .img {
+  margin-top: 30rpx;
+  width: 690rpx;
+  height: 370rpx;
+}
+
+.content_imgBuy .imgs {
+  margin-top: 30rpx;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 96;
+}
+
+.buy_price {
+  position: absolute;
+  top: 66rpx;
+  left: 40rpx;
+  font-size: 30rpx;
+  color: #fff;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.expect_buy {
+  display: flex;
+  margin-bottom: 32rpx;
+}
+
+.expect_buy3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+.expect_back {
+  display: flex;
+  margin-bottom: 32rpx;
+}
+
+.expect_back3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+.expect_leave {
+  position: relative;
+  margin-bottom: 32rpx;
+}
+
+.expect_leave1 {
+  line-height: 44rpx;
+}
+
+.expect_leave2 {
+  display: flex;
+}
+.expect_leave2 .box3{
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+.expect_year {
+  display: flex;
+}
+
+.expect_year3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+/* 可卖 */
+
+.content_sale {
+  position: relative;
+}
+
+.content_sale image {
+  margin-top: 30rpx;
+  width: 690rpx;
+  height: 370rpx;
+}
+
+.sale_price {
+  position: absolute;
+  top: 118rpx;
+  left: 40rpx;
+  font-size: 30rpx;
+  color: #fff;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.sale_back {
+  display: flex;
+  margin-bottom: 32rpx;
+}
+
+.sale_back3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+.sale_leave {
+  display: flex;
+  margin-bottom: 32rpx;
+}
+
+.sale_leave3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+.sale_year {
+  display: flex;
+}
+
+.sale_year3 {
+  font-size: 22rpx;
+  margin-left: 13rpx;
+}
+
+.content_time {
+  display: flex;
+  justify-content: space-between;
+  height: 44rpx;
+  margin-top: 30rpx;
+  align-items: center;
+}
+
+.content_time_left {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+}
+
+.content_time_left .content_time_item {
+  color: #999;
+  margin-right: 24rpx;
+}
+
+.content_time_right {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.content_time_img {
+  display: flex;
+  align-items: center;
+  margin-right: 15rpx;
+}
+
+.content_time_imgs {
+  display: flex;
+  align-items: center;
+}
+
+.content_time_right .collect {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 12rpx;
+}
+
+.content_time_imgs .content_time_text {
+  color: #666;
+}
+
+.content_time_right .comment {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 12rpx;
+}
+
+.content_comment {
+  width: 690rpx;
+  background: rgba(244, 244, 244, 1);
+  border-radius: 8rpx;
+  margin: 30rpx 0;
+}
+
+.content_comment_text {
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+  margin: 0 20rpx;
+  line-height: 1.5;
+}
+
+.content_comment_text .item {
+  font-weight: normal;
+  color: #666;
+}
+
+.blcokBox {
+  height: 112rpx;
+}
+
+.inputBox {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+  width: 749rpx;
+  height: 112rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px -1px 0px 0px rgba(231, 231, 231, 1);
+}
+
+.inputWrap {
+  width: 577rpx;
+  height: 80rpx;
+  background: rgba(241, 241, 241, 1);
+  border-radius: 40rpx;
+  margin: 0 30rpx;
+}
+
+.input {
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  margin:0 24rpx;
+  color: #999;
+}
+
+.send {
+  width: 142rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #666;
+}
+
+/* 删除评论弹框 */
+
+.comment-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 97;
+}
+
+.comment-zan-dialog__mask .zan-dialog__container1 {
+  width: 630rpx;
+  height: 365rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  position: absolute;
+  right: 112rpx;
+  top: 300rpx;
+  left: 62rpx;
+  text-align: center;
+  z-index: 97;
+}
+
+.comment-zan-dialog__mask .zan-dialog__container1 .msg {
+  margin: 44rpx auto;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.comment-zan-dialog__mask .zan-dialog__container1 .msg_content {
+  margin: 0 auto;
+  width: 358rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  line-height: 40rpx;
+}
+
+.comment-zan-dialog__mask .zan-dialog__container1 .btn {
+  display: flex;
+  justify-content: space-between;
+  width: 550rpx;
+  margin-left: 40rpx;
+  margin-top: 63rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+}
+
+.comment-zan-dialog__mask .zan-dialog__container1 .cancelComment {
+  width: 264rpx;
+  margin-right: 22rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  border: 2rpx solid #ff2644;
+  color: #ff2644;
+}
+
+.comment-zan-dialog__mask .zan-dialog__container1 .confirmComment {
+  width: 264rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #ff2644;
+  border-radius: 40rpx;
+  color: #fff;
+}
+
+/* 删除帖子弹框 */
+
+.del-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 97;
+}
+
+.del-zan-dialog__mask .zan-dialog__container1 {
+  width: 630rpx;
+  height: 365rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  position: absolute;
+  right: 112rpx;
+  top: 300rpx;
+  left: 62rpx;
+  text-align: center;
+  z-index: 97;
+}
+
+.del-zan-dialog__mask .zan-dialog__container1 .msg {
+  margin: 44rpx auto;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.del-zan-dialog__mask .zan-dialog__container1 .msg_content {
+  margin: 0 auto;
+  width: 358rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  line-height: 40rpx;
+}
+
+.del-zan-dialog__mask .zan-dialog__container1 .btn {
+  display: flex;
+  justify-content: space-between;
+  width: 550rpx;
+  margin-left: 40rpx;
+  margin-top: 63rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+}
+
+.del-zan-dialog__mask .zan-dialog__container1 .cancelDel {
+  width: 264rpx;
+  margin-right: 22rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  border: 2rpx solid #ff2644;
+  color: #ff2644;
+}
+
+.del-zan-dialog__mask .zan-dialog__container1 .confirmDel {
+  width: 264rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #ff2644;
+  border-radius: 40rpx;
+  color: #fff;
+}
+
+/* 取消关注弹框 */
+
+.follow-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 97;
+}
+
+.follow-zan-dialog__mask .zan-dialog__container1 {
+  width: 630rpx;
+  height: 365rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  position: absolute;
+  right: 112rpx;
+  top: 300rpx;
+  left: 62rpx;
+  text-align: center;
+  z-index: 97;
+}
+
+.follow-zan-dialog__mask .zan-dialog__container1 .msg {
+  margin: 44rpx auto;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.follow-zan-dialog__mask .zan-dialog__container1 .msg_content {
+  margin: 0 auto;
+  width: 358rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  line-height: 40rpx;
+}
+
+.follow-zan-dialog__mask .zan-dialog__container1 .btn {
+  display: flex;
+  justify-content: space-between;
+  width: 550rpx;
+  margin-left: 40rpx;
+  margin-top: 63rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+}
+
+.follow-zan-dialog__mask .zan-dialog__container1 .cancelFollow {
+  width: 264rpx;
+  margin-right: 22rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  border: 2rpx solid #ff2644;
+  color: #ff2644;
+}
+
+.follow-zan-dialog__mask .zan-dialog__container1 .confirmFollow {
+  width: 264rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #ff2644;
+  border-radius: 40rpx;
+  color: #fff;
+}

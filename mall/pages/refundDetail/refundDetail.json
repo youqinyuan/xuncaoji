@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarTitleText": "充值退款",
+  "enablePullDownRefresh": true,
+  "navigationBarTextStyle": "white"
+}

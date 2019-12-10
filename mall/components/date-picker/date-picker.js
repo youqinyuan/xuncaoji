@@ -45,7 +45,6 @@ Component({
       day = i < 10 ? '0' + i : i;
       days.push(day);
     }
-
     that.setData({
       years: years,
       months: months,

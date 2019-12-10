@@ -11,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    xiajia: false,
+    buyType: 1,
     imageUrls: [],
     detail: {},
     content: {}, //客服电话
@@ -59,13 +61,25 @@ Page({
     shareData: '', //要分享的数据
     appletQrCodeUrl: '', //邀请码路径
     haibaoImg: '', //生成的海报
-    userInfo: wx.getStorageSync('userInfo'), //用户信息
     shareImg: '', //需要分享的产品图片
-    zero:false//弹框是否显示0元购按钮
+    zero: false //弹框是否显示0元购按钮
   },
   //可申请0元购
   applyZero: function(e) {
     var that = this
+    console.log("formid" + JSON.stringify(e.detail.formId))
+    if (wx.getStorageSync('token')) {
+      if (e.detail.formId !== 'the formId is a mock one') {
+        console.log(e.detail.formId)
+        app.Util.ajax('mall/userFromRecord/addRecord', {
+          formId: e.detail.formId
+        }, 'POST').then((res) => { // 使用ajax函数
+          console.log(res.data)
+        })
+      } else {
+        console.log(e.detail.formId)
+      }
+    }
     var token = wx.getStorageSync('token')
     if (token) {
       that.setData({
@@ -82,7 +96,7 @@ Page({
     }
   },
   //跳转到申请0元购规则
-  applyZeroBuy:function(e){
+  applyZeroBuy: function(e) {
     var that = this
     var goodsId = e.currentTarget.dataset.goodsid
     var stockId = e.currentTarget.dataset.stockid
@@ -111,15 +125,22 @@ Page({
       that.setData({
         num: 1
       })
-    }else{
-      wx.navigateTo({
-        url: `/pages/applyRule/applyRule?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}`,
-      })
+    } else {
+      if (that.data.buyType !== 1) {
+        wx.navigateTo({
+          url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&buyType=2`,
+        })
+      } else {
+        wx.navigateTo({
+          url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}`,
+        })
+      }
+
       that.setData({
         showModalStatus: false,
         zero: false
       })
-    } 
+    }
   },
   //客服分享图片回到指定的小程序页面
   handleContact: function(e) {
@@ -152,7 +173,7 @@ Page({
       urls: imgList // 需要预览的图片http链接列表
     })
   },
-  watchImg: function (e) {
+  watchImg: function(e) {
     var src = e.currentTarget.dataset.src; //获取data-src
     var imgList = e.currentTarget.dataset.list; //获取data-list
     //图片预览
@@ -194,7 +215,7 @@ Page({
       mode: 1,
       targetId: that.data.goodsId
     }, 'GET').then((res) => {
-      if (res.data.content) {
+      if (res.data.messageCode== "MSG_1001") {
         var inviterCode = wx.getStorageSync('inviterCode')
         if (inviterCode) {
           res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
@@ -230,11 +251,13 @@ Page({
           shareList: res.data.content
         })
         that.getShareData();
+      } else if (res.data.messageCode == "MSG_4002") {
+
       }else{
-        wx.showToast({
+          wx.showToast({
           title: res.data.message,
-          icon:'none',
-          duration:3000
+          icon: 'none',
+          duration: 3000
         })
       }
     })
@@ -303,7 +326,7 @@ Page({
     ctx.beginPath()
     ctx.setFillStyle('#fff')
     ctx.setShadow(0, 0, 2, '#eee')
-    ctx.fillRect(0.057 * width, 0.08 * height, 0.76 * width, 0.522 * height -2)
+    ctx.fillRect(0.057 * width, 0.08 * height, 0.76 * width, 0.522 * height - 2)
     ctx.closePath()
     //绘制合伙人图标
     ctx.beginPath()
@@ -353,7 +376,7 @@ Page({
     // 绘制0元购图标
     var path_zero = "/assets/images/icon/apply free.png"
     ctx.beginPath()
-    ctx.drawImage(path_zero, 0.52 * width, 0.36*height, 0.2 * width, 0.2 * width);
+    ctx.drawImage(path_zero, 0.52 * width, 0.36 * height, 0.2 * width, 0.2 * width);
     ctx.closePath()
     // 绘制价格
     ctx.beginPath()
@@ -409,7 +432,7 @@ Page({
     }
     row.push(temp)
     for (var b = 0; b < row.length; b++) {
-      ctx.fillText(row[b], 0.1308 * width - 6, 0.565 * height -4 + b * 20);
+      ctx.fillText(row[b], 0.1308 * width - 6, 0.565 * height - 4 + b * 20);
     }
     ctx.stroke();
     ctx.closePath()
@@ -479,7 +502,7 @@ Page({
                 content: '您已拒绝授权，是否去设置打开？',
                 confirmText: "确认",
                 cancelText: "取消",
-                success: function (res) {
+                success: function(res) {
                   console.log(res);
                   if (res.confirm) {
                     console.log('用户点击确认')
@@ -597,12 +620,19 @@ Page({
           icon: 'none'
         })
         this.setData({
-          num:1
+          num: 1
         })
       } else {
-        wx.navigateTo({
-          url: `/pages/placeorder/placeorder?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&cashbackId=${cashbackId}`,
-        })
+        if (this.data.buyType !== 1) {
+          wx.navigateTo({
+            url: `/pages/placeorder/placeorder?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&cashbackId=${cashbackId}&buyType=2`,
+          })
+        } else {
+          wx.navigateTo({
+            url: `/pages/placeorder/placeorder?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&cashbackId=${cashbackId}`,
+          })
+        }
+
         this.setData({
           showModalStatus: false,
           num: 1
@@ -709,6 +739,7 @@ Page({
       quantity: that.data.stockDetail[selectAttridStr].quantity,
       cashMoney: that.data.stockDetail[selectAttridStr].cashbackItems ? that.data.stockDetail[selectAttridStr].cashbackItems[0].totalAmount : '',
       cashbackId: that.data.stockDetail[selectAttridStr].cashbackItems ? that.data.stockDetail[selectAttridStr].cashbackItems[0].cashbackId : '',
+      activeIndex: 0
     })
   },
   //选中规格
@@ -730,6 +761,7 @@ Page({
     spec[selectIndex].items[attrIndex].isSelect = true;
     if (spec[selectIndex].items[attrIndex].isSelect == true) {
       if (spec[selectIndex].items[attrIndex].iconUrl) {
+        console.log(spec[selectIndex].items[attrIndex].iconUrl)
         that.setData({
           iconUrl: spec[selectIndex].items[attrIndex].iconUrl
         })
@@ -786,16 +818,40 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    console.log(options)
+    // var arr = ['id=2','type=1']
+    // var arr1=[]
+    // for (var i in arr){
+    //   console.log(arr[i])
+    //   arr1.push(arr[i])
+    // }
+    // console.log(arr1)
+    // var arr2=[]
+    // for (var i in arr1){
+    //   arr2 = arr1[i].split("=");
+    //   console.log(arr2)
+    //   if (arr2[0] == 'type') {
+    //     console.log(parseInt(arr2[1]))
+    //   }
+    //   if (arr2[0] == 'id'){
+    //     console.log(parseInt(arr2[1]))
+    //   }
+    // }
     if (options.scene) {
       //扫描小程序码进入 -- 解析携带参数
       that.setData({
         options: options
       })
+      console.log(that.data.goodsId, that.data.buyType)
       var scene = decodeURIComponent(options.scene);
+      console.log(scene)
       var arrPara = scene.split("&");
+      console.log(arrPara)
       var arr = [];
       for (var i in arrPara) {
         arr = arrPara[i].split("=");
+        console.log(arr)
+        console.log(1)
         if (arr[0] == 'id') {
           that.setData({
             goodsId: parseInt(arr[1]),
@@ -806,6 +862,12 @@ Page({
             data: parseInt(arr[1])
           })
         }
+        if (arr[0] == 'type') {
+          that.setData({
+            buyType: 2,
+          })
+        }
+
       }
     } else {
       //不是扫描小程序码进入
@@ -814,7 +876,7 @@ Page({
         inviterCode: options.inviterCode || '',
         options: options
       })
-      if(options){
+      if (options) {
         //添加商品id缓存
         wx.setStorage({
           key: "goods_id",
@@ -833,7 +895,7 @@ Page({
     app.Util.ajax('mall/home/goodsDetail', {
       id: that.data.goodsId
     }, 'GET').then((res) => {
-      if (res.data.content) {
+      if (res.data.messageCode=="MSG_1001") {
         var saveAmount = ((res.data.content.orgPrice) - (res.data.content.dctPrice)).toFixed(2)
         that.setData({
           imageUrls: res.data.content.imageUrls,
@@ -892,11 +954,14 @@ Page({
         }
         //爆品推荐
         that.initgetMore1();
+      } else if (res.data.messageCode == "MSG_4002") {
+        that.setData({
+          xiajia: true
+        })
       }else{
         wx.showToast({
-          title: res.data.message,
-          icon:'none',
-          duration:3000
+          title:res.data.message,
+          icon:"none"
         })
       }
     })
@@ -1008,7 +1073,7 @@ Page({
     var that = this;
     that.setData({
       pageNumber: 1,
-      num:1
+      num: 1
     })
     // 请求商品详情
     that.getGoodsData()
@@ -1031,7 +1096,9 @@ Page({
    * 生命周期函数 -- 监听页面卸载
    */
   onUnload: function() {
-
+    // wx.switchTab({
+    //   url: '/pages/index/index',
+    // })
   },
 
   /**
@@ -1066,8 +1133,7 @@ Page({
               title: '分享成功',
               icon: 'none'
             })
-          } else {
-          }
+          } else {}
         })
         return {
           title: '我是合伙人，上0元购，自由买免费拿，推荐此商品！',
@@ -1094,7 +1160,7 @@ Page({
               icon: 'none'
             })
           } else {
-            
+
           }
         })
         return {
@@ -1113,7 +1179,7 @@ Page({
             icon: 'none'
           })
         } else {
-         
+
         }
       })
       return {
@@ -1187,4 +1253,19 @@ Page({
       num: parseInt(num)
     });
   },
+  xiajia: function() {
+    this.setData({
+      xiajia: false
+    })
+  },
+  toindex: function() {
+    wx.setStorageSync('params', 1)
+    wx.switchTab({
+      url: '/pages/index/index',
+    })
+  },
+  toReturn: function() {
+    wx.navigateBack({})
+  }
+
 })

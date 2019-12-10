@@ -9,9 +9,11 @@ page {
   height: 90rpx;
   line-height: 90rpx;
   display: flex;
+  align-items: center;
   border-bottom: 2rpx solid #f4f4f4;
   background: rgba(255, 255, 255, 1);
 }
+
 .wraper .listItems .listLeft {
   margin-right: 15rpx;
   margin-left: 30rpx;
@@ -20,22 +22,20 @@ page {
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
+
 .wraper .listItems .listRight {
   font-size: 28rpx;
-  margin-top: 20rpx;
   width: 550rpx;
 }
-.wraper .listItems .listRight1 {
-  font-size: 28rpx;
-  width: 550rpx;
-}
-.img{
+
+.img {
   position: absolute;
   width: 40rpx;
   height: 40rpx;
   right: 30rpx;
   top: 28rpx;
 }
+
 .wraper .listItems1 {
   height: 200rpx;
   display: flex;
@@ -56,20 +56,23 @@ page {
 .wraper .listItems1 .listRight {
   font-size: 28rpx;
   width: 550rpx;
-  height:100%;
+  height: 100%;
   box-sizing: border-box;
   padding-top: 38rpx;
   line-height: 1;
 }
+
 /* 去除ios机型上面自带的上间距 */
+
 .wraper .listItems1 .listRight_ios {
   font-size: 28rpx;
   width: 550rpx;
-  height:100%;
+  height: 100%;
   box-sizing: border-box;
   padding-top: 22rpx;
   line-height: 1;
 }
+
 .listItems-item {
   height: 90rpx;
   line-height: 90rpx;
@@ -117,7 +120,7 @@ page {
 .btn {
   width: 690rpx;
   height: 80rpx;
-  background: #FF6417;
+  background: #ff6417;
   border-radius: 40rpx;
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;

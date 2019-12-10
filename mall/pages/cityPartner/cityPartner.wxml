@@ -1,0 +1,68 @@
+<!--pages/cityPartner/cityPartner.wxml-->
+<view class="page" style="background:{{bgColor}}">
+  <view class="wraper" wx:if="{{isCityPartner==true}}">
+    <view class="listItems-wrap">
+      <view class="listItems">
+        <view class="listLeft">姓名</view>
+        <input bindinput='bindName' placeholder="请填写您的真实姓名" value='{{name}}' placeholder-style="color:#AAAAAA" class="listRight" />
+      </view>
+      <view class="listItems" bindtap="showCityPicker">
+        <text class="listLeft">城市</text>
+        <view class="listRight1" style="color:#AAAAAA;">请选择您要合伙的城市（代理区域）</view>
+        <city-picker id="city-picker" value="{{cityPickerValue}}" isShow="{{cityPickerIsShow}}" bindsureclick="cityPickerOnSureClick" bindcancelclick="cityPickerOnCancelClick" />
+        <image class="img" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/older_more_n.png"></image>
+      </view>
+      <view class="listItems listImg" wx:if="{{isShowCity==true}}" wx:for="{{city}}" wx:key="" bindtap="showCity" data-index="{{index}}">
+        <view class="listCity" style="color:{{cityColor}};">{{item.address}}</view>
+        <image class="listCityDel" catchtap="delCity" data-index="{{index}}" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/ic_del.png"></image>
+        <image class="listCityImg" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/older_more_n.png"></image>
+      </view>
+    </view>
+    <view class="listItems-wrap">
+      <view class="listItems">
+        <view class="listLeft">银行卡号</view>
+        <input bindinput='bindCardNum' maxlength="23" placeholder="请输入您的银行卡号（为方便日后您提现）" type="number" value='{{cardNum}}' placeholder-style="color:#AAAAAA" class="listRight1" />
+      </view>
+      <view class="listItems">
+        <view class="listLeft">开户地址</view>
+        <input bindinput='bindAddress' placeholder="请输入您的开户行地址（为方便日后您提现）" value='{{address}}' placeholder-style="color:#AAAAAA" class="listRight1" />
+      </view>
+    </view>
+    <view class="listItems-wrap">
+      <view class="listItems">
+        <view class="listLeft">手机号</view>
+        <input bindinput='bindPhone' maxlength="11" placeholder="请输入您的手机号" value='{{phoneNum}}' placeholder-style="color:#AAAAAA" class="listRight" type="number" />
+      </view>
+      <view class="listItems listCode">
+        <view class="listLeft">验证码</view>
+        <input bindinput='bindCode' maxlength="6" placeholder="请输入6位数字" value='{{codeNum}}' placeholder-style="color:#AAAAAA" class="listRight" type="number" />
+        <button class="code" style="color:{{color}}" catchtap='getCode' disabled='{{disabled}}'>{{getcode}}</button>
+      </view>
+    </view>
+    <button class="btn" bindtap='submit'>提交申请</button>
+  </view>
+  <view class="wraper" wx:else>
+    <view class="wrap" wx:if="{{status==1}}">
+      <image class="wrap_img" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/entering_review.png"></image>
+      <view class="wrap_text">加速审核中！请耐心等待</view>
+    </view>
+    <view class="wrap" wx:if="{{status==3 || status==4}}">
+      <image class="wrap_img" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/entering_review_not_passed.png"></image>
+      <view class="wrap_text">审核未通过</view>
+      <view class="wrap_reasons">
+        <text>未通过的理由：</text>
+        <text>未填写真实姓名</text>
+      </view>
+      <view class="wrap_btn" bindtap="jumpCityPartner">重新填写</view>
+    </view>
+    <view class="wrap" wx:if="{{status==2}}">
+      <image class="wrap_img" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/entering_review_passed.png"></image>
+      <view class="wrap_text">恭喜您成功成为城市合伙人！</view>
+      <view class="wrap_care">
+        <view class="wrap_care_text1"> 去公众号内点击</view>
+        <view class="wrap_care_text2">我的-城市合伙人登录</view>
+        <image class="wrap_care_img" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/code.png" bindlongpress="saveCode"></image>
+      </view>
+    </view>
+  </view>
+</view>

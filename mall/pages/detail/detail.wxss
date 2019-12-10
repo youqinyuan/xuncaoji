@@ -45,15 +45,6 @@ page {
   justify-content: center;
 }
 
-.apply {
-  position: absolute;
-  top: 642rpx;
-  right: 36rpx;
-  width: 180rpx;
-  height: 88rpx;
-  animation: pulse 0.8s infinite;
-}
-
 @-webkit-keyframes pulse {
   from {
     -webkit-transform: scale3d(1, 1, 1);
@@ -103,17 +94,30 @@ page {
   justify-content: space-between;
 }
 
-.price {
+.price-list {
   display: flex;
 }
 
 .new-price {
+  /* width: 350rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; */
+  font-family: PingFang SC;
+  font-weight: bold;
   font-size: 48rpx;
   color: #ff2644;
 }
 
-.price-text {
+.price-cash {
   font-size: 24rpx;
+}
+
+.price-text {
+  font-size: 36rpx;
 }
 
 .old-price {
@@ -121,12 +125,6 @@ page {
   margin-left: 19rpx;
   margin-top: 20rpx;
   text-decoration: line-through;
-  color: rgba(153, 153, 153, 1);
-}
-
-.express {
-  font-size: 24rpx;
-  margin-top: 20rpx;
   color: rgba(153, 153, 153, 1);
 }
 
@@ -171,6 +169,16 @@ page {
   font-weight: 500;
   color: rgba(255, 100, 23, 1);
   border: 2rpx solid rgba(255, 100, 23, 1);
+  border-radius: 14rpx;
+}
+.goods-zero2 {
+  padding: 2rpx 12rpx;
+  margin-right: 13rpx;
+  font-size: 20rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #FF2644;
+  border: 2rpx solid #FF2644;
   border-radius: 14rpx;
 }
 
@@ -240,13 +248,39 @@ page {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
   font-weight: 400;
-  color: #FF2644;
+  color: #ff2644;
 }
 
 .block1 {
   width: 750rpx;
   height: 20rpx;
   background: #f4f4f4;
+}
+
+/* 快递 */
+
+.express-wrap {
+  position: relative;
+  width: 750rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 24rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+}
+
+.express-wrap image {
+  width: 50rpx;
+  height: 30rpx;
+  position: absolute;
+  left: 30rpx;
+  top: 30rpx;
+}
+
+.express {
+  font-size: 26rpx;
+  margin-left: 90rpx;
+  margin-top: 20rpx;
+  color: rgba(153, 153, 153, 1);
 }
 
 /* 优惠 */
@@ -256,7 +290,7 @@ page {
   width: 750rpx;
   height: 90rpx;
   line-height: 90rpx;
-  font-size: 24rpx;
+  font-size: 26rpx;
   border-bottom: 2rpx solid #f4f4f4;
 }
 
@@ -270,6 +304,7 @@ page {
 
 .content-cashBack1-text {
   margin-left: 90rpx;
+  color: #666;
 }
 
 .content-cashBack1-text text {
@@ -422,7 +457,7 @@ page {
   margin-top: 0;
   font-size: 28rpx;
   margin-left: 31rpx;
-  word-break:break-all; 
+  word-break: break-all;
   color: rgba(51, 51, 51, 1);
   line-height: 36rpx;
 }
@@ -754,31 +789,40 @@ button::after {
 }
 
 .share {
-  position: relative;
-  width: 232rpx;
-  height: 100rpx;
-  line-height: 100rpx;
-  background: #ff8898;
-  display: flex;
-  justify-content: space-around;
-  border-radius: 0;
-}
-
-.share::after {
-  border: none;
-}
-
-.share image {
+  animation: pulse 0.8s infinite;
   position: absolute;
-  left: 15rpx;
-  top: 33rpx;
-  width: 36rpx;
-  height: 36rpx;
+  text-align: center;
+  right: 40rpx;
+  top: 600rpx;
+  width: 150rpx;
+  height: 74rpx;
+  background: #ff2644;
+  color: #fff;
+  border-radius: 55rpx;
+  border: 4rpx solid #fff;
+  padding-top: 10rpx;
 }
 
 .share-text {
-  font-size: 28rpx;
+  font-size: 26rpx;
   color: rgba(255, 255, 255, 1);
+}
+
+.share-price {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 1);
+}
+
+.apply {
+  font-size: 32rpx;
+  width: 232rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  background: #ff2644;
+  display: flex;
+  justify-content: space-around;
+  color: rgba(255, 255, 255, 1);
+  border-radius: 0;
 }
 
 .buy {
@@ -789,13 +833,13 @@ button::after {
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
+  background: #fc6f97;
   color: rgba(255, 255, 255, 1);
-  background: #ff2644;
 }
 
 .buy-model {
   position: fixed;
-  right: 20rpx;
+  left: 230rpx;
   bottom: 134rpx;
   height: 64rpx;
   line-height: 64rpx;
@@ -820,7 +864,7 @@ button::after {
   width: 36rpx;
   height: 18rpx;
   position: fixed;
-  right: 52rpx;
+  left: 284rpx;
   bottom: 118rpx;
 }
 
@@ -860,7 +904,7 @@ button::after {
   background: rgba(0, 0, 0, 1);
   opacity: 0.4;
   overflow: hidden;
-  z-index: 1000;
+  z-index: 96;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -875,7 +919,7 @@ button::after {
   left: 0;
   background: rgba(255, 255, 255, 1);
   border-radius: 20rpx 20rpx 0rpx 0rpx;
-  z-index: 2000;
+  z-index: 99;
 }
 
 .commodity-top {
@@ -1141,6 +1185,16 @@ button::after {
   color: rgba(255, 255, 255, 1);
 }
 
+.bottom-buy1 {
+  position: fixed;
+  display: flex;
+  bottom: 0;
+  height: 100rpx;
+  width: 100%;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
+}
+
 .add-cart {
   width: 320rpx;
   height: 100rpx;
@@ -1151,6 +1205,14 @@ button::after {
 
 .now-buy {
   width: 430rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background: #ff2644;
+}
+
+.now-buy1 {
+  width: 100%;
   height: 100rpx;
   line-height: 100rpx;
   text-align: center;
@@ -1368,6 +1430,7 @@ button::after {
   background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
   top: 0;
+  z-index: 99;
 }
 
 .canvas-box {
@@ -1376,6 +1439,7 @@ button::after {
   position: fixed;
   top: 3.9%;
   left: 6%;
+  z-index: 99;
 }
 
 .canvas {
@@ -1384,6 +1448,7 @@ button::after {
   position: fixed;
   top: 3.9%;
   left: 6%;
+  z-index: 99;
 }
 
 .close_hb {
@@ -1393,6 +1458,7 @@ button::after {
   position: fixed;
   left: 0;
   bottom: 2%;
+  z-index: 99;
 }
 
 .close_hb image {
@@ -1406,7 +1472,7 @@ button::after {
   position: fixed;
   top: 30rpx;
   left: 16rpx;
-  z-index: 9999;
+  z-index: 97;
 }
 
 /* 返回首页组件 */
@@ -1415,5 +1481,101 @@ button::after {
   position: fixed;
   bottom: 20%;
   right: 10px;
+  z-index: 97;
+}
+/* 商品下架蒙版 */
+.dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
   z-index: 9999;
 }
+.dialog__container{
+  width: 100%;
+  background: rgba(255, 255, 255, 1);
+  height: 410rpx;
+  width: 630rpx;
+  overflow: hidden;
+  position: fixed;
+  z-index: 9999;
+  border-radius:30rpx; 
+  top: 260rpx;
+  left: 60rpx;
+}
+
+.dialog__mask .cancel-img {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 112rpx;
+  top: 185rpx;
+}
+
+.dialog__mask .dialog__container .title {
+  margin-top: 46rpx;
+  margin-bottom: 35rpx;
+  font-size:36rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+  text-align:center;
+}
+
+.dialog__mask .dialog__container .text {
+  font-size:30rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+}
+.text_one{
+  font-size:32rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+  line-height:48rpx;
+  text-align: center;
+}
+.text_two{
+  font-size:32rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:#333333;
+  line-height:48rpx;
+  text-align: center;
+}
+.newbotton_one{
+  display: inline-block;
+  width:264rpx;
+  height:76rpx;
+  border:2rpx solid rgba(255,38,68,1);
+  border-radius:38rpx;
+  text-align: center;
+  font-size:32rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(255,38,68,1);
+  line-height:76rpx;
+  margin-left: 40rpx;
+}
+.newbotton_two{
+  display: inline-block;
+  width:264rpx;
+  height:76rpx;
+  background: #FF2644;
+  border-radius:38rpx;
+  text-align: center;
+  font-size:32rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:#FFFFFF;
+  line-height:76rpx;
+  margin-left: 22rpx;
+}
+.botton_box{
+  margin-top: 50rpx;
+}
+
+

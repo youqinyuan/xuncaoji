@@ -5,7 +5,6 @@ App({
     var that = this;
     wx.login({
       success(res) {
-        console.log('res.code:', res.code, res);
         wx.setStorageSync('code', res.code)
       }
     })
@@ -23,13 +22,14 @@ App({
     share: 0,
     provinces:{},
     creditCard:2,
-    cooperateInvitionCode:27194030 //测试环境
-    // cooperateInvitionCode: 17511690 //正式环境
+    disBtn1: 1,//是否显示免费续约
+    // cooperateInvitionCode:27194030 //测试环境
+    cooperateInvitionCode: 55555555 //正式环境
   },
 
   //通用导航方法
   nav: function(e) {
-    if (getCurrentPages().length <= 10 && !e.currentTarget.dataset.type) {
+    if (getCurrentPages().length < 10 && !e.currentTarget.dataset.type) {
       wx.navigateTo({
         url: e.currentTarget.dataset.url
       })
@@ -42,11 +42,16 @@ App({
 
   onShow: function(options) {
     var that = this
-    that.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
-      if (res.data.messageCode = 'MSG_1001') {
-        wx.setStorageSync('provinces', res.data.content)
-      }
-    })
+    if(wx.getStorageSync('token')){
+      setTimeout(function () {
+        that.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
+          // console.log("地址：" + JSON.stringify(res))
+          if (res.data.messageCode = 'MSG_1001') {
+            wx.setStorageSync('provinces', res.data.content)
+          }
+        })
+      }, 3000)
+    }
     that.globalData.scene = options.scene
     //判断是否已经授权过小程序
     wx.login({
@@ -73,6 +78,9 @@ App({
   onHide: function() {
 
   },
+  onError:function(err){
+    console.log(err)
+  },
   //已经授权，自动进入登录状态设置
   selfLogin: function() {
     //刷新code
@@ -89,13 +97,12 @@ App({
             "content-type": 'application/json'
           },
           success: function(res) {
-            console.log(JSON.stringify(res))
             if (res.data.content) {
               if (res.data.content.fresher == 2) {
                 wx.setStorageSync('token', res.header.token)
                 wx.setStorageSync('inviterCode', res.data.content.inviterCode)
               } else {
-                wx.setStorageSync('newUserCourtesyStatus', res.data.content.fresher)
+                // wx.setStorageSync('newUserCourtesyStatus', res.data.content.fresher)
               }
             }
           }

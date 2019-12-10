@@ -184,13 +184,14 @@ page {
 
 .shops-wrap-bottom-right {
   display: flex;
-  padding-bottom: 40rpx;
-  /* border-bottom: 2rpx solid #f4f4f4; */
+  padding-bottom: 20rpx;
   background: #fff;
 }
-.border1px{
+
+.border1px {
   border-bottom: 2rpx solid #f4f4f4;
 }
+
 .shops-wrap-bottom-right image {
   margin-left: 30rpx;
   margin-top: 21rpx;
@@ -294,7 +295,8 @@ page {
   color: #666;
   font-size: 24rpx;
 }
-.expressfee-text2{
+
+.expressfee-text2 {
   margin-left: 30rpx;
   color: #333;
 }
@@ -305,7 +307,6 @@ page {
 }
 
 .expressfee-price1 {
-  font-size: 30rpx;
   color: #333;
   font-size: 24rpx;
 }
@@ -320,6 +321,62 @@ page {
 
 .expressfee-period {
   color: #333;
+}
+
+.yh {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  background: #fff;
+  font-size: 24rpx;
+  padding-bottom: 20rpx;
+}
+
+.yh-text {
+  color: #666;
+  margin-left: 30rpx;
+}
+
+.yh-price {
+  color: #333;
+  margin-right: 30rpx;
+}
+
+.yh1-price {
+  margin-top: 20rpx;
+  color: #333;
+  margin-right: 30rpx;
+}
+
+.yh1-price text {
+  color: #666;
+}
+
+.actual {
+  display: flex;
+  justify-content: space-between;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  background: #fff;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.actual-text {
+  margin-left: 30rpx;
+}
+
+.actual-price { 
+  margin-right: 30rpx;
+}
+
+.actual-price {
+  color: #333;
+  font-size: 28rpx;
 }
 
 .cashBackPrice {
@@ -386,6 +443,45 @@ page {
 
 .payment-price1 {
   font-size: 30rpx;
+}
+
+/* 优惠 */
+
+.content-cashBack-wrap {
+  background: #fff;
+  padding-bottom: 30rpx;
+}
+
+.content-cashBack {
+  position: relative;
+  margin-left: 172rpx;
+  width: 547rpx;
+  /* height: 50rpx; */
+  line-height: 60rpx;
+  font-size: 24rpx;
+  background: rgba(252, 243, 237, 1);
+  border-radius: 8rpx;
+}
+
+.content-zeroBack {
+  width: 750rpx;
+  height: 40rpx;
+}
+
+.content-cashBack image {
+  width: 50rpx;
+  height: 30rpx;
+  position: absolute;
+  left: 25rpx;
+  top: 16rpx;
+}
+
+.content-cashBack-text {
+  margin-left: 85rpx;
+}
+
+.content-cashBack-text text {
+  color: #ff2644;
 }
 
 /* 备注 */
@@ -515,102 +611,6 @@ button[disabled] {
   overflow: hidden;
   z-index: 1000;
   color: rgba(255, 255, 255, 1);
-}
-
-/*对话框 */
-
-.commodity_attr_box {
-  height: 633rpx;
-  width: 100%;
-  overflow: hidden;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 20rpx 20rpx 0rpx 0rpx;
-  z-index: 2000;
-}
-
-.content-wrapper {
-  height: auto;
-}
-
-.content {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  padding-bottom: 10rpx;
-  border-bottom: 2rpx solid #f4f4f4;
-}
-
-.content-photo {
-  width: 64rpx;
-  height: 64rpx;
-  line-height: 64rpx;
-  font-size: 26rpx;
-  text-align: center;
-  color: rgb(255, 255, 255);
-  margin-left: 30rpx;
-  margin-top: 55rpx;
-  background: rgba(170, 170, 170, 1);
-  border-radius: 50%;
-}
-
-.content-name-wrap {
-  display: flex;
-  flex-direction: column;
-}
-
-.content-name {
-  display: flex;
-  margin-top: 36rpx;
-  font-size: 30rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(51, 51, 51, 1);
-}
-
-.content-name view:nth-child(1) {
-  width: 200rpx;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.content-name view {
-  padding-left: 19rpx;
-}
-
-.default {
-  position: absolute;
-  z-index: 10;
-  right: 120rpx;
-  top: 26rpx;
-  height: 28rpx;
-  width: 48rpx;
-}
-
-.default image {
-  height: 28rpx;
-  width: 48rpx;
-}
-
-.content-address {
-  width: 500rpx;
-  height: 61rpx;
-  margin-left: 19rpx;
-  margin-top: 20rpx;
-  display: -webkit-box;
-  word-break: break-all;
-  text-overflow: ellipsis;
-  font-size: 26rpx;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  padding-bottom: 10rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(51, 51, 51, 1);
 }
 
 /* 终止0元购 */
@@ -753,4 +753,161 @@ button[disabled] {
   width: 270rpx;
   color: #ff2644;
   border-left: 2rpx solid #c5c5c5;
+}
+.seed{
+  height: 80rpx;
+  background: #fff;
+  position: relative;
+  margin-bottom: 20rpx;
+}
+.seed_all{
+  display: inline-block;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size:24rpx;
+  font-family:PingFang SC;
+  font-weight:400;
+  color:rgba(102,102,102,1);
+  position: absolute;
+  left: 29rpx;
+}
+.seed_detail{
+  display: inline-block;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size:24rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(102,102,102,1);
+  position: absolute;
+  right: 126rpx;
+  text-align: end;
+  width: 100rpx;
+}
+.choose_box{
+  height: 80rpx;
+  width: 90rpx;
+  line-height: 80rpx;
+  display: inline-block;
+  position: absolute;
+  right: 26rpx;
+  text-align: end;
+}
+.choose_img{
+  height: 40rpx;
+  width: 40rpx;
+  margin-top: 20rpx;
+}
+/* 种子抵扣明细弹窗 */
+.dialog__mask2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+.dialog__mask2 .dialog__container2 {
+  width: 100%;
+  background: rgba(255, 255, 255, 1);
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  z-index: 9999;
+}
+
+.dialog__mask2 .cancel-img2 {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: 50rpx;
+  right: 50rpx;
+}
+
+.dialog__mask2 .dialog__container2 .title2 {
+  width: 520rpx;
+  margin-left:30rpx; 
+  margin-top: 46rpx;
+  margin-bottom: 35rpx;
+  font-size:32rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+  text-align: left;
+}
+
+.dialog__mask2 .dialog__container2 .text2 {
+  font-size:30rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+  max-height: 733rpx;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
+}
+.seedGoodsBox{
+  height: 204rpx;
+  border-bottom: #f4f4f4 2rpx solid;
+  position: relative;
+  margin-left: 30rpx;
+}
+.seedGoodsImg{
+  display: inline-block;
+  height: 158rpx;
+  width: 158rpx;
+  position: absolute;
+  top: 20rpx;
+}
+.seedGoodsName{
+  width: 489rpx;
+  text-align: left;
+  display: inline-block;
+  position: absolute;
+  top: 36rpx;
+  right: 40rpx;
+  font-size:26rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(102,102,102,1);
+  line-height:39rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.seedGoodsPrice{
+  font-size:30rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(255,38,68,1);
+  display: inline-block;
+  position: absolute;
+  top: 130rpx;
+  left: 188rpx;
+}
+.seedValue{
+  font-size:26rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:#999999;
+  display: inline-block;
+  position: absolute;
+  top: 129rpx;
+  right: 53rpx;
+}
+.font26{
+  font-size: 26rpx;
+  display: inline-block;
+}
+.font22{
+  font-size: 22rpx;
+  display: inline-block;
+}
+.colf{
+  color: #FF6417;
+  display: inline-block;
 }

@@ -1,0 +1,80 @@
+/* pages/leaveWish/leaveWish.wxss */
+
+textarea {
+  width: 100%;
+  height: 176rpx;
+  background-color: #fff;
+  padding: 0 32rpx;
+  padding-top: 30rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+textarea::placeholder {
+  color: #aaa;
+}
+
+.img_wrap {
+  width: 100%;
+  background-color: #fff;
+  padding: 0 20rpx;
+  padding-bottom: 59rpx;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 40rpx;
+  box-sizing: border-box;
+  border-bottom: 2rpx solid #e7e7e7;
+}
+
+.img_wrap image {
+  width: 156rpx;
+  height: 156rpx;
+  margin: 0 10rpx;
+  margin-bottom: 18rpx;
+}
+
+.commentImg_wrap {
+  position: relative;
+}
+
+.commentImg_wrap .close {
+  width: 34rpx;
+  height: 34rpx;
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 20rpx;
+  margin-top: 30rpx;
+}
+button::after{
+  border: none;
+}
+.btn1 {
+  width: 330rpx;
+  height: 80rpx;
+  background: #fff;
+  border: 2rpx solid #ff2644;
+  margin: 40rpx auto;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  color: #ff2644;
+  line-height: 80rpx;
+  text-align: center;
+}
+
+.btn2 {
+  width: 330rpx;
+  height: 80rpx;
+  background-color: #ff2644;
+  margin: 40rpx auto;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  color: #fff;
+  line-height: 80rpx;
+  text-align: center;
+}

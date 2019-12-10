@@ -16,8 +16,8 @@ Component({
    */
   data: {
     // host:app.globalObj.host,
-    playIcon: '/assets/images/icon/video_play.png',
-    videoimage: '/assets/images/icon/video_cover.png', //默认显示封面
+    playIcon: 'https://xuncj.yzsaas.cn/_download/img/icon/video_play.png',
+    videoimage: 'https://xuncj.yzsaas.cn/_download/img/icon/video_cover.png', //默认显示封面
     videoPlay: null,
     videoUrl:app.Util.getUrlImg().hostVideo+'video/intro.mp4'
   },

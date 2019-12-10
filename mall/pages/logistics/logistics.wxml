@@ -1,4 +1,16 @@
 <!--pages/logistics/logistics.wxml-->
+<view class="logistics-top">
+  <view class="logistics-item">
+    <text>承运人：</text>
+    <text>{{content.company}}</text>
+  </view>
+  <view class="logistics-item1">
+    <text> 物流单号：</text>
+    <text>{{content.no}}</text>
+    <text bindtap="copyText" data-text="{{content.no}}">复制</text>
+  </view>
+</view>
+<view class="logistics-block"></view>
 <view class="logistics">
   <view class="logistics-list" wx:for="{{list}}" wx:key="">
     <view class="logistics-list-left">
@@ -6,9 +18,13 @@
       <view class="date1">{{item.time}}</view>
     </view>
     <view class="logistics-list-right">
-      <!-- <view class="img"> <image src="../../assets/images/icon/ic_arrived.png"></image></view> -->
-      <view class="circle2" wx:if="{{status === '1' && index == 0}}"><image src="../../assets/images/icon/ic_arrived.png"></image></view>
-      <view class="circle1" wx:elif="{{status === '0' && index == 0}}"><image src="../../assets/images/icon/ic_transport.png"></image></view>
+      <!-- <view class="img"> <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_arrived.png"></image></view> -->
+      <view class="circle2" wx:if="{{status === '1' && index == 0}}">
+        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_arrived.png"></image>
+      </view>
+      <view class="circle1" wx:elif="{{status === '0' && index == 0}}">
+        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_transport.png"></image>
+      </view>
       <view class="circle" wx:if="{{index !== 0}}"></view>
       <view wx:if="{{index !== list.length-1 && index !== 0}}" class="block"></view>
       <view wx:if="{{index !== list.length-1 && index == 0}}" class="block1"></view>

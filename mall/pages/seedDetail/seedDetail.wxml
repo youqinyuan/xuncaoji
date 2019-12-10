@@ -1,0 +1,25 @@
+<!--pages/seedDetail/seedDetail.wxml-->
+<view class="seed">
+    <image class="seed_img" src="https://xuncj.yzsaas.cn/_download/img/seed/farm_icon.png" />
+    <text class="seed_record">种子记录</text>
+    <text class="name" bindtap="showChoose">{{tabName}}</text>
+    <image class="more_img" src="https://xuncj.yzsaas.cn/_download/img/mine/ic_more.png" bindtap="showChoose"/>
+</view>
+<!-- 多项选择 -->
+<view class="choose" wx:if="{{choose}}">
+  <block wx:for="{{arry}}" wx:key="">
+    <view class="tab" bindtap="tap" data-index="{{index}}">
+      <text>{{item}}</text>
+      <image src="https://xuncj.yzsaas.cn/_download/img/mine/ic_choose.png" class="choose_img" wx:if="{{aa==index}}" />
+    </view>
+  </block>
+</view>
+<!-- 蒙版 -->
+<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{mengban}}"></view>
+<view class="seed_box" wx:for="{{content}}" wx:key="id">
+    <text class="seed_title">{{item.remark}}</text>
+    <text class="seed_time">{{item.recordTime}}</text>
+    <!-- <text class="seed_number">100</text> -->
+    <text class="seed_number" wx:if="{{item.amount>0}}">+{{item.amount}}</text>
+     <text class="seed_number2" wx:if="{{item.amount<0}}">{{item.amount}}</text>
+</view>

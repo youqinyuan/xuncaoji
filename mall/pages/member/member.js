@@ -13,6 +13,7 @@ Page({
     inviterCode: '', //邀请码
     shareList: {}, //分享数据
     membership: false, //完成任务弹窗
+    numbership:null,//平台赠送的时间
     haibao: false,
     haibaoImg: '',
     html: '',
@@ -79,7 +80,8 @@ Page({
         }
         if (res.data.content.lastExchangeKey !== '') {
           that.setData({
-            membership: true
+            membership: true,
+            numbership: res.data.content.lastExchangeKey
           })
         }
         that.setData({
@@ -119,7 +121,6 @@ Page({
     app.Util.ajax('mall/weChat/sharing/snapshot/target', {
       mode: 4,
     }, 'GET').then((res) => {
-      console.log(res)
       if (res.data.messageCode = 'MSG_1001') {
         var cashBack = res.data.content.cashBack
         var desc = res.data.content.desc
@@ -137,9 +138,7 @@ Page({
                 height = res.screenHeight
               }
             })
-            console.log(width, height)
             var ctx = wx.createCanvasContext('mycanvas');
-            console.log(ctx)
             //绘制图片模板的背景图片
             ctx.drawImage('/assets/images/icon/bg.png', 0, 0, 0.88 * width, 0.89 * height);
             //绘制顶部红色背景

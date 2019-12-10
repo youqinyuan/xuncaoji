@@ -4,7 +4,7 @@
 <view class="notmember" wx:if="{{isMember==2}}">
   <view class="container-top">
     <view class="container-top-img">
-      <image src="../../assets/images/icon/commission_not_vip.png"></image>
+      <image src="https://xuncj.yzsaas.cn/_download/img/icon/commission_not_vip.png"></image>
     </view>
     <view class="container-top-text">您还不是合伙人无法获取佣金</view>
   </view>
@@ -25,22 +25,22 @@
   <!--佣金余额-->
   <view class="commission-balance-wrapper">
     <view class="commission-balance">
-      <image src="../../assets/images/icon/recharge_card.png"></image>
+      <image src="https://xuncj.yzsaas.cn/_download/img/icon/recharge_card.png"></image>
       <view class="balance">
         <view class="balance-money">佣金余额</view>
-        <view class="balance-num">￥{{content.balance}}</view>
+        <view class="balance-num">￥{{content.balance||0}}</view>
       </view>
     </view>
   </view>
   <!--提现-->
   <view class="withdraw-wrap">
-    <view class="withdraw" bindtap="showDetail">提现</view>
+    <view class="withdraw" bindtap="showDetail">提现到余额</view>
   </view>
   <!--佣金明细当余额大于0-->
   <!--佣金明细1-->
   <view class="commission1-details" wx:if="{{items.length > 0}}">
     <view class="commission1-img">
-      <image src="../../assets/images/icon/recharge_Detail.png"></image>
+      <image src="https://xuncj.yzsaas.cn/_download/img/icon/recharge_Detail.png"></image>
     </view>
     <view class="commission1-title">佣金明细</view>
   </view>
@@ -56,6 +56,9 @@
       </view>
       <view class="list-right1" wx:if="{{item.tradeAmount>0}}">
         <view>+{{item.tradeAmount}}</view>
+      </view>
+      <view class="list-right1" wx:if="{{item.tradeAmount==0}}">
+        <view>{{item.tradeAmount}}</view>
       </view>
     </view>
   </view>

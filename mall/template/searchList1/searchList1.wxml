@@ -42,7 +42,7 @@
     </view>
     <view class="shops-bottom">{{textToast}}</view>
     <view class="empty-wrap" wx:if="{{goodsResult.length===0}}">
-      <image class="empty-img" src="../../assets/images/icon/nohave_n.png"></image>
+      <image class="empty-img" src="https://xuncj.yzsaas.cn/_download/img/icon/nohave_n.png"></image>
       <view class="empty-content">无搜索结果，换个词试试吧~</view>
     </view>
   </view>

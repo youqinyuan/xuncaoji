@@ -1,0 +1,137 @@
+/* pages/seedDetail/seedDetail.wxss */
+page{
+    background-color: #F1F1F1;
+}
+.seed{
+    height: 98rpx;
+    position: relative;
+    border-bottom:#F1F1F1 1rpx solid;
+    background: #fff;
+}
+.seed_img{
+    width: 36rpx;
+    height: 36rpx;
+    display: inline-block;
+    position: absolute;
+    top: 31rpx;
+    left: 30rpx;
+}
+.more_img{
+    width: 16rpx;
+    height: 8rpx;
+    position: absolute;
+    top: 45rpx;
+    right: 39rpx;
+}
+.name{
+    font-size:28rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(153,153,153,1);
+    position: absolute;
+    right: 66rpx;
+    display: inline-block;
+    height: 90rpx;
+    line-height: 90rpx;
+    padding-left: 50rpx;
+}
+.seed_record{
+    font-size:32rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    position: absolute;
+    top: 26rpx;
+    left: 82rpx;
+}
+.choose {
+    width: 100%;
+    position: absolute;
+    background-color: #fff;
+    top: 108rpx;
+    z-index: 98;
+  }
+  
+  .tab {
+    height: 73rpx;
+    line-height: 73rpx;
+    margin-left: 41rpx;
+    font-size: 28rpx;
+    font-family: PingFang SC;
+    font-weight: 500;
+    color: rgba(153, 153, 153, 1);
+    position: relative;
+  }
+  
+  .tab text {
+    display: inline-block;
+    height: 50rpx;
+    line-height: 50rpx;
+  }
+  
+  .choose_img {
+    display: inline-block;
+    position: absolute;
+    top: 18rpx;
+    width: 32rpx;
+    height: 32rpx;
+    margin-left: 20rpx;
+    line-height: 70rpx;
+    /* margin-top: 20rpx; */
+  }
+  .get-zan-dialog__mask {
+    position: fixed;
+    top: 325rpx;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 99;
+  }
+  .seed_box{
+    height:120rpx;
+    border-bottom:#E7E7E7 1rpx solid;
+    position: relative;
+    background: #fff;
+  }
+.seed_title{
+    font-size:30rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    position: absolute;
+    left: 30rpx;
+    top: 27rpx;
+}
+.seed_time{
+    font-size:24rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(153,153,153,1);
+    position: absolute;
+    left: 30rpx;
+    top: 75rpx;
+}
+.seed_number{
+    font-size:32rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:rgba(255,100,23,1);
+    position: absolute;
+    right: 35rpx;
+    display: inline-block;
+    height: 120rpx;
+    line-height: 120rpx;
+}
+.seed_number2{
+    font-size:32rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:#FF2644;
+    position: absolute;
+    right: 35rpx;
+    display: inline-block;
+    height: 120rpx;
+    line-height: 120rpx;
+}
+  

@@ -2,11 +2,11 @@
 <!--会员到期日-->
 <view class="top">
   <view class="top-img">
-    <image src="../../assets/images/icon/vip_radian_bg.png"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/vip_radian_bg.png"></image>
   </view>
   <view class="expires">
-    <image wx:if="{{!expireTime}}" src="../../assets/images/icon/not_vip_card.png"></image>
-    <image wx:else src="../../assets/images/icon/vip_card.png"></image>
+    <image wx:if="{{!expireTime}}" src="https://xuncj.yzsaas.cn/_download/img/icon/not_vip_card.png"></image>
+    <image wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/vip_card.png"></image>
     <view class="expires-text1" wx:if="{{!expireTime}}">你还不是合伙人</view>
     <view class="expires-text" wx:else>
       <view class="expires-top">合伙人到期日</view>
@@ -25,7 +25,7 @@
     <view class="active-wrapper" wx:if="{{item.key==='INVITEES_COUNT'}}">
       <view class="active-list">
         <view class="sculpture">
-          <image src="../../assets/images/icon/vip_friends.png"></image>
+          <image src="https://xuncj.yzsaas.cn/_download/img/icon/vip_friends.png"></image>
         </view>
         <view class="active-item">
           <view class="active-item-invite">邀请好友</view>
@@ -38,7 +38,7 @@
     <view class="active-wrapper" wx:if="{{item.key==='RECHARGE_AMOUNT'}}">
       <view class="active-list">
         <view class="sculpture">
-          <image src="../../assets/images/icon/vip_friends1.png"></image>
+          <image src="https://xuncj.yzsaas.cn/_download/img/icon/vip_friends1.png"></image>
         </view>
         <view class="active-item">
           <view class="active-item-invite">充值满额</view>
@@ -51,7 +51,7 @@
     <view class="active-wrapper" wx:if="{{item.key==='ORDERS_COUNT'}}">
       <view class="active-list">
         <view class="sculpture">
-          <image src="../../assets/images/icon/vip_get_vip(1).png"></image>
+          <image src="https://xuncj.yzsaas.cn/_download/img/icon/vip_get_vip(1).png"></image>
         </view>
         <view class="active-item">
           <view class="active-item-invite">购买</view>
@@ -94,7 +94,7 @@
 <view class="modal-dialog" wx:if="{{show}}">
   <view class='content'>
     <view class="content-top-img">
-      <image src="../../assets/images/icon/vip_pop_title.png">
+      <image src="https://xuncj.yzsaas.cn/_download/img/icon/vip_pop_title.png">
       </image>
     </view>
     <view class="content-middle-img">
@@ -104,15 +104,15 @@
       <view class="share-text"> 我已经买了很多优惠商品了，赶快和我一起组团剁手吧!</view>
       <view class="share-wrap">
         <button class="share-button" id='btn' open-type="share">
-          <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
+          <image class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/share_wechat.png"></image>
           <view class="wx">分享好友</view>
         </button>
         <button class="share-button" id='btnGroup' open-type="share">
-          <image class="photo" src="../../assets/images/icon/share_tanc_qun_n.png"></image>
+          <image class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/share_tanc_qun_n.png"></image>
           <view class="wx">分享群</view>
         </button>
         <button class="share-button" bindtap='shareFriend'>
-          <image class="photo" src="../../assets/images/icon/share_friends.png"></image>
+          <image class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/share_friends.png"></image>
           <view class="wx">分享图片</view>
         </button>
       </view>
@@ -120,7 +120,7 @@
   </view>
 </view>
 <view class="content-cancel" wx:if="{{show}}" bindtap='cancel'>
-  <image src="../../assets/images/icon/vip_close_Pop-ups.png"></image>
+  <image src="https://xuncj.yzsaas.cn/_download/img/icon/vip_close_Pop-ups.png"></image>
 </view>
 
 <!-- 海报弹框 -->
@@ -134,9 +134,9 @@
 <!-- 会员完成任务弹窗 -->
 <view class="mask_task" wx:if="{{membership}}"></view>
 <view class="membership-box" wx:if="{{membership}}">
-  <image class="membership-box-bg" mode='widthFix' src="../../assets/images/icon/vip_fishied_bg.png"></image>
-  <image class="membership-box-img" mode='widthFix' src="../../assets/images/icon/vip_tag.png"></image>
+  <image class="membership-box-bg" mode='widthFix' src="https://xuncj.yzsaas.cn/_download/img/icon/vip_fishied_bg.png"></image>
+  <image class="membership-box-img" mode='widthFix' src="https://xuncj.yzsaas.cn/_download/img/icon/vip_tag.png"></image>
   <view class="membership-box-text">哇哦,恭喜你完成任务啦!</view>
-  <view class="membership-box-text1">平台赠送一个年合伙人特权表示感谢</view>
+  <view class="membership-box-text1">平台赠送{{numbership}}个月合伙人特权表示感谢</view>
   <button class="membership-box-btn" bindtap='cancelBox'>谢谢</button>
 </view>

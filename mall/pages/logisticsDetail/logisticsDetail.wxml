@@ -1,7 +1,7 @@
 <!--pages/logisticsDetail/logisticsDetail.wxml-->
 <view class="log-wrap">
   <view class="log-top">
-    <image src="/assets/images/icon/ic_logistics.png"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_logistics.png"></image>
     <view class="text">该订单已拆成{{logisticsDetailList.length}}个包裹发出，点击查看具体物流详情</view>
   </view>
   <view class="log-detail" bindtap='go_logistics' wx:for="{{logisticsDetailList}}" wx:key="{{}}" data-logisticsid="{{item.id}}">
@@ -17,7 +17,7 @@
       </view>
     </scroll-view>
   </view>
-  <view class="log-no" wx:for="{{goodsImageList}}" wx:if="{{goodsImageList.length>0}}" wx:for-item="imageUrl">
+  <view class="log-no" wx:for="{{goodsImageList}}" wx:if="{{goodsImageList.length>0}}" wx:for-item="imageUrl" wx:key="">
     <view class="log-no-item">以下商品暂未发货，请耐心等待或是联系商家处理。</view>
     <scroll-view class="log-no-scroll" scroll-x="true">
       <view class="log-no-img">

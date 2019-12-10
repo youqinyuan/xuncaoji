@@ -6,7 +6,7 @@
     <view class="store-wrapper">
       <view class="store-container" wx:if="{{shops.length ===0 }}">
         <view class="store-item">
-          <image src="../../../assets/images/icon/gouwuche_no_n.png" class="store-img"></image>
+          <image src="https://xuncj.yzsaas.cn/_download/img/icon/gouwuche_no_n.png" class="store-img"></image>
         </view>
         <view class="store-text">还没有商品呦</view>
       </view>
@@ -23,7 +23,7 @@
               </view>
               <checkbox class="goods-view" checked="{{item.checked}}"></checkbox>
               <image src="{{item.imageUrl}}" class="goods-view-img"></image>
-              <view class="goods-view-wrapper" data-id="{{item.goodsId}}" bindtap='toDetail'>
+              <view class="goods-view-wrapper" data-id="{{item.goodsId}}" data-status="{{item.status}}" bindtap='toDetail'>
                 <view class="goods-view-name">{{item.goodsName}}</view>
                 <view class="goods-view-spcDesc">{{item.spcDesc}}</view>
                 <view class="goods-view-bottom">

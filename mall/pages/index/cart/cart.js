@@ -10,8 +10,8 @@ Page({
     pageNumber: 1,
     pageSize: 20,
     checkedAll: false, //全选
-    showDialog:false,
-    priceAll: 0,//选择的价格
+    showDialog: false,
+    priceAll: 0, //选择的价格
     cardIds: [], //购物车id集合
     cartDetails: [],
     id: 1,
@@ -191,6 +191,11 @@ Page({
       shops: list1,
       priceAll: price
     });
+    if (that.data.checkedAll == false) {
+      that.setData({
+        cardIds: []
+      })
+    }
   },
   /* 点击减号 */
   bindMinus: function(e) {
@@ -284,6 +289,7 @@ Page({
     var status = []
     if (cardIds.length > 0) {
       var cardIds = JSON.stringify(that.data.cardIds);
+      var cardIds2 = that.data.cardIds;
       for (var i = 0; i < shops.length; i++) {
         for (var j = 0; j < shops[i].cartDetails.length; j++) {
           if (shops[i].cartDetails[j].checked == true) {
@@ -297,15 +303,18 @@ Page({
           icon: 'none'
         })
       } else {
-        app.Util.ajax('mall/order/checkCart', cardIds, 'POST').then((res) => {
-        //  console.log('cardIds:'+cardIds)
-        //  console.log('购物车结算：'+JSON.stringify(res.data))
+        app.Util.ajax('mall/order/checkCart',
+        {
+          cardIds:cardIds2
+        }, 'POST').then((res) => {
+          //  console.log('cardIds:'+cardIds)
+          //  console.log('购物车结算：'+JSON.stringify(res.data))
           if (res.data.content) {
             wx.navigateTo({
               url: `/pages/placeorder/placeorder?cardIds=${cardIds}`
             })
             //跳转页面后，合计为0，结算按钮变灰色,取消全选状态,选中的商品为空
-            setTimeout(function () {
+            setTimeout(function() {
               that.setData({
                 priceAll: 0,
                 color: '#BDBDBD',
@@ -338,9 +347,22 @@ Page({
   //跳转到详情页
   toDetail: function(e) {
     const id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: `/pages/detail/detail?id=${id}`,
-    })
+    const status = e.currentTarget.dataset.status
+    if (status == 2) {
+      wx.showToast({
+        title: '商品已下架',
+        icon: 'none'
+      })
+    } else if (status == 3) {
+      wx.showToast({
+        title: '商品已失效',
+        icon: 'none'
+      })
+    } else {
+      wx.navigateTo({
+        url: `/pages/detail/detail?id=${id}`,
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -365,12 +387,11 @@ Page({
       pageNumber: that.data.pageNumber,
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
-    //  console.log("购物车详情:"+JSON.stringify(res.data))
+      //  console.log("购物车详情:"+JSON.stringify(res.data))
       if (res.data.content) {
-        console.log(res)
-          that.setData({
-            shops: res.data.content.items
-          })  
+        that.setData({
+          shops: res.data.content.items
+        })
         for (var i = 0; i < that.data.shops.length; i++) {
           that.data.shops[i]['checkeedAll'] = false
           that.data.shops[i]['index'] = 0
@@ -379,11 +400,11 @@ Page({
             that.data.shops[i].cartDetails[j]['index'] = j
           }
         }
-      } else{
+      } else {
         wx.showToast({
           title: res.data.message,
-          icon:'none',
-          duration:1500
+          icon: 'none',
+          duration: 1500
         })
       }
     })
@@ -412,14 +433,17 @@ Page({
             pageNumber: pageNumber
           })
         }
-        for (var i = 0; i < that.data.shops.length; i++) {
-          that.data.shops[i]['checkeedAll'] = false
-          that.data.shops[i]['index'] = 0
-          for (var j = 0; j < that.data.shops[i].cartDetails.length; j++) {
-            that.data.shops[i].cartDetails[j]['checked'] = false
-            that.data.shops[i].cartDetails[j]['index'] = j
-          }
+        if (that.data.checkedAll == false) {
+
+        } else {
+          that.setData({
+            cardIds: [],
+            checkedAll: false,
+            priceAll: 0
+          })
+          that.AllTap()
         }
+
       }
     })
   },
@@ -463,22 +487,22 @@ Page({
       showDialog: false
     })
   },
-  toApplyZero:function(e){
-   // console.log("查看零元购"+JSON.stringify(e.target.dataset))
+  toApplyZero: function(e) {
+    // console.log("查看零元购"+JSON.stringify(e.target.dataset))
     //零元购期数，预期钱，需要的钱，规格，数量
     var arr = {}
-     arr.cashbackperiods = e.target.dataset.cashbackperiods
-     arr.expectedamount = e.target.dataset.expectedamount
-     arr.needpaymentamount = e.target.dataset.needpaymentamount
-     arr.quantity = e.target.dataset.quantity
-     arr.stockid = e.target.dataset.stockid
-     arr.goodsid = e.target.dataset.goodsid
-     arr.shoppingcartgoodsid = e.target.dataset.shoppingcartgoodsid,
-     arr.cashbackperiods = e.target.dataset.cashbackperiods,
-     arr.expectedAmount = e.target.dataset.expectedamount
-     var obj = JSON.stringify(arr)
+    arr.cashbackperiods = e.target.dataset.cashbackperiods
+    arr.expectedamount = e.target.dataset.expectedamount
+    arr.needpaymentamount = e.target.dataset.needpaymentamount
+    arr.quantity = e.target.dataset.quantity
+    arr.stockid = e.target.dataset.stockid
+    arr.goodsid = e.target.dataset.goodsid
+    arr.shoppingcartgoodsid = e.target.dataset.shoppingcartgoodsid,
+      arr.cashbackperiods = e.target.dataset.cashbackperiods,
+      arr.expectedAmount = e.target.dataset.expectedamount
+    var obj = JSON.stringify(arr)
     wx.navigateTo({
-      url:'/pages/applyZero/applyZero?arr='+obj
+      url: '/pages/applyZero/applyZero?arr=' + obj
     })
   },
   /**
@@ -492,12 +516,49 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    const that = this
-    that.onLoad()
-    that.setData({
-      pageNumber: 1
-    })
-    // that.init()
+    var that = this
+    if (wx.getStorageSync('cartStatus')) {
+      that.setData({
+        pageNumber: 1
+      })
+      wx.pageScrollTo({
+        scrollTop: 0,
+      })
+      that.onLoad()
+      wx.removeStorageSync('cartStatus')
+    } else {
+      var priceAll = 0;
+      var cardIds = [];
+      var datarr = [];
+      for (var b = 0; b < that.data.shops.length; b++) {
+        if (that.data.shops[b].checkeedAll == true) {
+          datarr.push(that.data.shops[b]);
+        }
+        var datacount = that.data.shops[b].cartDetails;
+        for (var c = 0; c < datacount.length; c++) {
+          if (datacount[c].checked == true) {
+            cardIds.push(datacount[c].id)
+            priceAll += datacount[c].goodsPrice * datacount[c].quantity;
+            that.setData({
+              color: '#FF2644',
+              priceAll: priceAll,
+              cardIds: cardIds,
+            });
+          }
+        }
+      }
+      if (that.data.shops.length > 0) {
+        if (that.data.shops.length === datarr.length) {
+          that.setData({
+            checkedAll: true
+          });
+        } else {
+          that.setData({
+            checkedAll: false,
+          });
+        }
+      }
+    }
   },
 
   /**
@@ -519,6 +580,13 @@ Page({
    */
   onPullDownRefresh: function() {
     var that = this
+    that.setData({
+      pageNumber: 1,
+      cardIds: [],
+      checkedAll: false,
+      priceAll: 0,
+      color: '#BDBDBD'
+    })
     that.onLoad()
     wx.stopPullDownRefresh() //停止下拉刷新
   },
@@ -539,8 +607,8 @@ Page({
       path: "/pages/index/cart/cart?inviterCode=" + wx.getStorageSync('inviterCode'),
     }
   },
-  againCalculate:function(e){
-  //  console.log("重新计算:"+e.target.dataset.shoppingcartgoodsid)
+  againCalculate: function(e) {
+    //  console.log("重新计算:"+e.target.dataset.shoppingcartgoodsid)
     var arr = {}
     arr.stockId = e.target.dataset.stockid
     arr.goodsId = e.target.dataset.goodsid
@@ -548,7 +616,7 @@ Page({
     e.target.dataset.shoppingcartgoodsid
     var tempList = JSON.stringify(arr)
     wx.navigateTo({
-      url:'/pages/applyZero/applyZero?detailObj='+tempList+'&&reviseStatus2=1'+'&&shoppingcartgoodsid='+e.target.dataset.shoppingcartgoodsid
+      url: '/pages/applyZero/applyZero?detailObj=' + tempList + '&&reviseStatus2=1' + '&&shoppingcartgoodsid=' + e.target.dataset.shoppingcartgoodsid
     })
   }
 })

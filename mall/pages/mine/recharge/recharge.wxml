@@ -2,20 +2,20 @@
 <!--账户余额-->
 <view class="account-balance-wrapper">
   <view class="account-balance">
-    <image src="../../../assets/images/icon/recharge_card.png"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/recharge_card.png"></image>
     <view class="balance">
       <view class="balance-money">账户余额</view>
-      <view class="balance-num">￥ {{content.balance}}</view>
-      <view class="balance-text" wx:if="{{content.noCashBackAmount}}">未到账返现共计（不含退款）：{{content.noCashBackAmount}}元</view>
-      <view class="balance-text" wx:else>未到账返现共计（不含退款）：0元</view>
+      <view class="balance-num">￥ {{content.balance?content.balance:0}}</view>
+      <view class="balance-text" wx:if="{{content.noCashBackAmount}}">待返金额：{{content.noCashBackAmount}}元</view>
+      <view class="balance-text" wx:else>待返金额：0元</view>
        <view class="select" bindtap="toReentryDetail">查看</view>
     </view>
   </view>
 </view>
 <!--充值、余额明细-->
-<view class="detail">
+<view class="detail2 bord2">
   <view class="detail-list bord" bindtap="showRecharge">
-    <image class="detail-list-img" src="../../../assets/images/icon/recharge_money.png"></image>
+    <image class="detail-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/recharge_money.png"></image>
     <view class="detail-list-text">充值</view>
   </view>
   <!--充值弹窗-->
@@ -33,8 +33,18 @@
     </view>
   </view>
   <view class="detail-list" bindtap="accountDetail">
-    <image class="detail-list-img" src="../../../assets/images/icon/recharge_withdraw.png"></image>
+    <image class="detail-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/recharge_Detail.png"></image>
     <view class="detail-list-text">余额明细</view>
+  </view>
+</view>
+<view class="detail">
+  <view class="detail-list bord" bindtap="refundDetail">
+    <image class="detail-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/recharge_czhituik.png"></image>
+    <view class="detail-list-text">充值退款</view>
+  </view>
+  <view class="detail-list" bindtap="cancleDetail">
+    <image class="detail-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/recharge_quxtxian.png"></image>
+    <view class="detail-list-text">取消提现</view>
   </view>
 </view>
 <!--提现-->
@@ -42,6 +52,6 @@
 <!--提现弹窗-->
 <view class="modal-mask1" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
 <view class="modal" wx:if="{{show}}" bindtap="hide">
-  <image class="modal-img" src="/assets/images/icon/withdraw.png"></image>
-  <image class="modal-cancel" src="/assets/images/icon/tanc_close_n.png" bindtap="hide"></image>
+  <image class="modal-img" src="https://xuncj.yzsaas.cn/_download/img/icon/withdraw.png"></image>
+  <image class="modal-cancel" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_close_n.png" bindtap="hide"></image>
 </view>

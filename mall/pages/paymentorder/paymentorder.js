@@ -31,15 +31,15 @@ Page({
     showPassword: false, //设置支付密码弹框
     showStop:false,
     orderType:null,
-    message: '微信支付时，请在支付方式内选择信用卡支付，其他方式支付自动退款。'
+    message: '微信支付时，请在支付方式内选择信用卡支付，其他方式支付自动退款。',
+    amount:null
   },
   //支付
   pay: function(e) {
     var that = this
-    // return
     if (that.data.channel == 1) {
       if (that.data.content.paymentAmount > 0 && that.data.content.paymentAmount < 10) {
-        if (that.data.balance <= 0 || that.data.content.paymentAmount > that.data.balance) {
+        if (that.data.content.balance <= 0 || that.data.content.paymentAmount > that.data.content.balance) {
           that.setData({
             showDialog: true
           });
@@ -56,9 +56,15 @@ Page({
           }, 'POST').then((res) => { // 使用ajax函数
             if (res.data.content) {
               if (res.data.content.balance.success == 1) {
-                wx.navigateTo({
-                  url: `/pages/myorder/myorder?status=${0}`,
-                })
+                if (that.data.amount) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                } else {
+                  wx.navigateTo({
+                    url: `/pages/myorder/myorder?status=${2}`,
+                  })
+                }       
               }
             }
           })
@@ -74,7 +80,7 @@ Page({
               })
             } else {
               //已设置密码
-              if (that.data.balance <= 0 || that.data.content.paymentAmount > that.data.balance) {
+              if (that.data.content.balance <= 0 || that.data.content.paymentAmount > that.data.content.balance) {
                 that.setData({
                   showDialog: true
                 });
@@ -100,9 +106,15 @@ Page({
         }, 'POST').then((res) => { // 使用ajax函数
           if (res.data.content) {
             if (res.data.content.balance.success == 1) {
-              wx.navigateTo({
-                url: `/pages/myorder/myorder?status=${0}`,
-              })
+              if (that.data.amount) {
+                wx.navigateBack({
+                  delta: 1
+                })
+              } else {
+                wx.navigateTo({
+                  url: `/pages/myorder/myorder?status=${2}`,
+                })
+              }       
             }
           }
         })
@@ -131,55 +143,65 @@ Page({
               }, 'GET').then((res) => {
                 if (res.data.content) {
                   if (res.data.content.status === 'SUCCESS') {
-                    console.log(JSON.stringify(res.data.content))
                     if(res.data.content.bankCardType==2&&that.data.options.type==2){
                       //信用卡用户
                       console.log("支付卡类型:"+res.data.content.bankCardType)
                       app.globalData.creditCard = 1
                     }
-                    wx.navigateTo({
-                      url: `/pages/myorder/myorder?status=${0}`,
-                    })
-                  } else if (res.data.content = null) {
-                    wx.showToast({
-                      title: '订单不存在',
-                      icon: 'none'
-                    })
-                  } else if (res.data.content.status = 'REFUND') {
+                    if (that.data.amount) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    } else {
+                      wx.navigateTo({
+                        url: `/pages/myorder/myorder?status=${2}`,
+                      })
+                    }       
+                  }else if (res.data.content.status === 'REFUND') {
                     wx.showToast({
                       title: '转入退款',
                       icon: 'none'
                     })
-                  } else if (res.data.content.status = 'NOTPAY') {
+                  } else if (res.data.content.status === 'NOTPAY') {
                     wx.showToast({
                       title: '未支付',
                       icon: 'none'
                     })
-                  } else if (res.data.content.status = 'CLOSED') {
+                  } else if (res.data.content.status === 'CLOSED') {
                     wx.showToast({
                       title: '已关闭',
                       icon: 'none'
                     })
-                  } else if (res.data.content.status = 'REVOKED') {
+                  } else if (res.data.content.status === 'REVOKED') {
                     wx.showToast({
                       title: '已撤销',
                       icon: 'none'
                     })
-                  } else if (res.data.content.status = 'USERPAYING') {
+                  } else if (res.data.content.status === 'USERPAYING') {
                     wx.showToast({
                       title: '用户支付中',
                       icon: 'none'
                     })
-                  } else if (res.data.content.status = 'PAYERROR') {
+                  } else if (res.data.content.status === 'PAYERROR') {
                     wx.showToast({
                       title: '支付失败',
                       icon: 'none'
                     })
                   }
-                }
+                } else{
+                  wx.showToast({
+                    title: res.data.message,
+                    icon: 'none'
+                  })
+                } 
               })
             },
             fail(res) {}
+          })
+        }else{
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
           })
         }
       })
@@ -246,9 +268,21 @@ Page({
           }, 'POST').then((res) => { // 使用ajax函数
             if (res.data.content) {
               if (res.data.content.balance.success == 1) {
-                wx.navigateTo({
-                  url: `/pages/myorder/myorder?status=${0}`,
-                })
+                if(that.data.amount){
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }else{
+                  if (that.data.amount) {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  } else {
+                    wx.navigateTo({
+                      url: `/pages/myorder/myorder?status=${2}`,
+                    })
+                  }       
+                }                
                 that.setData({
                   show: false,
                   isFocus: false
@@ -304,9 +338,6 @@ Page({
       isFocus: false,
       Value: ''
     })
-    // wx.navigateTo({
-    //   url: `/pages/myorder/myorder?status=${1}`
-    // })
   },
   Tap() {
     var that = this;
@@ -336,9 +367,9 @@ Page({
    */
   onLoad: function(options) {
     var that = this
-    console.log(options.orderType)
     that.setData({
       options: options,
+      amount:options.amount,
       orderType: parseInt(options.orderType)
     })
     if (that.data.orderType ===4){
@@ -382,14 +413,6 @@ Page({
       paymentAmount: parseInt(options.actualPrice),
       cashBack: parseInt(options.cashBack),
     })
-    //获取余额
-    app.Util.ajax('mall/personal/dashboard', 'GET').then((res) => { // 使用ajax函数
-      if (res.data.messageCode = 'MSG_1001') {
-        that.setData({
-          balance: res.data.content.balance
-        })
-      }
-    })
     if (options.orderId) {
       app.Util.ajax('mall/order/queryTransStatementInfo', {
         orderId: orderId
@@ -415,10 +438,19 @@ Page({
                   })
 
                 } else {
-                  clearInterval(interval2)
-                  wx.navigateTo({
-                    url: `/pages/myorder/myorder?status=${0}`
-                  })
+                  clearInterval(interval2)                  
+                  let pages = getCurrentPages()
+                  if (pages[pages.length - 1].route == 'pages/paymentorder/paymentorder' || pages[pages.length - 1].route =='pages/orderDetail/orderDetail') {
+                    if (that.data.amount) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    } else {
+                      wx.navigateTo({
+                        url: `/pages/myorder/myorder?status=${2}`,
+                      })
+                    }       
+                  }
                   that.setData({
                     time: ''
                   })
@@ -448,9 +480,18 @@ Page({
 
             } else {
               clearInterval(interval2)
-              wx.navigateTo({
-                url: `/pages/myorder/myorder?status=${0}`
-              })
+              let pages = getCurrentPages()
+              if (pages[pages.length - 1].route == 'pages/paymentorder/paymentorder' || pages[pages.length - 1].route == 'pages/orderDetail/orderDetail') {
+                if (that.data.amount) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                } else {
+                  wx.navigateTo({
+                    url: `/pages/myorder/myorder?status=${2}`,
+                  })
+                }       
+              }
               that.setData({
                 time: ''
               })

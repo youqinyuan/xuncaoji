@@ -1,0 +1,18 @@
+<!--pages/leaveWish/leaveWish.wxml-->
+<textarea placeholder="请输入您想要物品的名称或购买链接等信息，您输入的信息越全面，您的心愿就会越快满足哦..." maxlength="{{2000}}" bindinput="getTextareaValue" data-index="{{index}}">
+</textarea>
+<view class="img_wrap">
+  <view class="commentImg_wrap" wx:for="{{goodsData.imgList}}" wx:key="items" wx:for-item="items">
+    <image src="{{items}}" catchtap="imgYu" data-src="{{items}}"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/wishpool/ic_del.png" class="close" catchtap="deleteImg" data-index="{{index}}"></image>
+  </view>
+  <image src="https://xuncj.yzsaas.cn/_download/img/wishpool/pic_02.png" catchtap="choiceImg" data-index="{{index}}" wx:if="{{goodsData.imgList.length<5}}"></image>
+</view>
+<view class="btn">
+  <button class="btn1" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" open-type="contact" bindcontact="handleContact">咨询客服</button>
+  <view class="btn2" bindtap="submit">提交心愿</view>
+</view>
+
+
+<!-- 压缩上传图片使用 -->
+<canvas canvas-id="canvas" style="width:200px;height:200px;position: absolute;left:-1000px;top:-1000px;"></canvas>

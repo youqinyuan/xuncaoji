@@ -1,0 +1,62 @@
+/* pages/newMessage/newMessage.wxss */
+
+.container_top {
+  overflow: hidden;
+  border-bottom: 2rpx solid #e7e7e7;
+}
+
+.content {
+  display: flex;
+  margin-top: 30rpx;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.content_left {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+}
+
+.content_left image {
+  border-radius: 50%;
+  width: 64rpx;
+  height: 64rpx;
+  margin-right: 26rpx;
+}
+
+.content_right {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.reply_content {
+  margin-left: 124rpx;
+  padding-bottom: 30rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+}
+
+.reply {
+  color: #ff6417;
+}
+
+.bottomText {
+  background: #fff;
+  height: 130rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #aaa;
+}
+
+.bottom_text {
+  padding: 0 10rpx;
+}

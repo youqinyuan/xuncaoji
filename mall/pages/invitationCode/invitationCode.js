@@ -21,7 +21,8 @@ Page({
     if (that.data.inputValue == '' || that.data.inputValue.length > 8) {
       wx.showToast({
         title: '请输入正确的邀请码',
-        icon: 'none'
+        icon: 'none',
+        duration:2000
       })
     } else {
       wx.setStorageSync('inviterCode1', that.data.inputValue)
@@ -40,6 +41,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.setStorageSync("freeBuyStatus",1)
     wx.removeStorage({
       key: 'tips',
       success: function(res) {},
@@ -100,6 +102,23 @@ Page({
     // wx.reLaunch({
     //   url: '/pages/index/index',
     // })
+    var pages = getCurrentPages()
+    console.log(pages[0].route)
+    console.log(JSON.stringify(pages[pages.length-2].route))
+    var loginStatus = wx.getStorageSync('loginStatus')
+    console.log("aaa"+loginStatus)
+    if(loginStatus){
+
+    }else{
+      if(pages[0].route == "pages/wishpool/wishpool"||pages[pages.length-2].route == "pages/detail/detail"||pages[0].route == "pages/index/index"){
+
+      }else{
+        wx.navigateBack({
+          delta: 1
+        })
+      }
+    }
+    
   },
 
   /**

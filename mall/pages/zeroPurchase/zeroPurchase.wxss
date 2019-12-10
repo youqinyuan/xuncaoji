@@ -184,6 +184,16 @@ page {
   color: rgba(255, 255, 255, 1);
   margin-right: 10rpx;
 }
+.goods-channel2 {
+  padding: 2rpx 12rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  border-radius: 14rpx;
+  font-size: 20rpx;
+  margin-right: 10rpx;
+  color: #FF2644;
+  border: 2rpx solid #FF2644;
+}
 
 /* .goods-zero {
   padding: 2rpx 12rpx;
@@ -456,13 +466,15 @@ page {
   text-align: center;
   z-index: 999;
 }
-.modal-dialog1 .cancel-img{
+
+.modal-dialog1 .cancel-img {
   width: 50rpx;
   height: 50rpx;
   position: absolute;
   right: 285rpx;
   top: 555rpx;
 }
+
 .modal-dialog1 .share-text {
   position: absolute;
   top: 5%;
@@ -553,7 +565,7 @@ button::after {
   position: absolute;
   left: 84rpx;
   top: 100rpx;
-   z-index: 999;
+  z-index: 999;
 }
 
 .content_wrap > image {
@@ -979,7 +991,9 @@ button::after {
   font-weight: normal;
   color: rgba(255, 255, 255, 1);
 }
+
 /* 弹窗 */
+
 .stop-zan-dialog__mask {
   position: fixed;
   top: 0;
@@ -1056,7 +1070,8 @@ button::after {
   display: inline-block;
   text-align: center;
 }
-.buttonStop{
+
+.buttonStop {
   width: 440rpx;
   height: 76rpx;
   line-height: 76rpx;
@@ -1065,7 +1080,7 @@ button::after {
   background: #ff2644;
   margin: 0 auto;
   text-align: center;
-  border-radius: 38rpx; 
+  border-radius: 38rpx;
   position: absolute;
   top: 710rpx;
   left: 104rpx;
@@ -1132,4 +1147,3 @@ button::after {
   top: 720rpx;
   left: 104rpx;
 }
-

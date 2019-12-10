@@ -1,0 +1,54 @@
+<!--pages/cancleDetail/cancleDetail.wxml-->
+<view class="wrapper">
+  <view class="list" wx:for="{{items}}" wx:key="{{items.id}}">
+    <view class="box1" wx:if="{{item.status==1}}">
+      <view class="list-left">
+        <view class="list-left-top">
+        提现金额：￥{{item.tradeAmount}}
+        </view>
+        <view class="list-left-bottom">
+          <view class="list-left-bottom-year2">银行卡号：{{item.bankCardNumber}}</view>
+        </view>
+        <view class="list-left-bottom">
+          <view class="list-left-bottom-year">{{item.tradeTime}}</view>
+        </view>
+      </view>
+      <view class="list-right">
+          <view class="refundButon" bindtap="returnedMoney" data-orderid="{{item.id}}">取消提现</view>
+      </view>
+    </view>
+    <view class="box1" wx:if="{{item.status==3}}">
+      <view class="list-left">
+        <view class="list-left-top">
+        提现金额：￥{{item.tradeAmount}}
+        </view>
+        <view class="list-left-bottom">
+          <view class="list-left-bottom-year2">银行卡号：{{item.bankCardNumber}}</view>
+        </view>
+        <view class="list-left-bottom">
+          <view class="list-left-bottom-year">{{item.tradeTime}}</view>
+        </view>
+      </view>
+      <view class="list-right">
+          <view class="refundButon2">已取消</view>
+      </view>
+    </view>
+  </view>
+  <view class="list-text">{{text}}</view>
+  <view class="list1" wx:if="{{items.length===0}}">暂无数据</view>
+</view>
+<!-- 退款弹窗 -->
+<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>
+<view class="stop-zan-dialog__container" wx:if="{{showDialog}}">
+  <view class='stop-content'>
+    <view class="stop-content-title">提示</view>
+    <view class="stop-content-container">
+      <view>确认取消提现？</view>
+    </view>
+    <view class="stop-content-button">
+      <view class="stop-reject" catchtap='cancel'>取消</view>
+      <button class="stop-comfirm" bindtap="comfire" >确定</button>
+    </view>
+  </view>
+</view>
+

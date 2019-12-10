@@ -174,7 +174,7 @@ rich-text {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 8rpx;
+  padding:20rpx 0;
 }
 
 .list-left {
@@ -183,10 +183,10 @@ rich-text {
 
 .list-left-top {
   width: 550rpx;
-  margin-top: 30rpx;
   font-size: 30rpx;
   color: rgba(51, 51, 51, 1);
 }
+
 
 .list-left-bottom-year {
   font-size: 24rpx;
@@ -196,7 +196,6 @@ rich-text {
 
 .list-right {
   margin-right: 29rpx;
-  margin-top: 40rpx;
   color: rgba(227, 58, 89, 1);
 }
 

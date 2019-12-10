@@ -1,12 +1,14 @@
 // pages/applyZero/applyZero.js
 var time = require('../../utils/util.js');
 let app = getApp()
+var newCount = true //节流阀-限制购买提交次数
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    buyType:1,
     showPeriod: false, //想要的分期月数
     showDialog: false, //返现明细表
     showModal: false, //利息明细表
@@ -42,7 +44,15 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    if(options.buyType){
+      //  var goodsType = JSON.parse(options.detailObj).goodsType
+      //  console.log("goodsType:"+goodsType)
+       that.setData({
+        buyType:options.buyType
+       })
+    }
     if (options.arr) {
+      console.log(111)
       var arr = JSON.parse(options.arr)
       //  console.log('购物车id：'+arr.shoppingcartgoodsid)
       var obj = {}
@@ -59,6 +69,7 @@ Page({
       })
       that.getInit(obj.stockId)
     } else {
+      // console.log(222)
       if (options.reviseStatus2) {
         var obj = JSON.parse(options.detailObj)
         // console.log("aaa"+JSON.stringify(obj))
@@ -69,7 +80,13 @@ Page({
         })
         that.getInit(obj.stockId)
       } else {
-        var obj = JSON.parse(options.detailObj)
+        // console.log(33)
+        // console.log(options)
+         var obj = {}
+        obj.goodsId = options.goodsId
+        obj.stockId = options.stockId
+        obj.quantity = options.quantity
+        // console.log(JSON.stringify(obj))
         //  console.log("aaa"+JSON.stringify(obj))
         that.setData({
           goodsMsg: obj
@@ -107,6 +124,12 @@ Page({
           that.compute();
         }
 
+      }else{
+        wx.showToast({
+          title: res.data.message,
+          icon:'none',
+          duration:1000
+        })
       }
     })
   },
@@ -185,6 +208,12 @@ Page({
         that.setData({
           payMsg: res.data.content
         })
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none',
+          duration: 1000
+        })
       }
     })
   },
@@ -212,13 +241,17 @@ Page({
         that.setData({
           payMsg: res.data.content
         })
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none',
+          duration: 1000
+        })
       }
     })
   },
   addOrCompute: function() {
-    console.log(111)
     var that = this
-    console.log(22)
     // if(this.data.reviseStatus3==0){
     //   wx.showToast({
     //     title:'请刷新计算',
@@ -234,16 +267,12 @@ Page({
         // cashBackId: cashbackId
       }, 'GET').then((res) => {
         if (res.data.messageCode == "MSG_1001") {
-          console.log(res)
-          console.log("修改成功")
           wx.showToast({
             title: '修改成功',
             icon: 'none'
           })
 
         } else {
-          console.log(res)
-          console.log("修改失败")
           wx.showToast({
             title: '修改失败,请稍后再试',
             icon: 'none'
@@ -253,7 +282,6 @@ Page({
         //   console.log(res.data)
       })
     } else {
-      console.log(44)
       app.Util.ajax('mall/cart/addShoppingCart', {
         goodsId: that.data.goodsMsg.goodsId,
         stockId: that.data.goodsMsg.stockId,
@@ -434,18 +462,16 @@ Page({
   },
   //自定义输入点击计
   payNow: function() {
-    var that = this
-    console.log("直接支付");
-    // if(this.data.reviseStatus3==0){
-    //   wx.showToast({
-    //     title:'请刷新计算',
-    //     icon:"none"
-    //   })
-    // }else{
-    wx.navigateTo({
-      url: '/pages/placeorder/placeorder?goodsId=' + this.data.goodsMsg.goodsId + '&&stockId=' + this.data.goodsMsg.stockId + '&&quantity=' + this.data.goodsMsg.quantity + '&&goodsType=applyZero' + '&&needPaymentAmount=' + this.data.payMsg.needPaymentAmount + '&&cashBackPeriods=' + this.data.cashMsg.cashBackPeriods + '&&expectedAmount=' + this.data.cashMsg.expectedAmount
-    })
-    // }
+    var that = this;
+    if(newCount){
+      newCount = false
+      wx.navigateTo({
+        url: '/pages/placeorder/placeorder?goodsId=' + this.data.goodsMsg.goodsId + '&&stockId=' + this.data.goodsMsg.stockId + '&&quantity=' + this.data.goodsMsg.quantity + '&&goodsType=applyZero' + '&&needPaymentAmount=' + this.data.payMsg.needPaymentAmount + '&&cashBackPeriods=' + this.data.cashMsg.cashBackPeriods + '&&expectedAmount=' + this.data.cashMsg.expectedAmount+'&&buyType='+this.data.buyType
+      })
+    }
+    setTimeout(function(){
+      newCount=true
+    },1000)
   },
   //期望付款
   expectedAmountNumber: function(e) {
@@ -702,5 +728,10 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  toapplyRule:function(){
+    wx.navigateTo({
+      url: "/pages/applyRule/applyRule"
+    })
   }
 })

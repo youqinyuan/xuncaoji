@@ -1,0 +1,253 @@
+/* pages/myWish/myWish.wxss */
+
+/* 有心愿的时候 */
+
+.page {
+  display: block;
+  min-height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.wish-wrap {
+  margin-top: 20rpx;
+}
+
+.list {
+  overflow: hidden;
+  margin: 0 auto;
+  margin-bottom: 30rpx;
+  width: 690rpx;
+  height: 235rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 8rpx;
+}
+
+.listTitle {
+  margin: 0 30rpx;
+  margin-top: 32rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-height: 85rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.listTitle1 {
+  margin: 0 30rpx;
+  margin-top: 32rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-height: 85rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.listBtn {
+  position: relative;
+  margin: 0 30rpx;
+  margin-top: 32rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.listBtn .text {
+  margin-top: 10rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 38, 68, 1);
+}
+
+.listBtn .text1 {
+  margin-top: 10rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #aaa;
+}
+
+.listBtn .btn1 {
+  width: 240rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  text-align: center;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 32rpx;
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.listBtn button {
+  width: 240rpx;
+  height: 64rpx;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 2rpx solid #ff2644;
+  border-radius: 32rpx;
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #ff2644;
+  line-height: 64rpx;
+}
+
+.listBtn .btn3 {
+  width: 240rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  text-align: center;
+  background: rgba(189, 189, 189, 1);
+  border-radius: 32rpx;
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.add_wish {
+  display: flex;
+  width: 170rpx;
+  margin: 0 auto;
+  margin-top: 30rpx;
+}
+
+.add_wish image {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+  margin-top: 7rpx;
+}
+
+.add_wish .add_text {
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 38, 68, 1);
+}
+
+.long_del {
+  margin: 0 auto;
+  margin-top: 26rpx;
+  margin-bottom: 30rpx;
+  width: 175rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(153, 153, 153, 1);
+}
+
+.img {
+  display: block;
+  width: 200rpx;
+  height: 200rpx;
+  margin: 0 auto;
+  margin-top: 250rpx;
+}
+
+.img_text {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+  text-align: center;
+}
+
+/* 删除按钮 */
+
+/* 弹框 */
+
+.zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.zan-dialog__container {
+  width: 540rpx;
+  height: 282rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 110rpx;
+  z-index: 9999;
+}
+
+/* 弹框内容 */
+
+.content {
+  text-align: center;
+  overflow: hidden;
+}
+
+.content-title {
+  margin-top: 44rpx;
+  margin-bottom: 10rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.content-container {
+  width: 372rpx;
+  height: 66rpx;
+  margin-left: 100rpx;
+  margin-bottom: 35rpx;
+  font-size: 30rpx;
+  text-align: center;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content-button {
+  display: flex;
+  height: 66rpx;
+  border-top: 2rpx solid #eaeaea;
+}
+
+.reject {
+  border-right: 2rpx solid #eaeaea;
+  width: 270rpx;
+  height: 75rpx;
+  line-height: 75rpx;
+  font-size: 34rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.comfirm {
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  text-align: center;
+  width: 270rpx;
+  background: rgba(255, 255, 255, 1);
+  color: #ff2644;
+}
+
+.comfirm::after {
+  border: none;
+}

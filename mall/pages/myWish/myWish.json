@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarTitleText": "心愿池",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
+}

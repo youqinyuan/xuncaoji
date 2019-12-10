@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#782176",
+  "navigationBarTitleText": "FreeBuy心愿池",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
+}

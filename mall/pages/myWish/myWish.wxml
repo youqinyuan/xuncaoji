@@ -1,0 +1,46 @@
+<!--pages/myWish/myWish.wxml-->
+<view class="page" style="background:{{bgColor}}">
+  <view class="wish-wrap" wx:if="{{wishpool.length>0}}">
+    <view class="list" bindlongpress="deleteList" data-id="{{wishpool.id}}" wx:for="{{wishpool}}" wx:for-item="wishpool" wx:key="{{wishpool.id}}">
+      <view class="listTitle" wx:if="{{wishpool.status==1 || wishpool.status==2}}">
+        {{wishpool.content}}
+      </view>
+      <view class="listTitle1" wx:if="{{wishpool.status==3}}">{{wishpool.content}}</view>
+      <view class="listBtn">
+        <view class="text" wx:if="{{wishpool.status==2}}">您想要的物品准备好了</view>
+        <view class="text" wx:if="{{wishpool.status==1}}">心愿满足中……</view>
+        <view class="text1" wx:if="{{wishpool.status==3}}">您想要的物品准备好了</view>
+        <view class="btn1" wx:if="{{wishpool.status==2}}" catchtap="getDetail" data-id="{{wishpool.matchedGoodsId}}">
+          立刻满足心愿
+        </view>
+        <button class="btn2" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" open-type="contact" bindcontact="handleContact" wx:if="{{wishpool.status==1}}">
+          催客服
+        </button>
+        <view class="btn3" wx:if="{{wishpool.status==3}}" catchtap="getDetail" data-id="{{wishpool.matchedGoodsId}}">
+          立刻满足心愿
+        </view>
+      </view>
+    </view>   
+  </view>
+  <view class="img_notlist" wx:if="{{wishpool.length===0}}">
+    <image class="img" src="https://xuncj.yzsaas.cn/_download/img/icon/nohave_n.png"></image>
+    <view class="img_text">心愿池空空如也</view>
+  </view>
+  <view class="add_wish" bindtap="leaveWish">
+      <image src="https://xuncj.yzsaas.cn/_download/img/wishpool/add_wish.png"></image>
+      <view class="add_text">添加心愿</view>
+    </view>
+    <view class="long_del" wx:if="{{wishpool.length>0}}">长按删除心愿</view>
+</view>
+<!-- 删除弹框 -->
+<view class="zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>
+<view class="zan-dialog__container" wx:if="{{showDialog}}">
+  <view class='content'>
+    <view class="content-title">提示</view>
+    <view class="content-container">您确定要删除这个心愿吗？</view>
+    <view class="content-button">
+      <view class="reject" catchtap='reject'>取消</view>
+      <view class="comfirm" catchtap='comfirm'>删除</view>
+    </view>
+  </view>
+</view>

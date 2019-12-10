@@ -1,0 +1,24 @@
+<!--pages/newMessage/newMessage.wxml-->
+<wxs module="filters" src="filter.wxs"></wxs>
+<view class="wrap_top">
+  <view style="background:{{item.status==1?'#f4f4f4':'#fff'}}" class="container_top" wx:for="{{message}}" wx:key="{{item.id}}" bindtap="jumpComment" data-id="{{item.topicId}}" data-userid="{{item.userId}}" data-nickname="{{item.nickname}}">
+    <view class="content">
+      <view class="content_left">
+        <image wx:if="{{item.avatarKey}}" class="photo" src="{{item.avatarKey}}"></image>
+        <image wx:else class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+        <view class="nickname">{{item.nickname}}</view>
+      </view>
+      <view class="content_right">{{filters.toDate(item.createTime)}}</view>
+    </view>
+    <view class="reply_content">
+      <!-- <text>回复</text>
+      <text class="reply">{{item.replyNickname}}：</text> -->
+      <text>{{item.content}}</text>
+    </view>
+  </view>
+</view>
+<view class="bottomText">
+  <text>——</text>
+  <text class="bottom_text">没有了哟</text>
+  <text>——</text>
+</view>

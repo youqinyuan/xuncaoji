@@ -1,12 +1,14 @@
 // pages/placeorder/placeorder.js
 var time = require('../../utils/util.js');
 let app = getApp()
+var newCount = true //节流阀-限制购买提交次数
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    buyType: 1,
     placeOrder: [],
     actualPrice: 0, //实际付款
     cashBack: 0, //0元购返现
@@ -30,17 +32,20 @@ Page({
     noteMaxLen: 100, //详细地址的字数限制
     currentNoteLen: 0, //输入的字数
     tempIndex: 0,
-    styleDisply:'',
-    display:'',
-    type:null
+    styleDisply: '',
+    display: '',
+    type: null,
+    seedShow: true,
+    seedDetailShow: false
   },
   //跳转到支付订单页面
   toPaymentorder: function(e) {
-    var that = this
+    if(newCount){
+      newCount = false
+      var that = this
     var buymode = e.currentTarget.dataset.buymode
     var goodsList = that.data.goodsList;
     var type = that.data.options.type;
-    console.log("type:"+type)
     goodsList.remark = that.data.remarks
     that.setData({
       disabled: true
@@ -50,25 +55,24 @@ Page({
         var cardIds = that.data.cardIds
         var temp = that.data.placeOrder
         var tempRemark = []
-        temp.forEach((v,i)=>{
-          if(v.remark=="选填"){
+        temp.forEach((v, i) => {
+          if (v.remark == "选填") {
             tempRemark.push('')
-          }else{
+          } else {
             tempRemark.push(v.remark)
-          } 
+          }
         })
-        // console.log("tempRemark:"+JSON.stringify(tempRemark))
-        // console.log("temp:"+JSON.stringify(temp))
         app.Util.ajax('mall/order/addOrderByCart', {
           cardIds: cardIds,
           userAddressBookId: that.data.userAddressBookId,
-          remarkList: tempRemark
+          remarkList: tempRemark,
+          useSeed:that.data.seedShow==true?1:0
         }, 'POST').then((res) => {
           if (res.data.content) {
-            // console.log('提交订单1：' + JSON.stringify(res.data))
             wx.navigateTo({
               url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}`,
             })
+            wx.setStorageSync('cartStatus', 1)
             wx.removeStorageSync('address')
             wx.removeStorageSync('goAddress')
           } else {
@@ -79,21 +83,18 @@ Page({
           }
         })
       } else if (that.data.options.type) {
-        // console.log(that.data.options.stockId,that.data.options.type,that.data.userAddressBookId,that.data.remarks)
         app.Util.ajax('mall/home/activity/freeShopping/placeOrder', {
-          // goodsId: that.data.goodsId,
-          stockId: that.data.options.stockId,
-          type: that.data.options.type,
-          userAddressBookId: that.data.userAddressBookId,
-          remark:that.data.remarks
-        }, 'POST').then((res) => { // 使用ajax函数
-          // console.log('提交订单2：' + JSON.stringify(res.data))
+          stockId: parseInt(that.data.options.stockId),
+          type: parseInt(that.data.options.type),
+          userAddressBookId: parseInt(that.data.userAddressBookId),
+          remark: that.data.remarks
+        }, 'POST').then((res) => {
           if (res.data.content) {
-            if(that.data.options.type==2){
+            if (that.data.options.type == 2) {
               wx.navigateTo({
                 url: `/pages/paymentorder/paymentorder?id=${res.data.content.transStatement.id ? res.data.content.transStatement.id : ''}&cashBack=${that.data.cashBack}&flag=${true}&createTime=${res.data.content.transStatement.createTime}&buymode=${buymode}&orderType=${4}`,
               })
-            }else{
+            } else {
               wx.navigateTo({
                 url: `/pages/paymentorder/paymentorder?id=${res.data.content.transStatement.id ? res.data.content.transStatement.id : ''}&cashBack=${that.data.cashBack}&flag=${true}&createTime=${res.data.content.transStatement.createTime}&buymode=${buymode}`,
               })
@@ -108,23 +109,45 @@ Page({
           }
         })
       } else {
-      //  console.log('提交订单的参数：' + JSON.stringify(goodsList))
-        app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => { // 使用ajax函数
-        //  console.log('提交订单3：' + JSON.stringify(res.data))
-          //  console.log('提交订单的参数：'+JSON.stringify(goodsList))
-          if (res.data.content) {
-            wx.navigateTo({
-              url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}`,
-            })
-            wx.removeStorageSync('address')
-            wx.removeStorageSync('goAddress')
-          } else {
-            wx.showToast({
-              title: res.data.message,
-              icon: 'none'
-            })
-          }
-        })
+        if (that.data.options.buyType == 2) {
+          goodsList.isUnderLine = "1"
+          goodsList.useSeed = that.data.seedShow==true?1:0
+          console.log(111)
+          console.log(JSON.stringify(goodsList))
+          app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
+            if (res.data.content) {
+              wx.navigateTo({
+                url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}`,
+              })
+              wx.removeStorageSync('address')
+              wx.removeStorageSync('goAddress')
+            } else {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none'
+              })
+            }
+          })
+        } else {
+          goodsList.isUnderLine = "0"
+          goodsList.useSeed = that.data.seedShow==true?1:0
+          console.log(JSON.stringify(goodsList))
+          app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
+            if (res.data.content) {
+              wx.navigateTo({
+                url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}`,
+              })
+              wx.removeStorageSync('address')
+              wx.removeStorageSync('goAddress')
+            } else {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none'
+              })
+            }
+          })
+        }
+
       }
       that.setData({
         disabled: false
@@ -138,6 +161,11 @@ Page({
         disabled: false
       })
     }
+    }
+    setTimeout(function(){
+      newCount=true
+    },300)
+    
   },
   //跳转到添加地址页面
   jumpAddress: function() {
@@ -169,13 +197,13 @@ Page({
       showStop: false
     })
   },
-  //弹出订单备注框
   remarksBtn: function(e) {
-    console.log('e:' + JSON.stringify(e.currentTarget.dataset.index))
+    // console.log('e:' + JSON.stringify(e.currentTarget.dataset.index))
     var that = this
     that.setData({
       showReMark: true,
-      tempIndex: e.currentTarget.dataset.index
+      tempIndex: e.currentTarget.dataset.index,
+      textvalue:e.currentTarget.dataset.val=="选填"?"":e.currentTarget.dataset.val
     })
   },
   //获取文本框的值
@@ -200,12 +228,12 @@ Page({
     var that = this
     that.setData({
       showReMark: false,
-      currentNoteLen:0
+      currentNoteLen: 0
     })
   },
   sureBtn: function(e) {
     var that = this
-    console.log(e.currentTarget.dataset.index)
+    // console.log(e.currentTarget.dataset.index)
     that.data.placeOrder.forEach((v, i) => {
       if (i == e.currentTarget.dataset.index) {
         v.remark = that.data.remarks
@@ -213,7 +241,7 @@ Page({
         that.setData({
           showReMark: false,
           placeOrder: that.data.placeOrder,
-          currentNoteLen:0
+          currentNoteLen: 0
         })
       }
     })
@@ -222,7 +250,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log("options:"+JSON.stringify(options))
     var that = this
     var goodsId = parseInt(options.goodsId)
     var stockId = parseInt(options.stockId)
@@ -230,8 +257,13 @@ Page({
     var cashBackId = parseInt(options.cashbackId)
     var type = parseInt(options.type)
     var expectedAmount = parseInt(options.expectedAmount) //想花多少钱获得商品
+    if (options.buyType) {
+      that.setData({
+        buyType: options.buyType,
+      })
+    }
     that.setData({
-      options: options
+      options: options,
     })
     if (options.cardIds) {
       //购物车校验下单
@@ -239,29 +271,57 @@ Page({
       that.setData({
         cardIds: cardIds
       })
-      app.Util.ajax('mall/order/checkCart', cardIds, 'POST').then((res) => { // 使用ajax函数
-        console.log('购物车提交：' + JSON.stringify(res.data.content))
+      app.Util.ajax('mall/order/checkCart', {
+        cardIds:cardIds,
+        // useSeed:1
+      }, 'POST').then((res) => { // 使用ajax函数
         if (res.data.content) {
           var arr = []
           var arr1 = arr.concat(res.data.content)
+          //订单总种子抵扣金额与种子数
+          var deductionAmount = 0
+          var deductionSeed = 0
+          var deductionAfterAmount = 0
           for (let i in arr1) {
             arr1[i].remark = '选填',
             arr1[i].colors = '#ff6417'
           }
+          arr1.forEach((v, i) => {
+              deductionAmount = v.order.deductionAmount + deductionAmount
+              deductionSeed = v.order.deductionSeed +deductionSeed
+              deductionAfterAmount = deductionAfterAmount + v.order.deductionAfterAmount
+              console.log(deductionAmount,deductionSeed)
+            v.orderGoodsBo.forEach((v, i) => {
+              v.orderGoods.payAmount = Number((v.orderGoods.payAmount + v.orderGoods.expressFee).toFixed(2))
+              v.orderGoods.discountRatio = v.orderGoods.discountRatio / 10
+            })
+          })
           that.setData({
             placeOrder: arr1,
-            buyMode: res.data.content[0].order.buyMode
+            buyMode: res.data.content[0].order.buyMode,
+            deductionAmount:deductionAmount.toFixed(2),
+            deductionSeed:deductionSeed,
+            deductionAfterAmount:deductionAfterAmount.toFixed(2)
           })
           var actualPrice = 0
           for (var i = 0; i < that.data.placeOrder.length; i++) {
             var orderGoods = that.data.placeOrder[i].orderGoodsBo
             for (var j = 0; j < orderGoods.length; j++) {
-              // console.log('分期钱：'+orderGoods[j].orderGoods.cashBack)
               if (orderGoods[j].orderGoods.purchaseTotalPrice) {
                 //零元购商品计算分期价格
-                actualPrice += orderGoods[j].orderGoods.purchaseTotalPrice + orderGoods[j].orderGoods.expressFee
+                if (that.data.buyType == 2) {
+                  actualPrice += orderGoods[j].orderGoods.payAmount - orderGoods[j].orderGoods.expressFee
+                } else {
+                  actualPrice += orderGoods[j].orderGoods.payAmount
+                }
               } else {
-                actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+                if (that.data.buyType == 2) {
+                  actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee - orderGoods[j].orderGoods.expressFee
+
+                } else {
+                  actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+                }
+
               }
             }
           }
@@ -287,33 +347,57 @@ Page({
         orderType: 1,
         expectedAmount: options.expectedAmount,
         cashBackPeriods: options.cashBackPeriods
-
       }, 'POST').then((res) => {
-      //  console.log('商品详情：' + JSON.stringify(res.data.content))
         if (res.data.content) {
           var arr = []
           var arr1 = arr.concat(res.data.content)
+          //订单总种子抵扣金额与种子数
+          var deductionAmount = 0
+          var deductionSeed = 0
+          var deductionAfterAmount = 0
           for (let i in arr1) {
             arr1[i].remark = '选填',
-            arr1[i].colors = '#ff6417'
+              arr1[i].colors = '#ff6417'
           }
-        //  console.log(arr1)
+          arr1.forEach((v, i) => {
+            deductionAmount = v.order.deductionAmount + deductionAmount
+            deductionSeed = v.order.deductionSeed +deductionSeed
+            deductionAfterAmount = deductionAfterAmount + v.order.deductionAfterAmount
+            console.log(deductionAmount,deductionSeed)
+            v.orderGoodsBo.forEach((v, i) => {
+              if (that.data.buyType == 2) {
+                v.orderGoods.payAmount = Number((v.orderGoods.payAmount + v.orderGoods.expressFee - v.orderGoods.expressFee).toFixed(2))
+                v.orderGoods.discountRatio = v.orderGoods.discountRatio / 10
+              } else {
+                v.orderGoods.payAmount = Number((v.orderGoods.payAmount + v.orderGoods.expressFee).toFixed(2))
+                v.orderGoods.discountRatio = v.orderGoods.discountRatio / 10
+              }
+
+            })
+          })
           that.setData({
             placeOrder: arr1,
             goodsType: goodsType, //类型为申请零元购
             needPaymentAmount: needPaymentAmount, //零元购需要支付的钱
             cashBackPeriods: cashBackPeriods, //申请零元购返现期数
-            buyMode: res.data.content.order.buyMode
+            buyMode: res.data.content.order.buyMode,
+            deductionAmount:deductionAmount.toFixed(2),
+            deductionSeed:deductionSeed,
+            deductionAfterAmount:deductionAfterAmount.toFixed(2)
           })
           var actualPrice = 0
           for (var i = 0; i < that.data.placeOrder.length; i++) {
             var orderGoods = that.data.placeOrder[i].orderGoodsBo
             for (var j = 0; j < orderGoods.length; j++) {
               if (orderGoods[j].orderGoods.purchaseTotalPrice) {
-                //零元购商品计算分期价格
-                actualPrice += orderGoods[j].orderGoods.purchaseTotalPrice + orderGoods[j].orderGoods.expressFee
+                actualPrice += orderGoods[j].orderGoods.payAmount
               } else {
-                actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+                if (that.data.buyType == 2) {
+                  actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee - orderGoods[j].orderGoods.expressFee
+                } else {
+                  actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+                }
+
               }
             }
           }
@@ -329,24 +413,21 @@ Page({
           })
         }
       })
-    } else if (options.type ==1) {
-      console.log(66)
+    } else if (options.type == 1) {
       //零元购校验下单
       var stockId = parseInt(options.stockId)
       var goodsId = parseInt(options.goodsId)
-      app.Util.ajax('mall/order/checkGoods',{
+      app.Util.ajax('mall/order/checkGoods', {
         stockId: stockId,
         goodsId: goodsId,
-        // type: type,
-        orderType: 3       
+        orderType: 3
       }, 'POST').then((res) => { // 使用ajax函数
-        console.log("res:"+JSON.stringify(res.data))
         if (res.data.content) {
           var arr = []
           var arr1 = arr.concat(res.data.content)
           for (let i in arr1) {
             arr1[i].remark = '选填',
-            arr1[i].colors = '#ff6417'
+              arr1[i].colors = '#ff6417'
           }
           that.setData({
             placeOrder: arr1
@@ -355,7 +436,12 @@ Page({
           for (var i = 0; i < that.data.placeOrder.length; i++) {
             var orderGoods = that.data.placeOrder[i].orderGoodsBo
             for (var j = 0; j < orderGoods.length; j++) {
-              actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+              if (that.data.buyType == 2) {
+                actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee - orderGoods[j].orderGoods.expressFee
+              } else {
+                actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+              }
+
               that.data.cashBack = orderGoods[j].orderGoods.cashBack
             }
           }
@@ -371,8 +457,8 @@ Page({
           })
         }
       })
-    } else if (options.type==2){
-      //零元购校验下单
+    } else if (options.type == 2) {
+      //信用卡校验下单
       var stockId = parseInt(options.stockId)
       var goodsId = parseInt(options.goodsId)
       app.Util.ajax('mall/order/checkGoods', {
@@ -394,7 +480,12 @@ Page({
           for (var i = 0; i < that.data.placeOrder.length; i++) {
             var orderGoods = that.data.placeOrder[i].orderGoodsBo
             for (var j = 0; j < orderGoods.length; j++) {
-              actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+              if (that.data.buyType == 2) {
+                actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee - orderGoods[j].orderGoods.expressFee
+              } else {
+                actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+              }
+
               that.data.cashBack = orderGoods[j].orderGoods.cashBack
             }
           }
@@ -410,24 +501,22 @@ Page({
           })
         }
       })
-    }else if (options.type ==3) {
-      console.log(66)
-      //零元购校验下单
+    } else if (options.type == 3) {
+      //渠道合作校验下单
       var stockId = parseInt(options.stockId)
       var goodsId = parseInt(options.goodsId)
-      app.Util.ajax('mall/order/checkGoods',{
+      app.Util.ajax('mall/order/checkGoods', {
         stockId: stockId,
         goodsId: goodsId,
         // type: type,
-        orderType: 5      
+        orderType: 5
       }, 'POST').then((res) => { // 使用ajax函数
-        console.log("res:"+JSON.stringify(res.data))
         if (res.data.content) {
           var arr = []
           var arr1 = arr.concat(res.data.content)
           for (let i in arr1) {
             arr1[i].remark = '选填',
-            arr1[i].colors = '#ff6417'
+              arr1[i].colors = '#ff6417'
           }
           that.setData({
             placeOrder: arr1
@@ -436,7 +525,57 @@ Page({
           for (var i = 0; i < that.data.placeOrder.length; i++) {
             var orderGoods = that.data.placeOrder[i].orderGoodsBo
             for (var j = 0; j < orderGoods.length; j++) {
-              actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+              if (that.data.buyType == 2) {
+                actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee - orderGoods[j].orderGoods.expressFee
+              } else {
+                actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+              }
+
+              that.data.cashBack = orderGoods[j].orderGoods.cashBack
+            }
+          }
+          var price1 = Number(actualPrice).toFixed(2);
+          that.setData({
+            actualPrice: price1,
+            cashBack: that.data.cashBack
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+    } else if (options.type == 4) {
+      //freeBuy首单校验下单
+      var stockId = parseInt(options.stockId)
+      var goodsId = parseInt(options.goodsId)
+      app.Util.ajax('mall/order/checkGoods', {
+        stockId: stockId,
+        goodsId: goodsId,
+        orderType: 6,
+        quantity: 1,
+      }, 'POST').then((res) => { // 使用ajax函数
+        if (res.data.content) {
+          var arr = []
+          var arr1 = arr.concat(res.data.content)
+          for (let i in arr1) {
+            arr1[i].remark = '选填',
+              arr1[i].colors = '#ff6417'
+          }
+          that.setData({
+            placeOrder: arr1
+          })
+          var actualPrice = 0
+          for (var i = 0; i < that.data.placeOrder.length; i++) {
+            var orderGoods = that.data.placeOrder[i].orderGoodsBo
+            for (var j = 0; j < orderGoods.length; j++) {
+              if (that.data.buyType == 2) {
+                actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee - orderGoods[j].orderGoods.expressFee
+              } else {
+                actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+              }
+
               that.data.cashBack = orderGoods[j].orderGoods.cashBack
             }
           }
@@ -461,16 +600,32 @@ Page({
         cashBackId: cashBackId,
         orderType: 1 //普通订单
       }, 'POST').then((res) => { // 使用ajax函数
-      //  console.log('商品详情：' + JSON.stringify(res.data.content))
+         console.log('商品详情：' + JSON.stringify(res.data.content.order))
         if (res.data.content) {
           var arr = []
           var arr1 = arr.concat(res.data.content)
           for (let i in arr1) {
             arr1[i].remark = '选填',
-            arr1[i].colors = '#ff6417'
+              arr1[i].colors = '#ff6417'
           }
+          arr1.forEach((v, i) => {
+            v.orderGoodsBo.forEach((v, i) => {
+              if (that.data.buyType == 2) {
+                v.orderGoods.payAmount = Number((v.orderGoods.payAmount + v.orderGoods.expressFee - v.orderGoods.expressFee).toFixed(2))
+                v.orderGoods.discountRatio = v.orderGoods.discountRatio / 10
+              } else {
+                v.orderGoods.payAmount = Number((v.orderGoods.payAmount + v.orderGoods.expressFee).toFixed(2))
+                v.orderGoods.discountRatio = v.orderGoods.discountRatio / 10
+              }
+
+            })
+          })
           that.setData({
-            placeOrder: arr1
+            placeOrder: arr1,
+            seedContent:res.data.content.order,
+            deductionAmount:res.data.content.order.deductionAmount.toFixed(2),
+            deductionSeed:res.data.content.order.deductionSeed,
+            deductionAfterAmount:res.data.content.order.deductionAfterAmount.toFixed(2)
           })
           var actualPrice = 0
           for (var i = 0; i < that.data.placeOrder.length; i++) {
@@ -478,9 +633,15 @@ Page({
             for (var j = 0; j < orderGoods.length; j++) {
               if (orderGoods[j].orderGoods.purchaseTotalPrice) {
                 //零元购商品计算分期价格
-                actualPrice += orderGoods[j].orderGoods.purchaseTotalPrice + orderGoods[j].orderGoods.expressFee
+
+                actualPrice += orderGoods[j].orderGoods.payAmount
+
               } else {
-                actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+                if (that.data.buyType == 2) {
+                  actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee - orderGoods[j].orderGoods.expressFee
+                } else {
+                  actualPrice += (orderGoods[j].orderGoods.price * orderGoods[j].orderGoods.quantity) + orderGoods[j].orderGoods.expressFee
+                }
               }
             }
           }
@@ -650,5 +811,31 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  seedShow: function() {
+    var that = this
+    console.log(that.data.seedShow)
+    if (that.data.seedShow == true) {
+      console.log(1111)
+      that.setData({
+        seedShow: false
+      })
+    } else {
+      console.log(222)
+      that.setData({
+        seedShow: true
+      })
+    }
+  },
+  seedDetail: function() {
+    console.log("种子抵扣明细")
+    this.setData({
+      seedDetailShow: true
+    })
+  },
+  seedDetailShowClose: function() {
+    this.setData({
+      seedDetailShow: false
+    })
   }
 })
