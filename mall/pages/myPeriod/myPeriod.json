@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarTitleText": "我的分期",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
+}

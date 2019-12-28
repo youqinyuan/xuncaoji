@@ -8,7 +8,6 @@ function formatTime(date) {
   var minute = date.getMinutes();
   var second = date.getSeconds();
 
-
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':');
 }
 
@@ -124,7 +123,12 @@ const ajax = (url, data, method, config = {}) => {
             }
           } else if (res.data.messageCode == 'MSG_5001') {
             wx.showToast({
-              title: '服务器内部错误',
+              title: '网络开小差了，请稍后再试哦！',
+              icon: 'none'
+            })
+          }else if (res.data.message == '您的请求过于频繁，请稍候再试') {
+            wx.showToast({
+              title: res.data.message,
               icon: 'none'
             })
           }else{
@@ -145,7 +149,7 @@ const ajax = (url, data, method, config = {}) => {
 function getUrlImg() {
   var hostUrl = 'https://xuncj.yzsaas.cn/_download/img';
   var hostVideo = 'https://xuncj.yzsaas.cn/_download/'
-  var publicUrl = "https://xuncaoji.yzsaas.cn/"; //测试环境
+  var publicUrl = "https://xuncaoji.yzsaas.cn/"; //测试环境 
   // var publicUrl = 'https://xuncj.yzsaas.cn/'; //正式环境
   return {
     hostUrl,

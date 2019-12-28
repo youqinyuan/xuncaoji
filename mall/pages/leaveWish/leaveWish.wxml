@@ -1,5 +1,11 @@
 <!--pages/leaveWish/leaveWish.wxml-->
-<textarea placeholder="请输入您想要物品的名称或购买链接等信息，您输入的信息越全面，您的心愿就会越快满足哦..." maxlength="{{2000}}" bindinput="getTextareaValue" data-index="{{index}}">
+<view class="explain-wrap" catchtap="showGetMark">
+  <view class="explain">FreeBuy心愿池是什么？</view>
+  <view class="poke">戳我</view>
+  <image src="https://xuncj.yzsaas.cn/_download/img/add/poke.png" class="poke-img"></image>
+</view>
+<view class="text_wrap">
+  <textarea class="text-top" wx:if="{{showText==true}}" placeholder="请输入您想要物品的名称或购买链接等信息" maxlength="{{2000}}" bindinput="getTextareaValue" data-index="{{index}}" value="{{goodsData.goodsComment}}">
 </textarea>
 <view class="img_wrap">
   <view class="commentImg_wrap" wx:for="{{goodsData.imgList}}" wx:key="items" wx:for-item="items">
@@ -8,11 +14,30 @@
   </view>
   <image src="https://xuncj.yzsaas.cn/_download/img/wishpool/pic_02.png" catchtap="choiceImg" data-index="{{index}}" wx:if="{{goodsData.imgList.length<5}}"></image>
 </view>
+</view>
+ <textarea wx:if="{{showText==true}}" placeholder="请输入喜欢的商品颜色、大小、尺码、等规格" maxlength="{{200}}" bindinput="getContentDetail" data-index="{{index}}" value="{{goodsData.contentDetail}}" class="text-bottom">
+</textarea>
 <view class="btn">
   <button class="btn1" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" open-type="contact" bindcontact="handleContact">咨询客服</button>
   <view class="btn2" bindtap="submit">提交心愿</view>
 </view>
 
-
+<!-- FreeBuy心愿池是什么？ -->
+<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showGet}}">
+  <view class="zan-dialog__container" wx:if="{{showGet}}">
+    <view class="title">什么是心愿池</view>
+    <view class="text">
+      <view class="smallTitle">心愿池是做什么的？</view>
+      <view>逛了商城半天也没找到自己想买的，那么你就可以通过心愿池的方式提交给我们，我们将在24小时内上架您所提供的商品；</view>
+      <view class="smallTitle">心愿池是不是提交了就可以免费拿？</view>
+      <view>不是的，您需要通过FreeBuy方式进行购买的，到了返现周期您等于是免费拿哦；</view>
+      <view class="smallTitle">FreeBuy是什么意思？</view>
+      <view>FreeBuy是指用户自由消费，免去没钱的烦恼，寻草记一直再为帮助用户0成本购好物；</view>
+      <view class="service">其他问题请咨询客服哦~</view>
+    </view>
+    <!-- <button bindtap="cancelGet">我知道了</button> -->
+  </view>
+  <image wx:if="{{showGet}}" class="cancel-get" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
+</view>
 <!-- 压缩上传图片使用 -->
 <canvas canvas-id="canvas" style="width:200px;height:200px;position: absolute;left:-1000px;top:-1000px;"></canvas>

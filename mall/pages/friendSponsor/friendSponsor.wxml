@@ -1,0 +1,107 @@
+<!--pages/friendSponsor/friendSponsor.wxml-->
+<!-- 规则弹窗 -->
+<wxs module="foo">
+  module.exports = {
+    toStr: function(n) {
+      n = n.toFixed(2)
+      return n
+    },
+    toInt:function(s){
+        s = parseInt(s)
+        return s
+    }
+  }
+</wxs>
+<view class="dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{show1}}">
+  <view class="dialog__container" wx:if="{{show1}}">
+    <view class="title">规则说明</view>
+    <view class="text">
+        <block wx:for="{{configList}}" wx:key="">
+            <view class="rule_value" wx:if="{{item.name=='AUSPICES_TIMES_USER_PER_DAY'}}">1、每人一天最多可以发起赞助{{item.value}}个商品</view>
+        </block>
+        <view class="rule_value">2、赞助必须超过1次后可进行直接购买</view>
+        <block wx:for="{{configList}}" wx:key="">
+            <view class="rule_value" wx:if="{{item.name=='AUSPICES_EXPIRE_HOURS'}}">3、赞助发起后持续{{item.value}}小时</view>
+        </block>
+        <view class="rule_value">4、每个用户可为发起赞助的人赞助1元</view>
+        <block wx:for="{{configList}}" wx:key="">
+            <view class="rule_value" wx:if="{{item.name=='AUSPICES_TIMES_OTHERS_USER_PER_DAY'}}">5、每个用户每天只可以赞助{{item.value}}次</view>
+        </block>
+        <view class="rule_value">6、赞助人的赞助金1元将立刻返还到账户余额</view>
+        <view class="rule_value">7、赞助成功后必须在7天内下单</view>
+        <view class="rule_value">8、活动最终解释权归寻草记所有</view>
+    </view>
+  </view>
+  <image wx:if="{{show1}}" class="cancel-get2" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
+</view>
+<!-- 失效弹窗 -->
+<view class="dialog__mask2" catchtouchmove="preventTouchMove" wx:if="{{show2}}">
+  <view class="dialog__container2" wx:if="{{show2}}">
+        <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/pop_bg.png" class="shixiao_img"/>
+    </view>
+    <view class="shixiao_font">
+        <view class="shixiao_one">很抱歉，您来晚了</view>
+        <view class="shixiao_two">本次赞助已经结束啦</view>
+    </view>
+    <view class="shixiao_button">
+        <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/btn.png" class="button_img"/>
+    </view>
+    <view class="button_font" bindtap="toIndex">去首页逛逛</view>
+</view>
+<view class="news_box">
+  <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/icon2.png" class="news_img"/>
+      <view class="user_box">
+        <view class="user_name">赞助需支付1元，1元将即可返还到您的账户，可马上提现</view>
+        <view class="black">|</view>
+        <view class="goods_name" bindtap="Show1">具体规则</view>
+    </view>
+</view>
+<view class="friend_sponsor_box">
+    <view class="sponsor_goods">
+        <view class="sponsor_goods_img_box">
+            <image src="{{content.goodsImage}}" class="sponsor_goods_img"/>
+        </view>
+        <view class="sponsor_goods_name">
+            {{content.goodsName}}
+        </view>
+        <view class="sponsor_time">
+            <text class="hour">{{hours}}</text>:<text class="min">{{minutes}}</text>:<text class="sec">{{seconds}}</text><text class="font26">后赞助过期</text>
+        </view>
+        <view class="sponsor_money">
+             本次赞助可帮好友省：<text >{{content.savedAmountPerSponsor}}元</text>
+        </view>
+        <view class="sponsor_button_box">
+            <view class="sponsor_button" bindtap="sponsor" wx:if="{{sponsorButton==true}}" data-id="{{content.id}}">帮忙赞助</view>
+            <view class="sponsor_button" bindtap="toIndex" wx:if="{{toIndexButton==true}}">去首页逛逛</view>
+        </view>
+        <view class="sponsor_news" wx:if="{{sponsorNews==true}}">全品类商品均可发起赞助，并0成本购</view>
+    </view>
+<view class="toast" wx:if="{{success==true}}">
+    <view class="text_one">因您的赞助您的好友可少支付{{content.savedAmountPerSponsor}}元！</view>
+    <view class="text_two">您支付的赞助金额，已经进入您的账户余额</view>
+</view>
+</view>
+<view class="recommend_goods_box">
+    <view class="recommend_goods_title">
+        <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/shape2.png" class="head_left_img2" />
+        <view class="head_name">新品推荐</view>
+        <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/shape.png" class="head_right_img2" />
+    </view>
+    <view class="recommend_goods_list">
+        <view class="recommend_goods" wx:for="{{list}}" wx:key="">
+            <view class="recommend_goods_img">
+                <image src="{{item.imageUrls[0]}}" />
+            </view>
+            <view class="recommend_goods_name_box">
+                <text class="recommend_goods_tag">支持0成本购</text>
+                <text class="recommend_goods_name">{{item.name}}</text>
+            </view>
+            <view class="price_box">
+                <view class="price1">￥<text >{{item.dctPrice}}</text></view>
+                <view class="price2">￥{{item.orgPrice}}</view>
+            </view>
+            <view class="youhui">实付<text>￥{{item.dctPrice}}</text>返<text>￥{{item.marketingCashBack.totalAmount}}</text></view>
+        </view>
+    </view>
+</view>
+<view class="height80"></view>

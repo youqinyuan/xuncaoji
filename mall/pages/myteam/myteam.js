@@ -695,7 +695,7 @@ Page({
       })
     }
     setTimeout(function(){
-      // that.init()
+      that.init()
     },300)
     //关闭下拉列表
     setTimeout(function(){

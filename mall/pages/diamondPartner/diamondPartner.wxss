@@ -72,7 +72,7 @@
 .wrap_price {
   position: absolute;
   top: 242rpx;
-  left: 101rpx;
+  left: 87rpx;
   font-size: 28rpx;
   font-family: PingFang SC;
   font-weight: 500;

@@ -1,6 +1,7 @@
 // pages/waitReentryDetail/waitReentryDetail.js
 const app = getApp()
 var utils = require('../../utils/util.js');
+var time = require('../../utils/util.js');
 Page({
 
   /**
@@ -56,15 +57,18 @@ Page({
     text: '',
     stopOrder: 'stopOrder',
     pageNumber: 1,
+    pageNumber2: 1,
     pageSize: 10,
     goWaitReentry: null,
+    choose1: false,
+    index1: 4
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var that = this    
+    var that = this
     that.setData({
       goWaitReentry: wx.getStorageSync('goWaitReentry')
     })
@@ -116,19 +120,15 @@ Page({
     var that = this
     var pageNumber = that.data.pageNumber
     var pageSize = that.data.pageSize
-    app.Util.ajax('mall/personal/balanceDetails', {
+    app.Util.ajax('mall/personal/queryPendingReturnDetails', {
       pageNumber: pageNumber,
-      pageSize: pageSize,
-      status: 1
+      pageSize: pageSize
     }, 'GET').then((res) => {
       if (res.data.content.noReturnItem) {
         var arr = res.data.content.noReturnItem.items
         for (let i of arr) {
           i.tradeTime = utils.formatTimeTwo(i.tradeTime, 'Y-M-D');
-          if (i.status == 2 && i.userId !== i.transferorId) {
-            i.remark = "商品名称保护中"
-            i.proStatus = 1
-          } else if (i.status == 1 && i.transferorId !== i.userId && i.transferorId !== null) {
+          if (i.otherTransfer==1) {
             i.remark = "商品名称保护中"
             i.proStatus = 1
           }
@@ -141,16 +141,16 @@ Page({
             text: '暂无数据'
           })
         }
+        that.returnInfo()
       }
     })
   },
-  getInitDetail: function () {
+  getInitDetail: function() {
     var that = this
     var pageNumber = that.data.pageNumber + 1
-    app.Util.ajax('mall/personal/balanceDetails', {
+    app.Util.ajax('mall/personal/queryPendingReturnDetails', {
       pageNumber: pageNumber,
-      pageSize: that.data.pageSize,
-      status: 1
+      pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         if (res.data.content.noReturnItem.items == '' && that.data.content !== '') {
@@ -161,6 +161,10 @@ Page({
         var arr = that.data.content
         for (var i = 0; i < res.data.content.noReturnItem.items.length; i++) {
           res.data.content.noReturnItem.items[i].tradeTime = utils.formatTimeTwo(res.data.content.noReturnItem.items[i].tradeTime, 'Y-M-D');
+          if (res.data.content.noReturnItem.items[i].otherTransfer == 1 ) {
+            res.data.content.noReturnItem.items[i].remark = "商品名称保护中"
+            res.data.content.noReturnItem.items[i].proStatus = 1
+          }
           arr.push(res.data.content.noReturnItem.items[i])
         }
         that.setData({
@@ -171,7 +175,7 @@ Page({
     })
   },
   //从发帖子过来
-  initDetail1: function (e) {
+  initDetail1: function(e) {
     var that = this
     var pageNumber = that.data.pageNumber
     var pageSize = that.data.pageSize
@@ -187,15 +191,15 @@ Page({
         that.setData({
           contentPsoting: arr
         })
-        if (that.data.contentPsoting.length===0){
+        if (that.data.contentPsoting.length === 0) {
           that.setData({
-            text:'暂无数据'
+            text: '暂无数据'
           })
         }
       }
     })
   },
-  getInitDetail1: function () {
+  getInitDetail1: function() {
     var that = this
     var pageNumber = that.data.pageNumber + 1
     app.Util.ajax('mall/forum/topic/findNoReturnPageList', {
@@ -214,7 +218,7 @@ Page({
           arr.push(res.data.content.items[i])
         }
         that.setData({
-          content: arr,
+          contentPsoting: arr,
           pageNumber: pageNumber
         })
       }
@@ -232,12 +236,51 @@ Page({
    */
   onShow: function() {
     var that = this;
-    if (wx.getStorageSync("token")) {
-      that.returnInfo()
+    if (wx.getStorageSync('pageNumber2')) {
+      that.setData({
+        pageNumber2: wx.getStorageSync('pageNumber2')
+      })
     }
-    that.setData({
-      pageNumber: 1
-    })
+    if (wx.getStorageSync('startMoney') || wx.getStorageSync('endMoney') || wx.getStorageSync('startTime') || wx.getStorageSync('endTime') || wx.getStorageSync('source')|| wx.getStorageSync('pageNumber2')) {
+      var startMoney = wx.getStorageSync('startMoney') ? wx.getStorageSync('startMoney') : ""
+      var endMoney = wx.getStorageSync('endMoney') ? wx.getStorageSync('endMoney') : ""
+      var startTime = new Date(wx.getStorageSync('startTime').replace(/-/g, "/")).getTime() ? new Date(wx.getStorageSync('startTime').replace(/-/g, "/")).getTime() : ""
+      var endTime = new Date(wx.getStorageSync('endTime').replace(/-/g, "/")).getTime() ? new Date(wx.getStorageSync('endTime').replace(/-/g, "/")).getTime() : ""
+      var source = wx.getStorageSync('source') ? wx.getStorageSync('source') : ""
+      if(wx.getStorageSync('endTime')){
+        endTime = endTime + 86399999
+      }
+      app.Util.ajax('mall/personal/queryPendingReturnDetails', {
+        pageNumber: that.data.pageNumber2,
+        pageSize: 10,
+        startAmount: startMoney,
+        endAmount: endMoney,
+        startTime: startTime,
+        endTime: endTime,
+        source: source
+
+      }, 'GET').then((res) => {
+        if (res.data.content.noReturnItem) {
+          var arr = res.data.content.noReturnItem.items
+          for (let i of arr) {
+            i.tradeTime = utils.formatTimeTwo(i.tradeTime, 'Y-M-D');
+            if (i.otherTransfer==1) {
+              i.remark = "商品名称保护中"
+              i.proStatus = 1
+            } 
+          }
+          that.setData({
+            content: arr
+          })
+          if (that.data.content.length === 0) {
+            that.setData({
+              text: '暂无数据'
+            })
+          }
+        }
+
+      })
+    }
   },
 
   /**
@@ -251,6 +294,12 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
+    wx.removeStorageSync("startMoney");
+    wx.removeStorageSync("endMoney");
+    wx.removeStorageSync("startTime");
+    wx.removeStorageSync("endTime");
+    wx.removeStorageSync("source");
+    wx.removeStorageSync("pageNumber2");
 
   },
 
@@ -266,10 +315,50 @@ Page({
    */
   onReachBottom: function() {
     var that = this
-    if (wx.getStorageSync('goWaitReentry')) {
-      that.getInitDetail1();
+    if (wx.getStorageSync('startMoney') || wx.getStorageSync('endMoney') || wx.getStorageSync('startTime') || wx.getStorageSync('endTime') || wx.getStorageSync('source')) {
+      var startMoney = wx.getStorageSync('startMoney') ? wx.getStorageSync('startMoney') : ""
+      var endMoney = wx.getStorageSync('endMoney') ? wx.getStorageSync('endMoney') : ""
+      var startTime = new Date(wx.getStorageSync('startTime').replace(/-/g, "/")).getTime() ? new Date(wx.getStorageSync('startTime').replace(/-/g, "/")).getTime() : ""
+      var endTime = new Date(wx.getStorageSync('endTime').replace(/-/g, "/")).getTime() ? new Date(wx.getStorageSync('endTime').replace(/-/g, "/")).getTime() : ""
+      var source = wx.getStorageSync('source') ? wx.getStorageSync('source') : ""
+      var pageNumber = that.data.pageNumber2 + 1
+      app.Util.ajax('mall/personal/queryPendingReturnDetails', {
+        pageNumber: pageNumber,
+        pageSize: 10,
+        startAmount: startMoney,
+        endAmount: endMoney,
+        startTime: startTime,
+        endTime: endTime,
+        source: source
+
+      }, 'GET').then((res) => {
+        if (res.data.content) {
+          if (res.data.content.noReturnItem.items == '' && that.data.content !== '') {
+            that.setData({
+              text: '已经到底啦'
+            })
+          }
+          var arr = that.data.content
+          for (var i = 0; i < res.data.content.noReturnItem.items.length; i++) {
+            res.data.content.noReturnItem.items[i].tradeTime = utils.formatTimeTwo(res.data.content.noReturnItem.items[i].tradeTime, 'Y-M-D');
+            if (res.data.content.noReturnItem.items[i].otherTransfer == 1 ) {
+              res.data.content.noReturnItem.items[i].remark = "商品名称保护中"
+              res.data.content.noReturnItem.items[i].proStatus = 1
+            }
+            arr.push(res.data.content.noReturnItem.items[i])
+          }
+          that.setData({
+            content: arr,
+            pageNumber2: pageNumber
+          })
+        }
+      })
     } else {
-      that.getInitDetail();
+      if (wx.getStorageSync('goWaitReentry')) {
+        that.getInitDetail1();
+      } else {
+        that.getInitDetail();
+      }
     }
   },
 
@@ -690,7 +779,6 @@ Page({
   returnInfo: function() {
     var that = this
     app.Util.ajax('mall/transfer/gainNotice', null, 'GET').then((res) => {
-      // console.log(1111 + JSON.stringify(res.data.content))
       if (res.data.content.length > 0) {
         that.setData({
           tempInfo: res.data.content
@@ -795,6 +883,108 @@ Page({
       title: "对方正在确认，可通过上方电话联系购买人",
       icon: "none"
     })
-  }
+  },
+  getChoose: function(e) {
+    var that = this
+    console.log(e.currentTarget.dataset.aa)
+    if (e.currentTarget.dataset.aa == 1) {
+      that.setData({
+        index1: 1
+      })
+    } else if (e.currentTarget.dataset.aa == 2) {
+      that.setData({
+        index1: 2
+      })
+    } else if (e.currentTarget.dataset.aa == 3) {
+      that.setData({
+        index1: 3
+      })
+    } else if (e.currentTarget.dataset.aa == 4) {
+      that.setData({
+        index1: 4
+      })
+    }
+  },
+  chooseOneShure: function() {
+    var that = this
+    that.setData({
+      choose1: false
+    })
+    if (that.data.index1 == 4) {
+      wx.removeStorageSync("source");
+      app.Util.ajax('mall/personal/queryPendingReturnDetails', {
+        pageNumber: 1,
+        pageSize: 10,
+        source: ''
+      }, 'GET').then((res) => {
+        if (res.data.content.noReturnItem) {
+          var arr = res.data.content.noReturnItem.items
+          for (let i of arr) {
+            i.tradeTime = utils.formatTimeTwo(i.tradeTime, 'Y-M-D');
+            if (i.otherTransfer==1) {
+              i.remark = "商品名称保护中"
+              i.proStatus = 1
+            }
+          }
+          that.setData({
+            content: arr
+          })
+          if (that.data.content.length === 0) {
+            that.setData({
+              text: '暂无数据'
+            })
+          }
+        }
+      })
+    } else {
+      wx.setStorageSync("source", that.data.index1)
+      app.Util.ajax('mall/personal/queryPendingReturnDetails', {
+        pageNumber: 1,
+        pageSize: 10,
+        source: that.data.index1
+      }, 'GET').then((res) => {
+        if (res.data.content.noReturnItem) {
+          var arr = res.data.content.noReturnItem.items
+          for (let i of arr) {
+            i.tradeTime = utils.formatTimeTwo(i.tradeTime, 'Y-M-D');
+            if (i.otherTransfer==1) {
+              i.remark = "商品名称保护中"
+              i.proStatus = 1
+            }
+          }
+          that.setData({
+            content: arr
+          })
+          if (that.data.content.length === 0) {
+            that.setData({
+              text: '暂无数据'
+            })
+          }
+        }
+      })
+    }
 
+  },
+  showChoose1: function() {
+    var that = this
+    that.setData({
+      choose1: true
+    })
+  },
+  closewChoose1: function() {
+    var that = this
+    that.setData({
+      choose1: false
+    })
+  },
+  toChooseMoney: function() {
+    wx.navigateTo({
+      url: "/pages/chooseMoney/chooseMoney"
+    })
+  },
+  toChooseTime: function() {
+    wx.navigateTo({
+      url: "/pages/chooseTime/chooseTime"
+    })
+  }
 })

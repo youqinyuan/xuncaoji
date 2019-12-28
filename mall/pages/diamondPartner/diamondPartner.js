@@ -91,6 +91,17 @@ Page({
 
       }
     })
+    app.Util.ajax('mall/personal/followers', {
+      pageNumber: that.data.pageNumber,
+      pageSize: that.data.pageSize
+    }, 'GET').then((res) => {
+      if (res.data.messageCode = 'MSG_1001') {
+        that.data.collocation[1].level=res.data.content.level
+        that.setData({
+          collocation:that.data.collocation
+        })
+      }
+    })
   },
 
   /**
@@ -300,7 +311,7 @@ Page({
           } else if (res.data.content[i].type == 4) {
             that.data.collocation[4].type = res.data.content[i].type
             that.data.collocation[4].level = res.data.content[i].level
-            that.data.collocation[1].totalAmount = res.data.content[i].totalAmount
+            that.data.collocation[4].totalAmount = res.data.content[i].totalAmount
           }
           that.setData({
             collocation: that.data.collocation

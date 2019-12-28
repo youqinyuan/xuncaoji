@@ -13,6 +13,8 @@ Page({
     imgList_compress: [], //压缩后的图片列表
     goodsComment: '', //商品评论内容
     index: '',
+    showGet: false, //心愿池是什么  
+    showText:true,
   },
 
   /**
@@ -21,6 +23,21 @@ Page({
   onLoad: function(options) {
     var that = this
     that.getData();
+  },
+  // FreeBuy心愿池是什么?
+  showGetMark: function () {
+    var that = this
+    that.setData({
+      showGet: true,
+      showText:false,
+    })
+  },
+  cancelGet: function () {
+    var that = this
+    that.setData({
+      showGet: false,
+      showText: true,
+    })
   },
   //客服分享图片回到指定的小程序页面
   handleContact: function(e) {
@@ -42,6 +59,7 @@ Page({
     that.data.goodsData['imgList'] = []
     that.data.goodsData['img_compress'] = []
     that.data.goodsData['goodsComment'] = ''
+    that.data.goodsData['contentDetail'] = ''
     that.setData({
       goodsData: that.data.goodsData
     })
@@ -50,6 +68,14 @@ Page({
   getTextareaValue: function(e) {
     var that = this
     that.data.goodsData.goodsComment = e.detail.value
+    that.setData({
+      goodsData: that.data.goodsData
+    })
+  },
+  //获取细节的内容
+  getContentDetail: function (e) {
+    var that = this
+    that.data.goodsData.contentDetail = e.detail.value
     that.setData({
       goodsData: that.data.goodsData
     })
@@ -68,13 +94,20 @@ Page({
       } else {
         app.Util.ajax('mall/wishZone/encodedWish', {
           content: that.data.goodsData.goodsComment,
+          contentDetail: that.data.goodsData.contentDetail,
           encodedImages: that.data.goodsData.img_compress,
         }, 'POST').then((res) => {
           if (res.data.messageCode == 'MSG_1001') {
-            wx.switchTab({
-              url: '/pages/wishpool/wishpool',
-            })
-            wx.setStorageSync('messages', '我们已收到您的心愿，我们会在两天内替您满足心愿，常回来看看哦')
+            if (!wx.getStorageSync('jumpStatus')){
+              var messages = '我们已收到您的心愿，我们会在两天内替您满足心愿，常回来看看哦'
+              wx.navigateTo({
+                url: '/pages/myWish/myWish?messages=' + messages,
+              }) 
+            }else{
+              wx.navigateBack({})
+              wx.setStorageSync('messages', '我们已收到您的心愿，我们会在两天内替您满足心愿，常回来看看哦')  
+              wx.setStorageSync('pageNum',1)     
+            }                
           } else {
             wx.showToast({
               title: res.data.message,

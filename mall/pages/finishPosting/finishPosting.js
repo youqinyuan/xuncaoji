@@ -17,51 +17,51 @@ Page({
     followIndex: null,
     messageNum: null,
     showClassify: false, //帖子类型弹框
-    seedIncreased:null,//种子
-    postingStatus: null,//是否显示推荐
-    topicId:null
+    seedIncreased: null, //种子
+    postingStatus: null, //是否显示推荐
+    topicId: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this
     that.setData({
-      seedIncreased:parseInt(options.seedIncreased),
-      postingStatus:parseInt(options.postingStatus),
+      seedIncreased: parseInt(options.seedIncreased),
+      postingStatus: parseInt(options.postingStatus),
       topicId: parseInt(options.id)
     })
-    if (options.postingStatus == 2 || options.postingStatus == 3){
-      that.recommend(); 
-    } 
+    if (options.postingStatus == 2 || options.postingStatus == 3) {
+      that.recommend();
+    }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
- 
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
     wx.navigateBack({
       delta: 1,
     })
@@ -70,14 +70,14 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     var that = this
     that.getRecommend()
   },
@@ -85,13 +85,13 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
-  recommend: function () {
+  recommend: function() {
     var that = this
     app.Util.ajax('mall/forum/topic/findRecommendList', {
-      topicId:that.data.topicId,
+      topicId: that.data.topicId,
       pageNumber: that.data.pageNumber,
       pageSize: that.data.pageSize,
     }, 'GET').then((res) => {
@@ -118,7 +118,7 @@ Page({
       }
     })
   },
-  getRecommend: function () {
+  getRecommend: function() {
     var that = this
     var pageNumber = that.data.pageNumber + 1
     app.Util.ajax('mall/forum/topic/findRecommendList', {
@@ -160,17 +160,32 @@ Page({
       }
     })
   },
-  getHeight: function () {
+  getHeight: function() {
     var that = this;
     setTimeout(() => {
-      wx.createSelectorQuery().selectAll('.content-item').boundingClientRect(function (rect) {
+      wx.createSelectorQuery().selectAll('.content-item').boundingClientRect(function(rect) {
         for (var i = 0; i < that.data.allPost.length; i++) {
-          if (rect[i].height > 80) {
-            that.data.allPost[i].isShowAll = 1
-            that.data.allPost[i].isText = '全部'
-          } else {
-            that.data.allPost[i].isShowAll = 2
-            that.data.allPost[i].isText = ''
+          var viewHeight = wx.getSystemInfoSync().windowWidth
+          if (viewHeight > 375 && viewHeight <= 414) {
+            if (rect[i].height > 96) {
+              that.data.allPost[i].ellipsis = false
+              that.data.allPost[i].isShowAll = 2
+              that.data.allPost[i].isText = '全部'
+            } else {
+              that.data.allPost[i].ellipsis = true
+              that.data.allPost[i].isShowAll = 1
+              that.data.allPost[i].isText = ''
+            }
+          } else if (viewHeight <= 375) {
+            if (rect[i].height > 88) {
+              that.data.allPost[i].ellipsis = false
+              that.data.allPost[i].isShowAll = 2
+              that.data.allPost[i].isText = '全部'
+            } else {
+              that.data.allPost[i].ellipsis = true
+              that.data.allPost[i].isShowAll = 1
+              that.data.allPost[i].isText = ''
+            }
           }
         }
         that.setData({
@@ -187,10 +202,7 @@ Page({
         that.data.allPost[e.currentTarget.dataset.index].flag = that.data.allPost[e.currentTarget.dataset.index].flag + 1
       }
       if (that.data.allPost[e.currentTarget.dataset.index].flag % 2 === 0) {
-        that.data.allPost[e.currentTarget.dataset.index].isText = '收起'
-        that.data.allPost[e.currentTarget.dataset.index].ellipsis = false
-      } else if (that.data.allPost[e.currentTarget.dataset.index].flag % 2 !== 0) {
-        that.data.allPost[e.currentTarget.dataset.index].isText = '全部'
+        that.data.allPost[e.currentTarget.dataset.index].isText = ''
         that.data.allPost[e.currentTarget.dataset.index].ellipsis = true
       }
     }
@@ -199,7 +211,7 @@ Page({
     })
   },
   //收藏帖子
-  collectImg: function (e) {
+  collectImg: function(e) {
     var that = this
     app.Util.ajax('mall/forum/topic/favorite', {
       id: e.currentTarget.dataset.id
@@ -225,10 +237,10 @@ Page({
       }
     })
   },
-  ativeCollectImg: function (e) {
+  ativeCollectImg: function(e) {
     var that = this
     app.Util.ajax('mall/forum/topic/favorite', {
-      id:e.currentTarget.dataset.id
+      id: e.currentTarget.dataset.id
     }, 'POST').then((res) => {
       if (res.data.content) {
         if (that.data.allPost[e.currentTarget.dataset.index].isFavoriate == 2) {
@@ -252,30 +264,30 @@ Page({
     })
   },
   //删除帖子弹框
-  delContent: function (e) {
+  delContent: function(e) {
     var that = this
     that.setData({
       showDel: true,
       delId: e.currentTarget.dataset.id
     })
   },
-  cancelDel: function () {
+  cancelDel: function() {
     var that = this
     that.setData({
       showDel: false
     })
   },
-  confirmDel: function () {
+  confirmDel: function() {
     var that = this
     app.Util.ajax('mall/forum/topic/remove', {
-      id:that.data.delId
+      id: that.data.delId
     }, 'POST').then((res) => {
       if (res.data.content) {
         wx.showToast({
           title: '删除成功',
           icon: 'none'
         })
-        setTimeout(function () {
+        setTimeout(function() {
           that.allPost()
         }, 1000) //延迟时间
         that.setData({
@@ -290,9 +302,9 @@ Page({
     })
   },
   //关注
-  notFollow: function (e) {
+  notFollow: function(e) {
     var that = this
-    app.Util.ajax('mall/forum/topic/attention',{
+    app.Util.ajax('mall/forum/topic/attention', {
       id: e.currentTarget.dataset.id
     }, 'POST').then((res) => {
       if (res.data.content) {
@@ -317,7 +329,7 @@ Page({
     })
   },
   //取消关注
-  follow: function (e) {
+  follow: function(e) {
     var that = this
     that.setData({
       showFollow: true,
@@ -325,13 +337,13 @@ Page({
       followIndex: e.currentTarget.dataset.index
     })
   },
-  cancelFollow: function () {
+  cancelFollow: function() {
     var that = this
     that.setData({
       showFollow: false
     })
   },
-  confirmFollow: function () {
+  confirmFollow: function() {
     var that = this
     app.Util.ajax('mall/forum/topic/attention', {
       id: that.data.followId
@@ -359,15 +371,15 @@ Page({
     })
   },
   //点击评论跳转到帖子详情
-  jumpForumDetail: function (e) {
+  jumpForumDetail: function(e) {
     wx.navigateTo({
       url: '/pages/forumDetail/forumDetail?id=' + e.currentTarget.dataset.id,
     })
   },
-  jumpComment: function (e) {
+  jumpComment: function(e) {
     wx.navigateTo({
       url: '/pages/forumDetail/forumDetail?tempStatus=' + 1 + '&id=' + e.currentTarget.dataset.id,
     })
   },
-  
+
 })

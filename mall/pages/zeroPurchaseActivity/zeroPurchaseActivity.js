@@ -377,6 +377,7 @@ Page({
               })
             }
           }, 1000)
+          var priceActivityTimeIntervalList = res.data.content.priceActivityTimeIntervalList
           if (priceActivityTimeIntervalList.length == 1) {
             that.setData({
               numCh: '一'
@@ -398,7 +399,6 @@ Page({
               numCh: '五'
             })
           }
-          var priceActivityTimeIntervalList = res.data.content.priceActivityTimeIntervalList
           for (var i = 0; i < priceActivityTimeIntervalList.length; i++) {
             if (i !== priceActivityTimeIntervalList.length - 1) {
               priceActivityTimeIntervalList[i].endTime = priceActivityTimeIntervalList[i].endTime + ','

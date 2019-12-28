@@ -252,12 +252,12 @@ page {
 
 .get-zan-dialog__mask .zan-dialog__container {
   width: 630rpx;
-  height: 694rpx;
+  min-height: 694rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  top: 200rpx;
+  top: 150rpx;
   left: 60rpx;
   text-align: center;
   z-index: 9999;
@@ -268,7 +268,7 @@ page {
   height: 74rpx;
   position: absolute;
   right: 81rpx;
-  top: 126rpx;
+  top: 76rpx;
 }
 
 .get-zan-dialog__mask .zan-dialog__container .title {
@@ -286,23 +286,18 @@ page {
   font-size: 28rpx;
   font-family: PingFang SC;
   font-weight: 500;
-  color: rgba(34, 34, 34, 1);
+  color: #999;
   line-height: 46rpx;
 }
 
-.get-zan-dialog__mask .zan-dialog__container button {
-  width: 440rpx;
-  height: 80rpx;
-  line-height: 80rpx;
-  margin-top: 65rpx;
-  background: rgba(255, 38, 68, 1);
-  border-radius: 40rpx;
-  font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 1);
+.get-zan-dialog__mask .zan-dialog__container .smallTitle {
+  color: #333;
+  margin: 20rpx 0;
 }
 
+.get-zan-dialog__mask .zan-dialog__container .service {
+  margin: 40rpx 0;
+}
 
 /* 待返转让弹窗 */
 

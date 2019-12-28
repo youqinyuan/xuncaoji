@@ -38,10 +38,17 @@ Page({
           console.log("111"+currentPage.route)
           var url = currentPage.route
           if (url == 'pages/detail/detail') {
-            wx.setStorage({
-              key: "url",
-              data: url + '?id=' + wx.getStorageSync('goods_id')
-            })
+            if (wx.getStorageSync('stages')) {
+              wx.setStorage({
+                key: "url",
+                data: url + '?id=' + wx.getStorageSync('goods_id')+'&&stages=' + wx.getStorageSync('stages')
+              })
+            }else{
+              wx.setStorage({
+                key: "url",
+                data: url + '?id=' + wx.getStorageSync('goods_id')
+              })
+            }            
           } else if (url == 'pages/zeroPurchase/zeroPurchase') {
             wx.setStorage({
               key: "url",
@@ -68,6 +75,21 @@ Page({
               data: url
             })
           }else if (url == 'pages/freeBuy/freeBuy') {
+            wx.setStorage({
+              key: "url",
+              data: url
+            })
+          }else if(url == 'pages/lovingHeart/lovingHeart'){
+            wx.setStorage({
+              key: "url",
+              data: url
+            })
+          }else if(url == 'pages/friendSponsor/friendSponsor'){
+            wx.setStorage({
+              key: "url",
+              data: url
+            })
+          }else if(url == 'pages/sponsor/sponsor'){
             wx.setStorage({
               key: "url",
               data: url

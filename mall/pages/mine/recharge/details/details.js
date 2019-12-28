@@ -11,6 +11,7 @@ Page({
     pageSize:10,
     items:[],
     text:'',
+    textData:'',
     showDialog:false
   },
 
@@ -23,8 +24,7 @@ Page({
   },
   init:function(){
     let that = this
-    app.Util.ajax('mall/personal/balanceDetails', { pageNumber: that.data.pageNumber, pageSize: that.data.pageSize, status: 1 }, 'GET').then((res) => { // 使用ajax函数
-      //console.log(111+JSON.stringify(res.data.content))
+    app.Util.ajax('mall/personal/balanceDetails', { pageNumber: that.data.pageNumber, pageSize: that.data.pageSize, status: 1 }, 'GET').then((res) => {
       if (res.data.content) {
         for (var i = 0; i < res.data.content.items.items.length; i++) {
           res.data.content.items.items[i].tradeTime = time.formatTimeTwo(res.data.content.items.items[i].tradeTime, 'Y-M-D h:m:s');
@@ -32,14 +32,22 @@ Page({
         that.setData({
           items: res.data.content.items.items
         })
+        if (that.data.items.length===0){
+          that.setData({
+            textData:'暂无数据'
+          })
+        }else{
+          that.setData({
+            textData: ''
+          })
+        }
       }
     })
   },
   getMore:function(){
     var that = this
     var pageNumber = that.data.pageNumber + 1
-    //销量排行榜
-    app.Util.ajax('mall/personal/balanceDetails', { pageNumber: pageNumber, pageSize: that.data.pageSize, status: 1 },'GET').then((res) => { // 使用ajax函数
+    app.Util.ajax('mall/personal/balanceDetails', { pageNumber: pageNumber, pageSize: that.data.pageSize, status: 1 },'GET').then((res) => {
       if (res.data.content) {
         if (res.data.content.items.items == '' && that.data.items !== '') {
           that.setData({

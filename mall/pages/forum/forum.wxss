@@ -177,12 +177,11 @@ page {
 }
 
 .content-text {
-  width: 672rpx;
+  width: 690rpx;
   font-size: 32rpx;
   font-family: PingFang SC;
   font-weight: 500;
   color: rgba(102, 102, 102, 1);
-  line-height: 48rpx;
 }
 
 .content-item {
@@ -192,16 +191,17 @@ page {
   word-break: break-all;
   overflow: hidden;
 }
-.content-item1{
+
+.content-item1 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   word-break: break-all;
   overflow: hidden;
 }
+
 .all_text {
   color: #ff6417;
-  text-decoration: underline;
 }
 
 .content_img {
@@ -419,7 +419,7 @@ page {
   font-weight: bold;
   color: #333;
   margin: 0 20rpx;
-  line-height: 1.5;
+  line-height: 1.7;
 }
 
 .content_comment_text .item {

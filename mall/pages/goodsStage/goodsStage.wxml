@@ -1,0 +1,27 @@
+<!--pages/goodsStage/goodsStage.wxml-->
+<wxs module="filters" src="filter.wxs"></wxs>
+<view class="topImg">
+  <image class="img1" src="https://xuncj.yzsaas.cn/_download/img/add/process_b.png"></image>
+  <image class="img2" src="https://xuncj.yzsaas.cn/_download/img/add/process_a.png"></image>
+</view>
+<view class="listItem">
+  <view class="listItem-list">
+    <text class="listItem-left">姓名</text>
+    <input class="listItem-right" maxlength="20" type="string" bindinput="getRealName" value="{{goodsMessage.realName}}"></input>
+  </view>
+  <view class="listItem-list listBorder">
+    <text class="listItem-left">身份证号码</text>
+    <input class="listItem-right" maxlength="18" type="string" bindinput="getIdCard" value="{{goodsMessage.idCard}}"></input>
+  </view>
+</view>
+<view class="listItem">
+  <view class="listItem-list">
+    <text class="listItem-left">签发机关</text>
+    <input class="listItem-right" type="string" maxlength="20" bindinput="getAuthority" value="{{goodsMessage.issuingAuthority}}"></input>
+  </view>
+  <view class="listItem-list listBorder" bindtap="effectiveTime">
+    <text class="listItem-left">有效期限</text>
+    <text class="listItem-right1" wx:if="{{goodsMessage.validBeginTime&&goodsMessage.validEndTime}}">{{filters.toDate(goodsMessage.validBeginTime)}}至{{filters.toDate(goodsMessage.validEndTime)}}</text>
+  </view>
+</view>
+<view class="btn" bindtap="nexStep">下一步</view>

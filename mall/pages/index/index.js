@@ -313,7 +313,7 @@ Page({
             })
           } else if (res.data.content.param == 14) {
             wx.navigateTo({
-              url: '/pages/diamondPartner/diamondPartner',
+              url: '/pages/freeBuy/freeBuy',
             })
           } else if (res.data.content.param == 15) {
             wx.switchTab({
@@ -322,6 +322,14 @@ Page({
           } else if (res.data.content.param == 16) {
             wx.navigateTo({
               url: '/pages/cityPartner/cityPartner',
+            })
+          } else if (res.data.content.param == 17) {
+            wx.navigateTo({
+              url: '/pages/byStages/byStages',
+            })
+          } else if (res.data.content.param == 18) {
+            wx.navigateTo({
+              url: '/pages/sponsor/sponsor',
             })
           }
         } else if (res.data.content.category == 2) {
@@ -992,6 +1000,14 @@ Page({
     } else if (forwarddest === 9) {
       wx.navigateTo({
         url: '/pages/freeBuy/freeBuy',
+      })
+    } else if (forwarddest === 10) {
+      wx.navigateTo({
+        url: '/pages/byStages/byStages',
+      })
+    } else if (forwarddest === 11) {
+      wx.navigateTo({
+        url: '/pages/sponsor/sponsor',
       })
     }
   },

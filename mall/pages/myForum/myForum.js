@@ -27,7 +27,6 @@ Page({
     showDel: false, //删除帖子弹框
     showFollow: false, //取消关注弹窗
     followStatus: false, //是否关注
-    ellipsis: true, // 文字是否收起，默认收起
     pageNumber: 1, //分页记录数
     pageSize: 20, //分页大小
   },
@@ -333,17 +332,32 @@ Page({
       }
     }
   },
-  getHeight: function() {
+  getHeight: function () {
     var that = this;
     setTimeout(() => {
-      wx.createSelectorQuery().selectAll('.content-item').boundingClientRect(function(rect) {
+      wx.createSelectorQuery().selectAll('.content-item').boundingClientRect(function (rect) {
         for (var i = 0; i < that.data.allPost.length; i++) {
-          if (rect[i].height > 80) {
-            that.data.allPost[i].isShowAll = 1
-            that.data.allPost[i].isText = '全部'
-          } else {
-            that.data.allPost[i].isShowAll = 2
-            that.data.allPost[i].isText = ''
+          var viewHeight = wx.getSystemInfoSync().windowWidth
+          if (viewHeight > 375 && viewHeight <= 414) {
+            if (rect[i].height > 96) {
+              that.data.allPost[i].ellipsis = false
+              that.data.allPost[i].isShowAll = 2
+              that.data.allPost[i].isText = '全部'
+            } else {
+              that.data.allPost[i].ellipsis = true
+              that.data.allPost[i].isShowAll = 1
+              that.data.allPost[i].isText = ''
+            }
+          } else if (viewHeight <= 375) {
+            if (rect[i].height > 88) {
+              that.data.allPost[i].ellipsis = false
+              that.data.allPost[i].isShowAll = 2
+              that.data.allPost[i].isText = '全部'
+            } else {
+              that.data.allPost[i].ellipsis = true
+              that.data.allPost[i].isShowAll = 1
+              that.data.allPost[i].isText = ''
+            }
           }
         }
         that.setData({
@@ -353,17 +367,14 @@ Page({
     }, 300)
   },
   //收起/展开按钮点击事件
-  ellipsis: function(e) {
+  ellipsis: function (e) {
     var that = this
     for (var i = 0; i < that.data.allPost.length; i++) {
       if (i == e.currentTarget.dataset.index) {
         that.data.allPost[e.currentTarget.dataset.index].flag = that.data.allPost[e.currentTarget.dataset.index].flag + 1
       }
       if (that.data.allPost[e.currentTarget.dataset.index].flag % 2 === 0) {
-        that.data.allPost[e.currentTarget.dataset.index].isText = '收起'
-        that.data.allPost[e.currentTarget.dataset.index].ellipsis = false
-      } else if (that.data.allPost[e.currentTarget.dataset.index].flag % 2 !== 0) {
-        that.data.allPost[e.currentTarget.dataset.index].isText = '全部'
+        that.data.allPost[e.currentTarget.dataset.index].isText = ''
         that.data.allPost[e.currentTarget.dataset.index].ellipsis = true
       }
     }

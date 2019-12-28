@@ -12,7 +12,7 @@
         <view class="date-picker-content-center" catchtouchstart="onTouchmask">
             <picker-view class="date-picker-content-item" indicator-style="height: 70rpx;" value="{{tempYearPos}}" bindchange="year_onChange">
                 <picker-view-column>
-                    <view wx:for="{{years}}" wx:key="*this" style="height: 70rpx; text-align:center; font-size: 28rpx; line-height:70rpx; color:#353535;">{{item}}</view>
+                    <view wx:for="{{years}}" wx:key="*this" style="height: 70rpx; text-align:center; font-size: 28rpx; line-height:70rpx; color:#353535;">{{item}}年</view>
                 </picker-view-column>
             </picker-view>
             <picker-view class="date-picker-content-item" indicator-style="height: 70rpx; " value="{{tempMonthPos}}" bindchange="month_onChange">

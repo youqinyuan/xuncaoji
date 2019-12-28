@@ -10,6 +10,7 @@ Page({
     pageSize:7,
     items:[],
     text:'',
+    textData:'',
     showDialog:false,
     orderId:0
   },
@@ -44,6 +45,11 @@ Page({
         that.setData({
           items: res.data.content.items
         })
+        if (that.data.items.length===0){
+          that.setData({
+            textData:'暂无数据'
+          })
+        }
       }
     })
   },

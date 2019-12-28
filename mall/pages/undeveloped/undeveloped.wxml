@@ -1,3 +1,4 @@
 <!--pages/undeveloped/undeveloped.wxml-->
+
 <image class="img" src="https://xuncj.yzsaas.cn/_download/img/icon/nohave_n.png"></image>
 <view class="content">这里什么都没有，去别的地方逛逛吧</view>

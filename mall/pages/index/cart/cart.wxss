@@ -50,11 +50,22 @@ page {
   margin-right: 10rpx;
 }
 
-.shop-view-wrapper-title text {
+.shop-view-wrapper-title .text {
   font-size: 30rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
+}
+
+.shop-view-wrapper-title .text1 {
+  padding: 2rpx 12rpx;
+  margin-right: 13rpx;
+  font-size: 20rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  background: #ff2644;
+  border-radius: 14rpx;
 }
 
 .store-box {
@@ -325,7 +336,6 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 }
 
 .store-total-num-text {
-  
   font-size: 24rpx;
 }
 

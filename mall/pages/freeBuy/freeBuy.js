@@ -162,7 +162,7 @@ Page({
   },
   onPageScroll(e) {
     // console.log(e.scrollTop)
-    if (e.scrollTop > 350) {
+    if (e.scrollTop > 750) {
       this.setData({
         toIndex: true
       })
@@ -328,7 +328,7 @@ Page({
             // ctx.closePath()
             // 绘制广告语
             ctx.beginPath()
-            var adTips = desc
+            var adTips = '一言不合就降价，全场支持0成本购，真实可靠！'
             ctx.setFontSize(14);
             ctx.setFillStyle('#333333');
             ctx.setTextAlign("left")
@@ -530,7 +530,7 @@ Page({
           }
         })
         return {
-          title: '这么优秀？所有商品0元入手？亲测，真实可靠！',
+          title: '钜惠来袭，全场支持0成本购，支付金额全额返现！',
           path: "/pages/freeBuy/freeBuy?inviterCode=" + wx.getStorageSync('inviterCode'),
           imageUrl: '/assets/images/freeBuy/freeBuy.png',
         }
@@ -552,7 +552,7 @@ Page({
           }
         })
         return {
-          title: '「群福利来啦」所有商品都可0元购！亲测，真实可靠！',
+          title: '低价狂欢，全场支持0成本购，支付金额全额返现！',
           path: "/pages/freeBuy/freeBuy?inviterCode=" + wx.getStorageSync('inviterCode'),
           imageUrl: '/assets/images/freeBuy/freeBuy.png',
         }
@@ -571,7 +571,7 @@ Page({
         }
       })
       return {
-        title: '双十一福利，全场0成本购',
+        title: '超值优惠大放送，全场支持0成本购，真实可靠！',
         path: "/pages/freeBuy/freeBuy?inviterCode=" + wx.getStorageSync('inviterCode'),
         imageUrl: '/assets/images/freeBuy/freeBuy.png',
       }

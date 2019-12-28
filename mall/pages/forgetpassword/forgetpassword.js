@@ -107,7 +107,7 @@ Page({
   //保存密码
   submit:function(){
     var that = this
-    if (!(/^[0-9]{6}$/.test(that.data.phoneNum))) {
+    if (!(/^1[3456789]\d{9}$/.test(that.data.phoneNum))) {
       wx.showToast({
         title: '请输入正确的手机号码',
         icon:'none'

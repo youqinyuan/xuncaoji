@@ -1,0 +1,15 @@
+<!--pages/chooseMoney/chooseMoney.wxml-->
+<view class="money_box">
+    <view class="start_time">
+        <text class="font26">￥</text>
+        <input class="start_money" bindinput="startMoney" type="digit" value="{{startMoney}}" maxlength='10'/>
+    </view>
+    <view class="font_one">至</view>
+    <view class="end_time">
+        <text class="font26">￥</text>
+        <input class="end_money" bindinput="endMoney" type="digit" value="{{endMoney}}" maxlength='10'/>
+    </view>
+    <view class="clear" bindtap="clear">清空</view>
+    <view class="toWait" wx:if="{{buttonStatus==1}}" bindtap="toWait">查询全部金额</view>
+    <view class="toWait" wx:else bindtap="toWait2">确定</view>
+</view>

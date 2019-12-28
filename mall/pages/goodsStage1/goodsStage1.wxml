@@ -1,0 +1,35 @@
+<!--pages/goodsStage1/goodsStage1.wxml-->
+<view class="topImg">
+  <image class="img1" src="https://xuncj.yzsaas.cn/_download/img/add/process_b.png"></image>
+  <image class="img2" src="https://xuncj.yzsaas.cn/_download/img/add/process_a.png"></image>
+</view>
+<view class="listItem">
+  <view class="listItem-list">
+    <text class="listItem-left">职位</text>
+    <input class="listItem-right"  maxlength="20" type="string" bindinput="getJobTitle" value="{{goodsMessage.jobTitle}}"></input>
+  </view>
+  <view class="listItem-list">
+    <text class="listItem-left">个人邮箱</text>
+    <input class="listItem-right" maxlength="20" type="string" bindinput="getEmail" value="{{goodsMessage.email}}"></input>
+  </view>
+  <view class="listItem-list">
+    <text class="listItem-left">公司名称</text>
+    <input class="listItem-right"  maxlength="50" type="string" bindinput="getCompanyName" value="{{goodsMessage.companyName}}"></input>
+  </view>
+  <view class="listItem-list">
+    <text class="listItem-left">公司电话</text>
+    <input class="listItem-right" type="number" maxlength="20" bindinput="getCompanyTel" value="{{goodsMessage.companyTel}}"></input>
+  </view>
+  <view class="listItem-list" bindtap="showCityPicker">
+    <text class="listItem-left">工作地址</text>
+    <text class="listItem-right1" wx:if="{{goodsMessage.districtName}}">{{goodsMessage.districtName}}</text>
+    <city-picker id="city-picker" value="{{cityPickerValue}}" isShow="{{cityPickerIsShow}}" bindsureclick="cityPickerOnSureClick" bindcancelclick="cityPickerOnCancelClick" />
+  </view>
+  <view class="listItem-list1 listBorder">
+    <text class="listItem-left1">请输入详细地址</text>
+    <textarea auto-height="{{auto_height}}" bindblur="areablur" bindfocus="areafocus" maxlength="100" type="text" class="{{is_ios?'listRight_ios':'listRight'}}" bindinput="getDetail" value="{{goodsMessage.detailedAddress}}" wx:if="{{isShowText}}"></textarea>
+  </view>
+</view>
+<view class="btn_wrap">
+  <view class="btn" bindtap="nexStep">下一步</view>
+</view>

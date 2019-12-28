@@ -1,21 +1,32 @@
 <!--pages/waitReentryDetail/waitReentryDetail.wxml-->
+<view class="choose_box" wx:if="{{!goWaitReentry}}">
+    <view class="choose_one" bindtap="showChoose1">待返来源
+      <image src="https://xuncj.yzsaas.cn/_download/img/mine/ic_more.png" class="more"/>
+    </view>
+    <view class="choose_one" bindtap="toChooseTime">返现时间
+      <image src="https://xuncj.yzsaas.cn/_download/img/mine/ic_more.png" class="more"/>
+    </view>
+    <view class="choose_one" bindtap="toChooseMoney">返现金额
+      <image src="https://xuncj.yzsaas.cn/_download/img/mine/ic_more.png" class="more"/>
+    </view>
+</view>
 <view class="box" wx:for="{{content}}" wx:key="" wx:if="{{!goWaitReentry}}">
-  <image src="https://xuncj.yzsaas.cn/_download/img/mine/bg_card3.png" class="img_bg" wx:if="{{item.status==1}}" />
-  <image src="https://xuncj.yzsaas.cn/_download/img/mine/bg_card1.png" class="img_bg" wx:if="{{item.status==2&&item.userId==item.purchaserId}}" />
-  <image src="https://xuncj.yzsaas.cn/_download/img/mine/bg_card2.png" class="img_bg" wx:if="{{item.status==2&&item.userId!==item.purchaserId}}" />
-  <image src="https://xuncj.yzsaas.cn/_download/img/mine/bg_card4.png" class="img_bg" wx:if="{{item.status==4||item.status==3}}" />
+  <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/bg_card3.png" class="img_bg" wx:if="{{item.status==1}}" />
+  <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/bg_card1.png" class="img_bg" wx:if="{{item.status==2&&item.userId==item.purchaserId}}" />
+  <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/bg_card2.png" class="img_bg" wx:if="{{item.status==2&&item.userId!==item.purchaserId}}" />
+  <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/bg_card4.png" class="img_bg" wx:if="{{item.status==4||item.status==3}}" />
   <view class="ReentryStatus">
-    <text class="ReentryStatusValue color3" wx:if="{{item.status==1&&item.transferorId!==item.userId&&item.transferorId!==null}}">转让完成-转让人：{{item.phone}}</text>
+    <text class="ReentryStatusValue color3" wx:if="{{item.status==1&&item.otherTransfer==1}}">转让完成-转让人：{{item.phone}}</text>
     <text class="ReentryStatusValue color2" wx:if="{{item.status==2&&item.userId==item.transferorId}}">待返转让-购买人：{{item.mobileNumber}}<text >{{item.hours}}小时后自动取消</text></text>
     <text class="ReentryStatusValue color1" wx:if="{{item.status==2&&item.userId!==item.transferorId}}">待返待确认-转让人：{{item.phone}}<text >{{item.hours}}小时后自动取消</text></text>
     <text class="ReentryStatusValue color4" wx:if="{{item.status==3}}">转让完成-购买人：{{item.mobileNumber}}</text>
     <text class="ReentryStatusValue color4" wx:if="{{item.status==4&&item.type==3}}">终止返现-取消交易</text>
     <text class="ReentryStatusValue color4" wx:if="{{item.status==4&&item.type==1}}">终止返现-退款</text>
     <text class="ReentryStatusValue color4" wx:if="{{item.status==4&&item.type==2}}">终止返现-终止</text>
-    <image src="https://xuncj.yzsaas.cn/_download/img/mine/tab_33.png" class="img_tab11" wx:if="{{item.status==1&&item.transferorId!==item.userId&&item.transferorId!==null}}" />
-    <image src="https://xuncj.yzsaas.cn/_download/img/mine/tab_11.png" class="img_tab11" wx:if="{{item.status==2&&item.userId==item.purchaserId}}" />
-    <image src="https://xuncj.yzsaas.cn/_download/img/mine/tab_22.png" class="img_tab11" wx:if="{{item.status==2&&item.userId!==item.purchaserId}}" />
-    <image src="https://xuncj.yzsaas.cn/_download/img/mine/tab_44.png" class="img_tab11" wx:if="{{item.status==4||item.status==3}}" />
+    <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/tab_33.png" class="img_tab11" wx:if="{{item.status==1&&item.otherTransfer==1}}" />
+    <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/tab_11.png" class="img_tab11" wx:if="{{item.status==2&&item.userId==item.purchaserId}}" />
+    <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/tab_22.png" class="img_tab11" wx:if="{{item.status==2&&item.userId!==item.purchaserId}}" />
+    <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/tab_44.png" class="img_tab11" wx:if="{{item.status==4||item.status==3}}" />
   </view>
   <view class="Reentry_title">
     <text>{{item.remark}}</text>
@@ -30,28 +41,30 @@
   <view class="sellPrice_box2" wx:if="{{item.status==2&&item.userId!==item.transferorId}}">
     <text>￥{{item.sellPrice}}</text>
   </view>
-  <view class="postingCard" wx:if="{{item.status==1}}" bindtap='postingCard' data-index="{{index}}">发卖帖</view>
   <view class="Reentry_money">
     <text>待返：￥{{item.noCashBackAmount}}</text>
     <text>已返：￥{{item.amountReturned}}</text>
   </view>
-  <view class="botton_box" wx:if="{{item.status==2&&item.userId!==item.transferorId}}">
+  <view class="button_new_box" wx:if="{{item.status!==4&&item.status!==3}}">
+    <view class="botton_box" wx:if="{{item.status==2&&item.userId!==item.transferorId}}">
     <text class="Reentry_detail" bindtap="Reentry_detail" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" wx:if="{{item.returnType!==2}}" data-proStatus="{{item.proStatus}}">返现明细</text>
     <text class="shure" bindtap="shure" data-transferId="{{item.transferId}}" data-avatarKey="{{item.avatarKey}}" data-nickname="{{item.nickname}}" data-sellPrice="{{item.sellPrice}}" data-phone="{{item.phone}}" data-cycle="{{item.cycle}}" data-returnAmount="{{item.returnAmount}}">确认交易</text>
   </view>
   <view class="botton_box" wx:if="{{item.status==2&&item.userId==item.transferorId}}">
-    <text class="return_loding" bindtap="return_lod">转让中</text>
+    <text class="return_loding" bindtap="return_lod">转让中...</text>
   </view>
   <view class="botton_box" wx:if="{{item.status==1}}">
+      <view class="postingCard" wx:if="{{item.status==1}}" bindtap='postingCard' data-index="{{index}}">发卖帖</view>
     <text class="Reentry_detail1" bindtap="Reentry_detail" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" wx:if="{{item.returnType!==2}}" data-proStatus="{{item.proStatus}}">返现明细</text>
     <text class="return" bindtap="return" data-returnType="{{item.returnType}}" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" data-money="{{item.noCashBackAmount}}">转让</text>
   </view>
+  </view>
 </view>
 <view class="box" wx:for="{{contentPsoting}}" wx:key="" bindtap='backPosting' data-index="{{index}}" wx:if="{{goWaitReentry}}">
-  <image src="https://xuncj.yzsaas.cn/_download/img/mine/bg_card3.png" class="img_bg" wx:if="{{item.status==1}}" />
+  <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/bg_card3.png" class="img_bg" wx:if="{{item.status==1}}" />
   <view class="ReentryStatus">
-    <text class="ReentryStatusValue color3" wx:if="{{item.status==1&&item.transferorId!==item.userId&&item.transferorId!==null}}">转让完成-转让人：{{item.phone}}</text>
-    <image src="https://xuncj.yzsaas.cn/_download/img/mine/tab_33.png" class="img_tab11" wx:if="{{item.status==1&&item.transferorId!==item.userId&&item.transferorId!==null}}" />
+    <text class="ReentryStatusValue color3" wx:if="{{item.status==1&&item.otherTransfer==1}}">转让完成-转让人：{{item.phone}}</text>
+    <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/tab_33.png" class="img_tab11" wx:if="{{item.status==1&&item.otherTransfer==1}}" />
   </view>
   <view class="Reentry_title">
     <text>{{item.remark}}</text>
@@ -260,5 +273,27 @@
         <button class="shure_one1" form-type="submit">确认转让</button>
       </view>
     </form>
+  </view>
+</view>
+  <!-- 返现来源  -->
+<view class="dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{choose1}}">
+  <view class="dialog__container" wx:if="{{choose1}}">
+    <image wx:if="{{choose1}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='closewChoose1'></image>
+    <view class="title">待返来源</view>
+    <view class="textz">
+        <view class="text_one" bindtap="getChoose" data-aa="1">他人转让
+            <image class="text_img" src="https://xuncj.yzsaas.cn/_download/img/mine/ic_choose.png" wx:if="{{index1==1}}" />
+        </view>
+        <view class="text_one" bindtap="getChoose" data-aa="2">购买返现
+            <image class="text_img" src="https://xuncj.yzsaas.cn/_download/img/mine/ic_choose.png" wx:if="{{index1==2}}" />
+        </view>
+        <view class="text_one" bindtap="getChoose" data-aa="3">新人返现
+            <image class="text_img" src="https://xuncj.yzsaas.cn/_download/img/mine/ic_choose.png" wx:if="{{index1==3}}" />
+        </view>
+        <view class="text_one" bindtap="getChoose" data-aa="4">全部
+            <image class="text_img" src="https://xuncj.yzsaas.cn/_download/img/mine/ic_choose.png" wx:if="{{index1==4}}" />
+        </view>
+        <view class="choose_one_button" bindtap="chooseOneShure">确定</view>
+    </view>
   </view>
 </view>

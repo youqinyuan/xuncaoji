@@ -60,6 +60,8 @@ Page({
                   wx.navigateBack({
                     delta: 1
                   })
+                  wx.setStorageSync('loving',1)
+                  wx.setStorageSync('sponsorStatus',1)
                 } else {
                   wx.navigateTo({
                     url: `/pages/myorder/myorder?status=${2}`,
@@ -110,6 +112,8 @@ Page({
                 wx.navigateBack({
                   delta: 1
                 })
+                wx.setStorageSync('loving',1)
+                wx.setStorageSync('sponsorStatus',1)
               } else {
                 wx.navigateTo({
                   url: `/pages/myorder/myorder?status=${2}`,
@@ -152,6 +156,8 @@ Page({
                       wx.navigateBack({
                         delta: 1
                       })
+                      wx.setStorageSync('loving',1)
+                      wx.setStorageSync('sponsorStatus',1)
                     } else {
                       wx.navigateTo({
                         url: `/pages/myorder/myorder?status=${2}`,
@@ -272,6 +278,8 @@ Page({
                   wx.navigateBack({
                     delta: 1
                   })
+                  wx.setStorageSync('loving',1)
+                  wx.setStorageSync('sponsorStatus',1)
                 }else{
                   if (that.data.amount) {
                     wx.navigateBack({
@@ -369,7 +377,7 @@ Page({
     var that = this
     that.setData({
       options: options,
-      amount:options.amount,
+      amount: options.amount ? options.amount:null,
       orderType: parseInt(options.orderType)
     })
     if (that.data.orderType ===4){
@@ -445,6 +453,8 @@ Page({
                       wx.navigateBack({
                         delta: 1
                       })
+                      wx.setStorageSync('loving',1)
+                      wx.setStorageSync('sponsorStatus',1)
                     } else {
                       wx.navigateTo({
                         url: `/pages/myorder/myorder?status=${2}`,
@@ -486,6 +496,8 @@ Page({
                   wx.navigateBack({
                     delta: 1
                   })
+                  wx.setStorageSync('loving',1)
+                  wx.setStorageSync('sponsorStatus',1)
                 } else {
                   wx.navigateTo({
                     url: `/pages/myorder/myorder?status=${2}`,

@@ -1,0 +1,53 @@
+<!--pages/storeDetail/storeDetail.wxml-->
+<view class="shops-wrap">
+  <view class="shops-content-img">
+    <image src="{{store.logoUrl}}" wx:if="{{store.logoUrl}}"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png" wx:else></image>
+  </view>
+  <view class="shops-content-middle">
+    <view class="shops-content-middle-wrap">
+      {{store.name}}
+      <view class="shops-content-middle-wrap-text" wx:if="{{store.channel==1}}">自营</view>
+    </view>
+    <view class="shops-content-middle-bottom">店铺评分：{{store.score}}</view>
+  </view>
+</view>
+<view class="shops-intro" wx:if="{{store.intro ||store.appletQrCodeUrl}}">
+  <view class="shops-intro-text">{{store.intro}}</view>
+  <view class="shops-intro-img">
+    <image src="{{store.appletQrCodeUrl}}"></image>
+  </view>
+</view>
+<view class="quality">
+  <view class="quality-title">
+    <image class="quality-img" src="https://xuncj.yzsaas.cn/_download/img/add/ic_goods.png"></image>
+    <text class="quality-text">店铺商品</text>
+  </view>
+  <view class="quality-list-wrapper">
+    <view class="quality-list" wx:for="{{list}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
+      <view class="quality-list-img">
+        <image src="{{item.imageUrls[0]}}"></image>
+      </view>
+      <view class="quality-list-text">
+        <text class="item1" wx:if="{{item.tags==1}}">自营</text>
+        <text class="item2">支持0成本购</text>{{item.name}}</view>
+      <view class="quality-list-price">
+        <view class="newprice">
+          <text>￥</text>{{item.truePrice}}</view>
+        <view class="oldprice">￥{{item.orgPrice}}</view>
+      </view>
+      <view class="return-wrap">
+        <view class="return-money">
+          <text>实付</text>
+          <text>￥</text>
+          <text>{{item.dctPrice}}</text>
+        </view>
+        <view class="pay-money">
+          <text>返现</text>
+          <text>￥</text>
+          <text>{{item.marketingCashBack.totalAmount}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

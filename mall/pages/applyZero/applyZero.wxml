@@ -39,7 +39,7 @@
     </view>
   </view>
 </view>
-<view class="reviseResultBox">
+<view class="reviseResultBox" wx:if="{{sponsor==0}}">
   <view class="reviseResultBox1">
     <text>二、计算结果：</text>
     <text style="color:#666">所有品类保证正品，由于成本较大，因此全额返会比正常售价支付金额略高。</text>
@@ -53,7 +53,6 @@
         </text>
         <text class="payMoney">￥{{payMsg.needPaymentAmount}}</text>
         <text class="applyZeroRevise6" catchtap="returnDetail">明细</text>
-        <!-- <text class="applyZeroRevise">修改</text> -->
       </view>
       <view class="applyZeroMoneyBox6">
         <text class="applyZeroFont6">其中{{filters.toFix(payMsg.needPaymentAmount-cashMsg.expectedAmount)}}元将在{{cashMsg.cashBackPeriods}}期(月)内平均等额的返还到您的账户</text>
@@ -77,6 +76,51 @@
           <text class="applyZeroFont6">1.按银行同期存款利率({{cashMsg.interestRate}}%)给您的利息补偿：</text>
           <text class="payMoney3">￥{{payMsg.interestAmount}}</text>
         </view>
+        <text class="applyZeroFont6">2.商品购买原价:</text>
+        <text class="payMoney">￥{{payMsg.totalOrgAmount}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="reviseResultBox3" wx:if="{{sponsor==1}}">
+  <view class="reviseResultBox1">
+    <text>二、计算结果：</text>
+    <text style="color:#666">所有品类保证正品，由于成本较大，因此全额返会比正常售价支付金额略高。</text>
+  </view>
+  <view class="reviseResultBox2">
+    <view class="applyZeroMoneyBox8" style="background-color:#FFEDD0">
+      <view class="applyZeroMoneyBox5">
+        <text class="regularNumber2">1</text>
+        <text class="regularFont">
+          邀请好友完成{{supportCount}}次赞助后，仅需支付
+        </text>
+        <text class="payMoney10">￥{{filters.toFix(payMsg.needPaymentAmount-payMsg.sponsorAmount)}}</text>
+        <text class="applyZeroRevise12" catchtap="returnDetail">明细</text>
+        <!-- <text class="applyZeroRevise">修改</text> -->
+      </view>
+      <view class="applyZeroMoneyBox6">
+        <text class="applyZeroFont6">如不赞助正常购买，需支付￥{{payMsg.needPaymentAmount}}元！</text>
+        <text class="applyZeroFont6">其中{{filters.toFix(payMsg.needPaymentAmount-cashMsg.expectedAmount)}}元将在{{cashMsg.cashBackPeriods}}期(月)内平均等额的返还到您的账户</text>
+        <text class="applyZeroFont6">温馨提示：（返还金额可在余额随时提现）</text>
+      </view>
+    </view>
+  </view>
+  <view class="reviseResultBox2">
+    <view class="applyZeroMoneyBox10" style="background-color:#FFEDD0">
+      <view class="applyZeroMoneyBox2">
+        <text class="regularNumber2">2</text>
+        <text class="regularFont">
+          您本次参与Freebuy，赚的钱
+        </text>
+        <text class="payMoney">￥{{payMsg.gainedAmount}}</text>
+        <text class="applyZeroRevise" catchtap="payNum">说明</text>
+      </view>
+      <view class="applyZeroMoneyBox6">
+        <text class="applyZeroFont7">其中：</text>
+        <view>
+          <text class="applyZeroFont6">1.按银行同期存款利率({{cashMsg.interestRate}}%)给您的利息补偿：</text>
+          <text class="payMoney3">￥{{payMsg.interestAmount}}</text>
+        </view>
 
         <!-- <text class="applyZeroRevise6">明细</text> -->
         <text class="applyZeroFont6">2.商品购买原价:</text>
@@ -85,12 +129,15 @@
     </view>
   </view>
 </view>
-<view class="btn" wx:if="{{buyType==1}}">
+<view class="btn" wx:if="{{buyType==1&&sponsor==0}}">
   <button class="add" bindtap="addOrCompute">{{buttonText}}{{goodsType}}</button>
   <button class="pay-zero" bindtap="payNow">{{buttonText2}}</button>
 </view>
-<view class="btn" wx:else>
+<view class="btn" wx:if="{{buyType==2&&sponsor==0}}">
   <button class="pay-zero1" bindtap="payNow">{{buttonText2}}</button>
+</view>
+<view class="btn" wx:if="{{sponsor==1}}">
+  <button class="pay-zero1" bindtap="sponsorShow">发起赞助</button>
 </view>
 <view class="stop" bindtap="stopZero">
   <text class="">可随时终止freebuy</text>
@@ -209,4 +256,21 @@
     </view>
   </view>
   <image wx:if="{{monthStatus}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='monthStop'></image>
+</view>
+  <!-- 发起赞助弹窗  -->
+<view class="dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sponsorShow}}">
+  <view class="dialog__container" wx:if="{{sponsorShow}}">
+    <view class="titlez">提示</view>
+    <view class="text">
+        <view class="rule_value">您选择的最终成本价为{{cashMsg.expectedAmount}}元</view>
+        <view class="rule_value">返还月数为{{cashMsg.cashBackPeriods}}月。</view>
+        <view class="rule_value">一旦赞助开始后，不可更改，</view>
+        <view class="rule_value">请再次确定哦！</view>
+    </view>
+    <view class="sponsor_box">
+        <view class="sponsor_left" bindtap='closeSponsorShow'>重新选择</view>
+        <view class="sponsor_right" bindtap='toSponsorDetail'>发起赞助</view>
+    </view>
+  </view>
+  <image wx:if="{{sponsorShow}}" class="cancel-get2" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='closeSponsorShow'></image>
 </view>

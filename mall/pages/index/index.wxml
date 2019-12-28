@@ -20,7 +20,7 @@
       </block>
     </scroll-view>
     <view class="content_all" bindtap="jumpClassify">
-      <image src="/assets/images/add/ic_all.png"></image>
+      <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_all.png"></image>
       <text>全部</text>
     </view>
   </view>

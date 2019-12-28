@@ -1,36 +1,48 @@
 <!--pages/myWish/myWish.wxml-->
 <view class="page" style="background:{{bgColor}}">
   <view class="wish-wrap" wx:if="{{wishpool.length>0}}">
-    <view class="list" bindlongpress="deleteList" data-id="{{wishpool.id}}" wx:for="{{wishpool}}" wx:for-item="wishpool" wx:key="{{wishpool.id}}">
-      <view class="listTitle" wx:if="{{wishpool.status==1 || wishpool.status==2}}">
-        {{wishpool.content}}
+    <view class="list" bindlongpress="deleteList" data-id="{{wishpool.id}}"  wx:for-index="index1" wx:for="{{wishpool}}" wx:for-item="wishpool" wx:key="{{wishpool.id}}">
+      <view class="listTitle">{{wishpool.content}}</view>
+      <view class="copy" bindtap='copyText' data-text="{{wishpool.content}}">复制</view>
+      <view class="content_img">
+        <image wx:for="{{wishpool.imageList}}" wx:for-item="contentImg" wx:key="" src="{{contentImg.imageUrl}}" catchtap='imgYu' data-index='{{index}}' data-idx="{{index1}}"></image>
       </view>
-      <view class="listTitle1" wx:if="{{wishpool.status==3}}">{{wishpool.content}}</view>
+      <view class="getwish" wx:if="{{wishpool.progressBar<=8}}">正在加急满足心愿哦，还有{{wishpool.hours}}小时{{wishpool.minutes}}分您的心愿就满足啦</view>
+      <view class="getwish" wx:if="{{wishpool.progressBar>8&&wishpool.progressBar<24}}">心愿快要满足了哦，还有{{wishpool.hours}}小时{{wishpool.minutes}}分您的心愿就满足啦</view>
+      <view class="getwish" wx:if="{{wishpool.progressBar==24}}">心愿满足啦，快去购买吧</view>
+      <view class="process_box" style="width:{{wishpool.boxWidth}}rpx;">
+        <view class="process_box_left" style="width:{{wishpool.backWidth}}rpx;"></view>
+      </view>     
       <view class="listBtn">
-        <view class="text" wx:if="{{wishpool.status==2}}">您想要的物品准备好了</view>
-        <view class="text" wx:if="{{wishpool.status==1}}">心愿满足中……</view>
-        <view class="text1" wx:if="{{wishpool.status==3}}">您想要的物品准备好了</view>
-        <view class="btn1" wx:if="{{wishpool.status==2}}" catchtap="getDetail" data-id="{{wishpool.matchedGoodsId}}">
-          立刻满足心愿
-        </view>
-        <button class="btn2" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" open-type="contact" bindcontact="handleContact" wx:if="{{wishpool.status==1}}">
-          催客服
+         <view class="bottom">
+        <button class="service" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" send-message-title="{{detail.name}}" send-message-img='{{imageUrls[0]}}' show-message-card="true"
+          bindcontact="handleContact" open-type="contact">
+          <image src="https://xuncj.yzsaas.cn/_download/img/icon/xqing_downbar_kefu_n.png"></image>
+          <view class="service-text">客服</view>
         </button>
-        <view class="btn3" wx:if="{{wishpool.status==3}}" catchtap="getDetail" data-id="{{wishpool.matchedGoodsId}}">
-          立刻满足心愿
+        <view class="del" bindtap="deleteList" data-id="{{wishpool.id}}">
+          <image src="https://xuncj.yzsaas.cn/_download/img/add/wish_del.png"></image>
+          <view class="del-text">删除</view>
         </view>
       </view>
-    </view>   
+        <view class="btn1" wx:if="{{wishpool.status==2 || wishpool.status==3}}" catchtap="getDetail" data-id="{{wishpool.matchedGoodsId}}" data-status="{{wishpool.status}}">
+          立刻满足心愿
+        </view>
+        <view class="btn2" wx:if="{{wishpool.status==1}}" catchtap="urgeData" data-id="{{wishpool.id}}">
+          催一催
+        </view>
+      </view>
+    </view>
   </view>
   <view class="img_notlist" wx:if="{{wishpool.length===0}}">
     <image class="img" src="https://xuncj.yzsaas.cn/_download/img/icon/nohave_n.png"></image>
     <view class="img_text">心愿池空空如也</view>
   </view>
   <view class="add_wish" bindtap="leaveWish">
-      <image src="https://xuncj.yzsaas.cn/_download/img/wishpool/add_wish.png"></image>
-      <view class="add_text">添加心愿</view>
-    </view>
-    <view class="long_del" wx:if="{{wishpool.length>0}}">长按删除心愿</view>
+    <image src="https://xuncj.yzsaas.cn/_download/img/wishpool/add_wish.png"></image>
+    <view class="add_text">添加心愿</view>
+  </view>
+  <view class="long_del" wx:if="{{wishpool.length>0}}">长按删除心愿</view>
 </view>
 <!-- 删除弹框 -->
 <view class="zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>

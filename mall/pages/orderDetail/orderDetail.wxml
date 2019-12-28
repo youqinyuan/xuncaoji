@@ -101,7 +101,7 @@
     <view class="address1">
       <view class="address-name-wrap">
         <view class="address-name">
-          <image src="/assets/images/add/ic_location.png"></image>
+          <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_location.png"></image>
           <view class="address-name-xm">{{content.orderAddressDetail.receiverName}}</view>
           <view>{{content.orderAddressDetail.mobileNumber}}</view>
         </view>
@@ -198,7 +198,7 @@
               <text class="expressfee-price1">{{item.purchaseTotalPrice}}</text>
             </view>
           </view>
-          <view class="yh" wx:if="{{item.discountAmount||item.shoppingAmount}}">
+          <!-- <view class="yh" wx:if="{{item.discountAmount||item.shoppingAmount}}">
             <view class="yh-text">优惠</view>
             <view class="yh1">
               <view class="yh-price" wx:if="{{item.discountAmount&&item.discountRatio}}">钻石合伙人FreeBuy购物专用折扣{{item.discountRatio}}折减￥{{item.discountAmount}}</view>
@@ -206,18 +206,18 @@
                 <text>(剩余{{item.shoppingNum}}次)</text>
               </view>
             </view>
-          </view>
+          </view> -->
           <view class="expressfee">
             <view class="expressfee-text">实际支付金额</view>
             <view class="expressfee-price">
-              <text class="expressfee-price1">￥<text class="expressfee-price1-text">{{item.purchaseTotalPrice?filters.toFix(item.payAmount+item.expressFee):filters.toFix(item.goodsTotalPrice+item.expressFee)}}</text></text>
+              <text class="expressfee-price1"><text class="expressfee-price1-text">￥</text>{{item.purchaseTotalPrice?filters.toFix(item.payAmount+item.expressFee):filters.toFix(item.goodsTotalPrice+item.expressFee)}}</text>
             </view>
           </view>
           <view class="expressfee_zeroRemind" wx:if="{{item.purchaseTotalPrice}}">
             <view>温馨提示：所有品类保证正品，由于成本较大，因此全额返会比正常售价支付金额略高。</view>
           </view>
           <view class="expressfee_pay border2px" wx:if="{{item.purchaseTotalPrice}}">
-            <view class="expressfee-text2">您获得返现的信息</view>
+            <view class="expressfee-text2">返现信息</view>
           </view>
           <!-- <view class="cashBackPrice" wx:if="{{item.purchaseTotalPrice}}">
           <view class="cashBackPrice-money">
@@ -230,7 +230,7 @@
           <view class="expressfee" wx:if="{{item.purchaseTotalPrice}}">
             <view class="expressfee-text">最终返后价</view>
             <view class="expressfee-price">
-              <text class="expressfee-price1"><text class="expressfee-price1-text">￥{{item.expectedAmount}}</text></text>
+              <text class="expressfee-price1"><text class="expressfee-price1-text">￥</text>{{item.expectedAmount}}</text>
             </view>
           </view>
           <view class="expressfee" wx:if="{{item.purchaseTotalPrice}}">
@@ -242,17 +242,17 @@
           <view class="expressfee" wx:if="{{item.period}}">
             <view class="expressfee-text">分期返现</view>
             <view class="expressfee-price" wx:if="{{item.purchaseTotalPrice}}">
-              <text class="expressfee-price1">{{item.period}}期(月)共返现￥<text class="expressfee-price1-text">{{item.remainingCashReturn}}</text></text>
+              <text class="expressfee-price1">{{item.period}}期(月)共返现<text class="expressfee-price1-text">￥</text>{{item.remainingCashReturn}}</text>
             </view>
             <view class="expressfee-price" wx:else>
               <text class="expressfee-price1" wx:if="{{item.period==0}}">立即返现</text>
-              <text class="expressfee-price1" wx:elif="{{item.period !==0}}">{{item.period}}期返现共返现￥<text class="expressfee-price1-text">{{item.cashBack}}</text></text>
+              <text class="expressfee-price1" wx:elif="{{item.period !==0}}"><text class="expressfee-price1-text">{{item.period}}期返现共返现￥</text>{{item.cashBack}}</text>
             </view>
           </view>
           <view class="expressfee" wx:if="{{item.period>0 && item.purchaseTotalPrice}}">
             <view class="expressfee-text">分期补偿利息</view>
             <view class="expressfee-price">
-              <text class="expressfee-price1"><text class="expressfee-price1-text">￥{{item.stageInterest}}</text></text>
+              <text class="expressfee-price1"><text class="expressfee-price1-text">￥</text>{{item.stageInterest}}</text>
             </view>
           </view>
           <!-- <view class="expressfee" wx:if="{{item.cashBack&&item.purchaseTotalPrice}}">
@@ -265,21 +265,44 @@
       </view>
     </view>
   </view>
-  <view class="remarks" wx:if="{{content.orderAddressDetail.remark}}">
+  <!-- <view class="remarks" wx:if="{{content.orderAddressDetail.remark}}">
     <text class="remarks-text">备注</text>
     <text class="remarks-writes">{{content.orderAddressDetail.remark}}</text>
+  </view> -->
+    <!-- 优惠信息 -->
+  <view class="youhui_info_box" wx:if="{{content.buyMode==2&&content.totalDiscount>0}}">
+    <view class="youhui_info_title" wx:if="{{content.totalDiscount>0}}">优惠信息</view>
+    <view class="friend_sponsor"wx:if="{{content.sponsorAmount>0}}">
+      <view class="friend_sponsor_left">好友赞助</view>
+      <view class="friend_sponsor_right">-<text >￥</text>{{content.sponsorAmount}}</view>
+    </view>
+    <view class="friend_sponsor" wx:if="{{content.discountAmount>0}}">
+      <view class="friend_sponsor_left">钻石合伙人享受：{{content.discountRatio / 10}}折</view>
+      <view class="friend_sponsor_right">-<text >￥</text>{{content.discountAmount}}</view>
+    </view>
+    <view class="friend_sponsor" wx:if="{{content.shoppingAmount>0&&content.useCoupon==1}}">
+      <view class="friend_sponsor_left">钻石合伙人购物金</view>
+      <view class="friend_sponsor_right">-<text >￥</text>{{content.shoppingAmount}}</view>
+    </view>
+    <view class="friend_sponsor" wx:if="{{content.deductionAmount>0}}">
+      <view class="friend_sponsor_left">可用{{content.deductionSeed}}颗种子抵扣</view>
+      <view class="friend_sponsor_right">-<text >￥</text>{{content.deductionAmount}}</view>
+    </view>
+    <view class="friend_sponsor">
+      <view class="friend_sponsor_left">优惠总金额</view>
+      <view class="friend_sponsor_right">-<text >￥</text>{{content.totalDiscount}}</view>
+    </view>
   </view>
-  <view class="seed" wx:if="{{content.deductionAmount>0&&content.useSeed==1}}">
+  <view class="seed" wx:if="{{content.buyMode==1&&content.deductionAmount>0&&content.useSeed==1}}">
     <view class="seed_all">种子抵扣</view>
     <view class="seed_detail" bindtap="seedDetail">明细</view>
     <view class="choose_box">
-      ￥{{content.deductionAmount}}
+      ￥<text class="font28">{{content.deductionAmount}}</text>
     </view>
   </view>
   <view class="stopZero10" wx:if="{{content.buyMode==2}}">
-    <view class="stopZero-platform10">我们是上市挂牌公司（代码837939）旗下电商平台，为消费者存有壹亿消费保障基金，请放心使用！</view>
-    <view class="stopZero-btn10" bindtap="showBox">终止FreeBuy</view>
-    <!-- <view class="stopZero-message10">温馨提示：所有品类保证正品，由于成本较大，因此全额返会比正常售价支付金额略高。</view> -->
+    <view class="stopZero-platform10">我们是上市挂牌公司（代码837939）旗下电商平台，为消费者存有壹亿消费保障基金，请放心使用！<text bindtap="showBox">终止</text></view>
+    <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/ic_explain.png" class="stop_img" bindtap="showBox"/>
   </view>
   <view class="payment">
     <view class="payment-text">实际付款</view>
@@ -323,6 +346,10 @@
           <text>{{item.statusTime}}</text>
         </view>
       </view>
+      <view class="pay-amount" wx:if="{{content.orderAddressDetail.remark}}">
+          <text>备注内容</text>
+          <text>{{content.orderAddressDetail.remark}}</text>
+        </view>
     </view>
     <view class="stop-wrap">
       <button class="stopzero" bindtap="stopZero" disabled="{{content.isStop==2?true:false}}" wx:if="{{content.isStop==1&&content.latestStatus!==1&&content.latestStatus!==7&&content.latestStatus!==9&&content.latestStatus!==10&&content.latestStatus!==12}}">终止FreeBuy转购买</button>

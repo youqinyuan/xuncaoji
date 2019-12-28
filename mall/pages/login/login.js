@@ -30,7 +30,11 @@ Page({
     var currentPage = pages[pages.length - Number(options.pageNum)] //获取当前页面的对象
     var url = currentPage.route
     if (url == 'pages/detail/detail') {
-      that.data.url = '/' + url + '?id=' + wx.getStorageSync('goods_id')
+      if (wx.getStorageSync('stages')){
+        that.data.url = '/' + url + '?id=' + wx.getStorageSync('goods_id') + '&&stages=' + wx.getStorageSync('stages')
+      }else{
+        that.data.url = '/' + url + '?id=' + wx.getStorageSync('goods_id')
+      }     
     } else if (url == 'pages/zeroPurchase/zeroPurchase') {
       that.data.url = '/' + url + '?id=' + wx.getStorageSync('zeroGoods_id') + '&&type=' + wx.getStorageSync('type') + '&&orgPrice=' + wx.getStorageSync('orgPrice')
     } else if (url == 'pages/cooperate/cooperate') {
@@ -42,6 +46,12 @@ Page({
     } else if (url == 'pages/wishpool/wishpool') {
       that.data.url = '/' + url
     } else if (url == 'pages/freeBuy/freeBuy') {
+      that.data.url = '/' + url
+    }else if (url == 'pages/lovingHeart/lovingHeart') {
+      that.data.url = '/' + url
+    }else if (url == 'pages/friendSponsor/friendSponsor') {
+      that.data.url = '/' + url
+    }else if (url == 'pages/sponsor/sponsor') {
       that.data.url = '/' + url
     }
   },
@@ -244,7 +254,7 @@ Page({
                 // })
               } else {
                 that.setData({
-                  text: '验证码输入错误'
+                  text: res.data.message
                 })
               }
 

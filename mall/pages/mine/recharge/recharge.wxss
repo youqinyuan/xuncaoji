@@ -30,7 +30,7 @@ page {
 
 .balance {
   position: absolute;
-  top: 50rpx;
+  top: 40rpx;
   left: 54rpx;
   color: rgba(255, 255, 255, 1);
 }

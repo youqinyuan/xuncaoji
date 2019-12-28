@@ -1,29 +1,69 @@
 /* pages/leaveWish/leaveWish.wxss */
 
-textarea {
-  width: 100%;
-  height: 176rpx;
+page {
+  background: #f4f4f4;
+}
+
+.explain-wrap {
+  position: relative;
+  background: #fff;
+  height: 90rpx;
+  line-height: 90rpx;
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.explain {
+  margin-left: 30rpx;
+}
+
+.poke {
+  margin-right: 63rpx;
+  color: #ff6417;
+}
+
+.poke-img {
+  position: absolute;
+  right: 30rpx;
+  width: 17rpx;
+  height: 28rpx;
+  top: 30rpx;
+}
+
+.text_wrap {
+  width: 710rpx;
+  margin: 0 auto;
+  height: 372rpx;
   background-color: #fff;
+  border-radius: 8rpx;
+}
+
+.text-top {
+  width: 710rpx;
+  height: 140rpx;
   padding: 0 32rpx;
   padding-top: 30rpx;
   font-size: 28rpx;
   box-sizing: border-box;
 }
 
-textarea::placeholder {
+.text-top::placeholder {
   color: #aaa;
 }
 
 .img_wrap {
   width: 100%;
-  background-color: #fff;
   padding: 0 20rpx;
   padding-bottom: 59rpx;
   display: flex;
   flex-wrap: wrap;
   padding-top: 40rpx;
   box-sizing: border-box;
-  border-bottom: 2rpx solid #e7e7e7;
 }
 
 .img_wrap image {
@@ -45,15 +85,33 @@ textarea::placeholder {
   right: -10rpx;
 }
 
+.text-bottom {
+  background: #fff;
+  margin: 20rpx auto;
+  width: 710rpx;
+  height: 140rpx;
+  padding: 0 32rpx;
+  padding-top: 30rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  border-radius: 8rpx;
+}
+
+.text-bottom::placeholder {
+  color: #aaa;
+}
+
 .btn {
   display: flex;
   justify-content: space-between;
   margin: 0 20rpx;
   margin-top: 30rpx;
 }
-button::after{
+
+button::after {
   border: none;
 }
+
 .btn1 {
   width: 330rpx;
   height: 80rpx;
@@ -77,4 +135,65 @@ button::after{
   color: #fff;
   line-height: 80rpx;
   text-align: center;
+}
+
+/* FreeBuy心愿池是什么？ */
+
+.get-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask .zan-dialog__container {
+  width: 630rpx;
+  min-height: 694rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 150rpx;
+  left: 60rpx;
+  text-align: center;
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask .cancel-get {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 81rpx;
+  top: 76rpx;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .title {
+  margin: 44rpx auto;
+  margin-bottom: 57rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.get-zan-dialog__mask .zan-dialog__container .text {
+  text-align: left;
+  margin: 0 36rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #999;
+  line-height: 46rpx;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .smallTitle {
+  color: #333;
+  margin: 20rpx 0;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .service {
+  margin: 40rpx 0;
 }

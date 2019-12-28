@@ -1,0 +1,532 @@
+/* pages/sponsor/sponsor.wxss */
+.news_box{
+    width:750rpx;
+    height:80rpx;
+    background:rgba(249,240,252,1);
+    position: relative;
+}
+.news_img{
+    display: inline-block;
+    width: 29rpx;
+    height: 26rpx;
+    position: absolute;
+    left: 20rpx;
+    top: 29rpx;
+}
+.user_box{
+    height: 80rpx;
+    font-size: 24rpx;
+    font-family:PingFang SC;
+    display: inline-block;
+    margin-left: 70rpx;
+}
+.user_name{
+    line-height: 80rpx;
+    display: inline-block;
+    color: #6C545D;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 120rpx;
+}
+.goods_name{
+    line-height: 80rpx;
+    display: inline-block;
+    color: #6C545D;
+    margin-left: 10rpx;
+    max-width: 250rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.black{
+    line-height: 80rpx;
+    display: inline-block;
+    color: #999999;
+    margin-left: 10rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.title_box{
+    height: 220rpx;
+    position: relative;
+    margin-bottom: 20rpx;
+}
+.title_img{
+    width:710rpx;
+    height:200rpx;
+    margin-left: 20rpx;
+    margin-top: 20rpx;
+    border-radius: 10rpx;
+}
+.rule_img{
+    width: 141rpx;
+    height: 50rpx;
+    display: inline-block;
+    position: absolute;
+    right: 17rpx;
+    top: 45rpx;
+}
+.sponsor_rule{
+    width: 141rpx;
+    height: 50rpx;
+    display: inline-block;
+    position: absolute;
+    right: 17rpx;
+    top: 45rpx;
+    font-size:24rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(255,38,68,1);
+    text-align: center;
+    line-height: 50rpx;
+}
+.title{
+    width:710rpx;
+    height:200rpx;
+    background:linear-gradient(90deg,rgba(229,134,90,1) 0%,rgba(223,80,143,1) 100%);
+    border-radius:10rpx;
+    margin-left: 20rpx;
+    margin-top: 20rpx;
+    color: #fff;
+    text-align: center;
+    line-height: 200rpx;
+}
+.goods{
+    height: 270rpx;
+    position: relative;
+    padding-top:20rpx; 
+}
+.goods_img_box{
+    height: 250rpx;
+    width: 250rpx;
+    background:rgba(244,244,244,1);
+    border-radius:10rpx;
+    position: absolute;
+    left: 20rpx;
+}
+.goods_img{
+    height: 250rpx;
+    width: 250rpx;
+    border-radius:10rpx;
+}
+.freebuy_sponsor{
+    display: inline-block;
+    width:128rpx;
+    height:32rpx;
+    background:linear-gradient(88deg,rgba(252,43,43,1) 0%,rgba(238,165,100,1) 100%);
+    border-radius:4rpx;
+    font-size:20rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:rgba(255,255,255,1);
+    text-align: center;
+    line-height: 32rpx;
+    margin-right: 10rpx;
+}
+.goods_name_box{
+    display: inline-block;
+    width:430rpx;
+    height:90rpx;
+    font-size:28rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    line-height:50rpx;
+    position: absolute;
+    right: 29rpx;
+    top:20rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    word-break:break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.sponsor_people{
+    position: absolute;
+    left: 291rpx;
+    top: 190rpx;
+    color: #999999;
+    font-size: 24rpx;
+    display: inline-block;
+}
+.number{
+    color: #FF2644;
+    font-size: 30rpx;
+    font-weight: Bold;
+}
+.sponsor_button{
+    width:200rpx;
+    height:68rpx;
+    background:rgba(255,38,68,1);
+    border-radius:34rpx;
+    display: inline-block;
+    text-align: center;
+    line-height: 68rpx;
+    font-size: 26rpx;
+    position: absolute;
+    color: #fff;
+    right: 20rpx;
+    top: 177rpx;
+}
+.bor{
+    background:#F1F1F1;
+    width: 440rpx;
+    height: 2rpx;
+    position: absolute;
+    right: 20rpx;
+    bottom: 0;
+}
+.buttom{
+    text-align: center;
+    height:150rpx;
+    font-size:26rpx;
+    font-family:PingFang SC;
+    font-weight:400;
+    color:rgba(153,153,153,1);
+    line-height:150rpx;
+}
+.sponsor_box{
+    background:rgba(255,243,230,1);
+    border-radius:10rpx;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+    position: relative;
+}
+.mengceng{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:rgba(0,0,0,0.7);
+    border-radius:10rpx;
+    z-index: 10;
+}
+.nohappy_box{
+    text-align: center;
+    margin-top: 189rpx;
+}
+.nohappy{
+    width: 73rpx;
+    height: 73rpx;
+}
+.nohappy_font{
+    margin-top: 29rpx;
+    font-size:32rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    text-align: center;
+}
+.activity_head{
+    position: relative;
+    height: 90rpx;
+}
+.head_left_img{
+    height: 6rpx;
+    width: 74rpx;
+    display: inline-block;
+    position: absolute;
+    left: 194rpx;
+    top: 41rpx;
+}
+.head_right_img{
+    height: 6rpx;
+    width: 74rpx;
+    display: inline-block;
+    position: absolute;
+    right: 195rpx;
+    top: 41rpx;
+}
+.head_name{
+    font-size:28rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    display: inline-block;
+    position: absolute;
+    left: 292rpx;
+    top: 25rpx;
+}
+.sponsor_goods{
+    width: 680rpx;
+    height: 190rpx;
+    margin-left: 15rpx;
+    background: #fff;
+    border-radius:10px;
+    position: relative;
+}
+.sponsor_goods_img_box{
+    width:160rpx;
+    height:160rpx;
+    background:rgba(244,244,244,1);
+    border-radius:10rpx;
+    position: absolute;
+    top: 15rpx;
+    left: 15rpx;
+}
+.sponsor_goods_name{
+    font-size:28rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    line-height:40rpx;
+    width: 460rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    word-break:break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    position: absolute;
+    top: 20rpx;
+    left: 194rpx;
+}
+.sponsor_goods_img{
+    width: 160rpx;
+    height: 160rpx;
+    border-radius:10rpx;
+}
+.sponsor_time{
+    position: absolute;
+    left: 195rpx;
+    top: 120rpx;
+}
+.hour{
+    display: inline-block;
+    width: 40rpx;
+    height: 40rpx;
+    font-size:22rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:rgba(255,255,255,1);
+    line-height:40rpx;
+    background: #333333;
+    text-align: center;
+    border-radius:4rpx; 
+    margin-right: 10rpx;
+}
+.min{
+    display: inline-block;
+    width: 40rpx;
+    height: 40rpx;
+    font-size:22rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:rgba(255,255,255,1);
+    line-height:40rpx;
+    background: #333333;
+    text-align: center;
+    border-radius:4rpx; 
+    margin-left: 10rpx;
+    margin-right: 10rpx;
+}
+.sec{
+    display: inline-block;
+    width: 40rpx;
+    height: 40rpx;
+    font-size:22rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:rgba(255,255,255,1);
+    line-height:40rpx;
+    background: #333333;
+    text-align: center;
+    border-radius:4rpx; 
+    margin-left: 10rpx;
+}
+.font26{
+    font-size: 26rpx;
+    display: inline-block;
+    margin-left: 20rpx;
+}
+.sponsor_production_box{
+    position: relative;
+    height: 100rpx;
+    font-size:26rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    margin-top: 20rpx;
+}
+.goods_box{
+    padding-top: 20rpx;
+}
+.sponsor_times_left{
+    display: inline-block;
+    height: 90rpx;
+    line-height: 90rpx;
+    position: absolute;
+    left: 16rpx;
+
+}
+.sponsor_times_right{
+    display: inline-block;
+    height: 90rpx;
+    line-height: 90rpx;
+    position: absolute;
+    right: 16rpx;
+    color: #999999;
+}
+.red{
+    color: #FF2644;
+}
+.production_box{
+    height: 70rpx;
+}
+.wai{
+    width:679rpx;
+    height:18rpx;
+    background:rgba(255,213,199,1);
+    border-radius:9rpx;
+    margin-left: 16rpx;
+}
+.nei2{
+    height:18rpx;
+    background:#FF2644;
+    border-radius:9rpx;
+    position: relative;
+}
+.dian2{
+    width:22rpx;
+    height:22rpx;
+    background:rgba(234,35,15,1);
+    border-radius:50%;
+    position: absolute;
+    top: -2rpx;
+    right: -10rpx;
+}
+.get_button{
+    width:679rpx;
+    height:80rpx;
+    background:rgba(255,38,68,1);
+    border-radius:40rpx;
+    text-align: center;
+    line-height: 80rpx;
+    font-size:32rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    margin-left: 16rpx;
+}
+.get_button_box{
+    height: 100rpx;
+}
+.production_end{
+    font-size:32rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:rgba(51,51,51,1);
+    text-align: center;
+    height: 140rpx;
+    line-height: 140rpx;
+}
+/* 规则弹窗 */
+.dialog__mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+  }
+  .dialog__mask .dialog__container {
+    width: 630rpx;
+    background: rgba(255, 255, 255, 1);
+    height: 667rpx;
+    overflow: hidden;
+    position: fixed;
+    top: 240rpx;
+    left: 60rpx;
+    z-index: 9999;
+    border-radius: 28rpx;
+  }
+  .dialog__mask .cancel-img {
+    width: 30rpx;
+    height: 30rpx;
+    position: absolute;
+    top: 50rpx;
+    right: 50rpx;
+  }
+  
+  .dialog__mask .dialog__container .titlez {
+    margin-top: 44rpx;
+    margin-bottom: 15rpx;
+    font-size:36rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .dialog__mask .dialog__container .text {
+    margin-left: 45rpx;
+    font-size:30rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+  }
+  .rule_value{
+    font-size:28rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    line-height:60rpx;
+    height: 60rpx;
+    width: 580rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cancel-get2{
+    width: 44rpx;
+    height: 74rpx;
+    position: absolute;
+    right: 87rpx;
+    top: 162rpx;
+  }
+  /* 公告 */
+  .notice {
+    height: 80rpx;
+    background: #F9F0FC;
+    color: #666;
+    font-size: 28rpx;
+    font-family: PingFang SC;
+    font-weight: 500;
+  }
+  
+  .notice-swiper_item {
+    display: flex;
+    align-items: center;
+    margin-left: 66rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    width: 630rpx;
+    display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  
+  .notice-swiper image {
+    position: absolute;
+    width: 29rpx;
+    height: 26rpx;
+    top: 27rpx;
+    left: 20rpx;
+  }
+  .sponsor_times_right2{
+    display: inline-block;
+    height: 90rpx;
+    line-height: 90rpx;
+    position: absolute;
+    right: 16rpx;
+    color: #333;
+  }

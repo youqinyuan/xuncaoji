@@ -1,7 +1,7 @@
 <!-- pages/wishpool/wishpool.wxml -->
-<image class="star_bg" src="/assets/images/add/star_bg.png" bindtap="leaveWish"></image>
+<image class="star_bg" src="https://xuncj.yzsaas.cn/_download/img/add/star_bg.png" bindtap="leaveWish"></image>
 <view catchtap="jumpMyWish">
-  <image class="activity_11" src="/assets/images/add/ic_wish.png"></image>
+  <image class="activity_11" src="https://xuncj.yzsaas.cn/_download/img/add/ic_wish.png"></image>
 </view>
 <view bindtap="leaveWish">
   <image class="star_pool" src="https://xuncj.yzsaas.cn/_download/img/wishpool/star_pool.png"></image>
@@ -34,14 +34,17 @@
 <!-- FreeBuy心愿池是什么？ -->
 <view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showGet}}">
   <view class="zan-dialog__container" wx:if="{{showGet}}">
-    <view class="title">FreeBuy心愿池是什么？</view>
+    <view class="title">什么是心愿池</view>
     <view class="text">
-      <view>1、您可以将您想要的任何商品，通过心愿的方式提交给我们，我们会尽快的满足您的心愿。</view>
-      <view>2、我们也将为您找到低于市场价的此商品供您购买</view>
-      <view>3、平台满足您的心愿后，您可通过freebuy的方式0成本满足心愿</view>
-      <view>4、如有不懂的地方，请咨询客服</view>
+      <view class="smallTitle">心愿池是做什么的？</view>
+      <view>逛了商城半天也没找到自己想买的，那么你就可以通过心愿池的方式提交给我们，我们将在24小时内上架您所提供的商品；</view>
+      <view class="smallTitle">心愿池是不是提交了就可以免费拿？</view>
+      <view>不是的，您需要通过FreeBuy方式进行购买的，到了返现周期您等于是免费拿哦；</view>
+      <view class="smallTitle">FreeBuy是什么意思？</view>
+      <view>FreeBuy是指用户自由消费，免去没钱的烦恼，寻草记一直再为帮助用户0成本购好物；</view>
+      <view class="service">其他问题请咨询客服哦~</view>
     </view>
-    <button bindtap="cancelGet">我知道了</button>
+    <!-- <button bindtap="cancelGet">我知道了</button> -->
   </view>
   <image wx:if="{{showGet}}" class="cancel-get" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
 </view>

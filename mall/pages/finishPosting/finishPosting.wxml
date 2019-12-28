@@ -1,7 +1,7 @@
 <!--pages/finishPosting/finishPosting.wxml-->
 <wxs module="filters" src="filter.wxs"></wxs>
 <view class='cont_count'>
-  <image src="/assets/images/add/icon.png"></image>
+  <image src="https://xuncj.yzsaas.cn/_download/img/add/icon.png"></image>
   <view class='none_tab'>
     <view class="finish">发布完成！</view>
     <view class="seed">种子+{{seedIncreased}}</view>
@@ -26,23 +26,23 @@
         <view class="nickname">{{item.nickname}}</view>
       </view>
       <view class="content_box_right">
-        <image src="/assets/images/add/btn_buy.png" class="buy" wx:if="{{item.type==2}}"></image>
-        <image src="/assets/images/add/btn_sale.png" class="sale" wx:if="{{item.type==3}}"></image>
-        <image src="/assets/images/add/btn_ordinary.png" class="ordinary" wx:if="{{item.type==1}}"></image>
-        <image src="/assets/images/add/btn_attention.png" wx:if="{{item.canRemove==2&&item.isAttention==1}}" data-index="{{index1}}" data-id="{{item.id}}" class="follow" catchtap="follow"></image>
-        <image src="/assets/images/add/btn_notattention.png" wx:if="{{item.canRemove==2&&item.isAttention==2}}" data-index="{{index1}}" data-id="{{item.id}}" class="follow" catchtap="notFollow"></image>
+        <image src="https://xuncj.yzsaas.cn/_download/img/add/btn_buy.png" class="buy" wx:if="{{item.type==2}}"></image>
+        <image src="https://xuncj.yzsaas.cn/_download/img/add/btn_sale.png" class="sale" wx:if="{{item.type==3}}"></image>
+        <image src="https://xuncj.yzsaas.cn/_download/img/add/btn_ordinary.png" class="ordinary" wx:if="{{item.type==1}}"></image>
+        <image src="https://xuncj.yzsaas.cn/_download/img/add/btn_attention.png" wx:if="{{item.canRemove==2&&item.isAttention==1}}" data-index="{{index1}}" data-id="{{item.id}}" class="follow" catchtap="follow"></image>
+        <image src="https://xuncj.yzsaas.cn/_download/img/add/btn_notattention.png" wx:if="{{item.canRemove==2&&item.isAttention==2}}" data-index="{{index1}}" data-id="{{item.id}}" class="follow" catchtap="notFollow"></image>
       </view>
     </view>
     <view class="content-text">
-      <view class="content-item" style="-webkit-line-clamp:{{item.ellipsis?'4':'0'}}">{{item.content}}</view>
-      <view class="all_text" catchtap='ellipsis' wx:if="{{item.isShowAll==1}}" data-index="{{index1}}">{{item.isText}}</view>
+      <view class="content-item" style="-webkit-line-clamp:{{item.ellipsis==false?'4':'0'}}">{{item.content}}</view>
+      <view class="all_text" catchtap='ellipsis' wx:if="{{item.isShowAll==2}}" data-index="{{index1}}">{{item.isText}}</view>
     </view>
     <view class="content_img" wx:if="{{item.type==1}}">
       <image wx:for="{{item.attachmentList}}"  wx:for-item="contentImg" wx:key="" src="{{contentImg.fileKey}}" catchtap='imgYu' data-index='{{index}}' data-idx="{{index1}}" style="background:{{item.attachmentList.length>0?'#f4f4f4':'#e7e7e7'}}"></image>
     </view>
     <view class="content_imgBuy" wx:if="{{item.type==2}}">
-      <image src="/assets/images/add/pic_buycard.png" class="img"></image>
-      <image src="/assets/images/add/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+      <image src="https://xuncj.yzsaas.cn/_download/img/add/pic_buycard.png" class="img"></image>
+      <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
       <view class="buy_price">
         <view class="expect_buy" wx:if="{{item.expectAmount}}">
           <view class="expect_buy1">期望售价：</view>
@@ -70,7 +70,7 @@
       </view>
     </view>
     <view class="content_sale" wx:if="{{item.type==3}}">
-      <image src="/assets/images/add/pic_salecard.png"></image>
+      <image src="https://xuncj.yzsaas.cn/_download/img/add/pic_salecard.png"></image>
       <view class="sale_price">
         <view class="sale_back">
           <view class="sale_back1">期望共返金额：</view>
@@ -108,11 +108,11 @@
       </view>
       <view class="content_time_right">
         <view class="content_time_img">
-          <image src="/assets/images/add/ic_collect.png" wx:if="{{item.isFavoriate==2}}" class="collect" catchtap="collectImg" data-index="{{index1}}" data-id="{{item.id}}"></image>
-          <image src="/assets/images/add/ic_ativecollect.png" wx:if="{{item.isFavoriate==1}}" class="collect" catchtap="ativeCollectImg" data-index="{{index1}}" data-id="{{item.id}}"></image>
+          <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_collect.png" wx:if="{{item.isFavoriate==2}}" class="collect" catchtap="collectImg" data-index="{{index1}}" data-id="{{item.id}}"></image>
+          <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_ativecollect.png" wx:if="{{item.isFavoriate==1}}" class="collect" catchtap="ativeCollectImg" data-index="{{index1}}" data-id="{{item.id}}"></image>
         </view>
         <view class="content_time_imgs" catchtap="jumpComment" data-id="{{item.id}}">
-          <image src="/assets/images/add/ic_comment.png" class="comment"></image>
+          <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_comment.png" class="comment"></image>
           <view class="content_time_text">{{item.commentPageResponse.totalSize}}</view>
         </view>
       </view>

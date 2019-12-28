@@ -47,8 +47,8 @@
     </view>
     <!--商品名称-->
     <view class="goods-title">
-      <text class="goods-channel" wx:if="{{detail.tags==1}}">自营</text>
-       <text class="goods-channel2" wx:if="{{detail.sendSeed&&detail.sendSeed!==0}}">最高送{{detail.sendSeed}}颗种子</text>
+      <text class="goods-channel" >自营</text>
+       <text class="goods-channel2" wx:if="{{detail.goodsItem.sendSeed&&detail.goodsItem.sendSeed!==0}}">最高送{{detail.goodsItem.sendSeed}}颗种子</text>
       <text selectable='true' bindlongtap='copy'>{{detail.goodsItem.name}}</text>
     </view>
     <!--售后无忧-->

@@ -142,7 +142,7 @@
         </view>
         <view class="rule_box2">
           <view class="rule_title">使用规则</view>
-          <view class="rule_value"> 种子仅可在寻草记商城内使用，进行购物抵扣、兑换商城、游戏道具兑换等服务，不可兑换现金，种子已抵扣且用户发生退款、取消等情况造成订单交易关闭时种子是不予反还；</view>
+          <view class="rule_value"> 种子仅可在寻草记商城内使用，进行购物抵扣、兑换商城、游戏道具兑换等服务，不可兑换现金；</view>
         </view>
         <view class="rule_box2">
           <view class="rule_title">说明</view>

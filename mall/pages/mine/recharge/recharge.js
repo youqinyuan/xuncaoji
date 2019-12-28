@@ -27,24 +27,29 @@ Page({
   },
   getMessage: function() {
     var that = this
-    var pageNumber = that.data.pageNumber
-    var pageSize = that.data.pageSize
-    app.Util.ajax('mall/personal/balanceDetails', {
-      pageNumber: pageNumber,
-      pageSize: pageSize,
-      status: 1
-    }, 'GET').then((res) => {
-      if (res.data.content) {
+    app.Util.ajax('mall/personal/assets', null, 'GET').then((res) => {
+      if(res.data.content){
         that.setData({
-          content: res.data.content
+          content: res.data.content,
         })
-      } else {
-        wx.showToast({
-          title: res.data.message,
-          icon: 'none'
-        })
-      }
+      }      
     })
+    // app.Util.ajax('mall/personal/balanceDetails', {
+    //   pageNumber: pageNumber,
+    //   pageSize: pageSize,
+    //   status: 1
+    // }, 'GET').then((res) => {
+    //   if (res.data.content) {
+    //     that.setData({
+    //       content: res.data.content
+    //     })
+    //   } else {
+    //     wx.showToast({
+    //       title: res.data.message,
+    //       icon: 'none'
+    //     })
+    //   }
+    // })
   },
   /**
    * 跳转到余额明细页面
@@ -93,9 +98,10 @@ Page({
   onConfirm: function() {
     var that = this;
     var amount = that.data.inputValue
+    console.log(Number(amount))
     if (that.data.inputValue !== '') {
       app.Util.ajax('mall/order/addRechargeOrder', {
-        amount: amount
+        amount: Number(amount)
       }, 'POST').then((res) => { // 使用ajax函数
         if (res.data.messageCode === 'MSG_1001') {
           var id = res.data.content.id

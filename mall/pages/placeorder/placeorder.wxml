@@ -77,7 +77,7 @@
           <image src="https://xuncj.yzsaas.cn/_download/img/icon/youhui_bqian.png"></image>
           <view class="content-cashBack-text">
             当前商品实付
-            <text>￥{{item.orderGoods.price}}</text>，返现
+            <text>￥{{item.orderGoods.goodsTotalPrice}}</text>，返现
             <text wx:if="{{item.orderGoods.cashBack}}">￥{{item.orderGoods.cashBack}}</text>
             <text wx:else>￥0</text>
           </view>
@@ -111,19 +111,10 @@
             <text class="expressfee-price1">{{item.orderGoods.purchaseTotalPrice}}</text>
           </view>
         </view>
-        <view class="yh" wx:if="{{item.orderGoods.discountAmount||item.orderGoods.shoppingAmount}}">
-          <view class="yh-text">优惠</view>
-          <view class="yh1">
-            <view class="yh-price" wx:if="{{item.orderGoods.discountAmount&&item.orderGoods.discountRatio}}">钻石合伙人FreeBuy购物专用折扣{{item.orderGoods.discountRatio}}折减￥{{item.orderGoods.discountAmount}}</view>
-            <view class="yh1-price" wx:if="{{item.orderGoods.shoppingAmount}}">钻石合伙人FreeBuy购物金减￥{{item.orderGoods.shoppingAmount}}
-              <text>(剩余{{item.orderGoods.shoppingNum}}次)</text>
-            </view>
-          </view>
-        </view>
         <view class="actual" wx:if="{{item.orderGoods.purchaseTotalPrice}}">
           <view class="actual-text">实际支付金额</view>
           <view class="actual-price">
-            <text>￥</text>
+            <text class="font24">￥</text>
             <text class="actual-price1">{{item.orderGoods.payAmount}}</text>
           </view>
         </view>
@@ -131,7 +122,7 @@
           <view>温馨提示：所有品类保证正品，由于成本较大，因此全额返会比正常售价支付金额略高。</view>
         </view>
         <view class="expressfee_pay border1px" wx:if="{{item.orderGoods.purchaseTotalPrice}}">
-          <view class="expressfee-text2">您获得返现的信息</view>
+          <view class="expressfee-text2">返现信息</view>
         </view>
         <!-- <view class="cashBackPrice" wx:if="{{item.orderGoods.purchaseTotalPrice}}">
           <view class="cashBackPrice-money">
@@ -144,7 +135,7 @@
         <view class="expressfee" wx:if="{{item.orderGoods.purchaseTotalPrice}}">
           <view class="expressfee-text">最终返后价</view>
           <view class="expressfee-price">
-            <text class="expressfee-price1"><text class="expressfee-price1-text">￥{{item.orderGoods.expectedAmount}}</text></text>
+            <text class="expressfee-price1"><text class="expressfee-price1-text">￥</text>{{item.orderGoods.expectedAmount}}</text>
           </view>
         </view>
         <view class="expressfee" wx:if="{{item.orderGoods.purchaseTotalPrice}}">
@@ -156,17 +147,17 @@
         <view class="expressfee" wx:if="{{item.orderGoods.period}}">
           <view class="expressfee-text">分期返现</view>
           <view class="expressfee-price" wx:if="{{item.orderGoods.purchaseTotalPrice}}">
-            <text class="expressfee-price1">{{item.orderGoods.period}}期(月)共返现￥<text class="expressfee-price1-text">{{seedShow==true?filters.toFix(item.orderGoods.cashBack-deductionAmount):item.orderGoods.cashBack}}</text></text>
+            <text class="expressfee-price1"><text class="expressfee-price1-text">{{item.orderGoods.period}}期(月)共返现￥</text>{{item.orderGoods.cashBack}}</text>
           </view>
           <view class="expressfee-price" wx:else>
             <text class="expressfee-price1" wx:if="{{item.orderGoods.period==0}}">立即返现</text>
-            <text class="expressfee-price1" wx:elif="{{item.orderGoods.period !==0}}">{{item.orderGoods.period}}期返现共返现<text class="expressfee-price1-text">{{item.orderGoods.cashBack}}</text></text>
+            <text class="expressfee-price1" wx:elif="{{item.orderGoods.period !==0}}"><text class="expressfee-price1-text">{{item.orderGoods.period}}期返现共返现￥</text>{{item.orderGoods.cashBack}}</text>
           </view>
         </view>
         <view class="expressfee" wx:if="{{item.orderGoods.period>0 && item.orderGoods.purchaseTotalPrice}}">
           <view class="expressfee-text">分期补偿利息</view>
           <view class="expressfee-price">
-            <text class="expressfee-price1"><text class="expressfee-price1-text">￥{{item.orderGoods.stageInterest}}</text></text>
+            <text class="expressfee-price1"><text class="expressfee-price1-text">￥</text>{{item.orderGoods.stageInterest}}</text>
           </view>
         </view>
         <!-- <view class="expressfee" wx:if="{{goodsType?true:flase}}">
@@ -182,17 +173,45 @@
       <text class="remarks-writes" bindtap="remarksBtn" style="color:{{item.colors}}" data-index="{{index}}" data-val="{{item.remark}}">{{item.remark}}</text>
     </view>
   </view>
-  <view class="seed" wx:if="{{deductionAmount!==0&&deductionSeed>0}}">
+  <!-- 优惠信息 -->
+  <view class="youhui_info_box" wx:if="{{buyMode==2&&totalDiscount>0}}">
+    <view class="youhui_info_title" wx:if="{{totalDiscount>0}}">优惠信息</view>
+    <view class="friend_sponsor" wx:if="{{sponsorAmount>0}}">
+      <view class="friend_sponsor_left">好友赞助</view>
+      <view class="friend_sponsor_right">-<text >￥</text>{{sponsorAmount}}</view>
+    </view>
+    <view class="friend_sponsor" wx:if="{{discountAmount>0}}">
+      <view class="friend_sponsor_left">钻石合伙人享受：{{discountRatio}}折</view>
+      <view class="friend_sponsor_right">-<text >￥</text>{{discountAmount}}</view>
+    </view>
+    <view class="friend_sponsor" bindtap="shoppingAmountShow" wx:if="{{shoppingAmount>0}}">
+      <view class="friend_sponsor_left">钻石合伙人购物金（剩余次数：{{shoppingNum<0?0:shoppingNum}}）</view>
+      <image src="/assets/images/freeBuy/order_choose_icon.png" class="choose_img" wx:if="{{shoppingAmountShow}}"/>
+      <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/rchoose_icon.png" class="choose_img" wx:else/>
+      <view class="friend_sponsor_right2">-<text >￥</text>{{shoppingAmount}}</view>
+    </view>
+    <view class="friend_sponsor" bindtap="seedShow" wx:if="{{deductionAmount!==0&&deductionSeed>0}}">
+      <view class="friend_sponsor_left">可用{{deductionSeed}}颗种子抵扣</view>
+      <image src="/assets/images/freeBuy/order_choose_icon.png" class="choose_img" wx:if="{{seedShow}}"/>
+      <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/rchoose_icon.png" class="choose_img" wx:else/>
+      <view class="friend_sponsor_right2">-<text >￥</text>{{deductionAmount}}</view>
+    </view>
+    <view class="friend_sponsor">
+      <view class="friend_sponsor_left">优惠总金额</view>
+      <view class="friend_sponsor_right">-<text >￥</text>{{totalDiscount}}</view>
+    </view>
+  </view>
+  <view class="seed" wx:if="{{buyMode==1&&deductionAmount!==0&&deductionSeed>0}}">
       <view class="seed_all">可用{{deductionSeed}}颗种子抵扣{{deductionAmount}}元</view>
       <view class="seed_detail" bindtap="seedDetail">明细</view>
       <view class="choose_box" bindtap="seedShow">
-          <image src="/assets/images/freeBuy/order_choose_icon.png" class="choose_img" wx:if="{{seedShow}}"/>
+          <image src="/assets/images/freeBuy/order_choose_icon.png" class="choose_img2" wx:if="{{seedShow}}"/>
+          <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/rchoose_icon.png" class="choose_img2" wx:else/>
       </view>
   </view>
   <view class="stopZero" wx:if="{{buyMode==2}}">
-    <view class="stopZero-platform">我们是上市挂牌公司（代码837939）旗下电商平台，为消费者存有壹亿消费保障基金，请放心使用！</view>
-    <view class="stopZero-btn" bindtap="stopZero">终止FreeBuy</view>
-    <!-- <view class="stopZero-message">温馨提示：所有品类保证正品，由于成本较大，因此全额返会比正常售价支付金额略高。</view> -->
+    <view class="stopZero-platform">我们是上市挂牌公司（代码837939）旗下电商平台，为消费者存有壹亿消费保障基金，请放心使用！<text bindtap="stopZero">终止</text></view>
+    <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/ic_explain.png" class="stop_img" bindtap="stopZero"/>
   </view>
   <view class="blank"></view>
 </view>
@@ -200,7 +219,7 @@
 <view class="placeorder">
   <view class="placeorder-price">
     <text>合计金额：</text>
-    <text>￥{{seedShow==true?deductionAfterAmount:actualPrice}}</text>
+    <text>￥{{actualPrice}}</text>
   </view>
   <button class="placeorder-btn" disabled='{{disabled}}' bindtap='toPaymentorder' data-id="{{item.goodsId}}" data-buymode="{{buyMode}}">提交订单</button>
 </view>

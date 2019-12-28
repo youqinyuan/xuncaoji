@@ -1,6 +1,5 @@
 
-var filters = {
-  
+var filters = {  
   toDate: function (value) {
     var time = getDate(value);
     var year = time.getFullYear();

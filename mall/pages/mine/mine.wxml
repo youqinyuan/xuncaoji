@@ -158,7 +158,7 @@
   <image src="https://xuncj.yzsaas.cn/_download/img/mine/older_more_n.png" class="zhuanshi_to" />
 </view>
 <!-- 我的订单 -->
-<view class="{{content.memberType==2?'order':'order1'}}">
+<view class="{{content.memberType==2||entrance==0?'order':'order1'}}">
   <view class="order-title" bindtap='navOrder' data-url="/pages/myorder/myorder?status=0">
     <image class="order-img" src="https://xuncj.yzsaas.cn/_download/img/icon/my_order_icon.png"></image>
     <text class="order-text">我的订单</text>
@@ -261,7 +261,7 @@
     <view class="pay" catchtap='myForum'>
       <view class="forum" wx:if="{{messageNum>0}}">{{messageNum}}</view>
       <view class="pay-img">
-        <image src="/assets/images/add/my_service_list2_icon.png"></image>
+        <image src="https://xuncj.yzsaas.cn/_download/img/add/my_service_list2_icon.png"></image>
       </view>
       <view class="pay-text">
         <view class="pay-text-big">论坛</view>
@@ -277,22 +277,22 @@
         <view class="pay-text-small">轻轻松松管理团队</view>
       </view>
     </view>
-    <view class="pay" catchtap='toCart'>
+    <view class="pay" catchtap='toMyPeriod'>
       <view class="pay-img">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/my_service_list4_icon.png"></image>
+        <image src="https://xuncj.yzsaas.cn/_download/img/add/my_service_list4_icon.png"></image>
       </view>
       <view class="pay-text">
-        <view class="pay-text-big">购物车</view>
-        <view class="pay-text-small">收藏心仪商品</view>
+        <view class="pay-text-big">我的分期</view>
+        <view class="pay-text-small">商品分期轻松购买</view>
       </view>
     </view>
   </view>
 </view>
-<!-- 我的心情、我的地址、支付密码、邀请码、商家入驻、客服 -->
+<!-- 购物车、我的地址、支付密码、邀请码、商家入驻、客服 -->
 <view class="mine">
-  <view class="mine-list" bindtap='myMood'>
-    <image class="mine-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/my_otherservice_list0_icon.png"></image>
-    <view class="mine-list-text">我的心情</view>
+  <view class="mine-list" bindtap='toCart'>
+    <image class="mine-list-img" src="https://xuncj.yzsaas.cn/_download/img/add/my_otherservice_list0_icon.png"></image>
+    <view class="mine-list-text">购物车</view>
   </view>
   <view class="mine-list" catchtap='toAdress'>
     <image class="mine-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/my_otherservice_list1_icon.png"></image>

@@ -536,7 +536,7 @@ Page({
   onUnload: function() {
     var pages = getCurrentPages()
     // 如果是从提交订单页面跳转过来 页面返回的时候跳转到我的页面
-    if (wx.getStorageSync('tempStatus') || wx.getStorageSync('params')) {
+    if (wx.getStorageSync('tempStatus') || wx.getStorageSync('params')||wx.getStorageSync('returnToSponsor')) {
 
     } else {
       wx.switchTab({
@@ -545,6 +545,7 @@ Page({
     }
     wx.removeStorageSync('tempStatus')
     wx.removeStorageSync('params')
+    wx.removeStorageSync('returnToSponsor')
   },
 
   /**

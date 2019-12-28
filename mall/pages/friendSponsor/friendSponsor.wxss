@@ -1,0 +1,488 @@
+/* pages/friendSponsor/friendSponsor.wxss */
+page{
+    background: #FF2644;
+  }
+  .dialog__mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 9999;
+    }
+    .dialog__mask .dialog__container {
+      width: 630rpx;
+      background: rgba(255, 255, 255, 1);
+      height: 667rpx;
+      overflow: hidden;
+      position: fixed;
+      top: 240rpx;
+      left: 60rpx;
+      z-index: 9999;
+      border-radius: 28rpx;
+    }
+    .dialog__mask .cancel-img {
+      width: 30rpx;
+      height: 30rpx;
+      position: absolute;
+      top: 50rpx;
+      right: 50rpx;
+    }
+    
+    .dialog__mask .dialog__container .title {
+      margin-top: 44rpx;
+      margin-bottom: 15rpx;
+      font-size:36rpx;
+      font-family:PingFang SC;
+      font-weight:500;
+      color:rgba(51,51,51,1);
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .dialog__mask .dialog__container .text {
+      margin-left: 45rpx;
+      font-size:30rpx;
+      font-family:PingFang SC;
+      font-weight:500;
+      color:rgba(51,51,51,1);
+    }
+  .news_box{
+      width:750rpx;
+      height:80rpx;
+      background:rgba(249,240,252,0.2);
+      position: relative;
+  }
+  .news_img{
+      display: inline-block;
+      width: 29rpx;
+      height: 26rpx;
+      position: absolute;
+      left: 20rpx;
+      top: 29rpx;
+  }
+  .user_box{
+    height: 80rpx;
+    font-size: 24rpx;
+    font-family:PingFang SC;
+    position: relative;
+    margin-left: 70rpx;
+  }
+  .user_name{
+    line-height: 80rpx;
+    display: inline-block;
+    color: #FFFFFF;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 510rpx;
+  }
+  .goods_name{
+    line-height: 80rpx;
+    display: inline-block;
+    color: #fff;
+    position: absolute;
+    right: 26rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-decoration: underline;
+  }
+  .black{
+    line-height: 80rpx;
+    display: inline-block;
+    color: #fff;
+    margin-left: 10rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    width: 30rpx;
+    position: absolute;
+    right: 130rpx;
+  }
+.rule_value{
+    font-size:28rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    line-height:60rpx;
+    height: 60rpx;
+    width: 580rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cancel-get2{
+    width: 44rpx;
+    height: 74rpx;
+    position: absolute;
+    right: 87rpx;
+    top: 162rpx;
+  }
+  .recommend_goods_title{
+    height: 90rpx;
+    position: relative;
+  }
+  .recommend_goods_box{
+    background:rgba(255,243,230,1);
+    border-radius:10rpx;
+    width: 710rpx;
+    margin-left: 20rpx;
+    margin-top: 20rpx;
+  }
+  .recommend_goods_list{
+    display: flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    padding-left:14rpx;
+    padding-right: 15rpx; 
+    padding-bottom: 24rpx;
+  }
+  .recommend_goods{
+    width: 330rpx;
+    height: 544rpx;
+    margin-top: 20rpx;
+    background: #fff;
+    border-radius: 8rpx;
+    
+  }
+  .height80{
+    height: 80rpx;
+  }
+  .recommend_goods_img{
+    background: #999999;
+    width: 330rpx;
+    height: 330rpx;
+    border-radius:8rpx 8rpx 0rpx 0rpx;
+  }
+  .recommend_goods_img image{
+    width: 330rpx;
+    height: 330rpx;
+    border-radius:8rpx 8rpx 0rpx 0rpx;
+  }
+  .recommend_goods_tag{
+    display: inline-block;
+    width: 128rpx;
+    border:1rpx solid rgba(255,100,23,1);
+    border-radius:14rpx;
+    font-size:20rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:#FF6417;
+    line-height:30rpx;
+    text-align: center;
+    margin-right: 10rpx;
+  }
+  .recommend_goods_name_box{
+    padding-left: 20rpx;
+    padding-right: 34rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    word-break:break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    margin-top: 10rpx;
+  }
+  .goods_box_name{
+    font-size: 28rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+  }
+  .price_box{
+    font-size:24rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    text-decoration:line-through;
+    color:rgba(153,153,153,1);
+    margin-top: 5rpx;
+  }
+  .price1{
+    color:#FF6417;
+    display: inline-block;
+    margin-left: 20rpx;
+  }
+  .price1 text{
+    font-size: 36rpx;
+  }
+  .price2{
+    display: inline-block;
+    margin-left: 20rpx;
+    text-decoration: line-through;
+  
+  }
+  .youhui{
+    background:rgba(252,243,237,1);
+    border-radius:8rpx;
+    font-size:22rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(255,100,23,1);
+    display: inline-block;
+    margin-left: 20rpx;
+    padding: 0 10rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+  }
+  .youhui text{
+    color:#FF2644;
+    font-weight: bold;
+  }
+  .head_left_img2{
+    height: 6rpx;
+    width: 74rpx;
+    display: inline-block;
+    position: absolute;
+    left: 193rpx;
+    top: 41rpx;
+  }
+  .head_right_img2{
+    height: 6rpx;
+    width: 74rpx;
+    display: inline-block;
+    position: absolute;
+    right: 205rpx;
+    top: 41rpx;
+  }
+  .head_name{
+    font-size:28rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    display: inline-block;
+    position: absolute;
+    left: 292rpx;
+    top: 25rpx;
+  }
+  .friend_sponsor_box{
+    width: 710rpx;
+    background: #FFF3E6;
+    margin-left:20rpx;
+    overflow: hidden;
+    border-radius: 10rpx;
+    position: relative;
+  }
+  .sponsor_goods_img_box{
+    width: 670rpx;
+    height: 670rpx;
+    background: #fff;
+    margin-top: 20rpx;
+    margin-left: 20rpx;
+    border-radius: 10rpx;
+  }
+  .sponsor_goods_img{
+    width: 630rpx;
+    height: 627rpx;
+    display: inline-block;
+    margin-left: 21rpx;
+    margin-top: 23rpx;
+    border-radius: 10rpx;
+  }
+  .sponsor_goods_name{
+    font-size:32rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    width: 670rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    word-break:break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    margin-left: 20rpx;
+    margin-top: 26rpx;
+    line-height:50rpx;
+    height: 100rpx;
+  }
+.sponsor_time{
+    margin-left: 21rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+}
+.hour{
+    display: inline-block;
+    width: 40rpx;
+    height: 40rpx;
+    font-size:22rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:rgba(255,255,255,1);
+    line-height:40rpx;
+    background: #333333;
+    text-align: center;
+    border-radius:4rpx; 
+    margin-right: 10rpx;
+}
+.min{
+    display: inline-block;
+    width: 40rpx;
+    height: 40rpx;
+    font-size:22rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:rgba(255,255,255,1);
+    line-height:40rpx;
+    background: #333333;
+    text-align: center;
+    border-radius:4rpx; 
+    margin-left: 10rpx;
+    margin-right: 10rpx;
+}
+.sec{
+    display: inline-block;
+    width: 40rpx;
+    height: 40rpx;
+    font-size:22rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:rgba(255,255,255,1);
+    line-height:40rpx;
+    background: #333333;
+    text-align: center;
+    border-radius:4rpx; 
+    margin-left: 10rpx;
+}
+.font26{
+  font-size: 28rpx;
+  display: inline-block;
+  margin-left: 21rpx;
+}
+.sponsor_money{
+  font-size:28rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(255,38,68,1);
+  margin-left: 21rpx;
+  height: 80rpx;
+  line-height: 50rpx;
+}
+.sponsor_money text{
+  font: bold;
+  font-size: 36rpx;
+}
+.sponsor_button_box{
+  height: 80rpx;
+  margin-bottom: 30rpx;
+}
+.sponsor_button{
+  width:670rpx;
+  height:80rpx;
+  background:linear-gradient(87deg,rgba(250,143,84,1) 0%,rgba(255,38,68,1) 100%);
+  box-shadow:0rpx 4rpx 10rpx 0rpx rgba(194,30,36,0.5);
+  border-radius:40rpx;
+  margin-left: 21rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fff;
+
+}
+.toast{
+  width: 660rpx;
+  background:rgba(0,0,0,0.7);
+  /* height: 172rpx; */
+  overflow: hidden;
+  position: absolute;
+  top: 350rpx;
+  left: 26rpx;
+  z-index: 9999;
+  border-radius: 24rpx;
+}
+.text_one{
+  font-size:36rpx;
+  font-family:PingFang SC;
+  font-weight:bold;
+  color:rgba(255,255,255,1);
+  line-height:39rpx;
+  text-align: center;
+  margin-top: 40rpx;
+}
+.text_two{
+  font-size:28rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(255,255,255,1);
+  line-height:39rpx;
+  text-align: center;
+  margin-top: 30rpx;
+  margin-bottom: 20rpx;
+}
+.sponsor_news{
+  font-size:28prx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(255,38,68,1);
+  margin-bottom: 30rpx;
+  text-align: center;
+}
+.dialog__mask2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+.dialog__mask2 .dialog__container2 {
+  width: 630rpx;
+  height: 697rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 240rpx;
+  left: 75rpx;
+  z-index: 9999;
+  border-radius: 28rpx;
+}
+.shixiao_img{
+  width: 589rpx;
+  height: 626rpx;
+}
+.shixiao_font{
+  position: fixed;
+  top: 470rpx;
+  left: 240rpx;
+  z-index: 9999;
+}
+.shixiao_one{
+  font-size:36rpx;
+  font-family:PingFang SC;
+  font-weight:bold;
+  color:rgba(92,14,0,1);
+  text-align: center;
+}
+.shixiao_two{
+  font-size:28rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(92,14,0,1);
+  margin-top: 29rpx;
+  text-align: center;
+}
+.shixiao_button{
+  position: fixed;
+  top: 708rpx;
+  left: 166rpx;
+  z-index: 9999;
+}
+.button_img{
+  width: 421rpx;
+  height: 89rpx;
+}
+.button_font{
+  position: fixed;
+  top: 708rpx;
+  left: 166rpx;
+  z-index: 9999;
+  width: 421rpx;
+  height: 89rpx;
+  font-size:28rpx;
+  font-family:PingFang SC;
+  font-weight:bold;
+  color:rgba(92,14,0,1);
+  text-align: center;
+  line-height: 89rpx;
+}

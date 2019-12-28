@@ -5,10 +5,10 @@
     <view class="evaluate-left-text">综合评分</view>
     <view class="evaluate-left-start">
       <block wx:for="{{avgGoddInteract}}" wx:key=''>
-        <image src='.https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin.png'></image>
+        <image src='https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin.png'></image>
       </block>
       <block wx:for="{{5-avgGoddInteract}}" wx:key=''>
-        <image src='.https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin_l.png'></image>
+        <image src='https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin_l.png'></image>
       </block>
     </view>
   </view>
@@ -23,17 +23,17 @@
     <view class="evaluate-content-top">
       <view class="evaluate-content-img">
         <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}"></image>
-        <image wx:else src=".https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+        <image wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
       </view>
       <view class="evaluate-content-right">
         <view class="evaluate-content-right-top">
           <view class="evaluate-content-title">{{item.nickname}}</view>
           <view class="evaluate-content-start">
             <block wx:for="{{item.score}}" wx:key=''>
-              <image src='.https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin.png'></image>
+              <image src='https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin.png'></image>
             </block>
             <block wx:for="{{5-item.score}}" wx:key=''>
-              <image src='.https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin_l.png'></image>
+              <image src='https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin_l.png'></image>
             </block>
           </view>
         </view>

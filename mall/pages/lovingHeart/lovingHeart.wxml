@@ -1,0 +1,18 @@
+<!--pages/lovingHeart/lovingHeart.wxml-->
+<view class="box">
+    <image src="https://xuncj.yzsaas.cn/_download/img/freeBuy/leave.gif" class="loving_img"></image>
+    <view class="button" bindtap="toPay"></view>
+</view>
+  <!-- 是否收货弹窗  -->
+<view class="dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{show1}}">
+  <view class="dialog__container" wx:if="{{show1}}">
+    <view class="title">捐赠完成</view>
+    <view class="text">
+       <view class="font1">感谢您的爱心捐赠!</view>
+       <view class="button_box">
+             <view class="button1" bindtap="toOther">去其他地方逛逛</view>
+       </view>
+    </view>
+  </view>
+    <image wx:if="{{show1}}" class="cancel-get2" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
+</view>

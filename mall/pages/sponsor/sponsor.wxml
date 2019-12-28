@@ -1,0 +1,120 @@
+<!--pages/sponsor/sponsor.wxml-->
+ <!-- 公告 -->
+<wxs module="foo">
+  module.exports = {
+    toStr: function(n) {
+      n = n.toFixed(2)
+      return n
+    },
+    toInt:function(s){
+        s = parseInt(s)
+        return s
+    }
+  }
+</wxs>
+    <view class="notice-swiper" wx:if="{{noticeList.length>0}}">
+      <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/icon.png"></image>
+      <swiper class="notice" vertical="true" autoplay="true" circular="true" interval="3000">
+        <block wx:for="{{noticeList}}" wx:key="{{item.id}}">
+          <swiper-item>
+            <view class="notice-swiper_item" bindtap="showNotice" data-id="{{item.id}}">
+              <text>{{item}}</text>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+<view class="title_box">
+    <image src="{{content.logoUrl}}" class="title_img" wx:if="{{content.logoUrl}}"/>
+    <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/banner.png" class="title_img" wx:else/>
+    <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/bg.png" class="rule_img"/>
+    <view class="sponsor_rule" bindtap="Show1">赞助规则</view>
+</view>
+<view class="sponsor_box" wx:for="{{mySponsorContent}}" wx:key="{{item.id}}">
+    <view bindtap="toDetail" data-id="{{item.id}}"> 
+                <view class="activity_head" >
+                <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/shape2.png" class="head_left_img" />
+                <view class="head_name" wx:if="{{item.status=='PROGRESS'}}">赞助进行中</view>
+                <view class="head_name" wx:else>赞助已完成</view>
+                <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/shape.png" class="head_right_img" />
+            </view>
+            <view class="sponsor_goods" >
+                <view class="sponsor_goods_img_box">
+                    <image src="{{item.goodsImage}}" class="sponsor_goods_img"/>
+                </view>
+                <view class="sponsor_goods_name">{{item.goodsName}}</view>
+                <view class="sponsor_time">
+                    <text class="hour">{{temparr[index].hours}}</text>:<text class="min">{{temparr[index].minutes}}</text>:<text class="sec">{{temparr[index].seconds}}</text><text class="font26">后赞助过期</text>
+                </view>
+            </view>
+            <view class="sponsor_production_box"  wx:if="{{item.sponsorCount<item.requireSponsorCount}}">
+                <view class="sponsor_times_box">
+                    <view class="sponsor_times_left">已赞助<text class="red">{{item.sponsorCount}}</text>次</view>
+                    <view class="sponsor_times_right" wx:if="{{item.sponsorCount==0}}">还差{{foo.toInt(item.requireSponsorCount-item.sponsorCount)}}次</view>
+                    <view class="sponsor_times_right" wx:else>还差<text class="red">{{foo.toInt(item.requireSponsorCount-item.sponsorCount)}}</text>次</view>
+                </view>
+            </view>
+            <view class="production_box"  wx:if="{{item.sponsorCount<item.requireSponsorCount}}">
+                <view class="wai">
+                    <view class="nei2" style="width:{{foo.toStr(679*item.sponsorCount/item.requireSponsorCount)}}rpx">
+                        <view class="dian2"></view>
+                    </view>
+                </view>
+            </view>
+            <view class="production_end"  wx:if="{{item.sponsorCount==item.requireSponsorCount}}">“已完成赞助，少支付{{item.sponsorSavedAmount}}元”</view>
+            <view class="get_button_box" >
+                <view class="get_button"  wx:if="{{item.sponsorCount<item.requireSponsorCount}}">继续拉赞助</view>
+                <view class="get_button"  wx:if="{{item.sponsorCount==item.requireSponsorCount}}">去下单</view>
+            </view>
+    </view>
+    <view class="mengceng" wx:if="{{item.status=='INVALID'||item.status=='NO_ORDER'}}">
+        <view class="nohappy_box">
+            <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/nohappy.png" class="nohappy"/>
+        </view>
+        <view class="nohappy_font">很遗憾，赞助失效了，再次去发起赞助吧！</view>
+    </view>
+    <view class="mengceng" wx:if="{{item.status=='ORDERED'||item.status=='ORDERED_PROGRESS'}}">
+        <view class="nohappy_box">
+            <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/happy.png" class="nohappy"/>
+        </view>
+        <view class="nohappy_font" >恭喜您0成本拿到该商品</view>
+    </view>
+</view>
+<view class="goods_box">
+    <view class="goods" wx:for="{{goodsContent}}" wx:key="{{item.id}}">
+        <view class="goods_img_box">
+            <image src="{{item.goodsImage}}" class="goods_img"/>
+        </view>
+        <view class="goods_name_box">
+            <text class="freebuy_sponsor">FreeBuy赞助</text>
+            <text class="goods_box_name">{{item.goodsName}}</text>
+        </view>
+        <view class="sponsor_people">已有<text class="number">{{item.sendUserCount}}人</text>发起</view>
+        <view class="sponsor_button" bindtap="setSponsor" data-id="{{item.id}}" data-goodsid="{{item.goodsId}}">发起赞助</view>
+        <view class="bor"></view>
+    </view>
+    <view class="buttom" wx:if="{{toBottom}}">好像没啦~</view>
+</view>
+<view class="dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{show1}}">
+  <view class="dialog__container" wx:if="{{show1}}">
+    <view class="titlez">规则说明</view>
+    <view class="text">
+        <block wx:for="{{configList}}" wx:key="">
+            <view class="rule_value" wx:if="{{item.name=='AUSPICES_TIMES_USER_PER_DAY'}}">1、每人一天最多可以发起赞助{{item.value}}个商品</view>
+        </block>
+        <view class="rule_value">2、赞助必须超过1次后可进行直接购买</view>
+        <block wx:for="{{configList}}" wx:key="">
+            <view class="rule_value" wx:if="{{item.name=='AUSPICES_EXPIRE_HOURS'}}">3、赞助发起后持续{{item.value}}小时</view>
+        </block>
+        <view class="rule_value">4、每个用户可为发起赞助的人赞助1元</view>
+        <block wx:for="{{configList}}" wx:key="">
+            <view class="rule_value" wx:if="{{item.name=='AUSPICES_TIMES_OTHERS_USER_PER_DAY'}}">5、每个用户每天只可以赞助{{item.value}}次</view>
+        </block>
+        <view class="rule_value">6、赞助人的赞助金1元将立刻返还到账户余额</view>
+        <view class="rule_value">7、赞助成功后必须在7天内下单</view>
+        <view class="rule_value">8、活动最终解释权归寻草记所有</view>
+    </view>
+  </view>
+  <image wx:if="{{show1}}" class="cancel-get2" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
+</view>
+

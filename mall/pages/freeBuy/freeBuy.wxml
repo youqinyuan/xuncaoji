@@ -1,8 +1,9 @@
 <!-- pages/freeBuy/freeBuy.wxml -->
 <view class="head">
-    <image src="https://xuncj.yzsaas.cn/_download/img/freeBuy/top.png" class="img1" />
-    <image src="https://xuncj.yzsaas.cn/_download/img/freeBuy/box.png" class="img2" />
+    <!-- <image src="https://xuncj.yzsaas.cn/_download/img/freeBuy/top.png" class="img1" />
+    <image src="https://xuncj.yzsaas.cn/_download/img/freeBuy/box.png" class="img2" /> -->
     <image src="https://xuncj.yzsaas.cn/_download/img/freeBuy/ic_share.png" class="img3" bindtap="shares"/>
+    <image src="https://xuncj.yzsaas.cn/_download/img/freeBuy/head.png" class="img10" />
 </view>
 <view class="content">
     <view>
@@ -87,6 +88,9 @@
       </button>
     </view>
   </view>
+</view>
+<view >
+    <image src="https://xuncj.yzsaas.cn/_download/img/freeBuy/bottom.png" class="bottom_img"/>
 </view>
 <!-- 海报弹框 -->
 <view class="mask_hb" wx:if="{{haibao}}"></view>

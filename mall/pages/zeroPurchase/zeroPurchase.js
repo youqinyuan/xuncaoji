@@ -138,6 +138,7 @@ Page({
   getDetailData: function() {
     var that = this
     app.Util.ajax(`mall/home/activity/freeShopping/goodsDetail?id=${that.data.goodsId}&type=${that.data.type}`, null, 'GET').then((res) => {
+      console.log(11111111111)
       if (res.data.content) {
         var current = res.data.content.remainingTime
         that.formatDuring(current)

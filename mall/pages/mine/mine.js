@@ -20,7 +20,7 @@ Page({
       txt: '待支付',
       status: '1'
     }, {
-        img: '/assets/images/add/my_order_list5_icon.png',
+        img: 'https://xuncj.yzsaas.cn/_download/img/add/my_order_list5_icon.png',
         txt: '待发货',
         status: '2'
       }, {
@@ -151,9 +151,9 @@ Page({
     })
   },
   //我的心情
-  myMood: function () {
+  toMyPeriod: function () {
     wx.navigateTo({
-      url: '/pages/undeveloped/undeveloped',
+      url: '/pages/myPeriod/myPeriod',
     })
   },
   //跳转到修改地址页面
@@ -257,24 +257,27 @@ Page({
       }
     })
     //账户余额与未到账金额
-    app.Util.ajax('mall/personal/balanceDetails', {
-      pageNumber: 1,
-      pageSize: 1,
-      status: 1
-    }, 'GET').then((res) => {
-      if (res.data.content){
-        that.setData({
-          noCashBackAmount: res.data.content.noCashBackAmount,
-          balance: res.data.content.balance,
-          commissionBalance: res.data.content.commissionBalance
-        })
-      }
-    })
+    // app.Util.ajax('mall/personal/balanceDetails', {
+    //   pageNumber: 1,
+    //   pageSize: 1,
+    //   status: 1
+    // }, 'GET').then((res) => {
+    //   if (res.data.content){
+    //     that.setData({
+    //       noCashBackAmount: res.data.content.noCashBackAmount,
+    //       balance: res.data.content.balance,
+    //       commissionBalance: res.data.content.commissionBalance
+    //     })
+    //   }
+    // })
     //账户资产数据
     app.Util.ajax('mall/personal/assets', null, 'GET').then((res) => {
       if(res.data.content){
         that.setData({
           seedContent: res.data.content,
+          noCashBackAmount: res.data.content.noCashBackAmount,
+          balance: res.data.content.balance,
+          commissionBalance: res.data.content.commissionBalance + res.data.content.pendingCommission
         })
       }      
     })

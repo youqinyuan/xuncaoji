@@ -1,0 +1,120 @@
+/* pages/goodsStage2/goodsStage2.wxss */
+
+.topImg {
+  background: #ff2644;
+  height: 300rpx;
+  position: relative;
+}
+
+.img1 {
+  height: 300rpx;
+  width: 750rpx;
+}
+
+.img2 {
+  width: 585rpx;
+  height: 79rpx;
+  position: absolute;
+  left: 83rpx;
+  top: 120rpx;
+}
+
+.listItem {
+  width: 710rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0rpx 0rpx 16rpx 0rpx rgba(218, 218, 218, 0.75);
+  border-radius: 10rpx;
+  margin-top: 40rpx;
+  margin-left: 20rpx;
+}
+
+.listItem-list {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 105rpx;
+  line-height: 105rpx;
+  margin: 0 40rpx;
+  border-bottom: 2rpx solid #f1f1f1;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+}
+
+.listBorder {
+  border-bottom: none;
+}
+
+.listItem-left {
+  margin-right: 30rpx;
+}
+
+.listItem-right {
+  width: 330rpx;
+  height: 105rpx;
+  color: #333;
+}
+.listItem-right1 {
+  height: 105rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #333;
+}
+.more_img {
+  width: 14rpx;
+  height: 12rpx;
+  position: absolute;
+  top: 46rpx;
+  right: 0rpx;
+}
+
+.btn {
+  margin: 0 auto;
+  margin-top: 80rpx;
+  margin-bottom: 40rpx;
+  width: 690rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 40rpx;
+  color: #fff;
+}
+
+.choose {
+  width: 710rpx;
+  position: absolute;
+  background-color: #fff;
+  top: 108rpx;
+  left: -40rpx;
+  z-index: 98;
+}
+
+.tab {
+  position: relative;
+  height: 73rpx;
+  line-height: 73rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(153, 153, 153, 1);
+}
+
+.tab text {
+  display: inline-block;
+  height: 50rpx;
+  line-height: 50rpx;
+  margin-left: 30rpx;
+}
+
+.choose_img {
+  display: inline-block;
+  position: absolute;
+  top: 18rpx;
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 20rpx;
+  line-height: 70rpx;
+}

@@ -1,0 +1,135 @@
+/* pages/chooseTime/chooseTime.wxss */
+page{
+    background: #fff;
+}
+.money_box{
+    height: 400rpx;
+    position: relative;
+}
+.start_time{
+    font-size:32rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    text-align: center;
+    display: inline-block;
+    border-bottom: #DDDDDD 2rpx solid;
+    width: 240rpx;
+    position: absolute;
+    height: 44rpx;
+    left: 71rpx;
+    top: 95rpx;
+}
+.font_one{
+    font-size:28rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(153,153,153,1);
+    display: inline-block;
+    position: absolute;
+    left: 333rpx;
+    top: 104rpx;
+}
+.end_time{
+    font-size:32rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    height: 44rpx;
+    color:rgba(51,51,51,1);
+    text-align: center;
+    display: inline-block;
+    border-bottom: #DDDDDD 2rpx solid;
+    width: 240rpx;
+    position: absolute;
+    right: 126rpx;
+    top: 95rpx;
+}
+.clear{
+    font-size:28rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(255,100,23,1);
+    display: inline-block;
+    position: absolute;
+    right: 30rpx;
+    top: 104rpx;
+}
+.toWait{
+    width:690rpx;
+    height:80rpx;
+    line-height: 80rpx;
+    text-align: center;
+    background:rgba(255,38,68,1);
+    border-radius:38rpx;
+    font-size:32rpx;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    position: absolute;
+    right: 30rpx;
+    top: 265rpx;
+}
+.picker-text {
+    text-align: center;
+  }
+  
+  /* 有效期限弹窗 */
+  
+  .commodity_screen1 {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 1);
+    opacity: 0.6;
+    overflow: hidden;
+    z-index: 99;
+    color: rgba(255, 255, 255, 1);
+  }
+  
+  .commodity_attr_box1 {
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    z-index: 99;
+  }
+  
+  .content-wrapper1 .cancel {
+    width: 26rpx;
+    height: 26rpx;
+    position: absolute;
+    right: 20rpx;
+    top: 45rpx;
+    z-index: 99;
+  }
+  
+  .content-wrapper1 .title {
+    margin-top: 39rpx;
+    margin-bottom: 30rpx;
+    text-align: center;
+    font-size: 36rpx;
+    font-family: PingFang SC;
+    font-weight: bold;
+  }
+  
+  .showBtn {
+    margin: 30rpx auto;
+    margin-top: 80rpx;
+    line-height: 80rpx;
+    text-align: center;
+    width: 690rpx;
+    height: 80rpx;
+    background: rgba(255, 38, 68, 1);
+    border-radius: 40rpx;
+    font-size: 32rpx;
+    font-family: PingFang SC;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+  }
+
+
+

@@ -1,12 +1,14 @@
 /* pages/freeBuy/freeBuy.wxss */
 
 .head {
-  height: 380rpx;
+  height: 510rpx;
   background: #ff2644;
+  position: relative;
 }
 
 .content {
-  background: #f9bdad;
+  background: #B80000;
+  margin-top: 492rpx;
 }
 
 .img1 {
@@ -28,9 +30,10 @@
 .img3 {
   width: 126rpx;
   height: 70rpx;
-  position: relative;
-  top: -400rpx;
-  left: 100rpx;
+  position: absolute;
+  z-index: 98;
+  top: 40rpx;
+  right: 0;
 }
 
 .img4 {
@@ -70,7 +73,7 @@
   font-size: 36rpx;
   position: absolute;
   left: 170rpx;
-  top: 515rpx;
+  top: 1140rpx;
   z-index: 50;
 }
 
@@ -152,7 +155,7 @@
 
 .toIndex {
   position: fixed;
-  bottom: 30rpx;
+  bottom: 95rpx;
   left: 184rpx;
   /* padding-top:30rpx;  */
   color: #ff2644;
@@ -455,4 +458,15 @@ button::after {
   font-family: PingFang SC;
   font-weight: 400;
   color: rgba(255, 255, 255, 1);
+}
+.img10{
+  width: 100%;
+  height: 1024rpx;
+  position: absolute;
+  top: 0rpx;
+  left: 0;
+}
+.bottom_img{
+  height: 69rpx;
+  width: 100%;
 }

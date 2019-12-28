@@ -14,6 +14,14 @@
       <view class="store-container-wrapper" wx:if="{{shops.length >0 }}">
         <view class="shop-view" style="margin-bottom: 400rpx;">
           <view class="shop-view-wrapper" wx:for="{{shops}}" wx:key="{{index}}" wx:for-index="groupIndex">
+            <!-- <view class="shop-view-wrapper-title">
+              <checkbox-group data-index="{{index}}" class="store-box" bindtap="checkall">
+                <checkbox class="goods-view1" checked='{{checkeedAll}}'></checkbox>
+              </checkbox-group>
+              <image src="https://xuncj.yzsaas.cn/_download/img/add/store.png"></image>
+              <text class="text">{{item.storeName}}</text>
+              <text class="text1">自营</text>
+            </view> -->
             <checkbox-group data-groupIndex="{{groupIndex}}" wx:for="{{item.cartDetails}}" data-kc="{{item}}" wx:key="{{index}}" data-index="{{index}}" bindchange="Checks1" class="store-box1">
               <view wx:if="{{item.applyStatus==0}}" class="applyStatus">
                 <view class="againCalculate-wrap">

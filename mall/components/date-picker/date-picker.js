@@ -31,7 +31,7 @@ Component({
     var years = [];
     var months = [];
     var days = [];
-    for (let i = 1960; i <= date.getFullYear(); i++) {
+    for (let i = 1970; i <= date.getFullYear(); i++) {
       years.push(i);
     }
     for (let i = 1; i <= date.getMonth() + 1; i++) {

@@ -17,18 +17,19 @@
 }
 
 .list {
+  position: relative;
   overflow: hidden;
   margin: 0 auto;
-  margin-bottom: 30rpx;
+  margin-bottom: 20rpx;
   width: 690rpx;
-  height: 235rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 8rpx;
 }
 
 .listTitle {
-  margin: 0 30rpx;
+  margin-left: 30rpx;
   margin-top: 32rpx;
+  width: 530rpx;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
@@ -42,44 +43,112 @@
   color: rgba(51, 51, 51, 1);
 }
 
-.listTitle1 {
-  margin: 0 30rpx;
-  margin-top: 32rpx;
-  display: -webkit-box;
-  word-break: break-all;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  max-height: 85rpx;
-  font-size: 32rpx;
+.copy {
+  position: absolute;
+  top: 40rpx;
+  right: 37rpx;
+  width: 68rpx;
+  height: 32rpx;
+  text-align: center;
+  line-height: 32rpx;
+  border: 2rpx solid rgba(153, 153, 153, 1);
+  border-radius: 16rpx;
+  font-size: 22rpx;
   font-family: PingFang SC;
   font-weight: 400;
-  color: rgba(51, 51, 51, 1);
+  color: rgba(153, 153, 153, 1);
+}
+
+.content_img {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 10rpx;
+}
+
+.content_img image {
+  width: 156rpx;
+  height: 156rpx;
+  margin-left: 30rpx;
+  margin-top: 30rpx;
+}
+
+.getwish {
+  margin-left: 43rpx;
+  margin-top: 40rpx;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(255, 100, 23, 1);
+}
+
+.process_box {
+  margin: 20rpx auto;
+  height: 10rpx;
+  background: linear-gradient(90deg, rgba(231, 231, 231, 1) 0%, rgba(242, 242, 242, 1) 100%);
+  border-radius: 5rpx;
+}
+
+.process_box_left {
+  height: 10rpx;
+  background: linear-gradient(90deg, rgba(255, 195, 160, 1) 0%, rgba(255, 156, 173, 1) 100%);
+  border-radius: 5rpx;
 }
 
 .listBtn {
-  position: relative;
   margin: 0 30rpx;
+  padding-bottom: 30rpx;
   margin-top: 32rpx;
   display: flex;
   justify-content: space-between;
 }
 
-.listBtn .text {
-  margin-top: 10rpx;
-  font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
-  color: rgba(255, 38, 68, 1);
+
+.bottom {
+  display: flex;
 }
 
-.listBtn .text1 {
-  margin-top: 10rpx;
-  font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
-  color: #aaa;
+.service {
+  display: flex;
+ margin-right: 49rpx;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 0;
+  padding: 0rpx;
+  line-height: 1;
+}
+
+button::after {
+  border: none;
+}
+
+.service image {
+  margin-bottom: 8rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.service-text {
+  font-size: 22rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.del {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.del image {
+  margin-bottom: 5rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.del-text {
+  font-size: 22rpx;
+  color: rgba(51, 51, 51, 1);
 }
 
 .listBtn .btn1 {
@@ -87,7 +156,7 @@
   height: 64rpx;
   line-height: 64rpx;
   text-align: center;
-  background: rgba(255, 38, 68, 1);
+  background: #ff2644;
   border-radius: 32rpx;
   font-size: 30rpx;
   font-family: PingFang SC;
@@ -95,13 +164,11 @@
   color: rgba(255, 255, 255, 1);
 }
 
-.listBtn button {
+.listBtn .btn2 {
   width: 240rpx;
   height: 64rpx;
+  text-align: center;
   background: #fff;
-  position: absolute;
-  top: 0;
-  right: 0;
   border: 2rpx solid #ff2644;
   border-radius: 32rpx;
   font-size: 30rpx;
@@ -109,19 +176,6 @@
   font-weight: 500;
   color: #ff2644;
   line-height: 64rpx;
-}
-
-.listBtn .btn3 {
-  width: 240rpx;
-  height: 64rpx;
-  line-height: 64rpx;
-  text-align: center;
-  background: rgba(189, 189, 189, 1);
-  border-radius: 32rpx;
-  font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 1);
 }
 
 .add_wish {

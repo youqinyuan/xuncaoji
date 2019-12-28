@@ -59,7 +59,7 @@
             <image src="https://xuncj.yzsaas.cn/_download/img/icon/youhui_bqian.png"></image>
             <view class="content-cashBack-text">
               当前商品实付
-              <text>￥{{item.price}}</text>，返现
+              <text>￥{{item.goodsTotalPrice}}</text>，返现
               <text wx:if="{{item.cashBack}}">￥{{item.cashBack}}</text>
               <text wx:else>￥0</text>
             </view>
@@ -294,11 +294,11 @@
     </view>
   </view>
   <!-- 否则 -->
-  <view wx:if="{{itemName.length===0}}">
+  <view wx:if="{{returnOrder.length===0}}">
     <!-- 外层 -->
     <view class='cont_count'>
       <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_order_no.png"></image>
-      <label class='none_tab'>您还没有任何亏款商品呢~</label>
+      <label class='none_tab'>您还没有任何退款商品呢~</label>
     </view>
   </view>
 </view>

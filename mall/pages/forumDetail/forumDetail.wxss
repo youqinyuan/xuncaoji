@@ -285,7 +285,7 @@
   font-weight: bold;
   color: #333;
   margin: 0 20rpx;
-  line-height: 1.5;
+  line-height: 1.7;
 }
 
 .content_comment_text .item {

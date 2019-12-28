@@ -71,8 +71,8 @@
 				},
 				{
 					"id": 2,
-					"name": "pages/myForum/myForum",
-					"pathName": "pages/myForum/myForum",
+					"name": "pages/commission/commission",
+					"pathName": "pages/commission/commission",
 					"query": "",
 					"scene": null
 				},
@@ -85,15 +85,15 @@
 				},
 				{
 					"id": 4,
-					"name": "pages/forumDetail/forumDetail",
-					"pathName": "pages/forumDetail/forumDetail",
+					"name": "pages/byStages/byStages",
+					"pathName": "pages/byStages/byStages",
 					"query": "id=63",
 					"scene": null
 				},
 				{
 					"id": 5,
-					"name": "pages/zeroPurchase/zeroPurchase",
-					"pathName": "pages/zeroPurchase/zeroPurchase",
+					"name": "pages/goodsStage3/goodsStage3",
+					"pathName": "pages/goodsStage3/goodsStage3",
 					"query": "id=132&type=1",
 					"scene": null
 				},
@@ -141,8 +141,8 @@
 				},
 				{
 					"id": 12,
-					"name": "pages/posting/posting",
-					"pathName": "pages/posting/posting",
+					"name": "pages/myPeriod/myPeriod",
+					"pathName": "pages/myPeriod/myPeriod",
 					"query": "",
 					"scene": null
 				},
@@ -161,9 +161,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/freeBuy/freeBuy",
-					"pathName": "pages/freeBuy/freeBuy",
+					"id": 15,
+					"name": "pages/effectiveTime/effectiveTime",
+					"pathName": "pages/effectiveTime/effectiveTime",
 					"query": "",
 					"scene": null
 				},
@@ -189,9 +189,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/myteam/myteam",
-					"pathName": "pages/myteam/myteam",
+					"id": 19,
+					"name": "pages/undeveloped/undeveloped",
+					"pathName": "pages/undeveloped/undeveloped",
 					"query": "",
 					"scene": null
 				},
@@ -217,9 +217,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/mine/mine",
-					"pathName": "pages/mine/mine",
+					"id": 23,
+					"name": "pages/myPeriod/myPeriod",
+					"pathName": "pages/myPeriod/myPeriod",
 					"query": "scene=%3Fid%3D31%26remarks%3Dnull",
 					"scene": null
 				},
@@ -231,9 +231,9 @@
 					"scene": null
 				},
 				{
-					"id": 29,
-					"name": "pages/cityPartner/cityPartner",
-					"pathName": "pages/cityPartner/cityPartner",
+					"id": 25,
+					"name": "pages/sponsor/sponsor",
+					"pathName": "pages/sponsor/sponsor",
 					"query": "",
 					"scene": null
 				},
@@ -245,9 +245,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/classify/classify",
-					"pathName": "pages/classify/classify",
+					"id": 27,
+					"name": "pages/leaveWish/leaveWish",
+					"pathName": "pages/leaveWish/leaveWish",
 					"query": "",
 					"scene": null
 				},
@@ -260,8 +260,8 @@
 				},
 				{
 					"id": 29,
-					"name": "pages/finishPosting/finishPosting",
-					"pathName": "pages/finishPosting/finishPosting",
+					"name": "pages/myWish/myWish",
+					"pathName": "pages/myWish/myWish",
 					"query": "topicId=263",
 					"scene": null
 				},
@@ -291,6 +291,97 @@
 					"name": "pages/placeorder/placeorder",
 					"pathName": "pages/detail/detail",
 					"query": "scene=id%3D134%26remarks%3Dnull%26type%3D1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/zeroPurchaseActivity/zeroPurchaseActivity",
+					"pathName": "pages/zeroPurchaseActivity/zeroPurchaseActivity",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "赞助",
+					"pathName": "pages/sponsor/sponsor",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 36,
+					"name": "赞助详情",
+					"pathName": "pages/toSponsor/toSponsor",
+					"query": "id=2",
+					"scene": null
+				},
+				{
+					"id": 37,
+					"name": "pages/friendSponsor/friendSponsor",
+					"pathName": "pages/friendSponsor/friendSponsor",
+					"query": "id=17",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/chooseMoney/chooseMoney",
+					"pathName": "pages/chooseMoney/chooseMoney",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/chooseTime/chooseTime",
+					"pathName": "pages/chooseTime/chooseTime",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/placeorder/placeorder",
+					"pathName": "pages/placeorder/placeorder",
+					"query": "buyMode==2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/myorder/myorder",
+					"pathName": "pages/myorder/myorder",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 42,
+					"name": "pages/friendSponsor/friendSponsor",
+					"pathName": "pages/friendSponsor/friendSponsor",
+					"query": "id=4",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/leaveWish/leaveWish",
+					"pathName": "pages/leaveWish/leaveWish",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/lovingHeart/lovingHeart",
+					"pathName": "pages/lovingHeart/lovingHeart",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/byStages/byStages",
+					"pathName": "pages/byStages/byStages",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/freeBuy/freeBuy",
+					"pathName": "pages/freeBuy/freeBuy",
+					"query": "id=4",
 					"scene": null
 				}
 			]

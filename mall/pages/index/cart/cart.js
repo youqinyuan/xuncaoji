@@ -10,6 +10,7 @@ Page({
     pageNumber: 1,
     pageSize: 20,
     checkedAll: false, //全选
+    checkeedAll:false,//店铺选择
     showDialog: false,
     priceAll: 0, //选择的价格
     cardIds: [], //购物车id集合
@@ -22,6 +23,7 @@ Page({
   //单个店铺全选
   checkall: function(e) {
     var that = this;
+    console.log(e)
     var index = e.target.dataset.index;
     var list = that.data.shops[index].cartDetails;
     var status = that.data.shops[index].checkeedAll;

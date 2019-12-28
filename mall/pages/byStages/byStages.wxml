@@ -1,0 +1,24 @@
+<!--pages/byStages/byStages.wxml-->
+<image class="topImg" src="{{imageUrl}}"></image>
+<view class="recommend" wx:if="{{recommend.length>0}}">
+  <view class="recommend-left">
+    <image src="https://xuncj.yzsaas.cn/_download/img/add/title_a.png"></image>
+  </view>
+  <view class="recommend-list-wrapper">
+    <view class="recommend-list" wx:for="{{recommend}}" wx:key="{{item.id}}" data-id="{{item.goodsId}}" bindtap='toDetail'>
+      <view class="month">月供：￥{{item.monthlyPayment}}</view>
+      <view class="recommend-list-img">
+        <image src="{{item.imageUrl}}"></image>
+      </view>
+      <view class="recommend-list-text">
+        <image class="fenBuy" src="https://xuncj.yzsaas.cn/_download/img/add/fen_buy.png"></image>
+        <text>{{item.name}}</text>
+      </view>
+      <view class="recommend-list-price">
+        <view class="newprice">
+          <text>￥</text>{{item.orgPriceMin}}</view>
+        <view class="oldprice">￥{{item.markedPrice}}</view>
+      </view>
+    </view>
+  </view>
+</view>

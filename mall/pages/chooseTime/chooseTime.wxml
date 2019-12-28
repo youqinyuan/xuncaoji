@@ -1,0 +1,31 @@
+<!--pages/chooseTime/chooseTime.wxml-->
+<view class="money_box">
+    <view class="start_time" bindtap="showDate">{{startTime}}</view>
+    <view class="font_one">至</view>
+    <view class="end_time" bindtap="showDate2">{{endTime}}</view>
+    <view class="clear" bindtap="clear">清空</view>
+    <view class="toWait" wx:if="{{buttonStatus==1}}" bindtap="allWait">查询全部时间</view>
+    <view class="toWait" wx:else bindtap="wait">确定</view>
+</view>
+<view class="commodity_screen1" wx:if="{{showWay}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showWay}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="https://xuncj.yzsaas.cn/_download/img/add/withdraw_close.png" catchtap='cancelCondition'></image>
+    <view class="title">返现时间</view>
+    <view class="time_screens">
+      <picker-view indicator-style="height: 50px;" style="width: 100%; height: 150px; font-size:30rpx;" value="{{value}}" bindchange="bindChange">
+        <picker-view-column class="picker-text">
+          <view wx:for="{{years}}" wx:key="" style="line-height: 50px">{{item}}年</view>
+        </picker-view-column>
+        <picker-view-column class="picker-text">
+          <view wx:for="{{months}}" wx:key="" style="line-height: 50px">{{item}}月</view>
+        </picker-view-column>
+        <picker-view-column class="picker-text">
+          <view wx:for="{{days}}" wx:key="" style="line-height: 50px">{{item}}日</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+    <view class="showBtn" bindtap="showConfirm" wx:if="{{bindStart==1}}">确定</view>
+    <view class="showBtn" bindtap="showConfirm1" wx:if="{{bindStart==2}}">确定</view>
+  </view>
+</view>

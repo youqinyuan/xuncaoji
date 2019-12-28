@@ -29,7 +29,7 @@
     </view>
   </view>
   <view class="list-text">{{text}}</view>
-  <view class="list1" wx:if="{{items.length===0}}">暂无数据</view> 
+  <view class="list1">{{textData}}</view> 
 </view>
 <!-- 退款弹窗 -->
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>

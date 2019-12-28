@@ -8,7 +8,8 @@ Page({
   data: {
     id:null,
     currentTab: 0,
-    text:'暂无数据',
+    text:'',
+    firstId:null,
     navData: [], //导航栏
   },
 
@@ -19,6 +20,7 @@ Page({
     var that = this
     //导航栏
     that.navigationBar()
+
   },
 
   /**
@@ -75,7 +77,25 @@ Page({
     app.Util.ajax('mall/home/categories', { isHome: 0 }, 'GET').then((res) => {
       if (res.data.messageCode = 'MSG_1001') {
         that.setData({
-          navData: res.data.content
+          navData: res.data.content,
+          firstId: res.data.content[0].id
+        })
+        app.Util.ajax('mall/home/categories', {
+          parentId: that.data.firstId
+        }, 'GET').then((res) => {
+          if (res.data.messageCode === 'MSG_1001') {
+            if (res.data.content.length > 0) {
+              that.setData({
+                text: '',
+                classfy: res.data.content
+              })
+            } else {
+              that.setData({
+                text: '暂无数据',
+                classfy: []
+              })
+            }
+          }
         })
       }
     })

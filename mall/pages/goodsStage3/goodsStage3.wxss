@@ -1,0 +1,61 @@
+/* pages/goodsStage3/goodsStage3.wxss */
+
+.topImg {
+  background: #ff2644;
+  height: 300rpx;
+  position: relative;
+}
+
+.img1 {
+  height: 300rpx;
+  width: 750rpx;
+}
+
+.img2 {
+  width: 585rpx;
+  height: 79rpx;
+  position: absolute;
+  left: 83rpx;
+  top: 120rpx;
+}
+
+.content {
+  text-align: center;
+  margin-top: 227rpx;
+}
+
+.content image {
+  width: 195rpx;
+  height: 186rpx;
+}
+
+.success {
+  margin-top: 40rpx;
+  color: #999;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.lose {
+  margin-top: 40rpx;
+  color: #999;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.text1 {
+  margin-bottom: 29rpx;
+}
+
+.btn {
+  width: 280rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+  border: 2rpx solid #ff2644;
+  border-radius: 34rpx;
+  color: #ff2644;
+  margin: 0 auto;
+  margin-top: 50rpx;
+}

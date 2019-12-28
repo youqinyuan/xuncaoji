@@ -22,11 +22,11 @@ Page({
       type: 1,
       text: '普通帖'
     }, {
-      type: 2,
-      text: '卖帖'
-    }, {
       type: 3,
       text: '买帖'
+    }, {
+      type: 2,
+      text: '卖帖'
     }],
     type: null,
     tempStatus: null,
@@ -45,17 +45,17 @@ Page({
     messageNum: null,
     showClassify: false, //帖子类型弹框
     list: [{
-      img: '/assets/images/add/ic_ordinary.png',
+      img: 'https://xuncj.yzsaas.cn/_download/img/add/ic_ordinary.png',
       text: '普通帖',
       remark: '',
       status: 1
     }, {
-      img: '/assets/images/add/ic_buy.png',
+      img: 'https://xuncj.yzsaas.cn/_download/img/add/ic_buy.png',
       text: '买帖',
       remark: '我要买',
       status: 2
     }, {
-      img: '/assets/images/add/ic_sale.png',
+      img: 'https://xuncj.yzsaas.cn/_download/img/add/ic_sale.png',
       text: '卖帖',
       remark: '我要卖',
       status: 3
@@ -68,7 +68,9 @@ Page({
   onLoad: function(options) {
     var that = this
     //新消息总数
-    that.getMessage();
+    if (wx.getStorageSync('token')) {
+      that.getMessage();
+    }
     //页面初始化数据
     that.allPost();
   },
@@ -87,7 +89,9 @@ Page({
     var that = this
     //页面初始化数据
     //新消息总数
-    that.getMessage();
+    if (wx.getStorageSync('token')) {
+      that.getMessage();
+    }
     if (wx.getStorageSync('posting')) {
       that.setData({
         pageNumber: 1,
@@ -139,7 +143,7 @@ Page({
     })
     if (that.data.currentTab == 0) {
       that.followPost()
-    }else if (that.data.currentTab == 1) {
+    } else if (that.data.currentTab == 1) {
       that.allPost()
     } else {
       that.ordinaryPost()
@@ -227,6 +231,11 @@ Page({
           //获取元素高度
           that.getHeight();
         }
+      }else{
+        wx.showToast({
+          title:res.data.message,
+          icon:'none'
+        })
       }
     })
   },
@@ -272,6 +281,11 @@ Page({
             that.getHeight();
           }
         }
+      }else{
+        wx.showToast({
+          title:res.data.message,
+          icon:'none'
+        })
       }
     })
   },
@@ -312,6 +326,11 @@ Page({
           //获取元素高度
           that.getHeight();
         }
+      }else{
+        wx.showToast({
+          title:res.data.message,
+          icon:'none'
+        })
       }
     })
   },
@@ -357,6 +376,11 @@ Page({
             that.getHeight();
           }
         }
+      }else{
+        wx.showToast({
+          title:res.data.message,
+          icon:'none'
+        })
       }
     })
   },
@@ -377,8 +401,6 @@ Page({
           } else {
             arr1[i].content = ''
           }
-          // arr1[i].createTime = time.formatTimeTwo(arr1[i].createTime, 'Y-M-D h:m')
-          // arr1[i].maxReturnTime = time.formatTimeTwo(arr1[i].maxReturnTime, 'Y-M-D')
           arr1[i].commentPageResponse.items = arr1[i].commentPageResponse.items.slice(0, 2)
           arr1[i].isShowAll = 2
           arr1[i].isText = ''
@@ -392,6 +414,11 @@ Page({
           //获取元素高度
           that.getHeight();
         }
+      }else{
+        wx.showToast({
+          title:res.data.message,
+          icon:'none'
+        })
       }
     })
   },
@@ -436,8 +463,13 @@ Page({
           if (that.data.allPost.length > 0) {
             //获取元素高度
             that.getHeight();
-          }  
+          }
         }
+      }else{
+        wx.showToast({
+          title:res.data.message,
+          icon:'none'
+        })
       }
     })
   },
@@ -469,7 +501,7 @@ Page({
         if (that.data.allPost1.length > 0) {
           //获取元素高度
           that.getHeight1();
-        }  
+        }
       }
     })
   },
@@ -508,10 +540,10 @@ Page({
             allPost1: arr1,
             pageNum: pageNumber
           })
-          if(that.data.allPost1.length>0){
+          if (that.data.allPost1.length > 0) {
             //获取元素高度
             that.getHeight1();
-          }         
+          }
         }
       }
     })
@@ -524,7 +556,7 @@ Page({
     that.setData({
       type: type,
       pageNumber: 1,
-      pageNum:1,
+      pageNum: 1,
       allPost: [],
       emptyText: ''
     })
@@ -554,13 +586,28 @@ Page({
     setTimeout(() => {
       wx.createSelectorQuery().selectAll('.content-item').boundingClientRect(function(rect) {
         for (var i = 0; i < that.data.allPost.length; i++) {
-          if (rect[i].height > 80) {
-            that.data.allPost[i].isShowAll = 1
-            that.data.allPost[i].isText = '全部'
-          } else {
-            that.data.allPost[i].isShowAll = 2
-            that.data.allPost[i].isText = ''
-          }
+          var viewHeight = wx.getSystemInfoSync().windowWidth
+          if (viewHeight > 375 && viewHeight<=414){            
+            if (rect[i].height > 96) {
+              that.data.allPost[i].ellipsis = false
+              that.data.allPost[i].isShowAll = 2
+              that.data.allPost[i].isText = '全部'
+            } else {
+              that.data.allPost[i].ellipsis = true
+              that.data.allPost[i].isShowAll = 1
+              that.data.allPost[i].isText = ''
+            }
+          } else if (viewHeight<=375){
+            if (rect[i].height > 88) {
+              that.data.allPost[i].ellipsis = false
+              that.data.allPost[i].isShowAll = 2
+              that.data.allPost[i].isText = '全部'
+            } else {
+              that.data.allPost[i].ellipsis = true
+              that.data.allPost[i].isShowAll = 1
+              that.data.allPost[i].isText = ''
+            }
+          }          
         }
         that.setData({
           allPost: that.data.allPost
@@ -576,10 +623,7 @@ Page({
         that.data.allPost[e.currentTarget.dataset.index].flag = that.data.allPost[e.currentTarget.dataset.index].flag + 1
       }
       if (that.data.allPost[e.currentTarget.dataset.index].flag % 2 === 0) {
-        that.data.allPost[e.currentTarget.dataset.index].isText = '收起'
-        that.data.allPost[e.currentTarget.dataset.index].ellipsis = false
-      } else if (that.data.allPost[e.currentTarget.dataset.index].flag % 2 !== 0) {
-        that.data.allPost[e.currentTarget.dataset.index].isText = '全部'
+        that.data.allPost[e.currentTarget.dataset.index].isText = ''
         that.data.allPost[e.currentTarget.dataset.index].ellipsis = true
       }
     }
@@ -836,14 +880,29 @@ Page({
   getHeight1: function() {
     var that = this;
     setTimeout(() => {
-      wx.createSelectorQuery().selectAll('.content-item1').boundingClientRect(function(rect) {
+      wx.createSelectorQuery().selectAll('.content-item1').boundingClientRect(function (rect) {
         for (var i = 0; i < that.data.allPost1.length; i++) {
-          if (rect[i].height > 80) {
-            that.data.allPost1[i].isShowAll = 1
-            that.data.allPost1[i].isText = '全部'
-          } else {
-            that.data.allPost1[i].isShowAll = 2
-            that.data.allPost1[i].isText = ''
+          var viewHeight = wx.getSystemInfoSync().windowWidth
+          if (viewHeight > 375 && viewHeight <= 414) {
+            if (rect[i].height > 96) {
+              that.data.allPost1[i].ellipsis = false
+              that.data.allPost1[i].isShowAll = 2
+              that.data.allPost1[i].isText = '全部'
+            } else {
+              that.data.allPost1[i].ellipsis = true
+              that.data.allPost1[i].isShowAll = 1
+              that.data.allPost1[i].isText = ''
+            }
+          } else if (viewHeight <= 375) {
+            if (rect[i].height > 88) {
+              that.data.allPost1[i].ellipsis = false
+              that.data.allPost1[i].isShowAll = 2
+              that.data.allPost1[i].isText = '全部'
+            } else {
+              that.data.allPost1[i].ellipsis = true
+              that.data.allPost1[i].isShowAll = 1
+              that.data.allPost1[i].isText = ''
+            }
           }
         }
         that.setData({
@@ -860,10 +919,7 @@ Page({
         that.data.allPost1[e.currentTarget.dataset.index].flag = that.data.allPost1[e.currentTarget.dataset.index].flag + 1
       }
       if (that.data.allPost1[e.currentTarget.dataset.index].flag % 2 === 0) {
-        that.data.allPost1[e.currentTarget.dataset.index].isText = '收起'
-        that.data.allPost1[e.currentTarget.dataset.index].ellipsis = false
-      } else if (that.data.allPost1[e.currentTarget.dataset.index].flag % 2 !== 0) {
-        that.data.allPost1[e.currentTarget.dataset.index].isText = '全部'
+        that.data.allPost1[e.currentTarget.dataset.index].isText = ''
         that.data.allPost1[e.currentTarget.dataset.index].ellipsis = true
       }
     }

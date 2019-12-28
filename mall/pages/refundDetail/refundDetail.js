@@ -11,6 +11,7 @@ Page({
     pageSize:9,
     items:[],
     text:'',
+    textData:'',
     showDialog:false,
     orderId:0
   },
@@ -24,9 +25,7 @@ Page({
   },
   init:function(){
     let that = this
-    app.Util.ajax('mall/order/queryRechargeOrderByUserId', { pageNumber: that.data.pageNumber, pageSize: that.data.pageSize}, 'GET').then((res) => { // 使用ajax函数
-       console.log(111+JSON.stringify(res.data.content.items))
-      console.log(that.data.pageNumber,that.data.pageSize)
+    app.Util.ajax('mall/order/queryRechargeOrderByUserId', { pageNumber: that.data.pageNumber, pageSize: that.data.pageSize}, 'GET').then((res) => { 
       if (res.data.content) {
         for (var i = 0; i < res.data.content.items.length; i++) {
           res.data.content.items[i].statusTime = time.formatTimeTwo(res.data.content.items[i].statusTime, 'Y-M-D h:m:s');
@@ -34,7 +33,11 @@ Page({
         that.setData({
           items: res.data.content.items
         })
-        console.log(22+JSON.stringify(res.data.content.items))
+        if (that.data.items.length === 0) {
+          that.setData({
+            textData: '暂无数据'
+          })
+        }
       }
     })
   },

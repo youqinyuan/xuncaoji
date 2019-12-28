@@ -6,9 +6,9 @@
   <view class="img_wrap">
     <view class="commentImg_wrap" wx:for="{{goodsData.imgList}}" wx:key="items" wx:for-item="items">
       <image src="{{items}}" catchtap="imgYu" data-src="{{items}}"></image>
-      <image src="/assets/images/add/ic_del.png" class="close" catchtap="deleteImg" data-index="{{index}}"></image>
+      <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_del.png" class="close" catchtap="deleteImg" data-index="{{index}}"></image>
     </view>
-    <image src="/assets/images/add/img_add.png" catchtap="choiceImg" data-index="{{index}}" wx:if="{{goodsData.imgList.length<9}}"></image>
+    <image src="https://xuncj.yzsaas.cn/_download/img/add/img_add.png" catchtap="choiceImg" data-index="{{index}}" wx:if="{{goodsData.imgList.length<9}}"></image>
   </view>
 </view>
 <!-- 买帖 -->
@@ -64,9 +64,9 @@
   <textarea class="sale_text" placeholder="有什么想对潜在买家说的吗..." placeholder-style="color:#AAAAAA" maxlength="{{201}}" bindinput="getSaleTextarea" data-index="{{index}}" wx:if="{{isdisabled}}" value="{{saleText}}"></textarea>
 </view>
 <view class="msgText">{{msgText}}</view>
-<image src="/assets/images/add/btn_ordinary.png" class="ordinaryPosting" wx:if="{{postingStatus===1}}"></image>
-<image src="/assets/images/add/buyPosting.png" class="buyPosting" wx:if="{{postingStatus===2}}"></image>
-<image src="/assets/images/add/salePosting.png" class="salePosting" wx:if="{{postingStatus===3}}"></image>
+<image src="https://xuncj.yzsaas.cn/_download/img/add/btn_ordinary.png" class="ordinaryPosting" wx:if="{{postingStatus===1}}"></image>
+<image src="https://xuncj.yzsaas.cn/_download/img/add/buyPosting.png" class="buyPosting" wx:if="{{postingStatus===2}}"></image>
+<image src="https://xuncj.yzsaas.cn/_download/img/add/salePosting.png" class="salePosting" wx:if="{{postingStatus===3}}"></image>
 <view class="btn">
   <view class="btn2" bindtap="submit">发布</view>
 </view>
@@ -79,7 +79,7 @@
 <view class="modal-dialog" wx:if="{{showModal}}">
   <view class="modal-title">期望售价</view>
   <view class="modal-img" bindtap="hideModal">
-    <image class="modal-imgs" src="/assets/images/add/withdraw_close.png"></image>
+    <image class="modal-imgs" src="https://xuncj.yzsaas.cn/_download/img/add/withdraw_close.png"></image>
   </view>
   <view class="section">
     <view class="input-price">￥</view>

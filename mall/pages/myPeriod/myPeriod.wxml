@@ -1,0 +1,23 @@
+<!--pages/myPeriod/myPeriod.wxml-->
+<view class="wrap" wx:for="{{recommend}}" wx:key="{{item.id}}" wx:if="{{recommend.length>0}}">
+  <view class="wrap_status" style="color:#FF6417;" wx:if="{{item.status==1}}">拼命审核中…</view>
+  <view class="wrap_status" style="color:#FF2644;" wx:if="{{item.status==2}}">审核失败</view>
+  <view class="listItem">
+    <view class="img">
+      <image src="{{item.imageUrl?item.imageUrl:'https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png'}}"></image>
+    </view>
+    <view class="goodsName">
+      <view class="name">{{item.name}}</view>
+      <view class="priceWrap">
+        <view class="monthGet">月供:</view>
+        <view class="monthPrice">￥{{item.monthlyPayment}}*{{item.periods}}</view>
+        <view class="oldPrice">原价:￥{{item.orgPrice}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="reWrite" wx:if="{{item.status==2}}">
+    <view class="reason" wx:if="{{item.refuseReason}}">{{item.refuseReason}}</view>
+    <view class="againCalculate" bindtap="getGoodsMsg" data-installment="{{item}}">重新填写申请</view>
+  </view>
+</view>
+<view class="textData">{{textData}}</view>

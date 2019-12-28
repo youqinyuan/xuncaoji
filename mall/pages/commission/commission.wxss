@@ -1,9 +1,5 @@
 /* pages/commission/commission.wxss */
 
-page {
-  background: #f4f4f4;
-}
-
 .container-top {
   overflow: hidden;
   height: 300rpx;
@@ -72,63 +68,112 @@ rich-text {
 
 .commission-balance-wrapper {
   background: rgba(255, 255, 255, 1);
-  height: 328rpx;
+  height: 443rpx;
   overflow: hidden;
   margin-bottom: 20rpx;
 }
 
 .commission-balance {
-  width: 708rpx;
-  height: 261rpx;
-  margin-left: 31rpx;
-  margin-top: 46rpx;
+  width: 690rpx;
+  height: 374rpx;
+  margin-left: 30rpx;
+  margin-top: 29rpx;
   position: relative;
 }
 
-.commission-balance image {
-  width: 708rpx;
-  height: 261rpx;
+.commission-balance .img {
+  width: 690rpx;
+  height: 374rpx;
+}
+
+.commission-balance .img1 {
+  position: absolute;
+  top: 21rpx;
+  right: -8rpx;
+  width: 138rpx;
+  height: 46rpx;
+}
+
+.role {
+  position: absolute;
+  top: 21rpx;
+  right: 0;
+  color: #fff;
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
 }
 
 .balance {
   position: absolute;
-  top: 68rpx;
-  left: 54rpx;
+  top: 50rpx;
+  left: 43rpx;
   color: rgba(255, 255, 255, 1);
 }
 
-.balance-money {
+.allMoney {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25rpx;
+}
+
+.allMoney-text {
+  width: 170rpx;
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #ffe7d9;
+}
+
+.allMoney-num {
   font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 800;
+  text-shadow: 0rpx 1rpx 1rpx rgba(242, 82, 53, 1);
 }
 
-.balance-num {
-  font-size: 50rpx;
-  margin-top: 22rpx;
+.allMoney-num .sign {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
 }
 
-/* 佣金明细当余额大于0 */
-
-/* 提现 */
+.watchDetail {
+  margin-left: 22rpx;
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  text-decoration: underline;
+  color: #b43b26;
+}
 
 .withdraw-wrap {
+  position: absolute;
+  top: 266rpx;
+  left: 43rpx;
   height: 220rpx;
-  background: #f4f4f4;
   overflow: hidden;
 }
 
 .withdraw {
-  width: 690rpx;
-  height: 76rpx;
-  margin: 66rpx auto;
-  background: #ff6417;
-  border-radius: 38px;
+  width: 560rpx;
+  height: 68rpx;
   text-align: center;
-  line-height: 76rpx;
-  font-size: 32rpx;
-  color: rgba(255, 255, 255, 1);
+  line-height: 68rpx;
+  background: linear-gradient(0deg, rgba(255, 220, 199, 1) 0%, rgba(255, 243, 236, 1) 100%);
+  box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(236, 116, 66, 0.3);
+  border-radius: 34rpx;
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(253, 105, 79, 1);
 }
 
-/* 佣金明细1 */
+.block {
+  height: 20rpx;
+  background: #f4f4f4;
+  width: 750rpx;
+}
 
 .commission1-details {
   height: 90rpx;
@@ -166,54 +211,153 @@ rich-text {
   color: rgba(170, 170, 170, 1);
 }
 
-/* 明细 */
+.nav {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  display: flex;
+  border-bottom: 2rpx solid #f4f4f4;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.nav-box-wrap {
+  display: flex;
+}
+
+.nav-box {
+  display: inline-block;
+  position: relative;
+  width: 187rpx;
+}
+
+.nav-item {
+  text-align: center;
+  color: #999;
+}
+
+.nav-img {
+  position: absolute;
+  right: 15rpx;
+  top: 42rpx;
+  width: 16rpx;
+  height: 8rpx;
+}
+
+.listItem {
+  overflow: hidden;
+  position: relative;
+  width: 690rpx;
+  min-height: 184rpx;
+  max-height: 420rpx;
+  margin: 30rpx auto;
+  border-radius: 20rpx;
+  box-shadow: 0 0 20rpx #e6e4e4;
+}
+
+.commission {
+  position: absolute;
+  width: 191rpx;
+  right: 0;
+  top: 12rpx;
+  font-size: 28rpx;
+  color: #fff;
+  text-align: center;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.withdrawTime {
+  margin-left: 24rpx;
+  margin-top: 38rpx;
+  color: #666;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.withdrawTime-time {
+  margin-top: 24rpx;
+}
+
+.withdrawTime-time .text {
+  color: #999;
+}
+
+.bg1 {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 191rpx;
+  height: 117rpx;
+}
+
+.bg6 {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 191rpx;
+  height: 117rpx;
+}
 
 .list {
-  background: rgba(255, 255, 255, 1);
-  border-bottom: 2rpx solid #f4f4f4;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding:20rpx 0;
 }
 
-.list-left {
-  margin-left: 30rpx;
+.listItem-photo image {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  margin: 30rpx;
 }
 
-.list-left-top {
-  width: 550rpx;
-  font-size: 30rpx;
-  color: rgba(51, 51, 51, 1);
+.message {
+  margin-top: 47rpx;
+  margin-bottom: 20rpx;
 }
 
-
-.list-left-bottom-year {
-  font-size: 24rpx;
-  color: rgba(153, 153, 153, 1);
-  margin-right: 25rpx;
+.msgtext {
+  display: flex;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 15rpx;
 }
 
-.list-right {
-  margin-right: 29rpx;
-  color: rgba(227, 58, 89, 1);
+.nickname {
+  margin-right: 23rpx;
 }
 
-.list-right1 {
-  margin-right: 29rpx;
-  margin-top: 40rpx;
-  color: #ff6417;
+.msgtext-item {
+  color: #999;
 }
 
-.commission-bottom {
-  font-size: 24rpx;
-  font-family: PingFang-SC-Regular;
-  font-weight: 400;
-  color: rgba(153, 153, 153, 1);
-  text-align: center;
+.bottom1 {
+  background: rgba(254, 228, 224, 1);
+  border-radius: 0rpx 0rpx 20rpx 20rpx;
+  width: 100%;
   height: 80rpx;
-  line-height: 80rpx;
-  background: #f4f4f4;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn1 {
+  margin-right: 22rpx;
+  margin-top: 13rpx;
+  width: 202rpx;
+  height: 54rpx;
+  border: 2rpx solid rgba(225, 157, 146, 1);
+  border-radius: 26rpx;
+  line-height: 54rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #e19d92;
 }
 
 /* 提现弹窗 */
@@ -230,7 +374,7 @@ rich-text {
 
 .modal-dialog1 {
   width: 540rpx;
-  height: 562rpx;
+  height: 400rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
@@ -289,6 +433,339 @@ rich-text {
   text-align: center;
   font-size: 32rpx;
   color: rgba(255, 255, 255, 1);
-  top: 439rpx;
+  top: 259rpx;
   left: 50rpx;
+}
+
+/* 佣金规则弹窗 */
+
+.get-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask .zan-dialog__container {
+  width: 630rpx;
+  min-height: 238rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 200rpx;
+  left: 61rpx;
+  text-align: center;
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask .cancel-get {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 112rpx;
+  top: 126rpx;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .title {
+  margin: 44rpx auto;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.get-zan-dialog__mask .zan-dialog__container .text {
+  margin: 0 36rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(34, 34, 34, 1);
+  line-height: 40rpx;
+  text-align: left;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .text .textRole {
+  color: #999;
+  margin: 34rpx 0;
+}
+
+/* 筛选条件弹窗 */
+
+.commodity_screen1 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.6;
+  overflow: hidden;
+  z-index: 99;
+  color: rgba(255, 255, 255, 1);
+}
+
+.commodity_attr_box1 {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  z-index: 99;
+}
+
+.content-wrapper1 .cancel {
+  width: 26rpx;
+  height: 26rpx;
+  position: absolute;
+  right: 20rpx;
+  top: 45rpx;
+  z-index: 99;
+}
+
+.content-wrapper1 .title {
+  margin-top: 39rpx;
+  margin-bottom: 30rpx;
+  text-align: center;
+  font-size: 36rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+}
+
+.content-wrapper1 .tab {
+  display: flex;
+  height: 90rpx;
+  align-items: center;
+}
+
+.content-wrapper1 .text1 {
+  width: 300rpx;
+  text-align: center;
+  margin-right: 100rpx;
+  margin-left: 220rpx;
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.content-wrapper1 .choose_img {
+  height: 32rpx;
+  width: 32rpx;
+}
+
+.showBtn {
+  margin: 30rpx auto;
+  line-height: 80rpx;
+  text-align: center;
+  width: 690rpx;
+  height: 80rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.picker-text {
+  text-align: center;
+}
+
+.newbotton_one {
+  display: inline-block;
+  width: 335rpx;
+  height: 80rpx;
+  background: #fc6f97;
+  border-radius: 38rpx;
+  text-align: center;
+  line-height: 80rpx;
+  margin-left: 30rpx;
+}
+
+.newbotton_two {
+  display: inline-block;
+  width: 335rpx;
+  height: 80rpx;
+  background: #ff2644;
+  border-radius: 38rpx;
+  line-height: 80rpx;
+  margin-right: 30rpx;
+}
+
+.botton_box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 78rpx;
+  margin-bottom: 30rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #fff;
+}
+
+.textData {
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #fff;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  text-align: center;
+}
+
+/* 支付密码 */
+
+.modal-mask1 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+}
+
+.zan-dialog__container1 {
+  top: 27%;
+  width: 630rpx;
+  height: 281rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  left: 60rpx;
+  z-index: 9999;
+}
+
+.text {
+  text-align: center;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(227, 58, 89, 1);
+  margin-top: 44rpx;
+  margin-bottom: -80rpx;
+}
+
+.pwd-text {
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+  margin-left: 189rpx;
+  margin-top: 44rpx;
+  margin-bottom: -40rpx;
+}
+
+.pwd-img {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  right: 55rpx;
+  top: 18%;
+}
+
+.iptbox-wrapper {
+  width: 630rpx;
+  height: 281rpx;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  margin-left: 50rpx;
+}
+
+.iptbox {
+  width: 85rpx;
+  height: 85rpx;
+  background: rgba(238, 238, 243, 1);
+  margin-right: 4rpx;
+  text-align: center;
+}
+
+.ipt {
+  width: 0;
+  height: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* 设置支付密码弹框 */
+
+.zan-dialog1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+}
+
+.zan-dialog1__container {
+  width: 540rpx;
+  height: 282rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 110rpx;
+  z-index: 9999;
+}
+
+.content1 {
+  text-align: center;
+  overflow: hidden;
+}
+
+.content1-title {
+  margin-top: 44rpx;
+  margin-bottom: 10rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.content1-container {
+  width: 450rpx;
+  height: 66rpx;
+  margin-left: 55rpx;
+  margin-bottom: 35rpx;
+  font-size: 30rpx;
+  text-align: center;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content1-button {
+  display: flex;
+  height: 66rpx;
+  border-top: 2rpx solid #eaeaea;
+}
+
+.cancel-password {
+  width: 270rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  text-align: center;
+  border-right: 2rpx solid #eaeaea;
+  color: rgba(51, 51, 51, 1);
+}
+
+.sure-password {
+  width: 270rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  text-align: center;
+  color: #ff2644;
 }
