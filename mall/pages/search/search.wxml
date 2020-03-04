@@ -3,16 +3,16 @@
 <import src='/template/searchList1/searchList1'/>
 <view class="section-wrapper">
   <view class="section">
-    <image src="https://xuncj.yzsaas.cn/_download/img/icon/index_nav_search_n.png" class="section-img"></image>
+    <image src="{{hostUrl}}/icon/index_nav_search_n.png" class="section-img"></image>
     <input value="{{inputValue}}" confirm-type="search" bindconfirm='confirmTap' focus="{{true}}" placeholder="更多好货等你来发现" placeholder-style="color:#AAAAAA" bindinput='bindInput'/>
   </view>
   <view class="cancel" wx:if="{{show}}" catchtap='cancel'>
-    <image src="https://xuncj.yzsaas.cn/_download/img/icon/nav_search_delete_n.png"></image>
+    <image src="{{hostUrl}}/icon/nav_search_delete_n.png"></image>
   </view>
   <view class="search" bindtap="search">搜索</view>
 </view>
-<template is="searchList" wx:if="{{template === 1}}" data="{{history:history}}"></template>
-<template is="searchList1" wx:if="{{template === 2}}" data="{{goodsResult:goodsResult,storeResult:storeResult,showModalStatus:showModalStatus,shareList:shareList,goodsId:goodsId,textToast:textToast}}"></template>
+<template is="searchList" wx:if="{{template === 1}}" data="{{history:history,hostUrl:hostUrl}}"></template>
+<template is="searchList1" wx:if="{{template === 2}}" data="{{goodsResult:goodsResult,storeResult:storeResult,showModalStatus:showModalStatus,shareList:shareList,goodsId:goodsId,textToast:textToast,hostUrl:hostUrl}}"></template>
 
 <!-- 轮播展示组件 -->
 <swiper-show class="swiper-show"></swiper-show>

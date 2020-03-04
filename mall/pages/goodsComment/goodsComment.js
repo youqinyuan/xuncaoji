@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     imgList: [], //上传的图片列表
     imgList_compress: [], //压缩后的图片列表
     commentNum: 5, //商品评分

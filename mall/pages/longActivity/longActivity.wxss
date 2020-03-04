@@ -1,0 +1,244 @@
+/* pages/longActivity/longActivity.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+.head_box {
+  height: 330rpx;
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+.head_img {
+  width: 710rpx;
+  height: 300rpx;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  background: #999;
+  border-radius: 10rpx;
+}
+
+.rule {
+  display: inline-block;
+  height: 50rpx;
+  width: 141rpx;
+  position: absolute;
+  top: 54rpx;
+  right: 16rpx;
+}
+
+.rule_font {
+  display: inline-block;
+  height: 50rpx;
+  line-height: 46rpx;
+  width: 141rpx;
+  text-align: center;
+  position: absolute;
+  top: 54rpx;
+  right: 20rpx;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 38, 68, 1);
+}
+
+.classify {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  background: #fff;
+  width: 750rpx;
+}
+
+.tab {
+  height: 72rpx;
+  line-height: 72rpx;
+  width: 100%;
+  text-align: center;
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  position: relative;
+}
+
+.tab_bottom {
+  width: 30rpx;
+  height: 6rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 10rpx;
+  margin: 0 auto;
+}
+
+.tab_bottom_box {
+  width: 100%;
+  height: 6rpx;
+  border-radius: 10rpx;
+  position: absolute;
+  bottom: 0;
+}
+
+.one_title_img {
+  overflow: hidden;
+}
+
+.one_title_img image {
+  width: 710rpx;
+  height: 130rpx;
+  border-radius: 20rpx;
+  margin-top: 30rpx;
+  margin-left: 20rpx;
+}
+
+.one_value_box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 18rpx;
+}
+
+.goods {
+  width: 348rpx;
+  height: 586rpx;
+  border-radius: 8rpx;
+  display: inline-block;
+  margin-top: 14rpx;
+  background: #fff;
+}
+
+.goods_img {
+  width: 348rpx;
+  height: 348rpx;
+  border-radius: 8rpx 8rpx 0rpx 0rpx;
+}
+
+.goods_name {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  padding: 0 16rpx;
+  height: 76rpx;
+}
+
+.price_box {
+  display: flex;
+  height: 70rpx;
+}
+
+.price1 {
+  display: inline-block;
+  height: 40rpx;
+  line-height: 40rpx;
+  padding: 0 17rpx;
+  font-size: 22rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 100, 23, 1);
+  margin-left: 20rpx;
+  background: #fcf3ed;
+  border-radius: 8rpx;
+  margin-top: 10rpx;
+}
+
+.price2 {
+  display: inline-block;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: rgba(255, 38, 68, 1);
+  margin-top: 8rpx;
+  margin-left: 20rpx;
+}
+
+.font36 {
+  font-size: 36rpx;
+}
+
+.buy_button {
+  width: 304rpx;
+  height: 56rpx;
+  background: rgba(255, 38, 68, 1);
+  border: 2rpx solid rgba(255, 38, 68, 1);
+  border-radius: 28rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  line-height: 56rpx;
+  text-align: center;
+  margin-left: 22rpx;
+}
+
+.height30 {
+  height: 30rpx;
+}
+
+/* 规则弹窗 */
+
+/* 活动规则弹窗 */
+
+.get-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+}
+
+.get-zan-dialog__mask .zan-dialog__container {
+  width: 630rpx;
+  min-height: 238rpx;
+  padding-bottom: 20rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 200rpx;
+  left: 61rpx;
+  text-align: center;
+  z-index: 99;
+}
+
+.get-zan-dialog__mask .cancel-get {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 79rpx;
+  top: 126rpx;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .role_title {
+  margin: 44rpx auto;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.get-zan-dialog__mask .zan-dialog__container .height_text {
+  text-align: left;
+  color: #333;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  height: auto;
+  max-height: 800rpx;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
+  margin-left: 47rpx;
+  margin-right: 20rpx;
+}

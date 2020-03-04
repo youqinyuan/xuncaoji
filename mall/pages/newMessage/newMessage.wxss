@@ -34,8 +34,8 @@
 }
 
 .reply_content {
-  margin-left: 124rpx;
-  padding-bottom: 30rpx;
+  margin:0 30rpx;
+  padding: 30rpx 0;
   font-size: 28rpx;
   font-family: PingFang SC;
   font-weight: 400;

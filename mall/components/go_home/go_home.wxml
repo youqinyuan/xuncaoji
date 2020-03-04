@@ -1,5 +1,5 @@
 <!--components/go_home/go_home.wxml-->
 
 <view class="img_wrap"  wx:if="{{img_show}}">
-  <image class="go_home" src="https://xuncj.yzsaas.cn/_download/img/icon/ic.png" catchtap="go_home"></image>
+  <image class="go_home" src="{{hostUrl}}/icon/ic.png" catchtap="go_home"></image>
 </view>

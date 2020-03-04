@@ -13,16 +13,16 @@
   <view class="goodsNum">
     <view class="numTitle">商品评分</view>
     <view class="num_wrap">
-      <image wx:if="{{item.commentNum >=1}}" catchtap="getScore" data-num="{{1}}" data-index="{{index}}" src="https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin.png"></image>
-      <image wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{1}}"></image>
-      <image wx:if="{{item.commentNum >=2}}" catchtap="getScore" data-num="{{2}}" data-index="{{index}}" src="https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin.png"></image>
-      <image wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{2}}"></image>
-      <image wx:if="{{item.commentNum >=3}}" catchtap="getScore" data-num="{{3}}" data-index="{{index}}" src="https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin.png"></image>
-      <image wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{3}}"></image>
-      <image wx:if="{{item.commentNum >=4}}" catchtap="getScore" data-num="{{4}}" data-index="{{index}}" src="https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin.png"></image>
-      <image wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{4}}"></image>
-      <image wx:if="{{item.commentNum >=5}}" catchtap="getScore" data-num="{{5}}" data-index="{{index}}" src="https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin.png"></image>
-      <image wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{5}}"></image>
+      <image wx:if="{{item.commentNum >=1}}" catchtap="getScore" data-num="{{1}}" data-index="{{index}}" src="{{hostUrl}}/icon/pingj_xinxin.png"></image>
+      <image wx:else src="{{hostUrl}}/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{1}}"></image>
+      <image wx:if="{{item.commentNum >=2}}" catchtap="getScore" data-num="{{2}}" data-index="{{index}}" src="{{hostUrl}}/icon/pingj_xinxin.png"></image>
+      <image wx:else src="{{hostUrl}}/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{2}}"></image>
+      <image wx:if="{{item.commentNum >=3}}" catchtap="getScore" data-num="{{3}}" data-index="{{index}}" src="{{hostUrl}}/icon/pingj_xinxin.png"></image>
+      <image wx:else src="{{hostUrl}}/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{3}}"></image>
+      <image wx:if="{{item.commentNum >=4}}" catchtap="getScore" data-num="{{4}}" data-index="{{index}}" src="{{hostUrl}}/icon/pingj_xinxin.png"></image>
+      <image wx:else src="{{hostUrl}}/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{4}}"></image>
+      <image wx:if="{{item.commentNum >=5}}" catchtap="getScore" data-num="{{5}}" data-index="{{index}}" src="{{hostUrl}}/icon/pingj_xinxin.png"></image>
+      <image wx:else src="{{hostUrl}}/icon/pingj_xinxin_l.png" catchtap="getScore" data-index="{{index}}" data-num="{{5}}"></image>
     </view>
   </view>
 
@@ -31,9 +31,9 @@
   <view class="img_wrap"  catchtap="getIndex" data-index="{{index}}">
     <view class="commentImg_wrap" wx:for="{{item.imgList}}" wx:key="items" wx:for-item="items">
       <image src="{{items}}" catchtap="imgYu" data-src="{{items}}"></image>
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/commentClose.png" class="close" bindtap="deleteImg" data-index="{{index}}"></image>
+      <image src="{{hostUrl}}/icon/commentClose.png" class="close" bindtap="deleteImg" data-index="{{index}}"></image>
     </view>
-    <image src="https://xuncj.yzsaas.cn/_download/img/icon/addImg.png" bindtap="choiceImg" wx:if="{{item.imgList.length<6}}" data-index="{{index}}"></image>
+    <image src="{{hostUrl}}/icon/addImg.png" bindtap="choiceImg" wx:if="{{item.imgList.length<6}}" data-index="{{index}}"></image>
   </view>
 </view>
 

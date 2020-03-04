@@ -1,4 +1,5 @@
 // pages/effectiveTime/effectiveTime.js
+let app = getApp()
 var time = require('../../utils/util.js');
 const date = new Date()
 const years = []
@@ -41,6 +42,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     years: years,
     year: thisYer,
     months: months,
@@ -99,7 +101,7 @@ Page({
   onLoad: function(options) {
     var that = this
     var goodsMessage = wx.getStorageSync('goodsMessage')
-    if (goodsMessage){
+    if (goodsMessage.validBeginTime && goodsMessage.validEndTime){
       that.setData({
         startTime: time.formatTimeTwo(goodsMessage.validBeginTime, 'Y-M-D'),
         endTime: time.formatTimeTwo(goodsMessage.validEndTime, 'Y-M-D')

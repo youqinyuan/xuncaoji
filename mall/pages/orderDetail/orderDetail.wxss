@@ -230,7 +230,7 @@ page {
 }
 
 .shops-wrap-bottom-img {
-  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   width: 120rpx;
@@ -1025,10 +1025,6 @@ page {
   color: rgba(153, 153, 153, 1);
 }
 
-.active1 {
-  border: 2rpx solid #ff2644;
-  color: #ff2644;
-}
 
 .contentainer2-button {
   display: flex;
@@ -1124,18 +1120,18 @@ page {
   width: 225rpx;
   height: 76rpx;
   line-height: 76rpx;
-  border: 2rpx solid rgba(170, 170, 170, 1);
-  border-radius: 25rpx;
-  font-size: 30rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
-  color: rgba(51, 51, 51, 1);
+  border-radius:8rpx;
+  font-size:32rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(102,102,102,1);
   margin-bottom: 30rpx;
+  background: #F1F1F1;
 }
 
 .active1 {
-  border: 2rpx solid #ff2644;
-  color: #ff2644;
+  color:rgba(255,38,68,1);
+  background:rgba(255,234,237,1);
 }
 
 .contentainer3-button {
@@ -1628,5 +1624,256 @@ page {
 .font28{
   font-size: 28rpx;
 }
+.pre_sell{
+  width:750rpx;
+  height:90rpx;
+  background:rgba(244,232,217,1);
+  position: relative;
+  margin-bottom:20rpx;
+  margin-top: 20rpx;
+}
+.pre_sell_one{
+  width:50rpx;
+  height:30rpx;
+  background:rgba(26,26,26,1);
+  border-radius:4rpx;
+  font-size:22rpx;
+  font-family:PingFang SC;
+  font-weight:bold;
+  color:rgba(212,172,117,1);
+  position: absolute;
+  left: 33rpx;
+  top: 30rpx;
+  text-align: center;
+}
+.pre_sell_two{
+  height:90rpx;
+  line-height: 90rpx;
+  border-radius:4rpx;
+  font-size:26rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+  position: absolute;
+  left: 96rpx;
+}
+.pre_sell_three{
+  width:24rpx;
+  height:26rpx;
+  display: inline-block;
+  position: absolute;
+  left: 210rpx;
+  top: 33rpx;
+}
+.pre_sell_four{
+  height:90rpx;
+  line-height: 90rpx;
+  display: inline-block;
+  position: absolute;
+  right: 30rpx;
+  font-size:24rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+}
+.pre_sell_status{
+  color:rgba(255,38,68,1);
+  display: inline-block;
+}
+.pre_sell_money{
+  color:rgba(26,26,26,1);
+  display: inline-block;
+  margin-left: 10rpx;
+}
+.font20{
+  font-size:20rpx;
+}
+.pre_sell_info{
+  background: #fff;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+}
+.pre_sell_info_title{
+  font-size:28rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  padding-left:30rpx;
 
+}
+.pre_sell_info_value{
+  border-top: 2rpx #E7E7E7 solid;
+  border-bottom: 2rpx #E7E7E7 solid;
+}
+.sell_price{
+  height: 100rpx;
+  font-size:28rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+}
+.return_price_one{
+  color:rgba(51,51,51,1);
+  height: 100rpx;
+  line-height: 100rpx;
+  display: inline-block;
+  margin-left: 49rpx;
+}
+.return_price_two{
+  color:#D4AC75;
+  height: 100rpx;
+  line-height: 100rpx;
+  display: inline-block;
+  margin-left: 49rpx;
+}
+.sell_cash{
+  height: 100rpx;
+}
+.sell_cash_box{
+  height: 60rpx;
+}
+.sell_cash_one{
+  font-size:26rpx;
+  font-family:PingFang SC;
+  font-weight:400;
+  color:rgba(153,153,153,1);
+  margin-left: 50rpx;
+}
+.sell_cash_two{
+  margin-top: 5rpx;
+  font-size:28rpx;
+  font-family:PingFang SC;
+  font-weight:400;
+  color:rgba(153,153,153,1);
+  margin-left: 50rpx;
+}
+.sell_cash_three{
+  margin-top: 5rpx;
+  font-size:28rpx;
+  font-family:PingFang SC;
+  font-weight:400;
+  color:rgba(153,153,153,1);
+  margin-left: 50rpx;
+}
+.col_red{
+  color: #FF2644;
+}
+.sell_cash_four{
+  font-size:28rpx;
+  font-family:PingFang SC;
+  font-weight:400;
+  margin-left: 50rpx;
+}
+.sell_remak{
+  padding:32rpx 51rpx;
+  font-size:26rpx;
+  font-family:PingFang SC;
+  font-weight:400;
+  color:rgba(51,51,51,1);
+  line-height:36rpx;
+}
+/* 取消订单 */
+.sell-one-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
 
+.sell-one-dialog__mask .sell-dialog__container {
+  width: 600rpx;
+  height: 395rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 60rpx;
+  z-index: 9999;
+}
+.sell-one-dialog__mask .sell-dialog__container{
+  width: 600rpx;
+  height: 395rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 60rpx;
+  z-index: 9999;
+}
+.heigh563{
+  height: 563rpx !important;
+}
+
+.sell-one-dialog__mask .cancel-img {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: 50rpx;
+  right: 50rpx;
+}
+
+.sell-one-dialog__mask .sell-dialog__container .title {
+  width: 520rpx;
+  margin: 0 auto;
+  margin-top: 46rpx;
+  margin-bottom: 40rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  color: #222;
+  text-align: left;
+  font-weight: 500;
+}
+
+.sell-one-dialog__mask .sell-dialog__container .text {
+  margin: 0 51rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #222;
+  line-height: 40rpx;
+}
+.text2{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.shure_one1 {
+  margin-top: 50rpx;
+  margin-left: 51rpx;
+  line-height: 76rpx;
+  text-align: center;
+  display: inline-block;
+  font-size: 32rpx;
+  color: #FF2644;
+  width: 240rpx;
+  height: 76rpx;
+  border: 2rpx solid #FF2644;
+  background-color: #FFF;
+  border-radius: 38rpx;
+}
+.shure_one2 {
+  margin-top: 50rpx;
+  margin-left: 20rpx;
+  line-height: 76rpx;
+  text-align: center;
+  display: inline-block;
+  font-size: 32rpx;
+  color: #FFF;
+  width: 240rpx;
+  height: 76rpx;
+  background-color: #FF2644;
+  border-radius: 38rpx;
+}
+
+.penalSum{
+  font-size:26rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(255,38,68,1);
+  line-height:40rpx;
+  padding: 0 50rpx;
+}

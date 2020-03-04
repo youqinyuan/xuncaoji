@@ -20,7 +20,7 @@ Page({
     refund: ['质量问题', '长时间未发货', '我不想买了', '其他原因'], //退款申请理由
     current: 0, //获取退款理由
     reason: '质量问题',
-    cancelOrder: ['我不想买了', '填写错误,重拍', '卖家缺货', '其他原因'], //取消订单
+    cancelOrder: ['我不想买了', '写错重拍', '卖家缺货', '其他原因'], //取消订单
     showDialog3: false, //取消订单弹框
     reason1: '我不想买了', //取消订单理由
     showDialog4: false, //终止0元购弹框
@@ -30,14 +30,18 @@ Page({
     userInteractDetail: [], //商家回复
     autoProcessTime: '',
     showBox: false,
-    seedDetailShow:false
+    seedDetailShow:false,
+    newPeopleActivity:1, //新人专区跳转页面状态
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
   //跳转到分期返现明细
   periodCash: function(e) {
     var orderId = e.currentTarget.dataset.orderid
     var latestStatus = e.currentTarget.dataset.lateststatus
+    var whetherAdvanceSale = e.currentTarget.dataset.whetheradvancesale
+    var defaultAmountStatus = e.currentTarget.dataset.defaultamountstatus
     wx.navigateTo({
-      url: `/pages/cashBack/cashBack?orderId=${orderId}&latestStatus=${latestStatus}`,
+      url: `/pages/cashBack/cashBack?orderId=${orderId}&latestStatus=${latestStatus}&whetherAdvanceSale=${whetherAdvanceSale}&defaultAmountStatus=${defaultAmountStatus}`,
     })
   },
   //跳转到物流详情
@@ -368,20 +372,28 @@ Page({
     }, 'GET').then((res) => { // 使用ajax函数
       //  console.log("订单详情："+JSON.stringify(res.data.content))
       if (res.data.content) {
+        console.log("11"+res.data.content.orderGoodsDetail[0].cashBackType)
+        if(res.data.content.orderGoodsDetail[0].cashBackType==2||res.data.content.orderGoodsDetail[0].cashBackType==1){
+          that.setData({
+            newPeopleActivity:2
+          })
+        }
         let lastTime = res.data.content.remainingTime / 1000
-        let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+        let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
+        let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
         let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
         this.setData({
-          waitPay: `00:${minuteTime}:${secondTime}`
+          waitPay: `${hourTime}:${minuteTime}:${secondTime}`
         })
         if (lastTime > 0) {
           let interval2 = setInterval(() => {
             if (lastTime > 0) {
               lastTime--
-              let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+              let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
+              let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
               let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
               this.setData({
-                waitPay: `00:${minuteTime}:${secondTime}`
+                waitPay: `${hourTime}:${minuteTime}:${secondTime}`
               })
             } else {
               clearInterval(interval2)
@@ -468,20 +480,28 @@ Page({
       orderId: that.data.orderId
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
+        console.log("11"+res.data.content.orderGoodsDetail[0].cashBackType)
+        if(res.data.content.orderGoodsDetail[0].cashBackType==2||res.data.content.orderGoodsDetail[0].cashBackType==1){
+          that.setData({
+            newPeopleActivity:2
+          })
+        }
         let lastTime = res.data.content.remainingTime / 1000
-        let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+        let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
+        let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
         let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
         this.setData({
-          waitPay: `00:${minuteTime}:${secondTime}`
+          waitPay: `${hourTime}:${minuteTime}:${secondTime}`
         })
         if (lastTime > 0) {
           let interval2 = setInterval(() => {
             if (lastTime > 0) {
               lastTime--
-              let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+              let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
+              let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
               let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
               this.setData({
-                waitPay: `00:${minuteTime}:${secondTime}`
+                waitPay: `${hourTime}:${minuteTime}:${secondTime}`
               })
             } else {
               console.log(getCurrentPages())
@@ -597,11 +617,11 @@ Page({
     wx.setStorageSync("goodsList",e.currentTarget.dataset.goodsdetail)
     if(e.currentTarget.dataset.index==1){
         wx.navigateTo({
-          url:"/pages/returnMoney/returnMoney"
+          url:"/packageA/pages/returnMoney/returnMoney"
         })
     }else{
       wx.navigateTo({
-        url:"/pages/dealWithReturn/dealWithReturn"
+        url:"/packageA/pages/dealWithReturn/dealWithReturn"
       })
     }
   },

@@ -10,12 +10,12 @@
         <text class="listLeft">城市</text>
         <view class="listRight1" style="color:#AAAAAA;">请选择您要合伙的城市（代理区域）</view>
         <city-picker id="city-picker" value="{{cityPickerValue}}" isShow="{{cityPickerIsShow}}" bindsureclick="cityPickerOnSureClick" bindcancelclick="cityPickerOnCancelClick" />
-        <image class="img" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/older_more_n.png"></image>
+        <image class="img" src="{{hostUrl}}/cityPartner/older_more_n.png"></image>
       </view>
       <view class="listItems listImg" wx:if="{{isShowCity==true}}" wx:for="{{city}}" wx:key="" bindtap="showCity" data-index="{{index}}">
         <view class="listCity" style="color:{{cityColor}};">{{item.address}}</view>
-        <image class="listCityDel" catchtap="delCity" data-index="{{index}}" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/ic_del.png"></image>
-        <image class="listCityImg" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/older_more_n.png"></image>
+        <image class="listCityDel" catchtap="delCity" data-index="{{index}}" src="{{hostUrl}}/cityPartner/ic_del.png"></image>
+        <image class="listCityImg" src="{{hostUrl}}/cityPartner/older_more_n.png"></image>
       </view>
     </view>
     <view class="listItems-wrap">
@@ -43,11 +43,11 @@
   </view>
   <view class="wraper" wx:else>
     <view class="wrap" wx:if="{{status==1}}">
-      <image class="wrap_img" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/entering_review.png"></image>
+      <image class="wrap_img" src="{{hostUrl}}/cityPartner/entering_review.png"></image>
       <view class="wrap_text">加速审核中！请耐心等待</view>
     </view>
     <view class="wrap" wx:if="{{status==3 || status==4}}">
-      <image class="wrap_img" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/entering_review_not_passed.png"></image>
+      <image class="wrap_img" src="{{hostUrl}}/cityPartner/entering_review_not_passed.png"></image>
       <view class="wrap_text">审核未通过</view>
       <view class="wrap_reasons">
         <text>未通过的理由：</text>
@@ -56,12 +56,12 @@
       <view class="wrap_btn" bindtap="jumpCityPartner">重新填写</view>
     </view>
     <view class="wrap" wx:if="{{status==2}}">
-      <image class="wrap_img" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/entering_review_passed.png"></image>
+      <image class="wrap_img" src="{{hostUrl}}/cityPartner/entering_review_passed.png"></image>
       <view class="wrap_text">恭喜您成功成为城市合伙人！</view>
       <view class="wrap_care">
         <view class="wrap_care_text1"> 去公众号内点击</view>
         <view class="wrap_care_text2">我的-城市合伙人登录</view>
-        <image class="wrap_care_img" src="https://xuncj.yzsaas.cn/_download/img/cityPartner/code.png" bindlongpress="saveCode"></image>
+        <image class="wrap_care_img" src="{{hostUrl}}/cityPartner/code.png" bindlongpress="saveCode"></image>
       </view>
     </view>
   </view>

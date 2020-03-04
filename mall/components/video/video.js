@@ -15,9 +15,9 @@ Component({
    * 组件的初始数据
    */
   data: {
-    // host:app.globalObj.host,
-    playIcon: 'https://xuncj.yzsaas.cn/_download/img/icon/video_play.png',
-    videoimage: 'https://xuncj.yzsaas.cn/_download/img/icon/video_cover.png', //默认显示封面
+    hostUrl:app.Util.getUrlImg().hostUrl,
+    playIcon: app.Util.getUrlImg().hostUrl+'/icon/video_play.png',
+    videoimage: app.Util.getUrlImg().hostUrl+'/icon/video_cover.png', //默认显示封面
     videoPlay: null,
     videoUrl:app.Util.getUrlImg().hostVideo+'video/intro.mp4'
   },

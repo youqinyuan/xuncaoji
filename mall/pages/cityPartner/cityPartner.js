@@ -30,6 +30,7 @@ Page({
     isCityPartner:false,
     status: null, 
     bgColor: '#f4f4f4',
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**
@@ -41,7 +42,7 @@ Page({
     that.initPage()
     //下载线上图片到本地，用于绘制分享图片
     wx.downloadFile({
-      url: 'https://xuncj.yzsaas.cn/_download/img/shre_img.png',
+      url: app.Util.getUrlImg().hostUrl+'/shre_img.png',
       success: function(res) {
         that.setData({
           shareImg: res.tempFilePath

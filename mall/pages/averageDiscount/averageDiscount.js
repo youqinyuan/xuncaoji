@@ -1,11 +1,13 @@
 // pages/averageDiscount/averageDiscount.js
+let app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    rebate:''
+    rebate:'',
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**

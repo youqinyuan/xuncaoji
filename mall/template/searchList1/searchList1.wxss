@@ -41,7 +41,7 @@
 }
 
 .goods-list-img {
-  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   width: 240rpx;
@@ -182,7 +182,7 @@
 }
 
 .shops-list-img {
-  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   width: 100rpx;
@@ -227,7 +227,7 @@
 }
 
 .shops-right-img {
-  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position: absolute;

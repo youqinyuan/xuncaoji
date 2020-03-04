@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     effTime:{},
     installment: null,
     goodsMessage: null
@@ -144,7 +145,7 @@ Page({
       })
     } else if (!goodsMessage.issuingAuthority) {
       wx.showToast({
-        title: '请输入签证机关',
+        title: '请输入签发机关',
         icon: 'none'
       })
     } else if (!goodsMessage.validBeginTime && !goodsMessage.validEndTime) {

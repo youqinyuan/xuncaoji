@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    objStatus:null
+    objStatus:null,
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**

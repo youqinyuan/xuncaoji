@@ -26,6 +26,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     years: years,
     year: thisYer,
     months: months,
@@ -48,15 +49,15 @@ Page({
     amountOrder:'', //金额
     navData: [{
       name: '时间筛选',
-      img: 'https://xuncj.yzsaas.cn/_download/img/add/ic_more.png',
+      img: app.Util.getUrlImg().hostUrl+'/add/ic_more.png',
       status: 1
     }, {
       name: '金额筛选',
-      img: 'https://xuncj.yzsaas.cn/_download/img/add/ic_more.png',
+      img: app.Util.getUrlImg().hostUrl+'/add/ic_more.png',
       status: 2
     }, {
       name: '佣金来源',
-      img: 'https://xuncj.yzsaas.cn/_download/img/add/ic_more.png',
+      img: app.Util.getUrlImg().hostUrl+'/add/ic_more.png',
       status: 3
     }],
     arry2: [{
@@ -269,13 +270,31 @@ Page({
       showWay: false
     })
   },
-  bindChange: function(e) {
+  bindChange: function (e) {
     const val = e.detail.value
-    this.setData({
-      arryList: val,
-      year: this.data.years[val[0]],
-      month: this.data.months[val[1]],
-    })
+    var curYear = val[0] + 1970
+    var months = []
+    if (curYear == new Date().getFullYear()) {
+      for (let i = 1; i <= new Date().getMonth() + 1; i++) {
+        let month = 0;
+        month = i < 10 ? '0' + i : i;
+        months.push(month);
+      }
+      this.setData({
+        months: months,
+        arryList: val,
+      });
+    } else {
+      for (let i = 1; i <= 12; i++) {
+        let month = 0;
+        month = i < 10 ? '0' + i : i;
+        months.push(month);
+      }
+      this.setData({
+        months: months,
+        arryList: val,
+      });
+    }
   },
   showConfirm: function() {
     var that = this

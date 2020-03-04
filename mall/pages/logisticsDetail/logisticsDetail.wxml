@@ -1,7 +1,7 @@
 <!--pages/logisticsDetail/logisticsDetail.wxml-->
 <view class="log-wrap">
   <view class="log-top">
-    <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_logistics.png"></image>
+    <image src="{{hostUrl}}/icon/ic_logistics.png"></image>
     <view class="text">该订单已拆成{{logisticsDetailList.length}}个包裹发出，点击查看具体物流详情</view>
   </view>
   <view class="log-detail" bindtap='go_logistics' wx:for="{{logisticsDetailList}}" wx:key="{{}}" data-logisticsid="{{item.id}}">

@@ -1,12 +1,14 @@
 // pages/myForum/myForum.js
 let app = getApp();
 var time = require('../../utils/util.js');
+var newCount = true
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     currentTab: 0,
     type: 1,
     allPost: [], //帖子列表
@@ -29,6 +31,17 @@ Page({
     followStatus: false, //是否关注
     pageNumber: 1, //分页记录数
     pageSize: 20, //分页大小
+    showPassword: false,
+    isFocus: false, //聚焦 
+    Value: "", //输入的内容 
+    show: false,
+    Length: 6, //输入框个数 
+    ispassword: true, //是否密文显示 true为密文， false为明文。
+    sure_two_tishi: "",
+    sureOne: false,
+    sureTwo: false,
+    showDialog: false,
+    typeStatus: null,
   },
 
   /**
@@ -40,6 +53,12 @@ Page({
     that.getMessage();
     //页面加载
     that.allPost();
+    if (wx.getStorageSync('recharge') || wx.getStorageSync('password')) {
+      that.setData({
+        sureOne: false,
+        sureTwo: false,
+      })
+    }
   },
 
   /**
@@ -59,20 +78,27 @@ Page({
     that.getMessage();
      if (wx.getStorageSync('comment1')) {
       if (that.data.currentTab == 1) {
-        that.followPost()
-       
+        that.followPost()       
       } else if (that.data.currentTab == 0) {
         that.allPost()
       }   
       wx.removeStorageSync('comment1')
-    }     
+     } else if (wx.getStorageSync('wait')) {
+       if (that.data.currentTab == 1) {
+         that.followPost()
+       } else if (that.data.currentTab == 0) {
+         that.allPost()
+       }   
+       wx.removeStorageSync('wait')
+     }
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    wx.removeStorageSync('recharge')
+    wx.removeStorageSync('password')  
   },
 
   /**
@@ -579,5 +605,302 @@ Page({
     wx.navigateTo({
       url: '/pages/newMessage/newMessage',
     })
-  }
+  },
+
+  subscribe: function (e) {
+    var that = this
+    if (wx.getStorageSync('token')) {
+      var id = e.currentTarget.dataset.id
+      var typeStatus = e.currentTarget.dataset.type
+      console.log(id)
+      that.setData({
+        topicId: id,
+        typeStatus: typeStatus,
+      })
+      //开启密码输入
+      app.Util.ajax('mall/account/paymentPassword/status', 'GET').then((res) => { // 使用ajax函数
+        if (res.data.messageCode == 'MSG_1001') {
+          if (res.data.content == 2) {
+            //未设置密码
+            that.setData({
+              showPassword: true
+            })
+          } else {
+            //已设置密码
+            that.setData({
+              show: true,
+              isFocus: true
+            })
+          }
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }
+  },
+  //交易确认
+  sure: function (e) {
+    var that = this
+    if (wx.getStorageSync('token')) {
+      var avatarKey = e.currentTarget.dataset.avatarkey
+      var nickname = e.currentTarget.dataset.nickname
+      var cashBackAmount = e.currentTarget.dataset.cashbackamount
+      var periodLeft = e.currentTarget.dataset.periodleft
+      var expectAmount = e.currentTarget.dataset.expectamount
+      var mobileNumber = e.currentTarget.dataset.mobilenumber
+      var canRemove = e.currentTarget.dataset.canremove
+      var id = e.currentTarget.dataset.id
+      var returnType = e.currentTarget.dataset.returntype
+      that.setData({
+        avatarKey: avatarKey,
+        nickname: nickname,
+        mobileNumber: mobileNumber,
+        cashBackAmount: cashBackAmount,
+        periodLeft: periodLeft,
+        expectAmount: expectAmount,
+        topicId: id,
+        returnType: returnType,
+        sureOne: true
+      })   
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }
+  },
+  //第一次确认关闭右上角的按钮
+  sureOneClose: function () {
+    var that = this
+    that.setData({
+      sureOne: false
+    })
+  },
+  //第二次确认关闭右上角的按钮
+  sureTwoClose: function () {
+    var that = this
+    that.setData({
+      sureTwo: false,
+      sure_two_tishi: ""
+    })
+  },
+  //取消交易确认弹窗
+  cancle_one: function () {
+    var that = this
+    that.setData({
+      sureOne: false,
+      sureTwo_cancle: false
+    })
+  },
+  //确定交易确认弹窗
+  sure_one: function () {
+    var that = this
+    //账户资产数据
+    app.Util.ajax('mall/forum/topic/saleTopicTradeCheck', {
+      topicId: that.data.topicId
+    }, 'POST').then((res) => {
+      if (res.data.messageCode == 'MSG_1001') {
+        that.setData({
+          sureOne: false,
+          sureTwo: true,
+          sure_two_tishi: "",
+          btnText: '确认'
+        })
+      } else if (res.data.messageCode == 'MSG_4002') {
+        that.setData({
+          sureOne: false,
+          sureTwo: true,
+          sure_two_tishi: "提示：账户余额不足，请先充值。",
+          btnText: '去充值'
+        })
+      } else {
+        that.setData({
+          sureOne: false,
+          sureTwo: true,
+          sure_two_tishi: res.data.message,
+          btnText: '确认'
+        })
+      }
+    })
+  },
+  //取消确认交易弹窗
+  cancle_two: function () {
+    var that = this
+    that.setData({
+      sureTwo: false,
+      sure_two_tishi: "",
+      sureOne: false
+    })
+  },
+  //确定确认交易弹窗
+  sure_two: function () {
+    var that = this
+    if (that.data.btnText == '去充值') {
+      wx.navigateTo({
+        url: '/pages/mine/recharge/recharge?tempStatus=' + 1,
+      })
+    } else if (that.data.btnText == '确认' && that.data.sure_two_tishi == '') {
+      //开启密码输入
+      app.Util.ajax('mall/account/paymentPassword/status', 'GET').then((res) => { // 使用ajax函数
+        if (res.data.messageCode == 'MSG_1001') {
+          if (res.data.content == 2) {
+            //未设置密码
+            that.setData({
+              showPassword: true
+            })
+          } else {
+            //已设置密码
+            that.setData({
+              show: true,
+              // sureTwo: false,
+              isFocus: true
+            })
+          }
+        }
+      })
+    }
+  },
+  //取消支付密码弹框
+  cancelShow: function () {
+    var that = this;
+    that.setData({
+      show: false,
+      Value: ''
+    })
+  },
+  //获取密码框的值
+  Focus(e) {
+    var that = this;
+    var inputValue = e.detail.value;
+    that.setData({
+      Value: inputValue
+    })
+    if (that.data.Value.length === 6) {
+      if (newCount == true) {
+        newCount = false
+        if (that.data.typeStatus == 4) {
+          app.Util.ajax('mall//forum/topic/advanceOrderSchedule', {
+            topicId: that.data.topicId,
+            paymentPassword: e.detail.value
+          }, 'POST').then((res) => {
+            if (res.data.messageCode == 'MSG_1001') {
+              wx.navigateTo({
+                url: '/pages/waitReentryDetail/waitReentryDetail',
+              })
+              that.setData({
+                show: false,
+                Value: ''
+              })
+              wx.setStorageSync('wait', 1)
+            } else if (res.data.messageCode == 'MSG_4002') {
+              that.setData({
+                showDialog: true
+              })
+            } else {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none'
+              })
+              that.setData({
+                Value: ""
+              })
+            }
+          })
+        } else{
+          app.Util.ajax('mall/forum/topic/saleTopicTrade', {
+            topicId: that.data.topicId,
+            paymentPassword: e.detail.value
+          }, 'POST').then((res) => {
+            if (res.data.messageCode == 'MSG_1001') {
+              wx.showToast({
+                title: '交易已完成，请在待返明细中查看',
+                icon: 'none'
+              })
+              setTimeout(function () {
+                that.setData({
+                  pageNumber: 1
+                })
+                if (that.data.type == 2) {
+                  that.followPost()
+                } else if (that.data.type == 1) {
+                  that.allPost()
+                }
+              }, 1000) //延迟时间 这里是2秒
+              that.setData({
+                show: false,
+                sureTwo: false,
+                Value: ''
+              })
+            } else {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none'
+              })
+              that.setData({
+                Value: ""
+              })
+            }
+          })
+        }       
+      }
+      setTimeout(function () {
+        newCount = true
+      }, 1000)
+    }
+  },
+  //充值余额返回
+  back: function () {
+    var that = this;
+    that.setData({
+      showDialog: false
+    })
+  },
+  //去充值余额
+  continuePay: function () {
+    var that = this;
+    wx.navigateTo({
+      url: '/pages/mine/recharge/recharge?tempStatus=' + 1,
+    })
+    that.setData({
+      showDialog: false
+    })
+  },
+  blur: function (e) {
+    var that = this;
+    that.setData({
+      bottom: 0
+    })
+  },
+  hideModal: function () {
+    var that = this
+    that.setData({
+      show: false,
+      isFocus: false,
+      Value: ''
+    })
+  },
+  Tap() {
+    var that = this;
+    that.setData({
+      isFocus: true,
+    })
+  },
+  // 是否设置支付密码弹框点击取消
+  cancel: function () {
+    var that = this
+    that.setData({
+      showPassword: false
+    })
+  },
+  // 是否设置支付密码弹框点击确定
+  sureSet: function () {
+    var that = this
+    that.setData({
+      showPassword: false
+    })
+    wx.navigateTo({
+      url: '/pages/paypassword/paypassword',
+    })
+  },
 })

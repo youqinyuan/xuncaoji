@@ -1,0 +1,156 @@
+<!-- pages/seed/seed.wxml -->
+<view class="seed">
+  <image src="{{hostUrl}}/seed/pic.png" class="bg_img" />
+  <view class="view_energy">
+    <block wx:for="{{myList}}" wx:for-index="idx" wx:for-item="itm" wx:key='idx'>
+      <block wx:if="{{itm.realItem}}">
+        <view class="view_energy_list" animation="{{itm.anima}}" id='{{idx}}' bindtap="bindTab" style="{{itm.styleObject}}" data-seedId="{{itm.seedId}}" data-num="{{itm.num}}">
+          <block wx:if="{{itm.isShow}}">
+            <text class="energy_title" >{{itm.num}}</text>
+            <view class="energy_tips">{{itm.title}}</view>
+          </block>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="view_energy_list"></view>
+      </block>
+    </block>
+  </view>
+  <view class="view_collect">
+    <image id="my_collect" src="" class="img_collect"></image>
+  </view>
+  <view class="seed_num">
+    <image src="{{hostUrl}}/seed/bg.png" class="seed_num_img" />
+  </view>
+  <view class="seed_num">
+    <text class="seed_number">{{seedNumber?seedNumber:0}}颗</text>
+    <text class="seed_detail" bindtap="toSeedDetail">明细</text>
+  </view>
+  <view class="activity">
+    <image src="{{hostUrl}}/seed/ic_preferential.png" class="activity_icon" bindtap="show" data-index="1" />
+    <image src="{{hostUrl}}/seed/ic_new.png" class="activity_icon mar26" bindtap="show" data-index="2" />
+    <!-- <image src="{{hostUrl}}/seed/ic_game.png" class="activity_icon mar26" bindtap="show" data-index="3" /> -->
+  </view>
+  <view class="rule">
+    <image src="{{hostUrl}}/seed/ic_rule.png" class="activity_icon" bindtap="show2" />
+  </view>
+</view>
+<view class="get_seed">
+  <text class="get_seed_icon"></text>
+  <text class="get_seed_title">赚种子</text>
+  <text class="get_seed_detail">更多种子获取即将上线</text>
+</view>
+<view class="column">
+  <view class="column_box" bindtap="column" data-index="1">
+    <view class="img_box">
+      <image src="{{hostUrl}}/seed/ic.png" class="column_img" />
+    </view>
+    <text class="column_font">每日签到</text>
+  </view>
+  <view class="column_box" bindtap="column" data-index="2">
+    <view class="img_box">
+      <image src="{{hostUrl}}/seed/ic(1).png" class="column_img" />
+    </view>
+    <text class="column_font">账户存钱</text>
+  </view>
+  <view class="column_box" bindtap="column" data-index="3">
+    <view class="img_box">
+      <image src="{{hostUrl}}/seed/ic(2).png" class="column_img" />
+    </view>
+    <text class="column_font">购买商品</text>
+  </view>
+  <view class="column_box" bindtap="column" data-index="4">
+    <view class="img_box">
+      <image src="{{hostUrl}}/seed/ic(3).png" class="column_img" />
+    </view>
+    <text class="column_font">社区发帖</text>
+  </view>
+  <view class="column_box" bindtap="column" data-index="5">
+    <view class="img_box">
+      <image src="{{hostUrl}}/seed/ic(4).png" class="column_img" />
+    </view>
+    <text class="column_font">待返转让</text>
+  </view>
+  <!-- <view class="column_box" bindtap="column" data-index="6">
+    <view class="img_box">
+      <image src="{{hostUrl}}/seed/ic(5).png" class="column_img" />
+    </view>
+    <text class="column_font">趣玩游戏</text>
+  </view> -->
+</view>
+<view class="goods">
+  <view class="goods_box" wx:for="{{seedGoodsContent}}" wx:key="id" bindtap="toGoodsDetail" data-goodsid="{{item.id}}">
+    <view>
+      <image src="{{item.imageUrls[0]}}" class="goods_img" />
+    </view>
+    <view class="goodsName_box">
+      <text class="ziying" wx:if="{{item.tags==1}}">自营</text>
+      <text class="freeBuy">支持0成本购</text>
+      <text class="goodsName">{{item.name}}</text>
+    </view>
+    <view class="price_box">
+      <text class="price_one">￥<text class="price_three">{{item.dctPrice}}</text></text>
+      <text class="price_two">￥{{item.orgPrice}}</text>
+    </view>
+    <view class="youhui_box">
+      <text class="youhui_detail">实付<text class="">￥{{item.dctPrice}}</text>返现<text>￥{{item.marketingCashBack.totalAmount}}</text></text>
+    </view>
+    <view class="return_seed">
+      <text class="return_seed_number">最高返{{item.sendSeed}}颗</text>
+    </view>
+  </view>
+</view>
+<!-- 购物优惠弹窗 -->
+<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{show}}">
+  <view class="zan-dialog__container" wx:if="{{show}}">
+    <view class="title">{{title}}</view>
+    <view class="text">
+      <view>{{value}}</view>
+    </view>
+  </view>
+  <image wx:if="{{show}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow'></image>
+</view>
+
+<!-- 规则弹窗 -->
+<view class="get-zan-dialog__mask2" wx:if="{{show2}}">
+  <view class="zan-dialog__container2" animation="{{animationData}}" wx:if="{{show2}}">
+    <view class="title2">规则说明</view>
+    <view class="text2">
+      <view class="rule_box">
+          <view class="rule_title">1、签到登录</view>
+          <view class="rule_value">用户每天登录签到可获取一定的种子作为奖励，连续登录越多奖励越多；</view>
+      </view>
+      <view class="rule_box">
+          <view class="rule_title">2、账户存钱 </view>
+          <view class="rule_value">用户所充值的额度在账户内保存越久平台也将会赠送一定的种子作为奖励，秘诀：余额存的越多种子生长越快哟；</view>
+        </view>
+      <view class="rule_box">
+          <view class="rule_title">3、购买商品</view>
+          <view class="rule_value">用户购买普通或Free Buy商品时可获得种子奖励，购买越多奖励越多； </view>
+      </view>
+      <view class="rule_box">
+          <view class="rule_title">4、发布交易信息 </view>
+          <view class="rule_value">用户在发布交易信息后，系统将奖励一定的种子作为发布奖励；</view>
+        </view>
+        <view class="rule_box">
+          <view class="rule_title">5、待返余额转让</view>
+          <view class="rule_value">用户在将自己的订单待返余额进行成功转让给其他用户时，系统将奖励一定的种子作为奖励；</view>
+          </view>
+        <!-- <view class="rule_box">
+          <view class="rule_title">6、玩游戏</view>
+          <view class="rule_value">暂未开放，敬请期待；</view>
+        </view> -->
+        <view class="rule_box2">
+          <view class="rule_title">使用规则</view>
+          <view class="rule_value"> 种子仅可在寻草记商城内使用，进行购物抵扣、兑换商城，不可兑换现金；</view>
+        </view>
+        <view class="rule_box2">
+          <view class="rule_title">说明</view>
+          <view class="rule_value">本种子为虚拟产品不可兑换现金，如果用户存在违规刷种子行为（包括但不限于虚假交易、恶意退款、拆单、套现、漏洞等），我们有权取消您获得种子的资格并清空账户所有种子；
+        </view>
+        </view>
+    </view>
+    <view class="more">滑动查看更多</view>
+  </view>
+  <image wx:if="{{show2}}" class="cancel-get2" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow2'></image>
+</view>

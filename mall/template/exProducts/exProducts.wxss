@@ -43,16 +43,17 @@
 }
 
 /* 公告 */
-
+.notice-swiper{
+  margin-bottom: 20rpx;
+}
 .notice {
   height: 70rpx;
   background: #fff;
-  margin-top: 20rpx;
   color: #666;
   font-size: 28rpx;
   font-family: PingFang SC;
   font-weight: 500;
-  box-shadow: 0rpx 2rpx 0rpx 0rpx rgba(231, 231, 231, 1);
+  border-top: 2rpx solid rgba(231, 231, 231, 1);
 }
 
 .notice-swiper_item {
@@ -110,11 +111,13 @@
   border-radius: 50%;
   margin-bottom: 10rpx;
 }
+
 .section-list-img1 image {
   width: 76rpx;
   height: 76rpx;
   border-radius: 50%;
 }
+
 .section-list-img image {
   width: 76rpx;
   height: 76rpx;
@@ -126,6 +129,47 @@
   font-family: PingFang SC;
   font-weight: 500;
   color: #666;
+}
+
+/* 活动导航 */
+
+.activity_wrap {
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  /* padding-left: 26rpx;  */
+}
+
+.shape{
+  margin-bottom: 6rpx;
+  margin-right: 6rpx;
+}
+.oblong {
+  display: flex;
+  margin: 0;
+  padding: 0;  
+  width: 698rpx;
+  height: 240rpx;
+}
+
+.activity-oblong {
+  width: 698rpx;
+  height: 240rpx;
+  border-radius: 8rpx;
+}
+
+.square {
+  margin: 0;
+  padding: 0;
+  width: 346rpx;
+  height: 270rpx;
+}
+
+.activity-square {
+  width: 346rpx;
+  height: 270rpx;
+  border-radius: 8rpx;
 }
 
 /*Go*/
@@ -391,7 +435,7 @@ button::after {
 }
 
 .goodlist-list-img {
-  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   width: 192rpx;
@@ -561,7 +605,7 @@ button::after {
 }
 
 .quality-list-img {
-  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   width: 348rpx;
@@ -578,7 +622,7 @@ button::after {
   margin-left: 16rpx;
   margin-right: 16rpx;
   margin-top: 10rpx;
-  height: 85rpx;
+  height:76rpx;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;

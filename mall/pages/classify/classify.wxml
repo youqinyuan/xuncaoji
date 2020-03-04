@@ -12,7 +12,7 @@
     <view class="two-classification-wrapper" wx:if="{{classfy.length>0}}">
       <view class="two-classification-list" wx:for="{{classfy}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="twoList">
         <image class="two-classification-img" mode="aspectFit" wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}"></image>
-        <image class="two-classification-img" mode="aspectFit" wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+        <image class="two-classification-img" mode="aspectFit" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
         <view class="two-classification-text">{{item.name}}</view>
       </view>     
     </view>

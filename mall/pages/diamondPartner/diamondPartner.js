@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     showMark: false, //加导师弹窗
     showReward: false, //平台奖励
     disabled: true, //按钮禁用
@@ -39,24 +40,24 @@ Page({
     }, ],
     shareImg: '', //分享图片
     list: [{
-        img: 'https://xuncj.yzsaas.cn/_download/img/diamondPartner/card_a.png',
+        img: app.Util.getUrlImg().hostUrl+'/diamondPartner/card_a.png',
         status: '1'
       }, {
-        img: 'https://xuncj.yzsaas.cn/_download/img/diamondPartner/card_b.png',
+        img: app.Util.getUrlImg().hostUrl+'/diamondPartner/card_b.png',
         status: '6'
       }, {
-        img: 'https://xuncj.yzsaas.cn/_download/img/diamondPartner/card_c.png',
+        img: app.Util.getUrlImg().hostUrl+'/diamondPartner/card_c.png',
         status: '2'
       }, {
-        img: 'https://xuncj.yzsaas.cn/_download/img/diamondPartner/card_d.png',
+        img: app.Util.getUrlImg().hostUrl+'/diamondPartner/card_d.png',
         status: '3'
       },
       {
-        img: 'https://xuncj.yzsaas.cn/_download/img/diamondPartner/card_e.png',
+        img: app.Util.getUrlImg().hostUrl+'/diamondPartner/card_e.png',
         status: '4'
       },
       {
-        img: 'https://xuncj.yzsaas.cn/_download/img/diamondPartner/card_f.png',
+        img: app.Util.getUrlImg().hostUrl+'/diamondPartner/card_f.png',
         status: '5'
       }
     ],
@@ -81,7 +82,7 @@ Page({
     that.getData();
     that.initDiamond();
     wx.downloadFile({
-      url: 'https://xuncj.yzsaas.cn/_download/img/shre_img.png',
+      url: app.Util.getUrlImg().hostUrl+'/shre_img.png',
       success: function(res) {
         that.setData({
           shareImg: res.tempFilePath
@@ -346,7 +347,7 @@ Page({
     }, 'POST').then((res) => {
       if (res.data.content) {
         wx.navigateTo({
-          url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&amount=${1}`,
+          url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&amount1=${1}`,
         })
       } else {
         wx.showToast({
@@ -364,7 +365,7 @@ Page({
     }, 'POST').then((res) => {
       if (res.data.content) {
         wx.navigateTo({
-          url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&amount=${1}`,
+          url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&amount1=${1}`,
         })
       } else {
         wx.showToast({

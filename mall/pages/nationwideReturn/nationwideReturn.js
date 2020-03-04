@@ -11,7 +11,8 @@ Page({
     pageNumber: 1,
     pageSize: 6,
     wholeNation: [], //列表
-    text: ''
+    text: '',
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**

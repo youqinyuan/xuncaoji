@@ -18,6 +18,7 @@ Page({
     showDialog4: false,
     orderId: 1,
     orderGoodsId: 0,
+    newPeopleActivity:1,//新人专区跳转页面状态
   },
 
   /**
@@ -25,41 +26,44 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    // console.log('订单号：' + JSON.stringify(options))
-    var latestStatus = options.latestStatus
-    // console.log(latestStatus)
+    var latestStatus = options.latestStatus //订单状态
     var orderId = parseInt(options.orderId)
-    console.log(options.proStatus)
+    if(options.whetherAdvanceSale){
+      that.setData({
+        whetherAdvanceSale:options.whetherAdvanceSale,
+        defaultAmountStatus:options.defaultAmountStatus
+      })
+    }
     if(options.proStatus){
       that.setData({
         proStatus:parseInt(options.proStatus)
       })
     }
-    if (options.from) {
-       console.log("aa"+options.from,options.orderId,options.orderGoodsId,options.transferId)
-      that.setData({
-        return_one: options.orderId,
-        return_two: options.orderGoodsId,
-        return_three: options.transferId,
-        from: options.from,
-      })
-      that.init2()
-    } else {
-      if (options.latestStatus) {
-        that.setData({
-          options: options,
-          orderId: orderId,
-          latestStatus: latestStatus
-        })
-      } else {
-        that.setData({
-          options: options,
-          orderId: orderId,
-        })
-      }
-      that.init();
-    }
-
+      if (options.from) {
+        console.log("aa"+options.from,options.orderId,options.orderGoodsId,options.transferId)
+       that.setData({
+         return_one: options.orderId,
+         return_two: options.orderGoodsId,
+         return_three: options.transferId,
+         from: options.from,
+       })
+       that.init2()
+     } else {
+       if (options.latestStatus) {
+         that.setData({
+           options: options,
+           orderId: orderId,
+           latestStatus: latestStatus
+         })
+       } else {
+         that.setData({
+           options: options,
+           orderId: orderId,
+         })
+       }
+       that.init();
+     }
+    
   },
   init: function () {
     var that = this
@@ -77,6 +81,11 @@ Page({
           }
         }
         // console.log("bb"+JSON.stringify(res.data.content))
+        if(res.data.content[0].cashBackType==2){
+          that.setData({
+            newPeopleActivity:2
+          })
+        }
         that.setData({
           content2: res.data.content,
           latestStatus: parseInt(that.data.latestStatus)
@@ -94,6 +103,11 @@ Page({
       transferId:that.data.return_three, 
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
+        if(res.data.content.cashBackType==2){
+          that.setData({
+            newPeopleActivity:2
+          })
+        }
         that.setData({
           from: that.data.from,
           content: res.data.content

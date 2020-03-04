@@ -1,14 +1,14 @@
 <!-- pages/wishpool/wishpool.wxml -->
-<image class="star_bg" src="https://xuncj.yzsaas.cn/_download/img/add/star_bg.png" bindtap="leaveWish"></image>
+<image class="star_bg" src="{{hostUrl}}/add/star_bg.png" bindtap="leaveWish"></image>
 <view catchtap="jumpMyWish">
-  <image class="activity_11" src="https://xuncj.yzsaas.cn/_download/img/add/ic_wish.png"></image>
+  <image class="activity_11" src="{{hostUrl}}/add/ic_wish.png"></image>
 </view>
 <view bindtap="leaveWish">
-  <image class="star_pool" src="https://xuncj.yzsaas.cn/_download/img/wishpool/star_pool.png"></image>
+  <image class="star_pool" src="{{hostUrl}}/wishpool/star_pool.png"></image>
   <view class="leave_wish">点我留下心愿~</view>
 </view>
 <view class="what_wish" catchtap="showGetMark">FreeBuy心愿池是什么？</view>
-<image class="star_lang" wx:if="{{recommend.length>0}}" src="https://xuncj.yzsaas.cn/_download/img/wishpool/ic_lang.png"></image>
+<image class="star_lang" wx:if="{{recommend.length>0}}" src="{{hostUrl}}/wishpool/ic_lang.png"></image>
 <view class="wish_pool" wx:if="{{recommend.length>0}}">种草心愿池</view>
 <!-- 列表页 -->
 <view class="wrap">
@@ -25,7 +25,7 @@
         <text>{{recommend.wishPrice}}</text>
       </view>
       <view class="btn-wrap" catchtap="jumpToDetail" data-id="{{recommend.id}}">
-        <image src="https://xuncj.yzsaas.cn/_download/img/wishpool/starsmall.png"></image>
+        <image src="{{hostUrl}}/wishpool/starsmall.png"></image>
         <text class="btn">我也想要</text>
       </view>
     </view>
@@ -46,13 +46,13 @@
     </view>
     <!-- <button bindtap="cancelGet">我知道了</button> -->
   </view>
-  <image wx:if="{{showGet}}" class="cancel-get" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
+  <image wx:if="{{showGet}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
 </view>
 
 <!-- 待返转让弹窗 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry}}">
   <view class="zan-dialog__container2" wx:if="{{waitReentry}}">
-    <image wx:if="{{waitReentry}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose'></image>
+    <image wx:if="{{waitReentry}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose'></image>
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -61,7 +61,7 @@
       </view>
       <view class="wait_box" wx:for="{{returnContent}}" wx:key="">
         <text class="wait_name">购买方:</text>
-        <text class="wait_value">{{item}}</text>
+        <text class="wait_value">{{item.mobileNumber}}</text>
       </view>
       <view class="know_box">
         <text class="know" bindtap="waitReentryClose">我知道了</text>
@@ -72,7 +72,7 @@
 <!-- 待返转让弹窗2 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry2}}">
   <view class="zan-dialog__container2" wx:if="{{waitReentry2}}">
-    <image wx:if="{{waitReentry2}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose2'></image>
+    <image wx:if="{{waitReentry2}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose2'></image>
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -81,7 +81,7 @@
       </view>
       <view class="wait_box" wx:for="{{returnContent2}}" wx:key="">
         <text class="wait_name">购买方:</text>
-        <text class="wait_value">{{item}}</text>
+        <text class="wait_value">{{item.mobileNumber}}</text>
       </view>
       <view class="know_box">
         <text class="know" bindtap="waitReentryClose2">我知道了</text>
@@ -92,7 +92,7 @@
 <!-- 有人出售弹窗 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry3}}">
   <view class="zan-dialog__container2" wx:if="{{waitReentry3}}">
-    <!-- <image wx:if="{{waitReentry3}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose3'></image> -->
+    <!-- <image wx:if="{{waitReentry3}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose3'></image> -->
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -104,4 +104,20 @@
       </view>
     </view>
   </view>
+</view>
+<!-- 转让撤销提示弹窗 -->
+<view class="return-two-dialog__maskPeople" catchtouchmove="preventTouchMove" wx:if="{{returnCanclePeople}}">
+  <view class="zan-dialog__containerPeople" wx:if="{{returnCanclePeople}}">
+    <view class="head_title"></view>
+          <view class="peopleCancle_box" wx:for="{{returnContent3}}" wx:key="{{item.id}}">
+            <image class="people_info_img" src="{{item.imgUrl}}"/>
+            <view class="people_info_name">{{item.nikeName}}</view>
+            <view class="people_info_acountnumber">{{item.mobileNumber}}</view>
+            <view class="cancle_font">转让方撤销了与您的交易！如有疑问请联系该用户。</view>
+            <view class="border_bottom"></view>
+        </view>
+  </view>
+    <view class="peopleCanlce_close" wx:if="{{returnCanclePeople}}" bindtap='returnCanclePeople'>
+      <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
+    </view>
 </view>

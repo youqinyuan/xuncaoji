@@ -2,7 +2,7 @@
 <view class="explain-wrap" catchtap="showGetMark">
   <view class="explain">FreeBuy心愿池是什么？</view>
   <view class="poke">戳我</view>
-  <image src="https://xuncj.yzsaas.cn/_download/img/add/poke.png" class="poke-img"></image>
+  <image src="{{hostUrl}}/add/poke.png" class="poke-img"></image>
 </view>
 <view class="text_wrap">
   <textarea class="text-top" wx:if="{{showText==true}}" placeholder="请输入您想要物品的名称或购买链接等信息" maxlength="{{2000}}" bindinput="getTextareaValue" data-index="{{index}}" value="{{goodsData.goodsComment}}">
@@ -10,9 +10,9 @@
 <view class="img_wrap">
   <view class="commentImg_wrap" wx:for="{{goodsData.imgList}}" wx:key="items" wx:for-item="items">
     <image src="{{items}}" catchtap="imgYu" data-src="{{items}}"></image>
-    <image src="https://xuncj.yzsaas.cn/_download/img/wishpool/ic_del.png" class="close" catchtap="deleteImg" data-index="{{index}}"></image>
+    <image src="{{hostUrl}}/wishpool/ic_del.png" class="close" catchtap="deleteImg" data-index="{{index}}"></image>
   </view>
-  <image src="https://xuncj.yzsaas.cn/_download/img/wishpool/pic_02.png" catchtap="choiceImg" data-index="{{index}}" wx:if="{{goodsData.imgList.length<5}}"></image>
+  <image src="{{hostUrl}}/wishpool/pic_02.png" catchtap="choiceImg" data-index="{{index}}" wx:if="{{goodsData.imgList.length<5}}"></image>
 </view>
 </view>
  <textarea wx:if="{{showText==true}}" placeholder="请输入喜欢的商品颜色、大小、尺码、等规格" maxlength="{{200}}" bindinput="getContentDetail" data-index="{{index}}" value="{{goodsData.contentDetail}}" class="text-bottom">
@@ -37,7 +37,7 @@
     </view>
     <!-- <button bindtap="cancelGet">我知道了</button> -->
   </view>
-  <image wx:if="{{showGet}}" class="cancel-get" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
+  <image wx:if="{{showGet}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
 </view>
 <!-- 压缩上传图片使用 -->
 <canvas canvas-id="canvas" style="width:200px;height:200px;position: absolute;left:-1000px;top:-1000px;"></canvas>

@@ -17,11 +17,11 @@
          <view class="bottom">
         <button class="service" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" send-message-title="{{detail.name}}" send-message-img='{{imageUrls[0]}}' show-message-card="true"
           bindcontact="handleContact" open-type="contact">
-          <image src="https://xuncj.yzsaas.cn/_download/img/icon/xqing_downbar_kefu_n.png"></image>
+          <image src="{{hostUrl}}/icon/xqing_downbar_kefu_n.png"></image>
           <view class="service-text">客服</view>
         </button>
         <view class="del" bindtap="deleteList" data-id="{{wishpool.id}}">
-          <image src="https://xuncj.yzsaas.cn/_download/img/add/wish_del.png"></image>
+          <image src="{{hostUrl}}/add/wish_del.png"></image>
           <view class="del-text">删除</view>
         </view>
       </view>
@@ -35,11 +35,11 @@
     </view>
   </view>
   <view class="img_notlist" wx:if="{{wishpool.length===0}}">
-    <image class="img" src="https://xuncj.yzsaas.cn/_download/img/icon/nohave_n.png"></image>
+    <image class="img" src="{{hostUrl}}/icon/nohave_n.png"></image>
     <view class="img_text">心愿池空空如也</view>
   </view>
   <view class="add_wish" bindtap="leaveWish">
-    <image src="https://xuncj.yzsaas.cn/_download/img/wishpool/add_wish.png"></image>
+    <image src="{{hostUrl}}/wishpool/add_wish.png"></image>
     <view class="add_text">添加心愿</view>
   </view>
   <view class="long_del" wx:if="{{wishpool.length>0}}">长按删除心愿</view>

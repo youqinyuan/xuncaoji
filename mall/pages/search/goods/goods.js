@@ -11,6 +11,7 @@ Page({
     pageNumber:1,
     pageSize:6,
     text:'',
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
   //跳转到详情页
   toDetail(e) {

@@ -2,6 +2,7 @@ let app = getApp()
 Page({
 
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     switchChecked: false,//默认按钮
     name: '',//姓名
     phoneNumber: '',//电话号码

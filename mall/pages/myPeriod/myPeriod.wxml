@@ -4,10 +4,11 @@
   <view class="wrap_status" style="color:#FF2644;" wx:if="{{item.status==2}}">审核失败</view>
   <view class="listItem">
     <view class="img">
-      <image src="{{item.imageUrl?item.imageUrl:'https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png'}}"></image>
+      <image src="{{item.imageUrl?item.imageUrl:'{{hostUrl}}/icon/zhanw_tb_n.png'}}"></image>
     </view>
     <view class="goodsName">
       <view class="name">{{item.name}}</view>
+      <view class="text">{{item.spcDesc}}</view>
       <view class="priceWrap">
         <view class="monthGet">月供:</view>
         <view class="monthPrice">￥{{item.monthlyPayment}}*{{item.periods}}</view>

@@ -1,4 +1,5 @@
 // pages/chooseTime/chooseTime.js
+let app = getApp()
 const date = new Date()
 const years = []
 const months = []
@@ -9,7 +10,7 @@ var thisDay = date.getDate();
 for (let i = 1970; i <= date.getFullYear() + 1000; i++) {
   years.push(i);
 }
-for (let i = 1; i <= date.getMonth() + 1; i++) {
+for (let i = 1; i <= 12; i++) {
   let month = 0;
   month = i < 10 ? '0' + i : i;
   months.push(month);
@@ -53,7 +54,8 @@ Page({
     value: [thisYer-1970, thisMon - 1, thisDay - 1],
     showWay: false,
     bindStart:1,
-    arryList: [thisYer-1970, thisMon - 1, thisDay - 1]
+    arryList: [thisYer-1970, thisMon - 1, thisDay - 1],
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**

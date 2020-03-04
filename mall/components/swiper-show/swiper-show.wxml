@@ -1,7 +1,7 @@
 <!--components/swiper-show/swiper-show.wxml-->
 
 <view class="wrap" wx:if="{{isSwiper}}">
-  <image src="https://xuncj.yzsaas.cn/_download/img/icon/tzhi_icon.png"></image>
+  <image src="{{hostUrl}}/icon/tzhi_icon.png"></image>
   <swiper indicator-dots="{{false}}" interval="{{interval}}" duration="{{duration}}" autoplay circular easing-function="{{easingFunction}}" bindanimationfinish="currentChange">
     <block wx:for="{{swiperData}}" wx:key="{{index}}">
       <swiper-item>

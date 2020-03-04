@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     city: '',//所在区域
     cityPickerValue: [],
     cityPickerIsShow: false,

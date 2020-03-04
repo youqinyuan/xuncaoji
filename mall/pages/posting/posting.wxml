@@ -6,9 +6,9 @@
   <view class="img_wrap">
     <view class="commentImg_wrap" wx:for="{{goodsData.imgList}}" wx:key="items" wx:for-item="items">
       <image src="{{items}}" catchtap="imgYu" data-src="{{items}}"></image>
-      <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_del.png" class="close" catchtap="deleteImg" data-index="{{index}}"></image>
+      <image src="{{hostUrl}}/add/ic_del.png" class="close" catchtap="deleteImg" data-index="{{index}}"></image>
     </view>
-    <image src="https://xuncj.yzsaas.cn/_download/img/add/img_add.png" catchtap="choiceImg" data-index="{{index}}" wx:if="{{goodsData.imgList.length<9}}"></image>
+    <image src="{{hostUrl}}/add/img_add.png" catchtap="choiceImg" data-index="{{index}}" wx:if="{{goodsData.imgList.length<9}}"></image>
   </view>
 </view>
 <!-- 买帖 -->
@@ -46,7 +46,7 @@
 <view class="sale" wx:if="{{postingStatus===3}}">
   <view class="sale_listItem" bindtap="jumpWaitReentry" wx:if="{{isShow==false}}">
     <view class="sale_listLeft">选择待返订单</view>
-    <image src="https://xuncj.yzsaas.cn/_download/img/icon/data_narrow.png" class="sale_listRight"></image >
+    <image src="{{hostUrl}}/icon/data_narrow.png" class="sale_listRight"></image >
   </view>
   <view class="sale_expect" wx:if="{{isShow==true}}">
     <view class="saleListTop">
@@ -56,34 +56,36 @@
       </view>
       <view class="saleRight">共返￥{{waitReentry.cashBackAmount}}</view>
     </view>
-    <view class="saleLeave">剩余{{waitReentry.periodLeft}}期，截止{{waitReentry.maxReturnTime}}，每月{{waitReentry.perReturnDay}}号，每期返还{{waitReentry.perReturnAmount}}</view>
-    <view class="saleYear" wx:if="{{annualizedRate}}">参考年化率：<text>{{annualizedRate}}%</text></view>
-    <view class="saleText">年化率会随剩余时间的变化不断降低，建议及时关注并重新发布。</view>
+    <view class="saleLeave" wx:if="{{waitReentry.returnTypeCash==3}}">剩余{{waitReentry.periodLeft}}天，截止{{waitReentry.maxReturnTime}}，每天返还￥{{waitReentry.perReturnAmount}}</view>
+     <view class="saleLeave" wx:if="{{waitReentry.returnTypeCash==4}}">剩余{{waitReentry.periodLeft}}期，截止{{waitReentry.maxReturnTime}}，返还￥{{waitReentry.perReturnAmount}}</view>
+    <view class="saleLeave" wx:if="{{waitReentry.returnTypeCash==1||waitReentry.returnTypeCash==2}}">剩余{{waitReentry.periodLeft}}期，截止{{waitReentry.maxReturnTime}}，每月{{waitReentry.perReturnDay}}号，每期返还￥{{waitReentry.perReturnAmount}}</view>
+    <view class="saleYear" wx:if="{{annualizedRate}}">年收益率：<text>{{annualizedRate}}%</text></view>
+    <view class="saleText">年收益率会随剩余时间的变化不断降低，建议及时关注并重新发布。</view>
     <view class="replyChoose" bindtap="jumpWaitReentry">重选</view>
   </view>
   <textarea class="sale_text" placeholder="有什么想对潜在买家说的吗..." placeholder-style="color:#AAAAAA" maxlength="{{201}}" bindinput="getSaleTextarea" data-index="{{index}}" wx:if="{{isdisabled}}" value="{{saleText}}"></textarea>
 </view>
 <view class="msgText">{{msgText}}</view>
-<image src="https://xuncj.yzsaas.cn/_download/img/add/btn_ordinary.png" class="ordinaryPosting" wx:if="{{postingStatus===1}}"></image>
-<image src="https://xuncj.yzsaas.cn/_download/img/add/buyPosting.png" class="buyPosting" wx:if="{{postingStatus===2}}"></image>
-<image src="https://xuncj.yzsaas.cn/_download/img/add/salePosting.png" class="salePosting" wx:if="{{postingStatus===3}}"></image>
+<!-- <image src="{{hostUrl}}/add/btn_ordinary.png" class="ordinaryPosting" wx:if="{{postingStatus===1}}"></image>
+<image src="{{hostUrl}}/add/buyPosting.png" class="buyPosting" wx:if="{{postingStatus===2}}"></image>
+<image src="{{hostUrl}}/add/salePosting.png" class="salePosting" wx:if="{{postingStatus===3}}"></image> -->
 <view class="btn">
   <view class="btn2" bindtap="submit">发布</view>
 </view>
 
 
 <!-- 压缩上传图片使用 -->
-<canvas canvas-id="canvas" style="width:250px;height:400px;position: absolute;left:-1000px;top:-1000px;"></canvas>
+<canvas canvas-id="canvas" style="width:200px;height:200px;position: absolute;left:-1000px;top:-1000px;"></canvas>
 <!-- 期望弹窗 -->
 <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
 <view class="modal-dialog" wx:if="{{showModal}}">
-  <view class="modal-title">期望售价</view>
+  <view class="modal-title">售价</view>
   <view class="modal-img" bindtap="hideModal">
-    <image class="modal-imgs" src="https://xuncj.yzsaas.cn/_download/img/add/withdraw_close.png"></image>
+    <image class="modal-imgs" src="{{hostUrl}}/add/withdraw_close.png"></image>
   </view>
   <view class="section">
     <view class="input-price">￥</view>
-    <input class="input-text" placeholder="请输入期望售价" focus="true" type="digit" value="{{inputValue}}" placeholder-style="color:#AAAAAA" bindinput="btnInput" />
+    <input class="input-text" placeholder="请输入售价" focus="true" type="digit" value="{{inputValue}}" placeholder-style="color:#AAAAAA" bindinput="btnInput" />
   </view>
   <view class="prompt">{{showMessage}}</view>
   <view class="modal-footer">

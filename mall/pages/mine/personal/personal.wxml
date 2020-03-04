@@ -15,7 +15,7 @@
       </view>
     </view>
     <view class="section-top-img">
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/data_narrow.png"></image>
+      <image src="{{hostUrl}}/icon/data_narrow.png"></image>
     </view>
   </view>
   <!--中部-->
@@ -34,7 +34,7 @@
         </view>
       </view>
       <view class="section-middle-img">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/data_narrow.png"></image>
+        <image src="{{hostUrl}}/icon/data_narrow.png"></image>
       </view>
     </view>
     <view class="picker1" catchtap="showDatePicker">
@@ -42,7 +42,7 @@
       <input class="content" value='{{adds.birthday}}' name="birthday" disabled="disabled" />
       <date-picker id="date-picker" value="{{datePickerValue}}" isShow="{{datePickerIsShow}}" bindsureclick="datePickerOnSureClick" bindcancelclick="datePickerOnCancelClick" />
       <view class="section-middle-img1">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/data_narrow.png"></image>
+        <image src="{{hostUrl}}/icon/data_narrow.png"></image>
       </view>
     </view>
   </view>

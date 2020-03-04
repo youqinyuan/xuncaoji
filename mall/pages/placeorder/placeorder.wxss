@@ -221,6 +221,7 @@ page {
 }
 
 .shops-wrap-bottom-size {
+  width: 455rpx;
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
   font-weight: 400;
@@ -305,9 +306,11 @@ page {
   position: absolute;
   right: 30rpx;
 }
-.expressfee-price text{
+
+.expressfee-price text {
   font-size: 24rpx;
 }
+
 .expressfee-price1 {
   color: #333;
   font-size: 28rpx !important;
@@ -372,7 +375,7 @@ page {
   margin-left: 30rpx;
 }
 
-.actual-price { 
+.actual-price {
   margin-right: 30rpx;
 }
 
@@ -445,6 +448,212 @@ page {
 
 .payment-price1 {
   font-size: 30rpx;
+}
+
+/* 预售订单 */
+
+.advanceSale {
+  position: relative;
+  width: 750rpx;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  background: #f4e8d9;
+  font-size: 24rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+}
+
+.advanceSale-left {
+  position: absolute;
+  left: 30rpx;
+  top: 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.severice-img {
+  width: 50rpx;
+  height: 30rpx;
+}
+
+.yuSale {
+  font-size: 26rpx;
+  margin: 0 16rpx;
+}
+
+.question-img {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.advanceSale-right {
+  position: absolute;
+  right: 30rpx;
+  top: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150rpx;
+  height: 48rpx;
+  background: linear-gradient(90deg, rgba(239, 215, 187, 1) 0%, rgba(212, 172, 117, 1) 100%);
+  border-radius: 24rpx;
+}
+
+.experience {
+  margin-right: 12rpx;
+}
+
+.right-img {
+  width: 10rpx;
+  height: 12rpx;
+}
+
+/* 违约 */
+
+.default {
+  width: 750rpx;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  margin: 20rpx 0;
+}
+
+.default-left {
+  display: flex;
+  align-items: center;
+}
+
+.weiyue {
+  font-size: 26rpx;
+  margin: 0 16rpx;
+  margin-left: 30rpx;
+}
+
+.question-img {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.default-right {
+  margin-right: 30rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #aaa;
+}
+
+.default-right .money_input {
+  width: 418rpx;
+  text-align: right;
+}
+
+/* 卖帖信息 */
+
+.sale_expect {
+  background: #fff;
+  padding-left: 30rpx;
+  font-size: 28rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+}
+
+.saleListTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90rpx;
+  margin: 0 30rpx;
+  margin-left: 0;
+  border-bottom: 4rpx solid #f4f4f4;
+}
+
+.saleLeft {
+  display: flex;
+  align-items: center;
+}
+
+.input-text {
+  color: #aaa;
+}
+
+.saleLeft .textPrice {
+  height: 90rpx;
+  line-height: 90rpx;
+  width: 400rpx;
+  color: #aaa;
+}
+
+.saleRight {
+  color: #d4ac75;
+}
+
+.saleLeave {
+  font-size: 26rpx;
+  margin: 30rpx 0;
+  color: #999;
+  width: 620rpx;
+}
+
+.saleYear {
+  font-size: 26rpx;
+  margin: 30rpx 0;
+  margin-top: 0;
+  color: #999;
+}
+
+.saleYear text {
+  color: #ff2644;
+}
+
+.saleText {
+  font-size: 26rpx;
+  line-height: 40rpx;
+  margin: 30rpx 0;
+  margin-top: 0;
+  color: #ff2644;
+  width: 620rpx;
+}
+
+.replyChoose {
+  font-size: 26rpx;
+  margin: 30rpx 0;
+  margin-top: 0;
+  width: 163rpx;
+  height: 54rpx;
+  text-align: center;
+  line-height: 54rpx;
+  color: #fff;
+  background: #ff6417;
+  border-radius: 27rpx;
+}
+
+.sale_text {
+  width: 690rpx;
+  height: 90rpx;
+  background-color: #fff;
+  font-size: 28rpx;
+  color: #aaa;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.msgText {
+  height: 50rpx;
+  line-height: 50rpx;
+  background: #fff;
+  text-align: right;
+  font-size: 26rpx;
+  color: #ff2644;
+  padding-right: 30rpx;
+  margin-bottom: 20rpx;
 }
 
 /* 优惠 */
@@ -719,7 +928,7 @@ button[disabled] {
   text-align: left;
 }
 
-.remarks-zan-dialog__mask .zan-dialog__container .section textarea {
+.remarks-zan-dialog__mask .zan-dialog__container .section .textArea {
   margin-top: 20rpx;
   padding-left: 15rpx;
   width: 450rpx;
@@ -758,37 +967,41 @@ button[disabled] {
   color: #ff2644;
   border-left: 2rpx solid #c5c5c5;
 }
-.seed{
+
+.seed {
   height: 80rpx;
   background: #fff;
   position: relative;
   margin-bottom: 20rpx;
 }
-.seed_all{
+
+.seed_all {
   display: inline-block;
   height: 80rpx;
   line-height: 80rpx;
-  font-size:24rpx;
-  font-family:PingFang SC;
-  font-weight:400;
-  color:rgba(102,102,102,1);
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(102, 102, 102, 1);
   position: absolute;
   left: 29rpx;
 }
-.seed_detail{
+
+.seed_detail {
   display: inline-block;
   height: 80rpx;
   line-height: 80rpx;
-  font-size:24rpx;
-  font-family:PingFang SC;
-  font-weight:500;
-  color:rgba(102,102,102,1);
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
   position: absolute;
   right: 126rpx;
   text-align: end;
   width: 100rpx;
 }
-.choose_box{
+
+.choose_box {
   height: 80rpx;
   width: 90rpx;
   line-height: 80rpx;
@@ -797,21 +1010,25 @@ button[disabled] {
   right: 26rpx;
   text-align: end;
 }
-.choose_img{
+
+.choose_img {
   height: 40rpx;
   width: 40rpx;
   position: absolute;
   right: 31rpx;
   top: 15rpx;
 }
-.choose_img2{
+
+.choose_img2 {
   height: 40rpx;
   width: 40rpx;
   position: absolute;
   right: 31rpx;
   top: 21rpx;
 }
+
 /* 种子抵扣明细弹窗 */
+
 .dialog__mask2 {
   position: fixed;
   top: 0;
@@ -821,6 +1038,7 @@ button[disabled] {
   background: rgba(0, 0, 0, 0.6);
   z-index: 9999;
 }
+
 .dialog__mask2 .dialog__container2 {
   width: 100%;
   background: rgba(255, 255, 255, 1);
@@ -840,51 +1058,54 @@ button[disabled] {
 
 .dialog__mask2 .dialog__container2 .title2 {
   width: 520rpx;
-  margin-left:30rpx; 
+  margin-left: 30rpx;
   margin-top: 46rpx;
   margin-bottom: 35rpx;
-  font-size:32rpx;
-  font-family:PingFang SC;
-  font-weight:500;
-  color:rgba(51,51,51,1);
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
   text-align: left;
 }
 
 .dialog__mask2 .dialog__container2 .text2 {
-  font-size:30rpx;
-  font-family:PingFang SC;
-  font-weight:500;
-  color:rgba(51,51,51,1);
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
   max-height: 733rpx;
   overflow-y: scroll;
   overflow: -Scroll;
   overflow-x: hidden;
 }
-.seedGoodsBox{
+
+.seedGoodsBox {
   height: 204rpx;
   border-bottom: #f4f4f4 2rpx solid;
   position: relative;
   margin-left: 30rpx;
 }
-.seedGoodsImg{
+
+.seedGoodsImg {
   display: inline-block;
   height: 158rpx;
   width: 158rpx;
   position: absolute;
   top: 20rpx;
 }
-.seedGoodsName{
+
+.seedGoodsName {
   width: 489rpx;
   text-align: left;
   display: inline-block;
   position: absolute;
   top: 36rpx;
   right: 40rpx;
-  font-size:26rpx;
-  font-family:PingFang SC;
-  font-weight:500;
-  color:rgba(102,102,102,1);
-  line-height:39rpx;
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+  line-height: 39rpx;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
@@ -892,97 +1113,112 @@ button[disabled] {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
-.seedGoodsPrice{
-  font-size:30rpx;
-  font-family:PingFang SC;
-  font-weight:500;
-  color:rgba(255,38,68,1);
+
+.seedGoodsPrice {
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 38, 68, 1);
   display: inline-block;
   position: absolute;
   top: 130rpx;
   left: 188rpx;
 }
-.seedValue{
-  font-size:26rpx;
-  font-family:PingFang SC;
-  font-weight:500;
-  color:#999999;
+
+.seedValue {
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #999;
   display: inline-block;
   position: absolute;
   top: 129rpx;
   right: 53rpx;
 }
-.font26{
+
+.font26 {
   font-size: 26rpx;
   display: inline-block;
 }
-.font22{
+
+.font22 {
   font-size: 22rpx;
   display: inline-block;
 }
-.colf{
-  color: #FF6417;
+
+.colf {
+  color: #ff6417;
   display: inline-block;
 }
-.youhui_info_box{
+
+.youhui_info_box {
   background: #fff;
 }
-.youhui_info_title{
-  font-size:28rpx;
-  font-family:PingFang SC;
-  font-weight:500;
-  color:rgba(51,51,51,1);
+
+.youhui_info_title {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
   height: 80rpx;
   line-height: 80rpx;
   padding-left: 30rpx;
-  border-bottom:#E7E7E7 2rpx solid;
+  border-bottom: #e7e7e7 2rpx solid;
 }
-.friend_sponsor{
+
+.friend_sponsor {
   height: 70rpx;
   position: relative;
 }
-.friend_sponsor_left{
-  font-size:24rpx;
-  font-family:PingFang SC;
-  font-weight:400;
-  color:rgba(102,102,102,1);
+
+.friend_sponsor_left {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(102, 102, 102, 1);
   height: 70rpx;
   line-height: 70rpx;
   position: absolute;
   left: 30rpx;
 }
-.friend_sponsor_right{
-  font-size:28rpx;
-  font-family:PingFang SC;
-  font-weight:400;
-  color:#333333;
+
+.friend_sponsor_right {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #333;
   height: 70rpx;
   line-height: 70rpx;
   position: absolute;
   right: 31rpx;
 }
-.friend_sponsor_right text{
-  font-size:24rpx;
+
+.friend_sponsor_right text {
+  font-size: 24rpx;
 }
-.friend_sponsor_right2{
-  font-size:28rpx;
-  font-family:PingFang SC;
-  font-weight:400;
-  color:#333333;
+
+.friend_sponsor_right2 {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #333;
   height: 70rpx;
   line-height: 70rpx;
   position: absolute;
   right: 90rpx;
 }
-.friend_sponsor_right2 text{
-  font-size:24rpx;
+
+.friend_sponsor_right2 text {
+  font-size: 24rpx;
 }
-.stopZero-platform text{
-  color: #FF6417;
+
+.stopZero-platform text {
+  color: #ff6417;
   font-size: 28rpx;
   font-weight: 400;
 }
-.stop_img{
+
+.stop_img {
   width: 24rpx;
   height: 24rpx;
   display: inline-block;
@@ -990,6 +1226,7 @@ button[disabled] {
   top: 66rpx;
   right: 133rpx;
 }
-.font24{
+
+.font24 {
   font-size: 24rpx;
 }

@@ -388,7 +388,7 @@ page{
   position: absolute;
   top: 350rpx;
   left: 26rpx;
-  z-index: 9999;
+  z-index: 999;
   border-radius: 24rpx;
 }
 .text_one{

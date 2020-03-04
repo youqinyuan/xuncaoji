@@ -379,3 +379,58 @@ button::after {
 .stop-comfirm::after {
   border: none;
 }
+.everyDay{
+  height: 100rpx;
+  background: #fff;
+  position: relative;
+}
+.return_times{
+  position: absolute;
+  left: 34rpx;
+  bottom: 63rpx;
+  font-size:28rpx;
+  font-family:PingFang SC;
+  font-weight:bold;
+  color:rgba(51,51,51,1);
+}
+.return_date{
+  position: absolute;
+  left: 34rpx;
+  bottom: 30rpx;
+  font-size:22rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(153,153,153,1);
+}
+.return_already{
+  position: absolute;
+  right: 41rpx;
+  bottom: 47rpx;
+  font-size:28rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(102,102,102,1);
+}
+.everyDay_money{
+  position: absolute;
+  right: 320rpx;
+  bottom: 47rpx;
+  font-size:28rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(102,102,102,1);
+}
+.colorimpot{
+  color:rgba(170, 170, 170, 1) !important;
+}
+.colorred{
+  color: #ff2644;
+}
+.pre_sell{
+  font-size:26rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(255,38,68,1);
+  padding-left: 51rpx;
+  padding-top: 30rpx;
+}

@@ -1,0 +1,605 @@
+/* pages/seed/seed.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+.seed {
+  position: relative;
+  height: 716rpx;
+}
+
+.bg_img {
+  height: 800rpx;
+  width: 100%;
+  display: inline-block;
+  position: absolute;
+  top: -82rpx;
+}
+
+.star_icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-repeat: repeat;
+  width: 100%;
+  height: 100vh;
+  opacity: 0.56;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.star_img {
+  background-image: url("http://image.51what.cn/public/upload/20190829/6b9d8d8c6971e781cf6d6469ef127da1.png");
+  opacity: 0.15;
+  /* background-size: 100rpx 100rpx; */
+}
+
+.star_imgs {
+  background-image: url("	http://image.51what.cn/public/upload/20190830/ace735e805e4139811733c540bbe127b.png");
+  background-size: 670rpx 810rpx;
+}
+
+.foot_icon {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+.view_content {
+  padding: 0 30rpx;
+  padding-top: 20rpx;
+  position: relative;
+  z-index: 2;
+}
+
+.view_content>.content_top:first-child {
+  margin-bottom: 10rpx;
+}
+
+.content_top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top_left, .top_right {
+  display: flex;
+  align-items: center;
+}
+
+.view_whatenergy {
+  color: #fff;
+  font-size: 30rpx;
+  font-family: 'wangte';
+  letter-spacing: 4rpx;
+  display: flex;
+}
+
+.view_whatenergy .text_C {
+  margin-top: -3rpx;
+}
+
+.text_C {
+  font-size: 34rpx;
+  display: block;
+}
+
+.img_whatenergy {
+  width: 28rpx;
+  height: 28rpx;
+  margin-left: 7rpx;
+}
+
+.view_myenergy {
+  font-size: 30rpx;
+  color: #feffff;
+  font-family: 'wangte';
+  letter-spacing: 4rpx;
+  display: flex;
+}
+
+.img_energy {
+  width: 48rpx;
+  height: 85rpx;
+}
+
+.view_energy_num {
+  font-family: 'wangte';
+  color: white;
+  font-size: 80rpx;
+  display: table-cell;
+  vertical-align: bottom;
+}
+
+.img_getenergy {
+  width: 178rpx;
+  height: 78rpx;
+}
+
+/* 能量 */
+
+.view_energy {
+  height: 200rpx;
+  width: 750rpx;
+  padding-top: 10rpx;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 20rpx;
+  padding-bottom: 30px;
+  position: absolute;
+  top: 130rpx;
+  /* margin-top: 30rpx; *//* overflow: hidden; *//* border: 1px solid #4CD964; */
+}
+
+.view_energy_list {
+  position: relative;
+  height: 100rpx;
+  width: 116rpx;
+  text-align: center;
+  /* border: 1px solid #FEFFFF; */
+}
+
+@keyframes heart {
+  from {
+    transform: translate(0, 0);
+    /* opacity: 1; */
+  }
+
+  to {
+    transform: translate(0, 5px);
+    /* opacity: 0.8; */
+  }
+}
+
+@keyframes lines {
+  from {
+    transform: translate(0px, 0);
+  }
+
+  to {
+    transform: translate(3px, 0);
+  }
+}
+
+.energy_title {
+  font-size: 32rpx;
+  line-height: 98rpx;
+  color: #4dbed0;
+  font-weight: 800;
+  display: block;
+  width: 75rpx;
+  height: 91rpx;
+  text-align: center;
+  font-family: 'wangte';
+  background-image: url('https://xuncaoji.net/_download/img/seed/ic_drop(2).png');
+  background-size: 100% 100%;
+  overflow:hidden;
+   white-space:nowrap;
+    text-overflow:ellipsis;
+  /* margin: 0 15rpx; */
+}
+
+.energy_tips {
+  margin-top: -10rpx;
+  font-size: 20rpx;
+  color: white;
+}
+
+.view_collect {
+  text-align: center;
+}
+
+.img_collect {
+  width: 260rpx;
+  height: 113rpx;
+  /* background: white;
+    border-radius: 10%; */
+  animation: mycollect 1.0s ease-in-out 0.7s infinite alternate;
+}
+
+@keyframes mycollect {
+  from {
+    transform: translate(-6px, 0);
+  }
+
+  to {
+    transform: translate(6px, 0);
+  }
+}
+
+.seed_num {
+  position: absolute;
+  top: 30rpx;
+  left: 0;
+}
+
+.seed_num_img {
+  width: 290rpx;
+  height: 72rpx;
+  opacity: 0.8;
+}
+
+.seed_number {
+  display: inline-block;
+  font-size: 32rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: rgba(95, 138, 29, 1);
+  margin-left: 16rpx;
+}
+
+.seed_detail {
+  display: inline-block;
+  font-size: 30rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  text-decoration: underline;
+  color: rgba(227, 179, 0, 1);
+  margin-left: 22rpx;
+}
+
+.activity {
+  position: absolute;
+  top: 618rpx;
+  left: 21rpx;
+}
+
+.activity_icon {
+  width: 105rpx;
+  height: 90rpx;
+}
+
+.mar26 {
+  margin-left: 26rpx;
+}
+
+.rule {
+  position: absolute;
+  top: 618rpx;
+  right: 21rpx;
+}
+
+.get_seed {
+  height: 90rpx;
+  position: relative;
+  background: #fff;
+  box-shadow: rgba(231, 231, 231, 1) 0 2px 2px -2.5px;
+}
+
+.get_seed_icon {
+  line-height: 90rpx;
+  display: inline-block;
+  width: 6rpx;
+  height: 26rpx;
+  background: rgba(255, 207, 30, 1);
+  margin-left: 31rpx;
+  border-radius: 3rpx;
+}
+
+.get_seed_title {
+  display: inline-block;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  margin-left: 10rpx;
+}
+
+.get_seed_detail {
+  position: absolute;
+  right: 31rpx;
+  display: inline-block;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 32rpx;
+  color: #999;
+}
+
+.column {
+  background: #fff;
+  padding-bottom: 30rpx;
+  display: flex;
+}
+
+.column_img {
+  width: 68rpx;
+  height: 69rpx;
+}
+
+.column_font {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(102, 102, 102, 1);
+}
+
+.img_box {
+  text-align: center;
+}
+
+.column_box {
+  width: 125rpx;
+  display: inline-block;
+  margin-left: 20rpx;
+}
+
+.column_font {
+  display: block;
+  text-align: center;
+}
+
+.goods {
+  background-color: #f4f4f4;
+  /* margin-top: 40rpx; */
+  padding-top: 10rpx;
+  margin: 0 20rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 40rpx;
+}
+
+.goods_box {
+  width: 348rpx;
+  height: 558rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+  position: relative;
+}
+
+.goods_img {
+  vertical-align: bottom;
+  width: 348rpx;
+  height: 348rpx;
+}
+
+.goodsName_box {
+  padding: 0 10rpx;
+  height: 84rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  word-break:break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.ziying {
+  width: 60rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 14rpx;
+  display: inline-block;
+  text-align: center;
+  font-size: 20rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #fff;
+}
+
+.freeBuy {
+  display: inline-block;
+  text-align: center;
+  width: 132rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  border: 1px solid rgba(255, 100, 23, 1);
+  border-radius: 14rpx;
+  font-size: 20rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #ff6417;
+  margin-left: 10rpx;
+}
+
+.goodsName {
+  margin-left: 10rpx;
+  font-size: 28rpx;
+}
+
+.price_box {
+  padding-left: 10rpx;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.price_one {
+  color: #ff6417;
+}
+
+.price_two {
+  color: rgba(153, 153, 153, 1);
+  text-decoration: line-through;
+  margin-left: 10rpx;
+}
+
+.price_three {
+  font-size: 36rpx;
+}
+
+.youhui_detail {
+  height: 40rpx;
+  line-height: 40rpx;
+  border-radius: 8rpx;
+  margin-left: 10rpx;
+  font-size: 22rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 100, 23, 1);
+  display: inline-block;
+  background: #fcf3ed;
+  text-align: center;
+  padding: 0 20rpx;
+}
+
+.youhui_detail text {
+  color: #ff2644;
+}
+
+/* 优惠弹窗 */
+
+.get-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask .zan-dialog__container {
+  width: 630rpx;
+  height: 238rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 61rpx;
+  text-align: center;
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask .cancel-get {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 112rpx;
+  top: 226rpx;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .title {
+  margin: 44rpx auto;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.get-zan-dialog__mask .zan-dialog__container .text {
+  margin: 0 36rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(34, 34, 34, 1);
+  line-height: 40rpx;
+  text-align: left;
+}
+
+/* 规则弹窗 */
+
+.get-zan-dialog__mask2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask2 .zan-dialog__container2 {
+  width: 630rpx;
+  height: 1000rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: absolute;
+  top: 150rpx;
+  left: 61rpx;
+  text-align: center;
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask2 .cancel-get2 {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 112rpx;
+  top: 76rpx;
+}
+
+.get-zan-dialog__mask2 .zan-dialog__container2 .title2 {
+  margin: 44rpx auto;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.get-zan-dialog__mask2 .zan-dialog__container2 .text2 {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  height: auto;
+  max-height: 800rpx;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
+  margin-left: 59rpx;
+  margin-right: 40rpx;
+
+}
+.rule_box2{
+  margin-top: 30rpx;
+}
+.rule_title{
+  color: #333333;
+  font-family: PingFang SC;
+  font-size: 28rpx;
+  text-align: left;
+  letter-spacing: 1rpx;
+  line-height: 45rpx;
+  font-weight: 600;
+}
+.rule_value{
+  color: #999999;
+  font-family: PingFang SC;
+  font-size: 26rpx;
+  text-align: left;
+  letter-spacing: 1rpx;
+  line-height: 45rpx;
+}
+.more{
+  color: #999999;
+  font-size: 22rpx;
+  text-align: center;
+}
+.price_box text{
+  display: inline-block;
+}
+.return_seed{
+  position: absolute;
+  display: inline-block;
+  height: 40rpx;
+  background-color: #D4D8DD;
+  border-radius: 4rpx;
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+}
+.return_seed_number{
+  display: inline-block;
+  vertical-align: bottom;
+  width: 165rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  color: #FF2644;
+  font-size:24rpx;
+}

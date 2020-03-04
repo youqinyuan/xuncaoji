@@ -15,7 +15,8 @@ Page({
     newPassword1: '', //
     content: '',
     text: '',
-    text1: ''
+    text1: '',
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
   //设置（修改）密码的模态框
   setPassword: function() {
@@ -117,6 +118,8 @@ Page({
               password: '',
               password1: ''
             })
+
+            wx.setStorageSync('password', 1)
             
           } else {
             // wx.showToast({

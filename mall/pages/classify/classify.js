@@ -11,6 +11,7 @@ Page({
     text:'',
     firstId:null,
     navData: [], //导航栏
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**

@@ -1,0 +1,91 @@
+<!--pages/zeroPurchaseActivity/zeroPurchaseActivity.wxml-->
+<view class="zero-purchase">
+  <view class="zero-container">
+    <view class="zero-container-title">新品免费体验</view>
+    <view class="zero-container-num">{{content.grabbedNumber?content.grabbedNumber:99}}人已抢到</view>
+    <!-- <view class="zero-container-num" wx:if="{{type==3}}">活动即将上线</view> -->
+    <!-- <view class="zero-container-list-item">
+      <view class="zero-container-item" wx:for='{{orderTabItem}}' data-current="{{idx}}" wx:key="{{item.title}}" bindtap='tabTop' data-index="{{index}}" data-type="{{item.type}}">
+        <view class="tabTitle {{item.select==true?'active':''}}">{{item.title}}</view>
+        <view class="{{item.select==true?'active1':''}}"></view>
+      </view>
+    </view> -->
+    <view class="zero-container-content" wx:if="{{type==1 || type==2 || type==3}}">
+      <view class="zero-container-time" >已在平台领取两次的用户，再次领取不发货</view>
+      <!-- <view class="zero-container-time" wx:if="{{type==2}}"></view> -->
+      <view class="zero-container-bg">
+        <view class="zero-purchase-cm" wx:if="{{content.status==2}}">
+          <!-- <view class="zero-purchase-word">距本场结束 </view>
+          <view class="zero-purchase-number" wx:if="{{content.type==1}}">{{hours}}</view>
+          <view class="zero-purchase-number" wx:if="{{content.type==2}}">{{hours1}}</view> -->
+          <view class="zero-purchase-word">本活动正在进行中</view>
+        </view>
+        <view class="zero-purchase-time" wx:if="{{content.status==1 || content.status==3 || content.status==4}}">
+          <view class="zero-purchase-word">活动暂未开始，请等待哦 </view>
+        </view>
+        <view class="zero-purchase-wrap">
+          <view class="zero-purchase-text">{{zeroText}}</view>
+        </view>
+        <view class="wrap">
+          <view class="items" wx:for="{{content.goodsItems}}" wx:key="{{item.id}}" data-price="{{item.orgPrice}}" data-id="{{item.id}}" bindtap='jumpDetail' data-text="{{btnText}}">
+            <view class="img_wrap">
+              <image src="{{item.imageUrls[0]}}"></image>
+            </view>
+            <view class="goodsDetail">
+              <view class="goodsName"> {{item.name}}</view>
+              <view class="goodsPrice">原价：¥
+                <text>{{item.orgPrice}}</text>
+              </view>
+              <view class="btn" data-price="{{item.orgPrice}}" data-goodsid="{{item.id}}" data-text="{{btnText}}">{{btnText}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="moveMore" wx:if="{{content.goodsItems.length>3}}">滑动查询更多</view>{{content.goodsItem.length}}
+      </view>
+    </view>
+    <!-- <view class="zero-container-content" >
+      <view class="zero-container-time"></view>
+      <view class="zero-container-bg">
+        <view class="zero-purchase-ch">
+          <view class="zero-purchase-word">活动即将上线</view>
+        </view>
+      </view>
+    </view> -->
+  </view>
+</view>
+<!-- 分享按钮 -->
+<image src="/assets/images/icon/ic_share.png" wx:if="{{!show}}" class="share_img" bindtap="shares"></image>
+<!-- 分享弹框 -->
+<view class="commodity_screen1" wx:if="{{showModalStatus1}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="../../assets/images/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="shareCommission">你喜欢那就分享给你朋友吧</view>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="../../assets/images/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="../../assets/images/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="../../assets/images/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
+    </view>
+  </view>
+</view>
+
+<!-- 返回首页按钮 -->
+<image class="go_home" src="/assets/images/icon/ic.png" catchtap="backHome"></image>
+
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="/assets/images/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>

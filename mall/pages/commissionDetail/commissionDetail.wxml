@@ -16,8 +16,8 @@
     </block>
   </scroll-view>
   <view class="listItem" wx:for="{{items}}" wx:key="{{item.id}}">
-    <image src="https://xuncj.yzsaas.cn/_download/img/add/tab_c.png" class="bg1" wx:if="{{item.status!==2}}"></image>
-    <image src="https://xuncj.yzsaas.cn/_download/img/add/tab_g.png" class="bg2" wx:if="{{item.status==2}}"></image>
+    <image src="{{hostUrl}}/add/tab_c.png" class="bg1" wx:if="{{item.status!==2}}"></image>
+    <image src="{{hostUrl}}/add/tab_g.png" class="bg2" wx:if="{{item.status==2}}"></image>
     <view class="commission" wx:if="{{item.status!==2}}">
       <view class="commission-text">未到账佣金</view>
       <view class="commission-text">{{item.amount}}</view>
@@ -26,12 +26,12 @@
       <view class="commission-text1">未到账佣金</view>
       <view class="commission-text1">{{item.amount}}</view>
     </view>
-    <image src="https://xuncj.yzsaas.cn/_download/img/add/pic_a.png" class="status1" wx:if="{{item.status==2&&item.stopType==2}}"></image>
-    <image src="https://xuncj.yzsaas.cn/_download/img/add/pic_b.png" class="status2" wx:if="{{item.status==2&&item.stopType==3}}"></image>
-    <image src="https://xuncj.yzsaas.cn/_download/img/add/pic_c.png" class="status3" wx:if="{{item.status==2&&item.stopType==1}}"></image>
+    <image src="{{hostUrl}}/add/pic_a.png" class="status1" wx:if="{{item.status==2&&item.stopType==2}}"></image>
+    <image src="{{hostUrl}}/add/pic_b.png" class="status2" wx:if="{{item.status==2&&item.stopType==3}}"></image>
+    <image src="{{hostUrl}}/add/pic_c.png" class="status3" wx:if="{{item.status==2&&item.stopType==1}}"></image>
     <view class="list">
       <view class="listItem-photo">
-        <image src="{{item.avatarUrl?item.avatarUrl:'https://xuncj.yzsaas.cn/_download/img/add/head_img.png'}}"></image>
+        <image src="{{item.avatarUrl?item.avatarUrl:hostUrl+'/add/head_img.png'}}"></image>
       </view>
       <view class="message">
         <view class="msgtext">
@@ -60,7 +60,7 @@
 <view class="commodity_screen1" wx:if="{{showWay}}"></view>
 <view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showWay}}">
   <view class="content-wrapper1">
-    <image class="cancel" src="https://xuncj.yzsaas.cn/_download/img/add/withdraw_close.png" catchtap='cancelCondition'></image>
+    <image class="cancel" src="{{hostUrl}}/add/withdraw_close.png" catchtap='cancelCondition'></image>
     <view class="title">{{tempTitle}}</view>
     <view class="time_screens" wx:if="{{tempStatus==1}}">
       <picker-view indicator-style="height: 50px;" style="width: 100%; height: 150px; font-size:30rpx;" value="{{value}}" bindchange="bindChange">
@@ -75,13 +75,13 @@
     <block wx:for="{{arry2}}" wx:key="" wx:if="{{tempStatus==2}}">
       <view class="tab" bindtap="tap" data-index="{{index}}">
         <view class="text">{{item.name}}</view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
+        <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
       </view>
     </block>
     <block wx:for="{{arry3}}" wx:key="" wx:if="{{tempStatus==3}}">
       <view class="tab" bindtap="tap" data-index="{{index}}">
         <view class="text">{{item.name}}</view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
+        <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
       </view>
     </block>
     <view class="showBtn" wx:if="{{tempStatus !==1}}" bindtap="sureConfirm">确定</view>

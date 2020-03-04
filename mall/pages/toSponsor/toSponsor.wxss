@@ -318,6 +318,7 @@ page{
 }
 .production_box{
   height: 80rpx;
+
 }
 .wai{
   width:679rpx;
@@ -391,9 +392,20 @@ page{
   line-height: 80rpx;
   text-align: center;
   color:rgba(255,255,255,1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.buy_button text{
+  display: inline-block;
+  width:280rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .get_button_box{
   height: 100rpx;
+  display: flex;
 }
 .production_end{
   font-size:32rpx;

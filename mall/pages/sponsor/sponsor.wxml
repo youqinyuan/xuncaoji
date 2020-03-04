@@ -13,9 +13,9 @@
   }
 </wxs>
     <view class="notice-swiper" wx:if="{{noticeList.length>0}}">
-      <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/icon.png"></image>
+      <image src="{{hostUrl}}/sponsor/icon.png"></image>
       <swiper class="notice" vertical="true" autoplay="true" circular="true" interval="3000">
-        <block wx:for="{{noticeList}}" wx:key="{{item.id}}">
+        <block wx:for="{{noticeList}}" wx:key="">
           <swiper-item>
             <view class="notice-swiper_item" bindtap="showNotice" data-id="{{item.id}}">
               <text>{{item}}</text>
@@ -26,17 +26,17 @@
     </view>
 <view class="title_box">
     <image src="{{content.logoUrl}}" class="title_img" wx:if="{{content.logoUrl}}"/>
-    <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/banner.png" class="title_img" wx:else/>
-    <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/bg.png" class="rule_img"/>
+    <image src="{{hostUrl}}/sponsor/banner.png" class="title_img" wx:else/>
+    <image src="{{hostUrl}}/sponsor/bg.png" class="rule_img"/>
     <view class="sponsor_rule" bindtap="Show1">赞助规则</view>
 </view>
-<view class="sponsor_box" wx:for="{{mySponsorContent}}" wx:key="{{item.id}}">
+<view class="sponsor_box" wx:for="{{mySponsorContent}}" wx:key="{{}}">
     <view bindtap="toDetail" data-id="{{item.id}}"> 
                 <view class="activity_head" >
-                <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/shape2.png" class="head_left_img" />
-                <view class="head_name" wx:if="{{item.status=='PROGRESS'}}">赞助进行中</view>
-                <view class="head_name" wx:else>赞助已完成</view>
-                <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/shape.png" class="head_right_img" />
+                <image src="{{hostUrl}}/sponsor/shape2.png" class="head_left_img" />
+                <view class="head_name" wx:if="{{item.sponsorCount<item.requireSponsorCount}}">赞助进行中</view>
+                <view class="head_name" wx:if="{{item.sponsorCount==item.requireSponsorCount}}">赞助已完成</view>
+                <image src="{{hostUrl}}/sponsor/shape.png" class="head_right_img" />
             </view>
             <view class="sponsor_goods" >
                 <view class="sponsor_goods_img_box">
@@ -69,19 +69,19 @@
     </view>
     <view class="mengceng" wx:if="{{item.status=='INVALID'||item.status=='NO_ORDER'}}">
         <view class="nohappy_box">
-            <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/nohappy.png" class="nohappy"/>
+            <image src="{{hostUrl}}/sponsor/nohappy.png" class="nohappy"/>
         </view>
         <view class="nohappy_font">很遗憾，赞助失效了，再次去发起赞助吧！</view>
     </view>
     <view class="mengceng" wx:if="{{item.status=='ORDERED'||item.status=='ORDERED_PROGRESS'}}">
         <view class="nohappy_box">
-            <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/happy.png" class="nohappy"/>
+            <image src="{{hostUrl}}/sponsor/happy.png" class="nohappy"/>
         </view>
         <view class="nohappy_font" >恭喜您0成本拿到该商品</view>
     </view>
 </view>
 <view class="goods_box">
-    <view class="goods" wx:for="{{goodsContent}}" wx:key="{{item.id}}">
+    <view class="goods" wx:for="{{goodsContent}}" wx:key="{{}}">
         <view class="goods_img_box">
             <image src="{{item.goodsImage}}" class="goods_img"/>
         </view>
@@ -115,6 +115,6 @@
         <view class="rule_value">8、活动最终解释权归寻草记所有</view>
     </view>
   </view>
-  <image wx:if="{{show1}}" class="cancel-get2" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
+  <image wx:if="{{show1}}" class="cancel-get2" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
 </view>
 

@@ -12,7 +12,8 @@ Page({
     sexPickerIsShow: false,
     isUpHeader: false,
     adds: {},
-    text: ['男', '女']
+    text: ['男', '女'],
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
   getNickname: function(e) {
     var that = this

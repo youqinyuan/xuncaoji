@@ -6,7 +6,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    img_show:Boolean
+    img_show:Boolean,
   },
 
   /**
@@ -14,6 +14,7 @@ Component({
    */
   data: {
     img_show: false,
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   attached() {

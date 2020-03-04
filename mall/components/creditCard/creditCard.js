@@ -13,7 +13,8 @@ Component({
    */
   data: {
     showStop: true,
-    stopStatus: 1
+    stopStatus: 1,
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
   ready: function() {
     var that = this

@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     recommend: [],
     pageNumber: 1,
     pageSize: 20,

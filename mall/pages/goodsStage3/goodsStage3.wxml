@@ -1,15 +1,15 @@
 <!--pages/goodsStage3/goodsStage3.wxml-->
 <view class="topImg">
-  <image class="img1" src="https://xuncj.yzsaas.cn/_download/img/add/process_b.png"></image>
-  <image class="img2" src="https://xuncj.yzsaas.cn/_download/img/add/process_a.png"></image>
+  <image class="img1" src="{{hostUrl}}/add/process_b.png"></image>
+  <image class="img2" src="{{hostUrl}}/add/process_a.png"></image>
 </view>
 <view class="content">
   <view class="success" wx:if="{{objStatus.status==1||objStatus.status==3}}">
-    <image class="img" src="https://xuncj.yzsaas.cn/_download/img/add/success.png"></image>
+    <image class="img" src="{{hostUrl}}/add/success.png"></image>
     <view class="text1">提交完成，请等待平台审核</view>
   </view>
   <view class="lose" wx:if="{{objStatus.status==2}}">
-    <image class="img" src="https://xuncj.yzsaas.cn/_download/img/add/lose.png"></image>
+    <image class="img" src="{{hostUrl}}/add/lose.png"></image>
     <view class="text1">审核未通过，请重新填写信息</view>
     <view class="text2" wx:if="{{objStatus.refuseReason}}">原因：{{objStatus.refuseReason}}</view>
     <view class="btn" bindtap="getGoodsMsg">立刻重新填写</view>

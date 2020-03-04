@@ -1,7 +1,7 @@
 <!--pages/goodsStage2/goodsStage2.wxml-->
 <view class="topImg">
-  <image class="img1" src="https://xuncj.yzsaas.cn/_download/img/add/process_b.png"></image>
-  <image class="img2" src="https://xuncj.yzsaas.cn/_download/img/add/process_a.png"></image>
+  <image class="img1" src="{{hostUrl}}/add/process_b.png"></image>
+  <image class="img2" src="{{hostUrl}}/add/process_a.png"></image>
 </view>
 <view class="listItem">
   <view class="listItem-list">
@@ -15,12 +15,12 @@
   <view class="listItem-list listBorder" bindtap="showRelation">
     <text class="listItem-left">关系</text>
     <text class="listItem-right1">{{relation}}</text>
-    <image class="more_img" src="https://xuncj.yzsaas.cn/_download/img/mine/ic_more.png" />
+    <image class="more_img" src="{{hostUrl}}/mine/ic_more.png" />
     <view class="choose" wx:if="{{choose}}">
       <block wx:for="{{arry}}" wx:key="">
         <view class="tab" catchtap="tap" data-index="{{index}}" data-name="{{item.name}}" data-status="{{item.status}}">
           <text>{{item.name}}</text>
-          <image src="https://xuncj.yzsaas.cn/_download/img/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
+          <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
         </view>
       </block>
     </view>
@@ -38,12 +38,12 @@
   <view class="listItem-list listBorder" bindtap="showShip">
     <text class="listItem-left">关系</text>
     <text class="listItem-right1">{{ship}}</text>
-    <image class="more_img" src="https://xuncj.yzsaas.cn/_download/img/mine/ic_more.png" />
+    <image class="more_img" src="{{hostUrl}}/mine/ic_more.png" />
     <view class="choose" wx:if="{{choose1}}">
       <block wx:for="{{arry1}}" wx:key="">
         <view class="tab" catchtap="tap1" data-index="{{index}}" data-name="{{item.name}}" data-status="{{item.status}}">
           <text>{{item.name}}</text>
-          <image src="https://xuncj.yzsaas.cn/_download/img/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
+          <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
         </view>
       </block>
     </view>

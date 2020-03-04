@@ -2,45 +2,46 @@ var app = getApp()
 Page({
   data: {
     items: [],
-    id:1,
-    text:'默认',
+    id: 1,
+    text: '默认',
     startX: 0, //开始坐标
     startY: 0,
-    showDialog:false,
-    options:{}
+    showDialog: false,
+    options: {},
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
   onLoad: function(options) {
     var that = this;
     console.log(options)
     that.setData({
-      options:options
+      options: options
     })
     var name = ''
     app.Util.ajax('mall/personal/addressInfo', 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         for (var i = 0; i < res.data.content.length; i++) {
           name = res.data.content[i].receiverName.substring(0, 1)
-          res.data.content[i]['name']=name
+          res.data.content[i]['name'] = name
         }
         that.setData({
           items: res.data.content
         })
-      }else{
+      } else {
         wx.showToast({
           title: res.data.message,
           icon: 'none'
         })
       }
     })
-    
+
   },
   //返回提交订单页面
-  backPlaceorder:function(e){
+  backPlaceorder: function(e) {
     var that = this
     var is_address = wx.getStorageSync('goAddress')
-    if (is_address){
+    if (is_address) {
       wx.setStorage({
-        key: "address", 
+        key: "address",
         data: that.data.items[e.currentTarget.dataset.index]
       })
       wx.navigateBack({
@@ -111,7 +112,7 @@ Page({
     return 360 * Math.atan(_Y / _X) / (2 * Math.PI);
   },
   //跳转到编辑地址
-  jumpEdit:function(e){
+  jumpEdit: function(e) {
     var province = e.currentTarget.dataset.province
     var city = e.currentTarget.dataset.city
     var district = e.currentTarget.dataset.district
@@ -127,18 +128,18 @@ Page({
   },
   //删除事件
 
-  del: function(e) {  
+  del: function(e) {
     var id = e.currentTarget.dataset.id
     this.setData({
-      id:id,
-      showDialog:true
+      id: id,
+      showDialog: true
     })
   },
-  comfirm:function(){  
+  comfirm: function() {
     let id = this.data.id
     var name = ''
-    app.Util.ajax(`mall/personal/deleteAddress?id=${id}`,null, 'DELETE').then((res) => { // 使用ajax函数
-      if (res.data.content===1) {
+    app.Util.ajax(`mall/personal/deleteAddress?id=${id}`, null, 'DELETE').then((res) => { // 使用ajax函数
+      if (res.data.content === 1) {
         app.Util.ajax('mall/personal/addressInfo', 'GET').then((res) => { // 使用ajax函数
           if (res.messageCode = 'MSG_1001') {
             for (var i = 0; i < res.data.content.length; i++) {
@@ -147,31 +148,31 @@ Page({
             }
             this.setData({
               items: res.data.content,
-              showDialog:false
+              showDialog: false
             })
           }
         })
-      }else{
+      } else {
         this.setData({
           showDialog: false
         })
         wx.showToast({
           title: res.data.message,
-          icon:'none'
+          icon: 'none'
         })
       }
     })
-  }, 
-  reject:function(e){
+  },
+  reject: function(e) {
     this.setData({
       showDialog: false
     })
   },
-  onShow:function(){
+  onShow: function() {
     var that = this
     that.onLoad(that.data.options);
   },
-  onUnload:function(){
+  onUnload: function() {
     // var pages = getCurrentPages() //获取加载的页面
     // var currentPage = pages[pages.length - 1] //获取当前页面的对象
     // var url = currentPage.route
@@ -184,6 +185,6 @@ Page({
     //     url: '/pages/mine/mine',
     //   })
     // }
-    
+
   }
 })

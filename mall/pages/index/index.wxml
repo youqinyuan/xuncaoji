@@ -4,7 +4,7 @@
 <!--搜索-->
 <view class="section-wrapper">
   <view class="section" bindtap='focus' data-url='/pages/search/search'>
-    <image src="https://xuncj.yzsaas.cn/_download/img/icon/index_nav_search_n.png" class="section-img"></image>
+    <image src="{{hostUrl}}/icon/index_nav_search_n.png" class="section-img"></image>
     <view class="input">更多好货等你来发现</view>
   </view>
 </view>
@@ -20,7 +20,7 @@
       </block>
     </scroll-view>
     <view class="content_all" bindtap="jumpClassify">
-      <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_all.png"></image>
+      <image src="{{hostUrl}}/add/ic_all.png"></image>
       <text>全部</text>
     </view>
   </view>
@@ -49,7 +49,7 @@
       </view>
     </view>
     <view class="show-received-cancel" wx:if="{{showReceived}}" bindtap='cancel'>
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/vip_close_Pop-ups.png"></image>
+      <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png"></image>
     </view>
   </view>
   <!-- 公告弹窗 -->
@@ -64,21 +64,21 @@
       </view>
     </view>
     <view class="show-showNotice-cancel" wx:if="{{showNotice}}" bindtap='cancelNotice'>
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png"></image>
+      <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
     </view>
   </view>
 
   <!--购物小图标-->
   <view class="small-cart" bindtap='toCart' data-url='/pages/index/cart/cart'>
-    <image src="https://xuncj.yzsaas.cn/_download/img/icon/gouwuc_ceb_n.png" class="section-img"></image>
+    <image src="{{hostUrl}}/icon/gouwuc_ceb_n.png" class="section-img"></image>
   </view>
   <view class="small-wrapper" wx:if="{{count}}">
     <view class="small-num">{{count}}</view>
   </view>
   <!-- 页面内容 -->
-  <template wx:if="{{currentTab === 0}}" is='exProducts' data="{{imgUrls:imgUrls,autoplay:autoplay,circular:circular,interval:interval,duration:duration,goods:goods,list:list,trend:trend,wholeNation:wholeNation,totalAmount:totalAmount,text:text,bannerId:bannerId,bannerUrl:bannerUrl,showNotice:showNotice,noticeList:noticeList,navigationList:navigationList,navigationList1:navigationList1,navigationList2:navigationList2,indicatorDots:indicatorDots,paddingTop:paddingTop,height:height}}"
+  <template wx:if="{{currentTab === 0}}" is='exProducts' data="{{imgUrls:imgUrls,autoplay:autoplay,circular:circular,interval:interval,duration:duration,goods:goods,list:list,trend:trend,wholeNation:wholeNation,totalAmount:totalAmount,text:text,bannerId:bannerId,bannerUrl:bannerUrl,showNotice:showNotice,noticeList:noticeList,navigationList:navigationList,navigationList1:navigationList1,navigationList2:navigationList2,indicatorDots:indicatorDots,paddingTop:paddingTop,height:height,activityList:activityList,maxHeight:maxHeight,hostUrl:hostUrl}}"
   />
-  <template wx:if="{{currentTab !== 0}}" is='othersClassification' data="{{imageUrl:imageUrl,autoplay:autoplay,circular:circular,interval:interval,duration:duration,navData:navData,classfy:classfy,comprehensive:comprehensive,pricePhoto:pricePhoto,pricePhoto1:pricePhoto1,color:color,color1:color1,color2:color2,text1:text1,heightTop:heightTop}}"
+  <template wx:if="{{currentTab !== 0}}" is='othersClassification' data="{{imageUrl:imageUrl,autoplay:autoplay,circular:circular,interval:interval,duration:duration,navData:navData,classfy:classfy,comprehensive:comprehensive,pricePhoto:pricePhoto,pricePhoto1:pricePhoto1,color:color,color1:color1,color2:color2,text1:text1,heightTop:heightTop,hostUrl:hostUrl}}"
   />
 </view>
 <!-- 轮播展示组件 -->
@@ -86,7 +86,7 @@
 <!-- 首页新用户弹窗-->
 <!-- <view class="show-received2" catchtouchmove="preventTouchMove" wx:if="{{newUserCourtesy}}">
   <view class="show-received-container2" wx:if="{{newUserCourtesy}}">
-    <image class="show-received-top2" src="https://xuncj.yzsaas.cn/_download/img/icon/liwu_icon.png"></image>
+    <image class="show-received-top2" src="{{hostUrl}}/icon/liwu_icon.png"></image>
     <view class="newPeople">
       <text> 新人好礼：赠送12元现金</text>
       <text> 每月赠送1元，12个月全部赠送</text>
@@ -101,7 +101,7 @@
 <!-- 待返转让弹窗 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry}}">
   <view class="zan-dialog__container1" wx:if="{{waitReentry}}">
-    <image wx:if="{{waitReentry}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose'></image>
+    <image wx:if="{{waitReentry}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose'></image>
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -110,7 +110,7 @@
       </view>
       <view class="wait_box" wx:for="{{returnContent}}" wx:key="">
         <text class="wait_name">购买方:</text>
-        <text class="wait_value">{{item}}</text>
+        <text class="wait_value">{{item.mobileNumber}}</text>
       </view>
       <view class="know_box">
         <text class="know" bindtap="waitReentryClose">我知道了</text>
@@ -121,7 +121,7 @@
 <!-- 待返转让弹窗2 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry2}}">
   <view class="zan-dialog__container1" wx:if="{{waitReentry2}}">
-    <image wx:if="{{waitReentry2}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose2'></image>
+    <image wx:if="{{waitReentry2}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose2'></image>
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -130,7 +130,7 @@
       </view>
       <view class="wait_box" wx:for="{{returnContent2}}" wx:key="">
         <text class="wait_name">购买方:</text>
-        <text class="wait_value">{{item}}</text>
+        <text class="wait_value">{{item.mobileNumber}}</text>
       </view>
       <view class="know_box">
         <text class="know" bindtap="waitReentryClose2">我知道了</text>
@@ -141,7 +141,7 @@
 <!-- 有人出售弹窗 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry3}}">
   <view class="zan-dialog__container1" wx:if="{{waitReentry3}}">
-    <!-- <image wx:if="{{waitReentry3}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose3'></image> -->
+    <!-- <image wx:if="{{waitReentry3}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose3'></image> -->
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -153,4 +153,35 @@
       </view>
     </view>
   </view>
+</view>
+  <view class="return_money_box" bindtap="retunrnMoneyShow" wx:if="{{cashBackMoney}}">
+    <image src="{{hostUrl}}/update/return_money.png" class="return_money_img" />
+  </view>
+  <!-- 返现到账弹窗 -->
+    <view class="show-received1" catchtouchmove="preventTouchMove" wx:if="{{returnMoneyShow}}">
+    <view class="show-received-container1" wx:if="{{returnMoneyShow}}">
+      <image src="{{hostUrl}}/update/bg.png" class="bg_img"/>
+      <image class="show-received-top1" src="{{returnImg}}"></image>
+      <view class="return_money">返现到账{{cashBackMoney}}元</view>
+      <image class="toYue" src="{{hostUrl}}/update/btn.png" class="toyue_img" bindtap="toYue"/>
+    </view>
+    <view class="show-received-cancel1" wx:if="{{returnMoneyShow}}" bindtap='retunrnMoneyClose'>
+      <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png"></image>
+    </view>
+  </view>
+  <!-- 转让撤销提示弹窗 -->
+<view class="return-two-dialog__maskPeople" catchtouchmove="preventTouchMove" wx:if="{{returnCanclePeople}}">
+  <view class="zan-dialog__containerPeople" wx:if="{{returnCanclePeople}}">
+    <view class="head_title"></view>
+          <view class="peopleCancle_box" wx:for="{{returnContent3}}" wx:key="{{item.id}}">
+            <image class="people_info_img" src="{{item.imgUrl}}"/>
+            <view class="people_info_name">{{item.nikeName}}</view>
+            <view class="people_info_acountnumber">{{item.mobileNumber}}</view>
+            <view class="cancle_font">转让方撤销了与您的交易！如有疑问请联系该用户。</view>
+            <view class="border_bottom"></view>
+        </view>
+  </view>
+    <view class="peopleCanlce_close" wx:if="{{returnCanclePeople}}" bindtap='returnCanclePeople'>
+      <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
+    </view>
 </view>

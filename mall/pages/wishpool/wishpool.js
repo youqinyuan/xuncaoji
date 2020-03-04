@@ -16,6 +16,8 @@ Page({
     pageNumber: 1,
     pageSize: 20,
     recommend: [], //推荐商品
+    returnCanclePeople:false,
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
   // FreeBuy心愿池是什么?
   showGetMark: function() {
@@ -200,7 +202,7 @@ Page({
     this.setData({
       waitReentry:false
     })
-    this.returnInfo3()
+    this.returnInfo6()
   },
   waitReentryClose2:function(){
     this.setData({
@@ -229,7 +231,7 @@ Page({
             //转让完成消息
             that.setData({
               waitReentry2: true,
-              returnContent2: i.standard
+              returnContent2: i.userItems
             })
           }
         }
@@ -239,12 +241,23 @@ Page({
               //转让取消消息
               that.setData({
                 waitReentry: true,
-                returnContent: i.standard
+                returnContent: i.userItems
               })
             }
           }
         }
         if (that.data.waitReentry == false) {
+          for (let i of res.data.content) {
+            if (i.type == 4) {
+              //撤销消息
+              that.setData({
+                returnCanclePeople: true,
+                returnContent3: i.userItems
+              })
+            }
+          }
+        }
+        if (that.data.returnCanclePeople == false) {
           for (let i of res.data.content) {
             if (i.type == 1) {
               //转让消息
@@ -265,7 +278,7 @@ Page({
             //转让取消消息
             that.setData({
             waitReentry:true,
-            returnContent:i.standard
+            returnContent:i.userItems
           })
         }
       }
@@ -282,6 +295,31 @@ Page({
       
     } 
   },
+  returnInfo6: function() {
+    var that = this
+    if (that.data.tempInfo.length > 0) {
+      for (let i of that.data.tempInfo) {
+        if (i.type == 4) {
+          //转让取消消息
+          that.setData({
+            waitReentry: true,
+            returnContent3: i.userItems
+          })
+        }
+      }
+      if (that.data.waitReentry == false) {
+        for (let i of that.data.tempInfo) {
+          if (i.type == 1) {
+            //转让消息
+            that.setData({
+              returnCanclePeople: true,
+            })
+          }
+        }
+      }
+
+    }
+  },
   returnInfo3:function(){
     var that = this
       if(that.data.tempInfo.length>0){
@@ -295,4 +333,11 @@ Page({
       }
     } 
   },
+  returnCanclePeople:function(){
+    var that = this 
+    that.setData({
+      returnCanclePeople:false
+    })
+    that.returnInfo3()
+  }
 })

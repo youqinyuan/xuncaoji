@@ -24,7 +24,12 @@ App({
     creditCard:2,
     disBtn1: 1,//是否显示免费续约
     // cooperateInvitionCode:27194030 //测试环境
-    cooperateInvitionCode: 55555555 //正式环境
+    cooperateInvitionCode: 55555555, //正式环境
+    buttonText:'',
+    isShowBook:1,//是否显示立即体验
+    isService:1,//是否显示引导弹框
+    isOrder:1,
+    type:0
   },
 
   //通用导航方法

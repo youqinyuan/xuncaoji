@@ -1,0 +1,113 @@
+<!--pages/xuncaoji/xuncaoji.wxml-->
+<!-- 寻草记介绍 -->
+<!-- <image src="{{hostUrl}}/xuncaoji_slogan.png" class="sologn"></image> -->
+<view class="section-swiper">
+  <swiper class="section-wrap" autoplay="{{false}}" circular="{{false}}" interval="5000" indicator-color="#FF93A8" indicator-active-color="#FF2644" indicator-dots="true">
+    <block wx:for="{{courseList.videoUrl}}" wx:for-index="idx" wx:key="">
+      <swiper-item>
+        <view class="section-video">
+          <video wx:if='{{idx==playIndex}}' id='video{{idx}}' autoplay="{{false}}" show-center-play-btn="{{false}}" objectFit="cover" src='{{item.videoUrl}}' enable-play-gesture="{{true}}" vslide-gesture-in-fullscreen="{{true}}" direction="90"></video>
+          <image class="play-img" wx:if='{{idx!=playIndex}}' src='{{item.iconUrl}}'></image>
+          <image class="play" wx:if='{{idx!==playIndex}}' mode='widthFix' data-index='{{idx}}' bindtap='videoPlay' src='{{courseList.coverImg}}'></image>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="wrap" wx:if="{{html}}">
+  <rich-text nodes="{{html}}" />
+</view>
+<view class="block"></view>
+<!-- 分享小图标 -->
+<view class="small-share" bindtap='showShare'>
+  <image src="{{hostUrl}}/icon/platform_share.png" class="section-img"></image>
+</view>
+<!-- 分享弹框 -->
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen1" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="shareCommission">你喜欢那就分享给你朋友吧</view>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
+    </view>
+  </view>
+</view>
+
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>
+<!-- 待返转让弹窗 -->
+<view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry}}">
+  <view class="zan-dialog__container2" wx:if="{{waitReentry}}">
+    <image wx:if="{{waitReentry}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose'></image>
+    <view class="title1">待返转让</view>
+    <view class="text1">
+      <view class="cause_box">
+        <view class="cause">购买方取消了交易，您的待返将正常返</view>
+        <view class="cause">现给您！</view>
+      </view>
+      <view class="wait_box" wx:for="{{returnContent}}" wx:key="">
+        <text class="wait_name">购买方:</text>
+        <text class="wait_value">{{item}}</text>
+      </view>
+      <view class="know_box">
+        <text class="know" bindtap="waitReentryClose">我知道了</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 待返转让弹窗2 -->
+<view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry2}}">
+  <view class="zan-dialog__container2" wx:if="{{waitReentry2}}">
+    <image wx:if="{{waitReentry2}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose2'></image>
+    <view class="title1">待返转让</view>
+    <view class="text1">
+      <view class="cause_box">
+        <view class="cause">购买方完成了交易，返现金额将进入您</view>
+        <view class="cause">的待返明细中，请查看！</view>
+      </view>
+      <view class="wait_box" wx:for="{{returnContent2}}" wx:key="">
+        <text class="wait_name">购买方:</text>
+        <text class="wait_value">{{item}}</text>
+      </view>
+      <view class="know_box">
+        <text class="know" bindtap="waitReentryClose2">我知道了</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 有人出售弹窗 -->
+<view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry3}}">
+  <view class="zan-dialog__container2" wx:if="{{waitReentry3}}">
+    <!-- <image wx:if="{{waitReentry3}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose3'></image> -->
+    <view class="title1">待返转让</view>
+    <view class="text1">
+      <view class="cause_box">
+        <view class="cause">有人向你低价出售待返金额，快去待返</view>
+        <view class="cause">明细确认！</view>
+      </view>
+      <view class="know_box">
+        <text class="know" bindtap="waitReentryClose3">去看看</text>
+      </view>
+    </view>
+  </view>
+</view>

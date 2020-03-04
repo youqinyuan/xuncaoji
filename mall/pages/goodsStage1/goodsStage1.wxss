@@ -99,7 +99,7 @@ textarea {
 }
 
 .listItem-right {
-  width: 350rpx;
+  width: 473rpx;
   height: 105rpx;
   color: #333;
 }

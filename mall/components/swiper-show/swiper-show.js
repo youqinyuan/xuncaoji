@@ -19,6 +19,7 @@ Component({
     pageNumber: 1,
     pageSize: 50,
     isSwiper:false, //是否显示轮图组件
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**

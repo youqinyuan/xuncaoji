@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     goodsData: {},
     imgList: [], //上传的图片列表
     wishImg: '',

@@ -10,7 +10,7 @@
 <view class="notmember" wx:if="{{isMember==2}}">
   <view class="container-top">
     <view class="container-top-img">
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/commission_not_vip.png"></image>
+      <image src="{{hostUrl}}/icon/commission_not_vip.png"></image>
     </view>
     <view class="container-top-text">您还不是合伙人无法获取佣金</view>
   </view>
@@ -23,29 +23,29 @@
 <view class="member" wx:if="{{isMember==1}}">
   <view class="commission-balance-wrapper">
     <view class="commission-balance">
-      <image src="https://xuncj.yzsaas.cn/_download/img/add/recharge_card.png" class="img"></image>
-      <image src="https://xuncj.yzsaas.cn/_download/img/add/tab_role.png" class="img1" bindtap="showRole"></image>
+      <image src="{{hostUrl}}/add/recharge_card.png" class="img"></image>
+      <image src="{{hostUrl}}/add/tab_role.png" class="img1" bindtap="showRole"></image>
       <view class="role" bindtap="showRole">佣金规则</view>
       <view class="balance">
         <view class="allMoney">
           <view class="allMoney-text">总计赚得佣金</view>
           <view class="allMoney-num">
             <text class="sign">￥</text>
-            <text>{{content.balance+content.pendingCommission}}</text>
+            <text>{{content.totalAmount||0}}</text>
           </view>
         </view>
         <view class="allMoney">
           <view class="allMoney-text">佣金余额</view>
           <view class="allMoney-num">
             <text class="sign">￥</text>
-            <text>{{content.balance}}</text>
+            <text>{{content.balance||0}}</text>
           </view>
         </view>
         <view class="allMoney">
           <view class="allMoney-text">未到账金额</view>
           <view class="allMoney-num">
             <text class="sign">￥</text>
-            <text>{{content.pendingCommission}}</text>
+            <text>{{content.pendingCommission||0}}</text>
           </view>
           <view class="watchDetail" bindtap="jumpCoomDe">查看明细</view>
         </view>
@@ -58,7 +58,7 @@
   <view class="block"></view>
   <view class="commission1-details">
     <view class="commission1-img">
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/recharge_Detail.png"></image>
+      <image src="{{hostUrl}}/icon/recharge_Detail.png"></image>
     </view>
     <view class="commission1-title">佣金明细</view>
   </view>
@@ -72,8 +72,8 @@
       </block>
     </scroll-view>
     <view class="listItem" wx:for="{{items}}" wx:key="{{item.id}}">
-      <image src="https://xuncj.yzsaas.cn/_download/img/add/tab_a.png" class="bg1" wx:if="{{item.tradeType!==33}}"></image>
-      <image src="https://xuncj.yzsaas.cn/_download/img/add/tab_f.png" class="bg6" wx:if="{{item.tradeType==33}}"></image>
+      <image src="{{hostUrl}}/add/tab_a.png" class="bg1" wx:if="{{item.tradeType!==33}}"></image>
+      <image src="{{hostUrl}}/add/tab_f.png" class="bg6" wx:if="{{item.tradeType==33}}"></image>
       <view class="commission">
         <view class="commission-text">佣金</view>
         <view class="commission-text" wx:if="{{item.tradeType!==33}}">+{{item.tradeAmount}}</view>
@@ -88,7 +88,7 @@
       </view>
       <view class="list" wx:if="{{item.tradeType!==33}}">
         <view class="listItem-photo">
-          <image src="{{item.avatarUrl?item.avatarUrl:'https://xuncj.yzsaas.cn/_download/img/add/head_img.png'}}"></image>
+          <image src="{{item.avatarUrl?item.avatarUrl:hostUrl+'/add/head_img.png'}}"></image>
         </view>
         <view class="message">
           <view class="msgtext">
@@ -152,13 +152,13 @@
       </view>
     </view>
   </view>
-  <image wx:if="{{showRole}}" class="cancel-get" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='closeShow'></image>
+  <image wx:if="{{showRole}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow'></image>
 </view>
 <!-- 筛选条件弹窗 -->
 <view class="commodity_screen1" wx:if="{{showWay}}"></view>
 <view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showWay}}">
   <view class="content-wrapper1">
-    <image class="cancel" src="https://xuncj.yzsaas.cn/_download/img/add/withdraw_close.png" catchtap='cancelCondition'></image>
+    <image class="cancel" src="{{hostUrl}}/add/withdraw_close.png" catchtap='cancelCondition'></image>
     <view class="title">{{tempTitle}}</view>
     <view class="time_screens" wx:if="{{tempStatus==1}}">
       <picker-view indicator-style="height: 50px;" style="width: 100%; height: 150px; font-size:30rpx;" value="{{value}}" bindchange="bindChange">
@@ -173,19 +173,19 @@
     <block wx:for="{{arry2}}" wx:key="" wx:if="{{tempStatus==2}}">
       <view class="tab" bindtap="tap" data-index="{{index}}" data-sourcestring="{{item.sourceString}}">
         <view class="text1">{{item.name}}</view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
+        <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
       </view>
     </block>
     <block wx:for="{{arry3}}" wx:key="" wx:if="{{tempStatus==3}}">
       <view class="tab" bindtap="tap" data-index="{{index}}">
         <view class="text1">{{item.name}}</view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
+        <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
       </view>
     </block>
     <block wx:for="{{arry4}}" wx:key="" wx:if="{{tempStatus==4}}">
       <view class="tab" bindtap="tap" data-index="{{index}}" data-amountorder="{{item.amountOrder}}">
         <view class="text1">{{item.name}}</view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
+        <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
       </view>
     </block>
     <view class="showBtn" wx:if="{{tempStatus !==1}}" bindtap="sureConfirm">确定</view>
@@ -199,7 +199,7 @@
 <!-- 输入密码弹出框 -->
 <view class="modal-mask1" catchtouchmove="preventTouchMove" wx:if="{{showPsw}}">
   <view class="zan-dialog__container1" wx:if="{{showPsw}}">
-    <image wx:if="{{showPsw}}" class="pwd-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='cancelShow'></image>
+    <image wx:if="{{showPsw}}" class="pwd-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='cancelShow'></image>
     <view class="pwd-text">请输入支付密码</view>
     <view class="text">{{text}}</view>
     <view bindsubmit="formSubmit">

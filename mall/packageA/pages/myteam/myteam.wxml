@@ -1,0 +1,110 @@
+<!-- pages/myteam/myteam.wxml -->
+<!-- 团队人数 -->
+<view class="contaniner">
+  <view class="contaniner-list">
+    <view class="contaniner-list-num">{{content.total?content.total:0}}</view>
+    <view class="contaniner-list-text">团队人数</view>
+  </view>
+  <view class="contaniner-list">
+    <view class="contaniner-list-num">{{content.nextNumbers?content.nextNumbers:0}}</view>
+    <view class="contaniner-list-text">第1级人数</view>
+  </view>
+  <view class="contaniner-list">
+    <view class="contaniner-list-num">{{content.levelNumbers?content.levelNumbers:0}}</view>
+    <view class="contaniner-list-text">第{{content.level}}级人数</view>
+  </view>
+</view>
+<!-- 团队招募 -->
+<view class="recurit" catchtap='recurit'>团队招募</view>
+<!-- 我的团队 -->
+<view class="recurit-details">
+  <view class="recurit-img">
+    <image src="{{hostUrl}}/icon/team_myteaml.png"></image>
+    <view class="recurit-title">我的团队</view>
+  </view>  
+  <view class="recurit-wrap">
+    <view class="all" bindtap="showChoose">{{tabName}}</view>
+    <image src="{{hostUrl}}/mine/ic_more.png" class="more" bindtap="showChoose" />
+  </view>
+</view>
+<!-- 明细 -->
+<!-- <view class="wrapper" wx:if="{{followers.length>0}}">
+  <view class="list" wx:for="{{followers}}" wx:key="{{item.id}}">
+    <view class="list-left">
+      <view class="list-left-top">{{item.nikeName}}</view>
+      <view class="list-left-bottom">
+        <view class="list-left-bottom-year">{{item.regTime}}</view>
+      </view>
+    </view>
+    <view class="list-right">
+      <view class="list-right-item" wx:if="{{item.role==2}}">普通会员</view>
+      <view class="list-right-item1" wx:if="{{item.role==3}}">Plus会员</view>
+    </view>
+  </view>
+</view> -->
+<view class="wrapper" wx:if="{{followers.length>0}}">
+  <view class="list" wx:for="{{followers}}" wx:key="{{item.id}}">
+    <view class="list-left">
+      <view class="list-left-top">{{item.nikeName}}
+        <text>第{{item.level}}级</text>
+      </view>
+      <view class="list-left-bottom">
+        <view class="list-left-bottom-year">{{item.regTime}}</view>
+      </view>
+    </view>
+    <view class="list-right">
+      <view class="list-right-item" wx:if="{{item.role==2}}">普通会员</view>
+      <view class="list-right-item1" wx:if="{{item.role==3}}">合伙人</view>
+      <view class="list-right-item1" wx:if="{{item.role==6}}">钻石合伙人</view>
+    </view>
+  </view>
+</view>
+<view class="myteam-bottom">{{text}}</view>
+<view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
+<view class="modal-dialog" wx:if="{{show}}" style='top:{{top}}px;'>
+  <view class='content'>
+    <view class="content-top-img">
+      <image src="{{hostUrl}}/icon/team_pop_title.png"></image>
+    </view>
+    <view class="content-middle-img">
+      <image src="{{hostUrl}}/pop_element.png"></image>
+    </view>
+    <view class="content-wrapper1">
+      <view class="share-text">我已经买了很多优惠商品了，赶快和我一起组团剁手吧!</view>
+      <view class="share-wrap">
+        <button class="share-button" id='btn' open-type="share">
+          <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+          <view class="wx">分享好友</view>
+        </button>
+        <button class="share-button" id='btnGroup' open-type="share">
+          <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+          <view class="wx">分享群</view>
+        </button>
+        <button class="share-button" bindtap='shareFriend'>
+          <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
+          <view class="wx">分享图片</view>
+        </button>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="content-cancel" wx:if="{{show}}" bindtap='cancel'>
+  <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png"></image>
+</view>
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>
+<!-- 多项选择 -->
+<view class="choose" wx:if="{{choose}}">
+  <block wx:for="{{arry}}" wx:key="">
+    <view class="tab" bindtap="tap" data-index="{{index}}">
+      <text>{{item}}</text>
+      <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{aa==index}}" />
+    </view>
+  </block>
+</view>

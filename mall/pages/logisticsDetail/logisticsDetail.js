@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     orderId:null,//订单id
     logisticsDetailList:[],//已发货物流信息
     goodsImageList:[],//未发货

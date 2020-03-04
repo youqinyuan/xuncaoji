@@ -6,6 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    sellOneStatus:false,
+    sellTwoStatus:false,
+    payStatus:false,
+    hostUrl: app.Util.getUrlImg().hostUrl,
     orderShowStatus:true,//点击退款列表状态
     currentTab: '',
     orderTabItem: [{
@@ -53,7 +57,7 @@ Page({
     refund: ['质量问题', '长时间未发货', '我不想买了', '其他原因'], //退款申请理由
     current: 0, //获取退款理由
     reason: '质量问题',
-    cancelOrder: ['我不想买了', '填写错误,重拍', '卖家缺货', '其他原因'], //取消订单
+    cancelOrder: ['我不想买了', '写错重拍', '卖家缺货', '其他原因'], //取消订单
     showDialog3: false, //取消订单弹框
     reason1: '我不想买了', //取消订单理由
     showDialog4: false, //终止0元购弹窗
@@ -69,8 +73,10 @@ Page({
   periodCash: function(e) {
     var orderId = e.currentTarget.dataset.orderid
     var latestStatus = e.currentTarget.dataset.lateststatus
+    var whetherAdvanceSale = e.currentTarget.dataset.whetheradvancesale
+    var defaultAmountStatus = e.currentTarget.dataset.defaultamountstatus
     wx.navigateTo({
-      url: `/pages/cashBack/cashBack?orderId=${orderId}&latestStatus=${latestStatus}`,
+      url: `/pages/cashBack/cashBack?orderId=${orderId}&latestStatus=${latestStatus}&whetherAdvanceSale=${whetherAdvanceSale}&defaultAmountStatus=${defaultAmountStatus}`,
     })
   },
   //跳转至店铺详情
@@ -318,6 +324,7 @@ Page({
     var orderId = e.currentTarget.dataset.orderid
     var id = e.currentTarget.dataset.id
     var orderType = e.currentTarget.dataset.ordertype
+    wx.removeStorageSync('myOrder')
     wx.navigateTo({
       url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}`,
     })
@@ -536,8 +543,8 @@ Page({
   onUnload: function() {
     var pages = getCurrentPages()
     // 如果是从提交订单页面跳转过来 页面返回的时候跳转到我的页面
-    if (wx.getStorageSync('tempStatus') || wx.getStorageSync('params')||wx.getStorageSync('returnToSponsor')) {
-
+    if (wx.getStorageSync('tempStatus') || wx.getStorageSync('params') || wx.getStorageSync('returnToSponsor') || wx.getStorageSync('myOrder')) {
+      
     } else {
       wx.switchTab({
         url: '/pages/mine/mine'
@@ -546,6 +553,7 @@ Page({
     wx.removeStorageSync('tempStatus')
     wx.removeStorageSync('params')
     wx.removeStorageSync('returnToSponsor')
+    wx.removeStorageSync('myOrder')
   },
 
   /**
@@ -695,7 +703,60 @@ Page({
   toDealWith:function(e){
     console.log(e.currentTarget.dataset.id)
       wx.navigateTo({
-        url:"/pages/dealWithReturn/dealWithReturn?goodsId="+e.currentTarget.dataset.id
+        url:"/packageA/pages/dealWithReturn/dealWithReturn?goodsId="+e.currentTarget.dataset.id
       })
+  },
+  sellClose1:function(){
+    this.setData({
+      sellOneStatus:false
+    })
+  },
+  sellClose2:function(){
+    this.setData({
+      sellTwoStatus:false
+    })
+  },
+  cancelPreSell:function(e){
+    var advanceSaleStatus = e.currentTarget.dataset.advancesalestatus
+    var orderId = e.currentTarget.dataset.orderid
+    if(advanceSaleStatus==1){
+      //订单未预定
+      this.setData({
+        sellOneStatus:true,
+        orderId:orderId
+      })
+    }else if(advanceSaleStatus==2){
+      //订单已预定
+      this.setData({
+        sellTwoStatus:true,
+        orderId:orderId
+      })
+    }
+  },
+  shureCanclePre:function(){
+    var that = this
+    that.setData({
+      sellTwoStatus:false,
+      sellOneStatus:false,
+      pageNumber: 1
+    })
+    app.Util.ajax('mall/order/cancelOrderAdvanceSale', {
+      orderId: that.data.orderId
+    }, 'POST').then((res) => {
+      if(res.data.messageCode=="MSG_1001"){
+        wx.showToast({
+          title: '撤销成功',
+          icon: 'none'
+        })
+        setTimeout(function() {
+          that.initgetMore1()
+        }, 500)
+      }else{
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+      }
+    })
   }
 })

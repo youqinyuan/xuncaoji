@@ -2,7 +2,7 @@
 <!-- 已累计返现 -->
 <view class="nationwideReturn-wrapper" wx:if="{{wholeNation.length>0}}">
   <view class="nationwideReturn">
-    <image mode="widthFix" class="nationwideReturn-img" src="https://xuncj.yzsaas.cn/_download/img/icon/qmf_bg.png"></image>
+    <image mode="widthFix" class="nationwideReturn-img" src="{{hostUrl}}/icon/qmf_bg.png"></image>
     <view class="nationwideReturn-text">
       <view class="title">已累计返现</view>
       <view class="num">
@@ -24,7 +24,7 @@
 <!--好物返现-->
 <view class="recommend-title" wx:if="{{wholeNation.length>0}}">
   <view class="recommend-left">
-    <image src="https://xuncj.yzsaas.cn/_download/img/icon/fiery_orange_n.png"></image>
+    <image src="{{hostUrl}}/icon/fiery_orange_n.png"></image>
   </view>
   <view class="recommend-middle">
     0元购好物

@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     inputValue: ''
   },
   bindInput: function(e) {
@@ -102,22 +103,22 @@ Page({
     // wx.reLaunch({
     //   url: '/pages/index/index',
     // })
-    var pages = getCurrentPages()
-    console.log(pages[0].route)
-    console.log(JSON.stringify(pages[pages.length-2].route))
-    var loginStatus = wx.getStorageSync('loginStatus')
-    console.log("aaa"+loginStatus)
-    if(loginStatus){
+    // var pages = getCurrentPages()
+    // console.log(pages[0].route)
+    // console.log(JSON.stringify(pages[pages.length-2].route))
+    // var loginStatus = wx.getStorageSync('loginStatus')
+    // console.log("aaa"+loginStatus)
+    // if(loginStatus){
 
-    }else{
-      if(pages[0].route == "pages/wishpool/wishpool"||pages[pages.length-2].route == "pages/detail/detail"||pages[0].route == "pages/index/index"){
+    // }else{
+    //   if(pages[0].route == "pages/wishpool/wishpool"||pages[pages.length-2].route == "pages/detail/detail"||pages[0].route == "pages/index/index"){
 
-      }else{
-        wx.navigateBack({
-          delta: 1
-        })
-      }
-    }
+    //   }else{
+    //     wx.navigateBack({
+    //       delta: 1
+    //     })
+    //   }
+    // }
     
   },
 

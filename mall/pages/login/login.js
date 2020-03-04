@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     phoneNumber: '',
     codeNumber: '',
     text: '',
@@ -37,15 +38,15 @@ Page({
       }     
     } else if (url == 'pages/zeroPurchase/zeroPurchase') {
       that.data.url = '/' + url + '?id=' + wx.getStorageSync('zeroGoods_id') + '&&type=' + wx.getStorageSync('type') + '&&orgPrice=' + wx.getStorageSync('orgPrice')
-    } else if (url == 'pages/cooperate/cooperate') {
+    } else if (url == '/packageA/pages/cooperate/cooperate') {
       that.data.url = '/' + url
-    } else if (url == 'pages/zeroBuy/zeroBuy') {
+    } else if (url == 'packageA/pages/zeroBuy/zeroBuy') {
       that.data.url = '/' + url
-    } else if (url == 'pages/zeroPurchaseActivity/zeroPurchaseActivity') {
+    } else if (url == 'packageA/packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity') {
       that.data.url = '/' + url
     } else if (url == 'pages/wishpool/wishpool') {
       that.data.url = '/' + url
-    } else if (url == 'pages/freeBuy/freeBuy') {
+    } else if (url == 'packageA/pages/freeBuy/freeBuy') {
       that.data.url = '/' + url
     }else if (url == 'pages/lovingHeart/lovingHeart') {
       that.data.url = '/' + url

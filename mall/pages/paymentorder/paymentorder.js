@@ -1,6 +1,7 @@
 // pages/paymentorder/paymentorder.js
 var time = require('../../utils/util.js');
 let app = getApp()
+var newCount = true
 Page({
 
   /**
@@ -29,10 +30,12 @@ Page({
     orderId: 1, //订单id
     options: {},
     showPassword: false, //设置支付密码弹框
-    showStop:false,
-    orderType:null,
+    showStop: false,
+    orderType: null,
     message: '微信支付时，请在支付方式内选择信用卡支付，其他方式支付自动退款。',
-    amount:null
+    amount: null,
+    isShowBook:null,
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
   //支付
   pay: function(e) {
@@ -56,17 +59,49 @@ Page({
           }, 'POST').then((res) => { // 使用ajax函数
             if (res.data.content) {
               if (res.data.content.balance.success == 1) {
-                if (that.data.amount) {
+                if (that.data.amount2) {
                   wx.navigateBack({
                     delta: 1
                   })
-                  wx.setStorageSync('loving',1)
-                  wx.setStorageSync('sponsorStatus',1)
-                } else {
-                  wx.navigateTo({
-                    url: `/pages/myorder/myorder?status=${2}`,
+                  wx.setStorageSync('loving', 1)
+                } else if (that.data.amount1) {
+                  wx.navigateBack({
+                    delta: 1
                   })
-                }       
+                }else if (that.data.amount3) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }
+                 else if (that.data.amount) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                  wx.setStorageSync('sponsorStatus', 1)
+                } else if (that.data.isShowBook){
+                 wx.switchTab({
+                   url: '/pages/forum/forum',
+                 })
+                 app.globalData.type = 4
+                }else {
+                  if(res.data.content.balance.type==1){
+                    if (that.data.buyType==2){
+                      wx.navigateTo({
+                        url: `/pages/myorder/myorder?status=${5}`,
+                      })
+                    }else{
+                      wx.navigateTo({
+                        url: `/pages/myorder/myorder?status=${2}`,
+                      })
+                    }
+                    wx.removeStorageSync('myOrder')
+                  }else{
+                    wx.switchTab({
+                      url: '/pages/forum/forum',
+                    })
+                    app.globalData.type = 4
+                  }
+                }
               }
             }
           })
@@ -108,17 +143,49 @@ Page({
         }, 'POST').then((res) => { // 使用ajax函数
           if (res.data.content) {
             if (res.data.content.balance.success == 1) {
-              if (that.data.amount) {
+              if (that.data.amount2) {
                 wx.navigateBack({
                   delta: 1
                 })
-                wx.setStorageSync('loving',1)
-                wx.setStorageSync('sponsorStatus',1)
-              } else {
-                wx.navigateTo({
-                  url: `/pages/myorder/myorder?status=${2}`,
+                wx.setStorageSync('loving', 1)
+              } else if (that.data.amount1) {
+                wx.navigateBack({
+                  delta: 1
                 })
-              }       
+              }else if (that.data.amount3) {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }
+               else if (that.data.amount) {
+                wx.navigateBack({
+                  delta: 1
+                })
+                wx.setStorageSync('sponsorStatus', 1)
+              } else if (that.data.isShowBook) {
+                wx.switchTab({
+                  url: '/pages/forum/forum',
+                })
+                app.globalData.type = 4
+              }else {
+                if(res.data.content.balance.type==1){
+                  if (that.data.buyType==2){
+                    wx.navigateTo({
+                      url: `/pages/myorder/myorder?status=${5}`,
+                    })
+                  }else{
+                    wx.navigateTo({
+                      url: `/pages/myorder/myorder?status=${2}`,
+                    })
+                  } 
+                  wx.removeStorageSync('myOrder')
+                }else{
+                  wx.switchTab({
+                    url: '/pages/forum/forum',
+                  })
+                  app.globalData.type = 4
+                }     
+              }
             }
           }
         })
@@ -147,23 +214,55 @@ Page({
               }, 'GET').then((res) => {
                 if (res.data.content) {
                   if (res.data.content.status === 'SUCCESS') {
-                    if(res.data.content.bankCardType==2&&that.data.options.type==2){
+                    if (res.data.content.bankCardType == 2 && that.data.options.type == 2) {
                       //信用卡用户
-                      console.log("支付卡类型:"+res.data.content.bankCardType)
+                      console.log("支付卡类型:" + res.data.content.bankCardType)
                       app.globalData.creditCard = 1
                     }
-                    if (that.data.amount) {
+                    if (that.data.amount2) {
                       wx.navigateBack({
                         delta: 1
                       })
-                      wx.setStorageSync('loving',1)
-                      wx.setStorageSync('sponsorStatus',1)
-                    } else {
-                      wx.navigateTo({
-                        url: `/pages/myorder/myorder?status=${2}`,
+                      wx.setStorageSync('loving', 1)
+                    } else if (that.data.amount1) {
+                      wx.navigateBack({
+                        delta: 1
                       })
-                    }       
-                  }else if (res.data.content.status === 'REFUND') {
+                    }else if (that.data.amount3) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    }
+                     else if (that.data.amount) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                      wx.setStorageSync('sponsorStatus', 1)
+                    } else if (that.data.isShowBook) {
+                      wx.switchTab({
+                        url: '/pages/forum/forum',
+                      })
+                      app.globalData.type = 4
+                    }else {
+                      if(res.data.content.wechat.type==1){
+                        if (that.data.buyType==2){
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${5}`,
+                          })
+                        }else{
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${2}`,
+                          })
+                        } 
+                        wx.removeStorageSync('myOrder')
+                      }else{
+                        wx.switchTab({
+                          url: '/pages/forum/forum',
+                        })
+                        app.globalData.type = 4
+                      }      
+                    }
+                  } else if (res.data.content.status === 'REFUND') {
                     wx.showToast({
                       title: '转入退款',
                       icon: 'none'
@@ -194,17 +293,17 @@ Page({
                       icon: 'none'
                     })
                   }
-                } else{
+                } else {
                   wx.showToast({
                     title: res.data.message,
                     icon: 'none'
                   })
-                } 
+                }
               })
             },
             fail(res) {}
           })
-        }else{
+        } else {
           wx.showToast({
             title: res.data.message,
             icon: 'none'
@@ -259,78 +358,116 @@ Page({
       Value: inputValue
     })
     if (that.data.Value.length === 6) {
-      var transStatementId = that.data.transStatementId
-      var channel = that.data.channel
-      var orderId = that.data.orderId
-      var paymentPassword = that.data.Value
-      if (that.data.channel == 1) {
-        //余额支付
-        if (that.data.content.paymentAmount >= 10) {
-          app.Util.ajax('mall/payment/pay', {
-            transStatementId: transStatementId,
-            channel: channel,
-            orderId: orderId,
-            paymentPassword: paymentPassword
-          }, 'POST').then((res) => { // 使用ajax函数
-            if (res.data.content) {
-              if (res.data.content.balance.success == 1) {
-                if(that.data.amount){
-                  wx.navigateBack({
-                    delta: 1
-                  })
-                  wx.setStorageSync('loving',1)
-                  wx.setStorageSync('sponsorStatus',1)
-                }else{
-                  if (that.data.amount) {
+      if (newCount == true) {
+        newCount = false
+        var transStatementId = that.data.transStatementId
+        var channel = that.data.channel
+        var orderId = that.data.orderId
+        var paymentPassword = that.data.Value
+        if (that.data.channel == 1) {
+          //余额支付
+          if (that.data.content.paymentAmount >= 10) {
+            app.Util.ajax('mall/payment/pay', {
+              transStatementId: transStatementId,
+              channel: channel,
+              orderId: orderId,
+              paymentPassword: paymentPassword
+            }, 'POST').then((res) => { // 使用ajax函数
+              if (res.data.content) {
+                if (res.data.content.balance.success == 1) {
+                  if (that.data.amount2) {
                     wx.navigateBack({
                       delta: 1
                     })
-                  } else {
-                    wx.navigateTo({
-                      url: `/pages/myorder/myorder?status=${2}`,
+                    wx.setStorageSync('loving', 1)
+                  } else if (that.data.amount1) {
+                    wx.navigateBack({
+                      delta: 1
                     })
-                  }       
-                }                
-                that.setData({
-                  show: false,
-                  isFocus: false
-                })
-              } else {
-                if (res.data.content.balance.remainingCount > 0) {
+                  }else if (that.data.amount3) {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  }
+                   else if (that.data.amount) {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                    wx.setStorageSync('sponsorStatus', 1)
+                  } else if (that.data.isShowBook) {
+                    wx.switchTab({
+                      url: '/pages/forum/forum',
+                    })
+                    app.globalData.type = 4
+                  } else {
+                    if (that.data.amount) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    } else {
+                      if(res.data.content.balance.type==1){
+                        if (that.data.buyType==2){
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${5}`,
+                          })
+                        }else{
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${2}`,
+                          })
+                        } 
+                        wx.removeStorageSync('myOrder')
+                      }else{
+                        wx.switchTab({
+                          url: '/pages/forum/forum',
+                        })
+                        app.globalData.type = 4
+                      }       
+                    }
+                  }
                   that.setData({
-                    text: `密码错误，你还剩余${res.data.content.balance.remainingCount}次机会`,
-                    Value: ''
+                    show: false,
+                    isFocus: false
                   })
                 } else {
-                  let lastTime = res.data.content.balance.retryRemainingTime / 1000
-                  let interval = setInterval(() => {
-                    if (lastTime > 0) {
-                      lastTime--
-                      let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
-                      let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
-                      that.setData({
-                        text: `请${minuteTime}分${secondTime}秒后重试`,
-                        Value: ''
-                      })
+                  if (res.data.content.balance.remainingCount > 0) {
+                    that.setData({
+                      text: `密码错误，你还剩余${res.data.content.balance.remainingCount}次机会`,
+                      Value: ''
+                    })
+                  } else {
+                    let lastTime = res.data.content.balance.retryRemainingTime / 1000
+                    let interval = setInterval(() => {
+                      if (lastTime > 0) {
+                        lastTime--
+                        let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+                        let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
+                        that.setData({
+                          text: `请${minuteTime}分${secondTime}秒后重试`,
+                          Value: ''
+                        })
 
-                    } else {
-                      clearInterval(interval)
-                      that.setData({
-                        text: ''
-                      })
-                    }
-                  }, 1000)
+                      } else {
+                        clearInterval(interval)
+                        that.setData({
+                          text: ''
+                        })
+                      }
+                    }, 1000)
+                  }
                 }
+              } else {
+                wx.showToast({
+                  title: res.data.message,
+                  icon: 'none'
+                })
               }
-            } else {
-              wx.showToast({
-                title: res.data.message,
-                icon: 'none'
-              })
-            }
-          })
+            })
+          }
         }
       }
+      setTimeout(function() {
+        newCount = true
+      }, 1000)
     }
   },
   blur: function(e) {
@@ -375,16 +512,22 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    console.log(options)
     that.setData({
       options: options,
-      amount: options.amount ? options.amount:null,
-      orderType: parseInt(options.orderType)
+      buyType: options.buyType,
+      isShowBook: options.isShowBook ? options.isShowBook : null,
+      amount: options.amount ? options.amount : null,
+      orderType: parseInt(options.orderType),
+      amount2: options.amount2 ? options.amount2 : null,
+      amount1: options.amount1 ? options.amount1 : null,
+      amount3:options.amount3 ? options.amount3 : null
     })
-    if (that.data.orderType ===4){
+    if (that.data.orderType === 4) {
       that.setData({
-        payment_mode1:false,
-        payment_mode2:true,
-        channel:2
+        payment_mode1: false,
+        payment_mode2: true,
+        channel: 2
       })
     }
     var transStatementId = parseInt(options.id)
@@ -393,7 +536,8 @@ Page({
     let endTime = createTime + 15 * 60 * 1000
     let clientTime = new Date()
     let lastTime = (endTime - clientTime) / 1000
-    let minuteTime = parseInt(lastTime / 60)
+    let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
+    let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
     let secondTime = parseInt(lastTime % 60)
     that.setData({
       clientTime: `${minuteTime}:${secondTime}`
@@ -401,10 +545,11 @@ Page({
     let interval2 = setInterval(() => {
       if (lastTime > 0) {
         lastTime--
-        let minuteTime = parseInt(lastTime / 60) > 10 ? parseInt(lastTime / 60) : '0'+parseInt(lastTime / 60) 
-        let secondTime = parseInt(lastTime % 60) > 10 ? parseInt(lastTime % 60) : '0' + parseInt(lastTime % 60) 
+        let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
+        let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
+        let secondTime = parseInt(lastTime % 60) > 10 ? parseInt(lastTime % 60) : '0' + parseInt(lastTime % 60)
         that.setData({
-          clientTime: `${minuteTime}:${secondTime}`
+          clientTime: `${hourTime}:${minuteTime}:${secondTime}`
         })
       } else {
         clearInterval(interval2)
@@ -431,35 +576,61 @@ Page({
           }, 'GET').then((res) => { // 使用ajax函数
             if (res.data.content) {
               let lastTime = res.data.content.remainingTime / 1000
-              let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+              let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
+              let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
               let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
               that.setData({
-                time: `${minuteTime}:${secondTime}`
+                time: `${hourTime}:${minuteTime}:${secondTime}`
               })
               let interval2 = setInterval(() => {
                 if (lastTime > 0) {
                   lastTime--
-                  let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+                  let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
+                  let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
                   let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
                   that.setData({
-                    time: `${minuteTime}:${secondTime}`
+                    time: `${hourTime}:${minuteTime}:${secondTime}`
                   })
 
                 } else {
-                  clearInterval(interval2)                  
+                  clearInterval(interval2)
                   let pages = getCurrentPages()
-                  if (pages[pages.length - 1].route == 'pages/paymentorder/paymentorder' || pages[pages.length - 1].route =='pages/orderDetail/orderDetail') {
-                    if (that.data.amount) {
+                  if (pages[pages.length - 1].route == 'pages/paymentorder/paymentorder' || pages[pages.length - 1].route == 'pages/orderDetail/orderDetail') {
+                    if (that.data.amount2) {
                       wx.navigateBack({
                         delta: 1
                       })
-                      wx.setStorageSync('loving',1)
-                      wx.setStorageSync('sponsorStatus',1)
-                    } else {
-                      wx.navigateTo({
-                        url: `/pages/myorder/myorder?status=${2}`,
+                      wx.setStorageSync('loving', 1)
+                    } else if (that.data.amount1) {
+                      wx.navigateBack({
+                        delta: 1
                       })
-                    }       
+                    }else if (that.data.amount3) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    }
+                     else if (that.data.amount) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                      wx.setStorageSync('sponsorStatus', 1)
+                    } else if (that.data.isShowBook) {
+                      wx.switchTab({
+                        url: '/pages/forum/forum',
+                      })
+                      app.globalData.type = 4
+                    }else {
+                      if (that.data.buyType == 2) {
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${5}`,
+                        })
+                      } else {
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${2}`,
+                        })
+                      }   
+                    }
                   }
                   that.setData({
                     time: ''
@@ -482,27 +653,52 @@ Page({
           let interval2 = setInterval(() => {
             if (lastTime > 0) {
               lastTime--
-              let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
+              let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
+              let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
               let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
               that.setData({
-                time: `${minuteTime}:${secondTime}`
+                time: `${hourTime}:${minuteTime}:${secondTime}`
               })
 
             } else {
               clearInterval(interval2)
               let pages = getCurrentPages()
               if (pages[pages.length - 1].route == 'pages/paymentorder/paymentorder' || pages[pages.length - 1].route == 'pages/orderDetail/orderDetail') {
-                if (that.data.amount) {
+                if (that.data.amount2) {
                   wx.navigateBack({
                     delta: 1
                   })
-                  wx.setStorageSync('loving',1)
-                  wx.setStorageSync('sponsorStatus',1)
-                } else {
-                  wx.navigateTo({
-                    url: `/pages/myorder/myorder?status=${2}`,
+                  wx.setStorageSync('loving', 1)
+                } else if (that.data.amount1) {
+                  wx.navigateBack({
+                    delta: 1
                   })
-                }       
+                }else if (that.data.amount3) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }
+                 else if (that.data.amount) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                  wx.setStorageSync('sponsorStatus', 1)
+                } else if (that.data.isShowBook) {
+                  wx.switchTab({
+                    url: '/pages/forum/forum',
+                  })
+                  app.globalData.type = 4
+                }else {
+                  if (that.data.buyType == 2) {
+                    wx.navigateTo({
+                      url: `/pages/myorder/myorder?status=${5}`,
+                    })
+                  } else {
+                    wx.navigateTo({
+                      url: `/pages/myorder/myorder?status=${2}`,
+                    })
+                  }    
+                }
               }
               that.setData({
                 time: ''
@@ -585,15 +781,15 @@ Page({
    */
   preventTouchMove: function() {},
   //可终止弹窗显示
-  payValueShow:function(){
+  payValueShow: function() {
     this.setData({
-      showStop:true
+      showStop: true
     })
   },
   //可终止弹窗隐藏
-  payValueHiden:function(){
+  payValueHiden: function() {
     this.setData({
-      showStop:false
+      showStop: false
     })
   }
 })

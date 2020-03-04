@@ -56,7 +56,7 @@
         </view>
         <view class="content-cashBack-wrap" wx:if="{{!item.purchaseTotalPrice && itemName.orderType !==3 && itemName.orderType !==4 && itemName.orderType !==5 && itemName.orderType !==6}}">
           <view class="content-cashBack">
-            <image src="https://xuncj.yzsaas.cn/_download/img/icon/youhui_bqian.png"></image>
+            <image src="{{hostUrl}}/icon/youhui_bqian.png"></image>
             <view class="content-cashBack-text">
               当前商品实付
               <text>￥{{item.goodsTotalPrice}}</text>，返现
@@ -65,6 +65,14 @@
             </view>
           </view>
         </view>
+      </view>
+      <!-- 预售 -->
+      <view class="service" wx:if="{{itemName.whetherAdvanceSale==1}}">
+        <view class="service_one">服务</view>
+        <view class="service_two">预售订单</view>
+        <view class="service_three" bindtap="cancelPreSell" data-advanceSaleStatus="{{itemName.advanceSaleStatus}}" data-orderId="{{itemName.id}}">撤销预售</view>
+        <view class="service_four" wx:if="{{itemName.advanceSaleStatus==2}}">买方已预定</view>
+        <view class="service_four" wx:if="{{itemName.advanceSaleStatus==1}}">未被预定</view>
       </view>
       <!-- 付款 -->
       <view class="all">
@@ -81,7 +89,7 @@
       <button class="stopzero" catchtap="stopZero" wx:if="{{itemName.isStop==1&&itemName.latestStatus!==1&&itemName.latestStatus!==9&&itemName.latestStatus!==12&&itemName.latestStatus!==7&&itemName.latestStatus!==10}}" data-orderid="{{itemName.id}}" disabled="{{itemName.isStop==2?true:false}}">终止FreeBuy转购买</button>
       <text class="cancel" wx:if="{{itemName.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{itemName.id}}">取消订单</text>
       <text class="cancel" wx:if="{{itemName.latestStatus==2}}" catchtap='getMessage' data-orderid="{{itemName.id}}">提醒卖家发货</text>
-      <text class="return-money" wx:if="{{itemName.isCashBack==true}}" catchtap='periodCash' data-lateststatus="{{itemName.latestStatus}}" data-orderid="{{itemName.id}}">分期返现</text>
+      <text class="return-money" wx:if="{{itemName.isCashBack==true}}" catchtap='periodCash' data-lateststatus="{{itemName.latestStatus}}" data-orderid="{{itemName.id}}" data-whetherAdvanceSale="{{itemName.whetherAdvanceSale}}" data-defaultAmountStatus="{{itemName.defaultAmountStatus}}">分期返现</text>
       <!-- <text class="return" catchtap='refund' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==2 || itemName.latestStatus==5 || itemName.latestStatus==11}}">退款</text> -->
       <!-- <text class="return" catchtap='cancelRefund' wx:if="{{itemName.latestStatus==7 || itemName.latestStatus==8}}" data-orderid="{{itemName.id}}">取消退款</text> -->
       <text class="pay" wx:if="{{itemName.latestStatus==1}}" catchtap='toPay' data-id="{{itemName.transStatementDetail.transId}}" data-orderid="{{itemName.id}}" data-ordertype="{{itemName.orderType}}">付款</text>
@@ -93,7 +101,7 @@
   <view wx:if="{{allOrder.length===0}}">
     <!-- 外层 -->
     <view class='cont_count'>
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_order_no.png"></image>
+      <image src="{{hostUrl}}/icon/ic_order_no.png"></image>
       <label class='none_tab'>您还没有任何订单呢~</label>
     </view>
   </view>
@@ -103,7 +111,7 @@
     <!--更多好货-->
     <view class="recommend-title">
       <view class="recommend-left">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/fiery_orange_n.png"></image>
+        <image src="{{hostUrl}}/icon/fiery_orange_n.png"></image>
       </view>
       <view class="recommend-middle">
         更多好货
@@ -184,7 +192,7 @@
   </view>
 </view>
 <!-- 取消订单 -->
-<view class="zan-dialog3 {{ showDialog3 ? 'zan-dialog--show3' : '' }}">
+<!-- <view class="zan-dialog3 {{ showDialog3 ? 'zan-dialog--show3' : '' }}">
   <view class="zan-dialog__mask3" />
   <view class="zan-dialog__container3">
     <view class='contentainer3'>
@@ -197,6 +205,21 @@
         <button class="comfirm" bindtap="sureorder">确定</button>
       </view>
     </view>
+  </view>
+</view> -->
+<!-- 取消订单 -->
+<view class="sell-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog3}}">
+  <view class="sell-dialog__container heigh563" wx:if="{{showDialog3}}">
+    <image wx:if="{{showDialog3}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='cancelorder'></image>
+    <view class="title">取消订单</view>
+      <view class="text text2">
+         <view class="contentainer3-content-text {{current == index ?'active1':''}}" bindtap="getText1" wx:for="{{cancelOrder}}" wx:for-item="reasons1" wx:key="{{reasons1}}" data-current="{{index}}" data-text="{{reasons1}}">{{reasons1}}</view>
+      </view>
+      <view class="penalSum">提示：取消订单您需要支付违约金￥500</view>
+      <view class="but_box1">
+        <button class="shure_one1" bindtap='cancelorder'>取消</button>
+        <button class="shure_one2" bindtap="sureorder">确认</button>
+      </view>
   </view>
 </view>
 <!-- 终止0元购弹窗 -->
@@ -225,10 +248,10 @@
         <view class="contentainer4-left-text">商品评分</view>
         <view class="contentainer4-left-start">
           <block wx:for="{{one_2}}" wx:key="index">
-            <image catchtap='in_xin' id='{{index+1}}' data-in='use_sc2' src='https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin.png'></image>
+            <image catchtap='in_xin' id='{{index+1}}' data-in='use_sc2' src='{{hostUrl}}/icon/pingj_xinxin.png'></image>
           </block>
           <block wx:for="{{two_2}}" wx:key="index">
-            <image catchtap='in_xin' id='{{index+1}}' data-in='use_sc' src='https://xuncj.yzsaas.cn/_download/img/icon/pingj_xinxin_l.png'></image>
+            <image catchtap='in_xin' id='{{index+1}}' data-in='use_sc' src='{{hostUrl}}/icon/pingj_xinxin_l.png'></image>
           </block>
         </view>
       </view>
@@ -297,7 +320,7 @@
   <view wx:if="{{returnOrder.length===0}}">
     <!-- 外层 -->
     <view class='cont_count'>
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_order_no.png"></image>
+      <image src="{{hostUrl}}/icon/ic_order_no.png"></image>
       <label class='none_tab'>您还没有任何退款商品呢~</label>
     </view>
   </view>
@@ -307,7 +330,7 @@
     <!--更多好货-->
     <view class="recommend-title">
       <view class="recommend-left">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/fiery_orange_n.png"></image>
+        <image src="{{hostUrl}}/icon/fiery_orange_n.png"></image>
       </view>
       <view class="recommend-middle">
         更多好货
@@ -344,3 +367,47 @@
   <view class="myorder-bottom" wx:if="{{returnOrder.length>2}}">{{text}}</view>
   <view class="myorder-bottom1" wx:if="{{returnOrder.length<2}}">{{text1}}</view>
 </block>
+<!-- 撤销预售1 -->
+<view class="sell-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sellOneStatus}}">
+  <view class="sell-dialog__container" wx:if="{{sellOneStatus}}">
+    <image wx:if="{{sellOneStatus}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sellClose1'></image>
+    <view class="title">撤销预售</view>
+      <view class="text">
+        <view >此预售订单无人预定，撤销后将返还您所支付的违约金，是否撤销？</view>
+      </view>
+      <view class="but_box1">
+        <button class="shure_one1" bindtap='sellClose1'>取消</button>
+        <button class="shure_one2" bindtap="shureCanclePre">确认</button>
+      </view>
+  </view>
+</view>
+<!-- 撤销预售2 -->
+<view class="sell-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sellTwoStatus}}">
+  <view class="sell-dialog__container heigh480" wx:if="{{sellTwoStatus}}">
+    <image wx:if="{{sellTwoStatus}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sellClose2'></image>
+    <view class="title">撤销预售</view>
+      <view class="text">
+        <view >
+          您的预售订单已被买方预定，如果现在撤销预售订单系统将扣除您的违约金，并删除订单交易中的卖贴信息。是否撤销？</view>
+      </view>
+      <view class="but_box1">
+        <button class="shure_one1" bindtap='sellClose2'>取消</button>
+        <button class="shure_one2" bindtap="shureCanclePre">确认</button>
+      </view>
+  </view>
+</view>
+<!-- 付款提示 -->
+<view class="sell-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{payStatus}}">
+  <view class="sell-dialog__container heigh440" wx:if="{{payStatus}}">
+    <image wx:if="{{payStatus}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sellClose2'></image>
+    <view class="title">付款提示</view>
+      <view class="text">
+        <view >
+          此预售订单无人预定，如果您现在付款系统将视你自动放弃预售，并删除订单交易中的卖贴信息，是否付款？</view>
+      </view>
+      <view class="but_box1">
+        <button class="shure_one1" bindtap=''>取消</button>
+        <button class="shure_one2" bindtap="">确认</button>
+      </view>
+  </view>
+</view>

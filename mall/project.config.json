@@ -57,9 +57,9 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "购物车",
-					"pathName": "pages/index/cart/cart",
-					"query": "",
+					"name": "pages/detail/detail",
+					"pathName": "pages/detail/detail",
+					"query": "id=42",
 					"scene": 1001
 				},
 				{
@@ -71,29 +71,29 @@
 				},
 				{
 					"id": 2,
-					"name": "pages/commission/commission",
-					"pathName": "pages/commission/commission",
-					"query": "",
+					"name": "pages/commodityArea/commodityArea",
+					"pathName": "pages/commodityArea/commodityArea",
+					"query": "id=2",
 					"scene": null
 				},
 				{
 					"id": 3,
-					"name": "pages/finishPosting/finishPosting",
-					"pathName": "pages/finishPosting/finishPosting",
+					"name": "pages/commission/commission",
+					"pathName": "pages/commission/commission",
 					"query": "topicId=263",
 					"scene": null
 				},
 				{
 					"id": 4,
-					"name": "pages/byStages/byStages",
-					"pathName": "pages/byStages/byStages",
+					"name": "pages/h5Page/h5Page",
+					"pathName": "pages/h5Page/h5Page",
 					"query": "id=63",
 					"scene": null
 				},
 				{
 					"id": 5,
-					"name": "pages/goodsStage3/goodsStage3",
-					"pathName": "pages/goodsStage3/goodsStage3",
+					"name": "pages/goodsStage/goodsStage",
+					"pathName": "pages/goodsStage/goodsStage",
 					"query": "id=132&type=1",
 					"scene": null
 				},
@@ -112,9 +112,9 @@
 					"scene": null
 				},
 				{
-					"id": 9,
-					"name": "pages/zeroBuy/zeroBuy",
-					"pathName": "pages/zeroBuy/zeroBuy",
+					"id": 8,
+					"name": "pages/byStages/byStages",
+					"pathName": "pages/byStages/byStages",
 					"query": "",
 					"scene": null
 				},
@@ -295,8 +295,8 @@
 				},
 				{
 					"id": -1,
-					"name": "pages/zeroPurchaseActivity/zeroPurchaseActivity",
-					"pathName": "pages/zeroPurchaseActivity/zeroPurchaseActivity",
+					"name": "packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity",
+					"pathName": "packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity",
 					"query": "",
 					"scene": null
 				},
@@ -378,10 +378,93 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/freeBuy/freeBuy",
-					"pathName": "pages/freeBuy/freeBuy",
+					"id": 46,
+					"name": "packageA/pages/serviceProblem/serviceProblem",
+					"pathName": "packageA/pages/serviceProblem/serviceProblem",
 					"query": "id=4",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/longActivity/longActivity",
+					"pathName": "pages/longActivity/longActivity",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/cashBack/cashBack",
+					"pathName": "pages/cashBack/cashBack",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/detail/detailde",
+					"query": "id=181&activityType=2&activityId=3",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/detail/detailde",
+					"pathName": "pages/detail/detail",
+					"query": "id=181&activityType=2&activityId=3",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/detail/detail",
+					"query": "scene=id%3D221%26remarks%3Dnull%26type%3D1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/mine/mine",
+					"pathName": "pages/mine/mine",
+					"query": "scene=id%3D221%26remarks%3Dnull%26type%3D1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/detail/detail",
+					"pathName": "pages/detail/detail",
+					"query": "scene=id%3D221%26remarks%3Dnull%26type%3D1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/detail/detail",
+					"query": "scene=id%3D221%26remarks%3Dnull%26type%3D1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/detail/detail",
+					"pathName": "pages/detail/detail",
+					"query": "scene=id%3D221%26remarks%3Dnull%26type%3D1",
+					"scene": null
+				},
+				{
+					"id": 56,
+					"name": "packageA/pages/test/test",
+					"pathName": "packageA/pages/test/test",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/myorder/myorder",
+					"pathName": "pages/myorder/myorder",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/waitReentryDetail/waitReentryDetail",
+					"pathName": "pages/waitReentryDetail/waitReentryDetail",
 					"scene": null
 				}
 			]

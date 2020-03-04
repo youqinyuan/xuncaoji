@@ -194,6 +194,7 @@
     margin-left: 20rpx;
     margin-right: 20rpx;
     position: relative;
+    margin-top: 20rpx;
 }
 .mengceng{
     position: absolute;

@@ -9,7 +9,7 @@
 <view class="commodity_screen1" wx:if="{{showWay}}"></view>
 <view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showWay}}">
   <view class="content-wrapper1">
-    <image class="cancel" src="https://xuncj.yzsaas.cn/_download/img/add/withdraw_close.png" catchtap='cancelCondition'></image>
+    <image class="cancel" src="{{hostUrl}}/add/withdraw_close.png" catchtap='cancelCondition'></image>
     <view class="title">有效期限</view>
     <view class="time_screens">
       <picker-view indicator-style="height: 50px;" style="width: 100%; height: 150px; font-size:30rpx;" value="{{value}}" bindchange="bindChange">

@@ -1,0 +1,38 @@
+<!--packageA/pages/serviceProblem/serviceProblem.wxml-->
+<view class="wrap">
+  <image class="line" src="/packageA/img/line.png"></image>
+  <view class="useExample">4步使用【预售订单】服务</view>
+  <view class="advanceSale">
+    <image class="severice-img" src="/packageA/img/icon_a.png"></image>
+    <view class="yuSale">1. 发布预售</view>
+    <image class="jian-img" src="/packageA/img/jian_a.png"></image>
+    <image class="severice-img" src="/packageA/img/icon_b.png"></image>
+    <view class="yuSale">2. 支付违约金</view>
+  </view>
+  <view class="advanceSale-img">
+    <image src="/packageA/img/jian_b.png"></image>
+  </view>
+  <view class="advanceSale1">
+    <image class="severice-img1" src="/packageA/img/icon_c.png"></image>
+    <view class="yuSale1">3. 买方购买</view>
+    <image class="jian-img1" src="/packageA/img/jian_a.png"></image>
+    <image class="severice-img1" src="/packageA/img/icon_d.png"></image>
+    <view class="yuSale1">4. 交易完成</view>
+  </view>
+  <view class="useLi">
+    <image class="example" src="/packageA/img/example.png"></image>
+    <view class="example-title">使用范例</view>
+  </view>
+  <view class="useLi-content">点击立即体验，选择1个商品进入提交页，输入违约金并且支付违约金，买方看到并支付违约金，您需去支付尾款，订单交易完成。</view>
+  <view class="useExample1">【预售订单】常见问题</view>
+  <view class="container-block">
+    <view class="container" wx:for="{{list}}" wx:key="{{item.title}}">
+      <view class="container-title">
+        <text class="sign">{{item.text}}</text>
+        <image class="container-img" src="{{item.img}}"></image>
+        <view class="small-title">{{item.title}}</view>
+      </view>
+      <view class="container-content">{{item.content}}</view>
+    </view>
+  </view>
+</view>

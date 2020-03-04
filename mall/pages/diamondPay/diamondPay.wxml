@@ -45,11 +45,15 @@
     <view class="title title4">坐享下级消费提成</view>
       <view class="wrap item4">
         <view>您的下级团队即为使用你邀请码注册的人，简称团队成员。</view>
-        <view>1、赚取团队成员消费金额（非FreeBuy购买）的2%-15%的返现；</view>
-        <view>2、赚取团队成员FreeBuy消费金额的1%-5%的返现；</view>
-        <view>3、团队成员成为钻石会员，获100元奖励；</view>
-        <view>4、赚取第5级团队成员消费金额（非FreeBuy购买）的1%-7.5%的返现；</view>
-        <view>5、赚取第5级团队成员FreeBuy消费金额的0.5%的返现</view>
+        <!-- <view>1、赚取团队成员消费金额（非FreeBuy购买）的{{initialize.rateBegin||2}}%-{{initialize.rateEnd||15}}%的返现；</view>
+        <view>2、赚取团队成员FreeBuy消费金额的{{initialize.buyRate||6}}%的返现；</view>
+        <view>3、团队成员成为钻石会员，获{{initialize.money||100}}元奖励；</view>
+        <view>4、赚取第{{initialize.level||5}}级团队成员消费金额（非FreeBuy购买）的1%-7.5%的返现；</view>
+        <view>5、赚取第{{initialize.level||5}}级团队成员FreeBuy消费金额的0.1%的返现</view> -->
+        <view>1、团队成员正常购买商品后，获得商品原价的{{initialize.paymentRate}}%返佣+利润{{initialize.rate}}%;</view>
+        <view>2、团队成员购买商品后，若商品无利润；获得商品原价的{{initialize.noPaymentRate}}%</view>
+        <view>3、团队成员成为钻石合伙人，获{{initialize.money||100}}元返佣;</view>
+        <view>返佣后均在佣金中可提现为余额，余额可消费可提现到微信及信用卡</view>
       </view>
     </view>
     <view wx:if="{{item.status==4}}" class="slide-image {{currentTab === index ?'active-item': ''}}" style="background: url({{item.bannerUrl}}) no-repeat center center;background-size: 100% 100%;">

@@ -1,0 +1,143 @@
+<!--pages/commodityArea/commodityArea.wxml-->
+<!-- 商品实际支出保留两位小数 -->
+<wxs module="foo">
+  module.exports = {
+    toStr: function(n) {
+      n = n.toFixed(2)
+      return n
+    }
+  }
+</wxs>
+<view class="commodityArea-wrapper">
+  <view class="commodityArea">
+    <image src="{{listItem.firstImage}}" class="img"></image>
+    <image src="{{hostUrl}}/update/role.png" class="img1" bindtap="showRole"></image>
+    <view class="role" bindtap="showRole">活动规则</view>
+  </view>
+</view>
+<view class="classify" style="{{fixed==true?'position:fixed;top:0;z-index:99;':''}}">
+  <view class="classify_wrap">
+    <view class='classify_one' bindtap="toViewClick" data-hash="infoBox1">{{category[0]}}</view>
+    <view class='{{nowstatus == "infoBox1" ? "titleActive" : ""}}'></view>
+  </view>
+  <view class="classify_wrap">
+    <view class='classify_one' bindtap="toViewClick" data-hash="infoBox2">{{category[1]}}</view>
+    <view class='{{nowstatus == "infoBox2" ? "titleActive" : ""}}'></view>
+  </view>
+  <view class="classify_wrap">
+    <view class='classify_one' bindtap="toViewClick" data-hash="infoBox3">{{category[2]}}</view>
+    <view class='{{nowstatus == "infoBox3" ? "titleActive" : ""}}'></view>
+  </view>
+  <view class="classify_wrap">
+    <view class='classify_one' bindtap="toViewClick" data-hash="infoBox4">{{category[3]}}</view>
+    <view class='{{nowstatus == "infoBox4" ? "titleActive" : ""}}'></view>
+  </view>
+</view>
+<view class="infoBox_wrap">
+  <view class="infoBox" id="infoBox1" wx:if="{{listItem.activityAreaInfo[0].layeredImage&&listItem.activityAreaInfo[0].activityGoodsList}}">
+    <view class="fenImg">
+      <image src="{{listItem.activityAreaInfo[0].layeredImage}}"></image>
+    </view>
+    <view class="goods_wrap">
+      <view class="goodsList" data-id="{{item.id}}" bindtap='toDetail' wx:for="{{listItem.activityAreaInfo[0].activityGoodsList}}" wx:key="{{item.id}}" data-labelname="{{listItem.activityAreaInfo[0].labelName}}" data-labelimage="{{listItem.labelImage}}">
+        <view class="goodsImg">
+          <image src="{{item.imageUrls[0]}}">></image>
+        </view>
+        <view class="reality">实付{{item.dctPrice}}返{{item.marketingCashBack.totalAmount}}</view>
+        <view class="goodsText">{{item.name}}</view>
+        <view class="goodsPrice">
+          <view class="newPrice">
+            <text>￥</text>
+            <text>{{foo.toStr(item.dctPrice-item.marketingCashBack.totalAmount)}}</text>
+          </view>
+          <view class="oldPrice">￥{{item.orgPrice}}</view>
+        </view>
+        <view class="tag">
+          <view class="tagItem">{{listItem.activityAreaInfo[0].labelName}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="infoBox" id="infoBox2" wx:if="{{listItem.activityAreaInfo[1].layeredImage&&listItem.activityAreaInfo[1].activityGoodsList}}">
+    <view class="fenImg">
+      <image src="{{listItem.activityAreaInfo[1].layeredImage}}"></image>
+    </view>
+    <view class="goods_wrap">
+      <view class="goodsList" data-id="{{item.id}}" bindtap='toDetail' wx:for="{{listItem.activityAreaInfo[1].activityGoodsList}}" wx:key="{{item.id}}">
+        <view class="goodsImg">
+          <image src="{{item.imageUrls[0]}}">></image>
+        </view>
+        <view class="reality">实付{{item.dctPrice}}返{{item.marketingCashBack.totalAmount}}</view>
+        <view class="goodsText">{{item.name}}</view>
+        <view class="goodsPrice">
+          <view class="newPrice">
+            <text>￥</text>
+            <text>{{foo.toStr(item.dctPrice-item.marketingCashBack.totalAmount)}}</text>
+          </view>
+          <view class="oldPrice">￥{{item.orgPrice}}</view>
+        </view>
+        <view class="tag">
+          <view class="tagItem">{{listItem.activityAreaInfo[1].labelName}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="infoBox" id="infoBox3" wx:if="{{listItem.activityAreaInfo[2].layeredImage&&listItem.activityAreaInfo[2].activityGoodsList}}">
+    <view class="fenImg">
+      <image src="{{listItem.activityAreaInfo[2].layeredImage}}"></image>
+    </view>
+    <view class="goods_wrap">
+      <view class="goodsList" data-id="{{item.id}}" bindtap='toDetail' wx:for="{{listItem.activityAreaInfo[2].activityGoodsList}}" wx:key="{{item.id}}" data-labelname="{{listItem.activityAreaInfo[2].labelName}}" data-labelimage="{{listItem.labelImage}}">
+        <view class="goodsImg">
+          <image src="{{item.imageUrls[0]}}">></image>
+        </view>
+        <view class="reality">实付{{item.dctPrice}}返{{item.marketingCashBack.totalAmount}}</view>
+        <view class="goodsText">{{item.name}}</view>
+        <view class="goodsPrice">
+          <view class="newPrice">
+            <text>￥</text>
+            <text>{{foo.toStr(item.dctPrice-item.marketingCashBack.totalAmount)}}</text>
+          </view>
+          <view class="oldPrice">￥{{item.orgPrice}}</view>
+        </view>
+        <view class="tag">
+          <view class="tagItem">{{listItem.activityAreaInfo[2].labelName}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="infoBox" id="infoBox4" wx:if="{{listItem.activityAreaInfo[3].layeredImage&&listItem.activityAreaInfo[3].activityGoodsList}}">
+    <view class="fenImg">
+      <image src="{{listItem.activityAreaInfo[3].layeredImage}}"></image>
+    </view>
+    <view class="goods_wrap">
+      <view class="goodsList" data-id="{{item.id}}" bindtap='toDetail' wx:for="{{listItem.activityAreaInfo[3].activityGoodsList}}" wx:key="{{item.id}}" data-labelname="{{listItem.activityAreaInfo[3].labelName}}" data-labelimage="{{listItem.labelImage}}">
+        <view class="goodsImg">
+          <image src="{{item.imageUrls[0]}}">></image>
+        </view>
+        <view class="reality">实付{{item.dctPrice||0}}返{{item.marketingCashBack.totalAmount}}</view>
+        <view class="goodsText">{{item.name}}</view>
+        <view class="goodsPrice">
+          <view class="newPrice">
+            <text>￥</text>
+            <text>{{foo.toStr(item.dctPrice-item.marketingCashBack.totalAmount)}}</text>
+          </view>
+          <view class="oldPrice">￥{{item.orgPrice}}</view>
+        </view>
+        <view class="tag">
+          <view class="tagItem">{{listItem.activityAreaInfo[3].labelName}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 活动规则弹窗 -->
+<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showRole}}">
+  <view class="zan-dialog__container" wx:if="{{showRole}}">
+    <view class="role_title">活动规则</view>
+    <view class="height_text">
+      <rich-text nodes="{{listItem.ruleContent}}" />
+    </view>
+  </view>
+  <image wx:if="{{showRole}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow'></image>
+</view>

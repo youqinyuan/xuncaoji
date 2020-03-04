@@ -8,7 +8,8 @@ Page({
   data: {
     recommend: [],
     pageNumber: 1,
-    pageSize: 20
+    pageSize: 20,
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**
@@ -78,7 +79,7 @@ Page({
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode == 'MSG_1001') {
         that.setData({
-          imageUrl: res.data.content.imageUrl ? res.data.content.imageUrl :'https://xuncj.yzsaas.cn/_download/img/add/fenBuy.png',
+          imageUrl: res.data.content.imageUrl ? res.data.content.imageUrl :app.Util.getUrlImg().hostUrl+'/add/fenBuy.png',
           recommend: res.data.content.goods
         })
       }

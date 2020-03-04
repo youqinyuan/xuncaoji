@@ -38,46 +38,6 @@ function formatTimeTwo(number, format) {
   }
   return format;
 }
-/*获取当前页带参数的url*/
-function getUrl() {
-  var pages = getCurrentPages() //获取加载的页面
-  var currentPage = pages[pages.length - 1] //获取当前页面的对象
-  var url = currentPage.route //当前页面url
-  wx.setStorageSync('Router', `/${url}`)
-  console.log(currentPage)
-  var options = currentPage.options //如果要获取url中所带的参数可以查看options
-
-  //参数多时通过&拼接url的参数
-  var urlWithArgs = url + '?'
-  for (var key in options) {
-    var value = options[key]
-    urlWithArgs += key + '=' + value + '&'
-  }
-  urlWithArgs = urlWithArgs.substring(0, urlWithArgs.length - 1)
-  wx.setStorageSync('Url', `/${urlWithArgs}`)
-}
-function formatSplitString(str, gap, sep) {
-  if (!str) {
-    return '';
-  }
-  let l = str.length - 1;
-  let strArr = str.split(''); // 将字符串分割成字符串数组
-  return strArr.map((elem, i) => {
-    if (i % gap === gap - 1 && i !== l) {
-      return elem + sep; // 当前元素+分隔符
-    } else {
-      return elem;
-    }
-  }).join(''); // 放入一个字符串
-}
-// 获取当前页面路由
-function getRouter() { //此方法跟上面一个方法前四行一致，只是这里是获取路由不是拼接参数的
-  var pages = getCurrentPages() //获取加载的页面
-  var currentPage = pages[pages.length - 1] //获取当前页面的对象
-  var router = currentPage.route //当前页面url
-  console.log(currentPage)
-  wx.setStorageSync('Router', `/${router}`)
-}
 
 const ajax = (url, data, method, config = {}) => {
   var authLoginStatus = 0
@@ -86,8 +46,8 @@ const ajax = (url, data, method, config = {}) => {
     authLoginStatus = authLoginStatus2
   }
   let token = wx.getStorageSync('token')
-  let baseUrl = "https://xuncaoji.yzsaas.cn/"; //测试环境
-  // let baseUrl = 'https://xuncj.yzsaas.cn/'; //正式环境
+  let baseUrl = "https://dev.xuncaoji.net/v2.3/"; //测试环境
+  // let baseUrl = 'https://xuncaoji.net/v2.2/'; //正式环境
   let headerConfig = { // 默认header ticket、token、params参数是每次请求需要携带的认证信息
     ticket: '...',
     token: '' || token,
@@ -97,15 +57,15 @@ const ajax = (url, data, method, config = {}) => {
   wx.showLoading({
     title: '加载中…',
   })
-  return new Promise((resolve, reject) => { // 返回一个promise
+  return new Promise((resolve, reject) => {
     wx.request({
-      url: baseUrl + url, // 拼接url
+      url: baseUrl + url,                                                                                  
       data,
-      header: Object.assign({}, headerConfig, config), // 合并传递进来的配置
+      header: Object.assign({}, headerConfig, config),
       method: method,
       success(res) {
-       // console.log("接口信息："+JSON.stringify(res))
-       var pages = getCurrentPages()
+        // console.log("接口信息："+JSON.stringify(res))
+        var pages = getCurrentPages()
         if (res.data.statusCode == 200 || authLoginStatus == 1) {
           wx.hideLoading()
           if (res.data.messageCode == 'MSG_1001' || authLoginStatus == 1) {
@@ -114,11 +74,11 @@ const ajax = (url, data, method, config = {}) => {
           } else if (res.data.messageCode == 'MSG_2001') {
             console.log(res.data.messageCode)
             wx.removeStorageSync('token')
-            if (pages[pages.length - 1].route == "pages/index/index" || pages[pages.length - 1].route == "pages/wishpool/wishpool" || pages[pages.length - 1].route == "pages/xuncaoji/xuncaoji" || pages[pages.length - 1].route == "pages/mine/mine" || pages[pages.length - 1].route == "pages/freeBuy/freeBuy") {
+            if (pages[pages.length - 1].route == "pages/index/index" || pages[pages.length - 1].route == "pages/wishpool/wishpool" || pages[pages.length - 1].route == "packageA/pages/xuncaoji/xuncaoji" || pages[pages.length - 1].route == "pages/mine/mine" || pages[pages.length - 1].route == "packageA/pages/freeBuy/freeBuy") {
               return;
-            }else{
-                wx.navigateTo({
-                 url: '/pages/invitationCode/invitationCode',
+            } else {
+              wx.navigateTo({
+                url: '/pages/invitationCode/invitationCode',
               })
             }
           } else if (res.data.messageCode == 'MSG_5001') {
@@ -126,12 +86,12 @@ const ajax = (url, data, method, config = {}) => {
               title: '网络开小差了，请稍后再试哦！',
               icon: 'none'
             })
-          }else if (res.data.message == '您的请求过于频繁，请稍候再试') {
+          } else if (res.data.message == '您的请求过于频繁，请稍候再试') {
             wx.showToast({
               title: res.data.message,
               icon: 'none'
             })
-          }else{
+          } else {
             resolve(res)
           }
         }
@@ -147,10 +107,10 @@ const ajax = (url, data, method, config = {}) => {
 }
 
 function getUrlImg() {
-  var hostUrl = 'https://xuncj.yzsaas.cn/_download/img';
-  var hostVideo = 'https://xuncj.yzsaas.cn/_download/'
-  var publicUrl = "https://xuncaoji.yzsaas.cn/"; //测试环境 
-  // var publicUrl = 'https://xuncj.yzsaas.cn/'; //正式环境
+  var hostUrl = 'https://xuncaoji.net/_download/img';
+  var hostVideo = 'https://xuncaoji.net/_download/'
+  var publicUrl = "https://dev.xuncaoji.net/v2.3/"; //测试环境 
+  // var publicUrl = 'https://xuncaoji.net/v2.3/'; //正式环境
   return {
     hostUrl,
     publicUrl,
@@ -181,9 +141,6 @@ function deepCopy(o, c) {
 module.exports = {
   formatTime: formatTime,
   formatTimeTwo: formatTimeTwo,
-  getUrl: getUrl,
-  getRouter: getRouter,
-  formatSplitString: formatSplitString,
   ajax: ajax,
   getUrlImg: getUrlImg,
   deepCopy: deepCopy

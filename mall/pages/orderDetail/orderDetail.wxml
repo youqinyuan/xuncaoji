@@ -8,70 +8,70 @@
         <view class="text">
           <text>已取消</text>
         </view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_cancel.png"></image>
+        <image src="{{hostUrl}}/icon/ic_cancel.png"></image>
       </view>
       <view class="state" wx:if="{{content.latestStatus==1}}">
         <view class="text">
           <view class="text1">待支付</view>
           <view class="text2">{{waitPay}}后取消订单</view>
         </view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_clock.png"></image>
+        <image src="{{hostUrl}}/icon/ic_clock.png"></image>
       </view>
       <view class="state" wx:if="{{content.latestStatus==4}}">
         <view class="text">
           <text>待收货</text>
         </view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_truck.png"></image>
+        <image src="{{hostUrl}}/icon/ic_truck.png"></image>
       </view>
       <view class="state" wx:if="{{content.latestStatus==5}}">
         <view class="text">
           <text>待评价</text>
         </view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_comment.png"></image>
+        <image src="{{hostUrl}}/icon/ic_comment.png"></image>
       </view>
       <view class="state" wx:if="{{content.latestStatus==2}}">
         <view class="text">
           <text>待发货</text>
         </view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_box.png"></image>
+        <image src="{{hostUrl}}/icon/ic_box.png"></image>
       </view>
       <view class="state" wx:if="{{content.latestStatus==6}}">
         <view class="text">
           <text>已完成</text>
         </view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_done.png"></image>
+        <image src="{{hostUrl}}/icon/ic_done.png"></image>
       </view>
       <view class="state" wx:if="{{content.latestStatus==7||content.latestStatus==8}}">
         <view class="text">
           <text>退款中</text>
         </view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_refund.png"></image>
+        <image src="{{hostUrl}}/icon/ic_refund.png"></image>
       </view>
       <view class="state" wx:if="{{content.latestStatus==11}}">
         <view class="text">
           <text>退款失败</text>
         </view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_refund.png"></image>
+        <image src="{{hostUrl}}/icon/ic_refund.png"></image>
       </view>
       <view class="state" wx:if="{{content.latestStatus==10}}">
         <view class="text">
           <text>交易关闭</text>
         </view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_refund.png"></image>
+        <image src="{{hostUrl}}/icon/ic_refund.png"></image>
       </view>
     </view>
     <view class="platform">
       <view class="platform-list">
         <view class="platform-list-item">
-          <image class="platform-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/index_protect_shouhou_icon.png"></image>
+          <image class="platform-list-img" src="{{hostUrl}}/icon/index_protect_shouhou_icon.png"></image>
           <text class="platform-text">源头直采</text>
         </view>
         <view class="platform-list-item">
-          <image class="platform-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/index_protect_renzheng_icon.png"></image>
+          <image class="platform-list-img" src="{{hostUrl}}/icon/index_protect_renzheng_icon.png"></image>
           <text class="platform-text">假一赔十</text>
         </view>
         <view class="platform-list-item">
-          <image class="platform-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/index_protect_changj_icon.png"></image>
+          <image class="platform-list-img" src="{{hostUrl}}/icon/index_protect_changj_icon.png"></image>
           <text class="platform-text">全场支持0成本购</text>
         </view>
       </view>
@@ -80,20 +80,20 @@
   <!-- 物流详情 -->
   <view class="address" bindtap='jumpLogDetail' data-logisticsid="{{logisticsId}}" wx:if="{{logisticsDetailList.length===1}}">
     <view class="address-img">
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_logistics.png"></image>
+      <image src="{{hostUrl}}/icon/ic_logistics.png"></image>
     </view>
     <view class="address-text">{{list.remark}}</view>
     <view class="address-right-img">
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/xiangqing_more_n.png"></image>
+      <image src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
     </view>
   </view>
   <view class="address" bindtap='jumpLogDetail' data-orderid="{{content.id}}" wx:if="{{logisticsDetailList.length>1}}">
     <view class="address-img">
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_logistics.png"></image>
+      <image src="{{hostUrl}}/icon/ic_logistics.png"></image>
     </view>
     <view class="address-text">该订单已拆成{{logisticsDetailList.length}}个包裹发出，点击查看具体物流详情</view>
     <view class="address-right-img">
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/xiangqing_more_n.png"></image>
+      <image src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
     </view>
   </view>
   <!-- 收货地址 -->
@@ -101,7 +101,7 @@
     <view class="address1">
       <view class="address-name-wrap">
         <view class="address-name">
-          <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_location.png"></image>
+          <image src="{{hostUrl}}/add/ic_location.png"></image>
           <view class="address-name-xm">{{content.orderAddressDetail.receiverName}}</view>
           <view>{{content.orderAddressDetail.mobileNumber}}</view>
         </view>
@@ -153,24 +153,46 @@
             <text bindtap="toReturnMoney" data-index="2" data-goodsDetail="{{item}}">退款取消</text>
           </view>
         </view>
+    <!-- 预售订单 -->
+  <view class="pre_sell" wx:if="{{content.whetherAdvanceSale==1}}">
+    <view class="pre_sell_one">服务</view>
+    <view class="pre_sell_two">预售订单</view>
+    <image class="pre_sell_three" src="/assets/images/new/ic_explain@2x@2x.png" /> 
+    <view class="pre_sell_four">
+      <view class="pre_sell_status" wx:if="{{content.defaultAmountStatus==1}}">未支付</view>
+      <view class="pre_sell_status" wx:if="{{content.defaultAmountStatus==2}}">已支付</view>
+      <view class="pre_sell_status" wx:if="{{content.defaultAmountStatus==3}}">已扣除</view>
+      <view class="pre_sell_status" wx:if="{{content.defaultAmountStatus==4}}">已返还</view>
+      <view class="pre_sell_money">违约金<text class="font20">￥{{content.defaultAmount}}</text></view>
+    </view>
+  </view>
+  <!-- 预售信息 -->
+  <view class="pre_sell_info" wx:if="{{content.whetherAdvanceSale==1&&content.forumTopicResponse}}">
+    <view class="pre_sell_info_title">待返订单转让信息</view>
+    <view class="pre_sell_info_value">
+      <view class="sell_price">
+        <view class="return_price_one">售价￥{{content.forumTopicResponse.expectAmount}}</view>
+        <view class="return_price_two">共返￥{{content.forumTopicResponse.cashBackAmount}}</view>
+      </view>
+      <view class="sell_cash">
+        <view class="sell_cash_one">剩余{{content.forumTopicResponse.periodLeft}}期，截止{{filters.toDate(content.forumTopicResponse.maxReturnTime)}}，每月{{content.forumTopicResponse.perReturnDay}}号，每期返还</view>
+        <view class="sell_cash_two">￥{{content.forumTopicResponse.perReturnAmount}}</view>
+      </view>
+      <view class="sell_cash_box">
+        <view class="sell_cash_three">年收益率：<text class="col_red">{{content.forumTopicResponse.annualizedRate}}%</text></view>
+      </view>
+      <view class="sell_cash">
+        <view class="sell_cash_four col_red">
+          年化率会随剩余时间的变化不断降低，建议及时关注并
+        </view>
+        <view class="sell_cash_four col_red">
+          重新发布。
+        </view>
+      </view>
+    </view>
+    <view class="sell_remak" wx:if="{{content.forumTopicResponse.content}}">{{content.forumTopicResponse.content}}</view>
+  </view>
         <view class="allprice">
-          <!-- <view class="expressfee">
-            <view class="expressfee-text">商品总价</view>
-            <view class="expressfee-price">
-              <text>￥</text>
-              <text class="expressfee-price1">{{item.goodsTotalPrice}}</text>
-            </view>
-          </view>
-          <view class="expressfee">
-            <view class="expressfee-text">运费(快递)</view>
-            <view class="expressfee-price" wx:if="{{item.expressFee == 0}}">
-              <text>包邮</text>
-            </view>
-            <view class="expressfee-price" wx:else>
-              <text>￥</text>
-              <text class="expressfee-price1">{{item.expressFee}}</text>
-            </view>
-          </view> -->
           <view class="expressfee" wx:if="{{item.purchaseTotalPrice==null}}">
             <view class="expressfee-text">商品总价</view>
             <view class="expressfee-price">
@@ -179,7 +201,7 @@
             </view>
           </view>
           <view class="expressfee_pay border2px" wx:if="{{item.purchaseTotalPrice}}">
-            <view class="expressfee-text2">您支付的金额信息</view>
+            <view class="expressfee-text2">支付信息</view>
           </view>
           <view class="expressfee">
             <view class="expressfee-text">运费(快递)</view>
@@ -234,15 +256,15 @@
             </view>
           </view>
           <view class="expressfee" wx:if="{{item.purchaseTotalPrice}}">
-            <view class="expressfee-text">返还期(月)数</view>
+            <view class="expressfee-text">返还{{newPeopleActivity==1?'期(月)':'天'}}数</view>
             <view class="expressfee-price">
-              <text class="expressfee-price1"><text class="expressfee-price1-text">{{item.period}}个月</text></text>
+              <text class="expressfee-price1"><text class="expressfee-price1-text">{{item.period}}{{newPeopleActivity==1?'个月':'天'}}</text></text>
             </view>
           </view>
           <view class="expressfee" wx:if="{{item.period}}">
             <view class="expressfee-text">分期返现</view>
             <view class="expressfee-price" wx:if="{{item.purchaseTotalPrice}}">
-              <text class="expressfee-price1">{{item.period}}期(月)共返现<text class="expressfee-price1-text">￥</text>{{item.remainingCashReturn}}</text>
+              <text class="expressfee-price1">{{item.period}}{{newPeopleActivity==1?'期(月)':'天'}}共返现<text class="expressfee-price1-text">￥</text>{{item.cashBack}}</text>
             </view>
             <view class="expressfee-price" wx:else>
               <text class="expressfee-price1" wx:if="{{item.period==0}}">立即返现</text>
@@ -302,7 +324,7 @@
   </view>
   <view class="stopZero10" wx:if="{{content.buyMode==2}}">
     <view class="stopZero-platform10">我们是上市挂牌公司（代码837939）旗下电商平台，为消费者存有壹亿消费保障基金，请放心使用！<text bindtap="showBox">终止</text></view>
-    <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/ic_explain.png" class="stop_img" bindtap="showBox"/>
+    <image src="{{hostUrl}}/sponsor/ic_explain.png" class="stop_img" bindtap="showBox"/>
   </view>
   <view class="payment">
     <view class="payment-text">实际付款</view>
@@ -411,7 +433,7 @@
       <!-- <view class="cancel-refund" wx:if="{{content.latestStatus==7||content.latestStatus==8}}" catchtap='cancelRefund' data-orderid="{{content.id}}">
         取消退款
       </view> -->
-      <view class="cash-back" wx:if="{{content.isCashBack==true}}" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}">
+      <view class="cash-back" wx:if="{{content.isCashBack==true}}" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">
         分期返现
       </view>
       <view class="pay-money" wx:if="{{content.latestStatus==1}}" data-ordertype="{{content.orderType}}" catchtap='toPay' data-id="{{content.transStatementDetail.transId}}" data-orderid="{{content.id}}">
@@ -470,7 +492,7 @@
   </view>
 </view> -->
 <!-- 取消订单 -->
-<view class="zan-dialog3 {{ showDialog3 ? 'zan-dialog--show3' : '' }}">
+<!-- <view class="zan-dialog3 {{ showDialog3 ? 'zan-dialog--show3' : '' }}">
   <view class="zan-dialog__mask3" />
   <view class="zan-dialog__container3">
     <view class='contentainer3'>
@@ -485,6 +507,21 @@
         <button class="comfirm" bindtap="sureorder">确定</button>
       </view>
     </view>
+  </view>
+</view> -->
+<!-- 取消订单 -->
+<view class="sell-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog3}}">
+  <view class="sell-dialog__container heigh563" wx:if="{{showDialog3}}">
+    <image wx:if="{{showDialog3}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='cancelorder'></image>
+    <view class="title">取消订单</view>
+      <view class="text text2">
+         <view class="contentainer3-content-text {{current == index ?'active1':''}}" bindtap="getText1" wx:for="{{cancelOrder}}" wx:for-item="reasons1" wx:key="{{reasons1}}" data-current="{{index}}" data-text="{{reasons1}}">{{reasons1}}</view>
+      </view>
+      <view class="penalSum" wx:if="{{content.whetherAdvanceSale==1&&content.defaultAmount>0}}">提示：取消订单您需要支付违约金￥{{content.defaultAmount}}</view>
+      <view class="but_box1">
+        <button class="shure_one1" bindtap='cancelorder'>取消</button>
+        <button class="shure_one2" bindtap="sureorder">确认</button>
+      </view>
   </view>
 </view>
 <!-- 终止0元购弹窗 -->
@@ -508,12 +545,12 @@
     <view class="title">终止FreeBuy </view>
     <view class="text">提交订单、支付后，您可在订单内随时终止 FreeBuy！剩余资金退还到您的账户。可随时提现至微信！！</view>
   </view>
-  <image wx:if="{{showBox}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelBox'></image>
+  <image wx:if="{{showBox}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelBox'></image>
 </view>
 <!-- 种子明细弹窗  -->
 <view class="dialog__mask2" wx:if="{{seedDetailShow}}">
   <view class="dialog__container2" wx:if="{{seedDetailShow}}">
-    <image wx:if="{{seedDetailShow}}" class="cancel-img2" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='seedDetailShowClose'></image>
+    <image wx:if="{{seedDetailShow}}" class="cancel-img2" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='seedDetailShowClose'></image>
     <view class="title2">共使用{{content.deductionSeed}}颗种子抵用{{content.deductionAmount}}元</view>
     <view class="text2" animation="{{animationData}}">
       <view class="seedGoodsBox" wx:for="{{content.orderSeedDeductionList}}" wx:key="">

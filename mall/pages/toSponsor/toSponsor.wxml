@@ -32,10 +32,10 @@
         <view class="rule_value">8、活动最终解释权归寻草记所有</view>
     </view>
   </view>
-  <image wx:if="{{show1}}" class="cancel-get2" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
+  <image wx:if="{{show1}}" class="cancel-get2" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
 </view>
 <view class="news_box">
-  <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/icon2.png" class="news_img"/>
+  <image src="{{hostUrl}}/sponsor/icon2.png" class="news_img"/>
       <view class="user_box">
         <view class="user_name">邀请好友赞助1元，1元将立刻返还到好友的账户上</view>
         <view class="black">|</view>
@@ -77,7 +77,7 @@
         <view class="get_button" catchtap="share">邀请好友赞助</view>
     </view>
     <view class="get_button_box" wx:if="{{content.sponsorCount!==0&&content.sponsorCount!==content.requireSponsorCount}}">
-        <view class="buy_button" bindtap="toPlaceOrder">0成本购买￥{{content.needPaymentAmount}}</view>
+        <view class="buy_button" bindtap="toPlaceOrder"><text >0成本购买￥{{content.needPaymentAmount}}</text></view>
         <view class="get_button1" catchtap="share">邀请好友赞助</view>
     </view>
     <view class="get_button_box" wx:if="{{content.sponsorCount==content.requireSponsorCount}}">
@@ -85,26 +85,26 @@
     </view>
     <view class="mengceng" wx:if="{{content.status=='INVALID'||content.status==='NO_ORDER'}}">
         <view class="nohappy_box">
-            <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/nohappy.png" class="nohappy"/>
+            <image src="{{hostUrl}}/sponsor/nohappy.png" class="nohappy"/>
         </view>
         <view class="nohappy_font">很遗憾，赞助失效了，再次去发起赞助吧！</view>
     </view>
 </view>
 <view class="sponsor_list_box">
     <view class="sponsor_list_title">
-        <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/shape4.png" class="head_left_img" />
+        <image src="{{hostUrl}}/sponsor/shape4.png" class="head_left_img" />
         <view class="sponsor_list_name">赞助列表</view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/shape3.png" class="head_right_img" />
+        <image src="{{hostUrl}}/sponsor/shape3.png" class="head_right_img" />
     </view>
     <view class="sponsor_people_box">
         <view class="no_people" wx:if="{{sponsorItems.length==0}}">好友都还没来，快去邀请</view>
         <block wx:if="{{sponsorItems.length>0}}">
             <view class="sponsor_people" wx:for="{{sponsorItems}}" wx:key="">
-                <image src="{{item.avatarUrl?item.avatarUrl:'https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png'}}" class="head_img"/>
+                <image src="{{item.avatarUrl?item.avatarUrl:'{{hostUrl}}/icon/zhanw_tb_n.png'}}" class="head_img"/>
                 <view class="people_name">{{item.nickname}}</view>
                 <view class="people_value">赞助了您1元</view>
                 <view class="bor"></view>
-                <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/kanjia.png" class="kanjia"/>
+                <image src="{{hostUrl}}/sponsor/kanjia.png" class="kanjia"/>
                 <view class="kanjia_money">为您节省{{content.savedAmountPerSponsor}}元的支出</view>
             </view>
         </block>
@@ -112,13 +112,14 @@
 </view>
 <view class="recommend_goods_box">
     <view class="recommend_goods_title">
-        <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/shape2.png" class="head_left_img2" />
+        <image src="{{hostUrl}}/sponsor/shape2.png" class="head_left_img2" />
         <view class="head_name">新品推荐</view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/shape.png" class="head_right_img2" />
+        <image src="{{hostUrl}}/sponsor/shape.png" class="head_right_img2" />
     </view>
     <view class="recommend_goods_list">
         <view class="recommend_goods" wx:for="{{list}}" wx:key="">
-            <view class="recommend_goods_img">
+            <view bindtap="toGoodsDetail" data-id="{{item.id}}">
+                <view class="recommend_goods_img">
                 <image src="{{item.imageUrls[0]}}" />
             </view>
             <view class="recommend_goods_name_box">
@@ -130,6 +131,7 @@
                 <view class="price2">￥{{item.orgPrice}}</view>
             </view>
             <view class="youhui">实付<text>￥{{item.dctPrice}}</text>返<text>￥{{item.marketingCashBack.totalAmount}}</text></view>
+            </view>
         </view>      
     </view>
 </view>
@@ -140,21 +142,21 @@
 <!--弹出框 选择开始 -->
 <view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
   <view class="content-wrapper1">
-    <image class="cancel" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
     <view class="shareCommission" wx:if="{{sharingProfit=='' || shareList.isPlusMember===2}}">你喜欢那就分享给你朋友吧</view>
     <view class="shareCommission" wx:if="{{sharingProfit && shareList.isPlusMember===1}}">分享商品后预计最多可赚佣金￥{{sharingProfit}}</view>
     <view class="shareText" wx:if="{{sharingProfit && shareList.isPlusMember===1}}">朋友通过你分享的页面成功购买后，你将获得商品返利</view>
     <view class="share-wrap">
       <button class="share-button" id='btn' open-type="share">
-        <image class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/share_wechat.png"></image>
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
         <view class="wx">分享好友</view>
       </button>
       <button class="share-button" id='btnGroup' open-type="share">
-        <image class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/share_tanc_qun_n.png"></image>
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
         <view class="wx">分享群</view>
       </button>
       <!-- <button class="share-button" bindtap='shareFriend'>
-        <image class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/share_friends.png"></image>
+        <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
         <view class="wx">分享图片</view>
       </button> -->
     </view>
@@ -165,7 +167,7 @@
 <view class="canvas-box" hidden='{{haibao == false}}'>
   <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
   <view class="close_hb" wx:if="{{haibao}}">
-    <image src="https://xuncj.yzsaas.cn/_download/img/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+    <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
   </view>
 </view>
 

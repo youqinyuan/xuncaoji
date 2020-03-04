@@ -5,15 +5,12 @@
     <view class="content_box_photo">
       <view class="content_box_left">
         <image wx:if="{{content.avatarKey}}" src="{{content.avatarKey}}"></image>
-        <image wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+        <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
         <view class="nickname">{{content.nickname}}</view>
       </view>
       <view class="content_box_right">
-        <image src="https://xuncj.yzsaas.cn/_download/img/add/btn_buy.png" class="buy" wx:if="{{content.type==2}}"></image>
-        <image src="https://xuncj.yzsaas.cn/_download/img/add/btn_sale.png" class="sale" wx:if="{{content.type==3}}"></image>
-        <image src="https://xuncj.yzsaas.cn/_download/img/add/btn_ordinary.png" class="ordinary" wx:if="{{content.type==1}}"></image>
-        <image src="https://xuncj.yzsaas.cn/_download/img/add/btn_attention.png" wx:if="{{content.canRemove==2&&content.isAttention==1}}" data-id="{{content.id}}" class="follow" catchtap="follow"></image>
-        <image src="https://xuncj.yzsaas.cn/_download/img/add/btn_notattention.png" wx:if="{{content.canRemove==2&&content.isAttention==2}}" data-id="{{content.id}}" class="follow" catchtap="notFollow"></image>
+        <image src="{{hostUrl}}/add/btn_attention.png" wx:if="{{content.canRemove==2&&content.isAttention==1}}" data-id="{{content.id}}" class="follow" catchtap="follow"></image>
+        <image src="{{hostUrl}}/add/btn_notattention.png" wx:if="{{content.canRemove==2&&content.isAttention==2}}" data-id="{{content.id}}" class="follow" catchtap="notFollow"></image>
       </view>
     </view>
     <view class="content-text">
@@ -23,11 +20,13 @@
       <image wx:for="{{content.attachmentList}}" wx:for-item="contentImg" wx:key="" src="{{contentImg.fileKey}}" catchtap='imgYu' data-index='{{index}}' style="background:{{content.attachmentList.length>0?'#fff':'#e7e7e7'}}"></image>
     </view>
     <view class="content_imgBuy" wx:if="{{content.type==2}}">
-      <image src="https://xuncj.yzsaas.cn/_download/img/add/pic_buycard.png" class="img"></image>
-      <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_saled.png" class='imgs' wx:if="{{content.status==3}}"></image>
+      <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
+      <image src="/assets/images/new/ic_saled.png" class='imgs' wx:if="{{content.status==3}}"></image>
+      <image src="/assets/images/new/ic_change.png" class='imgs' wx:if="{{content.status==4}}"></image>
+      <image src="/assets/images/new/ic_expire.png" class='imgs' wx:if="{{content.status==5}}"></image>
       <view class="buy_price">
         <view class="expect_buy" wx:if="{{content.expectAmount}}">
-          <view class="expect_buy1">期望售价：</view>
+          <view class="expect_buy1">售价：</view>
           <view class="expect_buy2">{{content.expectAmount}}</view>
           <view class="expect_buy3">元</view>
         </view>
@@ -36,23 +35,32 @@
           <view class="expect_back2">{{content.cashBackAmount}}</view>
           <view class="expect_back3">元</view>
         </view>
-        <view class="expect_leave" wx:if="{{content.periodLeft>0}}">
+        <view class="expect_leave" wx:if="{{content.returnType==1||content.returnType==2}}">
           <view class="expect_leave1" wx:if="{{content.maxReturnTime&&content.perReturnDay}}">剩余{{content.periodLeft}}期，截止{{content.maxReturnTime}}，每月{{content.perReturnDay}}号，</view>
-           <view class="expect_leave2" wx:if="{{item.perReturnAmount}}">
+          <view class="expect_leave2" wx:if="{{content.perReturnAmount}}">
             <view class="box1">每期返还</view>
-            <view class="box2">{{item.perReturnAmount}}</view>
+            <view class="box2">{{content.perReturnAmount}}</view>
             <view class="box3">元</view>
           </view>
         </view>
+        <view class="expect_leave" wx:if="{{content.returnType==3}}">
+          <view class="expect_leave1" wx:if="{{content.maxReturnTime&&content.perReturnDay}}">剩余{{content.periodLeft}}天，截止{{content.maxReturnTime}}，每天返还{{content.perReturnAmount}}元
+          </view>
+        </view>
+        <view class="expect_leave" wx:if="{{content.returnType==4}}">
+          <view class="expect_leave1" wx:if="{{content.maxReturnTime&&content.perReturnDay}}">剩余{{content.periodLeft}}期，截止{{content.maxReturnTime}}，返还{{content.perReturnAmount}}元
+          </view>
+        </view>
         <view class="expect_year">
-          <view class="expect_year1">年化率：</view>
+          <view class="expect_year1">年收益率：</view>
           <view class="expect_year2">{{content.annualizedRate}}</view>
           <view class="expect_year3">%</view>
         </view>
       </view>
+      <view class="purchase" catchtap="sure"wx:if="{{content.status==2&&content.canRemove==2}}" data-avatarkey="{{content.avatarKey}}" data-nickname="{{content.nickname}}"  data-cashBackAmount="{{content.cashBackAmount}}" data-periodLeft="{{content.periodLeft}}"  data-expectAmount="{{content.expectAmount}}" data-mobileNumber="{{content.mobileNumber}}" data-returnType="{{content.returnType}}" data-id="{{content.id}}">立即购买</view>
     </view>
     <view class="content_sale" wx:if="{{content.type==3}}">
-      <image src="https://xuncj.yzsaas.cn/_download/img/add/pic_salecard.png"></image>
+      <image src="{{hostUrl}}/add/pic_salecard.png"></image>
       <view class="sale_price">
         <view class="sale_back">
           <view class="sale_back1">期望共返金额：</view>
@@ -83,6 +91,53 @@
         </view>
       </view>
     </view>
+    <!-- 预售订单 -->
+    <view class="content_imgBuy" wx:if="{{content.type==4}}">
+      <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
+      <image src="/assets/images/new/ic_saled.png" class='imgs' wx:if="{{content.status==3}}"></image>
+      <image src="/assets/images/new/ic_yud.png" class='imgs' wx:if="{{content.status==6}}"></image>
+      <view class="buy_price">
+        <view class="expect_buy" wx:if="{{content.liquidateDamageAmountVendor}}">
+          <view class="expect_buy1">卖方已缴违约金：</view>
+          <view class="expect_buy2">{{content.liquidateDamageAmountVendor}}</view>
+          <view class="expect_buy3">元</view>
+        </view>
+        <view class="content_yu">
+          <view class="expect_buy" wx:if="{{content.expectAmount}}">
+            <view class="expect_buy1">售价：</view>
+            <view class="expect_buy2">{{content.expectAmount}}</view>
+            <view class="expect_buy3">元</view>
+          </view>
+          <view class="expect_back_a" wx:if="{{content.cashBackAmount}}">
+            <view class="expect_back1">共返金额：</view>
+            <view class="expect_back2">{{content.cashBackAmount}}</view>
+            <view class="expect_back3">元</view>
+          </view>
+        </view>
+        <view class="expect_leave" wx:if="{{content.returnType==1||content.returnType==2}}">
+          <view class="expect_leave1" wx:if="{{content.maxReturnTime&&content.perReturnDay}}">剩余{{content.periodLeft}}期，截止{{filters.toDate1(content.maxReturnTime)}}，每月{{content.perReturnDay}}号，</view>
+          <view class="expect_leave2" wx:if="{{content.perReturnAmount}}">
+            <view class="box1">每期返还</view>
+            <view class="box2">{{content.perReturnAmount}}</view>
+            <view class="box3">元</view>
+          </view>
+        </view>
+        <view class="expect_leave" wx:if="{{content.returnType==3}}">
+          <view class="expect_leave1" wx:if="{{content.maxReturnTime&&content.perReturnDay}}">剩余{{content.periodLeft}}天，截止{{filters.toDate1(content.maxReturnTime)}}，每天返还{{content.perReturnAmount}}元
+          </view>
+        </view>
+        <view class="expect_leave" wx:if="{{content.returnType==4}}">
+          <view class="expect_leave1" wx:if="{{content.maxReturnTime&&content.perReturnDay}}">剩余{{content.periodLeft}}期，截止{{filters.toDate1(content.maxReturnTime)}}，返还{{content.perReturnAmount}}元
+          </view>
+        </view>
+        <view class="expect_year">
+          <view class="expect_year1">年收益率：</view>
+          <view class="expect_year2">{{content.annualizedRate}}</view>
+          <view class="expect_year3">%</view>
+        </view>
+      </view>
+      <view class="purchase" catchtap="subscribe" wx:if="{{content.status==2&&content.canRemove==2}}" data-id="{{content.id}}" data-type="{{content.type}}">立即预订</view>
+    </view>
     <view class="content_time">
       <view class="content_time_left">
         <view class="content_time_item">{{content.createTime}}</view>
@@ -90,11 +145,11 @@
       </view>
       <view class="content_time_right">
         <view class="content_time_img">
-          <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_collect.png" wx:if="{{content.isFavoriate==2}}" class="collect" catchtap="collectImg" data-id="{{content.id}}"></image>
-          <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_ativecollect.png" wx:if="{{content.isFavoriate==1}}" class="collect" catchtap="ativeCollectImg" data-id="{{content.id}}"></image>
+          <image src="{{hostUrl}}/add/ic_collect.png" wx:if="{{content.isFavoriate==2}}" class="collect" catchtap="collectImg" data-id="{{content.id}}"></image>
+          <image src="{{hostUrl}}/add/ic_ativecollect.png" wx:if="{{content.isFavoriate==1}}" class="collect" catchtap="ativeCollectImg" data-id="{{content.id}}"></image>
         </view>
         <view class="content_time_imgs" catchtap="reply" data-id="{{content.id}}">
-          <image src="https://xuncj.yzsaas.cn/_download/img/add/ic_comment.png" class="comment"></image>
+          <image src="{{hostUrl}}/add/ic_comment.png" class="comment"></image>
           <view class="content_time_text">{{content.commentPageResponse.totalSize}}</view>
         </view>
       </view>
@@ -156,6 +211,102 @@
     <view class="btn">
       <view class="cancelFollow" catchtap="cancelFollow">取消</view>
       <view class="confirmFollow" catchtap="confirmFollow">确定</view>
+    </view>
+  </view>
+</view>
+
+
+<!-- 一次确认弹窗 -->
+<view class="sure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sureOne}}">
+  <view class="zan-dialog__container" wx:if="{{sureOne}}">
+    <image wx:if="{{sureOne}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sureOneClose'></image>
+    <view class="sureOne">交易确认</view>
+    <view class="sureOneText">
+      <view class="head_box">
+        <image src="{{avatarKey}}" class="head_img" />
+        <text class="name">{{nickname}}</text>
+      </view>
+      <view class="info">
+        <text class="phoneNumber_key">对方手机号:</text>
+        <text class="phoneNumber_value">{{mobileNumber}}</text>
+      </view>
+      <view class="info">
+        <text class="phoneNumber_key">返现金额:</text>
+        <text class="phoneNumber_value">{{cashBackAmount}}元</text>
+      </view>
+      <view class="info">
+       <text class="phoneNumber_key">返现周期:</text>
+        <text class="phoneNumber_value" wx:if="{{returnType==1||returnType==2||returnType==4}}">{{periodLeft}}期</text>
+        <text class="phoneNumber_value" wx:if="{{returnType==3}}">{{periodLeft}}天</text>
+      </view>
+      <view class="info">
+        <text class="phoneNumber_key">出售价格:</text>
+        <text class="phoneNumber_value">{{expectAmount}}元</text>
+      </view>
+      <view class="but_box">
+        <text class="cancle_one" bindtap="cancle_one">取消交易</text>
+        <text class="sure_one" bindtap="sure_one">确认交易</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 二次确认弹窗 -->
+<view class="sure-two-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sureTwo}}">
+  <view class="zan-dialog__container" wx:if="{{sureTwo}}">
+    <image wx:if="{{sureTwo}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sureTwoClose'></image>
+    <view class="sureTitle">确认交易</view>
+    <view class="sureText">
+      <view class="sure_two_value">
+        本次交易将在您的账户余额内扣除{{expectAmount}}元,待返金额将进入您的待返明细内。
+      </view>
+      <view class="sure_two_tishi">
+        {{sure_two_tishi}}
+      </view>
+      <view class="two_box">
+        <text class="cancle_two" bindtap="cancle_two">取消</text>
+        <text class="sure_two" bindtap="sure_two">{{btnText}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 输入密码弹出框 -->
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{show}}">
+  <view class="zan-dialog__container1" wx:if="{{show}}">
+    <image wx:if="{{show}}" class="pwd-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='cancelShow'></image>
+    <view class="pwd-text">请输入支付密码</view>
+    <!-- <view class="text">{{passtext}}</view> -->
+    <view bindsubmit="formSubmit">
+      <view class='iptbox-wrapper'>
+        <block wx:for="{{Length}}" wx:key="item">
+          <input class='iptbox' value="{{Value.length>=index+1?Value[index]:''}}" disabled password='{{ispassword}}' type="number" catchtap='Tap'></input>
+        </block>
+      </view>
+      <input name="password" value="{{Value}}" adjust-position="{{false}}" password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus" type="number"></input>
+    </view>
+  </view>
+</view>
+<!--是否设置支付弹框-->
+<view class="zan-dialog1" catchtouchmove="preventTouchMove" wx:if="{{showPassword}}" bindtap='hidePassword'></view>
+<view class="zan-dialog1__container" wx:if="{{showPassword}}">
+  <view class='content1'>
+    <view class="content1-title">提示</view>
+    <view class="content1-container">为了您账户余额安全，请您先设置账户支付密码哦</view>
+    <view class="content1-button">
+      <view class="cancel-password" bindtap='cancel'>取消</view>
+      <view class="sure-password" bindtap='sureSet'>马上设置</view>
+    </view>
+  </view>
+</view>
+
+<!--余额不足弹框-->
+<view class="yue_zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}">
+  <view class="zan-dialog__container" wx:if="{{showDialog}}">
+    <view class="content-title">提示</view>
+    <view class="content-container">当前余额不足无法支付，建议您先去充值后再进行操作！
+    </view>
+    <view class="content-button">
+      <view class="back" catchtap='back'>取消</view>
+      <view class="continue" catchtap='continuePay'>去充值</view>
     </view>
   </view>
 </view>

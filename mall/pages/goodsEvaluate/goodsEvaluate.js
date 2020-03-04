@@ -1,11 +1,12 @@
 // pages/goodsEvaluate/goodsEvaluate.js
+let app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
   //返回首页
   go_home: function () {

@@ -2,6 +2,7 @@
 let app = getApp()
 Page({
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     showModal: false, //充值
     showMessage: '', //错误充值提示
     showMessage1: '', //提现错误提示
@@ -22,6 +23,11 @@ Page({
           icon:"none"
         })
       },1000)
+    }
+    if (options.tempStatus){
+      that.setData({
+        showModal:true
+      })
     }
     that.getMessage()
   },
@@ -132,6 +138,7 @@ Page({
                           showModal: false,
                           inputValue: ''
                         })
+                        wx.setStorageSync('recharge', 1)
                         setTimeout(function(){
                           that.getMessage();
                         },2000)                       

@@ -1,7 +1,7 @@
 <!-- components/creditCard/creditCard.wxml -->
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showStop}}">
     <view class="zan-dialog__container" wx:if="{{showStop}}">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/creditCard@2x.png" class="bgimg" />
+        <image src="{{hostUrl}}/icon/creditCard@2x.png" class="bgimg" />
         <view class="creditValue">
                  <view class="title">信用卡使用秘籍</view>
         <view>

@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     show1:false
   },
 
@@ -81,7 +82,7 @@ Page({
       app.Util.ajax('mall/order/addCharityDonationOrder', null, 'POST').then((res) => {
         if (res.data.content) {
           wx.navigateTo({
-            url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&amount=${1}`,
+            url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&amount2=${1}`,
           })
         } else {
           wx.showToast({
@@ -108,7 +109,7 @@ Page({
   },
   toOther:function(){
     wx.navigateTo({
-      url: '/pages/freeBuy/freeBuy',
+      url: '/packageA/pages/freeBuy/freeBuy',
     })
   }
 })

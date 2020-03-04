@@ -153,7 +153,7 @@
 
 .content_imgBuy .imgs {
   margin-top: 30rpx;
-  width: 100%;
+  width: 103%;
   height: 100%;
   position: absolute;
   top: 0;
@@ -217,6 +217,22 @@
   margin-left: 13rpx;
 }
 
+.purchase {
+  position: absolute;
+  bottom: 29rpx;
+  right: 29rpx;
+  width: 221rpx;
+  height: 60rpx;
+  background: #fff3dc;
+  box-shadow: 0rpx 4rpx 10rpx 0rpx #d93728;
+  border-radius: 30rpx;
+  font-size: 30rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #fe5648;
+}
 /* 可卖 */
 
 .content_sale {
@@ -584,4 +600,410 @@
   position: absolute;
   right: 350rpx;
   top: 690rpx;
+}
+
+
+/* 一次确认弹窗 */
+
+.sure-one-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+}
+
+.sure-one-dialog__mask .zan-dialog__container {
+  width: 630rpx;
+  height: 556rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 60rpx;
+  z-index: 99;
+}
+
+.sure-one-dialog__mask .cancel-img {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: 50rpx;
+  right: 50rpx;
+}
+
+.sure-one-dialog__mask .zan-dialog__container .sureOne {
+  width: 520rpx;
+  margin: 0 auto;
+  margin-top: 46rpx;
+  margin-bottom: 30rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: 500;
+  color: #222;
+  text-align: left;
+}
+
+.sure-one-dialog__mask .zan-dialog__container .sureOneText {
+  margin: 0 51rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #666;
+  line-height: 42rpx;
+}
+
+.head_box {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  color: #222;
+  height: 60rpx;
+}
+
+.head_box image {
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 50%;
+  margin-right: 25rpx;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10rpx;
+}
+
+.but_box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 49rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.cancle_one {
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  color: rgba(255, 100, 23, 1);
+  border: 2rpx solid rgba(255, 100, 23, 1);
+  border-radius: 38rpx;
+}
+
+.sure_one {
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  background: rgba(255, 100, 23, 1);
+  border-radius: 38rpx;
+  color: #fff;
+}
+
+/* 二次确认弹窗 */
+
+.sure-two-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+}
+
+.sure-two-dialog__mask .zan-dialog__container {
+  width: 630rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 60rpx;
+  z-index: 99;
+}
+
+.sure-two-dialog__mask .cancel-img {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: 50rpx;
+  right: 50rpx;
+}
+
+.sure-two-dialog__mask .zan-dialog__container .sureTitle {
+  width: 520rpx;
+  margin: 0 auto;
+  margin-top: 46rpx;
+  margin-bottom: 30rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: 500;
+  color: #222;
+  text-align: left;
+}
+
+.sure-two-dialog__mask .zan-dialog__container .sureText {
+  margin: 0 51rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #222;
+  line-height: 40rpx;
+}
+
+.two_box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 49rpx;
+  margin-bottom: 60rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.cancle_two {
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  color: rgba(255, 100, 23, 1);
+  border: 2rpx solid rgba(255, 100, 23, 1);
+  border-radius: 38rpx;
+}
+
+.sure_two {
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  background: rgba(255, 100, 23, 1);
+  border-radius: 38rpx;
+  color: #fff;
+}
+
+.sure_two_tishi{
+  font-size: 24rpx;
+  color: rgba(255, 100, 23, 1);
+  margin-top: 60rpx;
+}
+/* 支付密码 */
+
+.modal-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+}
+
+.zan-dialog__container1 {
+  top: 27%;
+  width: 630rpx;
+  height: 281rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  left: 60rpx;
+  z-index: 9999;
+}
+
+.text {
+  text-align: center;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(227, 58, 89, 1);
+  margin-top: 44rpx;
+  margin-bottom: -80rpx;
+}
+
+.pwd-text {
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+  margin-left: 189rpx;
+  margin-top: 44rpx;
+  margin-bottom: -40rpx;
+}
+
+.pwd-img {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  right: 55rpx;
+  top: 18%;
+}
+
+.iptbox-wrapper {
+  width: 630rpx;
+  height: 281rpx;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  margin-left: 50rpx;
+}
+
+.iptbox {
+  width: 85rpx;
+  height: 85rpx;
+  background: rgba(238, 238, 243, 1);
+  margin-right: 4rpx;
+  text-align: center;
+}
+
+.ipt {
+  width: 0;
+  height: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* 设置支付密码弹框 */
+
+.zan-dialog1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+}
+
+.zan-dialog1__container {
+  width: 540rpx;
+  height: 282rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 110rpx;
+  z-index: 9999;
+}
+
+.content1 {
+  text-align: center;
+  overflow: hidden;
+}
+
+.content1-title {
+  margin-top: 44rpx;
+  margin-bottom: 10rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.content1-container {
+  width: 450rpx;
+  height: 66rpx;
+  margin-left: 55rpx;
+  margin-bottom: 35rpx;
+  font-size: 30rpx;
+  text-align: center;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content1-button {
+  display: flex;
+  height: 66rpx;
+  border-top: 2rpx solid #eaeaea;
+}
+
+.cancel-password {
+  width: 270rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  text-align: center;
+  border-right: 2rpx solid #eaeaea;
+  color: rgba(51, 51, 51, 1);
+}
+
+.sure-password {
+  width: 270rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  font-size: 34rpx;
+  text-align: center;
+  color: #ff2644;
+}
+
+.sellPrice_box {
+  position: absolute;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #1496d7;
+  line-height: 36rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 120rpx;
+  top: 70rpx;
+  left: 563rpx;
+  z-index: 5;
+}
+
+.sellPrice_box2 {
+  position: absolute;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #1496d7;
+  line-height: 36rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 120rpx;
+  top: 110rpx;
+  left: 553rpx;
+  z-index: 5;
+}
+
+.choose_box {
+  height: 90rpx;
+  background: #fff;
+}
+
+.choose_one {
+  width: 33.3%;
+  height: 90rpx;
+  display: inline-block;
+  text-align: center;
+  line-height: 90rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(153, 153, 153, 1);
+  position: relative;
+}
+
+.more {
+  width: 16rpx;
+  height: 8rpx;
+  display: inline-block;
+  position: absolute;
+  top: 43rpx;
+  right: 44rpx;
+}
+
+.button_new_box {
+  background: #fff;
+  height: 80rpx;
+  width: 680rpx;
+  margin-left: 34rpx;
+  border-radius: 8rpx;
 }

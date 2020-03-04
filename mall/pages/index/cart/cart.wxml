@@ -6,7 +6,7 @@
     <view class="store-wrapper">
       <view class="store-container" wx:if="{{shops.length ===0 }}">
         <view class="store-item">
-          <image src="https://xuncj.yzsaas.cn/_download/img/icon/gouwuche_no_n.png" class="store-img"></image>
+          <image src="{{hostUrl}}/icon/gouwuche_no_n.png" class="store-img"></image>
         </view>
         <view class="store-text">还没有商品呦</view>
       </view>
@@ -18,7 +18,7 @@
               <checkbox-group data-index="{{index}}" class="store-box" bindtap="checkall">
                 <checkbox class="goods-view1" checked='{{checkeedAll}}'></checkbox>
               </checkbox-group>
-              <image src="https://xuncj.yzsaas.cn/_download/img/add/store.png"></image>
+              <image src="{{hostUrl}}/add/store.png"></image>
               <text class="text">{{item.storeName}}</text>
               <text class="text1">自营</text>
             </view> -->

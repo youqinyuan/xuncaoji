@@ -18,12 +18,12 @@
       <view class="date1">{{item.time}}</view>
     </view>
     <view class="logistics-list-right">
-      <!-- <view class="img"> <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_arrived.png"></image></view> -->
+      <!-- <view class="img"> <image src="{{hostUrl}}/icon/ic_arrived.png"></image></view> -->
       <view class="circle2" wx:if="{{status === '1' && index == 0}}">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_arrived.png"></image>
+        <image src="{{hostUrl}}/icon/ic_arrived.png"></image>
       </view>
       <view class="circle1" wx:elif="{{status === '0' && index == 0}}">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/ic_transport.png"></image>
+        <image src="{{hostUrl}}/icon/ic_transport.png"></image>
       </view>
       <view class="circle" wx:if="{{index !== 0}}"></view>
       <view wx:if="{{index !== list.length-1 && index !== 0}}" class="block"></view>

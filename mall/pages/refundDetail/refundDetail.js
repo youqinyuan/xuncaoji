@@ -13,7 +13,8 @@ Page({
     text:'',
     textData:'',
     showDialog:false,
-    orderId:0
+    orderId:0,
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**

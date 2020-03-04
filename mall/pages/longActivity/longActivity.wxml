@@ -1,0 +1,91 @@
+<!--pages/longActivity/longActivity.wxml-->
+<view class="head_box">
+    <image class="head_img" src="{{content.firstImage}}" />
+    <image class="rule" src="{{hostUrl}}/update/rule.png" />
+    <view class="rule_font" bindtap="ruleShow">活动规则</view>
+</view>
+<view class="classify" style="{{fixed==true?'position:fixed;top:0;z-index:99;':''}}">
+    <view class="tab" bindtap="toViewClick" data-index="1" wx:if="{{content.areas[0].categoryName}}">
+        {{content.areas[0].categoryName}}
+        <view class="tab_bottom_box"><view class="tab_bottom" wx:if="{{tab==1}}"></view></view>
+    </view>
+    <view class="tab" bindtap="toViewClick" data-index="2" wx:if="{{content.areas[1].categoryName}}">
+        {{content.areas[1].categoryName}}
+        <view class="tab_bottom_box"><view class="tab_bottom" wx:if="{{tab==2}}"></view></view>
+    </view>
+    <view class="tab" bindtap="toViewClick" data-index="3" wx:if="{{content.areas[2].categoryName}}">
+        {{content.areas[2].categoryName}}
+        <view class="tab_bottom_box"><view class="tab_bottom" wx:if="{{tab==3}}"></view></view>
+    </view>
+    <view class="tab" bindtap="toViewClick" data-index="4" wx:if="{{content.areas[3].categoryName}}">
+        {{content.areas[3].categoryName}}
+        <view class="tab_bottom_box"><view class="tab_bottom" wx:if="{{tab==4}}"></view></view>
+    </view>
+</view>
+<view class="one_title_img" id="one" wx:if="{{content.areas[0].categoryName}}">
+    <image src="{{content.areas[0].layeredImage}}" />
+</view>
+<view class="one_value_box" wx:if="{{content.areas[0].categoryName}}">
+    <view class="goods" wx:for="{{content.areas[0].goods}}" wx:key="{{item.id}}" bindtap="toGoodsDetail" data-goodsid="{{item.id}}">
+        <image src="{{item.imageUrl}}" class="goods_img"/>
+        <view class="goods_name">{{item.goodsName}}</view>
+        <view class="price_box">
+            <view class="price1">{{content.areas[0].labelName}}</view>
+            <view class="price2">￥<text class="font36">{{item.freeBuyPrice}}</text></view>
+        </view>
+        <view class="buy_button" >立即抢购</view>
+    </view>
+</view>
+<view class="one_title_img" id="two" wx:if="{{content.areas[1].categoryName}}">
+    <image src="{{content.areas[1].layeredImage}}" />
+</view>
+<view class="one_value_box" wx:if="{{content.areas[1].categoryName}}">
+        <view class="goods" wx:for="{{content.areas[1].goods}}" wx:key="{{item.id}}" bindtap="toGoodsDetail" data-goodsid="{{item.id}}">
+        <image src="{{item.imageUrl}}" class="goods_img"/>
+        <view class="goods_name">{{item.goodsName}}</view>
+        <view class="price_box">
+            <view class="price1">{{content.areas[1].labelName}}</view>
+            <view class="price2">￥<text class="font36">{{item.freeBuyPrice}}</text></view>
+        </view>
+        <view class="buy_button" >立即抢购</view>
+    </view>
+</view>
+<view class="one_title_img" id="three" wx:if="{{content.areas[2].categoryName}}">
+    <image src="{{content.areas[2].layeredImage}}" />
+</view>
+<view class="one_value_box" wx:if="{{content.areas[2].categoryName}}">
+        <view class="goods" wx:for="{{content.areas[2].goods}}" wx:key="{{item.id}}" bindtap="toGoodsDetail" data-goodsid="{{item.id}}">
+        <image src="{{item.imageUrl}}" class="goods_img"/>
+        <view class="goods_name">{{item.goodsName}}</view>
+        <view class="price_box">
+            <view class="price1">{{content.areas[2].labelName}}</view>
+            <view class="price2">￥<text class="font36">{{item.freeBuyPrice}}</text></view>
+        </view>
+        <view class="buy_button" >立即抢购</view>
+    </view>
+</view>
+<view class="one_title_img" id="four" wx:if="{{content.areas[3].categoryName}}">
+    <image src="{{content.areas[3].layeredImage}}" />
+</view>
+<view class="one_value_box" wx:if="{{content.areas[3].categoryName}}">
+        <view class="goods" wx:for="{{content.areas[3].goods}}" wx:key="{{item.id}}" bindtap="toGoodsDetail" data-goodsid="{{item.id}}">
+        <image src="{{item.imageUrl}}" class="goods_img"/>
+        <view class="goods_name">{{item.goodsName}}</view>
+        <view class="price_box">
+            <view class="price1">{{content.areas[3].labelName}}</view>
+            <view class="price2">￥<text class="font36">{{item.freeBuyPrice}}</text></view>
+        </view>
+        <view class="buy_button" >立即抢购</view>
+    </view>
+</view>
+<view class="height30"></view>
+<!-- 活动规则弹窗 -->
+<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{show1}}">
+  <view class="zan-dialog__container" wx:if="{{show1}}">
+    <view class="role_title">活动规则</view>
+    <view class="height_text">
+      <rich-text nodes="{{content.rule}}" />
+    </view>
+  </view>
+  <image wx:if="{{show1}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
+</view>

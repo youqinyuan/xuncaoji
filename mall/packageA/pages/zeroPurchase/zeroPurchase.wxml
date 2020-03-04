@@ -1,0 +1,318 @@
+<!--pages/zeroPurchase/zeroPurchase.wxml-->
+<!-- 分享按钮 -->
+<image src="{{hostUrl}}/icon/ic_shareDetail.png" class="share_img" bindtap="shares"></image>
+<view class="wrap">
+  <!--轮播图-->
+  <view class="swiper-wrap">
+    <swiper class="swiper-wrapper-item" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="countIndex">
+      <swiper-item wx:for="{{imageUrls}}" wx:key="{{imageUrls}}" bindtap='imgYu' data-list="{{imageUrls}}" data-src="{{item}}">
+        <image src="{{item}}" class="slide-image" />
+      </swiper-item>
+    </swiper>
+    <view class="currentIndex">{{current+1}}/{{imageUrls.length}}</view>
+  </view>
+  <view class="zero-purchase-time" wx:if="{{detail.status == 2}}">
+    <image src="{{hostUrl}}/icon/zero_p.png"></image>
+    <view class="zero-purchase-text">本活动正在进行中</view>
+    <!-- <view class="zero-purchase-word">距结束仅剩</view>
+    <view class="zero-purchase-number">{{hours}}</view>
+    <view class="zero-purchase-word">时:</view>
+    <view class="zero-purchase-number">{{minutes}}</view>
+    <view class="zero-purchase-word">分:</view>
+    <view class="zero-purchase-number">{{seconds}}</view>
+    <view class="zero-purchase-word">秒:</view>
+    <view class="zero-purchase-number">{{haoSeconds}}</view>
+    <view class="zero-purchase-word">毫秒</view> -->
+  </view>
+  <view class="zero-purchase-time" wx:if="{{!detail.remainingTime}}">
+    <image src="{{hostUrl}}/icon/zero_p.png"></image>
+    <view class="zero-purchase-text">活动暂未开始，请等待哦</view>
+  </view>
+  <view class="content">
+    <!--价格-->
+    <view class="price-wrap">
+      <view class="price">
+        <view class="new-price">
+          <text class="price-text">￥</text>{{orgPrice}}</view>
+        <view class="old-price" wx:if="{{detail.goodsItem.expressFee>0}}">
+          快递：￥{{detail.goodsItem.expressFee}}
+        </view>
+         <view class="old-price" wx:if="{{detail.goodsItem.expressFee===0}}">
+          包邮
+        </view>
+      </view>
+      <view class="rush">
+        仅剩{{allGoodsStock}}件未抢
+      </view>
+    </view>
+    <!--商品名称-->
+    <view class="goods-title">
+      <text class="goods-channel" >自营</text>
+       <text class="goods-channel2" wx:if="{{detail.goodsItem.sendSeed&&detail.goodsItem.sendSeed!==0}}">最高送{{detail.goodsItem.sendSeed}}颗种子</text>
+      <text selectable='true' bindlongtap='copy'>{{detail.goodsItem.name}}</text>
+    </view>
+    <!--售后无忧-->
+    <view class="platform-compare">
+      <view class="platform-wrap">
+        <view class="platform-img">
+          <image src="{{hostUrl}}/icon/index_protect_shouhou_icon.png"></image>
+        </view>
+        <view class="platform-text">源头直采</view>
+      </view>
+      <view class="platform-wrap">
+        <view class="platform-img">
+          <image src="{{hostUrl}}/icon/index_protect_renzheng_icon.png"></image>
+        </view>
+        <view class="platform-text">假一赔十</view>
+      </view>
+      <view class="platform-wrap">
+        <view class="platform-img">
+          <image src="{{hostUrl}}/icon/index_protect_changj_icon.png"></image>
+        </view>
+        <view class="platform-text">全场支持0成本购</view>
+      </view>
+    </view>
+  </view>
+  <!-- 规格 -->
+  <view class="spcdesc">
+    {{detail.specDesc}}
+  </view>
+  <!--邀请好友-->
+  <view class="stock" wx:if="{{message!==''}}">
+    <view class="stock-img">
+      <image src="{{hostUrl}}/icon/ic_hint.png"></image>
+    </view>
+    <view class="stock-text">{{message}}</view>
+  </view>
+  <!--用户评价-->
+  <view class="evaluate" catchtap='jumpEvaluate' data-goodsid="{{detail.goodsItem.id}}" wx:if="{{comment.length>0}}">
+    <view class="evaluate-left">用户评价</view>
+    <view class="evaluate-right">
+      <view class="evaluate-right-text">
+        <text class="percent">{{goodInteractRate}}%</text> 的人觉得好
+      </view>
+      <view class="evaluate-right-img">
+        <image src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
+      </view>
+    </view>
+  </view>
+  <view class="evaluate-content" wx:if="{{comment.length>0}}">
+    <view class="evaluate-content-top">
+      <view class="evaluate-content-img">
+        <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}"></image>
+        <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+      </view>
+      <view class="evaluate-content-right">
+        <view class="evaluate-content-right-top">
+          <view class="evaluate-content-title">{{comment[0].nickname}}</view>
+          <view class="evaluate-content-start">
+            <block wx:for="{{comment[0].score}}" wx:key=''>
+              <image src='{{hostUrl}}/icon/pingj_xinxin.png'></image>
+            </block>
+            <block wx:for="{{5-comment[0].score}}" wx:key=''>
+              <image src='{{hostUrl}}/icon/pingj_xinxin_l.png'></image>
+            </block>
+          </view>
+        </view>
+        <view class="evaluate-content-right-bottom">
+          <view class="date-wrap">
+            <text class="date">{{comment[0].createTime}}</text>
+          </view>
+          <view class="size">
+            {{comment[0].spcDesc}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="evaluate-content-bottom">
+      {{comment[0].content}}
+    </view>
+    <scroll-view class="evaluate-list-scroll" scroll-x="true">
+      <view class="evaluate-list-img" wx:for="{{comment[0].interactImageUrlList}}" wx:key="{{}}" wx:for-item="itemName" bindtap='commentYu' data-list="{{comment[0].interactImageUrlList}}" data-src="{{itemName}}">
+        <image src="{{itemName}}"></image>
+      </view>
+    </scroll-view>
+  </view>
+  <!--详情图-->
+  <view class="shop-detail-wrap" wx:for="{{introductions}}" wx:key="">
+    <image src="{{item.content}}" mode="widthFix" wx:if="{{item.resourceType==2}}"></image>
+    <view class="shop-detail-wrap-text" wx:if="{{item.resourceType==1}}">{{item.content}}</view>
+  </view>
+  <view class="block"></view>
+  <!--底部-->
+  <view class="bottom" bindtap='toPlaceorder' data-activityGoodsid="{{detail.goodsItem.activityGoodsId}}" data-goodsid="{{detail.goodsItem.id}}" data-stockid="{{stockDetail1.stockId}}">
+    {{btnText}}
+  </view>
+</view>
+<!--选择规格屏幕背景变暗的背景  -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class="commodity-top">
+    <view class="commodity-top-img">
+      <image wx:if="{{iconUrl}}" src="{{iconUrl}}"></image>
+      <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+    </view>
+    <view class="commodity-top-right">
+      <view class="commodity-top-right-item">
+        <view class="commodity-top-right-title">原价:
+          <view class="sign">￥</view>
+          <view class="price">{{stockDetail1.dctPrice}}</view>
+        </view>
+        <view class="commodity-top-right-cancel" bindtap="hideModal">
+          <image src="{{hostUrl}}/icon/tanc_close_n.png"></image>
+        </view>
+      </view>
+      <view class="commodity-save">库存{{stockDetail1.quantity}}件</view>
+      <view class="commodity-size">已选：{{selectName}}</view>
+    </view>
+  </view>
+  <view class="content-wrapper">
+    <!--选择规格-->
+    <block wx:for="{{spec}}" wx:key="{{item.id}}" wx:for-index="group_idx">
+      <view class="color-size" data-index="{{group_idx}}" bindtap='specIndex'>
+        <view class="color-size-title">{{item.name}}</view>
+        <view class="color-size-list">
+          <block wx:for="{{item.items}}" wx:key="{{item.id}}">
+            <text bindtap='clickAttr' data-attr-index="{{index}}" data-name="{{item.name}}" data-select-index="{{group_idx}}" data-attr-id="{{item.id}}" class="text1 {{item.isSelect==true? 'active' : ''}}">{{item.name}}</text>
+          </block>
+        </view>
+      </view>
+    </block>
+    <!--选择结束 -->
+    <!-- 分期返现 -->
+    <!-- <view class="return" wx:if="{{stockDetail1.cashbackItems.length>0}}">
+      <view class="return-title">购物返现</view>
+      <scroll-view scroll-x scroll-left='{{scrleft}}' class='orderTab'>
+        <view class="orderTabItem" wx:for="{{stockDetail1.cashbackItems}}" wx:key="{{item.cashbackId}}">
+          <view class="order-item {{activeIndex===index? 'active1' : ''}}" data-id="{{item.cashbackId}}" data-gindex="{{index}}" bindtap='clickCashback' data-total="{{item.totalAmount}}">
+            <view class="tabTitle" wx:if="{{item.period==0}}">立即返</view>
+            <view class="tabTitle1" wx:if="{{item.period==0}}">返现{{item.totalAmount}}元</view>
+            <view class="tabTitle" wx:if="{{item.period !== 0}}">{{item.period}}期返{{item.totalAmount}}</view>
+            <view class="tabTitle1" wx:if="{{item.period !== 0}}">每期返现{{item.amount}}元</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view> -->
+  </view>
+  <!--0元购-->
+  <view class="zeroButton" bindtap="zeroButton" data-activityGoodsid="{{detail.goodsItem.activityGoodsId}}" data-goodsid="{{detail.goodsItem.id}}" data-stockid="{{stockDetail1.stockId}}">免费领取</view>
+</view>
+<!--分享弹窗-->
+<view class="modal-mask" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
+<view class="modal-dialog1" wx:if="{{show}}">
+  <view class="share-text">
+    <view class="share">你已经领过一次了</view>
+    <view class="share1">分享朋友后，可以再获得一次</view>
+    <view class="share2">免费体验的机会哦~</view>
+  </view>
+  <view class="share-btn">
+      <button class="share-btn-friend" style="background-color:transparent" id='btn' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-btn-friend" id='btnGroup' style="background-color:transparent" open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+      <button class="share-btn-friend" bindtap='shareFriend' style="background-color:transparent">
+        <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
+    </view>
+  <image class="img" src="{{hostUrl}}/icon/pic.png"></image>
+  <image wx:if="{{show}}" class="cancel-img" src="{{hostUrl}}/icon/vip_close_Pop-ups.png" bindtap='cancelShow'></image>
+</view>
+<!-- 分享弹框 -->
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen1" bindtap="hideModal" wx:if="{{showModalStatus1}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="shareCommission">你喜欢那就分享给你朋友吧</view>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
+    </view>
+  </view>
+</view>
+<!-- 提示关注公众号弹框 -->
+<view class="mask" wx:if="{{showMask}}" catchtouchmove="preventTouchMove">
+  <view class="content_wrap" bindlongpress="saveImg">
+    <image src="{{hostUrl}}/icon/bg_gzh.png"></image>
+    <view class="container">
+      <view class="title">添加寻草记小姐姐微信领取</view>
+      <view class="step">1、可微信搜索小姐姐微信号：                
+        <text>jishi186</text>加好友。
+      </view>
+      <view class="step">2、长按即可保存二维码至相册，打开微信
+        <text>“扫一扫”</text>点击右上角“相册”，选择二维码图片。
+      </view>
+      <view class="code_wrap">
+        <image src="{{hostUrl}}/icon/code.png" class="code"></image>
+      </view>
+    </view>
+  </view>
+  <image src="{{hostUrl}}/icon/ic_cancel.png" class="close" bindtap="show"></image>
+</view>
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>
+
+<!-- 返回首页组件 -->
+<go_home class="go_home"></go_home>
+
+
+<!-- 使用canvas将分享图片和申请0元购图片合成一张图 -->
+<canvas canvas-id="canvas" style="width:400px;height:400px;position: absolute;left:-1000px;top:-1000px;"></canvas>
+
+<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{card}}">
+    <view class="zan-dialog__container" >
+        <image src="{{hostUrl}}/icon/creditCard@2x.png" class="bgimg" />
+        <view class="creditValue">
+                 <view class="title">信用卡使用秘籍</view>
+        <view>
+            <text class="num">1</text>
+            <text class="name1"> 购物——0成本拿商品</text>
+        </view>
+        <view>
+            <view class="value1">用Freebuy，选择1个月内全返，免费拿商品。</view>
+            <view class="value2">
+                有5万信用卡，相当于年增加了5千至1万的工资（每月免费拿商品节约的开支，相当于工资增长）。      
+            </view>
+        </view>
+         <view>
+            <text class="num">2</text>
+            <text class="name1">急用钱—提现</text>
+        </view>
+        <view>
+             <view class="value3">            
+                随时终止Freebuy，退还到余额提现，免手续费。
+            </view>               
+            <view class="value4">            
+                不知道买什么，先充值到余额的提现，可免手续费。
+            </view>
+        </view>
+        <view class="value5" wx:if="{{stopStatus==1}}">请观看五秒，五秒后可关闭</view>
+        </view>
+        <view class="buttonBox" wx:if="{{stopStatus==2}}">
+            <view class="buttonStop" bindtap="know">关闭</view>
+        </view>
+    </view>
+</view>

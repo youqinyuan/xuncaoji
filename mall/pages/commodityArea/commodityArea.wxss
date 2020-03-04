@@ -1,0 +1,257 @@
+/* pages/commodityArea/commodityArea.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+.commodityArea-wrapper {
+  background: rgba(255, 255, 255, 1);
+}
+
+.commodityArea {
+  width: 710rpx;
+  height: 300rpx;
+  border-radius: 10rpx;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  position: relative;
+}
+
+.commodityArea .img {
+  width: 710rpx;
+  height: 300rpx;
+}
+
+.commodityArea .img1 {
+  position: absolute;
+  top: 21rpx;
+  right: -4rpx;
+  width: 142rpx;
+  height: 50rpx;
+}
+
+.role {
+  position: absolute;
+  top: 24rpx;
+  right: 18rpx;
+  color: #ff2644;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.classify {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  background: #fff;
+  width: 750rpx;
+}
+
+.classify_wrap {
+  position: relative;
+  width: 100%;
+}
+
+.classify_one {
+  text-align: center;
+  height: 72rpx;
+  line-height: 72rpx;
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #555;
+}
+
+.titleActive {
+  position: absolute;
+  bottom: 0;
+  left: 40%;
+  width: 30rpx;
+  height: 6rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 3rpx;
+}
+
+.infoBox_wrap .infoBox {
+  /* min-height: 570rpx; */
+  padding-top: 30rpx;
+}
+
+.fenImg {
+  height: 144rpx;
+  margin-left: 20rpx;
+}
+
+.fenImg image {
+  width: 710rpx;
+  height: 130rpx;
+  border-radius: 20rpx;
+}
+
+.goods_wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.goodsList {
+  position: relative;
+  width: 230rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 8rpx;
+  margin-left: 16.5rpx;
+  margin-top: 14rpx;
+}
+
+.goodsImg {
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 230rpx;
+  height: 224rpx;
+  margin-bottom: 20rpx;
+}
+
+.goodsImg image {
+  width: 230rpx;
+  height: 224rpx;
+  border-radius: 8rpx;
+}
+
+.reality {
+  display: flex;
+  align-items: center;
+  width: 226rpx;
+  height: 30rpx;
+  background: linear-gradient(90deg, rgba(218, 142, 93, 1) 0%, rgba(254, 218, 177, 1) 100%);
+  border-radius: 15rpx;
+  font-size: 18rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(109, 0, 0, 1);
+  justify-content: center;
+  position: absolute;
+  top: 206rpx;
+  left: 2rpx;
+}
+
+.goodsText {
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 22rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  height: 60rpx;
+  margin: 0 16rpx;
+  margin-bottom: 10rpx;
+}
+
+.goodsPrice {
+  display: flex;
+  align-items: center;
+  margin-left: 16rpx;
+}
+
+.newPrice {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: rgba(255, 38, 68, 1);
+  margin-right: 5rpx;
+}
+
+.newPrice text:nth-child(2) {
+  font-size: 30rpx;
+}
+
+.oldPrice {
+  font-size: 20rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  text-decoration: line-through;
+  color: rgba(153, 153, 153, 1);
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  margin-left: 16rpx;
+  margin-top: 17rpx;
+  margin-bottom: 19rpx;
+}
+
+.tagItem {
+  width: 130rpx;
+  line-height: 32rpx;
+  text-align: center;
+  height: 32rpx;
+  background: rgba(252, 243, 237, 0.8);
+  border-radius: 4rpx;
+  font-size: 18rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 38, 68, 1);
+}
+
+/* 活动规则弹窗 */
+
+.get-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+}
+
+.get-zan-dialog__mask .zan-dialog__container {
+  width: 630rpx;
+  min-height: 238rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  padding-bottom: 20rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 200rpx;
+  left: 61rpx;
+  text-align: center;
+  z-index: 99;
+}
+
+.get-zan-dialog__mask .cancel-get {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 79rpx;
+  top: 126rpx;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .role_title {
+  margin: 44rpx auto;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.get-zan-dialog__mask .zan-dialog__container .height_text {
+  text-align: left;
+  color: #333;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  height: auto;
+  max-height: 800rpx;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
+  margin-left: 47rpx;
+  margin-right: 20rpx;
+}

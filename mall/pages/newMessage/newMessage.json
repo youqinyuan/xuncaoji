@@ -2,5 +2,6 @@
   "usingComponents": {},
   "navigationBarBackgroundColor": "#FF2644",
   "navigationBarTitleText": "新消息",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
 }

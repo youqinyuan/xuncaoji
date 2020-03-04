@@ -1,18 +1,18 @@
 <!--pages/oneList/oneList.wxml-->
 <swiper class="swiper-wrapper-item" indicator-dots="{{false}}" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
   <swiper-item wx:if="{{imageUrl.length>0}}" wx:for="{{imageUrl}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}">
-    <image wx:if="{{imageUrl.length===0}}" src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png" class="slide-image" />
+    <image wx:if="{{imageUrl.length===0}}" src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
     <image wx:else src="{{item.imageUrl}}" class="slide-image" />
   </swiper-item>
   <swiper-item wx:if="{{imageUrl.length===0}}">
-    <image src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png" class="slide-image" />
+    <image src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
   </swiper-item>
 </swiper>
 <!--二级分类-->
 <view class="two-classification-wrapper" style="padding-top:{{heightTop}}rpx;" wx:if="{{classfy.length>0}}">
   <view class="two-classification-list" wx:for="{{classfy}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="twoList">
     <image class="two-classification-img" mode="aspectFit" wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}"></image>
-    <image class="two-classification-img" mode="aspectFit" wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+    <image class="two-classification-img" mode="aspectFit" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
     <view class="two-classification-text">{{item.name}}</view>
   </view>
 </view>

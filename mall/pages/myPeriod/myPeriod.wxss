@@ -54,7 +54,13 @@ page {
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  margin-right: 45rpx;
+  margin-right: 30rpx;
+}
+
+.goodsName .text {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: #999;
 }
 
 .goodsName .priceWrap {

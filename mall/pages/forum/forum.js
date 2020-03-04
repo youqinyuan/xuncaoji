@@ -1,32 +1,37 @@
 // pages/forum/forum.js
-let app = getApp();
-var time = require('../../utils/util.js');
+var app = getApp()
+var time = require('../../utils/util.js')
+var newCount = true
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     currentTab: 1,
     pageNumber: 1,
     pageNum: 1,
     isRecommend: false,
     pageSize: 20,
     navData: [{
-      type: 4,
+      type: 6,
       text: '关注'
     }, {
       type: 5,
       text: '全部'
-    }, {
+      }, {
+        type: 3,
+        text: '买订单'
+      }, {
+        type: 2,
+        text: '卖订单'
+      }, {
+        type: 4,
+        text: '预售订单'
+      }, {
       type: 1,
       text: '普通帖'
-    }, {
-      type: 3,
-      text: '买帖'
-    }, {
-      type: 2,
-      text: '卖帖'
     }],
     type: null,
     tempStatus: null,
@@ -45,21 +50,37 @@ Page({
     messageNum: null,
     showClassify: false, //帖子类型弹框
     list: [{
-      img: 'https://xuncj.yzsaas.cn/_download/img/add/ic_ordinary.png',
+      img: app.Util.getUrlImg().hostUrl+'/add/ic_ordinary.png',
       text: '普通帖',
       remark: '',
       status: 1
     }, {
-      img: 'https://xuncj.yzsaas.cn/_download/img/add/ic_buy.png',
+        img: app.Util.getUrlImg().hostUrl+'/update/ic_buy.png',
       text: '买帖',
       remark: '我要买',
       status: 2
     }, {
-      img: 'https://xuncj.yzsaas.cn/_download/img/add/ic_sale.png',
+        img: app.Util.getUrlImg().hostUrl+'/update/ic_sale.png',
       text: '卖帖',
       remark: '我要卖',
       status: 3
     }],
+    weihu: false,
+    showPassword: false,
+    isFocus: false, //聚焦 
+    Value: "", //输入的内容 
+    show: false,
+    Length: 6, //输入框个数 
+    ispassword: true, //是否密文显示 true为密文， false为明文。
+    sure_two_tishi: "",
+    sureOne: false,
+    sureTwo: false,
+    waitReentry3: false,
+    waitReentry: false,
+    waitReentry2: false,
+    returnCanclePeople:false,
+    showDialog:false,
+    typeStatus:null,
   },
 
   /**
@@ -71,8 +92,13 @@ Page({
     if (wx.getStorageSync('token')) {
       that.getMessage();
     }
-    //页面初始化数据
-    that.allPost();
+    if (that.data.currentTab == 1) {
+      that.allPost()
+    } else if (that.data.currentTab == 2 || that.data.currentTab == 3 || that.data.currentTab == 4 || that.data.currentTab == 5) {
+      that.ordinaryPost()
+    } else if (that.data.currentTab == 0) {
+      that.followPost()
+    }
   },
 
   /**
@@ -87,10 +113,17 @@ Page({
    */
   onShow: function() {
     var that = this
-    //页面初始化数据
+    //转让消息提示 
     //新消息总数
     if (wx.getStorageSync('token')) {
-      that.getMessage();
+      that.getMessage();  
+      that.returnInfo()    
+    }
+    if (wx.getStorageSync('recharge') || wx.getStorageSync('password')) {
+      that.setData({
+        sureOne: false,
+        sureTwo: false,
+      })
     }
     if (wx.getStorageSync('posting')) {
       that.setData({
@@ -101,7 +134,7 @@ Page({
       })
       if (that.data.currentTab == 1) {
         that.allPost()
-      } else if (that.data.currentTab == 2 || that.data.currentTab == 3 || that.data.currentTab == 4) {
+      } else if (that.data.currentTab == 2 || that.data.currentTab == 3 || that.data.currentTab == 4 || that.data.currentTab == 5) {
         that.ordinaryPost()
       } else if (that.data.currentTab == 0) {
         that.followPost()
@@ -109,12 +142,27 @@ Page({
     } else if (wx.getStorageSync('comment')) {
       if (that.data.currentTab == 1) {
         that.allPost()
-      } else if (that.data.currentTab == 2 || that.data.currentTab == 3 || that.data.currentTab == 4) {
+      } else if (that.data.currentTab == 2 || that.data.currentTab == 3 || that.data.currentTab == 4|| that.data.currentTab == 5) {
         that.ordinaryPost()
       } else if (that.data.currentTab == 0) {
         that.followPost()
       }
       wx.removeStorageSync('comment')
+    } else if (wx.getStorageSync('wait')) {
+      if (that.data.currentTab == 1) {
+        that.allPost()
+      } else if (that.data.currentTab == 2 || that.data.currentTab == 3 || that.data.currentTab == 4 || that.data.currentTab == 5) {
+        that.ordinaryPost()
+      } else if (that.data.currentTab == 0) {
+        that.followPost()
+      }
+      wx.removeStorageSync('wait')
+    }else if (app.globalData.type == 4) {
+      that.setData({
+        type: 4,
+        currentTab: 4
+      })
+      that.ordinaryPost()
     }
   },
 
@@ -123,6 +171,8 @@ Page({
    */
   onHide: function() {
     wx.removeStorageSync('posting')
+    wx.removeStorageSync('recharge')
+    wx.removeStorageSync('password')
   },
 
   /**
@@ -231,10 +281,13 @@ Page({
           //获取元素高度
           that.getHeight();
         }
-      }else{
-        wx.showToast({
-          title:res.data.message,
-          icon:'none'
+      } else {
+        // wx.showToast({
+        //   title:res.data.message,
+        //   icon:'none'
+        // })
+        that.setData({
+          weihu: true
         })
       }
     })
@@ -281,10 +334,10 @@ Page({
             that.getHeight();
           }
         }
-      }else{
+      } else {
         wx.showToast({
-          title:res.data.message,
-          icon:'none'
+          title: res.data.message,
+          icon: 'none'
         })
       }
     })
@@ -326,10 +379,10 @@ Page({
           //获取元素高度
           that.getHeight();
         }
-      }else{
+      } else {
         wx.showToast({
-          title:res.data.message,
-          icon:'none'
+          title: res.data.message,
+          icon: 'none'
         })
       }
     })
@@ -376,15 +429,15 @@ Page({
             that.getHeight();
           }
         }
-      }else{
+      } else {
         wx.showToast({
-          title:res.data.message,
-          icon:'none'
+          title: res.data.message,
+          icon: 'none'
         })
       }
     })
   },
-  //普通帖,卖帖，买帖
+  //普通帖,卖帖，买帖,预售订单
   ordinaryPost: function() {
     var that = this
     app.Util.ajax('mall/forum/topic/findPageList', {
@@ -414,10 +467,10 @@ Page({
           //获取元素高度
           that.getHeight();
         }
-      }else{
+      } else {
         wx.showToast({
-          title:res.data.message,
-          icon:'none'
+          title: res.data.message,
+          icon: 'none'
         })
       }
     })
@@ -465,10 +518,10 @@ Page({
             that.getHeight();
           }
         }
-      }else{
+      } else {
         wx.showToast({
-          title:res.data.message,
-          icon:'none'
+          title: res.data.message,
+          icon: 'none'
         })
       }
     })
@@ -566,12 +619,12 @@ Page({
       that.setData({
         currentTab: cur
       })
-      if (type == 1 || type == 2 || type == 3) {
+      if (type == 1 || type == 2 || type == 3 || type == 4) {
         that.setData({
           isRecommend: false
         })
         that.ordinaryPost()
-      } else if (type == 4) {
+      } else if (type == 6) {
         that.followPost()
       } else if (type == 5) {
         that.setData({
@@ -587,7 +640,7 @@ Page({
       wx.createSelectorQuery().selectAll('.content-item').boundingClientRect(function(rect) {
         for (var i = 0; i < that.data.allPost.length; i++) {
           var viewHeight = wx.getSystemInfoSync().windowWidth
-          if (viewHeight > 375 && viewHeight<=414){            
+          if (viewHeight > 375 && viewHeight <= 414) {
             if (rect[i].height > 96) {
               that.data.allPost[i].ellipsis = false
               that.data.allPost[i].isShowAll = 2
@@ -597,7 +650,7 @@ Page({
               that.data.allPost[i].isShowAll = 1
               that.data.allPost[i].isText = ''
             }
-          } else if (viewHeight<=375){
+          } else if (viewHeight <= 375) {
             if (rect[i].height > 88) {
               that.data.allPost[i].ellipsis = false
               that.data.allPost[i].isShowAll = 2
@@ -607,7 +660,7 @@ Page({
               that.data.allPost[i].isShowAll = 1
               that.data.allPost[i].isText = ''
             }
-          }          
+          }
         }
         that.setData({
           allPost: that.data.allPost
@@ -718,14 +771,14 @@ Page({
           that.setData({
             pageNumber: 1
           })
-          if (that.data.type == 1 || that.data.type == 2 || that.data.type == 3) {
+          if (that.data.type == 1 || that.data.type == 2 || that.data.type == 3 || that.data.type == 4) {
             that.ordinaryPost()
-          } else if (that.data.type == 4) {
+          } else if (that.data.type == 6) {
             that.followPost()
           } else {
             that.allPost()
           }
-        }, 2000) //延迟时间 这里是2秒
+        }, 1000)
         that.setData({
           showDel: false
         })
@@ -880,7 +933,7 @@ Page({
   getHeight1: function() {
     var that = this;
     setTimeout(() => {
-      wx.createSelectorQuery().selectAll('.content-item1').boundingClientRect(function (rect) {
+      wx.createSelectorQuery().selectAll('.content-item1').boundingClientRect(function(rect) {
         for (var i = 0; i < that.data.allPost1.length; i++) {
           var viewHeight = wx.getSystemInfoSync().windowWidth
           if (viewHeight > 375 && viewHeight <= 414) {
@@ -1109,4 +1162,446 @@ Page({
       }
     })
   },
+  //立即预订
+  subscribe:function(e){
+    var that = this
+    if (wx.getStorageSync('token')) {
+      var id = e.currentTarget.dataset.id
+      var typeStatus = e.currentTarget.dataset.type
+      console.log(id)
+      that.setData({
+        topicId: id,
+        typeStatus: typeStatus,
+      })
+      //开启密码输入
+      app.Util.ajax('mall/account/paymentPassword/status', 'GET').then((res) => { // 使用ajax函数
+        if (res.data.messageCode == 'MSG_1001') {
+          if (res.data.content == 2) {
+            //未设置密码
+            that.setData({
+              showPassword: true
+            })
+          } else {
+            //已设置密码
+            that.setData({
+              show: true,
+              isFocus: true
+            })
+          }
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }   
+  },
+  //交易确认
+  sure: function(e) {
+    var that = this
+    if (wx.getStorageSync('token')){
+      var avatarKey = e.currentTarget.dataset.avatarkey
+      var nickname = e.currentTarget.dataset.nickname
+      var cashBackAmount = e.currentTarget.dataset.cashbackamount
+      var periodLeft = e.currentTarget.dataset.periodleft
+      var expectAmount = e.currentTarget.dataset.expectamount
+      var mobileNumber = e.currentTarget.dataset.mobilenumber
+      var canRemove = e.currentTarget.dataset.canremove
+      var id = e.currentTarget.dataset.id
+      var returnType = e.currentTarget.dataset.returntype
+      that.setData({
+        avatarKey: avatarKey,
+        nickname: nickname,
+        mobileNumber: mobileNumber,
+        cashBackAmount: cashBackAmount,
+        periodLeft: periodLeft,
+        expectAmount: expectAmount,
+        topicId: id,
+        returnType: returnType,
+        sureOne: true
+      }) 
+    }else{
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }   
+  },
+  //第一次确认关闭右上角的按钮
+  sureOneClose: function() {
+    var that = this
+    that.setData({
+      sureOne: false
+    })
+  },
+  //第二次确认关闭右上角的按钮
+  sureTwoClose: function() {
+    var that = this
+    that.setData({
+      sureTwo: false,
+      sure_two_tishi: ""
+    })
+  },
+  //取消交易确认弹窗
+  cancle_one: function() {
+    var that = this
+    that.setData({
+      sureOne: false,
+      sureTwo_cancle: false
+    })
+  },
+  //确定交易确认弹窗
+  sure_one: function() {
+    var that = this
+    //账户资产数据
+    app.Util.ajax('mall/forum/topic/saleTopicTradeCheck',{
+      topicId: that.data.topicId
+    }, 'POST').then((res) => {
+      if (res.data.messageCode =='MSG_1001') {
+        that.setData({
+          sureOne: false,
+          sureTwo: true,
+          sure_two_tishi: "",
+          btnText: '确认'
+        })
+      } else if (res.data.messageCode == 'MSG_4002'){
+        that.setData({
+          sureOne: false,
+          sureTwo: true,
+          sure_two_tishi: "提示：账户余额不足，请先充值。",
+          btnText: '去充值'
+        })
+      }else{
+        that.setData({
+          sureOne: false,
+          sureTwo: true,
+          sure_two_tishi: res.data.message,
+          btnText: '确认'
+        })
+      }
+    })    
+  },
+   //取消确认交易弹窗
+  cancle_two: function() {
+    var that = this
+    that.setData({
+      sureTwo: false,
+      sure_two_tishi: "",
+      sureOne: false
+    })
+  },
+  //确定确认交易弹窗
+  sure_two: function() {
+    var that = this
+    if (that.data.btnText =='去充值'){
+      wx.navigateTo({
+        url: '/pages/mine/recharge/recharge?tempStatus='+1,
+      })      
+    } else if (that.data.btnText == '确认'&&that.data.sure_two_tishi == ''){
+      //开启密码输入
+      app.Util.ajax('mall/account/paymentPassword/status', 'GET').then((res) => { // 使用ajax函数
+        if (res.data.messageCode == 'MSG_1001') {
+          if (res.data.content == 2) {
+            //未设置密码
+            that.setData({
+              showPassword: true
+            })
+          } else {
+            //已设置密码
+            that.setData({
+              show: true,
+              isFocus: true
+            })
+          }
+        }
+      })
+    }   
+  },
+  //取消支付密码弹框
+  cancelShow: function() {
+    var that = this;
+    that.setData({
+      show: false,
+      Value: ''
+    })
+  },
+  //获取密码框的值
+  Focus(e) {
+    var that = this;
+    var inputValue = e.detail.value;
+    that.setData({
+      Value: inputValue
+    })
+    if (that.data.Value.length === 6) {
+      if (newCount == true) {
+        newCount = false
+        if(that.data.typeStatus==4){
+          app.Util.ajax('mall//forum/topic/advanceOrderSchedule', {
+            topicId: that.data.topicId,
+            paymentPassword: e.detail.value
+          }, 'POST').then((res) => {
+            if (res.data.messageCode == 'MSG_1001') {
+              wx.navigateTo({
+                url: '/pages/waitReentryDetail/waitReentryDetail',
+              })
+              that.setData({
+                show: false,
+                Value: ''
+              })
+              wx.setStorageSync('wait', 1)
+            } else if (res.data.messageCode == 'MSG_4002'){
+              that.setData({
+                showDialog:true
+              })
+            }else {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none'
+              })
+              that.setData({
+                Value: ""
+              })
+            }
+          })
+        }else{
+          app.Util.ajax('mall/forum/topic/saleTopicTrade', {
+            topicId: that.data.topicId,
+            paymentPassword: e.detail.value
+          }, 'POST').then((res) => {
+            if (res.data.messageCode == 'MSG_1001') {
+              wx.showToast({
+                title: '交易已完成，请在待返明细中查看',
+                icon: 'none'
+              })
+              setTimeout(function () {
+                that.setData({
+                  pageNumber: 1
+                })
+                if (that.data.type == 1 || that.data.type == 2 || that.data.type == 3 || that.data.type == 4) {
+                  that.ordinaryPost()
+                } else if (that.data.type == 6) {
+                  that.followPost()
+                } else {
+                  that.allPost()
+                }
+              }, 1000) //延迟时间 这里是2秒
+              that.setData({
+                show: false,
+                sureTwo: false,
+                Value: ''
+              })
+            } else {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none'
+              })
+              that.setData({
+                Value: ""
+              })
+            }
+          })
+        }
+        
+      }
+      setTimeout(function () {
+        newCount = true
+      }, 1000)
+    }
+  },
+  //充值余额返回
+  back: function () {
+    var that = this;
+    that.setData({
+      showDialog: false
+    })
+  },
+  //去充值余额
+  continuePay: function () {
+    var that = this;
+    wx.navigateTo({
+      url: '/pages/mine/recharge/recharge?tempStatus=' + 1,
+    })
+    that.setData({
+      showDialog: false
+    })
+  },
+  blur: function(e) {
+    var that = this;
+    that.setData({
+      bottom: 0
+    })
+  },
+  hideModal: function() {
+    var that = this
+    that.setData({
+      show: false,
+      isFocus: false,
+      Value: ''
+    })
+  },
+  Tap() {
+    var that = this;
+    that.setData({
+      isFocus: true,
+    })
+  },
+  // 是否设置支付密码弹框点击取消
+  cancel: function() {
+    var that = this
+    that.setData({
+      showPassword: false
+    })
+  },
+  // 是否设置支付密码弹框点击确定
+  sureSet: function() {
+    var that = this
+    that.setData({
+      showPassword: false
+    })
+    wx.navigateTo({
+      url: '/pages/paypassword/paypassword',
+    })
+  },
+  //转让弹窗
+waitReentryClose: function () {
+  this.setData({
+    waitReentry: false
+  })
+  this.returnInfo6()
+},
+waitReentryClose2: function () {
+  this.setData({
+    waitReentry2: false
+  })
+  this.returnInfo2()
+},
+waitReentryClose3: function () {
+  this.setData({
+    waitReentry3: false
+  })
+  wx.navigateTo({
+    url: "/pages/waitReentryDetail/waitReentryDetail"
+  })
+},
+//转让信息弹窗查询
+returnInfo: function () {
+  var that = this
+  app.Util.ajax('mall/transfer/gainNotice', null, 'GET').then((res) => {
+    if (res.data.content.length > 0) {
+      that.setData({
+        tempInfo: res.data.content
+      })
+      for (let i of res.data.content) {
+        if (i.type == 2) {
+          //转让完成消息
+          that.setData({
+            waitReentry2: true,
+            returnContent2: i.userItems
+          })
+        }
+      }
+      if (that.data.waitReentry2 == false) {
+        for (let i of res.data.content) {
+          if (i.type == 3) {
+            //转让取消消息
+            that.setData({
+              waitReentry: true,
+              returnContent: i.userItems
+            })
+          }
+        }
+      }
+      if (that.data.waitReentry == false) {
+        for (let i of res.data.content) {
+          if (i.type == 4) {
+            //撤销消息
+            that.setData({
+              returnCanclePeople: true,
+              returnContent3: i.userItems
+            })
+          }
+        }
+      }
+      if (that.data.returnCanclePeople == false) {
+        for (let i of res.data.content) {
+          if (i.type == 1) {
+            //转让消息
+            that.setData({
+              waitReentry3: true,
+            })
+          }
+        }
+      }
+    }
+  })
+},
+returnInfo2: function () {
+  var that = this
+  if (that.data.tempInfo.length > 0) {
+    for (let i of that.data.tempInfo) {
+      if (i.type == 3) {
+        //转让取消消息
+        that.setData({
+          waitReentry: true,
+          returnContent: i.userItems
+        })
+      }
+    }
+    if (that.data.waitReentry == false) {
+      for (let i of that.data.tempInfo) {
+        if (i.type == 1) {
+          //转让消息
+          that.setData({
+            waitReentry3: true,
+          })
+        }
+      }
+    }
+
+  }
+},
+returnInfo6: function() {
+  var that = this
+  if (that.data.tempInfo.length > 0) {
+    for (let i of that.data.tempInfo) {
+      if (i.type == 4) {
+        //转让取消消息
+        that.setData({
+          waitReentry: true,
+          returnContent3: i.userItems
+        })
+      }
+    }
+    if (that.data.waitReentry == false) {
+      for (let i of that.data.tempInfo) {
+        if (i.type == 1) {
+          //转让消息
+          that.setData({
+            returnCanclePeople: true,
+          })
+        }
+      }
+    }
+
+  }
+},
+returnInfo3: function () {
+  var that = this
+  if (that.data.tempInfo.length > 0) {
+    for (let i of that.data.tempInfo) {
+      if (i.type == 1) {
+        //转让消息
+        that.setData({
+          waitReentry3: true,
+        })
+      }
+    }
+  }
+},
+returnCanclePeople:function(){
+  var that = this 
+  that.setData({
+    returnCanclePeople:false
+  })
+  that.returnInfo3()
+},
 })

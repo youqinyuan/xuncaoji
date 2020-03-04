@@ -1,22 +1,33 @@
 <!-- pages/applyZero/applyZero.wxml -->
 <wxs module="filters" src="filter.wxs"></wxs>
-<view class="shuoming_box">
-  <text class="shuoming_one">FreeBuy使用须知</text>
-  <text class="shuoming_two" bindtap="toapplyRule">戳这里了解详情</text>
-  <image src="/assets/images/freeBuy/ic_more.png" class="shuoming_img" bindtap="toapplyRule"/>
+<view class="advanceSale" wx:if="{{isShowBook==1&&sponsor==0}}">
+  <view class="advanceSale-left">
+    <image class="severice-img" src="/assets/images/new/yuService.png"></image>
+    <view class="yuSale">预售订单</view>
+    <image class="question-img" src="/assets/images/new/yuSale.png" catchtap="goIntoProblem"></image>
+  </view>
+  <view class="advanceSale-right">
+    <view class="experience" catchtap="experience">立即体验</view>
+    <image class="right-img" src="/assets/images/new/sanDetail.png"></image>
+  </view>
+</view>
+<view class="shuoming_box" bindtap="toapplyRule" style="{{isShowBook==1&&sponsor==0?'top:220rpx;':'top:120rpx'}}">
+  <image src="/assets/images/new/ic_use.png" class="shuoming_img" bindtap="toapplyRule" />
+  <text class="shuoming_one">使用须知</text>
 </view>
 <view class="applyZeroRegular">
-  <text>一、可修改选项：您可以修改以下两个选项，选项决定了支付的金额。您想要支付的金额越低，输入的【最终成本价】就要越高或者输入【返还期(月)数】越长。</text>
+  <text>一、可修改选项：您可以修改以下两个选项，选项决定了支付的金额。您想要支付的金额越低，输入的【最终成本价】就要越高或者输入【返还{{newPeopleActivity==1?'期(月)':'天'}}数】越长。</text>
 </view>
 <view class="applyZeroMoneyBox1">
   <view class="applyZeroMoneyBox2">
     <text class="regularNumber">1</text>
     <text class="regularFont">最终成本价</text>
-    <text class="applyZeroRevise11" bindtap="expectedAmountShow">修改</text>
+    <text class="applyZeroRevise11" bindtap="expectedAmountShow" wx:if="{{newPeopleActivity==1}}">修改</text>
+    <text class="applyZeroRevise13" wx:else>修改</text>
   </view>
   <view class="applyZeroMoneyBox3">
     <text class="applyZeroFont1">您想最终用</text>
-    <text class="expectedAmountNumber">{{cashMsg.expectedAmount}}元</text>
+    <text class="expectedAmountNumber">{{cashMsg.expectedAmount?cashMsg.expectedAmount:0}}元</text>
     <text class="applyZeroFont2">拿此商品【最终成本价】</text>
     <text class="applyZeroFont12">最终成本价格: 系统默认为0，即0元购，支付金额全额返给您</text>
   </view>
@@ -24,17 +35,27 @@
 <view class="applyZeroMoneyBox1">
   <view class="applyZeroMoneyBox2">
     <text class="regularNumber">2</text>
-    <text class="regularFont">返还期(月)数</text>
-    <text class="applyZeroRevise11" catchtap="periodMonth">修改</text>
+    <text class="regularFont">返还{{newPeopleActivity==1?'期(月)':'天'}}数</text>
+    <text class="applyZeroRevise11" catchtap="periodMonth" wx:if="{{newPeopleActivity==1}}">修改</text>
+    <text class="applyZeroRevise13" wx:else>修改</text>
   </view>
-  <view class="applyZeroMoneyBox4">
+  <view class="applyZeroMoneyBox4" wx:if="{{payMsg.cashBackType!==1}}">
     <text class="applyZeroFont1">您想要平台分</text>
-    <text class="expectedAmountNumber">{{cashMsg.cashBackPeriods}}</text>
-    <text class="applyZeroFont2">期(月),每期(月)把支付金额</text>
+    <text class="expectedAmountNumber">{{newPeopleActivity==1?cashMsg.cashBackPeriods:payMsg.actualCashBackPeriods}}</text>
+    <text class="applyZeroFont2">{{newPeopleActivity==1?'期(月)':'天'}},每{{newPeopleActivity==1?'期(月)':'天'}}把支付金额</text>
     <text class="applyZeroFont3">平均等额返现给您</text>
   </view>
-  <view class="computeButtonBox">
+  <view class="applyZeroMoneyBox4" wx:if="{{newPeopleActivity==2&&payMsg.cashBackType==1}}">
+    <text class="applyZeroFont1">您想要平台分{{payMsg.actualCashBackPeriods}}天</text>
+    <text class="applyZeroFont3">，返现日将全部返现给您</text>
+  </view>
+  <view class="computeButtonBox" wx:if="{{newPeopleActivity==1}}">
     <view class="computeButton" bindtap="refurbish">
+      <text>刷新计算</text>
+    </view>
+  </view>
+  <view class="computeButtonBox" wx:if="{{newPeopleActivity==2}}">
+    <view class="computeButton">
       <text>刷新计算</text>
     </view>
   </view>
@@ -55,7 +76,7 @@
         <text class="applyZeroRevise6" catchtap="returnDetail">明细</text>
       </view>
       <view class="applyZeroMoneyBox6">
-        <text class="applyZeroFont6">其中{{filters.toFix(payMsg.needPaymentAmount-cashMsg.expectedAmount)}}元将在{{cashMsg.cashBackPeriods}}期(月)内平均等额的返还到您的账户</text>
+        <text class="applyZeroFont6">其中{{payMsg.totalCashBackAmount}}元将在{{newPeopleActivity==1?cashMsg.cashBackPeriods:payMsg.actualCashBackPeriods}}{{newPeopleActivity==1?'期(月)':'天'}}{{payMsg.cashBackType==1?'后':'内平均等额的'}}返还到您的账户</text>
         <text class="applyZeroFont6">温馨提示：（返还金额可在余额随时提现）</text>
       </view>
     </view>
@@ -73,7 +94,7 @@
       <view class="applyZeroMoneyBox6">
         <text class="applyZeroFont7">其中：</text>
         <view>
-          <text class="applyZeroFont6">1.按银行同期存款利率({{cashMsg.interestRate}}%)给您的利息补偿：</text>
+          <text class="applyZeroFont6">1.按银行同期存款利率({{newPeopleActivity==1?cashMsg.interestRate:interestRate}}%)给您的利息补偿：</text>
           <text class="payMoney3">￥{{payMsg.interestAmount}}</text>
         </view>
         <text class="applyZeroFont6">2.商品购买原价:</text>
@@ -94,13 +115,13 @@
         <text class="regularFont">
           邀请好友完成{{supportCount}}次赞助后，仅需支付
         </text>
-        <text class="payMoney10">￥{{filters.toFix(payMsg.needPaymentAmount-payMsg.sponsorAmount)}}</text>
+        <text class="payMoney10">￥{{payMsg.discountAfterAmount}}</text>
         <text class="applyZeroRevise12" catchtap="returnDetail">明细</text>
         <!-- <text class="applyZeroRevise">修改</text> -->
       </view>
       <view class="applyZeroMoneyBox6">
         <text class="applyZeroFont6">如不赞助正常购买，需支付￥{{payMsg.needPaymentAmount}}元！</text>
-        <text class="applyZeroFont6">其中{{filters.toFix(payMsg.needPaymentAmount-cashMsg.expectedAmount)}}元将在{{cashMsg.cashBackPeriods}}期(月)内平均等额的返还到您的账户</text>
+        <text class="applyZeroFont6">其中{{payMsg.totalCashBackAmount}}元将在{{cashMsg.cashBackPeriods}}期(月)内平均等额的返还到您的账户</text>
         <text class="applyZeroFont6">温馨提示：（返还金额可在余额随时提现）</text>
       </view>
     </view>
@@ -129,15 +150,21 @@
     </view>
   </view>
 </view>
-<view class="btn" wx:if="{{buyType==1&&sponsor==0}}">
+<view class="btn" wx:if="{{!activityId&&buyType==1&&sponsor==0&&newPeopleActivity==1}}">
   <button class="add" bindtap="addOrCompute">{{buttonText}}{{goodsType}}</button>
   <button class="pay-zero" bindtap="payNow">{{buttonText2}}</button>
 </view>
-<view class="btn" wx:if="{{buyType==2&&sponsor==0}}">
+<view class="btn" wx:if="{{buyType==2&&sponsor==0&&newPeopleActivity==1&&!activityId}}">
   <button class="pay-zero1" bindtap="payNow">{{buttonText2}}</button>
 </view>
 <view class="btn" wx:if="{{sponsor==1}}">
   <button class="pay-zero1" bindtap="sponsorShow">发起赞助</button>
+</view>
+<view class="btn" wx:if="{{newPeopleActivity==2}}">
+  <button class="pay-zero1" bindtap="payNow2">{{buttonText2}}</button>
+</view>
+<view class="btn" wx:if="{{activityId}}">
+  <button class="pay-zero1" bindtap="payNow">{{buttonText2}}</button>
 </view>
 <view class="stop" bindtap="stopZero">
   <text class="">可随时终止freebuy</text>
@@ -156,7 +183,7 @@
     </scroll-view>
     <view class="custom" catchtap="custom">自定义</view>
   </view>
-  <image wx:if="{{showPeriod}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelPeriod'></image>
+  <image wx:if="{{showPeriod}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelPeriod'></image>
 </view>
 <!-- 返现明细表 -->
 <view class="return-zan-dialog__mask" wx:if="{{showDialog}}">
@@ -165,7 +192,7 @@
     <view class="table">
       <view class="tr bg-w">
         <view class="th">返现时间</view>
-        <view class="th">第几个月</view>
+        <view class="th">第几{{newPeopleActivity==1?'个月':'天'}}</view>
         <view class="th">返现金额</view>
         <view class="th">累积返现</view>
       </view>
@@ -180,7 +207,7 @@
     </view>
     <view class="move">滑动查询更多</view>
   </view>
-  <image wx:if="{{showDialog}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelDialog'></image>
+  <image wx:if="{{showDialog}}" class="cancel-img" src="{{hostUrl}}icon/tanc_closecutline_n.png" bindtap='cancelDialog'></image>
 </view>
 <!-- 利息明细表 -->
 <view class="interest-zan-dialog__mask" wx:if="{{showModal}}">
@@ -201,7 +228,7 @@
       </view>
     </view>
   </view>
-  <image wx:if="{{showModal}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelModal'></image>
+  <image wx:if="{{showModal}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelModal'></image>
 </view>
 <!-- 可随时终止说明 -->
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showStop}}">
@@ -214,7 +241,7 @@
       <view style="margin-bottom:20rpx;">您的利息也将在当月停止发放，给到您到当月的利息！</view>
     </view>
   </view>
-  <image wx:if="{{showStop}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelStop'></image>
+  <image wx:if="{{showStop}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelStop'></image>
 </view>
 <!-- 怎么赚的钱 -->
 <view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showGet}}">
@@ -225,7 +252,7 @@
     </view>
     <button bindtap="understand">懂了</button>
   </view>
-  <image wx:if="{{showGet}}" class="cancel-get" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
+  <image wx:if="{{showGet}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
 </view>
 <!-- 期望价格输入框 -->
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{expectedAmountStatus}}">
@@ -240,7 +267,7 @@
       </view>
     </view>
   </view>
-  <image wx:if="{{expectedAmountStatus}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='expectedAmountStop'></image>
+  <image wx:if="{{expectedAmountStatus}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='expectedAmountStop'></image>
 </view>
 <!-- 自定义分期数输入框 -->
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{monthStatus}}">
@@ -255,22 +282,22 @@
       </view>
     </view>
   </view>
-  <image wx:if="{{monthStatus}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='monthStop'></image>
+  <image wx:if="{{monthStatus}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='monthStop'></image>
 </view>
-  <!-- 发起赞助弹窗  -->
+<!-- 发起赞助弹窗  -->
 <view class="dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sponsorShow}}">
   <view class="dialog__container" wx:if="{{sponsorShow}}">
     <view class="titlez">提示</view>
     <view class="text">
-        <view class="rule_value">您选择的最终成本价为{{cashMsg.expectedAmount}}元</view>
-        <view class="rule_value">返还月数为{{cashMsg.cashBackPeriods}}月。</view>
-        <view class="rule_value">一旦赞助开始后，不可更改，</view>
-        <view class="rule_value">请再次确定哦！</view>
+      <view class="rule_value">您选择的最终成本价为{{cashMsg.expectedAmount}}元</view>
+      <view class="rule_value">返还月数为{{cashMsg.cashBackPeriods}}月。</view>
+      <view class="rule_value">一旦赞助开始后，不可更改，</view>
+      <view class="rule_value">请再次确定哦！</view>
     </view>
     <view class="sponsor_box">
-        <view class="sponsor_left" bindtap='closeSponsorShow'>重新选择</view>
-        <view class="sponsor_right" bindtap='toSponsorDetail'>发起赞助</view>
+      <view class="sponsor_left" bindtap='closeSponsorShow'>重新选择</view>
+      <view class="sponsor_right" bindtap='toSponsorDetail'>发起赞助</view>
     </view>
   </view>
-  <image wx:if="{{sponsorShow}}" class="cancel-get2" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='closeSponsorShow'></image>
+  <image wx:if="{{sponsorShow}}" class="cancel-get2" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeSponsorShow'></image>
 </view>

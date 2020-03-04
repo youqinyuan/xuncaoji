@@ -1,30 +1,30 @@
 <!--pages/diamondPartner/diamondPartner.wxml-->
 <!-- 已成为钻石合伙人 -->
 <view class="wrap" wx:if="{{initMember.memberType===2}}">
-  <image class="wrap_bg" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/title_bg.png"></image>
-  <image class="wrap_qy" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/center.png"></image>
+  <image class="wrap_bg" src="{{hostUrl}}/diamondPartner/title_bg.png"></image>
+  <image class="wrap_qy" src="{{hostUrl}}/diamondPartner/center.png"></image>
   <view class="qy" bindtap="jumpDiamondPay" data-status="1">权益中心</view>
   <view class="wrap_photo">
     <view class="wrap_photo_top">
       <image class="wrap_photo_top_img" wx:if="{{photoNickname.avatarKey}}" src="{{photoNickname.avatarKey}}"></image>
-      <image class="wrap_photo_top_img" wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+      <image class="wrap_photo_top_img" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
       <view class="wrap_photo_top_title">
         <view class="wrap_photo_top_text" wx:if="{{photoNickname.nickname}}">{{photoNickname.nickname}}</view>
         <view class="wrap_photo_top_text" wx:else>匿名用户</view>
         <view class="wrap_photo_top_date">您钻石合伙人的身份到期日：{{initMember.expireTime}}</view>
       </view>
     </view>
-    <image class="wrap_img" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/title.png"></image>
+    <image class="wrap_img" src="{{hostUrl}}/diamondPartner/title.png"></image>
     <view class="wrap_title">
-      <image class="wrap_to" src="https://xuncj.yzsaas.cn/_download/img/icon/xuncj_head.png"></image>
+      <image class="wrap_to" src="{{hostUrl}}/icon/xuncj_head.png"></image>
       <view class="wrap_diamond">钻石合伙人</view>
-      <image class="wrap_imgs" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/ic_diamond.png"></image>
+      <image class="wrap_imgs" src="{{hostUrl}}/diamondPartner/ic_diamond.png"></image>
     </view>
     <view class="wrap_date">权益剩余天数：{{days}}天</view>
   </view>
   <view class="wrap_btn" bindtap="payDiamond">续费</view>
   <view class="diamond_member">
-    <image class="line2" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/line_a.png"></image>
+    <image class="line2" src="{{hostUrl}}/diamondPartner/line_a.png"></image>
     <view class="diamond_member_title">购物权益</view>
     <view class="listBox">
       <view class="list_wrap">
@@ -36,7 +36,7 @@
         <view class="listNum1">使用次数：{{initMember.shoppingGoldFreeBuyTimes}}次</view>
       </view>
     </view>
-    <image class="line3" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/line_a.png"></image>
+    <image class="line3" src="{{hostUrl}}/diamondPartner/line_a.png"></image>
     <view class="diamond_member_zuan">{{disBtn1}}</view>
     <view class="process">
       <view class="process_a">1</view>
@@ -49,7 +49,7 @@
       <view class="box1_item">邀请好友（已完成：{{initMember.validTeamCount}}人）</view>
       <button class="box1_price" bindtap="getPrice" disabled="{{disabled}}">{{disBtn}}</button>
     </view>
-    <image class="line4" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/line_a.png"></image>
+    <image class="line4" src="{{hostUrl}}/diamondPartner/line_a.png"></image>
     <view class="diamond_member_zuan">分佣权益</view>
     <view class="box3_wrap">
       <view class="content" wx:for="{{collocation}}" wx:key="">
@@ -82,23 +82,23 @@
     </view>
   </view>
   <view class="block"></view>
-  <image src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/botbar_a.png" class="bottom_btn" bindtap="jumpCityPartner"></image>
+  <image src="{{hostUrl}}/diamondPartner/botbar_a.png" class="bottom_btn" bindtap="jumpCityPartner"></image>
 </view>
 <!-- 未成为钻石合伙人 -->
 <view class="wrap" wx:if="{{initMember.memberType===1 || initMember.memberType==null}}">
-  <image class="wrap_bg" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/title_bg.png"></image>
+  <image class="wrap_bg" src="{{hostUrl}}/diamondPartner/title_bg.png"></image>
   <view class="wrap_photo">
     <view class="wrap_photo_top">
       <image class="wrap_photo_top_img" wx:if="{{photoNickname.avatarKey}}" src="{{photoNickname.avatarKey}}"></image>
-      <image class="wrap_photo_top_img" wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+      <image class="wrap_photo_top_img" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
       <view class="wrap_photo_top_text" wx:if="{{photoNickname.nickname}}">{{photoNickname.nickname}}</view>
       <view class="wrap_photo_top_text" wx:else>匿名用户</view>
     </view>
-    <image class="wrap_img" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/title.png"></image>
+    <image class="wrap_img" src="{{hostUrl}}/diamondPartner/title.png"></image>
     <view class="wrap_title">
-      <image class="wrap_to" src="https://xuncj.yzsaas.cn/_download/img/icon/xuncj_head.png"></image>
+      <image class="wrap_to" src="{{hostUrl}}/icon/xuncj_head.png"></image>
       <view class="wrap_diamond">钻石合伙人</view>
-      <image class="wrap_imgs" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/ic_diamond.png"></image>
+      <image class="wrap_imgs" src="{{hostUrl}}/diamondPartner/ic_diamond.png"></image>
     </view>
     <view class="wrap_price">
       <text>￥</text>{{initialize.payMent||299}}买价值
@@ -107,7 +107,7 @@
   <view class="wrap_document" bindtap="userAgreement">开通即视为同意《寻草记钻石合伙人服务协议》</view>
   <view class="wrap_btn" bindtap="openDiamond">开通</view>
   <view class="diamond_member">
-    <image class="line" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/line.png"></image>
+    <image class="line" src="{{hostUrl}}/diamondPartner/line.png"></image>
     <view class="diamond_member_title">钻石会员6大长期丰厚回报</view>
     <view class="list">
       <image wx:for="{{list}}" wx:key="" class="list_box" src="{{item.img}}" bindtap="jumpDiamondPay" data-status="{{item.status}}"></image>
@@ -126,7 +126,7 @@
         <view class="listCard-c-text">购物金</view>
       </view>
     </view>
-    <image class="line1" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/line.png"></image>
+    <image class="line1" src="{{hostUrl}}/diamondPartner/line.png"></image>
     <view class="diamond_member_zuan">帮您算省赚多少—钻石合伙人</view>
     <view class="box">
       <view class="box_list">
@@ -141,29 +141,29 @@
 
   </view>
   <view class="block"></view>
-  <image src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/botbar.png" class="bottom_btn" bindtap="showMark"></image>
+  <image src="{{hostUrl}}/diamondPartner/botbar.png" class="bottom_btn" bindtap="showMark"></image>
 </view>
 <!-- 加导师弹窗 -->
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showMark}}">
   <view class="zan-dialog__container" wx:if="{{showMark}}" bindlongpress="saveCode">
     <view class="title">加私人导师微信，传授赚钱经验</view>
-    <image src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/code_img.png" class="QR" />
+    <image src="{{hostUrl}}/diamondPartner/code_img.png" class="QR" />
     <view class="watch">长按保存二维码后用微信扫码添加好友</view>
   </view>
-  <image wx:if="{{showMark}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/vip_close_Pop-ups.png" bindtap='showMarkCancel'></image>
+  <image wx:if="{{showMark}}" class="cancel-img" src="{{hostUrl}}/icon/vip_close_Pop-ups.png" bindtap='showMarkCancel'></image>
 </view>
 <!-- 平台奖励弹窗 -->
 <view class="reward-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showReward}}">
   <view class="zan-dialog__container" wx:if="{{showReward}}">
     <view class="title">恭喜您成功邀请到{{initialize.subordiates}}个好友</view>
-    <image src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/partner.png" class="img" />
+    <image src="{{hostUrl}}/diamondPartner/partner.png" class="img" />
     <view class="reward">平台奖励：
       <text>{{initialize.payMent}}元</text>
     </view>
     <view class="watch">请在余额内查看</view>
     <view class="understand" bindtap="understand">我知道了</view>
   </view>
-  <image wx:if="{{showReward}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/vip_close_Pop-ups.png" bindtap='cancelReward'></image>
+  <image wx:if="{{showReward}}" class="cancel-img" src="{{hostUrl}}/icon/vip_close_Pop-ups.png" bindtap='cancelReward'></image>
 </view>
 <!-- 第一级明细弹窗firstStep -->
 <view class="firstStep-zan-dialog__mask" wx:if="{{firstStep}}">
@@ -173,7 +173,7 @@
     <view class="title" wx:if="{{type==2}}">邀请钻石合伙人分佣金额</view>
     <view class="title" wx:if="{{type==3}}">第{{level}}级团队成员待返转让分佣金额</view>
     <view class="title" wx:if="{{type==4}}">第{{level}}级团队成员待返购买分佣金额</view>
-    <image class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/diamondPartner/withdraw_close.png" bindtap='cancelFirstStep'></image>
+    <image class="cancel-img" src="{{hostUrl}}/diamondPartner/withdraw_close.png" bindtap='cancelFirstStep'></image>
     <view class="table">
       <view class="tr bg-w" catchtouchmove="preventTouchMove">
         <view class="th" wx:if="{{type==1 || type==2}}">用户昵称</view>

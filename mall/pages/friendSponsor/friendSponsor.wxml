@@ -32,24 +32,24 @@
         <view class="rule_value">8、活动最终解释权归寻草记所有</view>
     </view>
   </view>
-  <image wx:if="{{show1}}" class="cancel-get2" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
+  <image wx:if="{{show1}}" class="cancel-get2" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
 </view>
 <!-- 失效弹窗 -->
 <view class="dialog__mask2" catchtouchmove="preventTouchMove" wx:if="{{show2}}">
   <view class="dialog__container2" wx:if="{{show2}}">
-        <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/pop_bg.png" class="shixiao_img"/>
+        <image src="{{hostUrl}}/sponsor/pop_bg.png" class="shixiao_img"/>
     </view>
     <view class="shixiao_font">
         <view class="shixiao_one">很抱歉，您来晚了</view>
         <view class="shixiao_two">本次赞助已经结束啦</view>
     </view>
     <view class="shixiao_button">
-        <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/btn.png" class="button_img"/>
+        <image src="{{hostUrl}}/sponsor/btn.png" class="button_img"/>
     </view>
     <view class="button_font" bindtap="toIndex">去首页逛逛</view>
 </view>
 <view class="news_box">
-  <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/icon2.png" class="news_img"/>
+  <image src="{{hostUrl}}/sponsor/icon2.png" class="news_img"/>
       <view class="user_box">
         <view class="user_name">赞助需支付1元，1元将即可返还到您的账户，可马上提现</view>
         <view class="black">|</view>
@@ -83,12 +83,13 @@
 </view>
 <view class="recommend_goods_box">
     <view class="recommend_goods_title">
-        <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/shape2.png" class="head_left_img2" />
+        <image src="{{hostUrl}}/sponsor/shape2.png" class="head_left_img2" />
         <view class="head_name">新品推荐</view>
-        <image src="https://xuncj.yzsaas.cn/_download/img/sponsor/shape.png" class="head_right_img2" />
+        <image src="{{hostUrl}}/sponsor/shape.png" class="head_right_img2" />
     </view>
     <view class="recommend_goods_list">
         <view class="recommend_goods" wx:for="{{list}}" wx:key="">
+        <view bindtap="toGoodsDetail" data-id="{{item.id}}">
             <view class="recommend_goods_img">
                 <image src="{{item.imageUrls[0]}}" />
             </view>
@@ -102,6 +103,8 @@
             </view>
             <view class="youhui">实付<text>￥{{item.dctPrice}}</text>返<text>￥{{item.marketingCashBack.totalAmount}}</text></view>
         </view>
+        </view>
     </view>
 </view>
+
 <view class="height80"></view>

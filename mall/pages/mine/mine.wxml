@@ -9,22 +9,23 @@
       <view class="top-left">
         <view class="sculpture">
           <image wx:if="{{content.avatarKey}}" src="{{content.avatarKey}}"></image>
-          <image wx:else src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+          <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
         </view>
         <view class="title">
           <view class="big-title" wx:if="{{content.nickname !==''}}">{{content.nickname}}</view>
           <view class="big-title" wx:else>匿名用户</view>
+          <view class="account-number">登录账号：{{content.mobileNumber}}</view>
           <!-- 钻石合伙人 -->
           <view class="big-title3" wx:if="{{content.memberType===2}}">
-            <image src="https://xuncj.yzsaas.cn/_download/img/mine/zuanshi.png" class="img1" />
+            <image src="{{hostUrl}}/mine/zuanshi.png" class="img1" />
           </view>
           <!-- 普通用户 -->
           <view class="big-title3" wx:if="{{content.isMember===2}}">
-            <image src="https://xuncj.yzsaas.cn/_download/img/mine/imassage_user_bar.png" />
+            <image src="{{hostUrl}}/mine/imassage_user_bar.png" />
           </view>
           <!-- 合伙人 -->
           <view class="big-title3" wx:if="{{content.isMember===1&&content.memberType!==2}}">
-            <image src="https://xuncj.yzsaas.cn/_download/img/icon/imassage_hehuoren_bar.png" />
+            <image src="{{hostUrl}}/icon/imassage_hehuoren_bar.png" />
           </view>
           <!-- <view class="balance">
           <text class="balance-text">余额</text>
@@ -43,7 +44,7 @@
     <!-- 普通用户 -->
     <view class="bottom" wx:if="{{content.isMember===2}}">
       <view class="member">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/my_imassage_nohuiy_icon.png"></image>
+        <image src="{{hostUrl}}/icon/my_imassage_nohuiy_icon.png"></image>
       </view>
       <view class="notmember">
         做任务领取合伙人权益
@@ -53,7 +54,7 @@
     <!-- 合伙人 -->
     <view class="bottom" wx:if="{{content.isMember===1&&content.memberType!==2}}">
       <view class="member">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/my_imassage_huiy_icon.png"></image>
+        <image src="{{hostUrl}}/icon/my_imassage_huiy_icon.png"></image>
       </view>
       <view class="notmember1">合伙人到期时间：{{filters.toDate(content.memberExpireTime)}}
         <text class="open2" bindtap="open">查看权益</text>
@@ -62,7 +63,7 @@
     <!-- 钻石合伙人 -->
     <view class="bottom" wx:if="{{content.memberType===2}}">
       <view class="member">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/my_imassage_huiy_icon.png"></image>
+        <image src="{{hostUrl}}/icon/my_imassage_huiy_icon.png"></image>
       </view>
       <view class="notmember1">钻石合伙人到期时间：{{filters.toDate(content.memberExpireTime)}}
         <text class="open3" bindtap="jumpDiamond">查看权益</text>
@@ -98,7 +99,7 @@
     <view class="content-top">
       <view class="top-left">
         <view class="sculpture">
-          <image src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+          <image src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
         </view>
         <view class="title">
           <view class="click" bindtap="jumpLogin">点击登录账户</view>
@@ -108,7 +109,7 @@
     </view>
     <view class="bottom">
       <view class="member">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/my_imassage_nohuiy_icon.png"></image>
+        <image src="{{hostUrl}}/icon/my_imassage_nohuiy_icon.png"></image>
       </view>
       <view class="notmember">
         做任务领取合伙人权益
@@ -117,7 +118,7 @@
     </view>
     <!-- <view class="bottom" wx:if="{{content.isMember===1}}">
     <view class="member">
-      <image src="https://xuncj.yzsaas.cn/_download/img/icon/my_imassage_huiy_icon.png"></image>
+      <image src="{{hostUrl}}/icon/my_imassage_huiy_icon.png"></image>
     </view>
     <view class="notmember1">做任务领取合伙人权益
       <text class="open" bindtap="open">去领取</text>
@@ -151,16 +152,16 @@
 </view>
 <!-- 钻石合伙人跳转 -->
 <view class="zhaunshi_banner" wx:if="{{content.memberType!==2&&entrance==1}}" bindtap="jumpDiamond">
-  <image src="https://xuncj.yzsaas.cn/_download/img/mine/bg.png" class="zhaunshi_bg" />
-  <image src="https://xuncj.yzsaas.cn/_download/img/mine/ic_diamon.png" class="zhuanshi_icon" />
+  <image src="{{hostUrl}}/mine/bg.png" class="zhaunshi_bg" />
+  <image src="{{hostUrl}}/mine/ic_diamon.png" class="zhuanshi_icon" />
   <text class="zuanshi_title">钻石合伙人</text>
   <text class="zuanshi_value">享受6大长期丰厚回报</text>
-  <image src="https://xuncj.yzsaas.cn/_download/img/mine/older_more_n.png" class="zhuanshi_to" />
+  <image src="{{hostUrl}}/mine/older_more_n.png" class="zhuanshi_to" />
 </view>
 <!-- 我的订单 -->
 <view class="{{content.memberType==2||entrance==0?'order':'order1'}}">
   <view class="order-title" bindtap='navOrder' data-url="/pages/myorder/myorder?status=0">
-    <image class="order-img" src="https://xuncj.yzsaas.cn/_download/img/icon/my_order_icon.png"></image>
+    <image class="order-img" src="{{hostUrl}}/icon/my_order_icon.png"></image>
     <text class="order-text">我的订单</text>
     <text class="order-text2">全部订单</text>
   </view>
@@ -194,64 +195,64 @@
 <!-- 我的服务 -->
 <view class="mySeed">
   <view class="seed_box" bindtap="toSeed">
-    <image src="/assets/images/mine/my_service_icon.png" class="seed_img"/>
+    <image src="/assets/images/mine/my_service_icon.png" class="seed_img" />
     <view class="seed_title">种子农场</view>
     <view class="to_seed">去农场</view>
   </view>
   <view class="seed_box" bindtap="toSeed">
-    <image src="/assets/images/mine/ic_drop.png" class="seed_img2"/>
+    <image src="/assets/images/mine/ic_drop.png" class="seed_img2" />
     <view class="seed_title2">{{seedContent.seedAmount?seedContent.seedAmount:0}}颗种子</view>
     <view class="to_seed2">可抵{{seedContent.seedDeductionAmount?seedContent.seedDeductionAmount:0}}元</view>
     <view class="no_get">{{seedContent.unReceiveSeed?seedContent.unReceiveSeed:0}}颗 未领</view>
   </view>
   <view class="column">
-  <view class="column_box" bindtap="column" data-index="1">
-    <view class="img_box">
-      <image src="https://xuncj.yzsaas.cn/_download/img/seed/ic.png" class="column_img" />
+    <view class="column_box" bindtap="column" data-index="1">
+      <view class="img_box">
+        <image src="{{hostUrl}}/seed/ic.png" class="column_img" />
+      </view>
+      <text class="column_font">每日签到</text>
     </view>
-    <text class="column_font">每日签到</text>
-  </view>
-  <view class="column_box" bindtap="column" data-index="2">
-    <view class="img_box">
-      <image src="https://xuncj.yzsaas.cn/_download/img/seed/ic(1).png" class="column_img" />
+    <view class="column_box" bindtap="column" data-index="2">
+      <view class="img_box">
+        <image src="{{hostUrl}}/seed/ic(1).png" class="column_img" />
+      </view>
+      <text class="column_font">账户存钱</text>
     </view>
-    <text class="column_font">账户存钱</text>
-  </view>
-  <view class="column_box" bindtap="column" data-index="3">
-    <view class="img_box">
-      <image src="https://xuncj.yzsaas.cn/_download/img/seed/ic(2).png" class="column_img" />
+    <view class="column_box" bindtap="column" data-index="3">
+      <view class="img_box">
+        <image src="{{hostUrl}}/seed/ic(2).png" class="column_img" />
+      </view>
+      <text class="column_font">购买商品</text>
     </view>
-    <text class="column_font">购买商品</text>
-  </view>
-  <view class="column_box" bindtap="column" data-index="4">
-    <view class="img_box">
-      <image src="https://xuncj.yzsaas.cn/_download/img/seed/ic(3).png" class="column_img" />
+    <view class="column_box" bindtap="column" data-index="4">
+      <view class="img_box">
+        <image src="{{hostUrl}}/seed/ic(3).png" class="column_img" />
+      </view>
+      <text class="column_font">社区发帖</text>
     </view>
-    <text class="column_font">社区发帖</text>
-  </view>
-  <view class="column_box" bindtap="column" data-index="5">
-    <view class="img_box">
-      <image src="https://xuncj.yzsaas.cn/_download/img/seed/ic(4).png" class="column_img" />
+    <view class="column_box" bindtap="column" data-index="5">
+      <view class="img_box">
+        <image src="{{hostUrl}}/seed/ic(4).png" class="column_img" />
+      </view>
+      <text class="column_font">待返转让</text>
     </view>
-    <text class="column_font">待返转让</text>
-  </view>
-  <view class="column_box" bindtap="column" data-index="6">
+    <!-- <view class="column_box" bindtap="column" data-index="6">
     <view class="img_box">
-      <image src="https://xuncj.yzsaas.cn/_download/img/seed/ic(5).png" class="column_img" />
+      <image src="{{hostUrl}}/seed/ic(5).png" class="column_img" />
     </view>
     <text class="column_font">趣玩游戏</text>
+  </view> -->
   </view>
-</view>
 </view>
 <view class="service">
   <view class="service-title">
-    <image class="service-img" src="https://xuncj.yzsaas.cn/_download/img/icon/my_service_icon.png"></image>
+    <image class="service-img" src="{{hostUrl}}/icon/my_service_icon.png"></image>
     <text class="service-text">我的服务</text>
   </view>
   <view class="service-list">
     <view class="pay" catchtap='payMoney'>
       <view class="pay-img">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/my_service_list1_icon.png"></image>
+        <image src="{{hostUrl}}/icon/my_service_list1_icon.png"></image>
       </view>
       <view class="pay-text">
         <view class="pay-text-big">付钱</view>
@@ -261,16 +262,16 @@
     <view class="pay" catchtap='myForum'>
       <view class="forum" wx:if="{{messageNum>0}}">{{messageNum}}</view>
       <view class="pay-img">
-        <image src="https://xuncj.yzsaas.cn/_download/img/add/my_service_list2_icon.png"></image>
+        <image src="{{hostUrl}}/add/my_service_list2_icon.png"></image>
       </view>
       <view class="pay-text">
-        <view class="pay-text-big">论坛</view>
-        <view class="pay-text-small">讨论最近资讯</view>
+        <view class="pay-text-big">订单交易</view>
+        <view class="pay-text-small">待返订单交易</view>
       </view>
     </view>
     <view class="pay" catchtap='myTeam'>
       <view class="pay-img">
-        <image src="https://xuncj.yzsaas.cn/_download/img/icon/my_service_list3_icon.png"></image>
+        <image src="{{hostUrl}}/icon/my_service_list3_icon.png"></image>
       </view>
       <view class="pay-text">
         <view class="pay-text-big">我的团队</view>
@@ -279,7 +280,7 @@
     </view>
     <view class="pay" catchtap='toMyPeriod'>
       <view class="pay-img">
-        <image src="https://xuncj.yzsaas.cn/_download/img/add/my_service_list4_icon.png"></image>
+        <image src="{{hostUrl}}/add/my_service_list4_icon.png"></image>
       </view>
       <view class="pay-text">
         <view class="pay-text-big">我的分期</view>
@@ -291,39 +292,39 @@
 <!-- 购物车、我的地址、支付密码、邀请码、商家入驻、客服 -->
 <view class="mine">
   <view class="mine-list" bindtap='toCart'>
-    <image class="mine-list-img" src="https://xuncj.yzsaas.cn/_download/img/add/my_otherservice_list0_icon.png"></image>
+    <image class="mine-list-img" src="{{hostUrl}}/add/my_otherservice_list0_icon.png"></image>
     <view class="mine-list-text">购物车</view>
   </view>
   <view class="mine-list" catchtap='toAdress'>
-    <image class="mine-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/my_otherservice_list1_icon.png"></image>
+    <image class="mine-list-img" src="{{hostUrl}}/icon/my_otherservice_list1_icon.png"></image>
     <view class="mine-list-text">我的地址</view>
   </view>
   <view class="mine-list" catchtap='toPassword'>
-    <image class="mine-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/my_otherservice_list2_icon.png"></image>
+    <image class="mine-list-img" src="{{hostUrl}}/icon/my_otherservice_list2_icon.png"></image>
     <view class="mine-list-text">支付密码</view>
   </view>
   <view class="mine-list" bindtap='showInviterCode'>
-    <image class="mine-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/my_otherservice_list3_icon.png"></image>
+    <image class="mine-list-img" src="{{hostUrl}}/icon/my_otherservice_list3_icon.png"></image>
     <view class="mine-list-text">邀请码</view>
   </view>
   <!-- <view class="mine-list" bindtap='toMerchantEntry'>
-    <image class="mine-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/my_otherservice_list4_icon.png"></image>
+    <image class="mine-list-img" src="{{hostUrl}}/icon/my_otherservice_list4_icon.png"></image>
     <view class="mine-list-text">商家入驻</view>
   </view> -->
   <button class="mine-list service1" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" open-type="contact" bindcontact="handleContact">
-    <image class="mine-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/my_otherservice_list5_icon.png"></image>
+    <image class="mine-list-img" src="{{hostUrl}}/icon/my_otherservice_list5_icon.png"></image>
     <view class="mine-list-text">客服</view>
   </button>
   <view class="mine-list" bindtap='downAppShow'>
-    <image class="mine-list-img" src="https://xuncj.yzsaas.cn/_download/img/icon/my_otherservice_list6_icon@3x.png"></image>
+    <image class="mine-list-img" src="{{hostUrl}}/icon/my_otherservice_list6_icon@3x.png"></image>
     <view class="mine-list-text">下载APP</view>
   </view>
 </view>
 <!-- 邀请码弹框 -->
 <view class="zan-dialog1" catchtouchmove="preventTouchMove" wx:if="{{showInviterCode}}" catchtap="hideModal"></view>
 <view class="zan-dialog__container1" wx:if="{{showInviterCode}}">
-  <image src="https://xuncj.yzsaas.cn/_download/img/icon/my_code_bg.png"></image>
-  <image src="https://xuncj.yzsaas.cn/_download/img/icon/my_code_title.png"></image>
+  <image src="{{hostUrl}}/icon/my_code_bg.png"></image>
+  <image src="{{hostUrl}}/icon/my_code_title.png"></image>
   <view class="title2">我的邀请码</view>
   <view class="invite-code">{{content.inviterCode}}</view>
   <view class="copy" bindtap='copyText' data-text="{{content.inviterCode}}">复制</view>
@@ -332,17 +333,17 @@
     非Plus会员
   </view>
   <view class="member1" wx:elif="{{content.inviterIsMember===1}}">Plus会员</view>
-  <image class="attrimage1" wx:if="{{content.inviterIsMember===2 && content.inviterNickname}}" src="https://xuncj.yzsaas.cn/_download/img/icon/my_viptag_bg.png"></image>
-  <image class="attrimage1" wx:if="{{content.inviterIsMember===1}}" src="https://xuncj.yzsaas.cn/_download/img/icon/my_viptag_bg.png"></image>
+  <image class="attrimage1" wx:if="{{content.inviterIsMember===2 && content.inviterNickname}}" src="{{hostUrl}}/icon/my_viptag_bg.png"></image>
+  <image class="attrimage1" wx:if="{{content.inviterIsMember===1}}" src="{{hostUrl}}/icon/my_viptag_bg.png"></image>
   <image wx:if="{{content.inviterAvatarKey}}" class="attrimage" src="{{content.inviterAvatarKey}}"></image>
-  <image wx:else class="attrimage" src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+  <image wx:else class="attrimage" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
   <view class="text">我的推荐人</view>
   <view class="nickname" wx:if="{{!content.inviterNickname}}">寻草记</view>
   <view class="nickname" wx:else>{{content.inviterNickname}}</view>
 </view>
 <!-- 下载APP弹窗 -->
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{downAppStatus}}">
-  <view class="zan-dialog__container" wx:if="{{downAppStatus}}">
+  <view class="zan-dialog__container" wx:if="{{}}">
     <view class="title1">扫码下载APP</view>
     <image src="{{QRUrl}}" class="QR" />
     <view class="value">
@@ -354,12 +355,12 @@
       <text>保存二维码</text>
     </view>
   </view>
-  <image wx:if="{{downAppStatus}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/icon/vip_close_Pop-ups.png" bindtap='downAppHiden'></image>
+  <image wx:if="{{downAppStatus}}" class="cancel-img" src="{{hostUrl}}/icon/vip_close_Pop-ups.png" bindtap='downAppHiden'></image>
 </view>
 <!-- 待返转让弹窗 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry}}">
   <view class="zan-dialog__container2" wx:if="{{waitReentry}}">
-    <image wx:if="{{waitReentry}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose'></image>
+    <image wx:if="{{waitReentry}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose'></image>
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -368,7 +369,7 @@
       </view>
       <view class="wait_box" wx:for="{{returnContent}}" wx:key="">
         <text class="wait_name">购买方:</text>
-        <text class="wait_value">{{item}}</text>
+        <text class="wait_value">{{item.mobileNumber}}</text>
       </view>
       <view class="know_box">
         <text class="know" bindtap="waitReentryClose">我知道了</text>
@@ -379,7 +380,7 @@
 <!-- 待返转让弹窗2 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry2}}">
   <view class="zan-dialog__container2" wx:if="{{waitReentry2}}">
-    <image wx:if="{{waitReentry2}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose2'></image>
+    <image wx:if="{{waitReentry2}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose2'></image>
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -388,7 +389,7 @@
       </view>
       <view class="wait_box" wx:for="{{returnContent2}}" wx:key="">
         <text class="wait_name">购买方:</text>
-        <text class="wait_value">{{item}}</text>
+        <text class="wait_value">{{item.mobileNumber}}</text>
       </view>
       <view class="know_box">
         <text class="know" bindtap="waitReentryClose2">我知道了</text>
@@ -399,7 +400,7 @@
 <!-- 有人出售弹窗 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry3}}">
   <view class="zan-dialog__container2" wx:if="{{waitReentry3}}">
-    <!-- <image wx:if="{{waitReentry3}}" class="cancel-img" src="https://xuncj.yzsaas.cn/_download/img/mine/withdraw_close.png" bindtap='waitReentryClose3'></image> -->
+    <!-- <image wx:if="{{waitReentry3}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose3'></image> -->
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -412,3 +413,19 @@
     </view>
   </view>
 </view>
+  <!-- 转让撤销提示弹窗 -->
+  <view class="return-two-dialog__maskPeople" catchtouchmove="preventTouchMove" wx:if="{{returnCanclePeople}}">
+    <view class="zan-dialog__containerPeople" wx:if="{{returnCanclePeople}}">
+      <view class="head_title"></view>
+          <view class="peopleCancle_box" wx:for="{{returnContent3}}" wx:key="{{item.id}}">
+            <image class="people_info_img" src="{{item.imgUrl}}"/>
+            <view class="people_info_name">{{item.nikeName}}</view>
+            <view class="people_info_acountnumber">{{item.mobileNumber}}</view>
+            <view class="cancle_font">转让方撤销了与您的交易！如有疑问请联系该用户。</view>
+            <view class="border_bottom"></view>
+        </view>
+    </view>
+      <view class="peopleCanlce_close" wx:if="{{returnCanclePeople}}" bindtap='returnCanclePeople'>
+        <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
+      </view>
+  </view>

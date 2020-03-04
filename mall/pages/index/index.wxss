@@ -581,3 +581,194 @@ page {
 .wait_shure-one-dialog__mask .zan-dialog__container1 .cause_box {
   margin-bottom: 10rpx;
 }
+.return_money_img{
+  width: 119rpx;
+  height: 132rpx;
+}
+.return_money_box{
+  position: fixed;
+  right: 9rpx;
+  top: 513rpx;
+}
+/* 首页返现到账弹窗 */
+
+.show-received1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.show-received-container1 {
+  width: 541rpx;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 28rpx;
+  overflow: hidden;
+  position: relative;
+  top: 150rpx;
+  left: 110rpx;
+  z-index: 9999;
+}
+
+.show-received-top1 {
+  width: 427rpx;
+  height: 376rpx;
+  z-index: 20;
+  position: absolute;
+  display: inline-block;
+  left: 54rpx;
+  top: 31rpx;
+}
+
+.show-received-cancel1 {
+  width: 100%;
+  height: 76rpx;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 860rpx;
+}
+.show-received-cancel1 image {
+  width: 56rpx;
+  height: 56rpx;
+}
+.bg_img{
+  display: inline-block;
+  width: 540rpx;
+  height: 680rpx;
+}
+.return_money{
+  font-size:32rpx;
+  font-family:PingFang SC;
+  font-weight:bold;
+  color:rgba(255,255,255,1);
+  position: absolute;
+  left: 0;
+  top: 451rpx;
+  text-align: center;
+  left: 181rpx;
+}
+.toyue_img{
+  width: 381rpx;
+  height: 111rpx;
+  position: absolute;
+  left: 82rpx;
+  top: 538rpx;
+  z-index: 100;
+}
+/* 转让撤销提示弹窗 */
+
+.return-two-dialog__maskPeople{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.return-two-dialog__maskPeople .zan-dialog__containerPeople {
+  width: 630rpx;
+  /* height: 460rpx; */
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 250rpx;
+  left: 60rpx;
+  z-index: 99;
+}
+
+.return-two-dialog__maskPeople .cancel-img {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: 50rpx;
+  right: 50rpx;
+}
+
+.return-two-dialog__maskPeople .zan-dialog__containerPeople .title {
+  width: 520rpx;
+  margin: 0 auto;
+  margin-top: 46rpx;
+  margin-bottom: 30rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  color: #222;
+  text-align: left;
+  font-weight: 500;
+  height: 20rpx;
+}
+.peopleCancle_box{
+  position: relative;
+  height: 277rpx;
+}
+.people_info_img{
+  height: 80rpx;
+  width: 80rpx;
+  border-radius: 40rpx;
+  display: inline-block;
+  position: absolute;
+  left: 41rpx;
+  top: 50rpx;
+}
+.people_info_name{
+  display: inline-block;
+  font-size:24rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+  position: absolute;
+  left: 151rpx;
+  top: 55rpx;
+}
+.people_info_acountnumber{
+  display: inline-block;
+  font-size:24rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+  position: absolute;
+  left: 151rpx;
+  top: 97rpx;
+}
+.cancle_font{
+  display: inline-block;
+  font-size:26rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+  position: absolute;
+  left: 39rpx;
+  top: 163rpx;
+  width: 546rpx;
+}
+.border_bottom{
+  height: 3rpx;
+  width: 550rpx;
+  background: #E7E7E7;
+  position: absolute;
+  left: 40rpx;
+  bottom: 0;
+}
+.head_title{
+  height: 40rpx;
+}
+.peopleCanlce_close {
+  width: 200rpx;
+  height: 76rpx;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  right: 10rpx;
+  top: 172rpx;
+}
+.peopleCanlce_close image {
+  width: 44rpx;
+  height: 79rpx;
+}

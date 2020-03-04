@@ -1,0 +1,91 @@
+<!--pages/returnMoney/returnMoney.wxml-->
+<view class="goods">
+    <image src="{{goodsDetail.imageUrl}}" class="goods_img"/>
+    <text class="goods_name">{{goodsDetail.goodsName}}</text>
+    <text class="goods_price"><text class="sz24">￥</text>{{goodsDetail.price}}</text>
+    <text class="goods_specifications">{{goodsDetail.specDesc}}</text>
+    <text class="goods_number">x{{goodsDetail.quantity}}</text>
+</view>
+<view class="goodsStatus_box" bindtap="goodsStatus" data-index="1">
+    <text class="goodsStatus_one">货物状态</text>
+    <text class="goodsStatus_two">*</text>
+    <text class="goodsStatus_three">{{goodsValue}}</text>
+    <image src="{{hostUrl}}/icon/xiangqing_more_n.png" class="more"/>
+</view>
+<view class="goodsStatus_box1" bindtap="goodsStatus" data-index="2">
+    <text class="goodsStatus_one">退货理由</text>
+    <text class="goodsStatus_two">*</text>
+    <text class="goodsStatus_three">{{goodsValue1}}</text>
+    <image src="{{hostUrl}}/icon/xiangqing_more_n.png" class="more"/>
+</view>
+<view class="money_box">
+    <text class="goodsStatus_one">退款金额</text>
+    <text class="goodsStatus_two">*</text>
+    <text class="col">￥</text>
+    <view class="expect_money">
+        <input class="money_input" value="{{maxMoney.refundQuota}}"  type="digit" maxlength="9" bindinput="getMoney"/>
+    </view>
+    <text class="max_money" wx:if="{{maxMoney.cashBackQuota&&maxMoney.cashBackQuota!==0}}">已返现给您￥{{maxMoney.cashBackQuota}}元，退款最多可退<text class="font20">￥</text>{{maxMoney.refundQuota}}</text>
+        <text class="max_money" wx:else>最多可退<text class="font20">￥</text>{{maxMoney.refundQuota}}</text>
+    <text class=".max_money2" wx:if="{{index1==1}}">含运费<text >￥</text>{{goodsDetail.expressFee}}</text>
+</view>
+<view class="goodsStatus_box">
+    <text class="goodsStatus_one">退款说明</text>
+    <view class="goodsStatus_three1">
+        <input  class="aa" placeholder="选填"  bindinput="getShuoMing"/>
+    </view>
+</view>
+<view class="img_box">
+    <text class="goodsStatus_one">退款凭证</text>
+    <view class="img_wrap">
+  <view class="commentImg_wrap" wx:for="{{goodsData.imgList}}" wx:key="items" wx:for-item="items">
+    <image src="{{items}}" catchtap="imgYu" data-src="{{items}}"></image>
+    <image src="{{hostUrl}}/wishpool/ic_del.png" class="close" catchtap="deleteImg" data-index="{{index}}"></image>
+  </view>
+  <image src="/assets/images/freeBuy/bg.png" catchtap="choiceImg" data-index="{{index}}" wx:if="{{goodsData.imgList.length<3}}"></image>
+</view>
+    <text class="shuoming">最多三张图片</text>
+</view>
+<view class="shenqing" bindtap="toDealWith">提交申请</view>
+  <!-- 是否收货弹窗  -->
+<view class="dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{show1}}">
+  <view class="dialog__container" wx:if="{{show1}}">
+    <image wx:if="{{show1}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='close1'></image>
+    <view class="title">货物状态</view>
+    <view class="text">
+        <view class="text_one" bindtap="goodsChoose" data-index="1">已经收到了货物
+            <image class="text_img" src="/assets/images/freeBuy/order_choose_icon.png" wx:if="{{index1==2}}" />
+        </view>
+        <view class="text_two" bindtap="goodsChoose" data-index="2">还没有收到货物
+            <image class="text_img" src="/assets/images/freeBuy/order_choose_icon.png" wx:if="{{index1==1}}"/>
+        </view>
+    </view>
+  </view>
+</view>
+  <!-- 退款理由弹窗  -->
+<view class="dialog__mask2" catchtouchmove="preventTouchMove" wx:if="{{show2}}">
+  <view class="dialog__container2" wx:if="{{show2}}">
+    <image wx:if="{{show2}}" class="cancel-img2" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='close2'></image>
+    <view class="title2">退款理由</view>
+    <view class="text2">
+        <view class="text_one2" bindtap="goodsChoose2" data-index="1">质量问题
+            <image class="text_img2" src="/assets/images/freeBuy/order_choose_icon.png" wx:if="{{index2==1}}"/>
+        </view>
+        <view class="text_one2" bindtap="goodsChoose2" data-index="2">长时间未发货
+            <image class="text_img2" src="/assets/images/freeBuy/order_choose_icon.png" wx:if="{{index2==2}}"/>
+        </view>
+        <view class="text_one2" bindtap="goodsChoose2" data-index="3">我不想买了
+            <image class="text_img2" src="/assets/images/freeBuy/order_choose_icon.png" wx:if="{{index2==3}}"/>
+        </view>
+        <view class="text_one2" bindtap="goodsChoose2" data-index="4">商品损坏/空包
+            <image class="text_img2" src="/assets/images/freeBuy/order_choose_icon.png" wx:if="{{index2==4}}"/>
+        </view>
+        <view class="text_two2" bindtap="goodsChoose2" data-index="5">其他原因
+            <image class="text_img2" src="/assets/images/freeBuy/order_choose_icon.png" wx:if="{{index2==5}}"/>
+        </view>
+    </view>
+  </view>
+</view>
+
+<!-- 压缩上传图片使用 -->
+<canvas canvas-id="canvas" style="width:200px;height:200px;position: absolute;left:-1000px;top:-1000px;"></canvas>

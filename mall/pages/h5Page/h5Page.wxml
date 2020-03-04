@@ -1,0 +1,4 @@
+<!--pages/h5Page/h5Page.wxml-->
+<view class="page-body">
+  <web-view src="{{srcItem}}"></web-view>
+</view>

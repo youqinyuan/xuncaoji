@@ -4,9 +4,9 @@
     <text class='text'>{{item.title}} </text> -->
   <view class="cover" style="display:{{videoimage}}" bindtap="videoPlay">
     <!-- 视频图层 -->
-    <image class="videoVideo2" src="https://xuncj.yzsaas.cn/_download/img/icon/xuncaoji_fbjieshao.png" mode="scaleToFill">
+    <image class="videoVideo2" src="{{hostUrl}}/icon/xuncaoji_fbjieshao.png" mode="scaleToFill">
       <!-- 视频按钮 -->
-      <image class="videoPlay" src="https://xuncj.yzsaas.cn/_download/img/icon/video_play.png" mode="scaleToFill"></image>
+      <image class="videoPlay" src="{{hostUrl}}/icon/video_play.png" mode="scaleToFill"></image>
     </image>
   </view>
   <!-- </view> -->

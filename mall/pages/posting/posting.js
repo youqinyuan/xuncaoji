@@ -11,7 +11,7 @@ Page({
     postingStatus: null, //显示帖子类型
     showModal: false, //期望价格弹窗
     inputValue: '', //期望价格
-    expectAmount: '请输入期望售价',
+    expectAmount: '请输入售价',
     goodsData: {},
     imgList: [], //上传的图片列表
     wishImg: '',
@@ -21,7 +21,7 @@ Page({
     waitReentry: null,
     saleText: null,
     buyText: null,
-    annualizedRate: null, //年化率
+    annualizedRate: null, //年收益率
     isdisabled: true,
     cashBackAmount: '',
     cashBackAmountEnd: '',
@@ -29,7 +29,8 @@ Page({
     periodLeftEnd: '',
     annualizedRateBegin: '',
     annualizedRateEnd: '',
-    msgText:''
+    msgText:'',
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**
@@ -340,9 +341,9 @@ Page({
             icon: 'none'
           })
         } else {
-          if (that.data.expectAmount == '请输入期望售价') {
+          if (that.data.expectAmount == '请输入售价') {
             wx.showToast({
-              title: '请输入期望售价',
+              title: '请输入售价',
               icon: 'none'
             })
           } else {
@@ -520,7 +521,7 @@ Page({
     var that = this;
     if (index < tempFilePaths.length) {
       const ctx = wx.createCanvasContext('canvas');
-      ctx.drawImage(tempFilePaths[index], 0, 0, 250, 400);
+      ctx.drawImage(tempFilePaths[index], 0, 0, 200, 200);
       ctx.draw(true, function() {
         index = index + 1; //上传成功的数量，上传成功则加1
         wx.canvasToTempFilePath({
@@ -548,7 +549,7 @@ Page({
   jumpWaitReentry: function() {
     var that = this
     that.setData({
-      expectAmount: '请输入期望售价',
+      expectAmount: '请输入售价',
       annualizedRate: null,
       saleText:null
     })
@@ -560,7 +561,7 @@ Page({
       data: "1"
     })
   },
-  // 显示期望售价弹框
+  // 显示售价弹框
   showModal: function() {
     var that = this;
     that.setData({
@@ -568,7 +569,7 @@ Page({
       isdisabled: false
     })
   },
-  //隐藏期望售价弹框
+  //隐藏售价弹框
   hideModal: function() {
     var that = this;
     that.setData({
@@ -610,7 +611,7 @@ Page({
       } 
     } else {
       that.setData({
-        showMessage: '请输入期望售价'
+        showMessage: '请输入售价'
       })
     }
   },
@@ -622,7 +623,7 @@ Page({
       isdisabled: true
     });
   },
-  //获取期望售价
+  //获取售价
   btnInput: function(e) {
     var that = this;
     var mesValue
@@ -636,12 +637,12 @@ Page({
       } else {
         mesValue = e.detail.value.substring(0, e.detail.value.length - 1);
         that.setData({
-          showMessage: '期望售价仅支持小数点前8位,小数点后2位'
+          showMessage: '售价仅支持小数点前8位,小数点后2位'
         })
       }
     }else{
       that.setData({
-        showMessage: '请输入大于0的期望售价'
+        showMessage: '请输入大于0的售价'
       })
     }    
     that.setData({

@@ -2,7 +2,7 @@
 <view class="shops-wrap">
   <view class="shops-content-img">
     <image src="{{store.logoUrl}}" wx:if="{{store.logoUrl}}"></image>
-    <image src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png" wx:else></image>
+    <image src="{{hostUrl}}/icon/zhanw_tb_n.png" wx:else></image>
   </view>
   <view class="shops-content-middle">
     <view class="shops-content-middle-wrap">
@@ -20,7 +20,7 @@
 </view>
 <view class="quality">
   <view class="quality-title">
-    <image class="quality-img" src="https://xuncj.yzsaas.cn/_download/img/add/ic_goods.png"></image>
+    <image class="quality-img" src="{{hostUrl}}/add/ic_goods.png"></image>
     <text class="quality-text">店铺商品</text>
   </view>
   <view class="quality-list-wrapper">

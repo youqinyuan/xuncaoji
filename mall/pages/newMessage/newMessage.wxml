@@ -1,11 +1,11 @@
 <!--pages/newMessage/newMessage.wxml-->
 <wxs module="filters" src="filter.wxs"></wxs>
 <view class="wrap_top">
-  <view style="background:{{item.status==1?'#f4f4f4':'#fff'}}" class="container_top" wx:for="{{message}}" wx:key="{{item.id}}" bindtap="jumpComment" data-id="{{item.topicId}}" data-userid="{{item.userId}}" data-nickname="{{item.nickname}}">
+  <view style="background:{{item.status==1?'#f4f4f4':'#fff'}}" class="container_top" wx:for="{{message}}" wx:key="{{item.id}}" bindtap="jumpComment" data-topicid="{{item.topicId}}" data-userid="{{item.userId}}" data-nickname="{{item.nickname}}">
     <view class="content">
       <view class="content_left">
         <image wx:if="{{item.avatarKey}}" class="photo" src="{{item.avatarKey}}"></image>
-        <image wx:else class="photo" src="https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png"></image>
+        <image wx:else class="photo" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
         <view class="nickname">{{item.nickname}}</view>
       </view>
       <view class="content_right">{{filters.toDate(item.createTime)}}</view>
@@ -17,8 +17,6 @@
     </view>
   </view>
 </view>
-<view class="bottomText">
-  <text>——</text>
-  <text class="bottom_text">没有了哟</text>
-  <text>——</text>
+<view class="bottomText" wx:if="{{text !==''}}">
+  <text class="bottom_text">——{{text}}——</text>
 </view>

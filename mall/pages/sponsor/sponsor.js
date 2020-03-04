@@ -1,5 +1,6 @@
 // pages/sponsor/sponsor.js
 let app = getApp()
+var interval2 = null
 Page({
 
   /**
@@ -12,7 +13,8 @@ Page({
     pageNumber:1,
     pageSize:10,
     toBottom:false,
-    temp:[]
+    temp:[],
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**
@@ -22,10 +24,10 @@ Page({
       var that = this
       //页面基础数据初始化
       that.init()
-      if(wx.getStorageSync('token')){
-        //我的赞助初始化
-        that.mySponsorinit()
-    }
+    //   if(wx.getStorageSync('token')){
+    //     //我的赞助初始化
+    //     that.mySponsorinit()
+    // }
   },
   formatDuring(temp){
     var that = this
@@ -110,7 +112,7 @@ Page({
     var that = this
     var temp = that.data.temp
     that.formatDuring(temp)
-    let interval2 = setInterval(() => {
+     interval2 = setInterval(() => {
         for(var i=0;i<temp.length;i++){
           if (temp[i] > 0) {
             temp[i] -= 1000
@@ -126,10 +128,8 @@ Page({
     app.Util.ajax('mall/marketingAuspicesGoods/queryMyApply', null, 'GET').then((res) => {
       if (res.data.messageCode == 'MSG_1001'){
         for(let i in res.data.content){
-          console.log(i)
           that.data.temp[i] = res.data.content[i].leftTime
         }
-        console.log(that.data.temp)
           that.setData({
             mySponsorContent:res.data.content
           })
@@ -152,10 +152,11 @@ Page({
    */
   onShow: function () {
     var that =this
-  //   if(wx.getStorageSync('token')){
-  //     //我的赞助初始化
-  //     that.mySponsorinit()
-  // }
+    if(wx.getStorageSync('token')){
+      clearInterval(interval2)
+      //我的赞助初始化
+      that.mySponsorinit()
+  }
   },
 
   /**

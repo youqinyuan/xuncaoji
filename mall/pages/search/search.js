@@ -18,6 +18,7 @@ Page({
     textToast:'',//已经到底啦
     getMore:'',//查看更多
     getMore1: '',//查看更多
+    hostUrl: app.Util.getUrlImg().hostUrl
   },
   //跳转到详情页
   toDetail(e){

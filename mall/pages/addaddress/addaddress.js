@@ -11,6 +11,7 @@ Page({
     cityPickerIsShow: false,
     showDialog: false,//确认收货地址弹框
     is_ios:false, //登录机型是否是ios
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   onLoad: function (options) {

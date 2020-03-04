@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     provinces: []
   },
   //跳转到手机登录
@@ -27,16 +28,14 @@ Page({
         console.log('res.code:', res.code, res);
         var code = res.code
         var inviterCode1 = wx.getStorageSync('inviterCode1') || ''
-        console.log(333)
         if (e.detail.errMsg == 'getPhoneNumber:ok') {
-          console.log(444)
           wx.setStorageSync('encryptedData', encryptedData)
           wx.setStorageSync('iv', iv)
           var pages = getCurrentPages() //获取加载的页面
-          console.log(pages)
           var currentPage = pages[pages.length - 3] //获取当前页面的对象
-          console.log("111"+currentPage.route)
           var url = currentPage.route
+          console.log(getCurrentPages())
+          console.log(url)
           if (url == 'pages/detail/detail') {
             if (wx.getStorageSync('stages')) {
               wx.setStorage({
@@ -49,22 +48,22 @@ Page({
                 data: url + '?id=' + wx.getStorageSync('goods_id')
               })
             }            
-          } else if (url == 'pages/zeroPurchase/zeroPurchase') {
+          } else if (url == 'packageA/pages/zeroPurchase/zeroPurchase') {
             wx.setStorage({
               key: "url",
               data: url + '?id=' + wx.getStorageSync('zeroGoods_id') + '&&type=' + wx.getStorageSync('type') + '&&orgPrice=' + wx.getStorageSync('orgPrice')
             })
-          } else if (url == 'pages/zeroBuy/zeroBuy') {
+          } else if (url == 'packageA/pages/zeroBuy/zeroBuy') {
             wx.setStorage({
               key: "url",
               data: url
             })
-          } else if (url == 'pages/cooperate/cooperate') {
+          } else if (url == '/packageA/pages/cooperate/cooperate') {
             wx.setStorage({
               key: "url",
               data: url
             })
-          } else if (url == 'pages/zeroPurchaseActivity/zeroPurchaseActivity') {
+          } else if (url == 'packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity') {
             wx.setStorage({
               key: "url",
               data: url
@@ -74,7 +73,7 @@ Page({
               key: "url",
               data: url
             })
-          }else if (url == 'pages/freeBuy/freeBuy') {
+          } else if (url == 'packageA/pages/freeBuy/freeBuy') {
             wx.setStorage({
               key: "url",
               data: url
@@ -122,12 +121,6 @@ Page({
               }) 
               console.log("aaa"+JSON.stringify(res))
             } else if (res.data.messageCode === 'MSG_4001') {
-              console.log(666)
-              wx.showToast({
-                title: '验证码输入错误',
-                icon: 'none',
-                duration: 2000
-              })
               wx.redirectTo({
                 url: '/pages/invitationCode/invitationCode?tips=' + '请填写正确的邀请码'
               })

@@ -1,6 +1,6 @@
 <!--pages/lovingHeart/lovingHeart.wxml-->
 <view class="box">
-    <image src="https://xuncj.yzsaas.cn/_download/img/freeBuy/leave.gif" class="loving_img"></image>
+    <image src="{{hostUrl}}/freeBuy/leave.gif" class="loving_img"></image>
     <view class="button" bindtap="toPay"></view>
 </view>
   <!-- 是否收货弹窗  -->
@@ -14,5 +14,5 @@
        </view>
     </view>
   </view>
-    <image wx:if="{{show1}}" class="cancel-get2" src="https://xuncj.yzsaas.cn/_download/img/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
+    <image wx:if="{{show1}}" class="cancel-get2" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
 </view>

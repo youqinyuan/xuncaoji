@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     pageNumber:1,
     pageSize:10,
     items:[],

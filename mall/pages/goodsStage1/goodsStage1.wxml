@@ -1,7 +1,7 @@
 <!--pages/goodsStage1/goodsStage1.wxml-->
 <view class="topImg">
-  <image class="img1" src="https://xuncj.yzsaas.cn/_download/img/add/process_b.png"></image>
-  <image class="img2" src="https://xuncj.yzsaas.cn/_download/img/add/process_a.png"></image>
+  <image class="img1" src="{{hostUrl}}/add/process_b.png"></image>
+  <image class="img2" src="{{hostUrl}}/add/process_a.png"></image>
 </view>
 <view class="listItem">
   <view class="listItem-list">

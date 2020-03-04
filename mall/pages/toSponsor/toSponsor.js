@@ -1,77 +1,79 @@
 // pages/toSponsor/toSponsor.js
 let app = getApp()
+var interval2 = null
 Page({
-    
+
   /**
    * 页面的初始数据
    */
   data: {
     show1: false,
-    productionWidth:100,
-    pageSize:10,
-    pageNumber:1,
-    showModalStatus1:false,
-    haibao:false
+    productionWidth: 100,
+    pageSize: 10,
+    pageNumber: 1,
+    showModalStatus1: false,
+    haibao: false,
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this
     that.setData({
-      options:options
+      options: options
     })
     //页面基础数据初始化
-    that.init(options)
+    // that.init(options)
     //推荐商品
     that.init2()
   },
-  init:function(options){
-    var that =this
-    app.Util.ajax('mall/marketingAuspicesGoods/queryApplyDetail',{id:options.id}, 'GET').then((res) => { // 使用ajax函数
+  init: function(options) {
+    var that = this
+    app.Util.ajax('mall/marketingAuspicesGoods/queryApplyDetail', {
+      id: options.id
+    }, 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
         that.setData({
-          content:res.data.content.apply,
-          sponsorItems:res.data.content.sponsorItems
+          content: res.data.content.apply,
+          sponsorItems: res.data.content.sponsorItems
         })
         //倒计时初始化
         that.countDownInit(res.data.content.apply.leftTime)
-      }else{
+      } else {
         wx.showToast({
-          title:res.data.message,
-          icon:'none'
+          title: res.data.message,
+          icon: 'none'
         })
-      } 
+      }
     })
-    app.Util.ajax('mall/marketingAuspicesGoods/queryAuspices',null, 'GET').then((res) => { // 使用ajax函数
+    app.Util.ajax('mall/marketingAuspicesGoods/queryAuspices', null, 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
+        //分享数据
+        that.chooseShare()
         var tempList = []
-        for(let i of res.data.content.configList){
+        for (let i of res.data.content.configList) {
           var obj = {}
           obj.name = i.key
           obj.value = i.value
           tempList.push(obj)
         }
-          that.setData({
-            configList:tempList
-          })
-      }else{
+        that.setData({
+          configList: tempList
+        })
+      } else {
         wx.showToast({
-          title:res.data.message,
-          icon:"none"
+          title: res.data.message,
+          icon: "none"
         })
       }
     })
-      //分享数据
-      setTimeout(function(){
-        that.chooseShare()
-      },2000)
-
+   
   },
   formatDuring(mss) {
     var that = this
-    const hours = parseInt(mss /3600000).toString()>10?parseInt(mss /3600000).toString():'0'+ parseInt(mss /3600000).toString()
+    const hours = parseInt(mss / 3600000).toString() > 10 ? parseInt(mss / 3600000).toString() : '0' + parseInt(mss / 3600000).toString()
     const minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)).toString() >= 10 ? parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)).toString() : '0' + parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)).toString()
     const seconds = parseInt((mss % (1000 * 60)) / 1000).toString() >= 10 ? parseInt((mss % (1000 * 60)) / 1000).toString() : '0' + parseInt((mss % (1000 * 60)) / 1000).toString()
     const day = parseInt(hours / 24)
@@ -84,67 +86,68 @@ Page({
       seconds: seconds
     })
   },
-    // 倒计时初始化
-countDownInit:function(time){
-      var that = this
-      var current = time
-      that.formatDuring(current)
-      let interval2 = setInterval(() => {
-        if (current > 0) {
-          current -= 1000
-          that.formatDuring(current)
-        } else {
-          clearInterval(interval2)
-          that.setData({
-            day: '00',
-            hours1: '00', //小时
-            hours: "00",
-            minutes: '00', //分钟
-            seconds: '00' //秒
-          })
-        }
-      }, 1000)
-    },
+  // 倒计时初始化
+  countDownInit: function(time) {
+    var that = this
+    var current = time
+    that.formatDuring(current)
+    interval2 = setInterval(() => {
+      if (current > 0) {
+        current -= 1000
+        that.formatDuring(current)
+      } else {
+        clearInterval(interval2)
+        that.setData({
+          day: '00',
+          hours1: '00', //小时
+          hours: "00",
+          minutes: '00', //分钟
+          seconds: '00' //秒
+        })
+      }
+    }, 1000)
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     var that = this
+    clearInterval(interval2)
     that.init(that.data.options)
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     this.getMore2()
   },
   //更多好货
@@ -177,8 +180,8 @@ countDownInit:function(time){
       if (res.data.content) {
         if (res.data.content.items == '' && that.data.list !== '') {
           wx.showToast({
-            title:'已经到底啦~',
-            icon:'none'
+            title: '已经到底啦~',
+            icon: 'none'
           })
         }
         var arr = that.data.list
@@ -196,7 +199,7 @@ countDownInit:function(time){
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function(res) {
     var that = this
     if (res.from == "button") {
       if (res.target.id === 'btn') {
@@ -276,43 +279,50 @@ countDownInit:function(time){
       }
     }
   },
-  closeShow1:function(){
+  closeShow1: function() {
     this.setData({
-      show1:false
+      show1: false
     })
   },
-  Show1:function(){
+  Show1: function() {
     this.setData({
-      show1:true
+      show1: true
     })
   },
-    //分享
-    share: function(e) {
-      var that = this
-      // var goodsId = e.currentTarget.dataset.goodsid
-      that.setData({
-        showModalStatus1: true
-      })
-    },
-    cancelShare: function() {
-      var that = this
-      that.setData({
-        showModalStatus1: false
-      })
-    },
-      //查询分享数据
+  //分享
+  share: function(e) {
+    var that = this
+    // var goodsId = e.currentTarget.dataset.goodsid
+    that.setData({
+      showModalStatus1: true
+    })
+  },
+  cancelShare: function() {
+    var that = this
+    that.setData({
+      showModalStatus1: false
+    })
+  },
+  //查询分享数据
   chooseShare: function() {
     console.log(1111111)
     var that = this
     app.Util.ajax('mall/weChat/sharing/target', {
       mode: 13,
-      targetId:that.data.content.id
+      targetId: that.data.content.id
     }, 'GET').then((res) => {
       if (res.data.messageCode == "MSG_1001") {
+        var arr = res.data.content
+        var inviterCode = wx.getStorageSync('inviterCode')
+        if (inviterCode) {
+          arr.link = arr.link.replace(/{inviterCode}/g, inviterCode)
+        } else {
+          arr.link = arr.link.replace(/{inviterCode}/g, '')
+        }
         that.setData({
-          shareList: res.data.content
+          shareList: arr
         })
-      }else {
+      } else {
         wx.showToast({
           title: res.data.message,
           icon: 'none',
@@ -321,18 +331,25 @@ countDownInit:function(time){
       }
     })
   },
-  toPlaceOrder:function(){
-    var that = this      
-    if(that.data.content.status=='ORDERED_PROGRESS_TO_PAY'||that.data.content.status=='ORDERED_TO_PAY'){
+  toPlaceOrder: function() {
+    var that = this
+    if (that.data.content.status == 'ORDERED_PROGRESS_TO_PAY' || that.data.content.status == 'ORDERED_TO_PAY') {
       wx.navigateTo({
         url: `/pages/paymentorder/paymentorder?id=${that.data.content.transStatementId}&buymode=2`,
       })
-    }else{
+    } else {
       var sponsorId = that.data.content.id
       var goodsType = 1 //freeBuy单个商品
       wx.navigateTo({
-        url: "/pages/placeorder/placeorder?sponsorId="+sponsorId+"&&goodsType="+goodsType
+        url: "/pages/placeorder/placeorder?sponsorId=" + sponsorId + "&&goodsType=" + goodsType
       })
     }
-   }
+  },
+  toGoodsDetail: function(e) {
+    var id = e.currentTarget.dataset.id
+    console.log(id)
+    wx.navigateTo({
+      url: "/pages/detail/detail?id=" + id
+    })
+  }
 })

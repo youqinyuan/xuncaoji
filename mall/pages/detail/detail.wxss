@@ -26,6 +26,7 @@ page {
 
 .content {
   background: rgba(255, 255, 255, 1);
+  margin-top: 0;
   margin-bottom: 20rpx;
   overflow: hidden;
 }
@@ -82,6 +83,15 @@ page {
 .pulse {
   -webkit-animation-name: pulse;
   animation-name: pulse;
+}
+
+.commodityImg {
+  background: #fff;
+}
+
+.commodityImg image {
+  width: 750rpx;
+  height: 100rpx;
 }
 
 /*价格*/
@@ -172,6 +182,18 @@ page {
   border-radius: 14rpx;
 }
 
+.goods-zero3 {
+  padding: 2rpx 12rpx;
+  margin-right: 13rpx;
+  font-size: 20rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  background: rgba(255, 100, 23, 1);
+  border-radius: 14rpx;
+  height: 34rpx;
+}
+
 .goods-zero2 {
   padding: 2rpx 12rpx;
   margin-right: 13rpx;
@@ -256,6 +278,67 @@ page {
   width: 750rpx;
   height: 20rpx;
   background: #f4f4f4;
+}
+
+/* 预售订单 */
+
+.advanceSale {
+  position: relative;
+  width: 750rpx;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  background: #f4e8d9;
+  font-size: 24rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+}
+
+.advanceSale-left {
+  position: absolute;
+  left: 30rpx;
+  top: 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.severice-img {
+  width: 50rpx;
+  height: 30rpx;
+}
+
+.yuSale {
+  font-size: 26rpx;
+  margin: 0 16rpx;
+}
+
+.question-img {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.advanceSale-right {
+  position: absolute;
+  right: 30rpx;
+  top: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150rpx;
+  height: 48rpx;
+  background: linear-gradient(90deg, rgba(239, 215, 187, 1) 0%, rgba(212, 172, 117, 1) 100%);
+  border-radius: 24rpx;
+}
+
+.experience {
+  margin-right: 12rpx;
+}
+
+.right-img {
+  width: 10rpx;
+  height: 12rpx;
 }
 
 /* 快递 */
@@ -492,7 +575,7 @@ page {
 }
 
 .shops-content-img {
-  background-image: url('https://xuncj.yzsaas.cn/_download/img/icon/zhanw_tb_n.png');
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   margin-top: 20rpx;
@@ -568,7 +651,7 @@ page {
   color: rgba(102, 102, 102, 1);
   width: 691rpx;
   margin: 15rpx auto;
-  word-break:break-all;
+  word-break: break-all;
 }
 
 /*爆品推荐*/
@@ -799,8 +882,8 @@ button::after {
   position: absolute;
   text-align: center;
   right: 40rpx;
-  top: 600rpx;
-  width: 150rpx;
+  top: 645rpx;
+  width: 160rpx;
   height: 74rpx;
   background: #ff2644;
   color: #fff;
@@ -831,6 +914,18 @@ button::after {
   border-radius: 0;
 }
 
+.apply1 {
+  font-size: 32rpx;
+  width: 308rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  background: rgba(255, 136, 152, 1);
+  display: flex;
+  justify-content: space-around;
+  color: rgba(255, 255, 255, 1);
+  border-radius: 0;
+}
+
 .buy {
   width: 245rpx;
   height: 100rpx;
@@ -840,6 +935,18 @@ button::after {
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   background: #fc6f97;
+  color: rgba(255, 255, 255, 1);
+}
+
+.buy1 {
+  width: 308rpx;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  background: #ff2644;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -1002,7 +1109,6 @@ button::after {
 
 .content-wrapper {
   height: auto;
-  max-height: 585rpx;
   overflow-y: scroll;
   overflow: -Scroll;
   overflow-x: hidden;
@@ -1012,7 +1118,9 @@ button::after {
 
 .content-cashBack {
   position: relative;
-  line-height: 60rpx;
+  display: flex;
+  align-items: center;
+  height: 60rpx;
   margin: 30rpx auto;
   font-size: 24rpx;
   background: rgba(252, 243, 237, 1);
@@ -1125,8 +1233,13 @@ button::after {
 
 /* 申请0元购 */
 
+.application-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
 .application-zero {
-  width: 50%;
+  width: 100%;
   height: 100rpx;
   line-height: 100rpx;
   background: #ff2644;
@@ -1137,13 +1250,14 @@ button::after {
   text-align: center;
   display: inline-block;
 }
-.application-zero2{
+
+.application-zero1 {
   position: fixed;
-  bottom: 40rpx;
-  left: 40rpx;
-  width: 670rpx;
-  height: 80rpx;
-  line-height: 80rpx;
+  z-index: 9999;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
   background: #ff2644;
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;
@@ -1151,28 +1265,49 @@ button::after {
   color: rgba(255, 255, 255, 1);
   text-align: center;
   display: inline-block;
-  border-radius:40rpx;
 }
-.application-zero_box{
+
+.application-zero2 {
+  position: fixed;
+  bottom: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  background: #ff2644;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  display: inline-block;
+}
+
+.application-zero_box {
   position: fixed;
   bottom: 0rpx;
-  height:100rpx;
+  z-index: 9999;
+  height: 100rpx;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
 }
-.sponsor{
-  width: 50%;
+
+.sponsor {
+  width: 100%;
   height: 100rpx;
   line-height: 100rpx;
-  text-align: center;  
+  text-align: center;
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
-  background: #FF8898;
+  background: #ff8898;
   display: inline-block;
 }
-.sponsor text{
-  font-size:26rpx;
+
+.sponsor text {
+  font-size: 26rpx;
 }
 
 /* 分期返现 */
@@ -1219,6 +1354,7 @@ button::after {
 /* 加入购物车、立即购买 */
 
 .bottom-buy {
+  z-index: 9999;
   position: fixed;
   display: flex;
   bottom: 0;
@@ -1228,6 +1364,7 @@ button::after {
 }
 
 .bottom-buy1 {
+  z-index: 9999;
   position: fixed;
   display: flex;
   bottom: 0;
@@ -1645,7 +1782,104 @@ button::after {
   margin-top: 50rpx;
 }
 
-/* 商品下架蒙版 */
+/* 预售订单 */
+
+.yudialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.yudialog__mask .dialog__container {
+  background: rgba(255, 255, 255, 1);
+  height: 395rpx;
+  width: 600rpx;
+  overflow: hidden;
+  position: fixed;
+  z-index: 9999;
+  border-radius: 30rpx;
+  top: 260rpx;
+  left: 75rpx;
+}
+
+.yudialog__mask .cancelImg {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  right: 55rpx;
+  top: 50rpx;
+}
+
+.yudialog__mask .dialog__container .tishi {
+  margin-top: 46rpx;
+  margin-bottom: 35rpx;
+  font-size: 36rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+  margin-left: 50rpx;
+}
+
+.yudialog__mask .dialog__container .order {
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(51, 51, 51, 1);
+}
+
+.yudialog__mask .order_one {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  margin-left: 50rpx;
+}
+
+.yudialog__mask .order_two {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  margin-left: 50rpx;
+}
+
+.yudialog__mask .order_box1 {
+  width: 240rpx;
+  height: 76rpx;
+  border: 2rpx solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(255, 38, 68, 1);
+  line-height: 76rpx;
+}
+
+.yudialog__mask .order_box2 {
+  width: 240rpx;
+  height: 76rpx;
+  background: #ff2644;
+  border-radius: 38rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #fff;
+  line-height: 76rpx;
+}
+
+.yudialog__mask .order_box {
+  display: flex;
+  justify-content: space-between;
+  margin: 50rpx;
+}
+
+/* 购物车 */
 
 .cart-dialog__mask {
   position: fixed;
@@ -1676,10 +1910,11 @@ button::after {
   right: 356rpx;
   top: 705rpx;
 }
+
 .cart-newbotton_one {
   width: 440rpx;
   height: 80rpx;
-  background: #FF6417;
+  background: #ff6417;
   border-radius: 38rpx;
   text-align: center;
   font-size: 32rpx;
@@ -1704,4 +1939,83 @@ button::after {
   line-height: 80rpx;
   margin-left: 50rpx;
   margin-top: 50rpx;
+}
+
+/* 活动过期或未开始弹窗 */
+
+.dialog__mask2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.dialog__mask2 .dialog__container2 {
+  width: 630rpx;
+  height: 697rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 240rpx;
+  left: 75rpx;
+  z-index: 9999;
+  border-radius: 28rpx;
+}
+
+.shixiao_img {
+  width: 589rpx;
+  height: 626rpx;
+}
+
+.shixiao_font {
+  position: fixed;
+  top: 470rpx;
+  left: 320rpx;
+  z-index: 9999;
+}
+
+.shixiao_one {
+  font-size: 36rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: rgba(92, 14, 0, 1);
+  text-align: center;
+}
+
+.shixiao_two {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(92, 14, 0, 1);
+  margin-top: 29rpx;
+  text-align: center;
+}
+
+.shixiao_button {
+  position: fixed;
+  top: 708rpx;
+  left: 166rpx;
+  z-index: 9999;
+}
+
+.button_img {
+  width: 421rpx;
+  height: 89rpx;
+}
+
+.button_font {
+  position: fixed;
+  top: 708rpx;
+  left: 166rpx;
+  z-index: 9999;
+  width: 421rpx;
+  height: 89rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: rgba(92, 14, 0, 1);
+  text-align: center;
+  line-height: 89rpx;
 }

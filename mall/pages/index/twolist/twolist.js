@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     category:[],
     color: "#FF8D12",
     color1: "black",
@@ -16,8 +17,8 @@ Page({
     pageNumber: 1, //分页记录数
     pageSize: 20, //分页大小
     titleName:'',//标题
-    pricePhoto: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png',
-    pricePhoto1: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png',
+    pricePhoto: app.Util.getUrlImg().hostUrl+'/icon/fenlei_tuijian_pinzhi_title_updown.png',
+    pricePhoto1: app.Util.getUrlImg().hostUrl+'/icon/fenlei_tuijian_pinzhi_title_updown.png',
     name:''
   },
   //跳转到详情页
@@ -105,8 +106,8 @@ Page({
           color: "#FF8D12",
           color1: "black",
           color2: "black",
-          pricePhoto: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png',
-          pricePhoto1: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png'
+          pricePhoto: app.Util.getUrlImg().hostUrl+'/icon/fenlei_tuijian_pinzhi_title_updown.png',
+          pricePhoto1: app.Util.getUrlImg().hostUrl+ '/icon/fenlei_tuijian_pinzhi_title_updown.png'
         })
       } else {
         wx.showToast({
@@ -137,8 +138,8 @@ Page({
             color: "black",
             color1: "#FF8D12",
             color2: "black",
-            pricePhoto: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_down.png',
-            pricePhoto1: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png',
+            pricePhoto: app.Util.getUrlImg().hostUrl+ '/icon/fenlei_tuijian_pinzhi_title_down.png',
+            pricePhoto1: app.Util.getUrlImg().hostUrl+ '/icon/fenlei_tuijian_pinzhi_title_updown.png',
           })
         } else {
           wx.showToast({
@@ -160,8 +161,8 @@ Page({
             color: "black",
             color1: "#FF8D12",
             color2: "black",
-            pricePhoto: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_up.png',
-            pricePhoto1: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png',         
+            pricePhoto: app.Util.getUrlImg().hostUrl+ '/icon/fenlei_tuijian_pinzhi_title_up.png',
+            pricePhoto1: app.Util.getUrlImg().hostUrl+'/icon/fenlei_tuijian_pinzhi_title_updown.png',         
           })
         } else {
           wx.showToast({
@@ -194,8 +195,8 @@ Page({
             color: "black",
             color1: "black",
             color2: "#FF8D12",
-            pricePhoto1: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_up.png',
-            pricePhoto: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png'
+            pricePhoto1: app.Util.getUrlImg().hostUrl+ '/icon/fenlei_tuijian_pinzhi_title_up.png',
+            pricePhoto: app.Util.getUrlImg().hostUrl+'/icon/fenlei_tuijian_pinzhi_title_updown.png'
           })
         } else {
           wx.showToast({
@@ -217,8 +218,8 @@ Page({
             color: "black",
             color1: "black",
             color2: "#FF8D12",
-            pricePhoto1: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_down.png',
-            pricePhoto: 'https://xuncj.yzsaas.cn/_download/img/icon/fenlei_tuijian_pinzhi_title_updown.png'
+            pricePhoto1: app.Util.getUrlImg().hostUrl+ '/icon/fenlei_tuijian_pinzhi_title_down.png',
+            pricePhoto: app.Util.getUrlImg().hostUrl+'/icon/fenlei_tuijian_pinzhi_title_updown.png'
           })
         } else {
           wx.showToast({

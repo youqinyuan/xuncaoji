@@ -10,6 +10,7 @@ Page({
     list:[],
     pageNumber: 1, //分页记录数
     pageSize: 20, //分页大小
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**

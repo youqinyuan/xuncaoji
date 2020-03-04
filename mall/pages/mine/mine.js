@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     messageNum: null,
     tempInfo: [],
     returnContent: [],
@@ -16,23 +17,23 @@ Page({
     waitReentry2: false,
     content: {},
     slist: [{
-      img: 'https://xuncj.yzsaas.cn/_download/img/icon/my_order_list1_icon.png',
+      img: app.Util.getUrlImg().hostUrl+ '/icon/my_order_list1_icon.png',
       txt: '待支付',
       status: '1'
     }, {
-        img: 'https://xuncj.yzsaas.cn/_download/img/add/my_order_list5_icon.png',
+        img: app.Util.getUrlImg().hostUrl + '/add/my_order_list5_icon.png',
         txt: '待发货',
         status: '2'
       }, {
-      img: 'https://xuncj.yzsaas.cn/_download/img/icon/my_order_list2_icon.png',
+        img: app.Util.getUrlImg().hostUrl +'/icon/my_order_list2_icon.png',
       txt: '待收货',
       status: '4'
     }, {
-      img: 'https://xuncj.yzsaas.cn/_download/img/icon/my_order_list3_icon.png',
+        img: app.Util.getUrlImg().hostUrl + '/icon/my_order_list3_icon.png',
       txt: '待评价',
       status: '5'
     }, {
-      img: 'https://xuncj.yzsaas.cn/_download/img/icon/my_order_list4_icon.png',
+        img: app.Util.getUrlImg().hostUrl +'/icon/my_order_list4_icon.png',
       txt: '退款/售后',
       status: '7, 8, 9, 10, 11'
     }],
@@ -43,7 +44,8 @@ Page({
     QRUrl: '',
     noCashBackAmount: 0,
     DownloadAddress: 'https://a.app.qq.com/o/simple.jsp?pkgname=com.jiutian.yzsotreapp',
-    imgSrc: app.Util.getUrlImg().hostUrl + '/download_android.png'
+    imgSrc: app.Util.getUrlImg().hostUrl + '/download_android.png',
+    returnCanclePeople:false
   },
   //客服分享图片回到指定的小程序页面
   handleContact: function (e) {
@@ -62,119 +64,219 @@ Page({
   },
   //跳转到登录页面
   jumpLogin: function () {
-    wx.setStorageSync("loginStatus", 1)
+    // wx.setStorageSync("loginStatus", 1)
     wx.navigateTo({
       url: '/pages/invitationCode/invitationCode',
     })
   },
   //跳转到全部订单页面
   navOrder: function (e) {
-    if(e.currentTarget.dataset.index==4){
-      wx.setStorageSync("orderShowStatus",1)
-    }
-    if (e.currentTarget.dataset.index == 1) {
-      if (wx.getStorageSync('token')) {
-        if (e.detail.formId !== 'the formId is a mock one') {
-          // console.log(e.detail.formId)
-          app.Util.ajax('mall/userFromRecord/addRecord', {
-            formId: e.detail.formId
-          }, 'POST').then((res) => { // 使用ajax函数
-            // console.log(res.data)
-          })
-        } else {
-          // console.log(e.detail.formId)
+    var token = wx.getStorageSync('token')
+    if(token){
+      if (e.currentTarget.dataset.index == 4) {
+        wx.setStorageSync("orderShowStatus", 1)
+      }
+      if (e.currentTarget.dataset.index == 1) {
+        if (wx.getStorageSync('token')) {
+          if (e.detail.formId !== 'the formId is a mock one') {
+            // console.log(e.detail.formId)
+            app.Util.ajax('mall/userFromRecord/addRecord', {
+              formId: e.detail.formId
+            }, 'POST').then((res) => { // 使用ajax函数
+              // console.log(res.data)
+            })
+          } else {
+            // console.log(e.detail.formId)
+          }
         }
       }
-    }
-    app.nav(e);
+      app.nav(e);
+      wx.setStorageSync('myOrder', 1)
+    }else{
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }  
   },
   /**
    * 跳转到开通会员页面
    */
   open: function () {
-    var that = this
-    wx.navigateTo({
-      url: '/pages/member/member',
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/packageA/pages/member/member',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }  
+    
   },
   /**
    * 跳转到充值页面
    */
   recharge: function (e) {
-    wx.navigateTo({
-      url: '/pages/mine/recharge/recharge'
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/pages/mine/recharge/recharge'
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }    
   },
   /**
    * 跳转到个人资料页面
    */
   personalData: function (e) {
     let img = e.currentTarget.dataset.img
-    wx.navigateTo({
-      url: `/pages/mine/personal/personal?img=${img}`,
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: `/pages/mine/personal/personal?img=${img}`,
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }    
   },
   //跳转至钻石合伙人页面
   jumpDiamond: function () {
-    wx.navigateTo({
-      url: '/pages/diamondPartner/diamondPartner',
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/pages/diamondPartner/diamondPartner',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }    
   },
   //付钱页面
   payMoney: function () {
-    wx.navigateTo({
-      url: '/pages/undeveloped/undeveloped',
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/pages/undeveloped/undeveloped',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }    
   },
   //跳转到佣金页面
   commission: function () {
-    wx.navigateTo({
-      url: '/pages/commission/commission',
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/pages/commission/commission',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }    
   },
   //跳到我的论坛页面
   myForum: function () {
-    wx.navigateTo({
-      url: '/pages/myForum/myForum',
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/pages/myForum/myForum',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }    
   },
   //跳转到我的团队页面
   myTeam: function () {
-    wx.navigateTo({
-      url: '/pages/myteam/myteam',
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/packageA/pages/myteam/myteam',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }    
   },
   //跳转到购物车
   toCart: function () {
-    wx.navigateTo({
-      url: '/pages/index/cart/cart',
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/pages/index/cart/cart',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }       
   },
   //我的心情
   toMyPeriod: function () {
-    wx.navigateTo({
-      url: '/pages/myPeriod/myPeriod',
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/pages/myPeriod/myPeriod',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }    
+   
   },
   //跳转到修改地址页面
   toAdress: function () {
-    wx.navigateTo({
-      url: '/pages/address/address',
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/pages/address/address',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }       
   },
   //跳转到支付密码页面
   toPassword: function () {
-    wx.navigateTo({
-      url: '/pages/paypassword/paypassword',
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/pages/paypassword/paypassword',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }       
   },
   //邀请码
   showInviterCode: function () {
     var that = this;
-    that.setData({
-      showInviterCode: true
-    })
-    wx.hideTabBar()
+    var token = wx.getStorageSync('token')
+    if (token) {
+      that.setData({
+        showInviterCode: true
+      })
+      wx.hideTabBar()
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }        
   },
   hideModal: function () {
     var that = this
@@ -277,7 +379,7 @@ Page({
           seedContent: res.data.content,
           noCashBackAmount: res.data.content.noCashBackAmount,
           balance: res.data.content.balance,
-          commissionBalance: res.data.content.commissionBalance + res.data.content.pendingCommission
+          commissionBalance: Number(res.data.content.commissionBalance + res.data.content.pendingCommission).toFixed(2)
         })
       }      
     })
@@ -365,10 +467,16 @@ Page({
   },
   //下载APP弹窗(显示)
   downAppShow: function () {
-    console.log("下载弹窗已显示")
-    this.setData({
-      downAppStatus: true
-    })
+    var token = wx.getStorageSync('token')
+    if (token) {
+      this.setData({
+        downAppStatus: true
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }       
   },
   //下载APP弹窗(隐藏)
   downAppHiden: function () {
@@ -537,7 +645,7 @@ Page({
     this.setData({
       waitReentry: false
     })
-    this.returnInfo3()
+    this.returnInfo6()
   },
   waitReentryClose2: function () {
     this.setData({
@@ -566,7 +674,7 @@ Page({
             //转让完成消息
             that.setData({
               waitReentry2: true,
-              returnContent2: i.standard
+              returnContent2: i.userItems
             })
           }
         }
@@ -576,12 +684,23 @@ Page({
               //转让取消消息
               that.setData({
                 waitReentry: true,
-                returnContent: i.standard
+                returnContent: i.userItems
               })
             }
           }
         }
         if (that.data.waitReentry == false) {
+          for (let i of res.data.content) {
+            if (i.type == 4) {
+              //撤销消息
+              that.setData({
+                returnCanclePeople: true,
+                returnContent3: i.userItems
+              })
+            }
+          }
+        }
+        if (that.data.returnCanclePeople == false) {
           for (let i of res.data.content) {
             if (i.type == 1) {
               //转让消息
@@ -602,7 +721,7 @@ Page({
           //转让取消消息
           that.setData({
             waitReentry: true,
-            returnContent: i.standard
+            returnContent: i.userItems
           })
         }
       }
@@ -612,6 +731,32 @@ Page({
             //转让消息
             that.setData({
               waitReentry3: true,
+            })
+          }
+        }
+      }
+
+    }
+  },
+  returnInfo6: function() {
+    var that = this
+    if (that.data.tempInfo.length > 0) {
+      for (let i of that.data.tempInfo) {
+        if (i.type == 4) {
+          //转让取消消息
+          that.setData({
+            waitReentry: true,
+            returnContent3: i.userItems
+          })
+        }
+        console.log(that.data.returnContent3)
+      }
+      if (that.data.waitReentry == false) {
+        for (let i of that.data.tempInfo) {
+          if (i.type == 1) {
+            //转让消息
+            that.setData({
+              returnCanclePeople: true,
             })
           }
         }
@@ -635,7 +780,7 @@ Page({
   toSeed:function(){
     if(wx.getStorageSync("token")){
       wx.navigateTo({
-        url:"/pages/seed/seed"
+        url:"/packageA/pages/seed/seed"
       })
     }else{
       wx.navigateTo({
@@ -691,5 +836,12 @@ Page({
         url: '/pages/invitationCode/invitationCode',
       })
     }
+  },
+  returnCanclePeople:function(){
+    var that = this 
+    that.setData({
+      returnCanclePeople:false
+    })
+    that.returnInfo3()
   }
 })

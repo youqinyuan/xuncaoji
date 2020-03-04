@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     shops: [], //店铺以及商品
     pageNumber: 1,
     pageSize: 20,

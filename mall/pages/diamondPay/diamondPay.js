@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hostUrl: app.Util.getUrlImg().hostUrl,
     navScrollLeft: 0,
     currentTab: 0,
     initialize:{},//页面显示内容
@@ -14,36 +15,36 @@ Page({
     shareImg: '', //分享图片
     list: [{
         title: '1元奖励金',
-        bannerUrl: "https://xuncj.yzsaas.cn/_download/img/partner_a.png",
+        bannerUrl: app.Util.getUrlImg().hostUrl+"/partner_a.png",
         select: true,
         status: '1'
       },
       {
         title: '2元购物金',
         select: false,
-        bannerUrl: "https://xuncj.yzsaas.cn/_download/img/partner_e.png",
+        bannerUrl: app.Util.getUrlImg().hostUrl+"/partner_e.png",
         status: '2'
       },
       {
         title: '坐享下级消费提成',
         select: false,
-        bannerUrl: "https://xuncj.yzsaas.cn/_download/img/partner_c.png",
+        bannerUrl: app.Util.getUrlImg().hostUrl+"/partner_c.png",
         status: '3'
       },
       {
         title: '享FreeBuy下单优惠',
         select: false,
-        bannerUrl: "https://xuncj.yzsaas.cn/_download/img/partner_d.png",
+        bannerUrl: app.Util.getUrlImg().hostUrl+"/partner_d.png",
         status: '4'
       }, {
         title: '优先成为城市合伙人',
         select: false,
-        bannerUrl: "https://xuncj.yzsaas.cn/_download/img/partner_b.png",
+        bannerUrl: app.Util.getUrlImg().hostUrl+"/partner_b.png",
         status: '5'
       }, {
         title: '待返转让分佣',
         select: false,
-        bannerUrl: "https://xuncj.yzsaas.cn/_download/img/partner_a.png",
+        bannerUrl: app.Util.getUrlImg().hostUrl+"/partner_a.png",
         status: '6'
       },
     ],
@@ -60,7 +61,7 @@ Page({
     that.initPrice();
     that.initMember();
     wx.downloadFile({
-      url: 'https://xuncj.yzsaas.cn/_download/img/shre_img.png',
+      url: app.Util.getUrlImg().hostUrl+'/shre_img.png',
       success: function (res) {
         that.setData({
           shareImg: res.tempFilePath
@@ -159,6 +160,22 @@ Page({
             that.data.initialize['purchase'] = v.value
           } else if (v.key == "INVITEES_COUNT") {
             that.data.initialize['invitees'] = v.value
+          } else if (v.key == "DIAMOND_PAYMENT_RATE") {
+            that.data.initialize['rateBegin'] = v.value
+          } else if (v.key == "DIAMOND_RATE") {
+            that.data.initialize['rateEnd'] = v.value
+          } else if (v.key == "DIAMOND_FREE_BUY_RATE") {
+            that.data.initialize['buyRate'] = v.value
+          } else if (v.key == "DIAMOND_DIAMOND") {
+            that.data.initialize['money'] = v.value
+          } else if (v.key == "DIAMOND_FREE_BUY_LEVEL") {
+            that.data.initialize['level'] = v.value
+          } else if(v.key == "DIAMOND_PROFIT_RATE"){
+            that.data.initialize['rate'] = v.value
+          } else if(v.key == "DIAMOND_PROFIT_PAYMENT_RATE"){
+            that.data.initialize['paymentRate'] = v.value
+          } else if(v.key == "DIAMOND_NO_PROFIT_PAYMENT_RATE"){
+            that.data.initialize['noPaymentRate'] = v.value
           }    
         })
         that.setData({

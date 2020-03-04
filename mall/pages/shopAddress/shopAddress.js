@@ -10,7 +10,8 @@ Page({
     detailAddress:'',//详细地址
     cityPickerValue: [],
     cityPickerIsShow: false,
-    provinces: []
+    provinces: [],
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**

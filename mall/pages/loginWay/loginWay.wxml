@@ -1,5 +1,5 @@
 <!--pages/loginWay/loginWay.wxml-->
 <!--寻草记-->
-<image src="https://xuncj.yzsaas.cn/_download/img/icon/xuncaoji_icon.png"></image>
+<image src="{{hostUrl}}/icon/xuncaoji_icon.png"></image>
 <button class="wx-login" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信快捷登录</button>
 <button class="other-login" bindtap='jumpPhoneLogin'>其他方式登录</button>

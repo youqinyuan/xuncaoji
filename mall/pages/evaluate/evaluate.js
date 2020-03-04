@@ -14,7 +14,8 @@ Page({
     avgGoddInteract:1,//综合评分
     goodInteractRate:'',//好评率
     text:'',
-    options:{}
+    options:{},
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**

@@ -18,7 +18,7 @@
     isShow="{{cityPickerIsShow}}"
     bindsureclick="cityPickerOnSureClick"
     bindcancelclick="cityPickerOnCancelClick" /> 
-    <image class="img" src="https://xuncj.yzsaas.cn/_download/img/icon/data_narrow.png"></image>
+    <image class="img" src="{{hostUrl}}/icon/data_narrow.png"></image>
   </view>
   <view class="listItems1">
     <text class="listLeft">详细地址: </text>
