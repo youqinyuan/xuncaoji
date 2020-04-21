@@ -1,0 +1,8 @@
+<!--packageA/pages/payAttention/payAttention.wxml-->
+<view class="content"wx:if="{{content.length>0}}">
+    <view class="storeList" wx:for="{{content}}" wx:key="{{item.storeId}}" data-storeid="{{item.storeId}}" data-channel="{{item.channel}}" bindtap="toStoreDetail">
+        <image src="{{item.logoUrl}}" class="headImg"/>
+        <view class="storeName">{{item.storeName}}</view>
+    </view>
+</view>
+<view class="nothing" wx:if="{{content.length==0}}">您暂时没有关注的商家，快去关注吧</view>

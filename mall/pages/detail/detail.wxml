@@ -100,21 +100,22 @@
     <view class="block1"></view>
     <view class="advanceSale">
       <view class="advanceSale-left">
-        <image class="severice-img" src="/assets/images/new/yuService.png"></image>
+        <image class="severice-img" src="{{hostUrl}}/yuService.png"></image>
         <view class="yuSale">预售订单</view>
-        <image class="question-img" src="/assets/images/new/yuSale.png" catchtap="goIntoProblem"></image>
+        <image class="question-img" src="{{hostUrl}}/yuSale.png" catchtap="goIntoProblem"></image>
       </view>
       <view class="advanceSale-right">
         <view class="experience" catchtap="experience">立即体验</view>
-        <image class="right-img" src="/assets/images/new/sanDetail.png"></image>
+        <image class="right-img" src="{{hostUrl}}/sanDetail.png"></image>
       </view>
     </view>
+    <view class="block1"></view>
     <view class="express-wrap">
-      <image src="{{hostUrl}}/icon/kuaid_bqian.png"></image>
+      <view class="expressPay">快递</view>
       <view class="express" wx:if="{{detail.expressFee == 0||buyType==2}}">包邮</view>
       <view class="express" wx:else>￥{{detail.expressFee || 0}}</view>
     </view>
-    <view class="content-cashBack1" wx:if="{{!stages&&newPeopleActivity==1}}">
+    <!-- <view class="content-cashBack1" wx:if="{{!stages&&newPeopleActivity==1}}">
       <image src="{{hostUrl}}/icon/youhui_bqian.png"></image>
       <view class="content-cashBack1-text">
         当前商品实付
@@ -125,10 +126,13 @@
     <view class="content-cashBack1" wx:if="{{stages&&installmentGoodsResponse.periods&&newPeopleActivity==1}}">
       <image src="{{hostUrl}}/add/fenqi.png"></image>
       <view class="content-cashBack1-text">{{installmentGoodsResponse.periods||0}}期</view>
-    </view>
+    </view> -->
     <!--库存-->
     <view class="stock" bindtap="clickme" wx:if="{{!stages&&newPeopleActivity==1}}">
-      <view class="stock-left">请选择商品数量规格</view>
+      <view class="stock-left">
+        <text>选择</text>
+        <text>商品数量/规格</text>
+      </view>
       <view class="stock-right">
         <view class="stock-right-text">库存{{detail.stock || 0}}</view>
         <view class="stock-right-img">
@@ -137,7 +141,10 @@
       </view>
     </view>
     <view class="stock" bindtap="clickme" wx:if="{{stages&&newPeopleActivity==1}}">
-      <view class="stock-left">请选择商品规格</view>
+      <view class="stock-left">
+        <text>选择</text>
+        <text>商品规格</text>
+      </view>
       <view class="stock-right">
         <view class="stock-right-text">库存{{detail.stock || 0}}</view>
         <view class="stock-right-img">
@@ -153,6 +160,74 @@
           <image src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
         </view>
       </view>
+    </view>
+  </view>
+  <!-- 赚钱购 -->
+  <view class="getMoney-wrap">
+    <view class="getMoney-top">
+      <view class="getMoney-left">
+        <view class="getGoods">卖商品赚钱</view>
+        <image class="getGoods-img" src="{{hostUrl}}/yuSale.png" catchtap="getIntoMoney"></image>
+      </view>
+      <view class="getMoney-right" bindtap="getIntoGetMoney" wx:if="{{allPost.length>0}}">
+        <view class="getMoney-right-text">查看全部</view>
+        <image class="getMoney-right-img" src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
+      </view>
+    </view>
+    <view class="getMoney-swiper" wx:if="{{allPost.length>0}}">
+      <swiper class="getMoney" vertical="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="5000">
+        <swiper-item>
+          <view class="getMoney-swiper_item" wx:for="{{allPost1}}" wx:key="{{item.id}}">
+            <image class="getMoneyPhoto" wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
+            <image class="getMoneyPhoto" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+            <view class="getMoney-middle">
+              <view class="getName">
+                <text>{{item.nickname}}</text>
+                <text>出价：{{item.expectAmount}}元</text>
+              </view>
+              <view class="getSpec">
+                <text>{{item.specDesc}}</text>
+                <text>原价：{{item.platformOrgAmount}}元</text>
+              </view>
+            </view>
+            <view class="getMoneyBtn" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">赚 {{item.expectAmount}}</view>
+          </view>
+        </swiper-item>
+        <swiper-item>
+          <view class="getMoney-swiper_item" wx:for="{{allPost.length>2?allPost2:allPost1}}" wx:key="{{item.id}}">
+            <image class="getMoneyPhoto" wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
+            <image class="getMoneyPhoto" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+            <view class="getMoney-middle">
+              <view class="getName">
+                <text>{{item.nickname}}</text>
+                <text>出价：{{item.expectAmount}}元</text>
+              </view>
+              <view class="getSpec">
+                <text>{{item.specDesc}}</text>
+                <text>原价：{{item.platformOrgAmount}}元</text>
+              </view>
+            </view>
+            <view class="getMoneyBtn" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">赚 {{item.expectAmount}}</view>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+    <view class="notGetMoney" wx:if="{{allPost.length===0}}">
+      <image class="notGetMoney-img" src="{{hostUrl}}/changeImg/notGetMoney.png"></image>
+      <view class="notGetMoney-text">来晚了，暂时没可以直接购买赚钱的订单了！</view>
+      <view class="notGetMoney-btn" catchtap="goShowOrder">发布赚钱订单</view>
+    </view>
+  </view>
+  <view class="saveMoney-top">
+    <view class="saveMoney-left">
+      <image class="saveGoods-img1" src="{{hostUrl}}/changeImg/savePig.png"></image>
+      <image class="saveGoods-img2" src="{{hostUrl}}/changeImg/savePay.png"></image>
+      <image class="saveGoods-img" src="{{hostUrl}}/yuSale.png" catchtap="saveIntoMoney"></image>
+    </view>
+    <view class="saveMoney-right" bindtap="saveShowOrder">
+      <image class="saveMoney-right-img1" src="{{hostUrl}}/changeImg/saveMoney.png"></image>
+      <view class="saveMoney-right-text">点击进入</view>
+      <image class="saveMoney-right-img" src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
     </view>
   </view>
   <!--用户评价-->
@@ -298,7 +373,7 @@
   <view class="share-text">分享赚</view>
   <view class="share-price" wx:if="{{detail.sharingProfit}}">￥{{detail.sharingProfit}}</view>
 </view>
-<view class="buy-model" wx:if="{{!stages&&newPeopleActivity==1&&!commodity&&imageUrls.length>0}}">
+<!-- <view class="buy-model" wx:if="{{!stages&&newPeopleActivity==1&&!commodity&&imageUrls.length>0}}">
   <text class="save savemoney" wx:if="{{detail.cashBack.totalAmount>0}}">共节约￥{{saveMoney}}：</text>
   <text class="save">省￥{{saveAmount}}</text>
   <text class="back" wx:if="{{detail.cashBack.totalAmount>0}}">,返￥{{foo.toStr(detail.cashBack.totalAmount)}}</text>
@@ -308,7 +383,7 @@
   <text class="save">省￥{{saveAmount}}</text>
   <text class="back" wx:if="{{detail.marketingCashBack.totalAmount>0}}">,返￥{{foo.toStr(detail.marketingCashBack.totalAmount)}}</text>
 </view>
-<image class="jian-img" wx:if="{{!stages&&newPeopleActivity==1&&imageUrls.length>0}}" src="{{hostUrl}}/icon/tanceng_jiantou.png"></image>
+<image class="jian-img" wx:if="{{!stages&&newPeopleActivity==1&&imageUrls.length>0}}" src="{{hostUrl}}/icon/tanceng_jiantou.png"></image> -->
 <!--选择规格屏幕背景变暗的背景  -->
 <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
 <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
@@ -407,6 +482,7 @@
       </scroll-view>
     </view>
   </view>
+  <view class="showOrderBlock"></view>
   <!--加入购物车、立即购买-->
   <view class="bottom-buy" wx:if="{{!stages&&buyType==1&&!commodity&&newPeopleActivity!==2}}">
     <view class="add-cart" data-cashbackid="{{stockDetail1.cashbackItems ? cashbackId:'' }}" data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" catchtap='addTocart' wx:if="{{zero==false}}">加入购物车</view>
@@ -488,7 +564,7 @@
       <view class="cart-newbotton_two" bindtap="clickme">加入普通购买购物车</view>
     </view>
   </view>
-  <image wx:if="{{isCart}}" class="cart-cancel-img" src="/assets/images/icon/tanc_closecutlineone_n.png" bindtap='cartCancle'></image>
+  <image wx:if="{{isCart}}" class="cart-cancel-img" src="{{hostUrl}}/icon/tanc_closecutlineone_n.png" bindtap='cartCancle'></image>
 </view>
 <!-- 活动过期或未开始弹窗 -->
 <view class="dialog__mask2" catchtouchmove="preventTouchMove" wx:if="{{show2}}">
@@ -524,7 +600,6 @@
 <view class="yudialog__mask" catchtouchmove="preventTouchMove" wx:if="{{yuShow}}">
   <view class="dialog__container" wx:if="{{yuShow}}">
     <view class="tishi">提示</view>
-    <image class="cancelImg" src="{{hostUrl}}/add/withdraw_close.png" catchtap='noNeed'></image>
     <view class="order">
       <view class="order_one">是否需要进入预售订单介绍页面了解如</view>
       <view class="order_two">何使用呢？</view>
@@ -533,7 +608,7 @@
         <view class="order_box2" catchtap="need">需要</view>
       </view>
     </view>
-  </view>  
+  </view>
 </view>
 <!--选择规格屏幕背景变暗的背景  -->
 <view class="commodity_screen" bindtap="hideModal2" wx:if="{{showModalStatus2}}"></view>
@@ -602,4 +677,83 @@
     <view class="now-buy1" data-quantity="{{num2}}" data-cashbackid="{{activityStockDetail1.cashbackItems ? cashbackId:'' }}" data-activityGoodsId="{{detail.activityGoodsId}}" data-stockid="{{activityStockDetail1.stockId}}" data-newPeople="1" bindtap='applyZeroBuy1'
       wx:if="{{zero==false}}">{{buttonText}}</view>
   </view>
+</view>
+
+
+<!-- 活动规则弹窗 -->
+<view class="get-zan-dialog__mask" wx:if="{{showRole}}">
+  <view class="zan-dialog__container" animation="{{animationData}}" wx:if="{{showRole}}">
+    <view class="height_text" wx:if="{{money==1}}">
+      <view class="role_title">0成本购后卖出赚钱，怎么赚钱？</view>
+      <view class="height_text1">相当于您可以直接将改商品卖出，0成本购后，直接可以拿到您想卖出的价格！</view>
+      <view class="role_title">怎么卖？</view>
+      <view class="height_text1">您先查看0成本购后卖出赚钱，下面的列表是否有可以直接购买赚钱的订单，您可点击查看全部，查看所有的可以直接购买赚钱的订单，若赚钱的金额您都不满意，您可点击发布赚钱订单，自由定义价格。此时为了不占用您的资金时间，您只需要支付违约金便可发出赚钱订单，并有权在交易前随时取消，违约金会立马退还到您的账户余额中。</view>
+      <view class="role_title">违约金是什么？</view>
+      <view class="height_text1">违约金主要是为了保护购买者不受损失的一种手段，只要不是您在对方付款后取消了交易，其他任何情况下都将吧违约金全额退还。</view>
+      <view class="role_title">如果直接购买了赚钱订单多久可以收到钱？</view>
+      <view class="height_text1">您购买的订单，都是其他用户想要更低一些的价格购买商品发出的省钱订单，在您支付0成本购金额后，对方的出价会立刻进入您的余额中</view>
+      <view style="height:70rpx"></view>
+    </view>
+    <view class="height_text" wx:if="{{money==2}}">
+      <view class="role_title">捡漏购买省钱，怎么省钱？</view>
+      <view class="height_text1">相当于有人将此商品通过本平台0成本购买后，将商品进行出售，出售的同时，他会降低售价，所以您可以省钱购买</view>
+      <view class="role_title">怎么购买？</view>
+      <view class="height_text1">您可先查看捡漏购买-省钱下面的列表，是否有可以直接省钱购买的订单，您可点击查看全部，查看所有的省钱购买的订单，可以直接购买，若省下的金额您都不满意，您可点击发布省钱订单，自由购买定义价格。您只需要支付您的出价便可发出省钱订单，并有权在交易前随时取消，你支付的金额会立马退还到您的账户余额中</view>
+      <view class="role_title">如果直接购买了多久可以收到货？</view>
+      <view class="height_text1">在您和出售方交易完成后，立即发货。与正常下单一致！如果货物问题您也可以选择退款</view>
+      <view style="height:70rpx"></view>
+    </view>
+  </view>
+  <image wx:if="{{showRole}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow'></image>
+</view>
+
+
+<!--选择规格屏幕背景变暗的背景  -->
+<view class="commodity_screen" bindtap="hideShowOrder" wx:if="{{showOrder}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showOrder}}">
+  <view class="commodity-top">
+    <view class="commodity-top-img">
+      <image wx:if="{{iconUrl}}" src="{{iconUrl}}"></image>
+      <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+    </view>
+    <view class="commodity-top-right">
+      <view class="commodity-top-right-item">
+        <view class="commodity-top-right-title">返后价:
+          <view class="sign">￥</view>
+          <view class="price">{{stockDetail1.dctPrice?foo.toStr(stockDetail1.dctPrice-cashMoney):0}}</view>
+        </view>
+        <view class="commodity-top-right-cancel" bindtap="hideShowOrder">
+          <image src="{{hostUrl}}/icon/tanc_close_n.png"></image>
+        </view>
+      </view>
+      <view class="commodity-save">库存{{stockDetail1.quantity}}件</view>
+      <view class="commodity-size">已选：{{selectName}}</view>
+    </view>
+  </view>
+  <view class="content-wrapper" style="{{stockDetail1.cashbackItems?'max-height: 585rpx;':'max-height: 630rpx;'}}">
+    <!--选择规格-->
+    <block wx:for="{{spec}}" wx:key="{{item.id}}" wx:for-index="group_idx">
+      <view class="color-size" data-index="{{group_idx}}" bindtap='specIndex'>
+        <view class="color-size-title">{{item.name}}</view>
+        <view class="color-size-list">
+          <block wx:for="{{item.items}}" wx:key="{{item.id}}">
+            <text bindtap='clickAttr' data-attr-index="{{index}}" data-name="{{item.name}}" data-select-index="{{group_idx}}" data-attr-id="{{item.id}}" class="text1 {{item.isSelect==true? 'active' : ''}}">{{item.name}}</text>
+          </block>
+        </view>
+      </view>
+    </block>
+    <!-- <view class="num">
+      <view class="num-title">购买数量</view>
+      <view class="num-item">
+        <text class="{{minusStatus}}" bindtap="bindMinus">-</text>
+        <input wx:if="{{!options.source}}" type="number" bindchange="bindManual" value="{{num}}" />
+        <view class="showNum" wx:if="{{options.source}}">{{num}}</view>
+        <text class="{plusStatus}}" bindtap="bindPlus">+</text>
+      </view>
+    </view> -->
+  </view>
+  <view class="showOrderText">{{showText1}}</view>
+  <view class="showOrderBtn" bindtap="getOrder" data-stockId="{{stockDetail1.stockId}}" data-dctPrice="{{stockDetail1.dctPrice?foo.toStr(stockDetail1.dctPrice-cashMoney):0}}" data-spec="{{selectName}}" data-num="{{num}}" data-expressFee="{{detail.expressFee}}"
+    data-iconUrl="{{iconUrl}}" data-name="{{detail.name}}" data-quantity1="{{stockDetail1.quantity}}" data-quantity="{{options.quantity}}" data-goodsid="{{options.id}}" data-stock="{{options.stockid}}" data-topicid="{{options.topicid}}" data-source="{{options.source}}">{{showText2}}</view>
+  <view class="showOrderBlock"></view>
 </view>

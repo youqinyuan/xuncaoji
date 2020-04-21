@@ -1,0 +1,70 @@
+<!--packageA/pages/ecommerceStore/ecommerceStore.wxml-->
+<view class="store" wx:if="{{fixed==1&&store.channel==1}}">
+  <image class="storeImg" src="{{store.logoUrl}}" wx:if="{{store.logoUrl}}"></image>
+  <image class="storeImg" src="{{hostUrl}}/icon/zhanw_tb_n.png" wx:else></image>
+  <view class="storeMiddle">
+    <view class="stroeName">{{store.name}}</view>
+    <view class="grade">
+      <view class="storeText">店铺评分</view>
+      <view class="storeGrade">{{store.score}}</view>
+    </view>
+  </view>
+  <view class="{{store.isFollow==2?'storeRight':'storeRight1'}}" catchtap="follow">
+    <image class="storeXing" src="{{hostUrl}}/changeImg/wujiao.png"></image>
+    {{showText}}
+  </view>
+</view>
+<view class="section-wrapper" style="{{fixed==1?'position:static;':'position:fixed;top:0'}}">
+  <view class="section" wx:if="{{fixed==1}}" catchtap="toSearch" data-id="{{store.id}}">
+    <image src="{{hostUrl}}/changeImg/search.png" class="section-img"></image>
+  </view>
+  <view class="wrapText" wx:if="{{fixed==2}}" catchtap="toSearch" data-id="{{store.id}}">
+    <view class="section1">
+      <image src="{{hostUrl}}/changeImg/search.png" class="section-img"></image>
+    </view>
+    <view class="textHtx" catchtap="follow">
+      <image class="storeXing" src="{{hostUrl}}/changeImg/wujiao.png"></image>
+      <view class="text">{{showText}}</view>
+    </view>
+  </view>
+
+  <view class="content_top">
+    <scroll-view scroll-x class="nav" scroll-left="{{navScrollLeft}}">
+      <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
+        <view class="nav-box">
+          <view class="nav-item" data-index="{{idx}}" data-id="{{item.id}}" bindtap="switchNav">{{item.name}}</view>
+          <view class="nav-item {{currentTab == idx ?'active1':''}}"></view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+</view>
+
+
+<view class="quality-list-wrapper" wx:if="{{store.channel==1}}" style="{{fixed==2?' margin-top: 170rpx;':' margin-top: 0rpx;'}}">
+  <view class="quality-list" wx:for="{{list}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
+    <view class="quality-list-img">
+      <image src="{{item.imageUrls[0]}}"></image>
+    </view>
+    <view class="quality-list-text">
+      <text class="item1" wx:if="{{item.tags==1}}">自营</text>
+      <text class="item2">支持0成本购</text>{{item.name}}</view>
+    <view class="quality-list-price">
+      <view class="newprice">
+        <text>￥</text>{{item.truePrice}}</view>
+      <view class="oldprice">￥{{item.orgPrice}}</view>
+    </view>
+    <view class="return-wrap">
+      <view class="return-money">
+        <text>实付</text>
+        <text>￥</text>
+        <text>{{item.dctPrice}}</text>
+      </view>
+      <view class="pay-money">
+        <text>返现</text>
+        <text>￥</text>
+        <text>{{item.marketingCashBack.totalAmount}}</text>
+      </view>
+    </view>
+  </view>
+</view>

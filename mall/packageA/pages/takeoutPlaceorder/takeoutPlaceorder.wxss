@@ -1,0 +1,738 @@
+/* packageA/pages/takeoutPlaceorder/takeoutPlaceorder.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+.wrap_top {
+  width: 750rpx;
+  background: linear-gradient(0deg, rgba(255, 38, 68, 0) 0%, rgba(255, 38, 68, 1) 100%);
+}
+
+.nav_wrap {
+  display: flex;
+  height: 87rpx;
+  width: 690rpx;
+  margin-left: 30rpx;
+  position: relative;
+}
+
+.nav_take {
+  font-size: 28rpx;
+}
+
+.nav_take_img {
+  height: 75rpx;
+  width: 345rpx;
+  position: absolute;
+  top: 13rpx;
+  left: 20rpx;
+}
+
+.nav_take_imgs {
+  position: absolute;
+  left: -1.5rpx;
+  height: 87rpx;
+  width: 380rpx;
+}
+
+.nav_take_img1 {
+  position: absolute;
+  right: -2rpx;
+  height: 87rpx;
+  width: 380rpx;
+}
+
+.nav_take_img1s {
+  height: 75rpx;
+  width: 345rpx;
+  position: absolute;
+  top: 13rpx;
+  right: 20rpx;
+}
+
+.nav_take_text {
+  position: absolute;
+  top: 31rpx;
+  left: 133rpx;
+}
+
+.nav_take_text1 {
+  position: absolute;
+  top: 31rpx;
+  right: 118rpx;
+}
+
+.wrap_way {
+  width: 690rpx;
+  background: #fff;
+  border-radius: 24rpx 0rpx 24rpx 24rpx;
+  margin: 0 auto;
+  margin-top: -2rpx;
+}
+
+.wrap_way1 {
+  width: 690rpx;
+  max-height: 378rpx;
+  min-height: 219rpx;
+  background: #fff;
+  border-radius: 24rpx 24rpx 24rpx 24rpx;
+  margin: 0 auto;
+}
+
+/* 到店自取 */
+
+.getTitle {
+  height: 126rpx;
+  line-height: 126rpx;
+  font-size: 32rpx;
+  color: #333;
+  font-family: PingFang SC;
+  font-weight: bold;
+  text-align: center;
+}
+
+.getTitleSelf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 30rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+  height: 100rpx;
+  width: 630rpx;
+  border-bottom: 2rpx solid #e7e7e7;
+}
+
+.payTitleWay {
+  height: 100rpx;
+  display: flex;
+  margin: 0 30rpx;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+}
+
+.getSelf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 30rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+  height: 140rpx;
+  width: 630rpx;
+  border-bottom: 2rpx solid #e7e7e7;
+}
+
+.getSelf_address {
+  width: 504rpx;
+}
+
+.getSelf_img {
+  width: 60rpx;
+  height: 62rpx;
+}
+
+.payWay {
+  height: 140rpx;
+  display: flex;
+  margin: 0 30rpx;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+}
+
+.payWay_img {
+  width: 50rpx;
+  height: 57rpx;
+}
+
+/* 外卖配送 */
+
+.takeout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 30rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+  height: 132rpx;
+  width: 630rpx;
+  border-bottom: 2rpx solid #e7e7e7;
+}
+
+.takeout_address {
+  width: 504rpx;
+}
+
+.takeout_d {
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.takeout_e{
+  color: #999999;
+}
+.takeout_name {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  margin-top: 10rpx;
+}
+
+.takeout_img {
+  width: 60rpx;
+  height: 62rpx;
+}
+
+.takeout_payWay {
+  height: 86rpx;
+  display: flex;
+  margin: 0 30rpx;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 2rpx solid #e7e7e7;
+}
+
+.notBorder {
+  border-bottom: none;
+}
+
+.takeout_payWay_img {
+  width: 50rpx;
+  height: 57rpx;
+}
+
+/* 商品信息 */
+
+.goods_wrap {
+  margin-top: 20rpx;
+  width: 690rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  margin-left: 30rpx;
+}
+
+.goodsList {
+  display: flex;
+  align-items: center;
+  margin: 0 30rpx;
+  font-size: 26rpx;
+  color: #333;
+  height: 220rpx;
+  width: 630rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+}
+
+.goodsImg {
+  width: 140rpx;
+  height: 140rpx;
+  margin-right: 30rpx;
+}
+
+.goodsName {
+  width: 450rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.goodsPrice {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  margin-top: 10rpx;
+}
+
+.goodsActual text {
+  color: #ff2644;
+}
+
+.goodsAllPrice {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+  font-size: 30rpx;
+  color: #ff2644;
+}
+
+.goodsAll text {
+  font-size: 24rpx;
+}
+
+.goodsReturn {
+  display: flex;
+}
+
+.goodsReturn-way {
+  font-size: 24rpx;
+  margin-right: 18rpx;
+  color: #333;
+}
+
+.goodsBtn {
+  width: 76rpx;
+  line-height: 32rpx;
+  text-align: center;
+  color: #ff9000;
+  height: 32rpx;
+  border: 2rpx solid #ff9000;
+  border-radius: 16rpx;
+  font-size: 24rpx;
+}
+
+/* 优惠信息 */
+
+.discount {
+  margin-top: 20rpx;
+  width: 690rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  margin-left: 30rpx;
+}
+
+.discount_title {
+  height: 87rpx;
+  text-align: center;
+  line-height: 87rpx;
+  border-bottom: 2rpx solid #f4f4f4;
+}
+
+.discount_d {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 30rpx;
+  height: 80rpx;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #666;
+}
+
+.discount_d_price {
+  display: flex;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.discount_d_img {
+  margin-left: 9rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.takeout-block {
+  height: 235rpx;
+  width: 750rpx;
+}
+
+.all_a{
+  font-size: 24rpx;
+}
+/* 下单 */
+
+.takeOut_placeOrder {
+  width: 710rpx;
+  height: 179rpx;
+  background: #fff5e4;
+  border-radius: 10rpx 10rpx 52rpx 52rpx;
+  position: fixed;
+  bottom: 20rpx;
+  left: 20rpx;
+}
+
+.takeOut_get {
+  display: flex;
+  align-items: center;
+  margin: 0 101rpx;
+  justify-content: space-between;
+  height: 80rpx;
+  color: #ff9000;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+}
+
+.takeOut_get_btn {
+  width: 130rpx;
+  height: 40rpx;
+  border: 2rpx solid #ff9000;
+  border-radius: 20rpx;
+  line-height: 40rpx;
+  text-align: center;
+  font-size: 22rpx;
+}
+
+.addCart-wrap {
+  display: flex;
+  position: fixed;
+  bottom: 20rpx;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+}
+
+.addCart_left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 146rpx;
+  height: 100rpx;
+  background: #1a1a1a;
+  border-radius: 50rpx 4rpx 4rpx 50rpx;
+  margin-right: 4rpx;
+}
+
+.addCart_img {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.addCart_right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 560rpx;
+  height: 100rpx;
+  background: rgba(26, 26, 26, 1);
+  border-radius: 4rpx 50rpx 50rpx 4rpx;
+}
+
+.add_price {
+  margin-left: 25rpx;
+  color: #fff;
+}
+
+.allSign {
+  font-size: 38rpx;
+}
+
+.allSign text:nth-child(1) {
+  font-size: 34rpx;
+}
+
+.allPrice {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.add_text {
+  margin-left: 25rpx;
+  font-size: 32rpx;
+  color: #fff;
+}
+
+.btn {
+  width: 160rpx;
+  height: 62rpx;
+  text-align: center;
+  line-height: 62rpx;
+  border-radius: 31rpx;
+  margin-right: 19rpx;
+  color: #fff;
+  font-size: 28rpx;
+}
+
+.circle {
+  width: 34rpx;
+  height: 34rpx;
+  text-align: center;
+  line-height: 32rpx;
+  background: #ff2644;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18rpx;
+  position: absolute;
+ top: 94rpx;
+  left: 81rpx;
+  z-index: 99;
+}
+/* 想要的分期月数 */
+
+.period-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+}
+
+.period-zan-dialog__mask .zan-dialog__container {
+  width: 630rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 100rpx;
+  left: 60rpx;
+  z-index: 99;
+  text-align: center;
+}
+
+.period-zan-dialog__mask .cancel-img {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 68rpx;
+  top: 26rpx;
+}
+
+.period-zan-dialog__mask .zan-dialog__container .title {
+  width: 400rpx;
+  margin: 44rpx auto;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+  text-align: center;
+}
+
+.confirm {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  margin-bottom: 30rpx;
+}
+
+.monthFont {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+}
+
+.period-zan-dialog__mask .period-month-wrap {
+  border-top: 2rpx solid #dbdbdb;
+  height: auto;
+  margin-top: 20rpx;
+  max-height: 640rpx;
+}
+
+.period-detail {
+  text-align: center;
+}
+
+.period-zan-dialog__mask .period-month {
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(34, 34, 34, 1);
+  border-bottom: 2rpx solid #dbdbdb;
+}
+
+.period-zan-dialog__mask .period-month:last-child {
+  border-bottom: none;
+}
+
+.period-zan-dialog__mask .custom {
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  border-top: 2rpx solid #dbdbdb;
+  color: #aaa;
+}
+
+.period-zan-dialog__mask .period-month-wrap1 {
+  height: auto;
+  margin-top: 20rpx;
+  max-height: 640rpx;
+}
+
+.circle_period {
+  width: 510rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  margin: 0 auto;
+  text-align: center;
+  border: 2rpx solid #aaa;
+  border-radius: 45rpx;
+  margin-bottom: 30rpx;
+  font-size: 28rpx;
+}
+
+.active {
+  color: #ff2644;
+  border: 2rpx solid #ff2644;
+}
+
+/* 自定义分期数 */
+
+.stop-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+}
+
+.stop-zan-dialog__mask .zan-dialog__container {
+  width: 600rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 300rpx;
+  left: 70rpx;
+  z-index: 99;
+  text-align: center;
+}
+
+.stop-zan-dialog__mask .cancel-img {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 108rpx;
+  top: 228rpx;
+  text-align: center;
+}
+
+.stop-zan-dialog__mask .zan-dialog__container .title {
+  margin: 44rpx 201rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #333;
+}
+
+.expectedAmountButton {
+  width: 440rpx;
+  height: 76rpx;
+  background: linear-gradient(90deg, #ff6a48 0%, #ff2644 100%);
+  border-radius: 40rpx;
+  color: #fff;
+  font-size: 32rpx;
+  line-height: 76rpx;
+  text-align: center;
+  margin-left: 80rpx;
+  margin-bottom: 60rpx;
+}
+
+/* 在线支付方式和送达时间 */
+
+/* 筛选条件弹窗 */
+
+.commodity_screen1 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.6;
+  overflow: hidden;
+  z-index: 99;
+  color: rgba(255, 255, 255, 1);
+}
+
+.commodity_attr_box1 {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  z-index: 99;
+  border-radius: 28rpx 28rpx 0rpx 0rpx;
+}
+
+.content-wrapper1 .cancel {
+  width: 26rpx;
+  height: 26rpx;
+  position: absolute;
+  right: 20rpx;
+  top: 45rpx;
+  z-index: 99;
+}
+
+.content-wrapper1 .title {
+  margin-top: 39rpx;
+  margin-bottom: 30rpx;
+  text-align: center;
+  font-size: 36rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+}
+
+.content-wrapper1 .tab {
+  display: flex;
+  height: 90rpx;
+  align-items: center;
+  border-bottom: 2rpx solid #f4f4f4;
+  width: 690rpx;
+  margin-left: 30rpx;
+}
+
+.content-wrapper1 .text {
+  width: 300rpx;
+  text-align: center;
+  margin-right: 100rpx;
+  margin-left: 220rpx;
+  font-size: 30rpx;
+}
+
+.content-wrapper1 .choose_img {
+  height: 32rpx;
+  width: 32rpx;
+}
+
+.showBtn {
+  margin: 30rpx auto;
+  line-height: 80rpx;
+  text-align: center;
+  width: 690rpx;
+  height: 80rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
+}
+
+.picker-text {
+  text-align: center;
+}
+
+.textData {
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #fff;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  text-align: center;
+}

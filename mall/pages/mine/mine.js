@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    storeEnterStatus:'',
     hostUrl: app.Util.getUrlImg().hostUrl,
     messageNum: null,
     tempInfo: [],
@@ -159,15 +160,15 @@ Page({
     }    
   },
   //付钱页面
-  payMoney: function () {
+  saveAndmake: function () {
     var token = wx.getStorageSync('token')
     if (token) {
       wx.navigateTo({
-        url: '/pages/undeveloped/undeveloped',
+        url: '/packageA/pages/saveAndMake/saveAndMake',
       })
     } else {
       wx.navigateTo({
-        url: '/pages/invitationCode/invitationCode',
+        url: '/packageA/pages/invitationCode/invitationCode',
       })
     }    
   },
@@ -424,7 +425,6 @@ Page({
       that.returnInfo()
     }
     that.onLoad(that.data.options)
-
   },
 
   /**
@@ -843,5 +843,20 @@ Page({
       returnCanclePeople:false
     })
     that.returnInfo3()
-  }
+  },
+  toMerchantEntry:function(){
+      wx.navigateTo({
+        url: '/packageA/pages/storeEnter/storeEnter',
+      })
+  },
+  topayAttention:function(){
+    wx.navigateTo({
+      url: '/packageA/pages/payAttention/payAttention',
+    })
+  },
+  toDistributionAddress:function(){
+    wx.navigateTo({
+      url: '/packageA/pages/distributionAddress/distributionAddress',
+    })
+  },
 })

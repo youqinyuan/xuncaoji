@@ -28,8 +28,8 @@ Page({
     console.log(options)
     //给当前地址添加缓存，授权之后跳转回原页面
     var pages = getCurrentPages() //获取加载的页面
-    var currentPage = pages[pages.length - Number(options.pageNum)] //获取当前页面的对象
-    var url = currentPage.route
+    var currentPage = pages[pages.length - Number(options.pageNum)]?pages[pages.length - Number(options.pageNum)]:'' //获取当前页面的对象
+    var url = currentPage.route?currentPage.route:''
     if (url == 'pages/detail/detail') {
       if (wx.getStorageSync('stages')){
         that.data.url = '/' + url + '?id=' + wx.getStorageSync('goods_id') + '&&stages=' + wx.getStorageSync('stages')
@@ -38,11 +38,11 @@ Page({
       }     
     } else if (url == 'pages/zeroPurchase/zeroPurchase') {
       that.data.url = '/' + url + '?id=' + wx.getStorageSync('zeroGoods_id') + '&&type=' + wx.getStorageSync('type') + '&&orgPrice=' + wx.getStorageSync('orgPrice')
-    } else if (url == '/packageA/pages/cooperate/cooperate') {
+    } else if (url == 'packageA/pages/cooperate/cooperate') {
       that.data.url = '/' + url
     } else if (url == 'packageA/pages/zeroBuy/zeroBuy') {
       that.data.url = '/' + url
-    } else if (url == 'packageA/packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity') {
+    } else if (url == 'packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity') {
       that.data.url = '/' + url
     } else if (url == 'pages/wishpool/wishpool') {
       that.data.url = '/' + url
@@ -54,6 +54,16 @@ Page({
       that.data.url = '/' + url
     }else if (url == 'pages/sponsor/sponsor') {
       that.data.url = '/' + url
+    } else if (url == 'pages/takeoutHomeage/takeoutHomeage') {
+      that.data.url = '/' + url
+    } else if (url == 'packageA/pages/shareMentionPeriod/shareMentionPeriod') {
+      that.data.url = '/' + url
+    } else if (url == 'packageA/pages/storeEnter/storeEnter') {
+      that.data.url = '/' + url
+    }else if (url == 'packageA/pages/takeoutHomeage/takeoutHomeage') {
+      that.data.url = '/' + url
+    }else if (url == 'packageA/pages/placeorderSearch/placeorderSearch') {
+      that.data.url = '/' + 'packageA/pages/takeoutHomeage/takeoutHomeage'
     }
   },
 

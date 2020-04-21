@@ -16,8 +16,6 @@ page {
   background: #f4e8d9;
   font-size: 24rpx;
   border-bottom: 2rpx solid #f4f4f4;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
 }
 
@@ -169,15 +167,11 @@ page {
 .pay-num {
   margin-top: 18rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 38, 68, 1);
 }
 
 .get-money {
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   margin-left: 30rpx;
   padding-bottom: 40rpx;
@@ -196,8 +190,6 @@ page {
   background: rgba(255, 100, 23, 1);
   border-radius: 40rpx;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -209,8 +201,6 @@ page {
   background: rgba(255, 100, 23, 1);
   border-radius: 40rpx;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -221,8 +211,6 @@ page {
   border-radius: 40rpx;
   margin-right: 30rpx;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -233,8 +221,6 @@ page {
   border-radius: 40rpx;
   /* margin-right: 30rpx; */
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -291,12 +277,13 @@ page {
 }
 
 .period-zan-dialog__mask .zan-dialog__container .title {
-  width: 280rpx;
+  width: 400rpx;
   margin: 44rpx auto;
   font-size: 34rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
   color: rgba(34, 34, 34, 1);
+  text-align: center;
 }
 
 .period-zan-dialog__mask .period-month-wrap {
@@ -1014,8 +1001,6 @@ page {
   right: 0;
   align-items: center;
   font-size: 26rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
 }
 
@@ -1062,7 +1047,6 @@ page {
   margin-bottom: 15rpx;
   font-size: 36rpx;
   font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   text-align: center;
   font-weight: bold;
@@ -1070,15 +1054,11 @@ page {
 
 .dialog__mask .dialog__container .text {
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
 .rule_value {
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   line-height: 50rpx;
   height: 50rpx;
@@ -1103,8 +1083,6 @@ page {
   border: 2rpx solid rgba(255, 38, 68, 1);
   border-radius: 38rpx;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 38, 68, 1);
   text-align: center;
   line-height: 76rpx;
@@ -1118,11 +1096,94 @@ page {
   background: rgba(255, 38, 68, 1);
   border-radius: 38rpx;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #fff;
   text-align: center;
   line-height: 76rpx;
   margin-left: 22rpx;
   display: inline-block;
+}
+
+/* 预售订单 */
+
+.yudialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.yudialog__mask .dialog__container {
+  background: rgba(255, 255, 255, 1);
+  height: 395rpx;
+  width: 600rpx;
+  overflow: hidden;
+  position: fixed;
+  z-index: 9999;
+  border-radius: 30rpx;
+  top: 260rpx;
+  left: 75rpx;
+}
+
+.yudialog__mask .cancelImg {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  right: 55rpx;
+  top: 50rpx;
+}
+
+.yudialog__mask .dialog__container .tishi {
+  margin-top: 46rpx;
+  margin-bottom: 35rpx;
+  font-size: 36rpx;
+  color: rgba(51, 51, 51, 1);
+  margin-left: 50rpx;
+}
+
+.yudialog__mask .dialog__container .order {
+  font-size: 30rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.yudialog__mask .order_one {
+  font-size: 28rpx;
+  color: #333;
+  margin-left: 50rpx;
+}
+
+.yudialog__mask .order_two {
+  font-size: 28rpx;
+  color: #333;
+  margin-left: 50rpx;
+}
+
+.yudialog__mask .order_box1 {
+  width: 240rpx;
+  height: 76rpx;
+  border: 2rpx solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: rgba(255, 38, 68, 1);
+  line-height: 76rpx;
+}
+
+.yudialog__mask .order_box2 {
+  width: 240rpx;
+  height: 76rpx;
+  background: #ff2644;
+  border-radius: 38rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #fff;
+  line-height: 76rpx;
+}
+
+.yudialog__mask .order_box {
+  display: flex;
+  justify-content: space-between;
+  margin: 50rpx;
 }

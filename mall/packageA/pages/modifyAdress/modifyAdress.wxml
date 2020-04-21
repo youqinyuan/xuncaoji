@@ -1,0 +1,35 @@
+<!--packageA/pages/modifyAdress/modifyAdress.wxml-->
+<form report-submit='true' bindsubmit='save'>
+<view class="content">
+    <view class="list bortop">
+        <view class="title">姓名</view>
+        <input class="text" value="{{receiverName}}" name="receiverName"/>
+    </view>
+    <view class="list">
+        <view class="title">电话</view>
+        <input class="text" value="{{mobileNumber}}" maxlength="11" type="number" name="mobileNumber"/>
+    </view>
+     <view class="list" bindtap='hrefMap'>
+        <view class="title">选址</view>
+        <input class="text" disabled="true" value="{{centerData.addr?centerData.addr:detailedAddress}}" name="detailedAddress"/>
+    </view>
+        <view class="list">
+        <view class="title">门牌号</view>
+        <input class="text" value="{{houseNumber}}" name="houseNumber"/>
+    </view>
+</view>
+<view class="button_box">
+    <button class="delete" bindtap="show">删除</button>
+    <button class="save" form-type="submit">保存</button>
+</view>
+</form>
+<view class="interest-zan-dialog__mask" wx:if="{{shurePeriod}}">
+  <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{shurePeriod}}">
+    <view class="title2">提示</view>
+    <view class="text2">确定删除此地址吗？</view>
+    <view class="button_box">
+        <view class="button_one" bindtap="close">取消</view>
+        <view class="button_two" bindtap="deleteAddress">确定</view>
+    </view>
+  </view>
+</view>

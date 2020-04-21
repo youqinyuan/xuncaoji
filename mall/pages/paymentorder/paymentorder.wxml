@@ -4,6 +4,7 @@
   <view class="payprice">
     <text>￥</text>
     <text class="payprice1">{{content.paymentAmount}}</text>
+    <image src="{{hostUrl}}/changeImg/payQuestion.png" class="payQuestion" bindtap="mentionPeriod" wx:if="{{isMentionPeriod}}"/>
   </view>
   <!-- <view class="payprice" wx:if="{{flag===true}}">
     支付
@@ -11,41 +12,41 @@
     <text>￥</text>{{cashBack}}元
   </view> -->
   <view class="paytime">
-    <text>支付剩余时间</text>
+    <text>请在</text>
     <text class="paytime1" wx:if="{{flag===false}}">{{time}}</text>
     <text class="paytime1" wx:if="{{flag===true}}">{{clientTime}}</text>
+    <text>内完成支付</text>
   </view>
 </view>
 <!--支付方式-->
 <view class="payway-wrap">
   <block wx:for="{{content.channels}}" wx:key="">
-    <view class="payway" wx:if="{{item.channel==1}}">
+    <view class="payway" wx:if="{{item.channel==1}}" catchtap='wallet_pay'>
       <view class="payway-img">
-        <image src="{{hostUrl}}/icon/order_yhk_icon.png"></image>
+        <image src="/assets/images/temp/order_yhk_icon.png"></image>
       </view>
       <view class="payway-text">
         <view class="payway-title">余额支付</view>
         <view class="payway-price">余额:￥{{content.balance}}</view>
       </view>
-      <view class="payway-right-img" catchtap='wallet_pay'>
-        <checkbox-group class="store-box">
+      <view class="payway-right-img" >
+        <!-- <checkbox-group class="store-box">
           <label class="checkbox">
             <checkbox checked="{{payment_mode1}}" />
           </label>
-        </checkbox-group>
+        </checkbox-group> -->
+          <image src="{{hostUrl}}/changeImg/no_period_choose.png" class="chooseImg" wx:if="{{payment_mode2}}"/>
+          <image src="/assets/images/temp/pay_choose.png" class="chooseImg" wx:if="{{payment_mode1}}"/>
       </view>
     </view>
-    <view class="wx" wx:if="{{item.channel==2}}">
+    <view class="wx" wx:if="{{item.channel==2}}" catchtap="wx_pay">
       <view class="wx-img">
         <image src="{{hostUrl}}/icon/order_weixin_icon.png"></image>
       </view>
       <view class="wx-text">微信支付</view>
-      <view class="wx-right-img" catchtap="wx_pay">
-        <checkbox-group class="store-box">
-          <label class="checkbox">
-            <checkbox checked="{{payment_mode2}}" />
-          </label>
-        </checkbox-group>
+      <view class="wx-right-img" >
+          <image src="{{hostUrl}}/changeImg/no_period_choose.png" class="chooseImg" wx:if="{{payment_mode1}}"/>
+          <image src="/assets/images/temp/pay_choose.png" class="chooseImg" wx:if="{{payment_mode2}}"/>
       </view>
     </view>
   </block>
@@ -112,3 +113,15 @@
     </view>
   </view>
 </view>
+<!-- 0.5期确认弹窗 -->
+<view class="interest-zan-dialog__mask" wx:if="{{shurePeriod}}">
+  <view animation="{{animationData}}" class="zan-dialog__container2" wx:if="{{shurePeriod}}">
+    <view class="title">提示</view>
+    <view class="text4">当前你已选择0.5期将您帮助金额返现给你，所以你需多支付1倍的帮助金额哦，年化收益率保持不变。</view>
+    <view class="button_box">
+        <view class="button_one" bindtap="clooseShurePeriod">取消</view>
+        <view class="button_two" bindtap="clooseShurePeriod">确定</view>
+    </view>
+  </view>
+</view>
+<view class="bottom_font">0元购就上寻草记</view>

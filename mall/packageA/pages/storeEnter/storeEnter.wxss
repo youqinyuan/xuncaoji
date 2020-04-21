@@ -1,0 +1,69 @@
+/* packageA/pages/storeEnter/storeEnter.wxss */
+page{
+    background-color: #F4F4F4;
+    font-family:PingFang SC;
+}
+.title{
+    height: 90rpx;
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+    position: relative;
+}
+.content{
+    background-color: #fff;
+}
+.border_bottom{
+    border-bottom:#E7E7E7 solid 2rpx;
+}
+.info{
+    font-size:32rpx;
+    color:rgba(51,51,51,1);
+    height: 90rpx;
+    line-height: 90rpx;
+}
+.business{
+    font-size:28rpx;
+    color:#333;
+    height: 90rpx;
+    line-height: 90rpx;
+    position: absolute;
+    left: 255rpx;
+}
+.name{
+    font-size:28rpx;
+    color:#333;
+    height: 90rpx;
+    line-height: 90rpx;
+    display: inline-block;
+    position: absolute;
+    left: 255rpx;
+}
+.left{
+    font-size:28rpx;
+    color:#666;
+    height: 90rpx;
+    line-height: 90rpx;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+}
+.submitButton{
+    width:690rpx;
+    height:80rpx;
+    background:linear-gradient(90deg,rgba(255,106,72,1) 0%,rgba(255,38,68,1) 100%);
+    border-radius:40rpx;
+    font-size:32rpx;
+    color:rgba(255,255,255,1);
+    text-align: center;
+    line-height: 80rpx;
+    margin-top: 70rpx;
+    margin-left: 30rpx;
+}
+.tonewpage{
+    width: 40rpx;
+    height: 40rpx;
+    position: absolute;
+    right: 0rpx;
+    top: 26rpx;
+    display: inline-block;
+}

@@ -1,8 +1,6 @@
 /* pages/mine/member/member.wxss */
 
 page {
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   background: rgba(255, 236, 221, 1);
 }
 
@@ -66,8 +64,6 @@ page {
   width: 400rpx;
   margin: 59rpx auto;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: #ff6417;
 }
 
@@ -98,16 +94,12 @@ page {
 
 .active-item-invite {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
 .active-item-text {
   margin-top: 19rpx;
   font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: #ff2644;
 }
 
@@ -123,15 +115,11 @@ page {
   border: 2rpx solid #ff6417;
   border-radius: 24rpx;
   font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: #ff6417;
 }
 
 .active-bottom {
   font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(170, 170, 170, 1);
   margin-left: 30rpx;
   padding-bottom: 20rpx;
@@ -141,8 +129,6 @@ page {
 
 .active-bottom1 {
   font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(170, 170, 170, 1);
   margin-left: 30rpx;
   padding-bottom: 20rpx;
@@ -186,8 +172,6 @@ rich-text {
 .container-wrap-bottom .title {
   text-align: center;
   font-size: 36rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 100, 23, 1);
   line-height: 42rpx;
   margin-bottom: 10rpx;
@@ -209,8 +193,6 @@ rich-text {
 .container-wrap-bottom .small-content {
   text-indent: 20rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
   line-height: 40rpx;
 }
@@ -219,8 +201,6 @@ rich-text {
   text-indent: 20rpx;
   margin-top: 34rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 38, 68, 1);
   line-height: 40rpx;
 }
@@ -301,8 +281,6 @@ rich-text {
   margin-left: 46rpx;
   margin-top: 32rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   line-height: 42rpx;
 }
@@ -333,8 +311,6 @@ button::after {
 .wx {
   margin-top: -35rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -430,8 +406,6 @@ button::after {
   left: 86rpx;
   font-size: 32rpx;
   text-align: center;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -441,8 +415,6 @@ button::after {
   left: 18rpx;
   font-size: 32rpx;
   text-align: center;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -453,8 +425,6 @@ button::after {
   left: 167rpx;
   font-size: 32rpx;
   text-align: center;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 .membership-box-btn {
   position: absolute;
@@ -464,8 +434,6 @@ button::after {
   height: 76rpx;
   line-height: 76rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: #ff6417;
   background: rgba(255, 255, 255, 1);
   border-radius: 38rpx;

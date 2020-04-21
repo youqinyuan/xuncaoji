@@ -1,0 +1,23 @@
+<!--packageA/pages/doBusiness/doBusiness.wxml-->
+<form report-submit='true' bindsubmit='save'>
+    <view class="content">
+        <view class="day_box">
+            <view class="day {{col[0]?'col':''}}" bindtap="changeCol" data-index="0">周一</view>
+            <view class="day maleft {{col[1]?'col':''}}" bindtap="changeCol" data-index="1">周二</view>
+            <view class="day maleft {{col[2]?'col':''}}" bindtap="changeCol" data-index="2">周三</view>
+            <view class="day maleft {{col[3]?'col':''}}" bindtap="changeCol" data-index="3">周四</view>
+            <view class="day {{col[4]?'col':''}}" bindtap="changeCol" data-index="4">周五</view>
+            <view class="day maleft {{col[5]?'col':''}}" bindtap="changeCol" data-index="5">周六</view>
+            <view class="day maleft {{col[6]?'col':''}}" bindtap="changeCol" data-index="6">周日</view>
+        </view>
+        <view class="time_box">
+            <view class="time_title">时间段填写（0-24:00）</view>
+            <view class="time">
+                <input class="start_time" placeholder="请填写"/>
+                <view class="jiange">-</view>
+                <input class="end_time"  placeholder="请填写"/>
+            </view>
+        </view>
+    </view>
+    <button class="save" form-type="submit">保存</button>
+</form>

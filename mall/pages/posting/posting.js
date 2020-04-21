@@ -204,7 +204,7 @@ Page({
       annualizedRateEnd: e.detail.value
     })
   },
-  //提交心愿
+  //发布
   submit: function() {
     if(newCount==true){
       newCount = false
@@ -347,18 +347,32 @@ Page({
               icon: 'none'
             })
           } else {
+            let data = {
+              content: that.data.saleText,
+              orderId: that.data.waitReentry.orderId,
+              orderGoodsId: that.data.waitReentry.orderGoodsId,
+              expectAmount: that.data.expectAmount,
+              cashBackAmount: that.data.waitReentry.cashBackAmount,
+              perReturnAmount: that.data.waitReentry.perReturnAmount,
+              maxReturnTime: waitReentry.maxReturnTime,
+              periodLeft: that.data.waitReentry.periodLeft,
+              code: that.data.waitReentry.code
+            }
+            let data1 = {
+              content: that.data.saleText,
+              orderId: that.data.waitReentry.orderId,
+              orderGoodsId: that.data.waitReentry.orderGoodsId,
+              expectAmount: that.data.expectAmount,
+              cashBackAmount: that.data.waitReentry.cashBackAmount,
+              perReturnAmount: that.data.waitReentry.perReturnAmount,
+              transferId: waitReentry.transferId,
+              maxReturnTime: waitReentry.maxReturnTime,
+              periodLeft: that.data.waitReentry.periodLeft,
+              code: that.data.waitReentry.code
+            }
             if (that.data.saleText) {
               if (!waitReentry.transferId) {
-                app.Util.ajax('mall/forum/topic/addSaleTopic', {
-                  content: that.data.saleText,
-                  orderId: that.data.waitReentry.orderId,
-                  orderGoodsId: that.data.waitReentry.orderGoodsId,
-                  expectAmount: that.data.expectAmount,
-                  cashBackAmount: that.data.waitReentry.cashBackAmount,
-                  perReturnAmount: that.data.waitReentry.perReturnAmount,
-                  maxReturnTime: waitReentry.maxReturnTime,
-                  periodLeft: that.data.waitReentry.periodLeft
-                }, 'POST').then((res) => {
+                app.Util.ajax('mall/forum/topic/addSaleTopic',data, 'POST').then((res) => {
                   if (res.data.content) {
                     wx.navigateTo({
                       url: '/pages/finishPosting/finishPosting?seedIncreased=' + res.data.content.seedIncreased + '&postingStatus=' + that.data.postingStatus + '&id=' + res.data.content.id,
@@ -375,17 +389,7 @@ Page({
                   }
                 })
               } else {
-                app.Util.ajax('mall/forum/topic/addSaleTopic', {
-                  content: that.data.saleText,
-                  orderId: that.data.waitReentry.orderId,
-                  orderGoodsId: that.data.waitReentry.orderGoodsId,
-                  expectAmount: that.data.expectAmount,
-                  cashBackAmount: that.data.waitReentry.cashBackAmount,
-                  perReturnAmount: that.data.waitReentry.perReturnAmount,
-                  transferId: waitReentry.transferId,
-                  maxReturnTime: waitReentry.maxReturnTime,
-                  periodLeft: that.data.waitReentry.periodLeft
-                }, 'POST').then((res) => {
+                app.Util.ajax('mall/forum/topic/addSaleTopic', data1, 'POST').then((res) => {
                   if (res.data.content) {
                     wx.navigateTo({
                       url: '/pages/finishPosting/finishPosting?seedIncreased=' + res.data.content.seedIncreased + '&postingStatus=' + that.data.postingStatus + '&id=' + res.data.content.id,
@@ -411,7 +415,8 @@ Page({
                   cashBackAmount: that.data.waitReentry.cashBackAmount,
                   perReturnAmount: that.data.waitReentry.perReturnAmount,
                   maxReturnTime: waitReentry.maxReturnTime,
-                  periodLeft: that.data.waitReentry.periodLeft
+                  periodLeft: that.data.waitReentry.periodLeft,
+                  code: that.data.waitReentry.code
                 }, 'POST').then((res) => {
                   if (res.data.content) {
                     wx.navigateTo({
@@ -437,7 +442,8 @@ Page({
                   perReturnAmount: that.data.waitReentry.perReturnAmount,
                   transferId: waitReentry.transferId,
                   maxReturnTime: waitReentry.maxReturnTime,
-                  periodLeft: that.data.waitReentry.periodLeft
+                  periodLeft: that.data.waitReentry.periodLeft,
+                  code: that.data.waitReentry.code
                 }, 'POST').then((res) => {
                   if (res.data.content) {
                     wx.navigateTo({

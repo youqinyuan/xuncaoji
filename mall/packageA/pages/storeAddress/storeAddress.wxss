@@ -1,0 +1,11 @@
+/* packageA/pages/storeAddress/storeAddress.wxss */
+.choose{
+    height: 36rpx;
+    width: 98%;
+    line-height: 36rpx;
+    text-align: center;
+    font-size: 24rpx;
+    padding: 10rpx 0;
+    margin-left: 1%;
+    border: 2rpx solid #ccc;
+  }

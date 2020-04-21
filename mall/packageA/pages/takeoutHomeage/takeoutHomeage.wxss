@@ -1,0 +1,508 @@
+/* packageA/pages/takeoutHomeage/takeoutHomeage.wxss */
+@import "../ecommerceStore/ecommerceStore";
+
+.return-cart {
+  display: flex;
+  justify-content: space-between;
+}
+
+.return-wrap.wrapMoney {
+  padding: 0 10rpx;
+}
+
+.cart {
+  margin-right: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.block {
+  height: 120rpx;
+  width: 750rpx;
+}
+
+.quality-list-text {
+  height: 80rpx;
+}
+
+.gradeWrap {
+  display: flex;
+  align-items: center;
+}
+
+.gradeText {
+  font-size: 24rpx;
+  color: #fff;
+  margin-left: 40rpx;
+  margin-top: 13rpx;
+}
+
+.addCart-wrap1 {
+  position: fixed;
+  bottom: 20rpx;
+  z-index: 97rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 710rpx;
+  height: 100rpx;
+  background: #1a1a1a;
+  border-radius: 50rpx;
+  margin-left: 20rpx;
+  color: #fff;
+}
+
+.addCart-wrap {
+  position: fixed;
+  bottom: 20rpx;
+  z-index: 97rpx;
+  display: flex;
+}
+
+.addCart_left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 146rpx;
+  height: 100rpx;
+  background: #1a1a1a;
+  border-radius: 50rpx 4rpx 4rpx 50rpx;
+  margin-left: 20rpx;
+  margin-right: 4rpx;
+}
+
+.addCart_img {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.addCart_right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 560rpx;
+  height: 100rpx;
+  background: rgba(26, 26, 26, 1);
+  border-radius: 4rpx 50rpx 50rpx 4rpx;
+}
+
+.add_price {
+  margin-left: 25rpx;
+  color: #fff;
+}
+
+.allSign {
+  font-size: 40rpx;
+}
+
+.allSign text:nth-child(1) {
+  font-size: 34rpx;
+}
+
+.allPrice {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.add_text {
+  margin-left: 25rpx;
+  font-size: 32rpx;
+  color: #fff;
+}
+
+.btn {
+  width: 160rpx;
+  height: 62rpx;
+  text-align: center;
+  line-height: 62rpx;
+  border-radius: 31rpx;
+  margin-right: 19rpx;
+  color: #fff;
+  font-size: 28rpx;
+}
+
+.circle {
+  width: 34rpx;
+  height: 34rpx;
+  text-align: center;
+  line-height: 32rpx;
+  background: #ff2644;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18rpx;
+  position: absolute;
+  top: 15rpx;
+  left: 101rpx;
+  z-index: 99;
+}
+
+.btnWrap {
+  display: flex;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #fff;
+}
+
+.delete {
+  width: 105rpx;
+  height: 62rpx;
+  background: #333;
+  line-height: 62rpx;
+  text-align: center;
+  border-radius: 50rpx 4rpx 4rpx 50rpx;
+}
+
+.placeorder {
+  width: 105rpx;
+  height: 62rpx;
+  background: #ff2644;
+  line-height: 62rpx;
+  text-align: center;
+  border-radius: 4rpx 50rpx 50rpx 4rpx;
+  margin-right: 18rpx;
+}
+
+/* 规格弹框使屏幕变暗  */
+
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.4;
+  overflow: hidden;
+  z-index: 96;
+  color: rgba(255, 255, 255, 1);
+}
+
+.commodity_attr_box {
+  max-height: 1035rpx;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+  z-index: 99;
+}
+
+.commodity-top {
+  display: flex;
+  height: 242rpx;
+}
+
+.commodity-top-img {
+  margin-left: 24rpx;
+  margin-top: 21rpx;
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.commodity-top-img image {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 8rpx;
+}
+
+.commodity-top-right {
+  margin-left: 30rpx;
+}
+
+.commodity-top-right-item {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.commodity-top-right-cancel {
+  position: absolute;
+  right: 30rpx;
+  top: 20rpx;
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.commodity-top-right-cancel image {
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.commodity-top-right-title {
+  display: flex;
+  margin-top: 40rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.sign {
+  margin-top: 5rpx;
+  font-size: 24rpx;
+  color: #ff2644;
+}
+
+.price {
+  margin-top: -6rpx;
+  font-size: 36rpx;
+  color: #ff2644;
+}
+
+.commodity-save {
+  font-size: 24rpx;
+  margin-top: 10rpx;
+  color: rgba(102, 102, 102, 1);
+}
+
+.commodity-size {
+  font-size: 24rpx;
+  margin-top: 45rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content-wrapper {
+  height: auto;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
+  margin-bottom: 60rpx;
+}
+
+/*尺码*/
+
+.color-size {
+  padding-bottom: 30rpx;
+}
+
+.color-size-title {
+  margin-left: 24rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.color-size-list {
+  margin-left: 24rpx;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 24rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.color-size-list .active {
+  border: 2rpx solid #ff2644;
+  color: #ff2644;
+  background-color: rgba(255, 255, 255, 1) !important;
+  z-index: 999;
+}
+
+.color-size-list .text1 {
+  padding: 15rpx 30rpx;
+  margin-top: 20rpx;
+  display: block;
+  margin-right: 24rpx;
+  background-color: rgba(244, 244, 244, 1);
+  border-radius: 30rpx;
+}
+
+/* 购买数量 */
+
+.num {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 24rpx;
+  padding-bottom: 40rpx;
+  border-top: 2rpx solid #f4f4f4;
+}
+
+.num-title {
+  margin-top: 40rpx;
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.num-item {
+  margin-top: 30rpx;
+  display: flex;
+  height: 58rpx;
+  border: 2rpx solid rgba(170, 170, 170, 1);
+  border-radius: 3px;
+  margin-right: 40rpx;
+}
+
+.num-item text {
+  width: 80rpx;
+  line-height: 62rpx;
+  text-align: center;
+  float: left;
+}
+
+.num-item input {
+  width: 80rpx;
+  height: 58rpx;
+  float: left;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 32rpx;
+  border-left: 2rpx solid #ccc;
+  border-right: 2rpx solid #ccc;
+}
+
+.num-item .normal {
+  color: rgba(51, 51, 51, 1);
+}
+
+.num-item .disabled {
+  color: #ccc;
+}
+
+.showOrderBlock {
+  height: 130rpx;
+  background: #fff;
+  width: 750rpx;
+}
+
+.showOrderText {
+  font-size: 24rpx;
+  color: #ff2644;
+  text-align: right;
+  margin-right: 49rpx;
+  text-decoration: underline;
+}
+
+.btn-wrap {
+  display: flex;
+  position: fixed;
+  bottom: 14rpx;
+  left: 30rpx;
+  color: #fff;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 32rpx;
+}
+
+.showOrderBtn_a {
+  width: 290rpx;
+  height: 80rpx;
+  background: #1a1a1a;
+  border-radius: 40rpx 0rpx 0rpx 40rpx;
+}
+
+.showOrderBtn {
+  width: 400rpx;
+  height: 80rpx;
+  background: #ff2644;
+  border-radius: 0rpx 40rpx 40rpx 0rpx;
+}
+
+.notStore {
+  display: flex;
+  flex-direction: column;
+  font-size: 28rpx;
+}
+
+.notStore image {
+  width: 750rpx;
+  height: 320rpx;
+  margin-top: 220rpx;
+}
+
+.notStoreText {
+  text-align: center;
+  color: #999;
+  margin-bottom: 50rpx;
+}
+
+.btnGoIndex {
+  width: 280rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+  text-align: center;
+  background: linear-gradient(90deg, #ff6a48 0%, #ff2644 100%);
+  border-radius: 34px;
+  color: #fff;
+  margin: 0 auto;
+}
+
+/*清空购物车弹框 */
+
+.yudialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.yudialog__mask .dialog__container {
+  background: rgba(255, 255, 255, 1);
+  height: 355rpx;
+  width: 600rpx;
+  overflow: hidden;
+  position: fixed;
+  z-index: 9999;
+  border-radius: 30rpx;
+  top: 260rpx;
+  left: 75rpx;
+}
+
+.yudialog__mask .cancelImg {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  right: 55rpx;
+  top: 50rpx;
+}
+
+.yudialog__mask .dialog__container .tishi {
+  text-align: center;
+  margin-top: 46rpx;
+  margin-bottom: 35rpx;
+  font-size: 36rpx;
+  color: rgba(51, 51, 51, 1);
+  margin-left: 50rpx;
+}
+
+.yudialog__mask .dialog__container .order {
+  font-size: 30rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.yudialog__mask .order_one {
+  font-size: 28rpx;
+  color: #333;
+  margin-left: 50rpx;
+  text-align: center;
+}
+
+.yudialog__mask .order_box1 {
+  width: 240rpx;
+  height: 76rpx;
+  border: 2rpx solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: rgba(255, 38, 68, 1);
+  line-height: 76rpx;
+}
+
+.yudialog__mask .order_box2 {
+  width: 240rpx;
+  height: 76rpx;
+  background: #ff2644;
+  border-radius: 38rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #fff;
+  line-height: 76rpx;
+}
+
+.yudialog__mask .order_box {
+  display: flex;
+  justify-content: space-between;
+  margin: 50rpx;
+}

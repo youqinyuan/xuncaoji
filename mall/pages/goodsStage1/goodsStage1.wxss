@@ -36,8 +36,6 @@
   margin: 0 40rpx;
   border-bottom: 2rpx solid #f1f1f1;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
 }
 
@@ -48,8 +46,6 @@
   margin: 0 40rpx;
   border-bottom: 2rpx solid #f1f1f1;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
 }
 

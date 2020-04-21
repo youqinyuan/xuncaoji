@@ -20,8 +20,6 @@
   align-items: center;
   justify-content: center;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -107,8 +105,6 @@
 .content-text {
   width: 690rpx;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
 
@@ -167,8 +163,6 @@
   left: 40rpx;
   font-size: 30rpx;
   color: #fff;
-  font-family: PingFang SC;
-  font-weight: 500;
 }
 
 .expect_buy {
@@ -229,8 +223,6 @@
   font-size: 30rpx;
   text-align: center;
   line-height: 60rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #fe5648;
 }
 /* 可卖 */
@@ -251,8 +243,6 @@
   left: 40rpx;
   font-size: 30rpx;
   color: #fff;
-  font-family: PingFang SC;
-  font-weight: 500;
 }
 
 .sale_back {
@@ -296,8 +286,6 @@
   display: flex;
   align-items: center;
   font-size: 26rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
 }
 
@@ -310,8 +298,6 @@
   display: flex;
   align-items: center;
   font-size: 26rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
 }
 
 .content_time_img {
@@ -368,8 +354,6 @@
   height: 50rpx;
   line-height: 50rpx;
   font-size: 26rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   margin-left: 20rpx;
 }
 .bottomText {
@@ -379,8 +363,6 @@
   align-items: center;
   justify-content: center;
   font-size: 22rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #aaa;
 }
 
@@ -425,8 +407,6 @@
   margin: 0 auto;
   width: 358rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   line-height: 40rpx;
 }
@@ -499,8 +479,6 @@
   margin: 0 auto;
   width: 358rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   line-height: 40rpx;
 }
@@ -568,8 +546,6 @@
   flex-direction: column;
   align-items: center;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
 }
 
 .classify-zan-dialog__mask image {
@@ -641,8 +617,6 @@
   margin-top: 46rpx;
   margin-bottom: 30rpx;
   font-size: 34rpx;
-  font-family: PingFang-SC-Bold;
-  font-weight: 500;
   color: #222;
   text-align: left;
 }
@@ -682,8 +656,6 @@
   justify-content: space-between;
   margin-top: 49rpx;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
 }
 
 .cancle_one {
@@ -743,8 +715,6 @@
   margin-top: 46rpx;
   margin-bottom: 30rpx;
   font-size: 34rpx;
-  font-family: PingFang-SC-Bold;
-  font-weight: 500;
   color: #222;
   text-align: left;
 }
@@ -764,8 +734,6 @@
   margin-top: 49rpx;
   margin-bottom: 60rpx;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
 }
 
 .cancle_two {
@@ -985,8 +953,6 @@
   text-align: center;
   line-height: 90rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(153, 153, 153, 1);
   position: relative;
 }

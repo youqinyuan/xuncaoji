@@ -1,0 +1,33 @@
+/* packageA/pages/mentionPeriodRule/mentionPeriodRule.wxss */
+page{
+    font-family: "PingFang-SC-Bold";
+    font-size: 28rpx;
+}
+.rule_title{
+    color: #333;
+    padding: 0 30rpx;
+    font-weight: bold;
+    margin-top: 30rpx;
+}
+.rule_value{
+    margin-top: 40rpx;
+    line-height: 40rpx;
+    color: #999999;
+    padding: 0 30rpx;
+}
+.rule_question{
+    margin-top: 40rpx;
+    line-height: 40rpx;
+    color: #333;
+    padding: 0 30rpx;
+}
+.rule_answer{
+    margin-top: 40rpx;
+    line-height: 40rpx;
+    color: #999999;
+    padding: 0 30rpx;
+    margin-bottom: 10rpx;
+}
+.bottom{
+    height: 150rpx;
+}

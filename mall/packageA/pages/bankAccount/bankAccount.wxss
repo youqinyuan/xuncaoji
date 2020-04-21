@@ -1,0 +1,6 @@
+/* packageA/pages/bankAccount/bankAccount.wxss */
+@import "../storeInfo/storeInfo.wxss";
+.wid200{
+    width: 500rpx !important;
+    left: 200rpx !important;
+}

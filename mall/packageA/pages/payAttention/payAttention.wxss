@@ -1,0 +1,41 @@
+/* packageA/pages/payAttention/payAttention.wxss */
+page{
+    font-family:PingFang SC;
+    background:rgba(244,244,244,1);
+}
+.content{
+    background:#fff;
+}
+.storeList{
+    height: 140rpx;
+    position: relative;
+    margin-left: 40rpx;
+    border-bottom: 2rpx rgba(244,244,244,1) solid;
+}
+.headImg{
+    position: absolute;
+    top: 30rpx;
+    display: inline-block;
+    width: 88rpx;
+    height: 88rpx;
+    border-radius: 50%;
+}
+.storeName{
+    position: absolute;
+    left: 119rpx;
+    height: 140rpx;
+    line-height: 140rpx;
+    font-size:32rpx;
+    color:rgba(51,51,51,1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 540rpx;
+}
+.nothing{
+    height: 200rpx;
+    line-height: 100rpx;
+    font-size: 26rpx;
+    color: #666;
+    text-align: center;
+}

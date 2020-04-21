@@ -1,0 +1,78 @@
+<!--packageA/pages/setMentionPeriod/setMentionPeriod.wxml-->
+<view class="head_font" wx:if="{{content.length>0}}">购买后请到“待返明细”页面查看你的返现信息</view>
+<view class="content" wx:if="{{content.length>0}}">
+    <view class="value" wx:for="{{content}}" wx:key="{{item.id}}">
+        <view class="top">
+            <view class="top_left">
+                <view class="nianhua_number">+{{item.annualizedRate}}%</view>
+                <view class="nianhua_font">预估年化收益</view>
+            </view>
+            <view class="top_right">
+                <view class="mentionPeriod_number">帮付<view class="fuhao">￥</view>{{item.paymentAmount}} <view class="mentionPeriod_period">提前了{{item.mentionPeriod}} 期</view></view>
+                <view class="mentionPeriod_font">帮助金额越多，收益越高</view>
+            </view>
+        </view>
+        <view class="bottom">
+            <view class="button one" bindtap="shares" data-id="{{item.topicId}}" wx:if="{{item.topicStatus==1||item.topicStatus==2}}">分享</view>
+            <view class="button two" bindtap="showModal" data-temp="{{index}}">购买信息</view>
+            <view class="button three" bindtap="delete" data-id="{{item.id}}">删除记录</view>
+        </view>
+    </view>
+</view>
+<view class="nothing" wx:if="{{content.length==0}}">
+    <image src="{{hostUrl}}/changeImg/nothing.png" class="noThingImg"/>
+    <view class="bottom_font">这里什么都没有~</view>
+</view>
+<!-- 确认删除弹窗 -->
+<view class="interest-zan-dialog__mask" wx:if="{{shrueDelete}}">
+  <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{shrueDelete}}">
+    <view class="title">删除记录</view>
+    <view class="text">是否删除当前记录</view>
+    <view class="button_box">
+        <view class="button_one" bindtap="closeDelete">取消</view>
+        <view class="button_two" bindtap="shureDelete">确定</view>
+    </view>
+  </view>
+</view>
+<!-- 分享弹框 -->
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen1" bindtap="hide" wx:if="{{showModalStatus1}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+    </view>
+  </view>
+</view>
+<!-- 提期明细表 -->
+<view class="interest-zan-dialog__mask" wx:if="{{showModal}}">
+  <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{showModal}}">
+    <view class="title">购买信息</view>
+    <view class="table">
+      <view class="tr bg-w" catchtouchmove="preventTouchMove">
+        <view class="th">购买时间</view>
+        <view class="th">共返现金额（包括利息）</view>
+        <view class="th">期数</view>
+      </view>
+      <view class="tr-height">
+        <view class="tr bg-g">
+          <view class="td">{{detail.createTime}}</view>
+          <view class="td"><text class="td_fuhao">￥</text>{{detail.cashBackAmount}}</view>
+          <view class="td"><text class="td_fuhao"></text>{{detail.period}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="shure_detail_box">
+        <view class="shure_detail" bindtap="closeModal">确定</view>
+    </view>
+  </view>
+</view>

@@ -42,20 +42,40 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var that = this
+    let inviterCode = ''
     wx.setStorageSync("freeBuyStatus",1)
     wx.removeStorage({
       key: 'tips',
       success: function(res) {},
     })
-    var that = this
-    console.log(options.type)
+    console.log("options:"+JSON.stringify(options))
+    if(options.inviterCode=='undefined'){
+      inviterCode = ''
+    }else{
+      inviterCode = options.inviterCode
+    }
+    if (options.scene) {
+      //扫描小程序码进入 -- 解析携带参数
+      var scene = decodeURIComponent(options.scene);
+      var arrPara = scene.split("&");
+      var arr = [];
+      for (var i in arrPara) {
+        arr = arrPara[i].split("=");
+        if (arr[0] == 'inviterCode') {
+          that.setData({
+            inputValue: parseInt(arr[1]),
+          })
+        }
+      }
+    }
     if(options.type==3){
       that.setData({
         inputValue: app.globalData.cooperateInvitionCode || 17511690
       })
     }else{
       that.setData({
-        inputValue: options.inviterCode || wx.getStorageSync('othersInviterCode') || ''
+        inputValue: inviterCode || wx.getStorageSync('othersInviterCode') || ''
       })
     }
   },

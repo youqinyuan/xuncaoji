@@ -1,0 +1,8 @@
+<!--packageA/pages/allStore/allStore.wxml-->
+<view class="content"wx:if="{{content.length>0}}">
+    <view class="storeList" wx:for="{{content}}" wx:key="{{item.id}}" data-id="{{item.id}}"  bindtap="toStoreDetail">
+        <image src="{{item.logoUrl}}" class="headImg"/>
+        <view class="storeName">{{item.name}}</view>
+    </view>
+</view>
+<view class="nothing" wx:if="{{content.length==0}}">暂无线下商家</view>

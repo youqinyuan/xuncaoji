@@ -1,0 +1,32 @@
+<!--packageA/pages/check/check.wxml-->
+<view class="content" >
+    <view class="check_loding"wx:if="{{status==1}}" >
+        <image src="/assets/images/temp/check_loding1.png" class="checkImg" />
+        <view class="check_info">审核中</view>
+    </view>
+    <view class="check_fail" wx:if="{{status==3}}">
+        <image src="/assets/images/temp/fail1.png" class="checkImg" />
+        <view class="check_info">审核未通过</view>
+        <view class="cause_box">
+            <view class="cause">未通过原因：{{remark?remark:'暂无'}}</view>
+        </view>
+        <view class="ckeck_again" bindtap="update">重新申请</view>
+    </view>
+    <view class="check_success" wx:if="{{status==2}}">
+        <image src="/assets/images/temp/success1.png" class="checkImg" />
+        <view class="check_info">审核通过</view>
+        <view class="cause_box">
+            <view class="cause wid600">打开浏览器，复制链接</view>
+            <view class="cause">https://dev.xuncaoji.net:8087</view>
+            <view class="cause">账户：{{phone}}</view>
+            <view class="cause">验证码登陆即可</view>
+        </view>
+        <view class="ckeck_again" bindtap="again">再次申请</view>
+    </view>
+</view>
+
+                                
+
+
+
+                            

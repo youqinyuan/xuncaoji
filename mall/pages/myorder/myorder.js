@@ -321,12 +321,41 @@ Page({
   },
   //去付款按钮
   toPay: function(e) {
+    var that = this
     var orderId = e.currentTarget.dataset.orderid
     var id = e.currentTarget.dataset.id
     var orderType = e.currentTarget.dataset.ordertype
-    wx.removeStorageSync('myOrder')
+    var advancesalestatus = e.currentTarget.dataset.advancesalestatus
+    var defaultamountstatus =  e.currentTarget.dataset.defaultamountstatus
+    that.setData({
+      orderId:orderId,
+      id:id,
+      orderType:orderType
+    })
+    console.log(advancesalestatus,defaultamountstatus)
+    if(advancesalestatus==1&&defaultamountstatus==2){
+      that.setData({
+        payStatus:true
+      })
+    } else if (orderType == 23 || orderType == 24){
+      wx.navigateTo({
+        url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}&buyWay=${1}`,
+      })
+    }else{
+      wx.navigateTo({
+        url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}`,
+      })
+    }
+  },
+  toPay2:function(){
     wx.navigateTo({
-      url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}`,
+      url: '/pages/paymentorder/paymentorder?orderId='+this.data.orderId+'&id='+this.data.id+'&orderType='+this.data.orderType,
+    })
+    this.closePay()
+  },
+  closePay:function(){
+    this.setData({
+      payStatus:false
     })
   },
   //提醒卖家发货
@@ -461,7 +490,11 @@ Page({
     var that = this
     that.setData({
       showDialog3: true,
-      refundorderId: e.currentTarget.dataset.orderid
+      refundorderId: e.currentTarget.dataset.orderid,
+      defaultAmountStatus:e.currentTarget.dataset.defaultamountstatus,
+      whetherAdvanceSale:e.currentTarget.dataset.whetheradvancesale,
+      defaultAmount:e.currentTarget.dataset.defaultamount,
+      advanceSaleStatus:e.currentTarget.dataset.advancesalestatus
     })
   },
   cancelorder: function() {
@@ -720,13 +753,13 @@ Page({
     var advanceSaleStatus = e.currentTarget.dataset.advancesalestatus
     var orderId = e.currentTarget.dataset.orderid
     if(advanceSaleStatus==1){
-      //订单未预定
+      //订单未预订
       this.setData({
         sellOneStatus:true,
         orderId:orderId
       })
     }else if(advanceSaleStatus==2){
-      //订单已预定
+      //订单已预订
       this.setData({
         sellTwoStatus:true,
         orderId:orderId

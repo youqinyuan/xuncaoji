@@ -2,6 +2,8 @@
 var time = require('../../utils/util.js');
 let app = getApp()
 var newCount = true
+var interval = ''
+var interval2 = ''
 Page({
 
   /**
@@ -34,8 +36,12 @@ Page({
     orderType: null,
     message: '微信支付时，请在支付方式内选择信用卡支付，其他方式支付自动退款。',
     amount: null,
-    isShowBook:null,
+    isShowBook: null,
+    buyWay:null,//线下商店
+    getMoneyOrder: null, //发布赚钱订单
     hostUrl: app.Util.getUrlImg().hostUrl,
+    shurePeriod:false, 
+    isMentionPeriod:false  //提期0.5期支付问号
   },
   //支付
   pay: function(e) {
@@ -68,39 +74,69 @@ Page({
                   wx.navigateBack({
                     delta: 1
                   })
-                }else if (that.data.amount3) {
+                } else if (that.data.amount3) {
+                  wx.setStorageSync('toWaitReentry', 1)
                   wx.navigateBack({
                     delta: 1
                   })
-                }
-                 else if (that.data.amount) {
+                } else if (that.data.amount) {
                   wx.navigateBack({
                     delta: 1
                   })
                   wx.setStorageSync('sponsorStatus', 1)
-                } else if (that.data.isShowBook){
-                 wx.switchTab({
-                   url: '/pages/forum/forum',
-                 })
-                 app.globalData.type = 4
-                }else {
-                  if(res.data.content.balance.type==1){
-                    if (that.data.buyType==2){
+                } else if (that.data.mentionPeriod) {
+                  wx.navigateTo({
+                    url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.balance.businessId,
+                  })
+                }else if (that.data.helpMentionPeriod) {
+                  wx.navigateTo({
+                    url: `/packageA/pages/helpSuccess/helpSuccess?id=`+res.data.content.balance.businessId,
+                  })
+                } else if (that.data.getMoneyOrder) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                  wx.setStorageSync('getMoneyOrder', 1)
+                } else if (that.data.isShowBook) {
+                  wx.switchTab({
+                    url: '/pages/forum/forum',
+                  })
+                  app.globalData.type = 4
+                } else if (that.data.goods) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                } else {
+                  if (res.data.content.balance.type == 1) {
+                    if (that.data.buyType == 2) {
                       wx.navigateTo({
                         url: `/pages/myorder/myorder?status=${5}`,
                       })
-                    }else{
+                    } else if (that.data.buyWay) {
+                      wx.navigateTo({
+                        url: `/pages/myorder/myorder?status=${0}`,
+                      })
+                    }  else {
                       wx.navigateTo({
                         url: `/pages/myorder/myorder?status=${2}`,
                       })
                     }
                     wx.removeStorageSync('myOrder')
-                  }else{
+                  } else if (that.data.getMoneyOrder) {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                    wx.setStorageSync('getMoneyOrder', 1)
+                  } else if (that.data.isShowBook) {
                     wx.switchTab({
                       url: '/pages/forum/forum',
                     })
                     app.globalData.type = 4
-                  }
+                  } else if (that.data.goods) {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  } 
                 }
               }
             }
@@ -152,39 +188,69 @@ Page({
                 wx.navigateBack({
                   delta: 1
                 })
-              }else if (that.data.amount3) {
+              } else if (that.data.amount3) {
+                wx.setStorageSync('toWaitReentry', 1)
                 wx.navigateBack({
                   delta: 1
                 })
-              }
-               else if (that.data.amount) {
+              }else if (that.data.helpMentionPeriod) {
+                wx.navigateTo({
+                  url: `/packageA/pages/helpSuccess/helpSuccess?id=`+res.data.content.balance.businessId,
+                })
+              } else if (that.data.mentionPeriod) {
+                wx.navigateTo({
+                  url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.balance.businessId,
+                })
+              } else if (that.data.amount) {
                 wx.navigateBack({
                   delta: 1
                 })
                 wx.setStorageSync('sponsorStatus', 1)
+              } else if (that.data.getMoneyOrder) {
+                wx.navigateBack({
+                  delta: 1
+                })
+                wx.setStorageSync('getMoneyOrder', 1)
               } else if (that.data.isShowBook) {
                 wx.switchTab({
                   url: '/pages/forum/forum',
                 })
                 app.globalData.type = 4
-              }else {
-                if(res.data.content.balance.type==1){
-                  if (that.data.buyType==2){
+              } else if (that.data.goods) {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }  else {
+                if (res.data.content.balance.type == 1) {
+                  if (that.data.buyType == 2) {
                     wx.navigateTo({
                       url: `/pages/myorder/myorder?status=${5}`,
                     })
-                  }else{
+                  } else if (that.data.buyWay) {
+                    wx.navigateTo({
+                      url: `/pages/myorder/myorder?status=${0}`,
+                    })
+                  }  else {
                     wx.navigateTo({
                       url: `/pages/myorder/myorder?status=${2}`,
                     })
-                  } 
+                  }
                   wx.removeStorageSync('myOrder')
-                }else{
+                } else if (that.data.getMoneyOrder) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                  wx.setStorageSync('getMoneyOrder', 1)
+                } else if (that.data.isShowBook){
                   wx.switchTab({
                     url: '/pages/forum/forum',
                   })
                   app.globalData.type = 4
-                }     
+                } else if (that.data.goods) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                } 
               }
             }
           }
@@ -216,7 +282,7 @@ Page({
                   if (res.data.content.status === 'SUCCESS') {
                     if (res.data.content.bankCardType == 2 && that.data.options.type == 2) {
                       //信用卡用户
-                      console.log("支付卡类型:" + res.data.content.bankCardType)
+                      // console.log("支付卡类型:" + res.data.content.bankCardType)
                       app.globalData.creditCard = 1
                     }
                     if (that.data.amount2) {
@@ -228,39 +294,70 @@ Page({
                       wx.navigateBack({
                         delta: 1
                       })
-                    }else if (that.data.amount3) {
+                    }else if (that.data.helpMentionPeriod) {
+                      wx.navigateTo({
+                        url: `/packageA/pages/helpSuccess/helpSuccess?id=`+res.data.content.businessId,
+                      })
+                    } else if (that.data.mentionPeriod) {
+                      wx.navigateTo({
+                        url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.businessId,
+                      })
+                    } else if (that.data.amount3) {
+                      wx.setStorageSync('toWaitReentry', 1)
                       wx.navigateBack({
                         delta: 1
                       })
-                    }
-                     else if (that.data.amount) {
+                    } else if (that.data.amount) {
                       wx.navigateBack({
                         delta: 1
                       })
                       wx.setStorageSync('sponsorStatus', 1)
-                    } else if (that.data.isShowBook) {
+                    } else if (that.data.getMoneyOrder) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                      wx.setStorageSync('getMoneyOrder', 1)
+                    }  else if (that.data.isShowBook) {
                       wx.switchTab({
                         url: '/pages/forum/forum',
                       })
                       app.globalData.type = 4
-                    }else {
-                      if(res.data.content.wechat.type==1){
-                        if (that.data.buyType==2){
+                    } else if (that.data.goods) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    }  else {
+                      if (res.data.content.type == 1) {
+                        if (that.data.buyType == 2) {
                           wx.navigateTo({
                             url: `/pages/myorder/myorder?status=${5}`,
                           })
-                        }else{
+                        } else if (that.data.buyWay) {
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${0}`,
+                          })
+    
+                        }  else {
                           wx.navigateTo({
                             url: `/pages/myorder/myorder?status=${2}`,
                           })
-                        } 
+                        }
                         wx.removeStorageSync('myOrder')
-                      }else{
+                      } else if (that.data.getMoneyOrder) {
+                        wx.navigateBack({
+                          delta: 1
+                        })
+                        wx.setStorageSync('getMoneyOrder', 1)
+                      }  else if (that.data.isShowBook) {
                         wx.switchTab({
                           url: '/pages/forum/forum',
                         })
                         app.globalData.type = 4
-                      }      
+                      } else if (that.data.goods) {
+                        wx.navigateBack({
+                          delta: 1
+                        })
+                      } 
                     }
                   } else if (res.data.content.status === 'REFUND') {
                     wx.showToast({
@@ -314,17 +411,21 @@ Page({
   },
   //转换为余额支付
   wallet_pay() {
+    console.log(1)
     var that = this
     that.setData({
       payment_mode2: false,
-      channel: 1
+      payment_mode1: true,
+      channel: 1,
     })
   },
   //转换为微信支付
   wx_pay() {
+    console.log(2)
     var that = this
     that.setData({
       payment_mode1: false,
+      payment_mode2: true,
       channel: 2
     })
   },
@@ -384,44 +485,70 @@ Page({
                     wx.navigateBack({
                       delta: 1
                     })
-                  }else if (that.data.amount3) {
+                  } else if (that.data.amount3) {
+                    wx.setStorageSync('toWaitReentry', 1)
                     wx.navigateBack({
                       delta: 1
                     })
-                  }
-                   else if (that.data.amount) {
+                  }else if (that.data.helpMentionPeriod) {
+                    wx.navigateTo({
+                      url: `/packageA/pages/helpSuccess/helpSuccess?id=`+res.data.content.balance.businessId,
+                    })
+                  } else if (that.data.mentionPeriod) {
+                    wx.navigateTo({
+                      url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.balance.businessId,
+                    })
+                  } else if (that.data.amount) {
                     wx.navigateBack({
                       delta: 1
                     })
                     wx.setStorageSync('sponsorStatus', 1)
-                  } else if (that.data.isShowBook) {
+                  } else if (that.data.getMoneyOrder) {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                    wx.setStorageSync('getMoneyOrder', 1)
+                  }  else if (that.data.isShowBook) {
                     wx.switchTab({
                       url: '/pages/forum/forum',
                     })
                     app.globalData.type = 4
-                  } else {
+                  } else if (that.data.goods) {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  }  else {
                     if (that.data.amount) {
                       wx.navigateBack({
                         delta: 1
                       })
                     } else {
-                      if(res.data.content.balance.type==1){
-                        if (that.data.buyType==2){
+                      if (res.data.content.balance.type == 1) {
+                        if (that.data.buyType == 2) {
                           wx.navigateTo({
                             url: `/pages/myorder/myorder?status=${5}`,
                           })
-                        }else{
+                        }else if (that.data.buyWay) {
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${0}`,
+                          })
+    
+                        } else {
                           wx.navigateTo({
                             url: `/pages/myorder/myorder?status=${2}`,
                           })
-                        } 
+                        }
                         wx.removeStorageSync('myOrder')
-                      }else{
+                      } else if (that.data.isShowBook) {
                         wx.switchTab({
                           url: '/pages/forum/forum',
                         })
                         app.globalData.type = 4
-                      }       
+                      } else if (that.data.goods) {
+                        wx.navigateBack({
+                          delta: 1
+                        })
+                      } 
                     }
                   }
                   that.setData({
@@ -436,7 +563,7 @@ Page({
                     })
                   } else {
                     let lastTime = res.data.content.balance.retryRemainingTime / 1000
-                    let interval = setInterval(() => {
+                    interval = setInterval(() => {
                       if (lastTime > 0) {
                         lastTime--
                         let minuteTime = parseInt(lastTime / 60) < 10 ? '0' + parseInt(lastTime / 60) : parseInt(lastTime / 60)
@@ -512,16 +639,35 @@ Page({
    */
   onLoad: function(options) {
     var that = this
-    console.log(options)
+    //发起提期佣金支付
+    if (options.mentionPeriod) {
+      that.setData({
+        mentionPeriod: options.mentionPeriod
+      })
+    }
+    if(options.isMentionPeriod){
+      that.setData({
+        isMentionPeriod: options.isMentionPeriod
+      })
+    }
+    //购买提期
+    if (options.helpMentionPeriod) {
+      that.setData({
+        helpMentionPeriod: options.helpMentionPeriod
+      })
+    }
     that.setData({
       options: options,
       buyType: options.buyType,
       isShowBook: options.isShowBook ? options.isShowBook : null,
+      goods: options.goods ? options.goods:null,
       amount: options.amount ? options.amount : null,
       orderType: parseInt(options.orderType),
       amount2: options.amount2 ? options.amount2 : null,
       amount1: options.amount1 ? options.amount1 : null,
-      amount3:options.amount3 ? options.amount3 : null
+      amount3: options.amount3 ? options.amount3 : null,
+      buyWay: options.buyWay ? options.buyWay : null,
+      getMoneyOrder: options.getMoneyOrder ? options.getMoneyOrder : null,
     })
     if (that.data.orderType === 4) {
       that.setData({
@@ -532,32 +678,32 @@ Page({
     }
     var transStatementId = parseInt(options.id)
     var flag = Boolean(options.flag)
-    var createTime = parseInt(options.createTime)
-    let endTime = createTime + 15 * 60 * 1000
-    let clientTime = new Date()
-    let lastTime = (endTime - clientTime) / 1000
-    let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
-    let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
-    let secondTime = parseInt(lastTime % 60)
-    that.setData({
-      clientTime: `${minuteTime}:${secondTime}`
-    })
-    let interval2 = setInterval(() => {
-      if (lastTime > 0) {
-        lastTime--
-        let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
-        let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
-        let secondTime = parseInt(lastTime % 60) > 10 ? parseInt(lastTime % 60) : '0' + parseInt(lastTime % 60)
-        that.setData({
-          clientTime: `${hourTime}:${minuteTime}:${secondTime}`
-        })
-      } else {
-        clearInterval(interval2)
-        that.setData({
-          clientTime: ''
-        })
-      }
-    }, 1000)
+    // var createTime = parseInt(options.createTime)
+    // let endTime = createTime + 15 * 60 * 1000
+    // let clientTime = new Date()
+    // let lastTime = (endTime - clientTime) / 1000
+    // let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
+    // let minuteTime = parseInt((lastTime % 3600) / 60) < 10 ? '0' + parseInt((lastTime % 3600) / 60) : parseInt((lastTime % 3600) / 60)
+    // let secondTime = parseInt(lastTime % 60)
+    // that.setData({
+    //   clientTime: `${minuteTime}:${secondTime}`
+    // })
+    // interval2 = setInterval(() => {
+    //   if (lastTime > 0) {
+    //     lastTime--
+    //     let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
+    //     let minuteTime = parseInt((lastTime % 3600) / 60) < 10 ? '0' + parseInt((lastTime % 3600) / 60) : parseInt((lastTime % 3600) / 60)
+    //     let secondTime = parseInt(lastTime % 60) > 10 ? parseInt(lastTime % 60) : '0' + parseInt(lastTime % 60)
+    //     that.setData({
+    //       clientTime: `${hourTime}:${minuteTime}:${secondTime}`
+    //     })
+    //   } else {
+    //     clearInterval(interval2)
+    //     that.setData({
+    //       clientTime: ''
+    //     })
+    //   }
+    // }, 1000)
     var orderId = parseInt(options.orderId)
     that.setData({
       transStatementId: transStatementId,
@@ -577,21 +723,20 @@ Page({
             if (res.data.content) {
               let lastTime = res.data.content.remainingTime / 1000
               let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
-              let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
+              let minuteTime = parseInt((lastTime % 3600) / 60) < 10 ? '0' + parseInt((lastTime % 3600) / 60) : parseInt((lastTime % 3600) / 60)
               let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
               that.setData({
                 time: `${hourTime}:${minuteTime}:${secondTime}`
               })
-              let interval2 = setInterval(() => {
+              interval2 = setInterval(() => {
                 if (lastTime > 0) {
                   lastTime--
                   let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
-                  let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
+                  let minuteTime = parseInt((lastTime % 3600) / 60) < 10 ? '0' + parseInt((lastTime % 3600) / 60) : parseInt((lastTime % 3600) / 60)
                   let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
                   that.setData({
                     time: `${hourTime}:${minuteTime}:${secondTime}`
                   })
-
                 } else {
                   clearInterval(interval2)
                   let pages = getCurrentPages()
@@ -605,12 +750,20 @@ Page({
                       wx.navigateBack({
                         delta: 1
                       })
-                    }else if (that.data.amount3) {
+                    } else if (that.data.amount3) {
+                      wx.setStorageSync('toWaitReentry', 1)
                       wx.navigateBack({
                         delta: 1
                       })
-                    }
-                     else if (that.data.amount) {
+                    }else if (that.data.helpMentionPeriod) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    } else if (that.data.mentionPeriod) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    } else if (that.data.amount) {
                       wx.navigateBack({
                         delta: 1
                       })
@@ -620,16 +773,25 @@ Page({
                         url: '/pages/forum/forum',
                       })
                       app.globalData.type = 4
-                    }else {
+                    } else if (that.data.goods) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    }  else {
                       if (that.data.buyType == 2) {
                         wx.navigateTo({
                           url: `/pages/myorder/myorder?status=${5}`,
                         })
-                      } else {
+                      } else if (that.data.buyWay) {
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${0}`,
+                        })
+  
+                      }  else {
                         wx.navigateTo({
                           url: `/pages/myorder/myorder?status=${2}`,
                         })
-                      }   
+                      }
                     }
                   }
                   that.setData({
@@ -650,11 +812,12 @@ Page({
       }, 'GET').then((res) => { // 使用ajax函数
         if (res.data.content) {
           let lastTime = res.data.content.remainingTime / 1000
-          let interval2 = setInterval(() => {
+          clearInterval(interval2)
+          interval2 = setInterval(() => {
             if (lastTime > 0) {
               lastTime--
               let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
-              let minuteTime = parseInt((lastTime % 3600)/60) < 10 ? '0' + parseInt((lastTime % 3600)/60) : parseInt((lastTime % 3600)/60)
+              let minuteTime = parseInt((lastTime % 3600) / 60) < 10 ? '0' + parseInt((lastTime % 3600) / 60) : parseInt((lastTime % 3600) / 60)
               let secondTime = parseInt(lastTime % 60) < 10 ? '0' + parseInt(lastTime % 60) : parseInt(lastTime % 60)
               that.setData({
                 time: `${hourTime}:${minuteTime}:${secondTime}`
@@ -673,12 +836,20 @@ Page({
                   wx.navigateBack({
                     delta: 1
                   })
-                }else if (that.data.amount3) {
+                } else if (that.data.amount3) {
+                  wx.setStorageSync('toWaitReentry', 1)
                   wx.navigateBack({
                     delta: 1
                   })
-                }
-                 else if (that.data.amount) {
+                } else if (that.data.mentionPeriod) {
+                  wx.navigateBack({
+                    delta: 2
+                  })
+                }else if (that.data.helpMentionPeriod) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }else if (that.data.amount) {
                   wx.navigateBack({
                     delta: 1
                   })
@@ -688,16 +859,20 @@ Page({
                     url: '/pages/forum/forum',
                   })
                   app.globalData.type = 4
-                }else {
+                } else {
                   if (that.data.buyType == 2) {
                     wx.navigateTo({
                       url: `/pages/myorder/myorder?status=${5}`,
                     })
-                  } else {
+                  } else if (that.data.buyWay) {
+                    wx.navigateTo({
+                      url: `/pages/myorder/myorder?status=${0}`,
+                    })
+                  }  else {
                     wx.navigateTo({
                       url: `/pages/myorder/myorder?status=${2}`,
                     })
-                  }    
+                  }
                 }
               }
               that.setData({
@@ -728,14 +903,15 @@ Page({
     that.setData({
       showDialog: false
     });
-    that.onLoad(that.data.options)
+    // that.onLoad(that.data.options)
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    clearInterval(interval2)
+    clearInterval(interval)
   },
 
   /**
@@ -753,7 +929,11 @@ Page({
       curPage.setData({
         'isBack': true
       });
+      clearInterval(interval2)
+      clearInterval(interval)
     }
+    clearInterval(interval2)
+    clearInterval(interval)
   },
 
   /**
@@ -790,6 +970,16 @@ Page({
   payValueHiden: function() {
     this.setData({
       showStop: false
+    })
+  },
+  clooseShurePeriod:function(){
+    this.setData({
+      shurePeriod:false
+    })
+  },
+  mentionPeriod:function(){
+    this.setData({
+      shurePeriod:true
     })
   }
 })

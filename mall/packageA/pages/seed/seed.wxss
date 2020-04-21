@@ -2,6 +2,7 @@
 
 page {
   background: #f4f4f4;
+  overflow-x: hidden;
 }
 
 .seed {
@@ -175,9 +176,9 @@ page {
   font-family: 'wangte';
   background-image: url('https://xuncaoji.net/_download/img/seed/ic_drop(2).png');
   background-size: 100% 100%;
-  overflow:hidden;
-   white-space:nowrap;
-    text-overflow:ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   /* margin: 0 15rpx; */
 }
 
@@ -287,8 +288,6 @@ page {
   height: 90rpx;
   line-height: 90rpx;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   margin-left: 10rpx;
 }
@@ -316,8 +315,6 @@ page {
 
 .column_font {
   font-size: 24rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
 
@@ -353,6 +350,7 @@ page {
   background-color: #fff;
   margin-top: 20rpx;
   position: relative;
+  overflow: hidden;
 }
 
 .goods_img {
@@ -367,7 +365,7 @@ page {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  word-break:break-all;
+  word-break: break-all;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
@@ -381,8 +379,6 @@ page {
   display: inline-block;
   text-align: center;
   font-size: 20rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #fff;
 }
 
@@ -395,8 +391,6 @@ page {
   border: 1px solid rgba(255, 100, 23, 1);
   border-radius: 14rpx;
   font-size: 20rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #ff6417;
   margin-left: 10rpx;
 }
@@ -409,8 +403,6 @@ page {
 .price_box {
   padding-left: 10rpx;
   font-size: 24rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   height: 60rpx;
   line-height: 60rpx;
 }
@@ -435,8 +427,6 @@ page {
   border-radius: 8rpx;
   margin-left: 10rpx;
   font-size: 22rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 100, 23, 1);
   display: inline-block;
   background: #fcf3ed;
@@ -553,13 +543,14 @@ page {
   overflow-x: hidden;
   margin-left: 59rpx;
   margin-right: 40rpx;
-
 }
-.rule_box2{
+
+.rule_box2 {
   margin-top: 30rpx;
 }
-.rule_title{
-  color: #333333;
+
+.rule_title {
+  color: #333;
   font-family: PingFang SC;
   font-size: 28rpx;
   text-align: left;
@@ -567,39 +558,38 @@ page {
   line-height: 45rpx;
   font-weight: 600;
 }
-.rule_value{
-  color: #999999;
+
+.rule_value {
+  color: #999;
   font-family: PingFang SC;
   font-size: 26rpx;
   text-align: left;
   letter-spacing: 1rpx;
   line-height: 45rpx;
 }
-.more{
-  color: #999999;
+
+.more {
+  color: #999;
   font-size: 22rpx;
   text-align: center;
 }
-.price_box text{
+
+.price_box text {
   display: inline-block;
 }
-.return_seed{
+
+.return_seed {
   position: absolute;
   display: inline-block;
   height: 40rpx;
-  background-color: #D4D8DD;
+  line-height: 40rpx;
+  background-color: #d4d8dd;
   border-radius: 4rpx;
   opacity: 0.8;
   top: 0;
   left: 0;
-}
-.return_seed_number{
-  display: inline-block;
-  vertical-align: bottom;
+  color: #ff2644;
+  font-size: 24rpx;
   width: 165rpx;
-  height: 40rpx;
-  line-height: 40rpx;
   text-align: center;
-  color: #FF2644;
-  font-size:24rpx;
 }

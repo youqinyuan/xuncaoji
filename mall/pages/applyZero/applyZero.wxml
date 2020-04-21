@@ -1,22 +1,22 @@
 <!-- pages/applyZero/applyZero.wxml -->
 <wxs module="filters" src="filter.wxs"></wxs>
-<view class="advanceSale" wx:if="{{isShowBook==1&&sponsor==0}}">
+<view class="advanceSale" wx:if="{{isShowBook==1&&sponsor==0&&!options.source}}">
   <view class="advanceSale-left">
-    <image class="severice-img" src="/assets/images/new/yuService.png"></image>
+    <image class="severice-img" src="{{hostUrl}}/yuService.png"></image>
     <view class="yuSale">预售订单</view>
-    <image class="question-img" src="/assets/images/new/yuSale.png" catchtap="goIntoProblem"></image>
+    <image class="question-img" src="{{hostUrl}}/yuSale.png" catchtap="goIntoProblem"></image>
   </view>
   <view class="advanceSale-right">
     <view class="experience" catchtap="experience">立即体验</view>
-    <image class="right-img" src="/assets/images/new/sanDetail.png"></image>
+    <image class="right-img" src="{{hostUrl}}/sanDetail.png"></image>
   </view>
 </view>
-<view class="shuoming_box" bindtap="toapplyRule" style="{{isShowBook==1&&sponsor==0?'top:220rpx;':'top:120rpx'}}">
-  <image src="/assets/images/new/ic_use.png" class="shuoming_img" bindtap="toapplyRule" />
+<view class="shuoming_box" bindtap="toapplyRule" style="{{isShowBook==1&&sponsor==0&&!options.source?'top:220rpx;':'top:120rpx'}}">
+  <image src="{{hostUrl}}/ic_use.png" class="shuoming_img" bindtap="toapplyRule" />
   <text class="shuoming_one">使用须知</text>
 </view>
 <view class="applyZeroRegular">
-  <text>一、可修改选项：您可以修改以下两个选项，选项决定了支付的金额。您想要支付的金额越低，输入的【最终成本价】就要越高或者输入【返还{{newPeopleActivity==1?'期(月)':'天'}}数】越长。</text>
+  <text>一、可修改选项：您可以修改以下两个选项，选项决定了支付的金额。您想要支付的金额越低，输入的【最终成本价】就要越高或者输入【返还{{newPeopleActivity==1?payMsg.freeBuyMode==2?'天':'期(月)':'天'}}数】越长。</text>
 </view>
 <view class="applyZeroMoneyBox1">
   <view class="applyZeroMoneyBox2">
@@ -35,14 +35,14 @@
 <view class="applyZeroMoneyBox1">
   <view class="applyZeroMoneyBox2">
     <text class="regularNumber">2</text>
-    <text class="regularFont">返还{{newPeopleActivity==1?'期(月)':'天'}}数</text>
+    <text class="regularFont">返还{{newPeopleActivity==1?payMsg.freeBuyMode==2?'天':'期(月)':'天'}}数</text>
     <text class="applyZeroRevise11" catchtap="periodMonth" wx:if="{{newPeopleActivity==1}}">修改</text>
     <text class="applyZeroRevise13" wx:else>修改</text>
   </view>
   <view class="applyZeroMoneyBox4" wx:if="{{payMsg.cashBackType!==1}}">
     <text class="applyZeroFont1">您想要平台分</text>
     <text class="expectedAmountNumber">{{newPeopleActivity==1?cashMsg.cashBackPeriods:payMsg.actualCashBackPeriods}}</text>
-    <text class="applyZeroFont2">{{newPeopleActivity==1?'期(月)':'天'}},每{{newPeopleActivity==1?'期(月)':'天'}}把支付金额</text>
+    <text class="applyZeroFont2">{{newPeopleActivity==1?payMsg.freeBuyMode==2?'天':'期(月)':'天'}},每{{newPeopleActivity==1?payMsg.freeBuyMode==2?'天':'期(月)':'天'}}把支付金额</text>
     <text class="applyZeroFont3">平均等额返现给您</text>
   </view>
   <view class="applyZeroMoneyBox4" wx:if="{{newPeopleActivity==2&&payMsg.cashBackType==1}}">
@@ -76,7 +76,8 @@
         <text class="applyZeroRevise6" catchtap="returnDetail">明细</text>
       </view>
       <view class="applyZeroMoneyBox6">
-        <text class="applyZeroFont6">其中{{payMsg.totalCashBackAmount}}元将在{{newPeopleActivity==1?cashMsg.cashBackPeriods:payMsg.actualCashBackPeriods}}{{newPeopleActivity==1?'期(月)':'天'}}{{payMsg.cashBackType==1?'后':'内平均等额的'}}返还到您的账户</text>
+        <text class="applyZeroFont6" wx:if="{{payMsg.freeBuyMode==2}}">其中{{payMsg.totalCashBackAmount}}元将在{{cashMsg.cashBackPeriods}}天内平均等额的返还到您的账户</text>
+        <text class="applyZeroFont6" wx:else>其中{{payMsg.totalCashBackAmount}}元将在{{newPeopleActivity==1?cashMsg.cashBackPeriods:payMsg.actualCashBackPeriods}}{{newPeopleActivity==1?'期(月)':'天'}}{{payMsg.cashBackType==1?'后':'内平均等额的'}}返还到您的账户</text>
         <text class="applyZeroFont6">温馨提示：（返还金额可在余额随时提现）</text>
       </view>
     </view>
@@ -121,7 +122,8 @@
       </view>
       <view class="applyZeroMoneyBox6">
         <text class="applyZeroFont6">如不赞助正常购买，需支付￥{{payMsg.needPaymentAmount}}元！</text>
-        <text class="applyZeroFont6">其中{{payMsg.totalCashBackAmount}}元将在{{cashMsg.cashBackPeriods}}期(月)内平均等额的返还到您的账户</text>
+        <text class="applyZeroFont6" wx:if="{{payMsg.freeBuyMode==2}}">其中{{payMsg.totalCashBackAmount}}元将在{{cashMsg.cashBackPeriods}}天内平均等额的返还到您的账户</text>
+        <text class="applyZeroFont6" wx:else>其中{{payMsg.totalCashBackAmount}}元将在{{cashMsg.cashBackPeriods}}期(月)内平均等额的返还到您的账户</text>
         <text class="applyZeroFont6">温馨提示：（返还金额可在余额随时提现）</text>
       </view>
     </view>
@@ -150,11 +152,11 @@
     </view>
   </view>
 </view>
-<view class="btn" wx:if="{{!activityId&&buyType==1&&sponsor==0&&newPeopleActivity==1}}">
+<view class="btn" wx:if="{{!activityId&&buyType==1&&sponsor==0&&newPeopleActivity==1&&!options.source}}">
   <button class="add" bindtap="addOrCompute">{{buttonText}}{{goodsType}}</button>
   <button class="pay-zero" bindtap="payNow">{{buttonText2}}</button>
 </view>
-<view class="btn" wx:if="{{buyType==2&&sponsor==0&&newPeopleActivity==1&&!activityId}}">
+<view class="btn" wx:if="{{buyType==2&&sponsor==0&&newPeopleActivity==1&&!activityId&&!options.source}}">
   <button class="pay-zero1" bindtap="payNow">{{buttonText2}}</button>
 </view>
 <view class="btn" wx:if="{{sponsor==1}}">
@@ -166,6 +168,9 @@
 <view class="btn" wx:if="{{activityId}}">
   <button class="pay-zero1" bindtap="payNow">{{buttonText2}}</button>
 </view>
+<view class="btn" wx:if="{{options.source}}">
+  <button class="pay-zero1" bindtap="payNow">{{buttonText2}}</button>
+</view>
 <view class="stop" bindtap="stopZero">
   <text class="">可随时终止freebuy</text>
   <text class="stopValue">点击查看终止说明</text>
@@ -174,11 +179,11 @@
 <!-- 您想要分期的月数 -->
 <view class="period-zan-dialog__mask" wx:if="{{showPeriod}}">
   <view class="zan-dialog__container" animation="{{animationData}}" wx:if="{{showPeriod}}">
-    <view class="title">您想要分期的月数</view>
-    <text class="monthFont">温馨提示：您选择或自定义的分期(月数)越长，支付的金额越低，选择或自定义分期的(月数)越短，支付的金额就越高。</text>
+    <view class="title">您想要分期的{{payMsg.freeBuyMode==2?'天':'期(月)'}}数</view>
+    <text class="monthFont">温馨提示：您选择或自定义的{{payMsg.freeBuyMode==2?'天':'期(月)'}}数越长，支付的金额越低，选择或自定义分期的{{payMsg.freeBuyMode==2?'天':'期(月)'}}数越短，支付的金额就越高。</text>
     <scroll-view class="period-month-wrap" scroll-y="{{true}}">
       <view class="period-month" wx:for="{{cashMsg.selectablePeriods}}" wx:key="">
-        <view class="period-detail" catchtap="getMonthText" data-text="{{item}}">{{item}}月</view>
+        <view class="period-detail" catchtap="getMonthText" data-text="{{item}}">{{item}}{{payMsg.freeBuyMode==2?'天':'月'}}</view>
       </view>
     </scroll-view>
     <view class="custom" catchtap="custom">自定义</view>
@@ -192,7 +197,7 @@
     <view class="table">
       <view class="tr bg-w">
         <view class="th">返现时间</view>
-        <view class="th">第几{{newPeopleActivity==1?'个月':'天'}}</view>
+        <view class="th">第几{{newPeopleActivity==1?payMsg.freeBuyMode==2?'天':'个月':'天'}}</view>
         <view class="th">返现金额</view>
         <view class="th">累积返现</view>
       </view>
@@ -207,7 +212,7 @@
     </view>
     <view class="move">滑动查询更多</view>
   </view>
-  <image wx:if="{{showDialog}}" class="cancel-img" src="{{hostUrl}}icon/tanc_closecutline_n.png" bindtap='cancelDialog'></image>
+  <image wx:if="{{showDialog}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelDialog'></image>
 </view>
 <!-- 利息明细表 -->
 <view class="interest-zan-dialog__mask" wx:if="{{showModal}}">
@@ -274,7 +279,7 @@
   <view class="zan-dialog__container" wx:if="{{monthStatus}}">
     <view class="title">自定义分期数</view>
     <view class="text">
-      <view>温馨提示：您选择或自定义的分期（月数）越长，支付的金额越低，选择或自定义分期的（月数）越短，支付的金额就越高。</view>
+      <view>温馨提示：您选择或自定义的分期{{payMsg.freeBuyMode==2?'天数':'月数'}}越长，支付的金额越低，选择或自定义分期的{{payMsg.freeBuyMode==2?'天数':'月数'}}越短，支付的金额就越高。</view>
       <!-- <view>您的利息也将在当月停止发放，给到您到当月的利息！</view> -->
       <input placeholder-class="placeholder" placeholder="{{monthInput}}" type="digit" bindinput="monthNumber" name="month" class="expectedAmountInput" value="{{monthValue}}" style="{{inputBorder}}" />
       <view class="expectedAmountButton" bindtap="monthButton">
@@ -290,7 +295,7 @@
     <view class="titlez">提示</view>
     <view class="text">
       <view class="rule_value">您选择的最终成本价为{{cashMsg.expectedAmount}}元</view>
-      <view class="rule_value">返还月数为{{cashMsg.cashBackPeriods}}月。</view>
+      <view class="rule_value">返还{{payMsg.freeBuyMode==2?'天数':'月数'}}为{{cashMsg.cashBackPeriods}}{{payMsg.freeBuyMode==2?'天':'个月'}}。</view>
       <view class="rule_value">一旦赞助开始后，不可更改，</view>
       <view class="rule_value">请再次确定哦！</view>
     </view>
@@ -300,4 +305,20 @@
     </view>
   </view>
   <image wx:if="{{sponsorShow}}" class="cancel-get2" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeSponsorShow'></image>
+</view>
+
+<!-- 预售订单引导页 -->
+<view class="yudialog__mask" catchtouchmove="preventTouchMove" wx:if="{{yuShow}}">
+  <view class="dialog__container" wx:if="{{yuShow}}">
+    <view class="tishi">提示</view>
+    <image class="cancelImg" src="{{hostUrl}}/add/withdraw_close.png" catchtap='noNeed'></image>
+    <view class="order">
+      <view class="order_one">是否需要进入预售订单介绍页面了解如</view>
+      <view class="order_two">何使用呢？</view>
+      <view class="order_box">
+        <view class="order_box1" catchtap="noNeed">不需要</view>
+        <view class="order_box2" catchtap="need">需要</view>
+      </view>
+    </view>
+  </view>  
 </view>

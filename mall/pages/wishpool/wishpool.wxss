@@ -101,8 +101,6 @@ page {
   top: 455rpx;
   left: 242rpx;
   font-size: 26rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(73, 18, 92, 1);
 }
 
@@ -117,8 +115,6 @@ page {
   top: 554rpx;
   left: 306rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -189,8 +185,6 @@ page {
 
 .goodsText {
   font-size: 26rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
 
@@ -284,8 +278,6 @@ page {
   text-align: left;
   margin: 0 36rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #999;
   line-height: 46rpx;
 }
@@ -336,8 +328,6 @@ page {
   margin-top: 46rpx;
   margin-bottom: 60rpx;
   font-size: 34rpx;
-  font-family: PingFang-SC-Bold;
-  font-weight: 500;
   color: #222;
   text-align: left;
 }
@@ -354,7 +344,6 @@ page {
 .wait_shure-one-dialog__mask .zan-dialog__container2 .cause {
   letter-spacing: 3rpx;
   font-size: 28rpx;
-  font-weight: 500;
   color: #333;
   text-align: left !important;
 }
@@ -442,10 +431,8 @@ page {
   margin-top: 46rpx;
   margin-bottom: 30rpx;
   font-size: 34rpx;
-  font-family: PingFang-SC-Bold;
   color: #222;
   text-align: left;
-  font-weight: 500;
   height: 20rpx;
 }
 .peopleCancle_box{
@@ -464,8 +451,6 @@ page {
 .people_info_name{
   display: inline-block;
   font-size:24rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   color:rgba(51,51,51,1);
   position: absolute;
   left: 151rpx;
@@ -474,8 +459,6 @@ page {
 .people_info_acountnumber{
   display: inline-block;
   font-size:24rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   color:rgba(51,51,51,1);
   position: absolute;
   left: 151rpx;
@@ -484,8 +467,6 @@ page {
 .cancle_font{
   display: inline-block;
   font-size:26rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   color:rgba(51,51,51,1);
   position: absolute;
   left: 39rpx;

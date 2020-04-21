@@ -1,0 +1,51 @@
+<!--packageA/pages/storeInfo/storeInfo.wxml-->
+<form report-submit='true' bindsubmit='next'>
+    <view class="content">
+        <view class="title border_bottom">
+            <view class="info">二、店铺信息</view>
+        </view>
+        <view class="title border_bottom" bindtap="upimg">
+            <view class="left">店铺LOGO</view>
+            <image src="{{moveData.logoUrl?moveData.logoUrl:adds.avatarKey}}" class="storeImg"/>
+            <image src="{{hostUrl}}/changeImg/tonewpage.png" class="tonewpage"/>
+        </view>
+        <view class="title border_bottom">
+            <view class="left">店铺名称</view>
+            <input placeholder="" class="name" maxlength="40" name="storeName" value="{{moveData.storeName?moveData.storeName:''}}"/>
+        </view>
+        <view class="title border_bottom" bindtap="showCityPicker" >
+            <view class="left">所在区域</view>
+            <view class="business">{{city?city:moveData.provinceName?moveData.provinceName+moveData.cityName+moveData.districtName:''}}</view>
+            <city-picker id="city-picker" value="{{cityPickerValue}}" isShow="{{cityPickerIsShow}}" bindsureclick="cityPickerOnSureClick" bindcancelclick="cityPickerOnCancelClick" />
+            <image src="{{hostUrl}}/changeImg/tonewpage.png" class="tonewpage"/>
+        </view>
+        <view class="title border_bottom" bindtap='hrefMap'>
+            <view class="left">店铺地址</view>
+            <view class="business">{{ centerData.title ? centerData.title: moveData.storeAddress?moveData.storeAddress:"" }}</view>
+            <image src="{{hostUrl}}/changeImg/tonewpage.png" class="tonewpage"/>
+        </view>
+        <view class="title border_bottom ">
+            <view class="left">详细地址</view>
+            <input placeholder="" class="name wid500" maxlength="40" name="addressDetail" value="{{moveData.addressDetail?moveData.addressDetail:''}}"/>
+        </view>
+        <view class="title border_bottom" bindtap="toBlank">
+            <view class="left">收款账号</view>
+            <view class="business">{{bankCardNumber?bankCardNumber:moveData.bankCardNumber}}</view>
+            <image src="{{hostUrl}}/changeImg/tonewpage.png" class="tonewpage"/>
+        </view>
+        <view class="title border_bottom">
+            <view class="left">介绍人手机号</view>
+            <input placeholder="" class="name" maxlength="11" name="referrerMobileNumber" value="{{moveData.referrerMobileNumber?moveData.referrerMobileNumber:''}}"type="number"/>
+        </view>
+        <view class="title border_bottom">
+            <view class="left">联系方式</view>
+            <input placeholder="" class="name wid220" maxlength="11" name="mobileNumber" bindinput="getPhone" value="{{moveData.mobileNumber?moveData.mobileNumber:''}}" type="number"/>
+            <view class="getSecurityCode" bindtap="getCode">获取验证码</view>
+        </view>
+        <view class="title">
+            <view class="left">验证码</view>
+            <input placeholder="" class="name" maxlength="8" name="code"/>
+        </view>
+    </view>
+    <button form-type="submit" class="submitButton">下一步</button>
+</form>

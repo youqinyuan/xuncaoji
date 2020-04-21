@@ -51,11 +51,11 @@ Page({
       const title = text.filter(item => item !== value)
       title.unshift(value)
       that.setData({
-        history: title,
+        history: title.slice(0, 30),
         inputValue: value,
         textToast: ''
       })
-      wx.setStorageSync("search", that.data.history.slice(0,30))
+      wx.setStorageSync("search", that.data.history)
       that.setData({
         template: 2
       })
@@ -65,7 +65,7 @@ Page({
         scope: 4,
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
-      }, 'GET').then((res) => {  // 使用ajax函数
+      }, 'GET').then((res) => {  
         if (res.data.messageCode == 'MSG_1001') {
           res.data.content.goodsResult.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
@@ -98,11 +98,11 @@ Page({
       const title = text.filter(item => item !== value)
       title.unshift(value)
       that.setData({
-        history: title,
+        history: title.slice(0, 30),
         inputValue: value,
         textToast: ''
       })
-      wx.setStorageSync("search", that.data.history.slice(0, 30))
+      wx.setStorageSync("search", that.data.history)
       that.setData({
         template: 2
       })
@@ -112,7 +112,7 @@ Page({
         scope: 4,
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
-      }, 'GET').then((res) => {  // 使用ajax函数
+      }, 'GET').then((res) => {  
         if (res.data.messageCode == 'MSG_1001') {
           res.data.content.goodsResult.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
@@ -144,7 +144,7 @@ Page({
       scope: 4,
       pageNumber: that.data.pageNumber,
       pageSize: that.data.pageSize
-    }, 'GET').then((res) => {  // 使用ajax函数
+    }, 'GET').then((res) => {  
       if (res.data.messageCode == 'MSG_1001') {
         res.data.content.goodsResult.items.forEach((v, i) => {
           v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
@@ -165,13 +165,12 @@ Page({
   getMore: function () {
     var that = this
     var pageNumber = that.data.pageNumber + 1
-    // //品质优选
     app.Util.ajax('mall/home/_search', {
       keyword: that.data.inputValue,
       scope: 4,
       pageNumber: pageNumber,
       pageSize: that.data.pageSize
-    }, 'GET').then((res) => { // 使用ajax函数
+    }, 'GET').then((res) => { 
       if (res.messageCode = 'MSG_1001') {
         if (res.data.content.goodsResult.items == '' && that.data.goodsResult !== '') {
           that.setData({
@@ -215,8 +214,6 @@ Page({
         show: false
       })
     }
-
-
   },
    /**
    * 清空
@@ -287,7 +284,7 @@ Page({
        scope: 4,
        pageNumber: that.data.pageNumber,
        pageSize: that.data.pageSize
-     }, 'GET').then((res) => {  // 使用ajax函数
+     }, 'GET').then((res) => {  
        if (res.data.messageCode == 'MSG_1001') {
          res.data.content.goodsResult.items.forEach((v, i) => {
            v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
@@ -340,7 +337,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  // onShareAppMessage: function (ops) {
+  onShareAppMessage: function (ops) {
     
-  // }
+  }
 })

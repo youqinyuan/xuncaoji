@@ -11,7 +11,7 @@
 		"newFeature": true,
 		"coverView": true,
 		"autoAudits": false,
-		"uglifyFileName": true,
+		"uglifyFileName": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": false,
 		"uploadWithSourceMap": true,
@@ -57,22 +57,22 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/detail/detail",
-					"pathName": "pages/detail/detail",
+					"name": "pages/forum/forum",
+					"pathName": "pages/forum/forum",
 					"query": "id=42",
 					"scene": 1001
 				},
 				{
-					"id": -1,
-					"name": "邀请码",
-					"pathName": "pages/invitationCode/invitationCode",
-					"query": "",
+					"id": 1,
+					"name": "pages/detail/detail",
+					"pathName": "pages/detail/detail",
+					"query": "id=153",
 					"scene": null
 				},
 				{
 					"id": 2,
-					"name": "pages/commodityArea/commodityArea",
-					"pathName": "pages/commodityArea/commodityArea",
+					"name": "packageA/pages/saveAndMake/saveAndMake",
+					"pathName": "packageA/pages/saveAndMake/saveAndMake",
 					"query": "id=2",
 					"scene": null
 				},
@@ -85,16 +85,9 @@
 				},
 				{
 					"id": 4,
-					"name": "pages/h5Page/h5Page",
-					"pathName": "pages/h5Page/h5Page",
+					"name": "packageA/pages/cooperate/cooperate",
+					"pathName": "packageA/pages/cooperate/cooperate",
 					"query": "id=63",
-					"scene": null
-				},
-				{
-					"id": 5,
-					"name": "pages/goodsStage/goodsStage",
-					"pathName": "pages/goodsStage/goodsStage",
-					"query": "id=132&type=1",
 					"scene": null
 				},
 				{
@@ -119,9 +112,9 @@
 					"scene": null
 				},
 				{
-					"id": 9,
-					"name": "pages/forum/forum",
-					"pathName": "pages/forum/forum",
+					"id": 8,
+					"name": "pages/search/search",
+					"pathName": "pages/search/search",
 					"query": "id=184",
 					"scene": null
 				},
@@ -133,9 +126,9 @@
 					"scene": null
 				},
 				{
-					"id": 11,
-					"name": "pages/myWish/myWish",
-					"pathName": "pages/myWish/myWish",
+					"id": 10,
+					"name": "pages/myorder/myorder",
+					"pathName": "pages/myorder/myorder",
 					"query": "",
 					"scene": null
 				},
@@ -210,9 +203,9 @@
 					"scene": null
 				},
 				{
-					"id": 22,
-					"name": "pages/newMessage/newMessage",
-					"pathName": "pages/newMessage/newMessage",
+					"id": 21,
+					"name": "packageA/pages/map/map",
+					"pathName": "packageA/pages/map/map",
 					"query": "scene=%3Fid%3D31%26remarks%3Dnull",
 					"scene": null
 				},
@@ -224,10 +217,10 @@
 					"scene": null
 				},
 				{
-					"id": 26,
+					"id": 23,
 					"name": "商品详情",
 					"pathName": "pages/detail/detail",
-					"query": "id=12",
+					"query": "id=46",
 					"scene": null
 				},
 				{
@@ -238,9 +231,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "种子",
-					"pathName": "pages/seed/seed",
+					"id": 25,
+					"name": "packageA/pages/zeroBuy/zeroBuy",
+					"pathName": "packageA/pages/zeroBuy/zeroBuy",
 					"query": "",
 					"scene": null
 				},
@@ -273,10 +266,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 30,
 					"name": "pages/detail/detail",
 					"pathName": "pages/detail/detail",
-					"query": "",
+					"query": "id=46",
 					"scene": null
 				},
 				{
@@ -294,9 +287,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity",
-					"pathName": "packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity",
+					"id": 33,
+					"name": "packageA/pages/searchOrder/searchOrder",
+					"pathName": "packageA/pages/searchOrder/searchOrder",
 					"query": "",
 					"scene": null
 				},
@@ -371,24 +364,24 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/byStages/byStages",
-					"pathName": "pages/byStages/byStages",
-					"query": "",
+					"id": 44,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "id=2",
 					"scene": null
 				},
 				{
-					"id": 46,
-					"name": "packageA/pages/serviceProblem/serviceProblem",
-					"pathName": "packageA/pages/serviceProblem/serviceProblem",
+					"id": 45,
+					"name": "packageA/pages/takeoutPlaceorder/takeoutPlaceorder",
+					"pathName": "packageA/pages/takeoutPlaceorder/takeoutPlaceorder",
 					"query": "id=4",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 46,
 					"name": "pages/longActivity/longActivity",
 					"pathName": "pages/longActivity/longActivity",
-					"query": "",
+					"query": "id=1",
 					"scene": null
 				},
 				{
@@ -462,9 +455,444 @@
 					"scene": null
 				},
 				{
+					"id": 57,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "id=2",
+					"scene": null
+				},
+				{
+					"id": 58,
+					"name": "packageA/pages/searchOrder/searchOrder",
+					"pathName": "packageA/pages/searchOrder/searchOrder",
+					"query": "id=42",
+					"scene": null
+				},
+				{
+					"id": 60,
+					"name": "pages/longActivity/longActivity",
+					"pathName": "pages/longActivity/longActivity",
+					"query": "id=2",
+					"scene": null
+				},
+				{
+					"id": 60,
+					"name": "packageA/pages/saveAndMake/saveAndMake",
+					"pathName": "packageA/pages/saveAndMake/saveAndMake",
+					"query": "id=13",
+					"scene": null
+				},
+				{
 					"id": -1,
-					"name": "pages/waitReentryDetail/waitReentryDetail",
-					"pathName": "pages/waitReentryDetail/waitReentryDetail",
+					"name": "packageA/pages/helpSuccess/helpSuccess",
+					"pathName": "packageA/pages/helpSuccess/helpSuccess",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/mentionPeriodIndex/mentionPeriodIndex",
+					"pathName": "packageA/pages/mentionPeriodIndex/mentionPeriodIndex",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/setMentionPeriod/setMentionPeriod",
+					"pathName": "packageA/pages/setMentionPeriod/setMentionPeriod",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/mentionPeriodIndex/mentionPeriodIndex",
+					"pathName": "packageA/pages/mentionPeriodIndex/mentionPeriodIndex",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/buyMentionPeriod/buyMentionPeriod",
+					"pathName": "packageA/pages/buyMentionPeriod/buyMentionPeriod",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 66,
+					"name": "packageA/pages/saveAndMake/saveAndMake",
+					"pathName": "packageA/pages/saveAndMake/saveAndMake",
+					"query": "id=46",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/storeInfo/storeInfo",
+					"pathName": "packageA/pages/storeInfo/storeInfo",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/bankAccount/bankAccount",
+					"pathName": "packageA/pages/bankAccount/bankAccount",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/doBusiness/doBusiness",
+					"pathName": "packageA/pages/doBusiness/doBusiness",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/businessLicence/businessLicence",
+					"pathName": "packageA/pages/businessLicence/businessLicence",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 71,
+					"name": "packageA/pages/map/map",
+					"pathName": "packageA/pages/map/map",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/storeEnter/storeEnter",
+					"pathName": "packageA/pages/storeEnter/storeEnter",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/helpMentionPeriod/helpMentionPeriod",
+					"pathName": "packageA/pages/helpMentionPeriod/helpMentionPeriod",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/mentionPeriod/mentionPeriod",
+					"pathName": "packageA/pages/mentionPeriod/mentionPeriod",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/payAttention/payAttention",
+					"pathName": "packageA/pages/payAttention/payAttention",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/distributionAddress/distributionAddress",
+					"pathName": "packageA/pages/distributionAddress/distributionAddress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/modifyAdress/modifyAdress",
+					"pathName": "packageA/pages/modifyAdress/modifyAdress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/setDisbutionAddress/setDisbutionAddress",
+					"pathName": "packageA/pages/setDisbutionAddress/setDisbutionAddress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/bankAccount/bankAccount",
+					"pathName": "packageA/pages/bankAccount/bankAccount",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/mentionPeriodIndex/mentionPeriodIndex",
+					"pathName": "packageA/pages/mentionPeriodIndex/mentionPeriodIndex",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/buyMentionPeriod/buyMentionPeriod",
+					"pathName": "packageA/pages/buyMentionPeriod/buyMentionPeriod",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/shareMentionPeriod/shareMentionPeriod",
+					"pathName": "packageA/pages/shareMentionPeriod/shareMentionPeriod",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/mentionPeriodIndex/mentionPeriodIndex",
+					"pathName": "packageA/pages/mentionPeriodIndex/mentionPeriodIndex",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/shareMentionPeriod/shareMentionPeriod",
+					"pathName": "packageA/pages/shareMentionPeriod/shareMentionPeriod",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/setSuccess/setSuccess",
+					"pathName": "packageA/pages/setSuccess/setSuccess",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/storeInfo/storeInfo",
+					"pathName": "packageA/pages/storeInfo/storeInfo",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/bankAccount/bankAccount",
+					"pathName": "packageA/pages/bankAccount/bankAccount",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/doBusiness/doBusiness",
+					"pathName": "packageA/pages/doBusiness/doBusiness",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/businessLicence/businessLicence",
+					"pathName": "packageA/pages/businessLicence/businessLicence",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/shareMentionPeriod/shareMentionPeriod",
+					"pathName": "packageA/pages/shareMentionPeriod/shareMentionPeriod",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/setDisbutionAddress/setDisbutionAddress",
+					"pathName": "packageA/pages/setDisbutionAddress/setDisbutionAddress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/distributionAddress/distributionAddress",
+					"pathName": "packageA/pages/distributionAddress/distributionAddress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 93,
+					"name": "packageA/pages/storeInfo/storeInfo",
+					"pathName": "packageA/pages/storeInfo/storeInfo",
+					"query": "inviterCode=353319",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/invitationCode/invitationCode",
+					"pathName": "pages/invitationCode/invitationCode",
+					"query": "inviterCode=353319",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/check/check",
+					"pathName": "packageA/pages/storeEnter/storeEnter",
+					"query": "inviterCode=338241&mobileNumber=17777777777",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/storeEnter/storeEnter",
+					"pathName": "packageA/pages/storeEnter/storeEnter",
+					"query": "inviterCode=338241&mobileNumber=17777777777",
+					"scene": null
+				},
+				{
+					"id": 98,
+					"name": "packageA/pages/payAttention/payAttention",
+					"pathName": "packageA/pages/payAttention/payAttention",
+					"query": "inviterCode=338241&mobileNumber=17777777777",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/storeEnter/storeEnter",
+					"pathName": "packageA/pages/storeEnter/storeEnter",
+					"query": "inviterCode=338241&mobileNumber=17777777777",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/allStore/allStore",
+					"pathName": "packageA/pages/allStore/allStore",
+					"query": "id=2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&goodsId=230&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/mine/mine",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&goodsId=230&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&goodsId=230&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&goodsId=230&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&goodsId=230&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&goodsId=230&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=122&businessId=5&goodsId=236&inviterCode=6461682",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=122&businessId=5&goodsId=236&inviterCode=6461682",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/mine/mine",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=122&businessId=5&goodsId=236&inviterCode=6461682",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=122&businessId=5&goodsId=236&inviterCode=6461682",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=122&businessId=5&goodsId=236&inviterCode=6461682",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=122&businessId=5&goodsId=236&inviterCode=6461682",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=122&businessId=5&goodsId=236&inviterCode=6461682",
 					"scene": null
 				}
 			]

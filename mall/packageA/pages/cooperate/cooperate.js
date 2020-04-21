@@ -1,4 +1,4 @@
-// pages/zeroPurchaseActivity/zeroPurchaseActivity.js
+// pages/cooperate/cooperate.js
 
 let app = getApp()
 Page({
@@ -19,6 +19,7 @@ Page({
     shareList: '', //分享数据详情
     // shareBgImg: '', //分享图片转换为本地图片
     btnText: '免费领取', //按钮
+    btnText1: '一元包邮领取', //按钮
     orderTabItem: [{
         title: '信用卡用户免费领',
         select: true,
@@ -54,18 +55,15 @@ Page({
     that.setData({
       type:3
     })
-    console.log(that.data.type)
     if (that.data.type) {
-      console.log(22)
       app.Util.ajax(`mall/home/activity/freeShopping?mode=${2}&type=${that.data.type}`, null, 'GET').then((res) => {
-        console.log("11"+JSON.stringify(res))
         if (res.data.content) {
           if (res.data.content.type == 1) {
               that.setData({
                 btnText: '免费领取'
               })
             that.setData({
-              zeroText: '需支付1分钱，支付成功后立刻返还至余额;每期新品限领一份，分享好友即可再领一份。'
+              zeroText: '每期新品限领一份。'
             })
             let current = res.data.content.remainingTime
             that.formatDuring(current)
@@ -109,7 +107,7 @@ Page({
               btnText: '免费领取'
             })
           that.setData({
-            zeroText: '需支付1分钱，支付成功后立刻返还至余额;每期新品限领一份。'
+            zeroText: '每期新品限领一份。'
           })
           let current = res.data.content.remainingTime
           that.formatDuring(current)
@@ -183,7 +181,7 @@ Page({
       if (res.data.content) {
         if (res.data.content.type == 1) {
           that.setData({
-            zeroText: '需支付1分钱，支付成功后立刻返还至余额;每期新品限领一份，分享好友即可再领一份。'
+            zeroText: '每期新品限领一份。'
           })
           let current = res.data.content.remainingTime
           that.formatDuring(current)
@@ -243,7 +241,7 @@ Page({
   jumpDetail: function(e) {
     var that = this
     wx.navigateTo({
-      url: `/packageA/pages/zeroPurchase/zeroPurchase?orgPrice=${e.currentTarget.dataset.price}&id=${e.currentTarget.dataset.id}&text=${e.currentTarget.dataset.text}&type=${that.data.type}`,
+      url: `/packageA/pages/zeroPurchase/zeroPurchase?orgPrice=${e.currentTarget.dataset.price}&id=${e.currentTarget.dataset.id}&type=${that.data.type}&text=${e.currentTarget.dataset.text}`,
     })
   },
   init: function() {
@@ -317,7 +315,6 @@ Page({
   showBtn: function(e) {
     var that = this
     var token = wx.getStorageSync('token')
-    console.log(token)
     if (!token) {
       wx.navigateTo({
         url: '/pages/invitationCode/invitationCode',
@@ -384,7 +381,6 @@ Page({
                 height = res.screenHeight
               }
             })
-            console.log(width, height)
 
             var ctx = wx.createCanvasContext('mycanvas');
             var path_bg = '/assets/images/icon/bg.png'; //背景图片
@@ -427,7 +423,7 @@ Page({
             ctx.closePath()
             // 绘制商品图片
             ctx.beginPath()
-            ctx.drawImage('/packageA/img/xuncaoji_cheats.png', 0.1308 * width + 7, 137, 0.617 * width - 14, 0.3 * height - 14);
+            ctx.drawImage('/assets/images/icon/xuncaoji_cheats.png', 0.1308 * width + 7, 137, 0.617 * width - 14, 0.3 * height - 14);
             ctx.closePath()
             // 绘制参与人数
             // ctx.beginPath()
@@ -528,7 +524,6 @@ Page({
               wx.canvasToTempFilePath({
                 canvasId: 'mycanvas',
                 success: function(res) {
-                  console.log('res', res)
                   that.data.haibaoImg = res.tempFilePath
                 }
               })
@@ -717,7 +712,6 @@ Page({
   onShareAppMessage: function(ops) {
     var that = this
     if (ops.from === 'button') {
-      console.log(ops.target.id)
       if (ops.target.id === 'btn') {
         that.setData({
           showModalStatus1: false

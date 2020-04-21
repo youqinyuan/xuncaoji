@@ -1,0 +1,10 @@
+/* packageA/pages/homeageSearch/homeageSearch.wxss */
+@import "/pages/search/search";
+@import "/template/searchList/searchList";
+@import "/template/searchList1/searchList1";
+page {
+  background: #fff;
+}
+.return-wrap {
+  margin-left: 0;
+}

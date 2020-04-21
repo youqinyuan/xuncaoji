@@ -1,0 +1,18 @@
+<!--packageA/pages/businessLicence/businessLicence.wxml-->
+    <view class="content">
+        <view class="title">
+            <view class="info">三、上传营业执照及其资质(最多十张)</view>
+        </view>
+    </view>
+        <view class="img_box">
+        <view class="commentImg_wrap" wx:for="{{goodsData.imgList}}" wx:key="items" wx:for-item="items">
+            <image src="{{items}}" catchtap="imgYu" data-src="{{items}}" class="theBusinessImg"></image>
+            <image src="{{hostUrl}}/changeImg/delete.png" class="close" catchtap="deleteImg" data-index="{{index}}"></image>
+         </view>
+        </view>
+        <view class="defult_box" catchtap="choiceImg" data-index="{{index}}" wx:if="{{goodsData.imgList.length<10}}">
+             <image src="{{hostUrl}}/changeImg/defult.png" class="defult"></image>
+        </view>
+        <view class="bottom"></view>
+        <view class="submit" bindtap="save">提交申请</view>
+

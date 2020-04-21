@@ -1,5 +1,5 @@
 <!--pages/waitReentryDetail/waitReentryDetail.wxml-->
-<view class="choose_box" wx:if="{{!goWaitReentry}}">
+<view class="choose_box" wx:if="{{!goWaitReentry&&!goMentionPeriod}}">
     <view class="choose_one" bindtap="showChoose1">待返来源
       <image src="{{hostUrl}}/mine/ic_more.png" class="more"/>
     </view>
@@ -12,26 +12,27 @@
 </view>
 <view class="box" wx:for="{{content}}" wx:key="" wx:if="{{!goWaitReentry}}">
   <image src="{{hostUrl}}/sponsor/bg_card3.png" class="img_bg" wx:if="{{item.status==1&&item.preSaleStatus ==0}}" />
-  <image src="/assets/images/new/bg_card5.png" class="img_bg" wx:if="{{item.preSaleStatus ==7&&item.otherTransfer==1}}" />
+  <image src="{{hostUrl}}/bg_card5.png" class="img_bg" wx:if="{{item.preSaleStatus ==7&&item.otherTransfer==1}}" />
   <image src="{{hostUrl}}/sponsor/bg_card4.png" class="img_bg" wx:if="{{item.preSaleStatus ==7&&item.otherTransfer==2}}" />
-  <image src="/assets/images/new/bg_card5.png" class="img_bg" wx:if="{{item.preSaleStatus !==0&&item.preSaleStatus !==7&&item.preSaleStatus !==8}}" />
+  <image src="{{hostUrl}}/bg_card5.png" class="img_bg" wx:if="{{item.preSaleStatus !==0&&item.preSaleStatus !==7&&item.preSaleStatus !==8}}" />
   <image src="{{hostUrl}}/sponsor/bg_card1.png" class="img_bg" wx:if="{{item.status==2&&item.userId==item.purchaserId&&item.preSaleStatus ==0}}" />
   <image src="{{hostUrl}}/sponsor/bg_card2.png" class="img_bg" wx:if="{{item.status==2&&item.userId!==item.purchaserId&&item.preSaleStatus ==0}}" />
-  <image src="{{hostUrl}}/sponsor/bg_card4.png" class="img_bg" wx:if="{{item.status==4||item.status==3&&item.preSaleStatus ==0}}" />
+  <image src="{{hostUrl}}/sponsor/bg_card4.png" class="img_bg" wx:if="{{item.preSaleStatus ==0?item.status==4||item.status==3:false}}" />
    <image src="{{hostUrl}}/sponsor/bg_card4.png" class="img_bg" wx:if="{{item.preSaleStatus ==8}}" />
   <view class="ReentryStatus">
     <text class="ReentryStatusValue color3" wx:if="{{item.status==1&&item.userId!==item.transferorId&&item.otherTransfer==1&&item.preSaleStatus ==0}}">转让完成-转让人：{{item.phone}}</text>
-    <text class="ReentryStatusValue color2" wx:if="{{item.status==2&&item.userId==item.transferorId&&item.preSaleStatus ==0}}">待返转让-购买人：{{item.mobileNumber}}<text >{{item.hours}}小时后自动取消</text></text>
-    <text class="ReentryStatusValue color1" wx:if="{{item.status==2&&item.userId!==item.transferorId&&item.preSaleStatus ==0}}">待返待确认-转让人：{{item.phone}}<text >{{item.hours}}小时后自动取消</text></text>
+    <text class="ReentryStatusValue color2" wx:if="{{item.status==2&&item.userId==item.transferorId&&item.preSaleStatus ==0}}">待返转让-购买人：{{item.mobileNumber}}<text >{{item.hours}}小时后取消</text></text>
+    <text class="ReentryStatusValue color1" wx:if="{{item.status==2&&item.userId!==item.transferorId&&item.preSaleStatus ==0}}">待返待确认-转让人：{{item.phone}}<text >{{item.hours}}小时后取消</text></text>
     <text class="ReentryStatusValue color4" wx:if="{{item.status==3&&item.preSaleStatus ==0}}">转让完成-购买人：{{item.mobileNumber}}</text>
     <text class="ReentryStatusValue color4" wx:if="{{item.status==4&&item.type==3&&item.preSaleStatus ==0}}">取消交易-转让人：{{item.phone}}</text>
     <text class="ReentryStatusValue color4" wx:if="{{item.status==4&&item.type==1&&item.preSaleStatus ==0}}">终止返现-退款</text>
     <text class="ReentryStatusValue color4" wx:if="{{item.status==4&&item.type==2&&item.preSaleStatus ==0}}">终止返现-终止</text>
     <!-- 预售待返 -->
     <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==1}}">预售订单-未支付尾款</text>
-    <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==2}}">预售订单-已支付尾款</text>
-    <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==3}}">买方已预定-请支付尾款-购买人：{{item.mobileNumber}}</text>
-    <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==4}}">买方已预定-卖方已支付尾款-购买人：{{item.mobileNumber}}</text>
+    <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==2&&item.latestStatus!==1}}">预售订单-已支付尾款</text>
+    <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==2&&item.latestStatus ==1}}">预售订单-预售撤销</text>
+    <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==3}}">买方已预订-请支付尾款-购买人：{{item.mobileNumber}}</text>
+    <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==4}}">买方已预订-卖方已支付尾款-购买人：{{item.mobileNumber}}</text>
     <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==5}}">预订成功-待卖方支付尾款-转让人：{{item.phone}}</text>
     <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==6}}">预订成功-卖方已支付尾款-转让人：{{item.phone}}</text>
     <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==7&&item.otherTransfer==1}}">预售订单-转让完成-转让人：{{item.phone}}</text>
@@ -40,15 +41,16 @@
     <image src="{{hostUrl}}/sponsor/tab_33.png" class="img_tab11" wx:if="{{item.status==1&&item.userId!==item.transferorId&&item.otherTransfer==1&&item.preSaleStatus ==0}}" />
     <image src="{{hostUrl}}/sponsor/tab_11.png" class="img_tab11" wx:if="{{item.status==2&&item.userId==item.purchaserId&&item.preSaleStatus ==0}}" />
     <image src="{{hostUrl}}/sponsor/tab_22.png" class="img_tab11" wx:if="{{item.status==2&&item.userId!==item.purchaserId&&item.preSaleStatus ==0}}" />
-    <image src="{{hostUrl}}/sponsor/tab_44.png" class="img_tab11" wx:if="{{item.status==4||item.status==3&&item.preSaleStatus ==0}}" />
+    <image src="{{hostUrl}}/sponsor/tab_44.png" class="img_tab11" wx:if="{{item.preSaleStatus ==0?item.status==4||item.status==3:false}}" />
+    <image src="{{hostUrl}}/sponsor/tab_44.png" class="img_tab11" wx:if="{{item.preSaleStatus ==7?item.otherTransfer==2:item.preSaleStatus ==8}}" />
     <!-- 预售待返 -->
-    <image src="/assets/images/new/tab_55.png" class="img_tab11" wx:if="{{item.preSaleStatus !==0&&item.preSaleStatus !==8&&item.preSaleStatus !==7}}" />
-        <image src="/assets/images/new/tab_55.png" class="img_tab11" wx:if="{{item.preSaleStatus ==7&&item.otherTransfer==1}}" />
+    <image src="{{hostUrl}}/tab_55.png" class="img_tab11" wx:if="{{item.preSaleStatus !==0&&item.preSaleStatus !==8&&item.preSaleStatus !==7}}" />
+    <image src="{{hostUrl}}/tab_55.png" class="img_tab11" wx:if="{{item.preSaleStatus ==7&&item.otherTransfer==1}}" />
   </view>
   <view class="Reentry_title">
     <text>{{item.remark}}</text>
   </view>
-  <view class="Reentry_time">
+  <view class="Reentry_time {{item.status!==4&&item.status!==3?index==0?'right51':'':'right51'}}">
     <text>{{item.tradeTime}}</text>
   </view>
   <view class="sellPrice_box" wx:if="{{item.status==2&&item.userId!==item.transferorId&&item.preSaleStatus ==0}}">
@@ -63,39 +65,42 @@
     </view>
     <text>已返：￥{{item.amountReturned}}</text>
   </view>
+  <view class="sticky" bindtap="sticky" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" data-returnType="{{item.returnType}}" data-code="{{item.code}}" wx:if="{{index!==0?item.status!==4&&item.status!==3:false}}">置顶</view>
   <!-- 撤销预售 -->
-  <view class="pre_sell" wx:if="{{item.preSaleStatus !==0&&item.preSaleStatus !==7&&item.preSaleStatus !==8&&item.otherTransfer==2}}" bindtap="cancelPreSell" data-preSaleStatus="{{item.preSaleStatus}}" data-orderId="{{item.orderId}}">撤销预售</view>
+  <view class="pre_sell" wx:if="{{item.defaultAmountStatus==2&&item.otherTransfer==2}}" bindtap="cancelPreSell" data-preSaleStatus="{{item.preSaleStatus}}" data-orderId="{{item.orderId}}">撤销预售</view>
   <view class="button_new_box" wx:if="{{item.status!==4&&item.status!==3}}">
     <view class="botton_box" wx:if="{{item.status==2&&item.userId!==item.transferorId&&item.preSaleStatus ==0}}">
-      <text class="Reentry_detail" bindtap="Reentry_detail" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" data-returnType="{{item.returnType}}" wx:if="{{item.returnType!==2}}" data-proStatus="{{item.proStatus}}" data-whetherAdvanceSale="{{item.whetherAdvanceSale}}" data-defaultAmountStatus="{{item.defaultAmountStatus}}">返现明细</text>
-      <text class="shure" bindtap="shure" data-transferId="{{item.transferId}}" data-avatarKey="{{item.avatarKey}}" data-nickname="{{item.nickname}}" data-sellPrice="{{item.sellPrice}}" data-phone="{{item.phone}}" data-cycle="{{item.cycle}}" data-returnAmount="{{item.returnAmount}}">确认交易</text>
+      <text class="Reentry_detail" bindtap="Reentry_detail" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}"  data-code="{{item.code}}" data-returnType="{{item.returnType}}" wx:if="{{item.returnType!==2}}" data-proStatus="{{item.proStatus}}" data-whetherAdvanceSale="{{item.whetherAdvanceSale}}" data-defaultAmountStatus="{{item.defaultAmountStatus}}" data-code="{{item.code}}">返现明细</text>
+      <text class="shure" bindtap="shure" data-transferId="{{item.transferId}}" data-avatarKey="{{item.avatarKey}}" data-nickname="{{item.nickname}}" data-sellPrice="{{item.sellPrice}}" data-phone="{{item.phone}}" data-cycle="{{item.cycle}}" data-returnAmount="{{item.returnAmount}}" data-code="{{item.code}}">确认交易</text>
     </view>
     <view class="botton_box" wx:if="{{item.status==2&&item.userId==item.transferorId&&item.preSaleStatus ==0}}">
-      <text class="cancle_return" bindtap="returnCancleShow" data-transferId="{{item.transferId}}">撤销转让</text>
+      <text class="cancle_return" bindtap="returnCancleShow" data-transferId="{{item.transferId}}" >撤销转让</text>
       <text class="return_loding" bindtap="return_lod">转让中...</text>
     </view>
     <view class="botton_box" wx:if="{{item.status==1&&item.preSaleStatus ==0}}">
       <view class="postingCard" wx:if="{{item.status==1}}" bindtap='postingCard' data-index="{{index}}">发卖帖</view>
-      <text class="Reentry_detail1" bindtap="Reentry_detail" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" wx:if="{{item.returnType!==2}}" data-proStatus="{{item.proStatus}}" data-whetherAdvanceSale="{{item.whetherAdvanceSale}}" data-defaultAmountStatus="{{item.defaultAmountStatus}}">返现明细</text>
-      <text class="return" bindtap="return" data-returnType="{{item.returnType}}" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" data-money="{{item.noCashBackAmount}}">转让</text>
+      <view class="payPreSell colorsell" wx:if="{{item.isMentionPeriod==1}}" bindtap="toMentionPeriod" data-index="{{index}}">提期</view>
+      <text class="Reentry_detail1" bindtap="Reentry_detail" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" wx:if="{{item.returnType!==2}}" data-proStatus="{{item.proStatus}}" data-whetherAdvanceSale="{{item.whetherAdvanceSale}}" data-defaultAmountStatus="{{item.defaultAmountStatus}}" data-code="{{item.code}}">返现明细</text>
+      <text class="return" bindtap="return" data-returnType="{{item.returnType}}" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" data-money="{{item.noCashBackAmount}}" data-code="{{item.code}}">转让</text>
     </view>
     <!-- 预售待返 -->
     <view class="botton_box" wx:if="{{item.preSaleStatus !==0}}">
       <!-- 卖方 -->
-      <text class="payPreSell" wx:if="{{item.preSaleStatus ==3}}" bindtap="toPay" data-id="{{item.transId}}" data-orderid="{{item.orderId}}">支付尾款</text>
+      <text class="payPreSell" wx:if="{{item.preSaleStatus ==2&&item.latestStatus ==1?true:item.preSaleStatus ==3}}" bindtap="toPay" data-id="{{item.transId}}" data-orderid="{{item.orderId}}">支付尾款</text>
       <!-- 买方 -->
       <text class="payPreSell" wx:if="{{item.preSaleStatus ==5||item.preSaleStatus ==6}}" bindtap="shure_two" data-transferId="{{item.transferId}}" data-preSaleStatus="{{item.preSaleStatus}}">支付尾款</text>
       <text class="payPreSell noBind1" wx:if="{{item.preSaleStatus ==4}}">支付尾款</text>
-      <view class="postingCard2" wx:if="{{item.preSaleStatus ==7&&item.otherTransfer==1||item.preSaleStatus==1||item.preSaleStatus==2}}" bindtap='postingCard' data-index="{{index}}">发卖帖</view>
+      <view class="postingCard2" wx:if="{{item.latestStatus ==1?item.preSaleStatus ==7&&item.otherTransfer==1||item.preSaleStatus==1:item.preSaleStatus ==7&&item.otherTransfer==1||item.preSaleStatus==1||item.preSaleStatus==2}}" bindtap='postingCard' data-index="{{index}}">发卖帖</view>
       <view class="postingCard2 noBind1" wx:else>发卖帖</view>
-      <text class="Reentry_detail2" bindtap="Reentry_detail" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" wx:if="{{item.preSaleStatus ==7&&item.otherTransfer==1||item.preSaleStatus==1||item.preSaleStatus==2}}" data-proStatus="{{item.proStatus}}" data-whetherAdvanceSale="{{item.whetherAdvanceSale}}" data-defaultAmountStatus="{{item.defaultAmountStatus}}">返现明细</text>
+       <view class="payPreSell" wx:if="{{item.isMentionPeriod==1}}" bindtap="toMentionPeriod" data-index="{{index}}">提期</view>
+      <text class="Reentry_detail2" bindtap="Reentry_detail" data-orderId="{{item.orderId}}" data-code="{{item.code}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" wx:if="{{item.latestStatus ==1?item.preSaleStatus ==7&&item.otherTransfer==1||item.preSaleStatus==1:item.preSaleStatus ==7&&item.otherTransfer==1||item.preSaleStatus==1||item.preSaleStatus==2}}" data-proStatus="{{item.proStatus}}" data-whetherAdvanceSale="{{item.whetherAdvanceSale}}" data-defaultAmountStatus="{{item.defaultAmountStatus}}">返现明细</text>
       <text class="Reentry_detail2 noBind1" wx:else>返现明细</text>
-      <text class="return2 " wx:if="{{item.preSaleStatus ==7&&item.otherTransfer==1||item.preSaleStatus==2}}" bindtap="return" data-returnType="{{item.returnType}}" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" data-money="{{item.noCashBackAmount}}">转让</text>
+      <text class="return2 " wx:if="{{item.latestStatus ==1?item.preSaleStatus ==7&&item.otherTransfer==1:item.preSaleStatus ==7&&item.otherTransfer==1||item.preSaleStatus==2}}" bindtap="return" data-returnType="{{item.returnType}}" data-orderId="{{item.orderId}}" data-orderGoodsId="{{item.orderGoodsId}}" data-transferId="{{item.transferId}}" data-money="{{item.noCashBackAmount}}" data-code="{{item.code}}">转让</text>
       <text class="return2 noBind" wx:else>转让</text>
     </view>
   </view>
 </view>
-<view class="choose_box" wx:if="{{goWaitReentry}}">
+<view class="choose_box" wx:if="{{goWaitReentry||goMentionPeriod}}">
     <view class="choose_one" bindtap="showChoose1">待返来源
       <image src="{{hostUrl}}/mine/ic_more.png" class="more"/>
     </view>
@@ -106,7 +111,7 @@
       <image src="{{hostUrl}}/mine/ic_more.png" class="more"/>
     </view>
 </view>
-<view class="box" wx:for="{{contentPsoting}}" wx:key="" bindtap='backPosting' data-index="{{index}}" wx:if="{{goWaitReentry}}">
+<view class="box" wx:for="{{contentPsoting}}" wx:key="" bindtap='backPosting' data-index="{{index}}" wx:if="{{goWaitReentry||goMentionPeriod}}">
   <image src="{{hostUrl}}/sponsor/bg_card3.png" class="img_bg" wx:if="{{item.status==1}}" />
   <view class="ReentryStatus">
     <text class="ReentryStatusValue color3" wx:if="{{item.status==1&&item.otherTransfer==1}}">转让完成-转让人：{{item.phone}}</text>
@@ -115,7 +120,7 @@
   <view class="Reentry_title">
     <text>{{item.remark}}</text>
   </view>
-  <view class="Reentry_time">
+  <view class="Reentry_time right1">
     <text>{{item.tradeTime}}</text>
   </view>
   <view class="Reentry_money">
@@ -268,7 +273,7 @@
 <!-- 有人出售弹窗 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry3}}">
   <view class="zan-dialog__container" wx:if="{{waitReentry3}}">
-    <!-- <image wx:if="{{waitReentry3}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose3'></image> -->
+    <image wx:if="{{waitReentry3}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose3'></image>
     <view class="title">待返转让</view>
     <view class="text">
       <view class="cause_box">
@@ -383,7 +388,7 @@
     <image wx:if="{{sellOneStatus}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sellClose1'></image>
     <view class="title">撤销预售</view>
       <view class="text4">
-        <view >此预售订单无人预定，撤销后将返还您所支付的违约金，是否撤销？</view>
+        <view >此预售订单无人预订，撤销后将返还您所支付的违约金，是否撤销？</view>
       </view>
       <view >
         <button class="shure_one3" bindtap='sellClose1'>取消</button>
@@ -398,7 +403,7 @@
     <view class="title">撤销预售</view>
       <view class="text4">
         <view >
-          您的预售订单已被买方预定，如果现在撤销预售订单系统将扣除您的违约金，并删除订单交易中的卖贴信息。是否撤销？</view>
+          您的预售订单已被买方预订，如果现在撤销预售订单系统将扣除您的违约金，并删除订单交易中的卖贴信息。是否撤销？</view>
       </view>
       <view >
         <button class="shure_one3" bindtap='sellClose2'>取消</button>

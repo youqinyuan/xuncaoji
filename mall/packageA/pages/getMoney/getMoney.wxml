@@ -1,0 +1,21 @@
+<!--packageA/pages/getMoney/getMoney.wxml-->
+<view class="getMoney-wrap">
+  <view class="getMoney-swiper_item" wx:for="{{allPost}}" wx:key="{{item.id}}">
+    <image class="getMoneyPhoto" wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
+    <image class="getMoneyPhoto" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+    <view class="getMoney-middle">
+      <view class="getName">
+        <text>{{item.nickname}}</text>
+        <text>出价：{{item.expectAmount}}元</text>
+      </view>
+      <view class="getSpec">
+        <text>{{item.specDesc}}</text>
+        <text>原价：{{item.platformOrgAmount}}元</text>
+      </view>
+    </view>
+    <view class="getMoneyBtn" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">赚 {{item.expectAmount}}</view>
+  </view>
+</view>
+<view class="postingBtn-wrap" bindtap="toDetail">
+  <view class="postingBtn">发布赚钱订单</view>
+</view>

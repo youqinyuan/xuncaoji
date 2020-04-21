@@ -1,0 +1,126 @@
+/* packageA/pages/modifyAdress/modifyAdress.wxss */
+page{
+    font-family:PingFang SC;
+    background:rgba(244,244,244,1);
+}
+.content{
+    background:#fff;
+}
+.list{
+    height: 90rpx;
+    position: relative;
+    border-bottom: 2rpx solid #E7E7E7;
+}
+.bortop{
+    border-top: 2rpx solid #F4F4F4;
+}
+.title{
+    display: inline-block;
+    height: 90rpx;
+    line-height: 90rpx;
+    margin-left: 31rpx;
+    color: #666666;
+}
+.text{
+    height: 90rpx;
+    line-height: 90rpx;
+    text-align: right;
+    width: 500rpx;
+    position: absolute;
+    right: 30rpx;
+    display: inline-block;
+    color:rgba(51,51,51,1);
+}
+.delete{
+    width:330rpx;
+    height:80rpx;
+    border:2rpx solid rgba(255,38,68,1);
+    border-radius:40rpx;
+    font-size:32rpx;
+    color:rgba(255,38,68,1);
+    display: inline-block;
+    line-height: 80rpx;
+    text-align: center;
+    margin-left: 30rpx;
+    margin-top: 60rpx;
+}
+.save{
+    width:330rpx;
+    height:80rpx;
+    background:linear-gradient(90deg,rgba(255,106,72,1) 0%,rgba(255,38,68,1) 100%);
+    border-radius:40rpx;
+    font-size:32rpx;
+    color:rgba(255,255,255,1);
+    margin-left: 30rpx;
+    display: inline-block;
+    margin-top: 60rpx;
+}
+.interest-zan-dialog__mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+  }
+  
+  .interest-zan-dialog__mask .zan-dialog__container {
+    width: 600rpx;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 24rpx;
+    overflow: hidden;
+    position: fixed;
+    top: 220rpx;
+    left: 75rpx;
+    z-index: 9999;
+  }
+
+  .interest-zan-dialog__mask .zan-dialog__container .title2 {
+    width: 170rpx;
+    margin: 44rpx auto;
+    font-size: 34rpx;
+    font-family: PingFang-SC-Bold;
+    color: rgba(34, 34, 34, 1);
+    text-align: center;
+  }
+.text2{
+    width:487rpx;
+    height:40rpx;
+    font-size:28rpx;
+    font-family:PingFang SC;
+    color:#333;
+    line-height:42rpx;
+    margin-left: 51rpx;
+    text-align: center;
+  }
+  .button_box{
+      height: 200rpx;
+  }
+  .button_one{
+    width:240rpx;
+    height:76rpx;
+    border:2rpx solid rgba(255,38,68,1);
+    border-radius:38rpx;
+    font-size:32rpx;
+    color:rgba(255,38,68,1);
+    text-align: center;
+    line-height: 76rpx;
+    display: inline-block;
+    margin-left: 48rpx;
+    margin-top: 60rpx;
+  }
+  .button_two{
+    width:240rpx;
+    height:76rpx;
+    background:rgba(255,38,68,1);
+    border-radius:38rpx;
+    font-size:32rpx;
+    font-family:PingFang SC;
+    color:rgba(255,255,255,1);
+    text-align: center;
+    line-height: 76rpx;
+    display: inline-block;
+    margin-left: 20rpx;
+    margin-top: 60rpx;
+  }

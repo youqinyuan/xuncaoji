@@ -1,0 +1,33 @@
+<!--packageA/pages/distributionAddress/distributionAddress.wxml-->
+<!-- 配送地址 -->
+<view class="content" wx:if="{{!storeId}}">
+    <view class="addressList" wx:for="{{content}}" wx:key="{{item.id}}">
+        <view class="address_one">{{item.houseNumber}}</view>
+        <view class="address_two ">{{item.detailedAddress}}</view>
+        <view class="name">{{item.receiverName}}</view>
+        <view class="phone">{{item.mobileNumber}}</view>
+        <image class="bianji" src="{{hostUrl}}/changeImg/bianji.png" bindtap="modifyAddress" data-index="{{index}}" data-type='1'/>
+    </view>
+</view>
+<!-- 选择配送地址 -->
+<view class="content" wx:if="{{storeId}}">
+    <view class="addressList" wx:for="{{content3}}" wx:key="{{item.id}}" data-index="{{index}}" bindtap="toBack">
+        <view class="address_one">{{item.houseNumber}}</view>
+        <view class="address_two ">{{item.detailedAddress}}</view>
+        <view class="name">{{item.receiverName}}</view>
+        <view class="phone">{{item.mobileNumber}}</view>
+        <image class="bianji" src="{{hostUrl}}/changeImg/bianji.png" bindtap="modifyAddress" data-index="{{index}}" data-type='2'/>
+    </view>
+</view>
+<view class="outFont" wx:if="{{storeId}}">以下地址超出配送范围</view>
+<view class="content" wx:if="{{storeId}}">
+    <view class="addressList" wx:for="{{content2}}" wx:key="{{item.id}}">
+        <view class="address_one fontColorCCC">{{item.houseNumber}}</view>
+        <view class="address_two fontColorCCC">{{item.detailedAddress}}</view>
+        <view class="name fontColorCCC">{{item.receiverName}}</view>
+        <view class="phone fontColorCCC">{{item.mobileNumber}}</view>
+        <image class="bianji" src="{{hostUrl}}/changeImg/bianji.png" bindtap="modifyAddress" data-index="{{index}}" data-type='3'/>
+    </view>
+</view>
+<view style="height:200rpx"></view>
+<view class="setDistribution" bindtap="setDistribution">添加地址</view>

@@ -1,0 +1,33 @@
+/* packageA/pages/saveBuy/saveBuy.wxss */
+@import "/pages/forum/forum";
+
+.container {
+  margin-top: 0rpx;
+  margin-bottom: 20rpx;
+  padding-bottom: 30rpx;
+}
+
+.notStore {
+  display: flex;
+  flex-direction: column;
+  font-size: 28rpx;
+}
+
+.notStore image {
+  width: 750rpx;
+  height: 320rpx;
+}
+
+.notStoreText {
+  text-align: center;
+  color: #999;
+}
+
+.content_all {
+  width: 135rpx;
+  height: 135rpx;
+  position: fixed;
+  right: 0rpx;
+  top: 893rpx;
+  z-index: 100;
+}

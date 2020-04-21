@@ -12,28 +12,31 @@ Page({
     currentTab: 1,
     pageNumber: 1,
     pageNum: 1,
+    mentionPeriodPageNum: 1,
     isRecommend: false,
     pageSize: 20,
     navData: [{
-      type: 6,
+      type: 7,
       text: '关注'
     }, {
-      type: 5,
+      type: 9,
       text: '全部'
-      }, {
-        type: 3,
-        text: '买订单'
-      }, {
-        type: 2,
-        text: '卖订单'
-      }, {
-        type: 4,
-        text: '预售订单'
-      }, {
+    }, {
+      type: 6,
+      text: '商品交易'
+    }, {
+      type: 8,
+      text: '提期'
+    }, {
+      type: 4,
+      text: '订单交易'
+    }, {
       type: 1,
       text: '普通帖'
     }],
-    type: null,
+    showClass: 1, //省钱/赚钱订单
+    selectClass: 4, //订单交易
+    type: 8,
     tempStatus: null,
     allPost: [], //帖子列表
     emptyText: '', //空数据的时候
@@ -50,21 +53,26 @@ Page({
     messageNum: null,
     showClassify: false, //帖子类型弹框
     list: [{
-      img: app.Util.getUrlImg().hostUrl+'/add/ic_ordinary.png',
-      text: '普通帖',
-      remark: '',
-      status: 1
-    }, {
-        img: app.Util.getUrlImg().hostUrl+'/update/ic_buy.png',
-      text: '买帖',
-      remark: '我要买',
+      img: app.Util.getUrlImg().hostUrl + '/update/ic_buy.png',
+      // text: '我要买订单',
+      remark: '我要买订单',
       status: 2
     }, {
-        img: app.Util.getUrlImg().hostUrl+'/update/ic_sale.png',
-      text: '卖帖',
-      remark: '我要卖',
+      img: app.Util.getUrlImg().hostUrl + '/update/ic_sale.png',
+      // text: '卖帖',
+      remark: '我要卖订单',
       status: 3
     }],
+    list1: [{
+      img: app.Util.getUrlImg().hostUrl+'/changeImg/ic_earn.png',
+      remark: '发布赚钱订单',
+      status: 1
+    }, {
+      img: app.Util.getUrlImg().hostUrl+'/changeImg/ic_save.png',
+      remark: '发布省钱订单',
+      status: 2
+    }],
+    list2: ['普通贴','卖帖', '买帖', '省钱帖', '赚钱帖'],
     weihu: false,
     showPassword: false,
     isFocus: false, //聚焦 
@@ -78,36 +86,111 @@ Page({
     waitReentry3: false,
     waitReentry: false,
     waitReentry2: false,
-    returnCanclePeople:false,
-    showDialog:false,
-    typeStatus:null,
+    returnCanclePeople: false,
+    showDialog: false,
+    typeStatus: null,
+    shareImg: '', //提期分享图片
+    siftLeft: false, //提期
+    siftRight: false, //提期
+    siftRightIndex: 1, //提期
+    tabName: '发布时间新旧', //提期
+    isShield: false, //提期
+    sort: 1, //提期
+    showModalStatus1: false, //提期分享
+    host: app.Util.getUrlImg().host,
+    isPublish:false,//变换按钮
+    imgPublish: app.Util.getUrlImg().hostUrl  +'/changeImg/btn_publish.png',
+    attr:1,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
+  getMoney: function(e) {
+    let that = this;
+    that.setData({
+      showClass: 1,
+      type: 6
+    })
+    that.allPost()
+  },
+  saveMoney: function(e) {
+    let that = this;
+    that.setData({
+      showClass: 2,
+      type: 5
+    })
+    that.allPost()
+  },
+  yuOrder: function(e) {
+    let that = this;
+    that.setData({
+      selectClass: 4,
+      type: 4
+    })
+    that.ordinaryPost()
+  },
+  saleOrder: function(e) {
+    let that = this;
+    that.setData({
+      selectClass: 3,
+      type: 3
+    })
+    that.ordinaryPost()
+  },
+  buyOrder: function(e) {
+    let that = this;
+    that.setData({
+      selectClass: 2,
+      type: 2
+    })
+    that.ordinaryPost()
+  },
   onLoad: function(options) {
     var that = this
     //新消息总数
     if (wx.getStorageSync('token')) {
       that.getMessage();
     }
-    if (that.data.currentTab == 1) {
+    if (that.data.currentTab == 1){
+      that.allOrder()
+    }else if (that.data.currentTab == 2) {
       that.allPost()
-    } else if (that.data.currentTab == 2 || that.data.currentTab == 3 || that.data.currentTab == 4 || that.data.currentTab == 5) {
+    } else if (that.data.currentTab == 4 || that.data.currentTab == 5) {
       that.ordinaryPost()
     } else if (that.data.currentTab == 0) {
       that.followPost()
+    } else if (that.data.currentTab == 4) {
+      that.mentionPeriodInit()
     }
   },
-
+  mentionPeriodInit: function() {
+    let that = this
+    app.Util.ajax('mall/forum/topic/findPageList', {
+      pageNumber: that.data.mentionPeriodPageNum,
+      pageSize: that.data.pageSize,
+      type: 7,
+      isShield: that.data.isShield,
+      sort: that.data.sort
+    }, 'GET').then((res) => {
+      if (res.data.messageCode == 'MSG_1001') {
+        that.setData({
+          mentionPeriodContent: res.data.content.items
+        })
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
 
   },
-
   /**
    * 生命周期函数--监听页面显示
    */
@@ -116,8 +199,8 @@ Page({
     //转让消息提示 
     //新消息总数
     if (wx.getStorageSync('token')) {
-      that.getMessage();  
-      that.returnInfo()    
+      that.getMessage();
+      that.returnInfo()
     }
     if (wx.getStorageSync('recharge') || wx.getStorageSync('password')) {
       that.setData({
@@ -125,44 +208,52 @@ Page({
         sureTwo: false,
       })
     }
-    if (wx.getStorageSync('posting')) {
-      that.setData({
-        pageNumber: 1,
-        allPost: [],
-        currentTab: 1,
-        pageNum: 1
-      })
-      if (that.data.currentTab == 1) {
+    if (wx.getStorageSync('comment')) {
+      if (that.data.currentTab == 2) {
         that.allPost()
-      } else if (that.data.currentTab == 2 || that.data.currentTab == 3 || that.data.currentTab == 4 || that.data.currentTab == 5) {
-        that.ordinaryPost()
-      } else if (that.data.currentTab == 0) {
-        that.followPost()
-      }
-    } else if (wx.getStorageSync('comment')) {
-      if (that.data.currentTab == 1) {
-        that.allPost()
-      } else if (that.data.currentTab == 2 || that.data.currentTab == 3 || that.data.currentTab == 4|| that.data.currentTab == 5) {
+      } else if (that.data.currentTab == 3 || that.data.currentTab == 4) {
         that.ordinaryPost()
       } else if (that.data.currentTab == 0) {
         that.followPost()
       }
       wx.removeStorageSync('comment')
     } else if (wx.getStorageSync('wait')) {
-      if (that.data.currentTab == 1) {
+      if (that.data.currentTab == 2) {
         that.allPost()
-      } else if (that.data.currentTab == 2 || that.data.currentTab == 3 || that.data.currentTab == 4 || that.data.currentTab == 5) {
+      } else if (that.data.currentTab == 4 || that.data.currentTab == 5) {
         that.ordinaryPost()
       } else if (that.data.currentTab == 0) {
         that.followPost()
       }
       wx.removeStorageSync('wait')
-    }else if (app.globalData.type == 4) {
+    } else if (app.globalData.type == 2) {
+      that.setData({
+        type: 5,
+        currentTab: 2,
+        showClass:2
+      })
+      that.allPost()
+    } else if (app.globalData.type == 3) {
+      that.setData({
+        type: 6,
+        currentTab: 2,
+        showClass: 1
+      })
+      that.allPost()
+    } else if (app.globalData.type == 4) {
       that.setData({
         type: 4,
         currentTab: 4
       })
       that.ordinaryPost()
+    } else if (app.globalData.type == 5) {
+      that.setData({
+        type: 8,
+        currentTab: 3
+      })
+      that.mentionPeriodInit()
+    } else {
+      that.onPullDownRefresh()
     }
   },
 
@@ -190,11 +281,16 @@ Page({
     that.setData({
       pageNumber: 1,
       pageNum: 1,
+      mentionPeriodPageNum: 1
     })
     if (that.data.currentTab == 0) {
       that.followPost()
     } else if (that.data.currentTab == 1) {
+      that.allOrder()
+    }  else if (that.data.currentTab == 2) {
       that.allPost()
+    } else if (that.data.currentTab == 3) {
+      that.mentionPeriodInit()
     } else {
       that.ordinaryPost()
     }
@@ -211,17 +307,117 @@ Page({
     } else if (that.data.currentTab == 0 && that.data.isRecommend == true) {
       that.getRecommend()
     } else if (that.data.currentTab == 1) {
+      that.getAllOrder()
+    } else if (that.data.currentTab == 2) {
       that.getAllPost()
+    } else if (that.data.currentTab == 3) {
+      that.getMentionPeriodInit()
     } else {
       that.getOrdinary()
     }
+  },
+  getMentionPeriodInit: function() {
+    var that = this
+    var mentionPeriodPageNum = that.data.mentionPeriodPageNum + 1
+    console.log(mentionPeriodPageNum)
+    app.Util.ajax('mall/forum/topic/findPageList', {
+      pageNumber: mentionPeriodPageNum,
+      pageSize: that.data.pageSize,
+      type: 7,
+      isShield: that.data.isShield,
+      sort: that.data.sort
+    }, 'GET').then((res) => {
+      if (res.data.content) {
+        if (res.data.content.items == '' && that.data.mentionPeriodContent !== '') {
+          wx.showToast({
+            title: '已经到底啦',
+            icon: 'none'
+          })
+        }
+        var arr = that.data.mentionPeriodContent
+        if (res.data.content.items.length > 0) {
+          for (var i = 0; i < res.data.content.items.length; i++) {
+            var arr1 = arr.concat(res.data.content.items)
+            for (let i in arr1) {
+              if (arr1[i].content) {
+                arr1[i].content = arr1[i].content
+              } else {
+                arr1[i].content = ''
+              }
+              arr1[i].commentPageResponse.items = arr1[i].commentPageResponse.items.slice(0, 2)
+              arr1[i].isShowAll = 2
+              arr1[i].isText = ''
+              arr1[i].ellipsis = true
+              arr1[i].flag = 1
+            }
+          }
+          that.setData({
+            mentionPeriodContent: arr1,
+            mentionPeriodPageNum: mentionPeriodPageNum
+          })
+        }
+      }
+    })
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function(res) {
+    var that = this
+    if (res.from == "button") {
+      if (res.target.id === 'btn') {
+        // 来自页面内转发按钮
+        that.setData({
+          showModalStatus1: false
+        })
+        wx.showTabBar()
+        app.Util.ajax('mall/weChat/sharing/onSuccess', {
+          mode: 16
+        }, 'POST').then((res) => {
+          if (res.data.content) {
+            wx.showToast({
+              title: '分享成功',
+              icon: 'none'
+            })
+          }
+        })
+        return {
+          title: '请助我一臂之力帮我提期，您也可享受超高收益',
+          path: that.data.shareList.link,
+          imageUrl: that.data.shareImg,
+          success: function(res) {
 
+          },
+          fail: function(res) {
+            // 转发失败
+            console.log("转发失败:" + JSON.stringify(res));
+          }
+        }
+      } else if (res.target.id === 'btnGroup') {
+        that.setData({
+          showModalStatus1: false
+        })
+        wx.showTabBar()
+        app.Util.ajax('mall/weChat/sharing/onSuccess', {
+          mode: 16
+        }, 'POST').then((res) => {
+          if (res.data.content) {
+            wx.showToast({
+              title: '分享成功',
+              icon: 'none'
+            })
+          } else {
+
+          }
+        })
+        return {
+          title: '请助我一臂之力帮我提期，您也可享受超高收益',
+          path: that.data.shareList.link,
+          imageUrl: that.data.shareImg,
+        }
+      }
+    }
   },
   //新消息总数
   getMessage: function() {
@@ -250,55 +446,16 @@ Page({
       urls: imgArr
     })
   },
-  //全部分类
-  allPost: function() {
-    var that = this
-    app.Util.ajax('mall/forum/topic/findPageList', {
-      pageNumber: that.data.pageNumber,
-      pageSize: that.data.pageSize,
-    }, 'GET').then((res) => {
-      if (res.data.content) {
-        var arr = []
-        var arr1 = arr.concat(res.data.content.items)
-        for (let i in arr1) {
-          if (arr1[i].content) {
-            arr1[i].content = arr1[i].content
-          } else {
-            arr1[i].content = ''
-          }
-          // arr1[i].createTime = time.formatTimeTwo(arr1[i].createTime, 'Y-M-D h:m')
-          // arr1[i].maxReturnTime = time.formatTimeTwo(arr1[i].maxReturnTime, 'Y-M-D')
-          arr1[i].commentPageResponse.items = arr1[i].commentPageResponse.items.slice(0, 2)
-          arr1[i].isShowAll = 2
-          arr1[i].isText = ''
-          arr1[i].ellipsis = true
-          arr1[i].flag = 1
-        }
-        that.setData({
-          allPost: arr1
-        })
-        if (that.data.allPost.length > 0) {
-          //获取元素高度
-          that.getHeight();
-        }
-      } else {
-        // wx.showToast({
-        //   title:res.data.message,
-        //   icon:'none'
-        // })
-        that.setData({
-          weihu: true
-        })
-      }
-    })
-  },
-  getAllPost: function() {
-    var that = this
-    var pageNumber = that.data.pageNumber + 1
-    app.Util.ajax('mall/forum/topic/findPageList', {
+  //公共部分加载更多
+  utilsData: function() {
+    let that = this
+    let pageNumber = that.data.pageNumber + 1
+    let data = {
       pageNumber: pageNumber,
       pageSize: that.data.pageSize,
-    }, 'GET').then((res) => { // 使用ajax函数
+      type: that.data.type
+    }
+    app.Util.ajax('mall/forum/topic/findPageList', data, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         if (res.data.content.items == '' && that.data.allPost !== '') {
           wx.showToast({
@@ -316,8 +473,6 @@ Page({
               } else {
                 arr1[i].content = ''
               }
-              // arr1[i].createTime = time.formatTimeTwo(arr1[i].createTime, 'Y-M-D h:m')
-              // arr1[i].maxReturnTime = time.formatTimeTwo(arr1[i].maxReturnTime, 'Y-M-D')
               arr1[i].commentPageResponse.items = arr1[i].commentPageResponse.items.slice(0, 2)
               arr1[i].isShowAll = 2
               arr1[i].isText = ''
@@ -342,6 +497,130 @@ Page({
       }
     })
   },
+  //全部
+  allOrder(){
+    var that = this
+    let data = {
+      pageNumber: that.data.pageNumber,
+      pageSize: that.data.pageSize,
+    }
+    app.Util.ajax('mall/forum/topic/findPageList', data, 'GET').then((res) => {
+      if (res.data.content) {
+        var arr = []
+        var arr1 = arr.concat(res.data.content.items)
+        for (let i in arr1) {
+          if (arr1[i].content) {
+            arr1[i].content = arr1[i].content
+          } else {
+            arr1[i].content = ''
+          }
+          arr1[i].commentPageResponse.items = arr1[i].commentPageResponse.items.slice(0, 2)
+          arr1[i].isShowAll = 2
+          arr1[i].isText = ''
+          arr1[i].ellipsis = true
+          arr1[i].flag = 1
+        }
+        that.setData({
+          allPost: arr1
+        })
+
+        if (that.data.allPost.length > 0) {
+          that.getHeight();
+        }
+      } else {
+        that.setData({
+          weihu: true
+        })
+      }
+    })
+  },
+  getAllOrder: function () {
+    let that = this
+    let pageNumber = that.data.pageNumber + 1
+    let data = {
+      pageNumber: pageNumber,
+      pageSize: that.data.pageSize
+    }
+    app.Util.ajax('mall/forum/topic/findPageList', data, 'GET').then((res) => { // 使用ajax函数
+      if (res.data.content) {
+        if (res.data.content.items == '' && that.data.allPost !== '') {
+          wx.showToast({
+            title: '已经到底啦',
+            icon: 'none'
+          })
+        }
+        var arr = that.data.allPost
+        if (res.data.content.items.length > 0) {
+          for (var i = 0; i < res.data.content.items.length; i++) {
+            var arr1 = arr.concat(res.data.content.items)
+            for (let i in arr1) {
+              if (arr1[i].content) {
+                arr1[i].content = arr1[i].content
+              } else {
+                arr1[i].content = ''
+              }
+              arr1[i].commentPageResponse.items = arr1[i].commentPageResponse.items.slice(0, 2)
+              arr1[i].isShowAll = 2
+              arr1[i].isText = ''
+              arr1[i].ellipsis = true
+              arr1[i].flag = 1
+            }
+          }
+          that.setData({
+            allPost: arr1,
+            pageNumber: pageNumber
+          })
+          if (that.data.allPost.length > 0) {
+            //获取元素高度
+            that.getHeight();
+          }
+        }
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+      }
+    })
+  },
+  //省钱赚钱
+  allPost: function() {
+    var that = this
+    let data = {
+      pageNumber: that.data.pageNumber,
+      pageSize: that.data.pageSize,
+      type: that.data.type
+    }
+    app.Util.ajax('mall/forum/topic/findPageList', data, 'GET').then((res) => {
+      if (res.data.content) {
+        var arr = []
+        var arr1 = arr.concat(res.data.content.items)
+        for (let i in arr1) {
+          if (arr1[i].content) {
+            arr1[i].content = arr1[i].content
+          } else {
+            arr1[i].content = ''
+          }
+          arr1[i].commentPageResponse.items = arr1[i].commentPageResponse.items.slice(0, 2)
+          arr1[i].isShowAll = 2
+          arr1[i].isText = ''
+          arr1[i].ellipsis = true
+          arr1[i].flag = 1
+        }
+        that.setData({
+          allPost: arr1
+        })
+
+        if (that.data.allPost.length > 0) {
+          that.getHeight();
+        }
+      }
+    })
+  },
+  getAllPost: function() {
+    var that = this
+    that.utilsData();
+  },
   //关注
   followPost: function() {
     var that = this
@@ -358,8 +637,6 @@ Page({
           } else {
             arr1[i].content = ''
           }
-          // arr1[i].createTime = time.formatTimeTwo(arr1[i].createTime, 'Y-M-D h:m')
-          // arr1[i].maxReturnTime = time.formatTimeTwo(arr1[i].maxReturnTime, 'Y-M-D')
           arr1[i].commentPageResponse.items = arr1[i].commentPageResponse.items.slice(0, 2)
           arr1[i].isShowAll = 2
           arr1[i].isText = ''
@@ -376,7 +653,6 @@ Page({
           that.recommend();
         }
         if (that.data.allPost.length > 0) {
-          //获取元素高度
           that.getHeight();
         }
       } else {
@@ -411,8 +687,6 @@ Page({
               } else {
                 arr1[i].content = ''
               }
-              // arr1[i].createTime = time.formatTimeTwo(arr1[i].createTime, 'Y-M-D h:m')
-              // arr1[i].maxReturnTime = time.formatTimeTwo(arr1[i].maxReturnTime, 'Y-M-D')
               arr1[i].commentPageResponse.items = arr1[i].commentPageResponse.items.slice(0, 2)
               arr1[i].isShowAll = 2
               arr1[i].isText = ''
@@ -425,7 +699,6 @@ Page({
             pageNumber: pageNumber
           })
           if (that.data.allPost.length > 0) {
-            //获取元素高度
             that.getHeight();
           }
         }
@@ -464,7 +737,6 @@ Page({
           allPost: arr1
         })
         if (that.data.allPost.length > 0) {
-          //获取元素高度
           that.getHeight();
         }
       } else {
@@ -477,54 +749,7 @@ Page({
   },
   getOrdinary: function() {
     var that = this
-    var pageNumber = that.data.pageNumber + 1
-    app.Util.ajax('mall/forum/topic/findPageList', {
-      pageNumber: pageNumber,
-      pageSize: that.data.pageSize,
-      type: that.data.type
-    }, 'GET').then((res) => { // 使用ajax函数
-      if (res.data.content) {
-        if (res.data.content.items == '' && that.data.allPost !== '') {
-          wx.showToast({
-            title: '已经到底啦',
-            icon: 'none'
-          })
-        }
-        var arr = that.data.allPost
-        if (res.data.content.items.length > 0) {
-          for (var i = 0; i < res.data.content.items.length; i++) {
-            var arr1 = arr.concat(res.data.content.items)
-            for (let i in arr1) {
-              if (arr1[i].content) {
-                arr1[i].content = arr1[i].content
-              } else {
-                arr1[i].content = ''
-              }
-              // arr1[i].createTime = time.formatTimeTwo(arr1[i].createTime, 'Y-M-D h:m')
-              // arr1[i].maxReturnTime = time.formatTimeTwo(arr1[i].maxReturnTime, 'Y-M-D')
-              arr1[i].commentPageResponse.items = arr1[i].commentPageResponse.items.slice(0, 2)
-              arr1[i].isShowAll = 2
-              arr1[i].isText = ''
-              arr1[i].ellipsis = true
-              arr1[i].flag = 1
-            }
-          }
-          that.setData({
-            allPost: arr1,
-            pageNumber: pageNumber
-          })
-          if (that.data.allPost.length > 0) {
-            //获取元素高度
-            that.getHeight();
-          }
-        }
-      } else {
-        wx.showToast({
-          title: res.data.message,
-          icon: 'none'
-        })
-      }
-    })
+    that.utilsData();
   },
   //为您推荐
   recommend: function() {
@@ -552,7 +777,6 @@ Page({
           allPost1: arr1
         })
         if (that.data.allPost1.length > 0) {
-          //获取元素高度
           that.getHeight1();
         }
       }
@@ -594,7 +818,6 @@ Page({
             pageNum: pageNumber
           })
           if (that.data.allPost1.length > 0) {
-            //获取元素高度
             that.getHeight1();
           }
         }
@@ -604,34 +827,55 @@ Page({
   //顶部导航切换
   switchNav: function(e) {
     var that = this
-    var cur = e.currentTarget.dataset.current; //导航栏数组的index
+    var cur = e.currentTarget.dataset.index; //导航栏数组的index
     var type = e.currentTarget.dataset.type
     that.setData({
       type: type,
       pageNumber: 1,
       pageNum: 1,
+      mentionPeriodPageNum: 1,
       allPost: [],
-      emptyText: ''
+      emptyText: '',
+      currentTab: cur
     })
-    if (that.data.currentTab == cur) {
-      return false;
-    } else {
+    if (type == 1 || type == 4) {
       that.setData({
-        currentTab: cur
+        isRecommend: false,
+        isPublish: false,
+        imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png',
+        selectClass: 4,
       })
-      if (type == 1 || type == 2 || type == 3 || type == 4) {
-        that.setData({
-          isRecommend: false
-        })
-        that.ordinaryPost()
-      } else if (type == 6) {
-        that.followPost()
-      } else if (type == 5) {
-        that.setData({
-          isRecommend: false
-        })
-        that.allPost()
-      }
+      that.ordinaryPost()
+    } else if (type == 7) {
+      that.setData({
+        isRecommend: true,
+        isPublish: false,
+        attr:1,
+        imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png',
+      })
+      that.followPost()
+    } else if (type == 6) {
+      that.setData({
+        isRecommend: false,
+        isPublish: false,
+        attr: 1,
+        imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png',
+        showClass: 1
+      })
+      that.allPost()
+    } else if (type == 8) {
+      that.setData({
+        isRecommend: false,
+        isPublish: false,
+        attr: 1,
+        imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png',
+      })
+      that.mentionPeriodInit()
+    } else if (type == 9){
+      that.setData({
+        isRecommend: false,
+      })
+      that.allOrder()
     }
   },
   getHeight: function() {
@@ -775,6 +1019,8 @@ Page({
             that.ordinaryPost()
           } else if (that.data.type == 6) {
             that.followPost()
+          } else if (that.data.type == 8) {
+            that.allOrder()
           } else {
             that.allPost()
           }
@@ -865,19 +1111,92 @@ Page({
       }
     })
   },
-  //取消帖子类型弹框
+  //帖子类型弹框
   publish: function() {
     var that = this
     var token = wx.getStorageSync('token')
     if (token) {
-      that.setData({
-        showClassify: true
-      })
+      //普通帖
+      if (that.data.currentTab == 5) {
+        wx.navigateTo({
+          url: '/pages/posting/posting?status=' + 1,
+        })
+      } else if (that.data.currentTab == 3) { //提期
+        wx.navigateTo({
+          url: '/packageA/pages/mentionPeriod/mentionPeriod'
+        })
+      } else if (that.data.currentTab == 1) {
+        that.data.attr++;   
+        if (that.data.attr%2==0){
+          that.setData({
+            isPublish: true,
+            imgPublish: '/assets/images/icon/btn_publish.png'
+          })
+        }else{
+          that.setData({
+            isPublish: false,
+            imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png'
+          })         
+        }
+      }else {
+        that.setData({
+          showClassify: true
+        })
+      }
     } else {
       wx.navigateTo({
         url: '/pages/invitationCode/invitationCode',
       })
     }
+  },
+  //全部发帖
+  getPublish(e){
+    let that = this
+    let tempAtrr = e.currentTarget.dataset.index
+    that.setData({
+      isPublish: false,
+      attr:1,
+      imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png'
+    })  
+    if (tempAtrr == 0){ 
+      wx.navigateTo({
+        url: '/pages/posting/posting?status=' + 1,
+      })
+    }else if (tempAtrr == 1) {
+      wx.navigateTo({
+        url: '/pages/posting/posting?status=' + 3,
+      })
+    } else if (tempAtrr == 2) {
+      wx.navigateTo({
+        url: '/pages/posting/posting?status=' + 2,
+      })
+    } else if (tempAtrr == 3) {
+      wx.navigateTo({
+        url: '/packageA/pages/searchOrder/searchOrder?status=' + 2,
+      })
+    } else if (tempAtrr == 4) {
+      wx.navigateTo({
+        url: '/packageA/pages/searchOrder/searchOrder?status=' + 1,
+      })    
+    }
+  },
+  jumpPosting: function(e) {
+    let that = this
+    wx.navigateTo({
+      url: '/pages/posting/posting?status=' + e.currentTarget.dataset.status,
+    })
+    that.setData({
+      showClassify: false
+    })
+  },
+  postingMoney(e) {
+    let that = this
+    wx.navigateTo({
+      url: '/packageA/pages/searchOrder/searchOrder?status=' + e.currentTarget.dataset.status,
+    })
+    that.setData({
+      showClassify: false
+    })
   },
   cancelClassify: function() {
     var that = this
@@ -911,15 +1230,6 @@ Page({
         url: '/pages/invitationCode/invitationCode',
       })
     }
-  },
-  jumpPosting: function(e) {
-    var that = this
-    wx.navigateTo({
-      url: '/pages/posting/posting?status=' + e.currentTarget.dataset.status,
-    })
-    that.setData({
-      showClassify: false
-    })
   },
   //跳转到新消息
   jumpMessage: function() {
@@ -983,7 +1293,6 @@ Page({
   //收藏帖子
   collectImg1: function(e) {
     var that = this
-    console.log(e)
     if (wx.getStorageSync('token')) {
       app.Util.ajax('mall/forum/topic/favorite', {
         id: e.currentTarget.dataset.id
@@ -1163,7 +1472,7 @@ Page({
     })
   },
   //立即预订
-  subscribe:function(e){
+  subscribe: function(e) {
     var that = this
     if (wx.getStorageSync('token')) {
       var id = e.currentTarget.dataset.id
@@ -1194,12 +1503,12 @@ Page({
       wx.navigateTo({
         url: '/pages/invitationCode/invitationCode',
       })
-    }   
+    }
   },
   //交易确认
   sure: function(e) {
     var that = this
-    if (wx.getStorageSync('token')){
+    if (wx.getStorageSync('token')) {
       var avatarKey = e.currentTarget.dataset.avatarkey
       var nickname = e.currentTarget.dataset.nickname
       var cashBackAmount = e.currentTarget.dataset.cashbackamount
@@ -1209,6 +1518,7 @@ Page({
       var canRemove = e.currentTarget.dataset.canremove
       var id = e.currentTarget.dataset.id
       var returnType = e.currentTarget.dataset.returntype
+      var typeStatus = e.currentTarget.dataset.type
       that.setData({
         avatarKey: avatarKey,
         nickname: nickname,
@@ -1218,13 +1528,14 @@ Page({
         expectAmount: expectAmount,
         topicId: id,
         returnType: returnType,
-        sureOne: true
-      }) 
-    }else{
+        sureOne: true,
+        typeStatus: typeStatus
+      })
+    } else {
       wx.navigateTo({
         url: '/pages/invitationCode/invitationCode',
       })
-    }   
+    }
   },
   //第一次确认关闭右上角的按钮
   sureOneClose: function() {
@@ -1253,24 +1564,24 @@ Page({
   sure_one: function() {
     var that = this
     //账户资产数据
-    app.Util.ajax('mall/forum/topic/saleTopicTradeCheck',{
+    app.Util.ajax('mall/forum/topic/saleTopicTradeCheck', {
       topicId: that.data.topicId
     }, 'POST').then((res) => {
-      if (res.data.messageCode =='MSG_1001') {
+      if (res.data.messageCode == 'MSG_1001') {
         that.setData({
           sureOne: false,
           sureTwo: true,
           sure_two_tishi: "",
           btnText: '确认'
         })
-      } else if (res.data.messageCode == 'MSG_4002'){
+      } else if (res.data.messageCode == 'MSG_4002') {
         that.setData({
           sureOne: false,
           sureTwo: true,
           sure_two_tishi: "提示：账户余额不足，请先充值。",
           btnText: '去充值'
         })
-      }else{
+      } else {
         that.setData({
           sureOne: false,
           sureTwo: true,
@@ -1278,9 +1589,9 @@ Page({
           btnText: '确认'
         })
       }
-    })    
+    })
   },
-   //取消确认交易弹窗
+  //取消确认交易弹窗
   cancle_two: function() {
     var that = this
     that.setData({
@@ -1292,11 +1603,11 @@ Page({
   //确定确认交易弹窗
   sure_two: function() {
     var that = this
-    if (that.data.btnText =='去充值'){
+    if (that.data.btnText == '去充值') {
       wx.navigateTo({
-        url: '/pages/mine/recharge/recharge?tempStatus='+1,
-      })      
-    } else if (that.data.btnText == '确认'&&that.data.sure_two_tishi == ''){
+        url: '/pages/mine/recharge/recharge?tempStatus=' + 1,
+      })
+    } else if (that.data.btnText == '确认' && that.data.sure_two_tishi == '') {
       //开启密码输入
       app.Util.ajax('mall/account/paymentPassword/status', 'GET').then((res) => { // 使用ajax函数
         if (res.data.messageCode == 'MSG_1001') {
@@ -1314,7 +1625,7 @@ Page({
           }
         }
       })
-    }   
+    }
   },
   //取消支付密码弹框
   cancelShow: function() {
@@ -1334,8 +1645,8 @@ Page({
     if (that.data.Value.length === 6) {
       if (newCount == true) {
         newCount = false
-        if(that.data.typeStatus==4){
-          app.Util.ajax('mall//forum/topic/advanceOrderSchedule', {
+        if (that.data.typeStatus == 4) {
+          app.Util.ajax('mall/forum/topic/advanceOrderSchedule', {
             topicId: that.data.topicId,
             paymentPassword: e.detail.value
           }, 'POST').then((res) => {
@@ -1348,11 +1659,11 @@ Page({
                 Value: ''
               })
               wx.setStorageSync('wait', 1)
-            } else if (res.data.messageCode == 'MSG_4002'){
+            } else if (res.data.messageCode == 'MSG_4002') {
               that.setData({
-                showDialog:true
+                showDialog: true
               })
-            }else {
+            } else {
               wx.showToast({
                 title: res.data.message,
                 icon: 'none'
@@ -1362,7 +1673,7 @@ Page({
               })
             }
           })
-        }else{
+        } else {
           app.Util.ajax('mall/forum/topic/saleTopicTrade', {
             topicId: that.data.topicId,
             paymentPassword: e.detail.value
@@ -1372,7 +1683,7 @@ Page({
                 title: '交易已完成，请在待返明细中查看',
                 icon: 'none'
               })
-              setTimeout(function () {
+              setTimeout(function() {
                 that.setData({
                   pageNumber: 1
                 })
@@ -1380,7 +1691,9 @@ Page({
                   that.ordinaryPost()
                 } else if (that.data.type == 6) {
                   that.followPost()
-                } else {
+                } else if (that.data.type == 8) {
+                  that.allOrder()
+                }  else {
                   that.allPost()
                 }
               }, 1000) //延迟时间 这里是2秒
@@ -1400,22 +1713,22 @@ Page({
             }
           })
         }
-        
+
       }
-      setTimeout(function () {
+      setTimeout(function() {
         newCount = true
       }, 1000)
     }
   },
   //充值余额返回
-  back: function () {
+  back: function() {
     var that = this;
     that.setData({
       showDialog: false
     })
   },
   //去充值余额
-  continuePay: function () {
+  continuePay: function() {
     var that = this;
     wx.navigateTo({
       url: '/pages/mine/recharge/recharge?tempStatus=' + 1,
@@ -1462,67 +1775,92 @@ Page({
     })
   },
   //转让弹窗
-waitReentryClose: function () {
-  this.setData({
-    waitReentry: false
-  })
-  this.returnInfo6()
-},
-waitReentryClose2: function () {
-  this.setData({
-    waitReentry2: false
-  })
-  this.returnInfo2()
-},
-waitReentryClose3: function () {
-  this.setData({
-    waitReentry3: false
-  })
-  wx.navigateTo({
-    url: "/pages/waitReentryDetail/waitReentryDetail"
-  })
-},
-//转让信息弹窗查询
-returnInfo: function () {
-  var that = this
-  app.Util.ajax('mall/transfer/gainNotice', null, 'GET').then((res) => {
-    if (res.data.content.length > 0) {
-      that.setData({
-        tempInfo: res.data.content
-      })
-      for (let i of res.data.content) {
-        if (i.type == 2) {
-          //转让完成消息
+  waitReentryClose: function() {
+    this.setData({
+      waitReentry: false
+    })
+    this.returnInfo6()
+  },
+  waitReentryClose2: function() {
+    this.setData({
+      waitReentry2: false
+    })
+    this.returnInfo2()
+  },
+  waitReentryClose3: function() {
+    this.setData({
+      waitReentry3: false
+    })
+    wx.navigateTo({
+      url: "/pages/waitReentryDetail/waitReentryDetail"
+    })
+  },
+  //转让信息弹窗查询
+  returnInfo: function() {
+    var that = this
+    app.Util.ajax('mall/transfer/gainNotice', null, 'GET').then((res) => {
+      if (res.data.content.length > 0) {
+        that.setData({
+          tempInfo: res.data.content
+        })
+        for (let i of res.data.content) {
+          if (i.type == 2) {
+            //转让完成消息
+            that.setData({
+              waitReentry2: true,
+              returnContent2: i.userItems
+            })
+          }
+        }
+        if (that.data.waitReentry2 == false) {
+          for (let i of res.data.content) {
+            if (i.type == 3) {
+              //转让取消消息
+              that.setData({
+                waitReentry: true,
+                returnContent: i.userItems
+              })
+            }
+          }
+        }
+        if (that.data.waitReentry == false) {
+          for (let i of res.data.content) {
+            if (i.type == 4) {
+              //撤销消息
+              that.setData({
+                returnCanclePeople: true,
+                returnContent3: i.userItems
+              })
+            }
+          }
+        }
+        if (that.data.returnCanclePeople == false) {
+          for (let i of res.data.content) {
+            if (i.type == 1) {
+              //转让消息
+              that.setData({
+                waitReentry3: true,
+              })
+            }
+          }
+        }
+      }
+    })
+  },
+  returnInfo2: function() {
+    var that = this
+    if (that.data.tempInfo.length > 0) {
+      for (let i of that.data.tempInfo) {
+        if (i.type == 3) {
+          //转让取消消息
           that.setData({
-            waitReentry2: true,
-            returnContent2: i.userItems
+            waitReentry: true,
+            returnContent: i.userItems
           })
         }
       }
-      if (that.data.waitReentry2 == false) {
-        for (let i of res.data.content) {
-          if (i.type == 3) {
-            //转让取消消息
-            that.setData({
-              waitReentry: true,
-              returnContent: i.userItems
-            })
-          }
-        }
-      }
       if (that.data.waitReentry == false) {
-        for (let i of res.data.content) {
-          if (i.type == 4) {
-            //撤销消息
-            that.setData({
-              returnCanclePeople: true,
-              returnContent3: i.userItems
-            })
-          }
-        }
-      }
-      if (that.data.returnCanclePeople == false) {
-        for (let i of res.data.content) {
+        for (let i of that.data.tempInfo) {
           if (i.type == 1) {
             //转让消息
             that.setData({
@@ -1531,22 +1869,37 @@ returnInfo: function () {
           }
         }
       }
+
     }
-  })
-},
-returnInfo2: function () {
-  var that = this
-  if (that.data.tempInfo.length > 0) {
-    for (let i of that.data.tempInfo) {
-      if (i.type == 3) {
-        //转让取消消息
-        that.setData({
-          waitReentry: true,
-          returnContent: i.userItems
-        })
+  },
+  returnInfo6: function() {
+    var that = this
+    if (that.data.tempInfo.length > 0) {
+      for (let i of that.data.tempInfo) {
+        if (i.type == 4) {
+          //转让取消消息
+          that.setData({
+            waitReentry: true,
+            returnContent3: i.userItems
+          })
+        }
       }
+      if (that.data.waitReentry == false) {
+        for (let i of that.data.tempInfo) {
+          if (i.type == 1) {
+            //转让消息
+            that.setData({
+              returnCanclePeople: true,
+            })
+          }
+        }
+      }
+
     }
-    if (that.data.waitReentry == false) {
+  },
+  returnInfo3: function() {
+    var that = this
+    if (that.data.tempInfo.length > 0) {
       for (let i of that.data.tempInfo) {
         if (i.type == 1) {
           //转让消息
@@ -1556,52 +1909,218 @@ returnInfo2: function () {
         }
       }
     }
+  },
+  returnCanclePeople: function() {
+    var that = this
+    that.setData({
+      returnCanclePeople: false
+    })
+    that.returnInfo3()
+  },
 
-  }
-},
-returnInfo6: function() {
-  var that = this
-  if (that.data.tempInfo.length > 0) {
-    for (let i of that.data.tempInfo) {
-      if (i.type == 4) {
-        //转让取消消息
-        that.setData({
-          waitReentry: true,
-          returnContent3: i.userItems
-        })
-      }
+  //购买赚钱
+  earnMoney(e) {
+    if (wx.getStorageSync('token')) {
+      let id = e.currentTarget.dataset.id
+      let specitemids = e.currentTarget.dataset.specitemids
+      let topicid = e.currentTarget.dataset.topicid
+      let quantity = e.currentTarget.dataset.quantity
+      let stockid = e.currentTarget.dataset.stockid
+      let source = 1
+      wx.navigateTo({
+        url: `/pages/detail/detail?id=${id}&specitemids=${specitemids}&topicid=${topicid}&source=${source}&quantity=${quantity}&stockid=${stockid}`,
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
     }
-    if (that.data.waitReentry == false) {
-      for (let i of that.data.tempInfo) {
-        if (i.type == 1) {
-          //转让消息
-          that.setData({
-            returnCanclePeople: true,
+  },
+  //购买省钱
+  buySaveMoney(e) {
+    if (wx.getStorageSync('token')) {
+      let img = e.currentTarget.dataset.item.goodsImageUrl
+      let iconurl = img ? img.split('?') : null
+      let iconurl1 = iconurl ? iconurl[0] : null
+      e.currentTarget.dataset.item.goodsImageUrl = iconurl1
+      e.currentTarget.dataset.item.avatarKey = null
+      e.currentTarget.dataset.item.commentPageResponse = null
+      wx.setStorageSync('goodsImageUrl', iconurl1 ? iconurl[1] : null)
+      let goods = JSON.stringify(e.currentTarget.dataset.item)
+      wx.navigateTo({
+        url: '/pages/placeorder/placeorder?goods=' + goods,
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }
+  },
+  //跳转到商品详情页
+  toDetail(e) {
+    wx.navigateTo({
+      url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id,
+    })
+  },
+  //提期
+  selectSiftLeft: function() {
+    var that = this
+    if (that.data.siftLeft) {
+      console.log("不筛选")
+      that.setData({
+        siftLeft: false,
+        isShield: false
+      })
+    } else {
+      console.log("筛选")
+      that.setData({
+        siftLeft: true,
+        isShield: true
+      })
+    }
+    setTimeout(function() {
+      that.mentionPeriodInit()
+    }, 300)
+  },
+  selectSiftShow: function() {
+    var that = this
+    if (that.data.siftRight) {
+      console.log("隐藏")
+      that.setData({
+        siftRight: false
+      })
+    } else {
+      console.log("显示")
+      that.setData({
+        siftRight: true
+      })
+    }
+  },
+  selectSiftRight: function(e) {
+    var that = this
+    var index = e.currentTarget.dataset.index
+    if (index == 1) {
+      that.setData({
+        siftRightIndex: index,
+        tabName: '发布时间新旧',
+        sort: index
+      })
+    } else {
+      that.setData({
+        siftRightIndex: index,
+        tabName: '收益率高低',
+        sort: index
+      })
+    }
+    setTimeout(function() {
+      that.setData({
+        siftRight: false
+      })
+      that.mentionPeriodInit()
+    }, 300)
+  },
+  toRule: function() {
+    wx.navigateTo({
+      url: '/packageA/pages/mentionPeriodRule/mentionPeriodRule'
+    })
+  },
+  toMySet:function(){
+    let token = wx.getStorageSync('token')
+    let that = this
+    if (token) {
+      wx.navigateTo({
+        url: '/packageA/pages/buyMentionPeriod/buyMentionPeriod'
+      })
+    } else {
+      wx.navigateTo({
+        url: "/pages/invitationCode/invitationCode"
+      })
+    }
+  },
+  toMyBuy:function(){
+    let token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/packageA/pages/setMentionPeriod/setMentionPeriod'
+      })
+    } else {
+      wx.navigateTo({
+        url: "/pages/invitationCode/invitationCode"
+      })
+    }
+  },
+  setMentionPeriod: function() {
+    wx.navigateTo({
+      url: '/packageA/pages/mentionPeriod/mentionPeriod'
+    })
+  },
+  toHelp: function(e) {
+    let token = wx.getStorageSync('token')
+    let that = this
+    if (token) {
+      //此缓存解决从待返提期完成后的页面跳转问题，清除是为了确保此时无缓存
+        wx.removeStorageSync("mentionPeriodFrom");
+        let id = e.currentTarget.dataset.id
+        wx.navigateTo({
+          url: '/packageA/pages/helpMentionPeriod/helpMentionPeriod?id='+id
+        })
+    } else {
+      wx.navigateTo({
+        url: "/pages/invitationCode/invitationCode?"
+      })
+    }
+  },
+  shares: function(e) {
+    var that = this
+    let id = e.currentTarget.dataset.id
+      that.setData({
+        showModalStatus1: true
+      })
+      that.share(id)
+      wx.hideTabBar()
+  },
+  // 取消分享
+  cancelShare: function() {
+    var that = this
+    that.setData({
+      showModalStatus1: false
+    })
+    wx.showTabBar()
+  },
+  share: function(id) {
+    let that = this
+    app.Util.ajax('mall/weChat/sharing/target', {
+      mode: 16,
+      targetId: id
+    }, 'GET').then((res) => {
+      if (res.data.messageCode == "MSG_1001") {
+        var inviterCode = wx.getStorageSync('inviterCode')
+        if (inviterCode) {
+          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
+        } else {
+          res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
+        }
+        // 产品图片路径转换为本地路径
+        var imageUrl = res.data.content.imageUrl
+        if (imageUrl) {
+          wx.getImageInfo({
+            src: imageUrl,
+            success(res) {
+              that.data.shareImg = res.path
+            }
           })
         }
-      }
-    }
-
-  }
-},
-returnInfo3: function () {
-  var that = this
-  if (that.data.tempInfo.length > 0) {
-    for (let i of that.data.tempInfo) {
-      if (i.type == 1) {
-        //转让消息
         that.setData({
-          waitReentry3: true,
+          shareList: res.data.content
         })
       }
-    }
-  }
-},
-returnCanclePeople:function(){
-  var that = this 
-  that.setData({
-    returnCanclePeople:false
-  })
-  that.returnInfo3()
-},
+    })
+  },
+  //隐藏底部分享对话框
+  hide: function() {
+    var that = this
+    that.setData({
+      showModalStatus1: false,
+    })
+  },
 })

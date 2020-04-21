@@ -39,9 +39,9 @@
     </view>
     <view class="content_imgBuy" wx:if="{{item.type==2}}">
       <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-      <image src="/assets/images/new/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
-      <image src="/assets/images/new/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
-      <image src="/assets/images/new/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
       <view class="buy_price">
         <view class="expect_buy" wx:if="{{item.expectAmount}}">
           <view class="expect_buy1">售价：</view>

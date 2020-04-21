@@ -1,0 +1,40 @@
+<!--packageA/pages/mentionPeriod/mentionPeriod.wxml-->
+<view class="choose_return" bindtap="chooseReturn">
+    <view class="left">{{waitReentry?waitReentry.otherTransfer==1?'他人转让订单':waitReentry.goodsName:'请选择待返订单'}}</view>
+    <image src="{{hostUrl}}/changeImg/tonewpage.png" class="chooseImg"/>
+</view>
+<view class="return_info" wx:if="{{waitReentry}}">
+    <view class="list bottom_bor">
+        <view class="list_left">返现信息</view>
+        <view class="list_right" bindtap="Reentry_detail" data-orderId="{{waitReentry.orderId}}" data-orderGoodsId="{{waitReentry.orderGoodsId}}" data-transferId="{{waitReentry.transferId}}"  data-proStatus="{{waitReentry.otherTransfer}}" data-whetherAdvanceSale="{{waitReentry.whetherAdvanceSale}}" data-defaultAmountStatus="{{waitReentry.defaultAmountStatus}}">查看明细</view>
+    </view>
+    <view class="list bottom_bor">
+        <view class="left_font">待返</view>
+        <view class="right_font">{{waitReentry.otherTransfer==1?'他人转让订单':waitReentry.goodsName}}</view>
+    </view>
+    <view class="list bottom_bor">
+        <view class="left_font">期数</view>
+        <view class="right_font">共{{waitReentry.period}}期已返现{{waitReentry.periodReturned}}期，剩余{{waitReentry.periodLeft}}期未返现</view>
+    </view>
+    <view class="list bottom_bor">
+        <view class="left_font">金额</view>
+        <view class="right_font">已返现金额￥{{waitReentry.amountReturned}}，剩余返现金额￥{{waitReentry.noCashBackAmount}}</view>
+    </view>
+</view>
+<view class="return_info">
+    <view class="list bottom_bor">
+        <view class="list_left">提期信息</view>
+        <view class="list_right" bindtap="toRule">规则</view>
+    </view>
+    <view class="money_box">
+        <view class="money_left">您想给予帮助你提期的朋友 ￥</view>
+        <view class="money">
+            <input class="moneyInput" bindinput="getMoney" type="number" maxlength="6"/>
+        </view>
+        <view class="money_right">作为</view>
+        <view class="money_bottom">佣金奖励</view>
+    </view>
+    <view class="tishi">提示：佣金需要为整数，佣金越高帮助你的朋友意愿越高哦</view>
+    <view class="all_money" wx:if="{{waitReentry}}">提至最短期返现共需要<text class="fuhao">￥</text>{{waitReentry.maxMentionPeriodAmount}}</view>
+</view>
+<view class="set" bindtap="setMentionPeriod">发布</view>

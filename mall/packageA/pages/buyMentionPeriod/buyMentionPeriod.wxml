@@ -1,0 +1,112 @@
+<!--packageA/pages/buyMentionPeriod/buyMentionPeriod.wxml-->
+<wxs module="foo">
+  module.exports = {
+    toStr: function(n) {
+      n = n.toFixed(2)
+      return n
+    }
+  }
+</wxs>
+<view class="content" wx:if="{{content.length>0}}">
+    <view class="periodList" wx:for="{{content}}" wx:key="{{content.id}}">
+        <view class="top">
+            <view class="return">
+                <view class="return_left top5">待返</view>
+                <view class="return_right top5">{{item.otherTransfer==1?'他人转让订单':item.goodsName}}</view>
+            </view>
+            <view class="return">
+                <view class="return_left">佣金</view>
+                <view class="return_right">共￥{{item.commissionAmount}}，已消耗￥{{foo.toStr(item.commissionAmount-item.surplusCommissionAmount)}}</view>
+            </view>
+            <view class="return">
+                <view class="return_left">期数</view>
+                <view class="return_right">有{{item.mentionPeriodList.length}}人已帮减{{item.estimatedPeriod}}期，剩余{{item.periodLeft-2}}期</view>
+            </view>
+            <view class="return">
+                <view class="return_left">有效期</view>
+                <view class="return_right" wx:if="{{timeList[index].status==1}}">{{timeList[index].day}}天{{timeList[index].hours}}时{{timeList[index].minutes}}分后失效</view>
+                <view class="return_right" wx:if="{{timeList[index].status==0}}">已失效</view>
+            </view>
+            <view class="return status">
+                <view class="return_left">状态</view>
+                <view class="return_right" wx:if="{{item.status==1||item.status==2}}">进行中</view>
+                <view class="return_right" wx:if="{{item.status==3}}">已完成</view>
+                <view class="return_right" wx:if="{{item.status==5}}">已失效</view>
+                <view class="return_right" wx:if="{{item.status==7}}">{{item.updateTime}} 已撤销</view>
+            </view>
+        </view>
+        <view class="bottom">
+            <view class="button one" wx:if="{{item.status==1||item.status==2}}" bindtap="toHelp" data-id="{{item.id}}">自己提期</view>
+            <view class="button two" bindtap="showPrompt" data-id="{{item.id}}" wx:if="{{item.status==1||item.status==2}}" data-index="1">撤销提期</view>
+            <view class="button two" bindtap="showPrompt" data-id="{{item.id}}" wx:if="{{item.status==3||item.status==5||item.status==7}}" data-index="2">删除记录</view>
+            <view class="button three" bindtap="showModal" data-temp="{{index}}">提期明细</view>
+            <view class="share" bindtap="showShare" data-index="{{index}}" wx:if="{{item.status==1||item.status==2}}">...</view>
+        </view>
+        <view class="set_share" wx:if="{{tempArr[index]}}">
+            <image  src="{{hostUrl}}/changeImg/set_share.png" class="setShare"/>
+        </view>
+        <view class="button_one" wx:if="{{tempArr[index]}}" bindtap="showPrompt" data-index="3" data-id="{{item.id}}" data-temp="{{index}}">发布帖子</view>
+        <view class="button_two" wx:if="{{tempArr[index]}}" bindtap="shares" data-id="{{item.id}}">分享</view>
+    </view>
+</view>
+<!-- 页面暂无数据 -->
+<view class="nothing" wx:if="{{content.length==0}}">
+    <image src="{{hostUrl}}/changeImg/nothing.png" class="noThingImg"/>
+    <view class="bottom_font">这里什么都没有~</view>
+</view>
+<view style="height:200rpx"></view>
+<!-- 弹窗 -->
+<view class="interest-zan-dialog__mask" wx:if="{{shrueDelete}}">
+  <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{shrueDelete}}">
+    <view class="title">提示</view>
+    <view class="text height100" wx:if="{{promptvalue==1}}">是否撤销提期？撤销后如需再次进行提期请重新发布</view>
+    <view class="text" wx:if="{{promptvalue==2}}">是否删除当前记录</view>
+    <view class="text height100" wx:if="{{promptvalue==3}}">是否将您的帖子发布到市场？这样可提高曝光量</view>
+    <view class="button_box">
+        <view class="button_text" bindtap="closeDelete">取消</view>
+        <view class="button_text2" bindtap="shureDelete">确定</view>
+    </view>
+  </view>
+</view>
+<!-- 提期明细表 -->
+<view class="interest-zan-dialog__mask" wx:if="{{showModal}}">
+  <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{showModal}}">
+    <view class="title">查看明细</view>
+    <view class="table">
+      <view class="tr bg-w" catchtouchmove="preventTouchMove">
+        <view class="th">帮助人</view>
+        <view class="th">帮助金额</view>
+        <view class="th">帮助期数</view>
+      </view>
+      <view class="tr-height" wx:if="{{detail.length>0}}">
+        <view class="tr bg-g" wx:for="{{detail}}" wx:key="">
+          <view class="td">{{item.userName}}</view>
+          <view class="td"><text class="td_fuhao">￥</text>{{item.paymentAmount}}</view>
+          <view class="td"><text class="td_fuhao"></text>{{item.mentionPeriod}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="shure_detail_box">
+        <view class="shure_detail" bindtap="closeModal">确定</view>
+    </view>
+  </view>
+</view>
+<!-- 分享弹框 -->
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen1" bindtap="hide" wx:if="{{showModalStatus1}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+    </view>
+  </view>
+</view>

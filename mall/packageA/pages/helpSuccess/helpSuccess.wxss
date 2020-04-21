@@ -1,0 +1,47 @@
+/* packageA/pages/helpSuccess/helpSuccess.wxss */
+.img_box{
+    height: 465rpx;
+    text-align: center;
+}
+.success_img{
+    width: 195rpx;
+    height: 186rpx;
+    margin-top: 255rpx;
+}
+.success_text{
+    text-align: center;
+    font-size:32rpx;
+    font-family:PingFang SC;
+    color:rgba(102,102,102,1);
+}
+.button_box{
+    text-align: center;
+    margin-top: 97rpx;
+}
+.button_box1{
+    text-align: center;
+    margin-top: 40rpx;
+}
+.button_one{
+    width:280rpx;
+    height:76rpx;
+    background:linear-gradient(90deg,rgba(255,106,72,1) 0%,rgba(255,38,68,1) 100%);
+    border-radius:38rpx;
+    line-height: 76rpx;
+    display: inline-block;
+    font-size:28rpx;
+    font-family:PingFang SC;
+    color:rgba(255,255,255,1);
+}
+.button_two{
+    width:280rpx;
+    height:76rpx;
+    line-height: 76rpx;
+    background:rgba(255,255,255,1);
+    border:2rpx solid rgba(255,38,68,1);
+    border-radius:38rpx;
+    display: inline-block;
+    font-size:28rpx;
+    font-family:PingFang SC;
+    color:rgba(255,38,68,1);
+}

@@ -44,8 +44,6 @@ page {
 
 .goodsName .name {
   height: 77rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   display: -webkit-box;
   word-break: break-all;
@@ -93,8 +91,6 @@ page {
 .reason {
   height: 62rpx;
   font-size: 24rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #fff;
   line-height: 39rpx;
   margin-top: 40rpx;

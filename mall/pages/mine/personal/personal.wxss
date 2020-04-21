@@ -2,8 +2,6 @@
 
 page {
   background: #f4f4f4;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   font-size: 28rpx;
 }
 

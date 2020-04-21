@@ -2,8 +2,6 @@
 
 page {
     background: #f4f4f4;
-    font-family: PingFang-SC-Medium;
-    font-weight: 500;
   }
   
   .list {
@@ -87,8 +85,6 @@ page {
     width: 136rpx;
     height: 50rpx;
     font-size: 30rpx;
-    font-family: PingFang SC;
-    font-weight: 500;
     color: rgba(255, 255, 255, 1);
     background-color: #ff6417;
     margin: 0 auto;

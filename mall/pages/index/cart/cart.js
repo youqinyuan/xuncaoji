@@ -493,6 +493,7 @@ Page({
   toApplyZero: function(e) {
     // console.log("查看零元购"+JSON.stringify(e.target.dataset))
     //零元购期数，预期钱，需要的钱，规格，数量
+    wx.setStorageSync("returnShopCart",1)
     var arr = {}
     arr.cashbackperiods = e.target.dataset.cashbackperiods
     arr.expectedamount = e.target.dataset.expectedamount
@@ -501,8 +502,8 @@ Page({
     arr.stockid = e.target.dataset.stockid
     arr.goodsid = e.target.dataset.goodsid
     arr.shoppingcartgoodsid = e.target.dataset.shoppingcartgoodsid,
-      arr.cashbackperiods = e.target.dataset.cashbackperiods,
-      arr.expectedAmount = e.target.dataset.expectedamount
+    arr.cashbackperiods = e.target.dataset.cashbackperiods,
+    arr.expectedAmount = e.target.dataset.expectedamount
     var obj = JSON.stringify(arr)
     wx.navigateTo({
       url: '/pages/applyZero/applyZero?arr=' + obj
@@ -562,6 +563,10 @@ Page({
         }
       }
     }
+    if(wx.getStorageSync("returnShopCart")){
+      that.onLoad()
+      wx.removeStorageSync("returnShopCart")
+    }
   },
 
   /**
@@ -575,7 +580,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    
   },
 
   /**

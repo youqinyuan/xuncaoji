@@ -1,6 +1,11 @@
 <!--pages/goodsEvaluate/goodsEvaluate.wxml-->
-<image class="evaluate-img" src="{{hostUrl}}/icon/plun_tanc_def_icon.png"></image>
-<view class="evaluate-text">感谢您的认真评价</view>
-<view class="evaluate-btn">
-  <button bindtap='go_home'>返回首页</button>
+<view class="img_box">
+    <image src="{{hostUrl}}/changeImg/success.png" class="success_img" />
+</view>
+<view class="success_text">感谢您的认真评价</view>
+<view class="button_box">
+    <view class="button_one" bindtap="blackOrder">返回订单页</view>
+</view>
+<view class="button_box1">
+    <view class="button_two" bindtap="go_home">返回首页</view>
 </view>

@@ -36,8 +36,6 @@ page {
   right: 18rpx;
   color: #ff2644;
   font-size: 24rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
 }
 
 .classify {
@@ -127,8 +125,6 @@ page {
   background: linear-gradient(90deg, rgba(218, 142, 93, 1) 0%, rgba(254, 218, 177, 1) 100%);
   border-radius: 15rpx;
   font-size: 18rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(109, 0, 0, 1);
   justify-content: center;
   position: absolute;
@@ -144,8 +140,6 @@ page {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   font-size: 22rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   height: 60rpx;
   margin: 0 16rpx;
@@ -194,8 +188,6 @@ page {
   background: rgba(252, 243, 237, 0.8);
   border-radius: 4rpx;
   font-size: 18rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 38, 68, 1);
 }
 
@@ -245,8 +237,6 @@ page {
   text-align: left;
   color: #333;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   height: auto;
   max-height: 800rpx;
   overflow-y: scroll;

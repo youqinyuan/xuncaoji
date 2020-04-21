@@ -1,0 +1,78 @@
+<!--packageA/pages/mentionPeriodIndex/mentionPeriodIndex.wxml-->
+<view class="head_box">
+  <image src="{{hostUrl}}/changeImg/mention_period_bg.png" class="mentionPeriodImg" />
+  <image src="{{hostUrl}}/changeImg/set_mention_period2.png" class="setMentionPeriod2" bindtap="setMentionPeriod"/>
+  <view class="mentionPeriodRlue" bindtap="toRule">规则</view>
+  <view class="sift_left {{siftLeft?'color_red':''}}" bindtap="selectSiftLeft" wx:if="{{content.length>0}}">不看已失效/已完成/已撤销</view>
+  <view class="sift_right" bindtap="selectSiftShow" wx:if="{{content.length>0}}">
+    <view class="sift_right_name">{{tabName}}</view>
+  </view>
+  <view class="sift_right_list" wx:if="{{siftRight}}">
+    <view class="sift_right_one {{siftRightIndex==1?'color333':''}}" bindtap="selectSiftRight" data-index="1">发布时间新旧</view>
+    <view class="sift_right_two {{siftRightIndex==2?'color333':''}}" bindtap="selectSiftRight" data-index="2">收益率高低</view>
+  </view>
+  <image src="{{hostUrl}}/changeImg/sift_right_img.png" class="siftRightImg" />
+</view>
+<view class="mentionPeriodContent" wx:if="{{content.length>0}}">
+  <view class="mentionPeriodList">
+    <view class="mentionPeriod" wx:for="{{content}}" wx:key="{{content.id}}">
+      <view class="user_name_box">
+        <image src="{{item.avatarKey}}" class="userImg" />
+        <view class="user_name">
+          <view class="name">{{item.nickname}}</view>
+          <image src="{{hostUrl}}/changeImg/huiyuan.png" class="huiyuanImg" wx:if="{{item.role==2}}"/>
+        </view>
+        <image src="{{hostUrl}}/changeImg/share_mention_period.png" class="shareImg" bindtap="shares" data-id="{{item.id}}" wx:if="{{item.status==2}}"/>
+      </view>
+      <view class="info">
+        <view class="top_left">
+           <view class="nianhua_number {{item.status==3||item.status==7||item.status==5?'color999':''}}">{{item.annualizedRate}}%</view>
+           <view class="nianhua_font {{item.status==3||item.status==7||item.status==5?'color999':''}}">预估年化收益</view>
+        </view>
+        <view class="top_right">
+           <view class="mentionPeriod_number {{item.status==3||item.status==7||item.status==5?'color999':''}}">需要提{{item.periodLeft+item.estimatedPeriod-2}}期</view>
+           <view class="mentionPeriod_font">帮助金额越多，收益越高</view>
+        </view>
+        <view class="button" wx:if="{{item.status==2}}" bindtap="toHelp" data-id="{{item.id}}">提期</view>
+        <view class="button bge7" wx:if="{{item.status==3}}">已完成</view>
+        <view class="button bge7" wx:if="{{item.status==5}}">已失效</view>
+        <view class="button bge7" wx:if="{{item.status==7}}">已撤销</view>
+      </view>
+    </view>
+  </view>
+  <view style="height:100rpx"></view>
+</view>
+<view class="nothing" wx:if="{{content.length==0}}">
+    <image src="{{hostUrl}}/changeImg/nothing.png" class="noThingImg"/>
+    <view class="bottom_font">什么都没有，你快来当第一个</view>
+    <view class="bottom_font">提期的小伙伴吧</view>
+</view>
+<view class="tab_bottom">
+  <view class="bottom_left">
+    <view class="bottom_left_font" bindtap="toMySet">我发起的提期</view>
+    <image src="{{hostUrl}}/changeImg/set_mention_period.png" class="bottomLeftImg" />
+  </view>
+  <view class="bottom_right">
+    <view class="bottom_left_font" bindtap="toMyBuy">我购买的提期</view>
+    <image src="/assets/images/temp/shop_cart1.png" class="bottomLeftImg" />
+  </view>
+</view>
+<!-- 分享弹框 -->
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen1" bindtap="hide" wx:if="{{showModalStatus1}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+    </view>
+  </view>
+</view>

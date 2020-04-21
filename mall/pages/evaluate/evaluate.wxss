@@ -3,7 +3,6 @@
 page {
   background: rgba(244, 244, 244, 1);
   font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 /*用户评价*/

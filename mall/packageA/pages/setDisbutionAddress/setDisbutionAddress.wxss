@@ -1,0 +1,25 @@
+@import "../modifyAdress/modifyAdress.wxss";
+
+.right54{
+    right: 65rpx !important;
+}
+.tonewpage{
+    width: 40rpx;
+    height: 40rpx;
+    position: absolute;
+    right: 18rpx;
+    top: 28rpx;
+    display: inline-block;
+}
+.saveButton{
+    width:690rpx;
+    height:80rpx;
+    background:linear-gradient(90deg,rgba(255,106,72,1) 0%,rgba(255,38,68,1) 100%);
+    border-radius:40rpx;
+    font-size:32rpx;
+    font-family:PingFang SC;
+    color:rgba(255,255,255,1);
+    margin-left: 30rpx;
+    display: inline-block;
+    margin-top: 60rpx;
+}

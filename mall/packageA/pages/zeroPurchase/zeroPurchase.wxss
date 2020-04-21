@@ -4,8 +4,6 @@ page {
   position: relative;
   background: rgba(244, 244, 244, 1);
   margin-bottom: 100rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 /* 分享按钮 */
@@ -97,8 +95,6 @@ page {
 
 .zero-purchase-text {
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -137,8 +133,6 @@ page {
   margin-left: 10rpx;
   padding-top: 14rpx;
   font-size: 22rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
 
@@ -199,8 +193,6 @@ page {
   padding: 2rpx 12rpx;
   margin-right: 13rpx;
   font-size: 20rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 100, 23, 1);
   border: 2rpx solid rgba(255, 100, 23, 1);
   border-radius: 14rpx;
@@ -416,8 +408,6 @@ page {
 
 .shop-detail-wrap-text {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
   width: 691rpx;
   margin: 15rpx auto;
@@ -538,8 +528,6 @@ button::after {
 .share-btn .wx {
   margin-top: -35rpx;
   font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -684,16 +672,12 @@ button::after {
 .content-wrapper1 .shareCommission {
   margin-top: 70rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
 .content-wrapper1 .shareText {
   margin-top: 39rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
 
@@ -723,8 +707,6 @@ button::after {
 .content-wrapper1 .wx {
   margin-top: -35rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -943,8 +925,6 @@ button::after {
   margin-top: 30rpx;
   margin-left: 23rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -969,8 +949,6 @@ button::after {
   display: inline-block;
   background: rgba(244, 244, 244, 1);
   font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
 
@@ -1092,8 +1070,6 @@ button::after {
   margin-left: 10rpx;
   margin-top: 10rpx;
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #ff2644;
   line-height: 46px;
 }
@@ -1101,8 +1077,6 @@ button::after {
 .value1 {
   /* width: 570rpx; */
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   line-height: 46rpx;
   margin-left: 47rpx;
@@ -1111,8 +1085,6 @@ button::after {
 .value2 {
   width: 530rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #999;
   line-height: 46rpx;
   padding-left: 46rpx;
@@ -1121,8 +1093,6 @@ button::after {
 .value3 {
   width: 530rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   line-height: 46rpx;
   padding-left: 46rpx;
@@ -1131,8 +1101,6 @@ button::after {
 .value4 {
   width: 530rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   line-height: 46rpx;
   padding-left: 46rpx;
@@ -1140,8 +1108,6 @@ button::after {
 
 .value5 {
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 38, 68, 1);
   position: absolute;
   top: 720rpx;

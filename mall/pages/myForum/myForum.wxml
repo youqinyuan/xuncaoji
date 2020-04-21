@@ -2,7 +2,7 @@
 <wxs module="filters" src="filter.wxs"></wxs>
 <view class="content_top">
   <scroll-view scroll-x class="nav" scroll-left="{{navScrollLeft}}">
-     <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
+    <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
       <view class="nav-box">
         <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" data-type="{{item.type}}" catchtap="switchNav">{{item.text}}</view>
         <view class="nav-item {{currentTab == idx ?'active1':''}}"></view>
@@ -35,13 +35,13 @@
       <view class="all_text" catchtap='ellipsis' wx:if="{{item.isShowAll==2}}" data-index="{{index1}}">{{item.isText}}</view>
     </view>
     <view class="content_img" wx:if="{{item.type==1}}">
-      <image wx:for="{{item.attachmentList}}"  wx:for-item="contentImg" wx:key="" src="{{contentImg.fileKey}}" catchtap='imgYu' data-index='{{index}}' data-idx="{{index1}}" style="background:{{item.attachmentList.length>0?'#fff':'#e7e7e7'}}"></image>
+      <image wx:for="{{item.attachmentList}}" wx:for-item="contentImg" wx:key="" src="{{contentImg.fileKey}}" catchtap='imgYu' data-index='{{index}}' data-idx="{{index1}}" style="background:{{item.attachmentList.length>0?'#fff':'#e7e7e7'}}"></image>
     </view>
     <view class="content_imgBuy" wx:if="{{item.type==2}}">
       <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-      <image src="/assets/images/new/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
-      <image src="/assets/images/new/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
-      <image src="/assets/images/new/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
       <view class="buy_price">
         <view class="expect_buy" wx:if="{{item.expectAmount}}">
           <view class="expect_buy1">售价：</view>
@@ -83,7 +83,8 @@
           <view class="expect_year3">%</view>
         </view>
       </view>
-      <view class="purchase" catchtap="sure" wx:if="{{item.status==2&&item.canRemove==2}}" data-avatarkey="{{item.avatarKey}}" data-nickname="{{item.nickname}}"  data-cashBackAmount="{{item.cashBackAmount}}" data-periodLeft="{{item.periodLeft}}"  data-expectAmount="{{item.expectAmount}}" data-mobileNumber="{{item.mobileNumber}}" data-returnType="{{item.returnType}}" data-id="{{item.id}}">立即购买</view>
+      <view class="purchase" catchtap="sure" wx:if="{{item.status==2&&item.canRemove==2}}" data-avatarkey="{{item.avatarKey}}" data-nickname="{{item.nickname}}" data-cashBackAmount="{{item.cashBackAmount}}" data-periodLeft="{{item.periodLeft}}" data-expectAmount="{{item.expectAmount}}"
+        data-mobileNumber="{{item.mobileNumber}}" data-returnType="{{item.returnType}}" data-id="{{item.id}}" data-type="{{item.type}}">立即购买</view>
     </view>
     <view class="content_sale" wx:if="{{item.type==3}}">
       <image src="{{hostUrl}}/add/pic_salecard.png" class='img'></image>
@@ -120,21 +121,21 @@
     <!-- 预售订单 -->
     <view class="content_imgBuy" wx:if="{{item.type==4}}">
       <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-      <image src="/assets/images/new/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
-      <image src="/assets/images/new/ic_yud.png" class='imgs' wx:if="{{item.status==6}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_yud.png" class='imgs' wx:if="{{item.status==6}}"></image>
       <view class="buy_price">
-        <view class="expect_buy" wx:if="{{item.liquidateDamageAmountVendor}}">
+        <view class="expect_buy">
           <view class="expect_buy1">卖方已缴违约金：</view>
           <view class="expect_buy2">{{item.liquidateDamageAmountVendor}}</view>
           <view class="expect_buy3">元</view>
         </view>
         <view class="content_yu">
-          <view class="expect_buy" wx:if="{{item.expectAmount}}">
+          <view class="expect_buy {{item.expectAmount>100000?'font1':''}}" wx:if="{{item.expectAmount}}">
             <view class="expect_buy1">售价：</view>
             <view class="expect_buy2">{{item.expectAmount}}</view>
             <view class="expect_buy3">元</view>
           </view>
-          <view class="expect_back_a" wx:if="{{item.cashBackAmount}}">
+          <view class="expect_back_a {{item.expectAmount>100000?'font1':''}}" wx:if="{{item.cashBackAmount}}">
             <view class="expect_back1">共返金额：</view>
             <view class="expect_back2">{{item.cashBackAmount}}</view>
             <view class="expect_back3">元</view>
@@ -164,6 +165,42 @@
       </view>
       <view class="purchase" catchtap="subscribe" wx:if="{{item.status==2&&item.canRemove==2}}" data-id="{{item.id}}" data-type="{{item.type}}">立即预订</view>
     </view>
+    <!-- 卖商品赚钱 -->
+    <view class="content_money" wx:if="{{item.type==5||item.type==6}}">
+      <image src="{{hostUrl}}/changeImg/getMoney.png" class="moneyImg" wx:if="{{item.type==6}}"></image>
+      <image src="{{hostUrl}}/changeImg/save.png" class="moneyImg" wx:if="{{item.type==5}}"></image>
+      <image src="{{hostUrl}}/changeImg/yi_buy.png" class="moneyImg1" wx:if="{{item.status==3}}"></image>
+      <view class="goods">
+        <image wx:if="{{item.goodsImageUrl}}" class="goodsImg" src="{{item.goodsImageUrl}}"></image>
+        <image wx:else class="goodsImg" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+        <view class="goods_middle">
+          <view class="goodsName">{{item.goodsName}}</view>
+          <view class="goodsSpec">{{item.specDesc}}</view>
+        </view>
+        <image class="goods_right" src="{{hostUrl}}/changeImg/back_n.png" catchtap="toDetail" data-id="{{item.goodsId}}"></image>
+      </view>
+      <view class="saveGetMoney-wrap">
+        <view class="saveGetMoney">
+          <view class="saveGetMoney1">平台原价：</view>
+          <view class="saveGetMoney2">{{item.platformOrgAmount}}</view>
+          <view class="saveGetMoney3">元</view>
+        </view>
+        <view class="saveGetMoney">
+          <view class="saveGetMoney1">出价：</view>
+          <view class="saveGetMoney2">{{item.expectAmount}}</view>
+          <view class="saveGetMoney3">元</view>
+        </view>
+        <view class="saveGetMoney">
+          <view class="saveGetMoney1" wx:if="{{item.type==6}}">购买后可赚：</view>
+          <view class="saveGetMoney2" wx:if="{{item.type==6}}">{{item.expectAmount}}</view>
+          <view class="saveGetMoney1" wx:if="{{item.type==5}}">购买后可省：</view>
+          <view class="saveGetMoney2" wx:if="{{item.type==5}}">{{foo.toStr(item.platformOrgAmount-item.expectAmount)}}</view>
+          <view class="saveGetMoney3">元</view>
+        </view>
+      </view>
+      <view class="earnMoney" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">购买赚钱</view>
+      <view class="buySaveMoney" data-item="{{item}}" catchtap="buySaveMoney" wx:if="{{item.type==5&&item.status==2&&item.canRemove==2}}">购买省钱</view>
+    </view>
     <view class="content_time">
       <view class="content_time_left">
         <view class="content_time_item">{{filters.toDate(item.createTime)}}</view>
@@ -183,7 +220,7 @@
     <view class="content_comment" catchtap="jumpComment" data-id="{{item.id}}">
       <view class="content_comment_wrap">
         <view class="content_comment_text" wx:for="{{item.commentPageResponse.items}}" wx:for-item="response" wx:key="{{response.id}}">
-         <text>{{response.nickname}}</text>
+          <text>{{response.nickname}}</text>
           <text wx:if="{{!response.replyNickname}}">：</text>
           <text class="item" wx:if="{{response.replyNickname}}">回复</text>
           <text wx:if="{{response.replyNickname}}">{{response.replyNickname}}：</text>
@@ -229,24 +266,24 @@
     <image wx:if="{{sureOne}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sureOneClose'></image>
     <view class="sureOne">交易确认</view>
     <view class="sureOneText">
-      <view class="head_box">
+      <view class="head_box1">
         <image src="{{avatarKey}}" class="head_img" />
         <text class="name">{{nickname}}</text>
       </view>
-      <view class="info">
+      <view class="info2">
         <text class="phoneNumber_key">对方手机号:</text>
         <text class="phoneNumber_value">{{mobileNumber}}</text>
       </view>
-      <view class="info">
+      <view class="info2">
         <text class="phoneNumber_key">返现金额:</text>
         <text class="phoneNumber_value">{{cashBackAmount}}元</text>
       </view>
-      <view class="info">
-       <text class="phoneNumber_key">返现周期:</text>
+      <view class="info2">
+        <text class="phoneNumber_key">返现周期:</text>
         <text class="phoneNumber_value" wx:if="{{returnType==1||returnType==2||returnType==4}}">{{periodLeft}}期</text>
         <text class="phoneNumber_value" wx:if="{{returnType==3}}">{{periodLeft}}天</text>
       </view>
-      <view class="info">
+      <view class="info2">
         <text class="phoneNumber_key">出售价格:</text>
         <text class="phoneNumber_value">{{expectAmount}}元</text>
       </view>

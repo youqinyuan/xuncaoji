@@ -20,8 +20,6 @@ page {
   font-size: 26rpx;
   line-height: 46rpx;
   text-align: center;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 38, 68, 1);
 }
 
@@ -31,8 +29,6 @@ page {
   height: 72rpx;
   line-height: 72rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   margin-left: 30rpx;
 }
@@ -144,8 +140,6 @@ page {
   background: rgba(244, 244, 244, 1);
   border-radius: 8rpx;
   font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
 
@@ -168,37 +162,27 @@ page {
 
 .cashback-detail .list .item .time {
   font-size: 22rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
 
 .cashback-detail .list .price {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: #666;
 }
 
 .cashback-detail .list .text {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
 
 .cashback-detail .list .text1 {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(170, 170, 170, 1);
 }
 
 .cashback-detail .list .refund {
   width: 113rpx;
   font-size: 26rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(227, 58, 89, 1);
 }
 
@@ -211,8 +195,6 @@ page {
 
 .cashback-detail .list .price1 {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(170, 170, 170, 1);
 }
 
@@ -221,8 +203,6 @@ page {
   line-height: 90rpx;
   border-bottom: 2rpx solid #f4f4f4;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(153, 153, 153, 1);
   padding: 0 30rpx;
 }
@@ -245,37 +225,27 @@ page {
 
 .cashback-zero .list .item .time {
   font-size: 22rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
 
 .cashback-zero .list .price {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: #666;
 }
 
 .cashback-zero .list .text {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
 
 .cashback-zero .list .text1 {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(170, 170, 170, 1);
 }
 
 .cashback-zero .list .refund {
   width: 113rpx;
   font-size: 26rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(227, 58, 89, 1);
 }
 
@@ -398,8 +368,6 @@ button::after {
   left: 34rpx;
   bottom: 30rpx;
   font-size:22rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   color:rgba(153,153,153,1);
 }
 .return_already{
@@ -407,8 +375,6 @@ button::after {
   right: 41rpx;
   bottom: 47rpx;
   font-size:28rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   color:rgba(102,102,102,1);
 }
 .everyDay_money{
@@ -416,8 +382,6 @@ button::after {
   right: 320rpx;
   bottom: 47rpx;
   font-size:28rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   color:rgba(102,102,102,1);
 }
 .colorimpot{
@@ -428,8 +392,6 @@ button::after {
 }
 .pre_sell{
   font-size:26rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   color:rgba(255,38,68,1);
   padding-left: 51rpx;
   padding-top: 30rpx;

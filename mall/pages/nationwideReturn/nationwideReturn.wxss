@@ -26,8 +26,6 @@ page {
 
 .nationwideReturn-wrapper .nationwideReturn-text .title {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -183,15 +181,11 @@ page {
 .return-wrap .return-money text:nth-child(1) {
   color: #ff6417;
   padding: 0 8rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 .return-wrap .pay-money text:nth-child(1) {
   color: #ff6417;
   padding: 0 8rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 .return-bottom {

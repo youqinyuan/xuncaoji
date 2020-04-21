@@ -29,7 +29,11 @@ App({
     isShowBook:1,//是否显示立即体验
     isService:1,//是否显示引导弹框
     isOrder:1,
-    type:0
+    type:0,//4-跳转论坛预售 5-跳转论坛提期
+    host: 'http://move.alijuly.cn/index.php?s=',
+    tempMoveData: {},//临时搬家搬入搬出地址信息，当在含有腾讯地图的页面点击了【确定】之后，才将该对象的值赋值到moveData，moveData才是真正的提交数据
+    moveData: {},//搬家搬入搬出地址信息；提交所需数据
+    stoerEnterData:{}//商家入驻填写信息
   },
 
   //通用导航方法
@@ -50,7 +54,6 @@ App({
     if(wx.getStorageSync('token')){
       setTimeout(function () {
         that.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
-          // console.log("地址：" + JSON.stringify(res))
           if (res.data.messageCode = 'MSG_1001') {
             wx.setStorageSync('provinces', res.data.content)
           }

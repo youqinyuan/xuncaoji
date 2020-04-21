@@ -1,0 +1,30 @@
+/* packageA/pages/business/business.wxss */
+page{
+    background-color: #F4F4F4;
+    font-family:PingFang SC;
+}
+.title{
+    height: 90rpx;
+    margin-left: 30rpx;
+    position: relative;
+}
+.content{
+    background-color: #fff;
+}
+.border_bottom{
+    border-bottom:#E7E7E7 solid 2rpx;
+}
+.tonewpage{
+    width: 40rpx;
+    height: 40rpx;
+    position: absolute;
+    right: 30rpx;
+    top: 26rpx;
+    display: inline-block;
+}
+.info{
+    font-size:28rpx;
+    color:rgba(51,51,51,1);
+    height: 90rpx;
+    line-height: 90rpx;
+}

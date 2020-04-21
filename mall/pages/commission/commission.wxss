@@ -20,8 +20,6 @@
 
 .container-top-text {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -100,8 +98,6 @@ rich-text {
   right: 0;
   color: #fff;
   font-size: 26rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
 }
 
 .balance {
@@ -120,8 +116,6 @@ rich-text {
 .allMoney-text {
   width: 170rpx;
   font-size: 26rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #ffe7d9;
 }
 
@@ -134,15 +128,11 @@ rich-text {
 
 .allMoney-num .sign {
   font-size: 24rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
 }
 
 .watchDetail {
   margin-left: 22rpx;
   font-size: 26rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   text-decoration: underline;
   color: #b43b26;
 }
@@ -164,8 +154,6 @@ rich-text {
   box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(236, 116, 66, 0.3);
   border-radius: 34rpx;
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(253, 105, 79, 1);
 }
 
@@ -198,16 +186,12 @@ rich-text {
 
 .commission1-title {
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
 .commission1-text {
   font-size: 32rpx;
   margin-left: 17rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(170, 170, 170, 1);
 }
 
@@ -219,8 +203,6 @@ rich-text {
   border-bottom: 2rpx solid #f4f4f4;
   box-sizing: border-box;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   white-space: nowrap;
 }
 
@@ -266,8 +248,6 @@ rich-text {
   font-size: 28rpx;
   color: #fff;
   text-align: center;
-  font-family: PingFang SC;
-  font-weight: 500;
 }
 
 .withdrawTime {
@@ -275,8 +255,6 @@ rich-text {
   margin-top: 38rpx;
   color: #666;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
 }
 
 .withdrawTime-time {
@@ -322,8 +300,6 @@ rich-text {
 .msgtext {
   display: flex;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #666;
   margin-bottom: 15rpx;
 }
@@ -355,8 +331,6 @@ rich-text {
   line-height: 54rpx;
   text-align: center;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #e19d92;
 }
 
@@ -549,8 +523,6 @@ rich-text {
   margin-right: 100rpx;
   margin-left: 220rpx;
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
 }
 
 .content-wrapper1 .choose_img {
@@ -567,8 +539,6 @@ rich-text {
   background: rgba(255, 38, 68, 1);
   border-radius: 40rpx;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -604,8 +574,6 @@ rich-text {
   margin-bottom: 30rpx;
   text-align: center;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #fff;
 }
 
@@ -647,8 +615,6 @@ rich-text {
 .text {
   text-align: center;
   font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(227, 58, 89, 1);
   margin-top: 44rpx;
   margin-bottom: -80rpx;

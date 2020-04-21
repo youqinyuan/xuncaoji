@@ -38,8 +38,6 @@ input {
 
 .code {
   font-size: 26rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   background: rgba(255, 255, 255, 1);
 }
 
@@ -64,8 +62,6 @@ button::after {
   margin-left: 60rpx;
   line-height: 80rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   text-align: center;
   color: rgba(255, 255, 255, 1);
 }
@@ -74,7 +70,5 @@ button::after {
   margin-left: 80rpx;
   height: 100rpx;
   font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(227, 58, 89, 1);
 }

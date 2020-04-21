@@ -36,8 +36,8 @@
       <button class="stopzero" catchtap="stopZero" data-ordergoodsid="{{itemName.id}}" disabled="{{itemName.isStop==1?true:false}}" wx:if="{{itemName.stageInterest&&latestStatus!==1&&latestStatus!==7&&latestStatus!==9&&latestStatus!==10&&latestStatus!==12&&from!==2&&whetherAdvanceSale==2}}">
       {{itemName.isStop==1?'已终止0元购':'终止FreeBuy转购买'}}</button>
   <!-- 返现明细 -->
-  <view class="cashback-amount" wx:if="{{itemName.cashBack && itemName.period !==0}}">共分{{itemName.orderGoodsCashBackItem.length}}期返现，已返现{{itemName.returnedPeriod}}期，剩余返现金额为{{itemName.remainingCashReturn}}元</view>
-  <view class="cashback-amount" wx:elif="{{itemName.cashBack && itemName.period ==0}}">立即返，剩余返现金额为 {{itemName.remainingCashReturn}}元
+  <view class="cashback-amount" wx:if="{{itemName.cashBack && itemName.period !==0}}">共分{{itemName.orderGoodsCashBackItem.length}}期返现，已返现{{itemName.returnedPeriod}}期，剩余返现金额为￥{{itemName.remainingCashReturn}}</view>
+  <view class="cashback-amount" wx:elif="{{itemName.cashBack && itemName.period ==0}}">立即返，剩余返现金额为 ￥{{itemName.remainingCashReturn}}
   </view>
   <view class="cashback-detail">
     <view class="list" wx:for="{{itemName.orderGoodsCashBackItem}}" wx:key="{{item.id}}">
@@ -47,17 +47,18 @@
         <view class="period1" wx:if="{{item.status==1&&itemName.period !==0}}">{{item.period}}/{{itemName.orderGoodsCashBackItem.length}}期</view>
         <view class="time">{{item.returnTime}}返现</view>
       </view>
-      <view class="price" wx:if="{{item.status===3 || item.status===2 || item.status===4|| item.status===5}}">￥{{item.amount}}</view>
+      <view class="price" wx:if="{{item.status===3 || item.status===2 || item.status===4|| item.status===5|| item.status===6}}">￥{{item.amount}}</view>
       <view class="price1" wx:if="{{item.status===1}}">￥{{item.amount}}</view>
       <view class="text" wx:if="{{item.status===3}}">已返现</view>
       <view class="text1" wx:if="{{item.status===1}}">未返现</view>
       <view class="text1" wx:if="{{item.status===4}}">转让中</view>
       <view class="text" wx:if="{{item.status===5}}">已转让</view>
+      <view class="text" wx:if="{{item.status===6}}">已提期</view>
       <view class="refund" wx:if="{{item.status===2}}">订单<text wx:if="{{latestStatus !==12}}">退款</text><text wx:else>取消</text>终止返现
       </view>
     </view>
   </view>
-  <view class="stageInterest" wx:if="{{itemName.stageInterest}}">您共可获得利息：{{itemName.stageInterest}}元</view>
+  <view class="stageInterest" wx:if="{{itemName.stageInterest}}">您共可获得利息：￥{{itemName.stageInterest}}</view>
   <view class="cashback-zero">
     <view class="list" wx:for="{{itemName.orderGoodsStageInterestItem}}" wx:key="" wx:for-item="zero">
       <view class="item">
@@ -71,6 +72,7 @@
         <view class="text1" wx:if="{{zero.status===1}}">未返现</view>
         <view class="text1" wx:if="{{zero.status===4}}">转让中</view>
       <view class="text" wx:if="{{zero.status===5}}">已转让</view>
+      <view class="text" wx:if="{{zero.status===6}}">已提期</view>
       </view>
     </view>
   </view>
@@ -109,8 +111,8 @@
   </view>
     <view class="pre_sell" wx:if="{{whetherAdvanceSale==1&&defaultAmountStatus==2}}">此订单未正常支付，返现日将延迟</view>
   <!-- 返现明细 -->
-  <view class="cashback-amount" wx:if="{{content.cashBack && content.period !==0}}">共分{{content.orderGoodsCashBackItem.length}}期返现，已返现{{content.returnedPeriod}}期，剩余返现金额为{{content.remainingCashReturn}}元</view>
-  <view class="cashback-amount" wx:elif="{{content.cashBack && itemName.period ==0}}">立即返，剩余返现金额为 {{content.remainingCashReturn}}元
+  <view class="cashback-amount" wx:if="{{content.cashBack && content.period !==0}}">共分{{content.orderGoodsCashBackItem.length}}期返现，已返现{{content.returnedPeriod}}期，剩余返现金额为￥{{content.remainingCashReturn}}</view>
+  <view class="cashback-amount" wx:elif="{{content.cashBack && itemName.period ==0}}">立即返，剩余返现金额为 ￥{{content.remainingCashReturn}}
   </view>
   <view class="cashback-detail">
     <view class="list" wx:for="{{content.orderGoodsCashBackItem}}" wx:key="{{item.id}}">
@@ -120,20 +122,21 @@
         <view class="period1" wx:if="{{item.status==1&&itemName.period !==0}}">{{item.period}}/{{content.orderGoodsCashBackItem.length}}期</view>
         <view class="time">{{filters.toDate(item.returnTime)}}返现</view>
       </view>
-      <view class="price" wx:if="{{item.status===3 || item.status===2}}">￥{{item.amount}}</view>
+      <view class="price" wx:if="{{item.status===3 || item.status===2|| item.status===5|| item.status===6}}">￥{{item.amount}}</view>
       <view class="price1" wx:if="{{item.status===1}}">￥{{item.amount}}</view>
       <view class="price2" wx:if="{{item.status===4}}">￥{{item.amount}}</view>
       <view class="text" wx:if="{{item.status===3}}">已返现</view>
       <view class="text1" wx:if="{{item.status===1}}">未返现</view>
       <view class="text1" wx:if="{{item.status===4}}">转让中</view>
       <view class="text" wx:if="{{item.status===5}}">已转让</view>
+      <view class="text" wx:if="{{item.status===6}}">已提期</view>
       <view class="refund" wx:if="{{item.status===2}}">订单
         <text wx:if="{{latestStatus !==12}}">退款</text>
         <text wx:else>取消</text>终止返现
       </view>
     </view>
   </view>
-  <view class="stageInterest" wx:if="{{content.stageInterest}}">您共可获得利息：{{content.stageInterest}}元</view>
+  <view class="stageInterest" wx:if="{{content.stageInterest}}">您共可获得利息：￥{{content.stageInterest}}</view>
   <view class="cashback-zero">
     <view class="list" wx:for="{{content.orderGoodsStageInterestItem}}" wx:key="" wx:for-item="zero">
       <view class="item">
@@ -147,6 +150,7 @@
         <view class="text1" wx:if="{{zero.status===1}}">未返现</view>
         <view class="text1" wx:if="{{zero.status===4}}">转让中</view>
       <view class="text" wx:if="{{zero.status===5}}">已转让</view>
+      <view class="text" wx:if="{{zero.status===6}}">已提期</view>
       </view>
     </view>
   </view>
@@ -187,7 +191,7 @@
   </view>
     <view class="pre_sell" wx:if="{{whetherAdvanceSale==1&&defaultAmountStatus==2}}">此订单未正常支付，返现日将延迟</view>
   <!-- 返现明细 -->
-  <view class="cashback-amount">共分{{content.orderGoodsCashBackItem[0].periodCount}}天返现，已返现{{content.returnedPeriod}}天{{content.orderGoodsCashBackItem[0].cashBackAmount}}元，剩余返现金额为{{content.remainingCashReturn}}元</view>
+  <view class="cashback-amount">共分{{content.orderGoodsCashBackItem[0].periodCount}}天返现，已返现{{content.returnedPeriod}}天￥{{content.orderGoodsCashBackItem[0].cashBackAmount}}，剩余返现金额为{{content.remainingCashReturn}}元</view>
   <view class="everyDay" wx:for="{{content.orderGoodsCashBackItem}}" wx:key="{{item.id}}" wx:for-item="itemName">
     <view class="return_times {{contentreturnedPeriod>0?'':'colorimpot'}}" >{{itemName.period}}/{{itemName.periodCount}}天</view>
     <view class="return_date">{{filters.toDate(itemName.returnTime)}}返现</view>
@@ -198,8 +202,9 @@
     <view class="return_already " wx:if="{{itemName.status==4}}">转让中</view>
     <view class="return_already colorred" wx:if="{{itemName.status==2}}">已终止</view>
     <view class="return_already " wx:if="{{itemName.status==3}}">已返现</view>
+    <view class="return_already " wx:if="{{itemName.status==6}}">已提期</view>
   </view>
-  <view class="stageInterest" wx:if="{{content.stageInterest}}">您共可获得利息：{{content.stageInterest}}元</view>
+  <view class="stageInterest" wx:if="{{content.stageInterest}}">您共可获得利息：￥{{content.stageInterest}}</view>
   <view class="cashback-zero">
     <view class="list" wx:for="{{content.orderGoodsStageInterestItem}}" wx:key="" wx:for-item="zero">
       <view class="item">
@@ -213,6 +218,7 @@
         <view class="text1" wx:if="{{zero.status===1}}">未返现</view>
         <view class="text1" wx:if="{{zero.status===4}}">转让中</view>
       <view class="text" wx:if="{{zero.status===5}}">已转让</view>
+      <view class="text" wx:if="{{zero.status===6}}">已提期</view>
       </view>
     </view>
   </view>
@@ -260,12 +266,13 @@
     <view class="everyDay_money {{item.returnedPeriod>0?'':'colorimpot'}}">￥{{itemName.amount}}</view>
     <view class="return_already" wx:if="{{item.isStop!==1&&item.returnedPeriod>0&&itemName.status==1}}">已返现{{item.returnedPeriod}}天{{item.orderGoodsCashBackItem[0].cashBackAmount}}元</view>
     <view class="return_already {{item.returnedPeriod>0?'':'colorimpot'}}" wx:if="{{item.isStop!==1&&item.returnedPeriod==0&&itemName.status==1}}">未返现</view>
-    <view class="return_already colorred" wx:if="{{item.isStop==1&&itemName.status==2}}">已终止</view>
+    <view class="return_already colorred" wx:if="{{itemName.status==2}}">已终止</view>
     <view class="return_already " wx:if="{{itemName.status==4}}">转让中</view>
     <view class="return_already " wx:if="{{itemName.status==5}}">已转让</view>
     <view class="return_already " wx:if="{{itemName.status==3}}">已返现</view>
+    <view class="return_already " wx:if="{{itemName.status==6}}">已提期</view>
   </view>
-  <view class="stageInterest" wx:if="{{item.stageInterest}}">您共可获得利息：{{item.stageInterest}}元</view>
+  <view class="stageInterest" wx:if="{{item.stageInterest}}">您共可获得利息：￥{{item.stageInterest}}</view>
   <view class="cashback-zero">
     <view class="list" wx:for="{{item.orderGoodsStageInterestItem}}" wx:key="" wx:for-item="zero">
       <view class="item">
@@ -279,6 +286,7 @@
         <view class="text1" wx:if="{{zero.status===1}}">未返现</view>
         <view class="text1" wx:if="{{zero.status===4}}">转让中</view>
       <view class="text" wx:if="{{zero.status===5}}">已转让</view>
+      <view class="text" wx:if="{{zero.status===6}}">已提期</view>
       </view>
     </view>
   </view>

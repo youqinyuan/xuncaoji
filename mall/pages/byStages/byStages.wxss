@@ -50,8 +50,6 @@ page {
   padding: 0 5rpx;
   background: rgba(255, 38, 68, 1);
   font-size: 24rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #fff;
 }
 

@@ -76,8 +76,6 @@
     right: 17rpx;
     top: 45rpx;
     font-size:24rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(255,38,68,1);
     text-align: center;
     line-height: 50rpx;
@@ -130,8 +128,6 @@
     width:430rpx;
     height:90rpx;
     font-size:28rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(51,51,51,1);
     line-height:50rpx;
     position: absolute;
@@ -217,8 +213,6 @@
 .nohappy_font{
     margin-top: 29rpx;
     font-size:32rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(255,255,255,1);
     text-align: center;
 }
@@ -244,8 +238,6 @@
 }
 .head_name{
     font-size:28rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(51,51,51,1);
     display: inline-block;
     position: absolute;
@@ -271,8 +263,6 @@
 }
 .sponsor_goods_name{
     font-size:28rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(51,51,51,1);
     line-height:40rpx;
     width: 460rpx;
@@ -348,8 +338,6 @@
     position: relative;
     height: 100rpx;
     font-size:26rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(51,51,51,1);
     margin-top: 20rpx;
 }
@@ -408,8 +396,6 @@
     text-align: center;
     line-height: 80rpx;
     font-size:32rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(255,255,255,1);
     margin-left: 16rpx;
 }
@@ -458,8 +444,6 @@
     margin-top: 44rpx;
     margin-bottom: 15rpx;
     font-size:36rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(51,51,51,1);
     text-align: center;
     font-weight: bold;
@@ -468,14 +452,10 @@
   .dialog__mask .dialog__container .text {
     margin-left: 45rpx;
     font-size:30rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(51,51,51,1);
   }
   .rule_value{
     font-size:28rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(51,51,51,1);
     line-height:60rpx;
     height: 60rpx;
@@ -497,8 +477,6 @@
     background: #F9F0FC;
     color: #666;
     font-size: 28rpx;
-    font-family: PingFang SC;
-    font-weight: 500;
   }
   
   .notice-swiper_item {

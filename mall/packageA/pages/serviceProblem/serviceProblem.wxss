@@ -19,8 +19,6 @@
   line-height: 52rpx;
   background: #d4ac75;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -89,8 +87,6 @@
   display: flex;
   align-items: center;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #d4ac75;
   margin-top: 70rpx;
 }
@@ -106,8 +102,6 @@
   margin-right: 75rpx;
   margin-top: 40rpx;
   font-size: 24rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #666;
   line-height: 2;
 }
@@ -119,8 +113,6 @@
   line-height: 52rpx;
   background: #d4ac75;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   margin-top: 84rpx;
 }
@@ -164,8 +156,6 @@
   margin-right: 60rpx;
   margin-top: 40rpx;
   font-size: 24rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #666;
   line-height: 1.5;
 }

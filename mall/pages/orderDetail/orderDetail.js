@@ -2,6 +2,8 @@
 var time = require('../../utils/util.js');
 let app = getApp();
 var newCount = true //节流阀-限制购买提交次数
+var interval = ''
+var interval2 = ''
 Page({
 
   /**
@@ -34,6 +36,11 @@ Page({
     newPeopleActivity:1, //新人专区跳转页面状态
     hostUrl: app.Util.getUrlImg().hostUrl,
   },
+  goIntoProblem: function (e) {
+    wx.navigateTo({
+      url: '/packageA/pages/serviceProblem/serviceProblem',
+    })
+  },
   //跳转到分期返现明细
   periodCash: function(e) {
     var orderId = e.currentTarget.dataset.orderid
@@ -49,7 +56,6 @@ Page({
     var that = this
     var orderId = e.currentTarget.dataset.orderid
     var logisticsId = e.currentTarget.dataset.logisticsid
-    //  console.log(logisticsId)
     if (that.data.logisticsDetailList.length > 1) {
       wx.navigateTo({
         url: `/pages/logisticsDetail/logisticsDetail?orderId=${orderId}`,
@@ -66,6 +72,8 @@ Page({
   onLoad: function(options) {
     var that = this
     var orderId = options.orderId
+    clearInterval(interval2)
+    clearInterval(interval)
     that.setData({
       orderId: orderId
     })
@@ -123,7 +131,6 @@ Page({
   },
   wait: function(e) {
     var that = this
-
     that.setData({
       showDialog4: false
     })
@@ -133,11 +140,9 @@ Page({
     if(newCount){
       newCount = false
       var latestStatus = e.currentTarget.dataset.lateststatus
-      //  console.log('点击的订单Id:'+that.data.orderId)
       app.Util.ajax('mall/order/queryOrder', {
         orderId: that.data.orderId
       }, 'GET').then((res) => {
-        //  console.log('订单详情：'+JSON.stringify(res.data.content.orderGoodsDetail.length))
         if (res.data.content.orderGoodsDetail.length > 1) {
           //订单内有多个商品，进入返现明细
           wx.navigateTo({
@@ -145,7 +150,6 @@ Page({
           })
         } else {
           //订单内只有单个商品，直接终止
-          //   console.log("aaaaaaa"+that.data.orderId)
           app.Util.ajax('mall/order/stopApplyZeroPurchase', {
             orderId: that.data.orderId
           }, 'POST').then((res) => {
@@ -179,11 +183,40 @@ Page({
   },
   //付款
   toPay: function(e) {
+    var that = this
     var orderId = e.currentTarget.dataset.orderid
     var id = e.currentTarget.dataset.id
     var orderType = e.currentTarget.dataset.ordertype
+    var advancesalestatus = e.currentTarget.dataset.advancesalestatus
+    var defaultamountstatus =  e.currentTarget.dataset.defaultamountstatus
+    that.setData({
+      orderId:orderId,
+      id:id,
+      orderType:orderType
+    })
+    if(advancesalestatus==1&&defaultamountstatus==2){
+      that.setData({
+        payStatus:true
+      })
+    } else if (orderType == 23 || orderType == 24) {
+      wx.navigateTo({
+        url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}&buyWay=${1}`,
+      })
+    } else {
+      wx.navigateTo({
+        url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}`,
+      })
+    }
+  },
+  toPay2:function(){
     wx.navigateTo({
-      url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}`,
+      url: '/pages/paymentorder/paymentorder?orderId='+this.data.orderId+'&id='+this.data.id+'&orderType='+this.data.orderType,
+    })
+    this.closePay()
+  },
+  closePay:function(){
+    this.setData({
+      payStatus:false
     })
   },
   //确认收货
@@ -369,8 +402,7 @@ Page({
     var that = this
     app.Util.ajax('mall/order/queryOrder', {
       orderId: that.data.orderId
-    }, 'GET').then((res) => { // 使用ajax函数
-      //  console.log("订单详情："+JSON.stringify(res.data.content))
+    }, 'GET').then((res) => {
       if (res.data.content) {
         console.log("11"+res.data.content.orderGoodsDetail[0].cashBackType)
         if(res.data.content.orderGoodsDetail[0].cashBackType==2||res.data.content.orderGoodsDetail[0].cashBackType==1){
@@ -386,7 +418,7 @@ Page({
           waitPay: `${hourTime}:${minuteTime}:${secondTime}`
         })
         if (lastTime > 0) {
-          let interval2 = setInterval(() => {
+           interval2 = setInterval(() => {
             if (lastTime > 0) {
               lastTime--
               let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
@@ -406,8 +438,13 @@ Page({
             }
           }, 1000)
         }
+        var orderAmount=0;
         for (var i = 0; i < res.data.content.orderTimeDetail.length; i++) {
           res.data.content.orderTimeDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeDetail[i].statusTime, 'Y-M-D h:m:s');
+        
+        }
+        for (var i = 0; i < res.data.content.orderGoodsDetail.length; i++) {
+          orderAmount += res.data.content.expectAmount + res.data.content.orderGoodsDetail[i].expressFee
         }
         if (res.data.content.orderTimeRefundDetail.length > 0) {
           for (var i = 0; i < res.data.content.orderTimeRefundDetail.length; i++) {
@@ -440,9 +477,9 @@ Page({
 
         that.setData({
           content: res.data.content,
+          orderAmount: orderAmount,
           orderTimeDetail: orderTimeDetail,
           orderTimeRefundDetail: (res.data.content.orderTimeRefundDetail).reverse(),
-          // list: res.data.content.orderLogisticsDetail && res.data.content.orderLogisticsDetail.logisticsDto ? (res.data.content.orderLogisticsDetail.logisticsDto.list.reverse())[0] : '',
         })
       }
     })
@@ -476,6 +513,7 @@ Page({
    */
   onShow: function() {
     var that = this 
+    clearInterval(interval2)
     app.Util.ajax('mall/order/queryOrder', {
       orderId: that.data.orderId
     }, 'GET').then((res) => { // 使用ajax函数
@@ -494,7 +532,7 @@ Page({
           waitPay: `${hourTime}:${minuteTime}:${secondTime}`
         })
         if (lastTime > 0) {
-          let interval2 = setInterval(() => {
+           interval2 = setInterval(() => {
             if (lastTime > 0) {
               lastTime--
               let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
@@ -522,8 +560,12 @@ Page({
         res.data.content.orderGoodsDetail.forEach((v, i) => {
           v.discountRatio = v.discountRatio / 10
         })
+        var orderAmount = 0
         for (var i = 0; i < res.data.content.orderTimeDetail.length; i++) {
-          res.data.content.orderTimeDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeDetail[i].statusTime, 'Y-M-D h:m:s');
+          res.data.content.orderTimeDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeDetail[i].statusTime, 'Y-M-D h :m :s');
+        }
+        for (var i = 0; i < res.data.content.orderGoodsDetail.length; i++) {
+          orderAmount += res.data.content.expectAmount + res.data.content.orderGoodsDetail[i].expressFee
         }
         if (res.data.content.orderTimeRefundDetail.length > 0) {
           for (var i = 0; i < res.data.content.orderTimeRefundDetail.length; i++) {
@@ -531,7 +573,7 @@ Page({
               if (res.data.content.orderTimeRefundDetail[i].status == 7 || res.data.content.orderTimeRefundDetail[i].status == 8) {
                 let current = res.data.content.orderTimeRefundDetail[i].autoProcessTime
                 that.formatDuring(current)
-                let interval = setInterval(() => {
+                 interval = setInterval(() => {
                   if (current > 0) {
                     current -= 1000
                     that.formatDuring(current)
@@ -556,6 +598,7 @@ Page({
 
         that.setData({
           content: res.data.content,
+          orderAmount: orderAmount,
           orderTimeDetail: orderTimeDetail,
           orderTimeRefundDetail: (res.data.content.orderTimeRefundDetail).reverse(),
         })
@@ -567,7 +610,8 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    clearInterval(interval2)
+    clearInterval(interval)
   },
 
   /**
@@ -575,9 +619,9 @@ Page({
    */
   onUnload: function() {
     wx.removeStorageSync('type')
-    // wx.reLaunch({
-    //   url: `/pages/myorder/myorder?status=${0}`
-    // })
+    clearInterval(interval2)
+    clearInterval(interval)
+    clearInterval(interval2)
   },
 
   /**

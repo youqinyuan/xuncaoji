@@ -1,0 +1,91 @@
+/* packageA/pages/getMoney/getMoney.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+.getMoney-wrap {
+  background: #fff;
+}
+
+.getMoney-swiper_item {
+  display: flex;
+  align-items: center;
+  height: 136rpx;
+  width: 750rpx;
+  border-bottom: 2rpx solid rgba(231, 231, 231, 1);
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  font-size: 26rpx;
+}
+
+.getMoneyPhoto {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 50%;
+  margin: 0 30rpx;
+}
+
+.getName {
+  display: flex;
+  justify-content: space-between;
+  width: 418rpx;
+  margin-bottom: 18rpx;
+}
+
+.getName text:nth-child(2) {
+  color: #ff2644;
+}
+
+.getSpec {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.getSpec text:nth-child(1) {
+  margin-right: 10rpx;
+}
+
+.getMoneyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 136rpx;
+  height: 58rpx;
+  background: #ff2644;
+  border-radius: 8rpx;
+  color: #fff;
+  margin-left: 30rpx;
+}
+
+.notText {
+  width: 200rpx;
+  font-size: 28rpx;
+  color: #aaa;
+  margin: 100rpx auto;
+}
+
+.postingBtn-wrap {
+  position: fixed;
+  bottom: 0;
+  height: 107rpx;
+  width: 750rpx;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.postingBtn {
+  width: 690rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background: linear-gradient(90deg, #ff6a48 0%, #ff2644);
+  border-radius: 40rpx;
+  color: #fff;
+  font-size: 32rpx;
+}

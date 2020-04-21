@@ -1,0 +1,39 @@
+/* packageA/pages/placeorderSearch/placeorderSearch.wxss */
+@import "../takeoutHomeage/takeoutHomeage";
+@import "/pages/search/search";
+@import "/template/searchList/searchList";
+@import "/template/searchList1/searchList1";
+
+page {
+  background: #fff;
+}
+
+.return-cart {
+  display: flex;
+  justify-content: space-between;
+}
+
+.return-wrap {
+  margin-left: 0;
+}
+
+.return-wrap.wrapMoney {
+  padding: 0 10rpx;
+}
+
+.cart {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.goods-list {
+  width: 690rpx;
+}
+
+.goods-list-img {
+  margin-right: 30rpx;
+}
+
+.content-wrapper{
+  text-align: left;
+}

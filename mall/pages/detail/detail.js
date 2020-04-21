@@ -14,6 +14,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    allPost: [], //省钱帖
+    allPost1: [], //省钱帖
+    allPost2: [],
+    saveForum: [], //赚钱帖
     hostUrl: app.Util.getUrlImg().hostUrl,
     stages: null, //分期专区
     commodity: null, //商品专区
@@ -81,7 +85,67 @@ Page({
     show3: false, //商品专区活动未开始或过期弹窗
     showModalStatus2: false,
     yuShow: false,
-    isOrder:false
+    isOrder: false,
+    showRole: false, //赚钱购省钱购
+    showOrder: false, //省钱赚钱规格弹框
+    showText1: '选择您想出售的规格型号',
+    showText2: '选好了，下一步'
+  },
+  //赚钱省钱规则
+  getIntoMoney: function(e) {
+    var that = this
+    that.setData({
+      money: 1,
+      showRole: true
+    })
+  },
+  saveIntoMoney: function(e) {
+    var that = this
+    that.setData({
+      money: 2,
+      showRole: true
+    })
+  },
+  closeShow: function(e) {
+    var that = this
+    that.setData({
+      showRole: false
+    })
+  },
+  //全部省钱订单
+  getIntoGetMoney: function(e) {
+    let that = this
+    wx.navigateTo({
+      url: '/packageA/pages/getMoney/getMoney?goodsId=' + that.data.goodsId,
+    })
+  },
+  //省钱赚钱弹框弹框
+  goShowOrder: function() {
+    let that = this;
+    that.data.options.searchOrder = 1
+    that.setData({
+      options: that.data.options
+    })
+    that.setData({
+      showOrder: true
+    })
+    wx.setStorageSync('goShowOrder', 1)
+  },
+  saveShowOrder() {
+    let that = this;
+    wx.navigateTo({
+      url: '/packageA/pages/saveBuy/saveBuy?goodsId=' + that.data.goodsId,
+    })
+  },
+  hideShowOrder: function() {
+    let that = this;
+    that.data.options.source = null
+    that.setData({
+      showOrder: false,
+      num: 1,
+      options: that.data.options
+    })
+    that.getGoodsData()
   },
   //跳转到服务问题页面
   goIntoProblem: function(e) {
@@ -93,15 +157,15 @@ Page({
   experience: function(e) {
     var that = this
     //引导服务页面
-    if (wx.getStorageSync('experienceStatus')){
-      if (that.data.newPeopleActivity==2){
+    if (wx.getStorageSync('experienceStatus')) {
+      if (that.data.newPeopleActivity == 2) {
         that.setData({
           isCart: false,
           showModalStatus2: true,
           isOrder: true
         })
         app.globalData.isShowBook = 2
-      }else{
+      } else {
         that.setData({
           zero: true,
           showModalStatus: true,
@@ -109,12 +173,12 @@ Page({
           isOrder: true
         })
         app.globalData.isShowBook = 2
-      }     
-    }else{
+      }
+    } else {
       that.setData({
         yuShow: true
       })
-      wx.setStorageSync('experienceStatus',1)
+      wx.setStorageSync('experienceStatus', 1)
     }
   },
   noNeed: function(e) {
@@ -180,8 +244,7 @@ Page({
         }, 'POST').then((res) => { // 使用ajax函数
           console.log(res.data)
         })
-      } else {
-      }
+      } else {}
     }
     var token = wx.getStorageSync('token')
     if (token) {
@@ -234,15 +297,15 @@ Page({
       if (this.data.buyType == 2) {
         if (activityId == '') {
           wx.navigateTo({
-            url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&buyType=2`,
+            url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&buyType=2&freeBuyMode`,
           })
         } else {
           wx.navigateTo({
             url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}&buyType=2`,
           })
-        }      
+        }
       } else {
-        if(app.globalData.isShowBook==2){
+        if (app.globalData.isShowBook == 2) {
           if (activityId == '') {
             wx.navigateTo({
               url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&isShowBook=2`,
@@ -252,7 +315,7 @@ Page({
               url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}&isShowBook=2`,
             })
           }
-        }else{
+        } else {
           if (activityId == '') {
             wx.navigateTo({
               url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}`,
@@ -305,15 +368,15 @@ Page({
           url: `/pages/applyZero/applyZero?activityGoodsId=${activityGoodsId}&stockId=${stockId}&quantity=${quantity}&newPeopleActivity=2&buyType=2&newPeople=1`,
         })
       } else {
-        if(app.globalData.isShowBook==2){
+        if (app.globalData.isShowBook == 2) {
           wx.navigateTo({
             url: `/pages/applyZero/applyZero?activityGoodsId=${activityGoodsId}&stockId=${stockId}&newPeopleActivity=2&newPeople=1&quantity=${quantity}&isShowBook=2`,
           })
-        }else{
+        } else {
           wx.navigateTo({
             url: `/pages/applyZero/applyZero?activityGoodsId=${activityGoodsId}&stockId=${stockId}&newPeopleActivity=2&newPeople=1&quantity=${quantity}`,
           })
-        }       
+        }
       }
       that.setData({
         showModalStatus2: false,
@@ -390,7 +453,7 @@ Page({
   //查询分享数据
   chooseShare: function() {
     var that = this
-    if (that.data.commodity) {
+    if (that.data.commodity || wx.getStorageSync("isCommodity")) {
       app.Util.ajax('mall/weChat/sharing/target', {
         mode: 15,
         activityId: that.data.commodity,
@@ -444,7 +507,7 @@ Page({
       })
     } else {
       var mode;
-      if (that.data.newPeopleActivity == 2) {
+      if (that.data.newPeopleActivity == 2 || wx.getStorageSync("isNewPeopleActivity")) {
         mode = 14
       } else {
         mode = 1
@@ -936,13 +999,6 @@ Page({
       url: `/pages/evaluate/evaluate?goodsId=${goodsId}`
     })
   },
-  //跳转到店铺详情
-  jumpShopsDetail: function(e) {
-    var id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: '/pages/storeDetail/storeDetail?id=' + id
-    })
-  },
   //跳转到详情页
   toDetail: function(e) {
     const id = e.currentTarget.dataset.id
@@ -1020,20 +1076,24 @@ Page({
   //选择规格index值
   specIndex: function(e) {
     var that = this
-    var index = e.currentTarget.dataset.index
-    var selectAttridStr = that.data.selectAttridStr
-    selectAttridStr[index] = that.data.selectAttrid
-    if (!that.data.stockDetail[selectAttridStr]) {
-      return;
+    if (that.data.options.source) {
+      return false;
+    } else {
+      var index = e.currentTarget.dataset.index
+      var selectAttridStr = that.data.selectAttridStr
+      selectAttridStr[index] = that.data.selectAttrid
+      if (!that.data.stockDetail[selectAttridStr]) {
+        return;
+      }
+      // 计算当前商品返现金额
+      that.setData({
+        stockDetail1: that.data.stockDetail[selectAttridStr],
+        quantity: that.data.stockDetail[selectAttridStr].quantity,
+        cashMoney: that.data.stockDetail[selectAttridStr].cashbackItems ? that.data.stockDetail[selectAttridStr].cashbackItems[0].totalAmount : '',
+        cashbackId: that.data.stockDetail[selectAttridStr].cashbackItems ? that.data.stockDetail[selectAttridStr].cashbackItems[0].cashbackId : '',
+        activeIndex: 0
+      })
     }
-    // 计算当前商品返现金额
-    that.setData({
-      stockDetail1: that.data.stockDetail[selectAttridStr],
-      quantity: that.data.stockDetail[selectAttridStr].quantity,
-      cashMoney: that.data.stockDetail[selectAttridStr].cashbackItems ? that.data.stockDetail[selectAttridStr].cashbackItems[0].totalAmount : '',
-      cashbackId: that.data.stockDetail[selectAttridStr].cashbackItems ? that.data.stockDetail[selectAttridStr].cashbackItems[0].cashbackId : '',
-      activeIndex: 0
-    })
   },
   //选择规格index值
   specIndex2: function(e) {
@@ -1056,38 +1116,41 @@ Page({
   //选中规格
   clickAttr: function(e) {
     var that = this
-    var selectIndex = e.currentTarget.dataset.selectIndex; //选择大规格的id
-    var attrIndex = e.currentTarget.dataset.attrIndex;
-    var name = e.currentTarget.dataset.name;
-    var spec = that.data.spec;
-    var count = spec[selectIndex].items.length;
-    //已选
-    that.data.selectNameArr[selectIndex] = e.currentTarget.dataset.name
-    that.setData({
-      selectName: that.data.selectNameArr.join('/'),
-    })
-    for (var i = 0; i < count; i++) {
-      spec[selectIndex].items[i].isSelect = false;
-    }
-    spec[selectIndex].items[attrIndex].isSelect = true;
-    if (spec[selectIndex].items[attrIndex].isSelect == true) {
-      if (spec[selectIndex].items[attrIndex].iconUrl) {
-        that.setData({
-          iconUrl: spec[selectIndex].items[attrIndex].iconUrl
-        })
+    if (that.data.options.source) {
+      return false;
+    } else {
+      var selectIndex = e.currentTarget.dataset.selectIndex; //选择大规格的id
+      var attrIndex = e.currentTarget.dataset.attrIndex;
+      var name = e.currentTarget.dataset.name;
+      var spec = that.data.spec;
+      var count = spec[selectIndex].items.length;
+      that.data.selectNameArr[selectIndex] = e.currentTarget.dataset.name
+      that.setData({
+        selectName: that.data.selectNameArr.join('/'),
+      })
+      for (var i = 0; i < count; i++) {
+        spec[selectIndex].items[i].isSelect = false;
       }
-    }
-    var attrid = spec[selectIndex].items[attrIndex].id;
-    selectAttrid[selectIndex] = attrid;
-    that.setData({
-      spec: spec, //变换选择框,
-      selectAttrid: e.currentTarget.dataset.attrId,
-    })
-    for (let i in that.data.stockDetail) {
-      if (that.data.selectAttridStr == i) {
-        that.setData({
-          cashbackId: that.data.stockDetail[i].cashbackItems ? that.data.stockDetail[i].cashbackItems[0].cashbackId : ''
-        })
+      spec[selectIndex].items[attrIndex].isSelect = true;
+      if (spec[selectIndex].items[attrIndex].isSelect == true) {
+        if (spec[selectIndex].items[attrIndex].iconUrl) {
+          that.setData({
+            iconUrl: spec[selectIndex].items[attrIndex].iconUrl
+          })
+        }
+      }
+      var attrid = spec[selectIndex].items[attrIndex].id;
+      selectAttrid[selectIndex] = attrid;
+      that.setData({
+        spec: spec, //变换选择框,
+        selectAttrid: e.currentTarget.dataset.attrId,
+      })
+      for (let i in that.data.stockDetail) {
+        if (that.data.selectAttridStr == i) {
+          that.setData({
+            cashbackId: that.data.stockDetail[i].cashbackItems ? that.data.stockDetail[i].cashbackItems[0].cashbackId : ''
+          })
+        }
       }
     }
   },
@@ -1193,7 +1256,7 @@ Page({
     that.setData({
       showModalStatus: false,
       zero: false,
-      isOrder:false
+      isOrder: false
     })
     app.globalData.isShowBook = 1
   },
@@ -1244,7 +1307,17 @@ Page({
           buyType: 2
         })
       }
+      if (wx.getStorageSync("isNewPeopleActivity")) {
+        that.setData({
+          newPeopleActivity: 2,
+        })
+      } else if (wx.getStorageSync("isCommodity")) {
+        that.setData({
+          commodity: 1,
+        })
+      }
       if (options.newPeopleActivity || options.activityType == 1) {
+        wx.setStorageSync("isNewPeopleActivity", 1)
         that.setData({
           newPeopleActivity: 2,
         })
@@ -1255,12 +1328,27 @@ Page({
         })
       }
       if (options.commodity) {
+        wx.setStorageSync("isCommodity", 1)
         that.setData({
           commodity: options.commodity,
         })
       } else if (options.activityType == 2 && options.activityId) {
+        wx.setStorageSync("isCommodity", 1)
         that.setData({
           commodity: options.activityId,
+        })
+      }
+      //发布赚钱省钱订单
+      if (options.searchOrder) {
+        that.setData({
+          showOrder: true
+        })
+      }
+      if (options.source) {
+        that.setData({
+          showText1: '选中的是对方要求的规格型号，不可更换哦',
+          showText2: '下一步',
+          showOrder: true
         })
       }
       //不是扫描小程序码进入
@@ -1289,9 +1377,9 @@ Page({
     // 请求商品详情
     if (that.data.stages) {
       that.getGoodsStages()
-    } else if (that.data.commodity) {
+    } else if (that.data.commodity || wx.getStorageSync("isCommodity")) {
       that.getGoodsArea()
-    } else if (that.data.newPeopleActivity == 2) {
+    } else if (that.data.newPeopleActivity == 2 || wx.getStorageSync("isNewPeopleActivity")) {
       that.newPeopleGoodsData()
     } else {
       that.getGoodsData()
@@ -1301,7 +1389,7 @@ Page({
   },
   // 请求商品详情
   getGoodsData: function() {
-    var that = this
+    let that = this
     app.Util.ajax('mall/home/goodsDetail', {
       id: that.data.goodsId
     }, 'GET').then((res) => {
@@ -1316,51 +1404,99 @@ Page({
           spec: res.data.content.specs,
           introductions: res.data.content.introductions,
           stockDetail: res.data.content.stockDetail,
-          iconUrl: res.data.content.specs[0].items[0].iconUrl,
           saveAmount: saveAmount,
           saveMoney: res.data.content.cashBack ? (parseFloat(saveAmount) + parseFloat(res.data.content.cashBack.totalAmount)).toFixed(2) : '',
         })
-        for (var i = 0; i < that.data.spec.length; i++) {
-          let items = that.data.spec[i].items
-          items[0]['isSelect'] = true
-        }
-        var name = [];
-        for (var a = 0; a < that.data.spec.length; a++) {
-          for (var b = 0; b < that.data.spec[a].items.length; b++) {
-            if (that.data.spec[a].items[b].isSelect == true) {
-              name.push(that.data.spec[a].items[b].name)
+        // stockDetail1: that.data.stockDetail[selectAttridStr],
+        if (that.data.options.source) {
+          let selectAttridstr1 = []
+          let specitemids = that.data.options.specitemids.split(',')
+          for (let i = 0; i < that.data.spec.length; i++) {
+            let items = that.data.spec[i].items
+            for (let j = 0; j < items.length; j++) {
+              for (let a = 0; a < specitemids.length; a++) {
+                if (items[j].id == specitemids[a]) {
+                  items[j]['isSelect'] = true
+                  selectAttridstr1.push(items[j].id)
+                  that.setData({
+                    iconUrl: items[j].iconUrl,
+                    selectAttridStr: selectAttridstr1,
+                  })
+                }
+              }
+            }
+          }
+          var name = [];
+          for (var a = 0; a < that.data.spec.length; a++) {
+            for (var b = 0; b < that.data.spec[a].items.length; b++) {
+              if (that.data.spec[a].items[b].isSelect == true) {
+                name.push(that.data.spec[a].items[b].name)
+                that.setData({
+                  selectNameArr: name,
+                  selectName: name.join('/')
+                })
+              }
+            }
+          }
+          that.setData({
+            spec: that.data.spec,
+            num: that.data.options.quantity,
+          })
+          for (let i in that.data.stockDetail) {
+            var selectAttridStr = that.data.selectAttridStr
+            that.data.stockDetail[i].dctPrice = parseFloat((that.data.stockDetail[i].dctPrice).toFixed(2))
+            if (selectAttridStr == i) {
               that.setData({
-                selectNameArr: name,
-                selectName: name.join('/')
+                stockDetail1: that.data.stockDetail[i],
+                quantity: that.data.stockDetail[i].quantity,
+                cashMoney: that.data.stockDetail[i].cashbackItems ? that.data.stockDetail[i].cashbackItems[0].totalAmount : '',
               })
             }
           }
-        }
-        that.setData({
-          spec: that.data.spec
-        })
-        //初始化规格选择
-        var spec = that.data.spec
-        var size = spec.length;
-        var index = 0;
-        var selectAttridstr1 = []
-        for (var i = 0; i < size; i++) {
-          selectAttridstr1.push(spec[i].items[0].id)
-        }
-        that.setData({
-          selectAttridStr: selectAttridstr1,
-        });
-        for (let i in that.data.stockDetail) {
-          var selectAttridStr = that.data.selectAttridStr
-          that.data.stockDetail[i].dctPrice = parseFloat((that.data.stockDetail[i].dctPrice).toFixed(2))
-          if (selectAttridStr == i) {
-            that.setData({
-              stockDetail1: that.data.stockDetail[i],
-              quantity: that.data.stockDetail[i].quantity,
-              cashMoney: that.data.stockDetail[i].cashbackItems ? that.data.stockDetail[i].cashbackItems[0].totalAmount : '',
-              cashbackId: that.data.stockDetail[i].cashbackItems ? that.data.stockDetail[i].cashbackItems[0].cashbackId : '',
-              activeIndex: 0
-            })
+        } else {
+          for (var i = 0; i < that.data.spec.length; i++) {
+            let items = that.data.spec[i].items
+            items[0]['isSelect'] = true
+          }
+          var name = [];
+          for (var a = 0; a < that.data.spec.length; a++) {
+            for (var b = 0; b < that.data.spec[a].items.length; b++) {
+              if (that.data.spec[a].items[b].isSelect == true) {
+                name.push(that.data.spec[a].items[b].name)
+                that.setData({
+                  selectNameArr: name,
+                  selectName: name.join('/')
+                })
+              }
+            }
+          }
+          that.setData({
+            spec: that.data.spec,
+            iconUrl: res.data.content.specs[0].items[0].iconUrl,
+          })
+          var spec = that.data.spec
+          var size = spec.length;
+          var index = 0;
+          var selectAttridstr1 = []
+          for (var i = 0; i < size; i++) {
+            selectAttridstr1.push(spec[i].items[0].id)
+          }
+          that.setData({
+            selectAttridStr: selectAttridstr1,
+          });
+
+          for (let i in that.data.stockDetail) {
+            var selectAttridStr = that.data.selectAttridStr
+            that.data.stockDetail[i].dctPrice = parseFloat((that.data.stockDetail[i].dctPrice).toFixed(2))
+            if (selectAttridStr == i) {
+              that.setData({
+                stockDetail1: that.data.stockDetail[i],
+                quantity: that.data.stockDetail[i].quantity,
+                cashMoney: that.data.stockDetail[i].cashbackItems ? that.data.stockDetail[i].cashbackItems[0].totalAmount : '',
+                cashbackId: that.data.stockDetail[i].cashbackItems ? that.data.stockDetail[i].cashbackItems[0].cashbackId : '',
+                activeIndex: 0
+              })
+            }
           }
         }
         if (that.data.detail.activityItem) {
@@ -1389,6 +1525,99 @@ Page({
         })
       }
     })
+    //查询省钱帖
+    that.getMoney();
+    //查询赚钱帖
+    that.saveForum();
+  },
+  //查询省钱帖
+  getMoney() {
+    var that = this
+    let data = {
+      pageNumber: that.data.pageNumber,
+      pageSize: that.data.pageSize,
+      type: 6,
+      goodsId: that.data.goodsId
+    }
+    app.Util.ajax('mall/forum/topic/findPageList', data, 'GET').then((res) => {
+      if (res.data.content) {
+        let arr = res.data.content.items
+        that.setData({
+          allPost: arr
+        })
+        if (arr.length > 2) {
+          let allPost1 = []
+          let allPost2 = []
+          for (let i = 0; i < arr.length; i++) {
+            if (i % 2 == 0) {
+              allPost1.push(arr[i])
+              that.setData({
+                allPost1: allPost1
+              })
+            } else {
+              allPost2.push(arr[i])
+              that.setData({
+                allPost2: allPost2
+              })
+            }
+          }
+        } else {
+          that.setData({
+            allPost1: arr
+          })
+        }
+      }
+    })
+  },
+  //查询赚钱帖
+  saveForum() {
+    var that = this
+    let data = {
+      pageNumber: that.data.pageNumber,
+      pageSize: that.data.pageSize,
+      type: 5,
+      goodsId: that.data.goodsId
+    }
+    app.Util.ajax('mall/forum/topic/findPageList', data, 'GET').then((res) => {
+      if (res.data.content) {
+        that.setData({
+          saveForum: res.data.content.items
+        })
+        // console.log(that.data.saveForum)
+      }
+    })
+  },
+  //购买赚钱
+  earnMoney(e) {
+    let that = this
+    if (wx.getStorageSync('token')) {
+      let id = e.currentTarget.dataset.id
+      let specitemids = e.currentTarget.dataset.specitemids
+      let topicid = e.currentTarget.dataset.topicid
+      let quantity = e.currentTarget.dataset.quantity
+      let stockid = e.currentTarget.dataset.stockid
+      let source = 1
+      that.data.options.source = source
+      that.data.options.specitemids = specitemids
+      that.data.options.topicid = topicid
+      that.data.options.stockid = stockid
+      that.data.options.quantity = quantity
+      that.setData({
+        options: that.data.options
+      })
+      that.getGoodsData()
+      setTimeout(function() {
+        that.setData({
+          showText1: '选中的是对方要求的规格型号，不可更换哦',
+          showText2: '下一步',
+          showOrder: true
+        })
+      }, 500)
+    } else {
+      wx.navigateTo({
+        url: "/pages/invitationCode/invitationCode?inviterCode=" + that.data.inviterCode
+      })
+    }
   },
   //新人专区商品详情
   newPeopleGoodsData: function() {
@@ -1827,14 +2056,14 @@ Page({
     var that = this;
     that.setData({
       pageNumber: 1,
-      num: 1
+      num: 1,
     })
     // 请求商品详情
     if (that.data.stages) {
       that.getGoodsStages()
-    } else if (that.data.commodity) {
+    } else if (that.data.commodity || wx.getStorageSync("isCommodity")) {
       that.getGoodsArea()
-    } else if (that.data.newPeopleActivity == 2) {
+    } else if (that.data.newPeopleActivity == 2 || wx.getStorageSync("isNewPeopleActivity")) {
       that.newPeopleGoodsData()
     } else {
       that.getGoodsData()
@@ -1856,10 +2085,18 @@ Page({
    * 生命周期函数 -- 监听页面卸载
    */
   onUnload: function() {
+    var that = this
     wx.removeStorageSync('stages')
     wx.removeStorageSync('goods_id')
+    setTimeout(function() {
+      wx.removeStorageSync('isNewPeopleActivity')
+      wx.removeStorageSync('isCommodity')
+    }, 15000)
     newpeoplecount1 = true
     newpeoplecount2 = true
+    that.setData({
+      isOrder: false
+    })
   },
 
   /**
@@ -1985,46 +2222,55 @@ Page({
   /* 点击减号 */
   bindMinus: function() {
     var that = this
-    var num = that.data.num;
-    // 如果大于1时，才可以减
-    if (num > 1) {
-      num--;
+    if (that.data.options.source) {
+      return false;
+    } else {
+      var num = that.data.num;
+      // 如果大于1时，才可以减
+      if (num > 1) {
+        num--;
+      }
+      if (num <= 1) {
+        wx.showToast({
+          title: '不能再少了哟',
+          icon: 'none'
+        })
+      }
+      // 只有大于一件的时候，才能normal状态，否则disable状态
+      var minusStatus = num <= 1 ? 'disabled' : 'normal';
+      // 将数值与状态写回
+      that.setData({
+        num: num,
+        minusStatus: minusStatus
+      });
     }
-    if (num <= 1) {
-      wx.showToast({
-        title: '不能再少了哟',
-        icon: 'none'
-      })
-    }
-    // 只有大于一件的时候，才能normal状态，否则disable状态
-    var minusStatus = num <= 1 ? 'disabled' : 'normal';
-    // 将数值与状态写回
-    that.setData({
-      num: num,
-      minusStatus: minusStatus
-    });
   },
   bindPlus: function() {
     var that = this
-    var num = that.data.num;
-    // 不作过多考虑自增1
-    if (num >= that.data.quantity) {
-      wx.showToast({
-        title: '给别人留点吧',
-        icon: 'none'
-      })
+    var that = this
+    if (that.data.options.source) {
+      return false;
     } else {
-      num++;
+      var num = that.data.num;
+      // 不作过多考虑自增1
+      if (num >= that.data.quantity) {
+        wx.showToast({
+          title: '给别人留点吧',
+          icon: 'none'
+        })
+      } else {
+        num++;
+      }
+      // 只有大于一件的时候，才能normal状态，否则disable状态
+      var minusStatus = num < 1 ? 'disabled' : 'normal';
+      var plusStatus = (num >= that.data.quantity) ? 'disabled' : 'normal';
+      // 将数值与状态写回
+      that.setData({
+        num: num,
+        minusStatus: minusStatus,
+        plusStatus: plusStatus
+      });
     }
-    // 只有大于一件的时候，才能normal状态，否则disable状态
-    var minusStatus = num < 1 ? 'disabled' : 'normal';
-    var plusStatus = (num >= that.data.quantity) ? 'disabled' : 'normal';
-    // 将数值与状态写回
-    that.setData({
-      num: num,
-      minusStatus: minusStatus,
-      plusStatus: plusStatus
-    });
   },
   /* 输入框事件 */
   bindManual: function(e) {
@@ -2169,4 +2415,60 @@ Page({
     })
   },
 
+  //发布订单
+  getOrder(e) {
+    let that = this
+    let img = e.currentTarget.dataset.iconurl
+    let iconurl = img ? img.split('?') : null
+    let iconurl1 = iconurl ? iconurl[0] : null
+    wx.setStorageSync('iconurl', iconurl1 ? iconurl[1] : null)
+    if (that.data.showText2 == '选好了，下一步') {
+      let data = {
+        dctprice: e.currentTarget.dataset.dctprice,
+        name: e.currentTarget.dataset.name,
+        spec: e.currentTarget.dataset.spec,
+        stockid: e.currentTarget.dataset.stockid,
+        iconurl: iconurl1,
+        expressfee: e.currentTarget.dataset.expressfee,
+        quantity: e.currentTarget.dataset.num,
+        searchOrder: that.data.options.searchOrder
+      }
+      let getOrder = JSON.stringify(data)
+      if (e.currentTarget.dataset.quantity1 == 0) {
+        wx.showToast({
+          title: '所选商品库存为0不可发布',
+          icon: 'none'
+        })
+      } else {
+        if (that.data.options.searchOrder == 1) {
+          wx.navigateTo({
+            url: "/packageA/pages/getMoneyMessage/getMoneyMessage?getOrder=" + getOrder
+          })
+        } else if (that.data.options.searchOrder == 2) {
+          wx.navigateTo({
+            url: "/packageA/pages/saveMoneyMessage/saveMoneyMessage?getOrder=" + getOrder
+          })
+        }
+      }
+    } else if (that.data.showText2 == '下一步') {
+      if (e.currentTarget.dataset.quantity1 == 0) {
+        wx.showToast({
+          title: '所选商品库存为0不可购买',
+          icon: 'none'
+        })
+      } else {
+        let data = {
+          quantity: e.currentTarget.dataset.quantity,
+          source: e.currentTarget.dataset.source,
+          topicid: e.currentTarget.dataset.topicid,
+          stock: e.currentTarget.dataset.stockid,
+          goodsid: e.currentTarget.dataset.goodsid
+        }
+        let getOrder = JSON.stringify(data)
+        wx.navigateTo({
+          url: '/pages/applyZero/applyZero?getOrder=' + getOrder,
+        })
+      }
+    }
+  }
 })

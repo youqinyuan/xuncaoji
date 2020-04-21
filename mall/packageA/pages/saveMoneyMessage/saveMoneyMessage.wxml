@@ -1,0 +1,44 @@
+<!--packageA/pages/saveMoneyMessage/saveMoneyMessage.wxml-->
+<view class="fill">您选择省钱的商品信息：</view>
+<view class="goods">
+  <image class="goodsImg" wx:if="{{getOrder.iconurl}}" src="{{getOrder.iconurl}}"></image>
+  <image class="goodsImg" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+  <view class="goods_middle">
+    <view class="goodsName">{{getOrder.name}}</view>
+    <view class="goodsSpec">规格：{{getOrder.spec}}</view>
+    <view class="goodsPrice">
+      <text>平台原价：</text>
+      <text>￥{{getOrder.dctprice}}</text>
+       <text>邮费：{{getOrder.expressfee?getOrder.expressfee:'包邮'}}</text>
+    </view>
+  </view>
+</view>
+<view class="fill">出售信息：</view>
+<view class="listItem">
+  <view class="listItem-list">
+    <input class="listItem-right" placeholder-style="color:#AAAAAA" placeholder="{{placeholder1}}" type="digit" bindinput="getOffer" value="{{getOffer}}"></input>
+  </view>
+</view>
+<view class="address">
+  <view class="fill">收货地址：</view>
+  <view class="editAddress" bindtap="jumpAddress" wx:if="{{addressItems.length===0}}">添加地址</view>
+  <view class="editAddress" bindtap="jumpAddress" wx:if="{{addressItems.length>0}}">更换地址</view>
+</view>
+<view class="listItem1" wx:if="{{addressItems.length>0}}">
+  <view class="listItem-list">
+    <text>{{name}}</text><text>{{phonedigit}}</text>
+  </view>
+  <view class="listItem-list">{{city}}</view>
+</view>
+<view class="goodsBtn" bindtap="getMoneyPost">发布</view>
+
+<!-- 发布成功 -->
+
+<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showSuccess}}">
+  <image class="tanImg" src="{{hostUrl}}/changeImg/success.png"></image>
+  <view class="zan-dialog__container" wx:if="{{showSuccess}}">
+    <view class="successTitle">发布成功</view>
+    <view class="successText">温馨提示：如果有人出售此商品并与您进行交易，将会有短信提醒到您哦。可随时撤销</view>
+    <view class="successBtn" bindtap="cancelGetMoney">好的，我知道了</view>
+  </view>
+</view>

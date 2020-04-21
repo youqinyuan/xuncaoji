@@ -2,8 +2,6 @@
 
 page {
   background: #f4f4f4;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   position: relative;
 }
 
@@ -108,8 +106,6 @@ page {
 .address-name .address-name-xm {
   margin-right: 26rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   width: 125rpx;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -129,6 +125,18 @@ page {
 }
 
 .address-wrapper {
+  margin-bottom: 20rpx;
+}
+
+.address2 {
+  width: 750rpx;
+  height: 168rpx;
+  background: #000;
+  opacity: 0.6;
+  font-size: 28rpx;
+  line-height: 168rpx;
+  text-align: center;
+  color: #fff;
   margin-bottom: 20rpx;
 }
 
@@ -156,8 +164,6 @@ page {
 
 .shops-wrap-top-title {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -169,8 +175,6 @@ page {
   background: #ff2644;
   border-radius: 14rpx;
   font-size: 20rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   margin-left: 10rpx;
   margin-top: 25rpx;
   color: rgba(255, 255, 255, 1);
@@ -215,8 +219,6 @@ page {
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -393,8 +395,6 @@ page {
   line-height: 60rpx;
   background: #ffe6d1;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
   padding-top: 10rpx;
 }
@@ -435,8 +435,6 @@ page {
 .payment-text {
   margin-left: 30rpx;
   color: #333;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 .payment-price {
@@ -461,8 +459,6 @@ page {
   background: #f4e8d9;
   font-size: 24rpx;
   border-bottom: 2rpx solid #f4f4f4;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
 }
 
@@ -521,8 +517,6 @@ page {
   justify-content: space-between;
   background: #fff;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   margin: 20rpx 0;
 }
@@ -706,15 +700,11 @@ page {
   margin-top: 20rpx;
   margin-bottom: 20rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: #333;
 }
 
 .remarks-text {
   color: #333;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 .remarks-writes {
@@ -871,8 +861,6 @@ button[disabled] {
 .stop-zan-dialog__mask .zan-dialog__container .text {
   margin: 0 45rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -934,15 +922,11 @@ button[disabled] {
   width: 450rpx;
   height: 150rpx;
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(170, 170, 170, 1);
 }
 
 .remarks-zan-dialog__mask .zan-dialog__container .section .numLength {
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(170, 170, 170, 1);
   position: absolute;
   right: 46rpx;
@@ -992,8 +976,6 @@ button[disabled] {
   height: 80rpx;
   line-height: 80rpx;
   font-size: 24rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
   position: absolute;
   right: 126rpx;
@@ -1062,16 +1044,12 @@ button[disabled] {
   margin-top: 46rpx;
   margin-bottom: 35rpx;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   text-align: left;
 }
 
 .dialog__mask2 .dialog__container2 .text2 {
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   max-height: 733rpx;
   overflow-y: scroll;
@@ -1102,8 +1080,6 @@ button[disabled] {
   top: 36rpx;
   right: 40rpx;
   font-size: 26rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
   line-height: 39rpx;
   display: -webkit-box;
@@ -1116,8 +1092,6 @@ button[disabled] {
 
 .seedGoodsPrice {
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 38, 68, 1);
   display: inline-block;
   position: absolute;
@@ -1127,8 +1101,6 @@ button[disabled] {
 
 .seedValue {
   font-size: 26rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #999;
   display: inline-block;
   position: absolute;
@@ -1157,8 +1129,6 @@ button[disabled] {
 
 .youhui_info_title {
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   height: 80rpx;
   line-height: 80rpx;
@@ -1229,4 +1199,89 @@ button[disabled] {
 
 .font24 {
   font-size: 24rpx;
+}
+
+/* 预售订单 */
+
+.yudialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.yudialog__mask .dialog__container {
+  background: rgba(255, 255, 255, 1);
+  height: 395rpx;
+  width: 600rpx;
+  overflow: hidden;
+  position: fixed;
+  z-index: 9999;
+  border-radius: 30rpx;
+  top: 260rpx;
+  left: 75rpx;
+}
+
+.yudialog__mask .cancelImg {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  right: 55rpx;
+  top: 50rpx;
+}
+
+.yudialog__mask .dialog__container .tishi {
+  margin-top: 46rpx;
+  margin-bottom: 35rpx;
+  font-size: 36rpx;
+  color: rgba(51, 51, 51, 1);
+  margin-left: 50rpx;
+}
+
+.yudialog__mask .dialog__container .order {
+  font-size: 30rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.yudialog__mask .order_one {
+  font-size: 28rpx;
+  color: #333;
+  margin-left: 50rpx;
+}
+
+.yudialog__mask .order_two {
+  font-size: 28rpx;
+  color: #333;
+  margin-left: 50rpx;
+}
+
+.yudialog__mask .order_box1 {
+  width: 240rpx;
+  height: 76rpx;
+  border: 2rpx solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: rgba(255, 38, 68, 1);
+  line-height: 76rpx;
+}
+
+.yudialog__mask .order_box2 {
+  width: 240rpx;
+  height: 76rpx;
+  background: #ff2644;
+  border-radius: 38rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #fff;
+  line-height: 76rpx;
+}
+
+.yudialog__mask .order_box {
+  display: flex;
+  justify-content: space-between;
+  margin: 50rpx;
 }

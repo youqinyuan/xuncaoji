@@ -99,7 +99,7 @@ page {
 .cashBackBox-text {
   height: 80rpx;
   line-height: 80rpx;
-  background: #fff;
+  background:  #F4F4F4;
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
   font-weight: 400;
@@ -188,8 +188,8 @@ page {
 }
 
 .img_tab11 {
-  width: 20rpx;
-  height: 34rpx;
+  width: 24rpx;
+  height: 47rpx;
   display: inline-block;
   vertical-align: top;
 }
@@ -201,8 +201,6 @@ page {
   display: inline-block;
   height: 47rpx;
   font-size: 20rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   line-height: 36rpx;
 }
 
@@ -212,8 +210,10 @@ page {
 
 .ReentryStatusValue {
   display: inline-block;
-  padding-left: 20rpx;
+  padding-left: 8rpx;
   padding-right: 5rpx;
+  height: 47rpx;
+  line-height: 47rpx;
 }
 
 .color1 {
@@ -247,15 +247,16 @@ page {
 .Reentry_time {
   display: inline-block;
   font-size: 20rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   line-height: 36rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   position: absolute;
   top: 10rpx;
-  right: 44rpx;
+  right: 126rpx;
+}
+.right1{
+  right: 50rpx !important;
 }
 
 .Reentry_time text {
@@ -270,8 +271,6 @@ page {
   white-space: nowrap;
   height: 50rpx;
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   position: absolute;
   top: 55rpx;
@@ -294,7 +293,7 @@ page {
 }
 
 .botton_box {
-  font-size: 32rpx;
+  font-size: 28rpx;
   font-family: PingFang SC;
   color: rgba(255, 255, 255, 1);
   height: 80rpx;
@@ -465,8 +464,6 @@ page {
   margin-left: 25rpx;
   height: 60rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   line-height: 60rpx;
   letter-spacing: 2rpx;
@@ -531,8 +528,6 @@ page {
 .shure_two_value {
   padding-top: 10rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   line-height: 42rpx;
   text-align: left;
@@ -541,8 +536,6 @@ page {
 .shure_two_tishi {
   padding-top: 40rpx;
   font-size: 24rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #ff6417;
   height: 60rpx;
   text-align: left;
@@ -586,8 +579,6 @@ page {
   margin-top: 46rpx;
   margin-bottom: 30rpx;
   font-size: 34rpx;
-  font-family: PingFang-SC-Bold;
-  font-weight: 500;
   color: #222;
   text-align: left;
 }
@@ -638,8 +629,6 @@ page {
   margin-top: 46rpx;
   margin-bottom: 60rpx;
   font-size: 34rpx;
-  font-family: PingFang-SC-Bold;
-  font-weight: 500;
   color: #222;
   text-align: left;
 }
@@ -656,7 +645,6 @@ page {
 .wait_shure-one-dialog__mask .zan-dialog__container .cause {
   letter-spacing: 3rpx;
   font-size: 28rpx;
-  font-weight: 500;
   color: #333;
   text-align: left !important;
 }
@@ -745,8 +733,6 @@ page {
   margin-top: 46rpx;
   margin-bottom: 30rpx;
   font-size: 34rpx;
-  font-family: PingFang-SC-Bold;
-  font-weight: 500;
   color: #222;
   text-align: left;
 }
@@ -801,7 +787,6 @@ page {
   font-family: PingFang-SC-Bold;
   color: #222;
   text-align: left;
-  font-weight: 500;
 }
 
 .return-two-dialog__mask .zan-dialog__container .text {
@@ -869,7 +854,6 @@ page {
   font-family: PingFang-SC-Bold;
   color: #222;
   text-align: left;
-  font-weight: 500;
 }
 
 .return-one-dialog__mask .zan-dialog__container .text {
@@ -899,8 +883,6 @@ page {
 .return-one-dialog__mask .zan-dialog__container .text input {
   border-bottom: 2rpx solid #ddd;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(170, 170, 170, 1);
   height: 80rpx;
   line-height: 80rpx;
@@ -950,8 +932,6 @@ page {
   margin-top: 46rpx;
   margin-bottom: 30rpx;
   font-size: 34rpx;
-  font-family: PingFang-SC-Bold;
-  font-weight: 500;
   color: #222;
   text-align: left;
 }
@@ -993,7 +973,6 @@ page {
   text-align: center;
   font-size: 24rpx;
   font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(227, 58, 89, 1);
   margin-top: 44rpx;
   margin-bottom: -80rpx;
@@ -1158,7 +1137,6 @@ page {
   line-height: 90rpx;
   font-size:28rpx;
   font-family:PingFang SC;
-  font-weight:500;
   color:rgba(153,153,153,1);
   position: relative;
 }
@@ -1219,7 +1197,6 @@ page {
   margin-bottom: 25rpx;
   font-size:36rpx;
   font-family:PingFang SC;
-  font-weight:500;
   color:rgba(51,51,51,1);
   text-align: center;
   font-weight: bold;
@@ -1228,7 +1205,6 @@ page {
 .dialog__mask .dialog__container .textz {
   font-size:30rpx;
   font-family:PingFang SC;
-  font-weight:500;
   color:rgba(51,51,51,1);
   text-align: center;
 }
@@ -1251,7 +1227,6 @@ page {
   border-radius:40rpx;
   font-size:32rpx;
   font-family:PingFang SC;
-  font-weight:500;
   color:rgba(255,255,255,1);
   line-height: 80rpx;
   text-align: center;
@@ -1299,7 +1274,6 @@ page {
   font-family: PingFang-SC-Bold;
   color: #222;
   text-align: left;
-  font-weight: 500;
   height: 20rpx;
 }
 
@@ -1365,7 +1339,6 @@ page {
   font-family: PingFang-SC-Bold;
   color: #222;
   text-align: left;
-  font-weight: 500;
   height: 20rpx;
 }
 .peopleCancle_box{
@@ -1385,7 +1358,6 @@ page {
   display: inline-block;
   font-size:24rpx;
   font-family:PingFang SC;
-  font-weight:500;
   color:rgba(51,51,51,1);
   position: absolute;
   left: 151rpx;
@@ -1395,7 +1367,6 @@ page {
   display: inline-block;
   font-size:24rpx;
   font-family:PingFang SC;
-  font-weight:500;
   color:rgba(51,51,51,1);
   position: absolute;
   left: 151rpx;
@@ -1405,7 +1376,6 @@ page {
   display: inline-block;
   font-size:26rpx;
   font-family:PingFang SC;
-  font-weight:500;
   color:rgba(51,51,51,1);
   position: absolute;
   left: 39rpx;
@@ -1507,7 +1477,6 @@ page {
   font-family: PingFang-SC-Bold;
   color: #222;
   text-align: left;
-  font-weight: 500;
 }
 
 .sell-one-dialog__mask .sell-dialog__container .text4 {
@@ -1555,7 +1524,6 @@ page {
   position: absolute;
   font-size:26rpx;
   font-family:PingFang SC;
-  font-weight:500;
   text-decoration:underline;
   color:rgba(66,126,132,1);
   top: 55rpx;
@@ -1568,4 +1536,26 @@ page {
 .noBind1{
   border:2rpx solid rgba(231,231,231,1) !important;
   color: #E7E7E7 !important;
+}
+.sticky{
+  width:66rpx;
+  height:28rpx;
+  border:2rpx solid rgba(255,255,255,1);
+  border-radius:14rpx;
+  font-size:20rpx;
+  font-family:PingFang SC;
+  color:rgba(255,255,255,1);
+  line-height:36rpx;
+  position: absolute;
+  right: 48rpx;
+  top: 10rpx;
+  line-height: 28rpx;
+  text-align: center;
+}
+.colorsell{
+  color: #FF745F !important;
+  border: #FF745F 2rpx solid !important;
+}
+.right51{
+  right: 51rpx !important;
 }

@@ -1,0 +1,7 @@
+<!--packageA/pages/business/business.wxml-->
+    <view class="content">
+        <view class="title border_bottom" wx:for="{{businessList}}" wx:key="{{item.id}}" bindtap="toChoose" data-index="{{index}}" data-id="{{item.id}}" data-name="{{item.name}}">
+            <view class="info">{{item.name}}</view>
+            <image src="{{hostUrl}}/changeImg/choose.png" class="tonewpage" wx:if="{{aa==index}}"/>
+        </view>
+    </view>

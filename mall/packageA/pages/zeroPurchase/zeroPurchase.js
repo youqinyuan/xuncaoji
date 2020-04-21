@@ -55,12 +55,12 @@ Page({
     hostUrl: app.Util.getUrlImg().hostUrl,
   },
   //求当前轮播图的索引
-  countIndex: function(e) {
+  countIndex: function (e) {
     this.setData({
       current: e.detail.current
     })
   },
-  imgYu: function(e) {
+  imgYu: function (e) {
     var src = e.currentTarget.dataset.src; //获取data-src
     var imgList = e.currentTarget.dataset.list; //获取data-list
     //图片预览
@@ -69,7 +69,7 @@ Page({
       urls: imgList // 需要预览的图片http链接列表
     })
   },
-  commentYu: function(e) {
+  commentYu: function (e) {
     var src = e.currentTarget.dataset.src; //获取data-src
     var imgList = e.currentTarget.dataset.list; //获取data-list
     //图片预览
@@ -81,9 +81,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this
-    console.log(options)
     that.setData({
       goodsId: options.id,
       type: options.type,
@@ -96,6 +95,15 @@ Page({
     } else {
       that.setData({
         btnText: '免费领取'
+      })
+    }
+    if(that.data.btnText == '一元包邮领取'){
+      wx.setNavigationBarTitle({
+        title: '合作商渠道',
+      })
+    }else{
+      wx.setNavigationBarTitle({
+        title: '新品体验',
       })
     }
     if (that.data.type == 1) {
@@ -136,10 +144,9 @@ Page({
     that.comment();
   },
   //查询商品详情
-  getDetailData: function() {
+  getDetailData: function () {
     var that = this
     app.Util.ajax(`mall/home/activity/freeShopping/goodsDetail?id=${that.data.goodsId}&type=${that.data.type}`, null, 'GET').then((res) => {
-      console.log(11111111111)
       if (res.data.content) {
         var current = res.data.content.remainingTime
         that.formatDuring(current)
@@ -251,7 +258,7 @@ Page({
     })
   },
   //选中返现
-  clickCashback: function(e) {
+  clickCashback: function (e) {
     var that = this
     var id = e.currentTarget.dataset.id
     var cur = e.currentTarget.dataset.gindex
@@ -262,7 +269,7 @@ Page({
     })
   },
   //选择规格index值
-  specIndex: function(e) {
+  specIndex: function (e) {
     var that = this
     var index = e.currentTarget.dataset.index
     var selectAttridStr = that.data.selectAttridStr
@@ -279,7 +286,7 @@ Page({
     })
   },
   //选中规格
-  clickAttr: function(e) {
+  clickAttr: function (e) {
     var that = this
     var selectIndex = e.currentTarget.dataset.selectIndex; //选择大规格的id
     var attrIndex = e.currentTarget.dataset.attrIndex;
@@ -317,7 +324,7 @@ Page({
     }
   },
   //正常的提交订单
-  zeroButton: function(e) {
+  zeroButton: function (e) {
     var that = this
     var activityGoodsId = e.currentTarget.dataset.activitygoodsid
     var goodsId = e.currentTarget.dataset.goodsid
@@ -330,7 +337,7 @@ Page({
     })
   },
   //查询分享数据
-  chooseShare: function() {
+  chooseShare: function () {
     var that = this
     if (that.data.type == 1) {
       app.Util.ajax('mall/weChat/sharing/target', {
@@ -349,12 +356,12 @@ Page({
           //下载线上图片到本地，用于绘制分享图片
           wx.downloadFile({
             url: res.data.content.imageUrl,
-            success: function(res) {
+            success: function (res) {
               that.setData({
                 share: res.tempFilePath
               })
             },
-            fail: function(res) {}
+            fail: function (res) { }
           })
           that.setData({
             shareList: res.data.content,
@@ -377,12 +384,12 @@ Page({
           //下载线上图片到本地，用于绘制分享图片
           wx.downloadFile({
             url: res.data.content.imageUrl,
-            success: function(res) {
+            success: function (res) {
               that.setData({
                 share: res.tempFilePath
               })
             },
-            fail: function(res) {}
+            fail: function (res) { }
           })
           that.setData({
             shareList: res.data.content,
@@ -400,12 +407,12 @@ Page({
           //下载线上图片到本地，用于绘制分享图片
           wx.downloadFile({
             url: res.data.content.imageUrl,
-            success: function(res) {
+            success: function (res) {
               that.setData({
                 share: res.tempFilePath
               })
             },
-            fail: function(res) {}
+            fail: function (res) { }
           })
           that.setData({
             shareList: res.data.content,
@@ -429,12 +436,12 @@ Page({
           //下载线上图片到本地，用于绘制分享图片
           wx.downloadFile({
             url: res.data.content.imageUrl,
-            success: function(res) {
+            success: function (res) {
               that.setData({
                 share: res.tempFilePath
               })
             },
-            fail: function(res) {}
+            fail: function (res) { }
           })
           that.setData({
             shareList: res.data.content,
@@ -445,14 +452,14 @@ Page({
 
   },
   //取消分享弹框
-  cancelShare: function() {
+  cancelShare: function () {
     var that = this
     that.setData({
       showModalStatus1: false
     })
   },
   //商品评论
-  comment: function() {
+  comment: function () {
     var that = this
     app.Util.ajax('mall/interact/queryUserInteract', {
       pageNumber: that.data.pageNumber,
@@ -471,23 +478,23 @@ Page({
     })
   },
   //跳转到评价页面
-  jumpEvaluate: function(e) {
+  jumpEvaluate: function (e) {
     var goodsId = e.currentTarget.dataset.goodsid
     wx.navigateTo({
       url: `/pages/evaluate/evaluate?goodsId=${goodsId}`
     })
   },
-  know: function() {
+  know: function () {
     this.setData({
       card: false,
       showModalStatus: true
     })
   },
   //一进页面底部0元购按钮
-  toPlaceorder: function(e) {
+  toPlaceorder: function (e) {
     var that = this
     var type = that.data.type
-    if (that.data.btnText === '免费领取') {
+    if (that.data.btnText === '免费领取' || that.data.btnText === '一元包邮领取') {
       var activityGoodsId = e.currentTarget.dataset.activitygoodsid
       var goodsId = e.currentTarget.dataset.goodsid
       var stockId = e.currentTarget.dataset.stockid
@@ -513,9 +520,7 @@ Page({
                     card: true,
                     stopStatus: 1
                   })
-                  console.log("stopStatus:" + that.data.stopStatus)
-                  setTimeout(function() {
-                    console.log("stopStatus:" + that.data.stopStatus)
+                  setTimeout(function () {
                     that.setData({
                       stopStatus: 2
                     })
@@ -574,7 +579,7 @@ Page({
     }
   },
   //保存公众号二维码图片到相册
-  saveImg: function() {
+  saveImg: function () {
     var that = this
     var tempFilePath = '/assets/images/icon/code.png'
     wx.getSetting({
@@ -611,7 +616,7 @@ Page({
                 content: '您已拒绝授权，是否去设置打开？',
                 confirmText: "确认",
                 cancelText: "取消",
-                success: function(res) {
+                success: function (res) {
                   console.log(res);
                   if (res.confirm) {
                     console.log('用户点击确认')
@@ -681,33 +686,33 @@ Page({
     })
   },
   //关闭公众号弹窗
-  show: function() {
+  show: function () {
     var that = this
     that.setData({
       showMask: false
     })
   },
   //关闭弹窗
-  hideModal: function() {
+  hideModal: function () {
     var that = this
     that.setData({
       showModalStatus: false
     })
   },
   //关闭分享弹框
-  cancelShow: function() {
+  cancelShow: function () {
     var that = this
     that.setData({
       show: false
     })
   },
-  cancelShare: function() {
+  cancelShare: function () {
     this.setData({
       showModalStatus1: false
     })
   },
   // 点击右上方红色的分享按钮
-  shares: function() {
+  shares: function () {
     //查询分享数据
     this.chooseShare();
     this.setData({
@@ -715,13 +720,13 @@ Page({
     })
   },
   // 取消分享
-  cancelShare: function() {
+  cancelShare: function () {
     this.setData({
       showModalStatus1: false
     })
   },
   //分享朋友圈
-  shareFriend: function() {
+  shareFriend: function () {
     var that = this
     if (that.data.type == 1) {
       that.setData({
@@ -916,10 +921,10 @@ Page({
             ctx.stroke();
             ctx.closePath()
             ctx.draw()
-            setTimeout(function() {
+            setTimeout(function () {
               wx.canvasToTempFilePath({
                 canvasId: 'mycanvas',
-                success: function(res) {
+                success: function (res) {
                   that.data.haibaoImg = res.tempFilePath
                 }
               })
@@ -941,7 +946,7 @@ Page({
     })
   },
   // 长按保存到相册
-  handleLongPress: function() {
+  handleLongPress: function () {
     var that = this
     var tempFilePath = that.data.haibaoImg
     wx.getSetting({
@@ -978,7 +983,7 @@ Page({
                 content: '您已拒绝授权，是否去设置打开？',
                 confirmText: "确认",
                 cancelText: "取消",
-                success: function(res) {
+                success: function (res) {
                   console.log(res);
                   if (res.confirm) {
                     console.log('用户点击确认')
@@ -1053,7 +1058,7 @@ Page({
     })
   },
   //关闭海报分享页面
-  close_hb: function() {
+  close_hb: function () {
     var that = this
     that.setData({
       haibao: false
@@ -1062,14 +1067,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     var temp = app.globalData.creditCard
     if (temp == 1) {
       that.setData({
@@ -1081,35 +1086,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function(ops) {
+  onShareAppMessage: function (ops) {
     var that = this
     if (ops.from === 'button') {
       if (ops.target.id === 'btn') {
@@ -1167,7 +1172,7 @@ Page({
           })
           return {
             title: '【新品免费体验】我是合伙人，推荐该商品，免费领',
-            path: `/packageA/pages/zeroPurchase/zeroPurchase?inviterCode=${wx.getStorageSync('inviterCode')}&type=${that.data.type}&id=${that.data.goodsId}&orgPrice=${that.data.orgPrice}&text=${that.data.btnText}`,
+            path: `/pages/zeroPurchase/zeroPurchase?inviterCode=${wx.getStorageSync('inviterCode')}&type=${that.data.type}&id=${that.data.goodsId}&orgPrice=${that.data.orgPrice}&text=${that.data.btnText}`,
             imageUrl: that.data.shareList.imageUrl,
           }
         } else if (that.data.type == 4) {

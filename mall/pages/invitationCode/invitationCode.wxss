@@ -13,8 +13,6 @@
   margin-bottom: 30rpx;
   margin-left: 169rpx;
   font-size: 34rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(170, 170, 170, 1);
 }
 
@@ -25,8 +23,6 @@
   border-radius: 40rpx;
   font-size: 32rpx;
   margin-bottom: 100rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 .application-wrap{
@@ -37,8 +33,6 @@
   background: #fff;
   margin-left: 20rpx;
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color:#FF6417;
   border-radius: 0;
 }
@@ -47,8 +41,6 @@
   margin-right: 20rpx;
   background: #fff;
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color:#3C8AFF;
   border-radius: 0;
 }

@@ -60,8 +60,6 @@ page {
   border-bottom: 2rpx solid #f4f4f4;
   display: flex;
   font-size: 26rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 .goods-channel {
@@ -183,8 +181,6 @@ page {
   justify-content: flex-end;
   margin-right: 30rpx;
   font-size: 26rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
 
@@ -222,8 +218,6 @@ page {
   background: rgba(255, 255, 255, 1);
   border-radius: 28rpx;
   font-size: 26rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   padding: 0 15rpx;
 }
 
@@ -428,8 +422,6 @@ page {
   padding: 2rpx 12rpx;
   margin-right: 13rpx;
   font-size: 20rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   background: #ff2644;
   border-radius: 14rpx;
@@ -439,8 +431,6 @@ page {
   padding: 2rpx 12rpx;
   margin-right: 13rpx;
   font-size: 20rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 100, 23, 1);
   border: 2rpx solid rgba(255, 100, 23, 1);
   border-radius: 14rpx;
@@ -488,15 +478,11 @@ page {
 .return-wrap .return-moneypay text:nth-child(1) {
   color: #ff2644;
   padding: 0 8rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 .return-wrap .pay-money text:nth-child(1) {
   color: #ff2644;
   padding: 0 8rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 /* 确认收货弹框 */
@@ -724,8 +710,6 @@ page {
   border: 2rpx solid rgba(170, 170, 170, 1);
   border-radius: 25rpx;
   font-size: 30rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   margin-bottom: 30rpx;
 }
@@ -734,8 +718,6 @@ page {
   width: 466rpx;
   margin-left: 37rpx;
   font-size: 26rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
 
@@ -836,16 +818,12 @@ page {
   line-height: 76rpx;
   border-radius:8rpx;
   font-size:32rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   color:rgba(102,102,102,1);
   margin-bottom: 30rpx;
   background: #F1F1F1;
 }
 .penalSum{
   font-size:26rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   color:rgba(255,38,68,1);
   line-height:40rpx;
   padding: 0 50rpx;
@@ -967,8 +945,6 @@ page {
   height: 90rpx;
   position: relative;
   font-size:26rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   border-bottom:#E7E7E7 2rpx solid ;
 }
 .service_one{
@@ -1057,10 +1033,8 @@ page {
   margin-top: 46rpx;
   margin-bottom: 40rpx;
   font-size: 34rpx;
-  font-family: PingFang-SC-Bold;
   color: #222;
   text-align: left;
-  font-weight: 500;
 }
 
 .sell-one-dialog__mask .sell-dialog__container .text {
@@ -1164,8 +1138,6 @@ page {
 .contentainer4-left-text {
   margin-left: 30rpx;
   font-size: 30rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -1205,8 +1177,6 @@ page {
   right: 30rpx;
   bottom: 20rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(170, 170, 170, 1);
 }
 
@@ -1286,16 +1256,12 @@ page {
 .content-wrapper .shareCommission {
   margin-top: 70rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
 .content-wrapper .shareText {
   margin-top: 39rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
 
@@ -1318,7 +1284,5 @@ button::after {
 .content-wrapper .wx {
   margin-top: -35rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 } */

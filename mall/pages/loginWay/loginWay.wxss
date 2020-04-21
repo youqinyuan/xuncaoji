@@ -13,8 +13,6 @@ image {
   border-radius: 40rpx;
   font-size: 32rpx;
   margin-bottom: 70rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -25,8 +23,6 @@ image {
   border-radius: 40rpx;
   font-size: 32rpx;
   margin-bottom: 70rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 

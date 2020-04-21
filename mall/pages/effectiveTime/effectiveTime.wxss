@@ -8,7 +8,6 @@
 .start_time {
   font-size: 32rpx;
   font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   text-align: center;
   display: inline-block;
@@ -23,7 +22,6 @@
 .font_one {
   font-size: 28rpx;
   font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(153, 153, 153, 1);
   display: inline-block;
   position: absolute;
@@ -34,7 +32,6 @@
 .end_time {
   font-size: 32rpx;
   font-family: PingFang SC;
-  font-weight: 500;
   height: 44rpx;
   color: rgba(51, 51, 51, 1);
   text-align: center;
@@ -49,7 +46,6 @@
 .clear {
   font-size: 28rpx;
   font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 100, 23, 1);
   display: inline-block;
   position: absolute;
@@ -66,7 +62,6 @@
   border-radius: 38rpx;
   font-size: 32rpx;
   font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   position: absolute;
   right: 30rpx;
@@ -138,6 +133,5 @@
   border-radius: 40rpx;
   font-size: 32rpx;
   font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }

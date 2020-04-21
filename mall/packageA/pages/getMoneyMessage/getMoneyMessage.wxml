@@ -1,0 +1,40 @@
+<!--packageA/pages/getMoneyMessage/getMoneyMessage.wxml-->
+<view class="fill">您选择赚钱的商品信息：</view>
+<view class="goods">
+  <image class="goodsImg" wx:if="{{getOrder.iconurl}}" src="{{getOrder.iconurl}}"></image>
+  <image class="goodsImg" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+  <view class="goods_middle">
+    <view class="goodsName">{{getOrder.name}}</view>
+    <view class="goodsSpec">规格：{{getOrder.spec}}</view>
+    <view class="goodsPrice">
+      <text>平台原价：</text>
+      <text>￥{{getOrder.dctprice}}</text>
+    </view>
+  </view>
+</view>
+<view class="fill">出售信息：</view>
+<view class="listItem">
+  <view class="listItem-list">
+    <input  class="listItem-right" placeholder-style="color:#AAAAAA" placeholder="{{placeholder1}}" type="digit" bindinput="getOffer" value="{{getOffer}}"></input>    
+  </view>
+  <view class="listItem-list">
+    <input wx:if="{{showBtn=='发布并支付违约金'}}" class="listItem-right listBorder" placeholder-style="color:#AAAAAA" placeholder="{{placeholder2}}" type="digit" bindinput="getDefault" value="{{getDefault}}"></input>
+    <view wx:else class="listItem-right1 listBorder">{{getDefault}}</view>
+  </view>
+</view>
+<view class="goodsBtn" bindtap="getMoneyPost">{{showBtn}}</view>
+<view class="goodsMessage">
+  <view class="goodsTitle">*违约金说明</view>
+  <view>违约金是指对交易做一个保障，如果对方购买您的发出的商品后，您未进行后续支付，违约金将扣除。其他情况全额返还！在无人购买时您可随时取消此订单，违约金也将全额返还！</view>
+</view>
+
+<!-- 发布成功 -->
+
+<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showSuccess}}">
+  <image class="tanImg"  src="{{hostUrl}}/changeImg/success.png"></image>
+  <view class="zan-dialog__container" wx:if="{{showSuccess}}">
+    <view class="successTitle">发布成功</view>
+     <view class="successText">温馨提示：如果有人购买您出售的商品后，将会有短信提醒哦，有人购买后，请在{{getDeTime}}小时内完成支付。支付完成后您将获得您填写的出售金额！</view>
+     <view class="successBtn" bindtap="cancelGetMoney">好的，我知道了</view>
+  </view>
+</view>

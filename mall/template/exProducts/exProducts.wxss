@@ -51,8 +51,6 @@
   background: #fff;
   color: #666;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   border-top: 2rpx solid rgba(231, 231, 231, 1);
 }
 
@@ -126,8 +124,6 @@
 
 .section-list-text {
   font-size: 24rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #666;
 }
 
@@ -217,8 +213,6 @@
   text-align: center;
   margin-left: 20rpx;
   margin-top: 20rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -361,15 +355,11 @@ button::after {
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
 .nationwideReturn-list-price {
   font-size: 20rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: #ff2644;
 }
 
@@ -526,8 +516,6 @@ button::after {
   font-size: 24rpx;
   margin-top: 40rpx;
   margin-left: 30rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   width: 175rpx;
   overflow: hidden;
@@ -637,8 +625,6 @@ button::after {
   padding: 2rpx 12rpx;
   margin-right: 13rpx;
   font-size: 20rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   background: #ff2644;
   border-radius: 14rpx;
@@ -648,8 +634,6 @@ button::after {
   padding: 2rpx 12rpx;
   margin-right: 13rpx;
   font-size: 20rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 100, 23, 1);
   border: 2rpx solid rgba(255, 100, 23, 1);
   border-radius: 14rpx;
@@ -697,15 +681,11 @@ button::after {
 .return-wrap .return-money text:nth-child(1) {
   color: #ff6417;
   padding: 0 8rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 .return-wrap .pay-money text:nth-child(1) {
   color: #ff6417;
   padding: 0 8rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 .exProducts-bottom {

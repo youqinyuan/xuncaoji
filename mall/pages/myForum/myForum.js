@@ -13,7 +13,6 @@ Page({
     type: 1,
     allPost: [], //帖子列表
     emptyText:'',
-    showDel: false, //删除帖子弹框
     delId: null,
     showFollow: false, //取消关注弹窗
     followId: null,
@@ -653,6 +652,7 @@ Page({
       var canRemove = e.currentTarget.dataset.canremove
       var id = e.currentTarget.dataset.id
       var returnType = e.currentTarget.dataset.returntype
+      var typeStatus = e.currentTarget.dataset.type
       that.setData({
         avatarKey: avatarKey,
         nickname: nickname,
@@ -662,8 +662,9 @@ Page({
         expectAmount: expectAmount,
         topicId: id,
         returnType: returnType,
-        sureOne: true
-      })   
+        sureOne: true,
+        typeStatus: typeStatus
+      }) 
     } else {
       wx.navigateTo({
         url: '/pages/invitationCode/invitationCode',
@@ -901,6 +902,50 @@ Page({
     })
     wx.navigateTo({
       url: '/pages/paypassword/paypassword',
+    })
+  },
+  //购买赚钱
+  earnMoney(e) {
+    if (wx.getStorageSync('token')) {
+      let id = e.currentTarget.dataset.id
+      let specitemids = e.currentTarget.dataset.specitemids
+      let topicid = e.currentTarget.dataset.topicid
+      let quantity = e.currentTarget.dataset.quantity
+      let stockid = e.currentTarget.dataset.stockid
+      let source = 1
+      wx.navigateTo({
+        url: `/pages/detail/detail?id=${id}&specitemids=${specitemids}&topicid=${topicid}&source=${source}&quantity=${quantity}&stockid=${stockid}`,
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }
+  },
+  //购买省钱
+  buySaveMoney(e) {
+    if (wx.getStorageSync('token')) {
+      let img = e.currentTarget.dataset.item.goodsImageUrl
+      let iconurl = img ? img.split('?') : null
+      let iconurl1 = iconurl ? iconurl[0] : null
+      e.currentTarget.dataset.item.goodsImageUrl = iconurl1
+      e.currentTarget.dataset.item.avatarKey = null
+      e.currentTarget.dataset.item.commentPageResponse = null
+      wx.setStorageSync('goodsImageUrl', iconurl1 ? iconurl[1] : null)
+      let goods = JSON.stringify(e.currentTarget.dataset.item)
+      wx.navigateTo({
+        url: '/pages/placeorder/placeorder?goods=' + goods,
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }
+  },
+  //跳转到商品详情页
+  toDetail(e) {
+    wx.navigateTo({
+      url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id,
     })
   },
 })

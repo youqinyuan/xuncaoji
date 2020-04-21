@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTitleText": "关注商家",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true
+}

@@ -1,8 +1,6 @@
 /* pages/mine/recharge/recharge.wxss */
 
 page {
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   background: #f4f4f4;
 }
 
@@ -46,8 +44,6 @@ page {
 
 .balance-text {
   font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   display: inline-block;
 }

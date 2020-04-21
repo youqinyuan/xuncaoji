@@ -4,8 +4,6 @@ page {
   position: relative;
   background: rgba(244, 244, 244, 1);
   margin-bottom: 100rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 /*轮播图*/
@@ -175,8 +173,6 @@ page {
   padding: 2rpx 12rpx;
   margin-right: 13rpx;
   font-size: 20rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 100, 23, 1);
   border: 2rpx solid rgba(255, 100, 23, 1);
   border-radius: 14rpx;
@@ -186,8 +182,6 @@ page {
   padding: 2rpx 12rpx;
   margin-right: 13rpx;
   font-size: 20rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #fff;
   background: rgba(255, 100, 23, 1);
   border-radius: 14rpx;
@@ -198,8 +192,6 @@ page {
   padding: 2rpx 12rpx;
   margin-right: 13rpx;
   font-size: 20rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #ff2644;
   border: 2rpx solid #ff2644;
   border-radius: 14rpx;
@@ -291,8 +283,6 @@ page {
   background: #f4e8d9;
   font-size: 24rpx;
   border-bottom: 2rpx solid #f4f4f4;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
 }
 
@@ -344,27 +334,20 @@ page {
 /* 快递 */
 
 .express-wrap {
-  position: relative;
+  display: flex;
   width: 750rpx;
   height: 90rpx;
   line-height: 90rpx;
-  font-size: 24rpx;
   border-bottom: 2rpx solid #f4f4f4;
-}
-
-.express-wrap image {
-  width: 50rpx;
-  height: 30rpx;
-  position: absolute;
-  left: 30rpx;
-  top: 30rpx;
-}
-
-.express {
   font-size: 26rpx;
-  margin-left: 90rpx;
+  margin-left: 30rpx;
   margin-top: 20rpx;
-  color: rgba(153, 153, 153, 1);
+  color: #333;
+}
+
+.expressPay {
+  margin-right: 32rpx;
+  color: #999;
 }
 
 /* 优惠 */
@@ -407,7 +390,12 @@ page {
 .stock-left {
   margin-left: 30rpx;
   font-size: 28rpx;
-  color: rgba(51, 51, 51, 1);
+  color: #999;
+}
+
+.stock-left text:nth-child(2) {
+  color: #333;
+  margin-left: 32rpx;
 }
 
 .stock-right {
@@ -415,8 +403,8 @@ page {
 }
 
 .stock-right-text {
-  font-size: 28rpx;
-  color: rgba(102, 102, 102, 1);
+  font-size: 26rpx;
+  color: #999;
 }
 
 .stock-right-img {
@@ -426,6 +414,207 @@ page {
 }
 
 .stock-right-img image {
+  width: 56rpx;
+  height: 56rpx;
+}
+
+/* 赚钱购 */
+
+.getMoney-top {
+  display: flex;
+  width: 750rpx;
+  height: 90rpx;
+  margin-top: 20rpx;
+  background: #fff;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.getMoney-left {
+  display: flex;
+  align-items: center;
+  margin-left: 30rpx;
+}
+
+.getGoods-img {
+  margin-left: 10rpx;
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.getMoney-right {
+  display: flex;
+  align-items: center;
+}
+
+.getMoney-right-text {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.getMoney-right-img {
+  width: 56rpx;
+  height: 56rpx;
+}
+
+/* 轮播 */
+
+.getMoney-swiper {
+  margin-bottom: 20rpx;
+}
+
+.getMoney {
+  width: 750rpx;
+  /* max-height: 273rpx; */
+  background: #fff;
+  font-size: 28rpx;
+}
+
+.getMoney-swiper_item {
+  display: flex;
+  align-items: center;
+  height: 136rpx;
+  width: 750rpx;
+  border-bottom: 2rpx solid rgba(231, 231, 231, 1);
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  font-size: 26rpx;
+}
+
+.getMoneyPhoto {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 50%;
+  margin: 0 30rpx;
+}
+
+.getName {
+  display: flex;
+  justify-content: space-between;
+  width: 418rpx;
+  margin-bottom: 18rpx;
+}
+
+.getName text:nth-child(2) {
+  color: #ff2644;
+}
+
+.getSpec {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.getSpec text:nth-child(1) {
+  margin-right: 10rpx;
+}
+
+.getMoneyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 136rpx;
+  height: 58rpx;
+  background: #ff2644;
+  border-radius: 8rpx;
+  color: #fff;
+  margin-left: 30rpx;
+}
+
+/* 没有赚钱订单的时候 */
+
+.notGetMoney {
+  margin: 0 auto;
+  text-align: center;
+  width: 750rpx;
+  height: 273rpx;
+  background: #fff;
+  font-size: 26rpx;
+  margin-bottom: 20rpx;
+  color: #aaa;
+}
+
+.notGetMoney-img {
+  margin-top: 30rpx;
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.notGetMoney-btn {
+  width: 210rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border: 2rpx solid #ff2644;
+  color: #ff2644;
+  margin: 0 auto;
+  margin-top: 30rpx;
+  border-radius: 30rpx;
+}
+
+/* 省钱购购 */
+
+.saveMoney-top {
+  position: relative;
+  display: flex;
+  width: 750rpx;
+  height: 110rpx;
+  margin-bottom: 20rpx;
+  background: #fff;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.saveMoney-left {
+  display: flex;
+  align-items: center;
+  margin-left: 30rpx;
+}
+
+.saveGoods-img1 {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.saveGoods-img2 {
+  margin-left: 19rpx;
+  width: 93rpx;
+  height: 30rpx;
+}
+
+.saveGoods-img {
+  margin-left: 20rpx;
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.saveMoney-right {
+  display: flex;
+  align-items: center;
+}
+
+.saveMoney-right-text {
+  font-size: 26rpx;
+  color: #999;
+  position: absolute;
+  top: 42rpx;
+  right: 64rpx;
+}
+
+.saveMoney-right-img1 {
+  position: absolute;
+  top: 19rpx;
+  right: 124rpx;
+  width: 135rpx;
+  height: 91rpx;
+}
+
+.saveMoney-right-img {
   width: 56rpx;
   height: 56rpx;
 }
@@ -453,11 +642,7 @@ page {
 
 .evaluate-right-text {
   font-size: 28rpx;
-  color: rgba(102, 102, 102, 1);
-}
-
-.percent {
-  color: #ff2644;
+  color: #999;
 }
 
 .evaluate-content {
@@ -646,8 +831,6 @@ page {
 
 .shop-detail-wrap-text {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
   width: 691rpx;
   margin: 15rpx auto;
@@ -728,8 +911,6 @@ page {
   padding: 2rpx 12rpx;
   margin-right: 13rpx;
   font-size: 20rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   background: #ff2644;
   border-radius: 14rpx;
@@ -739,8 +920,6 @@ page {
   padding: 2rpx 12rpx;
   margin-right: 13rpx;
   font-size: 20rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 100, 23, 1);
   border: 2rpx solid rgba(255, 100, 23, 1);
   border-radius: 14rpx;
@@ -788,15 +967,11 @@ page {
 .return-wrap .return-money text:nth-child(1) {
   color: #ff6417;
   padding: 0 8rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 .return-wrap .pay-money text:nth-child(1) {
   color: #ff6417;
   padding: 0 8rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
 }
 
 .detail-bottom {
@@ -932,8 +1107,6 @@ button::after {
   text-align: center;
   line-height: 100rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   background: #fc6f97;
   color: rgba(255, 255, 255, 1);
 }
@@ -944,8 +1117,6 @@ button::after {
   text-align: center;
   line-height: 100rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   background: #ff2644;
   color: rgba(255, 255, 255, 1);
 }
@@ -959,8 +1130,6 @@ button::after {
   background: #ff2644;
   border-radius: 10rpx;
   font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -1024,7 +1193,7 @@ button::after {
 /*对话框 */
 
 .commodity_attr_box {
-  height: 1035rpx;
+  max-height: 1035rpx;
   width: 100%;
   overflow: hidden;
   position: fixed;
@@ -1038,7 +1207,6 @@ button::after {
 .commodity-top {
   display: flex;
   height: 242rpx;
-  border-bottom: 2rpx solid #f4f4f4;
 }
 
 .commodity-top-img {
@@ -1112,6 +1280,7 @@ button::after {
   overflow-y: scroll;
   overflow: -Scroll;
   overflow-x: hidden;
+  margin-bottom: 60rpx;
 }
 
 /* 优惠 */
@@ -1171,12 +1340,12 @@ button::after {
 }
 
 .color-size-list .text1 {
-  padding: 15rpx 30rpx;
+  padding: 13rpx 30rpx;
   margin-top: 20rpx;
   display: block;
   margin-right: 24rpx;
   background-color: rgba(244, 244, 244, 1);
-  border-radius: 30rpx;
+  border-radius: 40rpx;
 }
 
 /* 购买数量 */
@@ -1223,6 +1392,17 @@ button::after {
   border-right: 2rpx solid #ccc;
 }
 
+.showNum {
+  width: 80rpx;
+  height: 58rpx;
+  float: left;
+  line-height: 58rpx;
+  text-align: center;
+  font-size: 32rpx;
+  border-left: 2rpx solid #ccc;
+  border-right: 2rpx solid #ccc;
+}
+
 .num-item .normal {
   color: rgba(51, 51, 51, 1);
 }
@@ -1244,8 +1424,6 @@ button::after {
   line-height: 100rpx;
   background: #ff2644;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   text-align: center;
   display: inline-block;
@@ -1260,8 +1438,6 @@ button::after {
   line-height: 100rpx;
   background: #ff2644;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   text-align: center;
   display: inline-block;
@@ -1276,8 +1452,6 @@ button::after {
   line-height: 100rpx;
   background: #ff2644;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   text-align: center;
   display: inline-block;
@@ -1299,8 +1473,6 @@ button::after {
   line-height: 100rpx;
   text-align: center;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   background: #ff8898;
   display: inline-block;
@@ -1316,8 +1488,6 @@ button::after {
   margin-top: 30rpx;
   margin-left: 23rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -1342,8 +1512,6 @@ button::after {
   display: inline-block;
   background: rgba(244, 244, 244, 1);
   font-size: 24rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
 
@@ -1507,16 +1675,12 @@ button::after {
 .content-wrapper1 .shareCommission {
   margin-top: 70rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
 .content-wrapper1 .shareText {
   margin-top: 39rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
 
@@ -1546,77 +1710,7 @@ button::after {
 .content-wrapper1 .wx {
   margin-top: -35rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
-}
-
-/*客服弹框 */
-
-.zan-dialog__mask {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: none;
-  background: rgba(0, 0, 0, 0.4);
-}
-
-.zan-dialog__container {
-  transform: translateY(300%);
-  transition: all 0.00001s ease;
-  width: 540rpx;
-  height: 282rpx;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 24rpx;
-  overflow: hidden;
-  position: fixed;
-  bottom: 530rpx;
-  left: 110rpx;
-  z-index: 9999;
-}
-
-.zan-dialog--show .zan-dialog__container {
-  transform: translateY(0);
-}
-
-.zan-dialog--show .zan-dialog__mask {
-  display: block;
-}
-
-/* 弹框内容 */
-
-.content1 {
-  text-align: center;
-  overflow: hidden;
-}
-
-.content-title {
-  margin-top: 44rpx;
-  margin-bottom: 10rpx;
-  font-size: 34rpx;
-  font-weight: bold;
-  color: rgba(34, 34, 34, 1);
-}
-
-.content-container {
-  width: 450rpx;
-  height: 66rpx;
-  margin-left: 55rpx;
-  margin-bottom: 35rpx;
-  font-size: 30rpx;
-  text-align: center;
-  color: rgba(51, 51, 51, 1);
-}
-
-.content-button {
-  height: 66rpx;
-  border-top: 2rpx solid #eaeaea;
-  line-height: 66rpx;
-  font-size: 34rpx;
-  text-align: center;
-  color: #ff2644;
 }
 
 /* 海报弹框 */
@@ -1717,23 +1811,17 @@ button::after {
   margin-top: 46rpx;
   margin-bottom: 35rpx;
   font-size: 36rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   text-align: center;
 }
 
 .dialog__mask .dialog__container .text {
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
 .text_one {
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   line-height: 48rpx;
   text-align: center;
@@ -1741,8 +1829,6 @@ button::after {
 
 .text_two {
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   line-height: 48rpx;
   text-align: center;
@@ -1756,8 +1842,6 @@ button::after {
   border-radius: 38rpx;
   text-align: center;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 38, 68, 1);
   line-height: 76rpx;
   margin-left: 40rpx;
@@ -1771,8 +1855,6 @@ button::after {
   border-radius: 38rpx;
   text-align: center;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #fff;
   line-height: 76rpx;
   margin-left: 22rpx;
@@ -1815,34 +1897,27 @@ button::after {
 }
 
 .yudialog__mask .dialog__container .tishi {
+  text-align: center;
   margin-top: 46rpx;
   margin-bottom: 35rpx;
   font-size: 36rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
   margin-left: 50rpx;
 }
 
 .yudialog__mask .dialog__container .order {
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
 .yudialog__mask .order_one {
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   margin-left: 50rpx;
 }
 
 .yudialog__mask .order_two {
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   margin-left: 50rpx;
 }
@@ -1854,8 +1929,6 @@ button::after {
   border-radius: 38rpx;
   text-align: center;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 38, 68, 1);
   line-height: 76rpx;
 }
@@ -1867,8 +1940,6 @@ button::after {
   border-radius: 38rpx;
   text-align: center;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #fff;
   line-height: 76rpx;
 }
@@ -1918,8 +1989,6 @@ button::after {
   border-radius: 38rpx;
   text-align: center;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #fff;
   line-height: 80rpx;
   margin-left: 50rpx;
@@ -1933,8 +2002,6 @@ button::after {
   border-radius: 38rpx;
   text-align: center;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #fff;
   line-height: 80rpx;
   margin-left: 50rpx;
@@ -1986,8 +2053,6 @@ button::after {
 
 .shixiao_two {
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(92, 14, 0, 1);
   margin-top: 29rpx;
   text-align: center;
@@ -2018,4 +2083,85 @@ button::after {
   color: rgba(92, 14, 0, 1);
   text-align: center;
   line-height: 89rpx;
+}
+
+/* 活动规则弹窗 */
+
+.get-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+}
+
+.get-zan-dialog__mask .zan-dialog__container {
+  width: 630rpx;
+  height:978rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  padding-bottom: 20rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 74rpx;
+  left: 61rpx;
+  z-index: 99;
+}
+
+.get-zan-dialog__mask .cancel-get {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 79rpx;
+  top: 0rpx;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .height_text {
+  text-align: left;
+  color: #999;
+  font-size: 28rpx;
+  height: auto;
+  max-height: 1000rpx;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
+  margin: 0 42rpx;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .role_title {
+  margin-bottom: 52rpx;
+  margin-top: 52rpx;
+  color: #333;
+}
+
+.get-zan-dialog__mask .zan-dialog__container .height_text1 {
+  color: #999;
+}
+
+.showOrderBlock {
+  height: 130rpx;
+  background: #fff;
+  width: 750rpx;
+}
+
+.showOrderText {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+}
+
+.showOrderBtn {
+  width: 690rpx;
+  height: 80rpx;
+  background: linear-gradient(90deg, #ff6a48 0%, #ff2644 100%);
+  border-radius: 40rpx;
+  color: #fff;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 32rpx;
+  position: fixed;
+  bottom: 14rpx;
+  left: 30rpx;
 }

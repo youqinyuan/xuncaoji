@@ -159,8 +159,6 @@ button::after {
   background: #ff2644;
   border-radius: 32rpx;
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -172,8 +170,6 @@ button::after {
   border: 2rpx solid #ff2644;
   border-radius: 32rpx;
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #ff2644;
   line-height: 64rpx;
 }
@@ -194,8 +190,6 @@ button::after {
 
 .add_wish .add_text {
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 38, 68, 1);
 }
 
@@ -205,8 +199,6 @@ button::after {
   margin-bottom: 30rpx;
   width: 175rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(153, 153, 153, 1);
 }
 
@@ -220,8 +212,6 @@ button::after {
 
 .img_text {
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
   text-align: center;
 }

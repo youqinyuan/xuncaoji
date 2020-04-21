@@ -1,192 +1,335 @@
 <!--pages/forum/forum.wxml-->
+<!-- 保留两位小数 -->
+<wxs module="foo">
+  module.exports = {
+    toStr: function(n) {
+      n = n.toFixed(2)
+      return n
+    }
+  }
+</wxs>
 <wxs module="filters" src="filter.wxs"></wxs>
+<view class="content_pulish_wrap" wx:if="{{currentTab==1&&isPublish==true}}">
+  <image src="/assets/images/icon/bg_pulish.png" class="content_pulish"></image>
+  <view style="{{index==0?'border-left: none;':'border-left: 2rpx solid #E7E7E7;'}}" class="content_pulish_text" wx:for="{{list2}}" wx:key="{{item}}" data-index="{{index}}" catchtap="getPublish">{{item}}</view>
+</view>
+<view>
+  <image src="{{imgPublish}}" class="content_all" catchtap="publish" wx:if="{{currentTab==1||currentTab==2||currentTab==3||currentTab==4||currentTab==5}}"></image>
+</view>
 <view class="content_top">
   <scroll-view scroll-x class="nav" scroll-left="{{navScrollLeft}}">
     <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
       <view class="nav-box">
-        <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" data-type="{{item.type}}" catchtap="switchNav">{{item.text}}</view>
-        <!-- <view class="nav-item {{currentTab == idx ?'active1':''}}"></view> -->
+        <view class="nav-item {{currentTab == idx ?'active':''}}" data-index="{{idx}}" data-type="{{item.type}}" catchtap="switchNav">{{item.text}}</view>
       </view>
     </block>
   </scroll-view>
-  <view class="content_all" catchtap="publish">
-    发表
-  </view>
 </view>
 <view class="block"></view>
-<!-- 新消息 -->
-<view class="new_meg" catchtap="jumpMessage" wx:if="{{messageNum>0}}">
-  <view class="new_btn">{{messageNum}}条新消息</view>
+<view class="getSaveMoney" wx:if="{{currentTab==2}}">
+  <view class="getMoney {{showClass==1?'selectClass':''}}" bindtap="getMoney">卖商品赚钱</view>
+  <view class="getMoney {{showClass==2?'selectClass':''}}" bindtap="saveMoney">买商品省钱</view>
 </view>
-<view class="container" wx:for="{{allPost}}" wx:key="{{item.id}}" wx:for-index="index1" bindtap="jumpForumDetail" data-id="{{item.id}}" wx:if="{{allPost.length>0}}">
-  <view class="content_box">
-    <view class="content_box_photo">
-      <view class="content_box_left">
-        <image wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-        <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
-        <view class="nickname">{{item.nickname}}</view>
-      </view>
-      <view class="content_box_right">
-        <image src="{{hostUrl}}/add/btn_attention.png" wx:if="{{item.canRemove==2&&item.isAttention==1}}" data-index="{{index1}}" data-id="{{item.id}}" class="follow" catchtap="follow"></image>
-        <image src="{{hostUrl}}/add/btn_notattention.png" wx:if="{{item.canRemove==2&&item.isAttention==2}}" data-index="{{index1}}" data-id="{{item.id}}" class="follow" catchtap="notFollow"></image>
-      </view>
-    </view>
-    <view class="content-text">
-      <view class="content-item" style="-webkit-line-clamp:{{item.ellipsis==false?'4':'0'}}">{{item.content}}</view>
-      <view class="all_text" catchtap='ellipsis' wx:if="{{item.isShowAll==2}}" data-index="{{index1}}">{{item.isText}}</view>
-    </view>
-    <view class="content_img" wx:if="{{item.type==1}}">
-      <image wx:for="{{item.attachmentList}}" wx:for-item="contentImg" wx:key="" src="{{contentImg.fileKey}}" catchtap='imgYu' data-index='{{index}}' data-idx="{{index1}}" style="background:{{item.attachmentList.length>0?'#f4f4f4':'#e7e7e7'}}"></image>
-    </view>
-    <view class="content_imgBuy" wx:if="{{item.type==2}}">
-      <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-      <image src="/assets/images/new/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
-      <image src="/assets/images/new/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
-      <image src="/assets/images/new/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
-      <view class="buy_price">
-        <view class="expect_buy" wx:if="{{item.expectAmount}}">
-          <view class="expect_buy1">售价：</view>
-          <view class="expect_buy2">{{item.expectAmount}}</view>
-          <view class="expect_buy3">元</view>
+<view class="orderGet" wx:if="{{currentTab==4}}">
+  <view class="yuOrder {{selectClass==4?'addClass':''}}" bindtap="yuOrder">预售订单</view>
+  <view class="yuOrder {{selectClass==3?'addClass':''}}" bindtap="saleOrder">我要卖订单</view>
+  <view class="yuOrder {{selectClass==2?'addClass':''}}" bindtap="buyOrder">我要买订单</view>
+</view>
+<!-- 新消息 -->
+<view class="container-wrap" style="{{currentTab==2||currentTab==4?'margin-top:112rpx;':''}}">
+  <view class="new_meg" catchtap="jumpMessage" wx:if="{{messageNum>0}}">
+    <view class="new_btn">{{messageNum}}条新消息</view>
+  </view>
+  <view class="container" wx:for="{{allPost}}" wx:key="{{item.id}}" wx:for-index="index1" catchtap="jumpForumDetail" data-id="{{item.id}}" wx:if="{{allPost.length>0&&currentTab!==3}}">
+    <view class="content_box">
+      <view class="content_box_photo">
+        <view class="content_box_left">
+          <image wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
+          <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+          <view class="nickname">{{item.nickname}}</view>
         </view>
-        <view class="expect_back" wx:if="{{item.cashBackAmount}}">
-          <view class="expect_back1">共返金额：</view>
-          <view class="expect_back2">{{item.cashBackAmount}}</view>
-          <view class="expect_back3">元</view>
-        </view>
-        <view class="expect_leave" wx:if="{{item.returnType==1||item.returnType==2}}">
-          <view class="expect_leave1" wx:if="{{item.maxReturnTime&&item.perReturnDay}}">剩余{{item.periodLeft}}期，截止{{filters.toDate1(item.maxReturnTime)}}，每月{{item.perReturnDay}}号，</view>
-          <view class="expect_leave2" wx:if="{{item.perReturnAmount}}">
-            <view class="box1">每期返还</view>
-            <view class="box2">{{item.perReturnAmount}}</view>
-            <view class="box3">元</view>
-          </view>
-        </view>
-        <view class="expect_leave" wx:if="{{item.returnType==3}}">
-          <view class="expect_leave1" wx:if="{{item.maxReturnTime&&item.perReturnDay}}">剩余{{item.periodLeft}}天，截止{{filters.toDate1(item.maxReturnTime)}}，每天返还{{item.perReturnAmount}}元
-          </view>
-        </view>
-        <view class="expect_leave" wx:if="{{item.returnType==4}}">
-          <view class="expect_leave1" wx:if="{{item.maxReturnTime&&item.perReturnDay}}">剩余{{item.periodLeft}}期，截止{{filters.toDate1(item.maxReturnTime)}}，返还{{item.perReturnAmount}}元
-          </view>
-        </view>
-        <view class="expect_year">
-          <view class="expect_year1">年收益率：</view>
-          <view class="expect_year2">{{item.annualizedRate}}</view>
-          <view class="expect_year3">%</view>
+        <view class="content_box_right">
+          <image src="{{hostUrl}}/add/btn_attention.png" wx:if="{{item.canRemove==2&&item.isAttention==1}}" data-index="{{index1}}" data-id="{{item.id}}" class="follow" catchtap="follow"></image>
+          <image src="{{hostUrl}}/add/btn_notattention.png" wx:if="{{item.canRemove==2&&item.isAttention==2}}" data-index="{{index1}}" data-id="{{item.id}}" class="follow" catchtap="notFollow"></image>
         </view>
       </view>
-      <view class="purchase" catchtap="sure" wx:if="{{item.status==2&&item.canRemove==2}}" data-avatarkey="{{item.avatarKey}}" data-nickname="{{item.nickname}}" data-cashBackAmount="{{item.cashBackAmount}}" data-periodLeft="{{item.periodLeft}}" data-expectAmount="{{item.expectAmount}}"
-        data-mobileNumber="{{item.mobileNumber}}" data-returnType="{{item.returnType}}" data-id="{{item.id}}">立即购买</view>
-    </view>
-    <!-- 预售订单 -->
-    <view class="content_imgBuy" wx:if="{{item.type==4}}">
-      <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-      <image src="/assets/images/new/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
-      <image src="/assets/images/new/ic_yud.png" class='imgs' wx:if="{{item.status==6}}"></image>
-      <view class="buy_price">
-        <view class="expect_buy" wx:if="{{item.liquidateDamageAmountVendor}}">
-          <view class="expect_buy1">卖方已缴违约金：</view>
-          <view class="expect_buy2">{{item.liquidateDamageAmountVendor}}</view>
-          <view class="expect_buy3">元</view>
-        </view>
-        <view class="content_yu">
+      <view class="content-text">
+        <view class="content-item" style="-webkit-line-clamp:{{item.ellipsis==false?'4':'0'}}">{{item.content}}</view>
+        <view class="all_text" catchtap='ellipsis' wx:if="{{item.isShowAll==2}}" data-index="{{index1}}">{{item.isText}}</view>
+      </view>
+      <!-- 普通帖 -->
+      <view class="content_img" wx:if="{{item.type==1}}">
+        <image wx:for="{{item.attachmentList}}" wx:for-item="contentImg" wx:key="" src="{{contentImg.fileKey}}" catchtap='imgYu' data-index='{{index}}' data-idx="{{index1}}" style="background:{{item.attachmentList.length>0?'#f4f4f4':'#e7e7e7'}}"></image>
+      </view>
+      <!-- 买订单 -->
+      <view class="content_imgBuy" wx:if="{{item.type==2}}">
+        <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
+        <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+        <image src="{{hostUrl}}/changeImg/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
+        <image src="{{hostUrl}}/changeImg/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
+        <view class="buy_price">
           <view class="expect_buy" wx:if="{{item.expectAmount}}">
             <view class="expect_buy1">售价：</view>
             <view class="expect_buy2">{{item.expectAmount}}</view>
             <view class="expect_buy3">元</view>
           </view>
-          <view class="expect_back_a" wx:if="{{item.cashBackAmount}}">
+          <view class="expect_back" wx:if="{{item.cashBackAmount}}">
             <view class="expect_back1">共返金额：</view>
             <view class="expect_back2">{{item.cashBackAmount}}</view>
             <view class="expect_back3">元</view>
           </view>
-        </view>
-        <view class="expect_leave" wx:if="{{item.returnType==1||item.returnType==2}}">
-          <view class="expect_leave1" wx:if="{{item.maxReturnTime&&item.perReturnDay}}">剩余{{item.periodLeft}}期，截止{{filters.toDate1(item.maxReturnTime)}}，每月{{item.perReturnDay}}号，</view>
-          <view class="expect_leave2" wx:if="{{item.perReturnAmount}}">
-            <view class="box1">每期返还</view>
-            <view class="box2">{{item.perReturnAmount}}</view>
-            <view class="box3">元</view>
+          <view class="expect_leave" wx:if="{{item.returnType==1||item.returnType==2}}">
+            <view class="expect_leave1" wx:if="{{item.maxReturnTime&&item.perReturnDay}}">剩余{{item.periodLeft}}期，截止{{filters.toDate1(item.maxReturnTime)}}，每月{{item.perReturnDay}}号，</view>
+            <view class="expect_leave2" wx:if="{{item.perReturnAmount}}">
+              <view class="box1">每期返还</view>
+              <view class="box2">{{item.perReturnAmount}}</view>
+              <view class="box3">元</view>
+            </view>
+          </view>
+          <view class="expect_leave" wx:if="{{item.returnType==3}}">
+            <view class="expect_leave1" wx:if="{{item.maxReturnTime&&item.perReturnDay}}">剩余{{item.periodLeft}}天，截止{{filters.toDate1(item.maxReturnTime)}}，每天返还{{item.perReturnAmount}}元
+            </view>
+          </view>
+          <view class="expect_leave" wx:if="{{item.returnType==4}}">
+            <view class="expect_leave1" wx:if="{{item.maxReturnTime&&item.perReturnDay}}">剩余{{item.periodLeft}}期，截止{{filters.toDate1(item.maxReturnTime)}}，返还{{item.perReturnAmount}}元
+            </view>
+          </view>
+          <view class="expect_year">
+            <view class="expect_year1">年收益率：</view>
+            <view class="expect_year2">{{item.annualizedRate}}</view>
+            <view class="expect_year3">%</view>
           </view>
         </view>
-        <view class="expect_leave" wx:if="{{item.returnType==3}}">
-          <view class="expect_leave1" wx:if="{{item.maxReturnTime&&item.perReturnDay}}">剩余{{item.periodLeft}}天，截止{{filters.toDate1(item.maxReturnTime)}}，每天返还{{item.perReturnAmount}}元
+        <view class="purchase" catchtap="sure" wx:if="{{item.status==2&&item.canRemove==2}}" data-avatarkey="{{item.avatarKey}}" data-nickname="{{item.nickname}}" data-cashBackAmount="{{item.cashBackAmount}}" data-periodLeft="{{item.periodLeft}}" data-expectAmount="{{item.expectAmount}}"
+          data-mobileNumber="{{item.mobileNumber}}" data-returnType="{{item.returnType}}" data-id="{{item.id}}" data-type="{{item.type}}">立即购买</view>
+      </view>
+      <!-- 预售订单 -->
+      <view class="content_imgBuy" wx:if="{{item.type==4}}">
+        <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
+        <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+        <image src="{{hostUrl}}/changeImg/ic_yud.png" class='imgs' wx:if="{{item.status==6}}"></image>
+        <view class="buy_price">
+          <view class="expect_buy">
+            <view class="expect_buy1">卖方已缴违约金：</view>
+            <view class="expect_buy2">{{item.liquidateDamageAmountVendor}}</view>
+            <view class="expect_buy3">元</view>
+          </view>
+          <view class="content_yu">
+            <view class="expect_buy {{item.expectAmount>100000?'font1':''}}" wx:if="{{item.expectAmount}}">
+              <view class="expect_buy1">售价：</view>
+              <view class="expect_buy2">{{item.expectAmount}}</view>
+              <view class="expect_buy3">元</view>
+            </view>
+            <view class="expect_back_a {{item.expectAmount>100000?'font1':''}}" wx:if="{{item.cashBackAmount}}">
+              <view class="expect_back1">共返金额：</view>
+              <view class="expect_back2">{{item.cashBackAmount}}</view>
+              <view class="expect_back3">元</view>
+            </view>
+          </view>
+          <view class="expect_leave" wx:if="{{item.returnType==1||item.returnType==2}}">
+            <view class="expect_leave1" wx:if="{{item.maxReturnTime&&item.perReturnDay}}">剩余{{item.periodLeft}}期，截止{{filters.toDate1(item.maxReturnTime)}}，每月{{item.perReturnDay}}号，</view>
+            <view class="expect_leave2" wx:if="{{item.perReturnAmount}}">
+              <view class="box1">每期返还</view>
+              <view class="box2">{{item.perReturnAmount}}</view>
+              <view class="box3">元</view>
+            </view>
+          </view>
+          <view class="expect_leave" wx:if="{{item.returnType==3}}">
+            <view class="expect_leave1" wx:if="{{item.maxReturnTime&&item.perReturnDay}}">剩余{{item.periodLeft}}天，截止{{filters.toDate1(item.maxReturnTime)}}，每天返还{{item.perReturnAmount}}元
+            </view>
+          </view>
+          <view class="expect_leave" wx:if="{{item.returnType==4}}">
+            <view class="expect_leave1" wx:if="{{item.maxReturnTime&&item.perReturnDay}}">剩余{{item.periodLeft}}期，截止{{filters.toDate1(item.maxReturnTime)}}，返还{{item.perReturnAmount}}元
+            </view>
+          </view>
+          <view class="expect_year">
+            <view class="expect_year1">年收益率：</view>
+            <view class="expect_year2">{{item.annualizedRate}}</view>
+            <view class="expect_year3">%</view>
           </view>
         </view>
-        <view class="expect_leave" wx:if="{{item.returnType==4}}">
-          <view class="expect_leave1" wx:if="{{item.maxReturnTime&&item.perReturnDay}}">剩余{{item.periodLeft}}期，截止{{filters.toDate1(item.maxReturnTime)}}，返还{{item.perReturnAmount}}元
+        <view class="purchase" catchtap="subscribe" wx:if="{{item.status==2&&item.canRemove==2}}" data-id="{{item.id}}" data-type="{{item.type}}">立即预订</view>
+      </view>
+      <!-- 卖订单 -->
+      <view class="content_sale" wx:if="{{item.type==3}}">
+        <image src="{{hostUrl}}/add/pic_salecard.png"></image>
+        <view class="sale_price">
+          <view class="sale_back">
+            <view class="sale_back1">期望共返金额：</view>
+            <view class="sale_back2">
+              <text>{{item.cashBackAmount||0}}</text>
+              <text>-</text>
+              <text>{{item.cashBackAmountEnd}}</text>
+            </view>
+            <view class="sale_back3">元</view>
           </view>
-        </view>
-        <view class="expect_year">
-          <view class="expect_year1">年收益率：</view>
-          <view class="expect_year2">{{item.annualizedRate}}</view>
-          <view class="expect_year3">%</view>
+          <view class="sale_leave">
+            <view class="sale_leave1">期望返还期数：</view>
+            <view class="sale_leave2">
+              <text>{{item.periodLeft||0}}</text>
+              <text>-</text>
+              <text>{{item.periodLeftEnd}}</text>
+            </view>
+            <view class="sale_leave3">期</view>
+          </view>
+          <view class="sale_year">
+            <view class="sale_year1">期望年收益率：</view>
+            <view class="sale_year2">
+              <text>{{item.annualizedRate||0}}</text>
+              <text>-</text>
+              <text>{{item.annualizedRateEnd}}</text>
+            </view>
+            <view class="sale_year3">%</view>
+          </view>
         </view>
       </view>
-      <view class="purchase" catchtap="subscribe" wx:if="{{item.status==2&&item.canRemove==2}}" data-id="{{item.id}}" data-type="{{item.type}}">立即预订</view>
-    </view>
-    <view class="content_sale" wx:if="{{item.type==3}}">
-      <image src="{{hostUrl}}/add/pic_salecard.png"></image>
-      <view class="sale_price">
-        <view class="sale_back">
-          <view class="sale_back1">期望共返金额：</view>
-          <view class="sale_back2">
-            <text>{{item.cashBackAmount||0}}</text>
-            <text>-</text>
-            <text>{{item.cashBackAmountEnd}}</text>
+      <!-- 卖商品赚钱 -->
+      <view class="content_money" wx:if="{{item.type==5||item.type==6}}">
+        <image src="{{hostUrl}}/changeImg/getMoney.png" class="moneyImg" wx:if="{{item.type==6}}"></image>
+        <image src="{{hostUrl}}/changeImg/save.png" class="moneyImg" wx:if="{{item.type==5}}"></image>
+        <image src="{{hostUrl}}/changeImg/yi_buy.png" class="moneyImg1" wx:if="{{item.status==3}}"></image>
+        <view class="goods">
+          <image wx:if="{{item.goodsImageUrl}}" class="goodsImg" src="{{item.goodsImageUrl}}"></image>
+          <image wx:else class="goodsImg" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+          <view class="goods_middle">
+            <view class="goodsName">{{item.goodsName}}</view>
+            <view class="goodsSpec">{{item.specDesc}}</view>
           </view>
-          <view class="sale_back3">元</view>
+          <image class="goods_right" src="{{hostUrl}}/changeImg/back_n.png" catchtap="toDetail" data-id="{{item.goodsId}}"></image>
         </view>
-        <view class="sale_leave">
-          <view class="sale_leave1">期望返还期数：</view>
-          <view class="sale_leave2">
-            <text>{{item.periodLeft||0}}</text>
-            <text>-</text>
-            <text>{{item.periodLeftEnd}}</text>
+        <view class="saveGetMoney-wrap">
+          <view class="saveGetMoney">
+            <view class="saveGetMoney1">平台原价：</view>
+            <view class="saveGetMoney2">{{item.platformOrgAmount}}</view>
+            <view class="saveGetMoney3">元</view>
           </view>
-          <view class="sale_leave3">期</view>
-        </view>
-        <view class="sale_year">
-          <view class="sale_year1">期望年收益率：</view>
-          <view class="sale_year2">
-            <text>{{item.annualizedRate||0}}</text>
-            <text>-</text>
-            <text>{{item.annualizedRateEnd}}</text>
+          <view class="saveGetMoney">
+            <view class="saveGetMoney1">出价：</view>
+            <view class="saveGetMoney2">{{item.expectAmount}}</view>
+            <view class="saveGetMoney3">元</view>
           </view>
-          <view class="sale_year3">%</view>
+          <view class="saveGetMoney">
+            <view class="saveGetMoney1" wx:if="{{item.type==6}}">购买后可赚：</view>
+            <view class="saveGetMoney2" wx:if="{{item.type==6}}">{{item.expectAmount}}</view>
+            <view class="saveGetMoney1" wx:if="{{item.type==5}}">购买后可省：</view>
+            <view class="saveGetMoney2" wx:if="{{item.type==5}}">{{foo.toStr(item.platformOrgAmount-item.expectAmount)}}</view>
+            <view class="saveGetMoney3">元</view>
+          </view>
+        </view>
+        <view class="earnMoney" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">购买赚钱</view>
+        <view class="buySaveMoney" data-item="{{item}}" catchtap="buySaveMoney" wx:if="{{item.type==5&&item.status==2&&item.canRemove==2}}">购买省钱</view>
+      </view>
+      <view class="content_time">
+        <view class="content_time_left">
+          <view class="content_time_item">{{filters.toDate(item.createTime)}}</view>
+          <view class="content_time_del" data-id="{{item.id}}" catchtap="delContent" wx:if="{{item.canRemove==1}}">删除</view>
+        </view>
+        <view class="content_time_right">
+          <view class="content_time_img">
+            <image src="{{hostUrl}}/add/ic_collect.png" wx:if="{{item.isFavoriate==2}}" class="collect" catchtap="collectImg" data-index="{{index1}}" data-id="{{item.id}}"></image>
+            <image src="{{hostUrl}}/add/ic_ativecollect.png" wx:if="{{item.isFavoriate==1}}" class="collect" catchtap="ativeCollectImg" data-index="{{index1}}" data-id="{{item.id}}"></image>
+          </view>
+          <view class="content_time_imgs" catchtap="jumpComment" data-id="{{item.id}}">
+            <image src="{{hostUrl}}/add/ic_comment.png" class="comment"></image>
+            <view class="content_time_text">{{item.commentPageResponse.totalSize}}</view>
+          </view>
         </view>
       </view>
-    </view>
-    <view class="content_time">
-      <view class="content_time_left">
-        <view class="content_time_item">{{filters.toDate(item.createTime)}}</view>
-        <view class="content_time_del" data-id="{{item.id}}" catchtap="delContent" wx:if="{{item.canRemove==1}}">删除</view>
-      </view>
-      <view class="content_time_right">
-        <view class="content_time_img">
-          <image src="{{hostUrl}}/add/ic_collect.png" wx:if="{{item.isFavoriate==2}}" class="collect" catchtap="collectImg" data-index="{{index1}}" data-id="{{item.id}}"></image>
-          <image src="{{hostUrl}}/add/ic_ativecollect.png" wx:if="{{item.isFavoriate==1}}" class="collect" catchtap="ativeCollectImg" data-index="{{index1}}" data-id="{{item.id}}"></image>
+      <view class="content_comment" catchtap="jumpForumDetail" data-id="{{item.id}}">
+        <view class="content_comment_wrap">
+          <view class="content_comment_text" wx:for="{{item.commentPageResponse.items}}" wx:for-item="response" wx:key="{{response.id}}">
+            <text>{{response.nickname}}</text>
+            <text wx:if="{{!response.replyNickname}}">：</text>
+            <text class="item" wx:if="{{response.replyNickname}}">回复</text>
+            <text wx:if="{{response.replyNickname}}">{{response.replyNickname}}：</text>
+            <text class="item">{{response.content}}</text>
+          </view>
         </view>
-        <view class="content_time_imgs" catchtap="jumpComment" data-id="{{item.id}}">
-          <image src="{{hostUrl}}/add/ic_comment.png" class="comment"></image>
-          <view class="content_time_text">{{item.commentPageResponse.totalSize}}</view>
-        </view>
+        <view class="all_comment" wx:if="{{item.commentPageResponse.totalSize>2}}">查看{{item.commentPageResponse.totalSize}}条评论</view>
       </view>
-    </view>
-    <view class="content_comment" catchtap="jumpForumDetail" data-id="{{item.id}}">
-      <view class="content_comment_wrap">
-        <view class="content_comment_text" wx:for="{{item.commentPageResponse.items}}" wx:for-item="response" wx:key="{{response.id}}">
-          <text>{{response.nickname}}</text>
-          <text wx:if="{{!response.replyNickname}}">：</text>
-          <text class="item" wx:if="{{response.replyNickname}}">回复</text>
-          <text wx:if="{{response.replyNickname}}">{{response.replyNickname}}：</text>
-          <text class="item">{{response.content}}</text>
-        </view>
-      </view>
-      <view class="all_comment" wx:if="{{item.commentPageResponse.totalSize>2}}">查看{{item.commentPageResponse.totalSize}}条评论</view>
+      <view class="block1"></view>
     </view>
   </view>
+  <view class="container_period" wx:if="{{currentTab==3}}">
+    <view class="tab_bottom">
+      <view class="bottom_left">
+        <view class="bottom_left_font" bindtap="toMySet">我发起的提期</view>
+        <image src="{{hostUrl}}/changeImg/set_mention_period.png" class="bottomLeftImg" />
+      </view>
+      <view class="bottom_right">
+        <view class="bottom_left_font" bindtap="toMyBuy">我购买的提期</view>
+        <image src="/assets/images/temp/shop_cart1.png" class="bottomLeftImg" />
+      </view>
+    </view>
+    <view class="head_box">
+      <image src="{{hostUrl}}/changeImg/tiqi.png" class="mentionPeriodImg" />
+      <view class="mentionPeriodRlue" bindtap="toRule">规则</view>
+    </view>
+    <view class="siftThings">
+      <view class="sift_wrap" wx:if="{{mentionPeriodContent.length>0}}">
+        <view class="sift_left {{siftLeft?'color_red':''}}" bindtap="selectSiftLeft">不看已失效/已完成/已撤销</view>
+        <view class="sift_right" bindtap="selectSiftShow">
+          <view class="sift_right_name">{{tabName}}</view>
+          <image src="{{hostUrl}}/changeImg/sift_right_img.png" class="siftRightImg" />
+        </view>
+      </view>
+      <view class="sift_right_list" wx:if="{{siftRight}}">
+        <view class="sift_right_one {{siftRightIndex==1?'color333':''}}" bindtap="selectSiftRight" data-index="1">发布时间新旧</view>
+        <view class="sift_right_two {{siftRightIndex==2?'color333':''}}" bindtap="selectSiftRight" data-index="2">收益率高低</view>
+      </view>
+      <view class="mentionPeriodContent" wx:if="{{mentionPeriodContent.length>0}}">
+        <view class="mentionPeriodList">
+          <view class="mentionPeriod" wx:for="{{mentionPeriodContent}}" wx:key="{{mentionPeriodContent.id}}">
+            <view class="user_name_box">
+              <image src="{{item.avatarKey}}" class="userImg" />
+              <view class="user_name">
+                <view class="name">{{item.nickname}}</view>
+                <image src="{{hostUrl}}/changeImg/huiyuan.png" class="huiyuanImg" wx:if="{{item.role==2}}" />
+              </view>
+              <image src="{{hostUrl}}/changeImg/share_mention_period.png" class="shareImg" bindtap="shares" data-id="{{item.id}}" wx:if="{{item.status==2}}" />
+            </view>
+            <view class="info">
+              <view class="top_left">
+                <view class="nianhua_number {{item.status==3||item.status==7||item.status==5?'color999':''}}">{{item.annualizedRate}}%</view>
+                <view class="nianhua_font {{item.status==3||item.status==7||item.status==5?'color999':''}}">预估年化收益</view>
+              </view>
+              <view class="top_right">
+                <view class="mentionPeriod_number {{item.status==3||item.status==7||item.status==5?'color999':''}}">需要提{{item.periodLeft+item.estimatedPeriod-2}}期</view>
+                <view class="mentionPeriod_font">帮助金额越多，收益越高</view>
+              </view>
+              <view class="button" wx:if="{{item.status==2}}" bindtap="toHelp" data-id="{{item.id}}">提期</view>
+              <view class="button bge7" wx:if="{{item.status==3}}">已完成</view>
+              <view class="button bge7" wx:if="{{item.status==5}}">已失效</view>
+              <view class="button bge7" wx:if="{{item.status==7}}">已撤销</view>
+            </view>
+          </view>
+        </view>
+        <view style="height:100rpx"></view>
+      </view>
+      <view class="nothing" wx:if="{{mentionPeriodContent.length==0}}">
+        <image src="{{hostUrl}}/changeImg/nothing.png" class="noThingImg" />
+        <view class="bottom_font">什么都没有，你快来当第一个</view>
+        <view class="bottom_font">提期的小伙伴吧</view>
+      </view>
+    </view>
+
+    <!-- <view class="siftNothings">
+      <image src="{{hostUrl}}/changeImg/nothing.png" class="noThingImg" />
+      <view class="bottom_font">什么都没有，你快来当第一个</view>
+      <view class="bottom_font">提期的小伙伴吧</view>
+    </view> -->
+  </view>
+</view>
+<!-- 没有赚钱省钱订单 -->
+<view class="notStore" wx:if="{{currentTab==2&&allPost.length===0&&type==6}}">
+  <image src="{{hostUrl}}/changeImg/picStore.png"></image>
+  <view class="notStoreText">暂时没有可以直接购买的赚钱商品</view>
+  <view class="notStoreText">试试自己挂赚钱订单吧。</view>
+</view>
+<view class="notStore" wx:if="{{currentTab==2&&allPost.length===0&&type==5}}">
+  <image src="{{hostUrl}}/changeImg/picStore.png"></image>
+  <view class="notStoreText">暂时没有可以直接购买的省钱商品</view>
+  <view class="notStoreText">试试自己挂省钱订单吧。</view>
 </view>
 <view class="recommend-title" wx:if="{{isRecommend==true}}">
   <view class="recommend-left">
@@ -219,9 +362,9 @@
     </view>
     <view class="content_imgBuy" wx:if="{{item.type==2}}">
       <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-       <image src="/assets/images/new/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
-      <image src="/assets/images/new/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
-      <image src="/assets/images/new/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
       <view class="buy_price">
         <view class="expect_buy" wx:if="{{item.expectAmount}}">
           <view class="expect_buy1">售价：</view>
@@ -373,10 +516,10 @@
   </view>
 </view>
 <!-- 帖子类型弹框 -->
-<view class="classify-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showClassify}}">
-  <view class="zan-dialog__container1" wx:if="{{showClassify}}">
-    <view class="wrap" wx:for='{{list}}' wx:key='' bindtap="jumpPosting" data-status="{{item.status}}">
-      <image src="{{item.img}}"></image>
+<view class="return-zan-dialog__mask" wx:if="{{showClassify}}">
+  <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{showClassify}}">
+    <view class="wrap" wx:for='{{list}}' wx:key='' bindtap="jumpPosting" data-status="{{item.status}}" wx:if="{{currentTab==4}}">
+      <image src="{{item.img}}" class="wrap_img"></image>
       <view class="wrap_item" wx:if="{{item.status==1}}">{{item.text}}</view>
       <view class="wrap_item2" wx:if="{{item.status==2}}">
         <view>{{item.text}}</view>
@@ -387,39 +530,47 @@
         <view>({{item.remark}})</view>
       </view>
     </view>
+    <view class="wrap" wx:for='{{list1}}' wx:key='' bindtap="postingMoney" data-status="{{item.status}}" wx:if="{{currentTab==2}}">
+      <image src="{{item.img}}" class="wrap_img1"></image>
+      <view class="wrap_item2" wx:if="{{item.status==1}}">
+        <view>{{item.text}}</view>
+        <view>({{item.remark}})</view>
+      </view>
+      <view class="wrap_item3" wx:if="{{item.status==2}}">
+        <view>{{item.text}}</view>
+        <view>({{item.remark}})</view>
+      </view>
+    </view>
   </view>
-  <image wx:if="{{showClassify}}" class="cancel-img" src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='cancelClassify'></image>
+  <image wx:if="{{showClassify}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelClassify'></image>
 </view>
 <view class="weihu" wx:if="{{weihu}}">
   <view class="open">暂未开放</view>
 </view>
-
-
-
 <!-- 一次确认弹窗 -->
 <view class="sure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sureOne}}">
   <view class="zan-dialog__container" wx:if="{{sureOne}}">
     <image wx:if="{{sureOne}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sureOneClose'></image>
     <view class="sureOne">交易确认</view>
     <view class="sureOneText">
-      <view class="head_box">
+      <view class="head_box1">
         <image src="{{avatarKey}}" class="head_img" />
         <text class="name">{{nickname}}</text>
       </view>
-      <view class="info">
+      <view class="info2">
         <text class="phoneNumber_key">对方手机号:</text>
         <text class="phoneNumber_value">{{mobileNumber}}</text>
       </view>
-      <view class="info">
+      <view class="info2">
         <text class="phoneNumber_key">返现金额:</text>
         <text class="phoneNumber_value">{{cashBackAmount}}元</text>
       </view>
-      <view class="info">
+      <view class="info2">
         <text class="phoneNumber_key">返现周期:</text>
         <text class="phoneNumber_value" wx:if="{{returnType==1||returnType==2||returnType==4}}">{{periodLeft}}期</text>
         <text class="phoneNumber_value" wx:if="{{returnType==3}}">{{periodLeft}}天</text>
       </view>
-      <view class="info">
+      <view class="info2">
         <text class="phoneNumber_key">出售价格:</text>
         <text class="phoneNumber_value">{{expectAmount}}元</text>
       </view>
@@ -558,5 +709,24 @@
   </view>
   <view class="peopleCanlce_close" wx:if="{{returnCanclePeople}}" bindtap='returnCanclePeople'>
     <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
+  </view>
+</view>
+<!-- 分享弹框 -->
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen1" bindtap="hide" wx:if="{{showModalStatus1&&currentTab==3}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1&&currentTab==3}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+    </view>
   </view>
 </view>

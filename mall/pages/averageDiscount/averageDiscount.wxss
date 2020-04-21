@@ -16,8 +16,6 @@ page {
   margin-left: 29rpx;
   margin-top: 24rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -33,8 +31,6 @@ page {
   margin-top: 40rpx;
   margin-right: 29rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(102, 102, 102, 1);
 }
 .title{
@@ -48,8 +44,6 @@ page {
   background: #FF6417;
   border-radius: 40rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   margin: 0 auto;
   margin-top: 70rpx;
   color: rgba(255, 255, 255, 1);

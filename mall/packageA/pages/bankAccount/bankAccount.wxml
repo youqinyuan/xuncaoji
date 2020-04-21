@@ -1,0 +1,19 @@
+<!--packageA/pages/bankAccount/bankAccount.wxml-->
+
+<form report-submit='true' bindsubmit='next'>
+    <view class="content">
+        <view class="title border_bottom">
+            <view class="left">开户行</view>
+            <input placeholder="" class="name wid200"  name="bankAddress" maxlength="40"/>
+        </view>
+        <view class="title border_bottom">
+            <view class="left">收款人</view>
+            <input placeholder="" class="name wid200"  name="realName" maxlength="5"/>
+        </view>
+        <view class="title">
+            <view class="left">收款账号</view>
+            <input placeholder="" class="name wid200"  name="bankCardNumber" type="number" value='{{cardNum}}' bindinput='bindCardNum' maxlength="23"/>
+        </view>
+    </view>
+    <button form-type="submit" class="submitButton">保存</button>
+</form>

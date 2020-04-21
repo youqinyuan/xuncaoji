@@ -99,8 +99,6 @@
   margin-left: 10rpx;
   margin-top: 10rpx;
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #ff2644;
   line-height: 46px;
 }
@@ -108,8 +106,6 @@
 .value1 {
   /* width: 570rpx; */
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   line-height: 46rpx;
   margin-left: 47rpx;
@@ -118,8 +114,6 @@
 .value2 {
   width: 530rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #999;
   line-height: 46rpx;
   padding-left: 46rpx;
@@ -128,8 +122,6 @@
 .value3 {
   width: 530rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   line-height: 46rpx;
   padding-left: 46rpx;
@@ -138,8 +130,6 @@
 .value4 {
   width: 530rpx;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   line-height: 46rpx;
   padding-left: 46rpx;
@@ -147,8 +137,6 @@
 
 .value5 {
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: rgba(255, 38, 68, 1);
   position: absolute;
   top: 720rpx;

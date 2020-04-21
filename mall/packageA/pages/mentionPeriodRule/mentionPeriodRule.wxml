@@ -1,0 +1,59 @@
+<!--packageA/pages/mentionPeriodRule/mentionPeriodRule.wxml-->
+<view class="rule_title">一、FreeBuy提期玩法简介</view>
+<view class="rule_value">FreeBuy提期可以帮助原本返现时间过长的订单提到最短期返现，这样就实现了快速返现，并且帮助的人也可获得一定的预估年化收益。</view>
+<view class="rule_value">示例：小明有一条48期待返订单，小明嫌返现时间太长所以他就使用“FreeBuy提期”将原来48期返现提到最短期限返现，小明成功发布后只要有用户帮他支付提期金额小明就成功提到最短期限返现，同时帮提期的人也可以获得高额收益，具体提几期根据帮提期的用户支付金额决定的。</view>
+<view class="rule_title">二、FreeBuy提期常见问题</view>
+<view class="rule_question">预估年化收益率是最终年化收益率吗？</view>
+<view class="rule_answer">答：不是，预估年化收益率为“平台”和“需提期方”共同给予的年化收益率，实际年化收益率会随市场情况有所变动。如有疑问可咨询客服。</view>
+<view class="rule_question">我发起提期并已完成后是提至几期返现?</view>
+<view class="rule_answer">答：所有发起的提期申请系统默认为提至最短期限，也就是2期，如果您已完成提期那您原本的返现周期将缩短至2期返现给您。</view>
+<view class="rule_question">哪些订单不能使用提期？</view>
+<view class="rule_answer">答：1、天天返订单不可提。</view>
+<view class="rule_answer">2、预售未交易完成订单不支持，交易完成或撤销预售后完成尾款支付。</view>  
+<view class="rule_answer">3、剩订单返现期数小于2期（包括2期）不可提。</view>  
+<view class="rule_answer">4、已经发布了订单提期不可提。</view>  
+<view class="rule_answer">5、已经发布卖贴至论坛不可提。</view>
+<view class="rule_answer">6、订单处于转让中、交易中不可提。</view>  
+<view class="rule_answer">7、新人注册返现不可提。</view>
+<view class="rule_question">帮付提期金额选择0.5期或1期返现收益率会变吗？</view>
+<view class="rule_answer">答：不会，年化收益率保持不变，变化的只是帮付金额返现 的周期长短。</view>
+<view class="rule_question">佣金是如何分配给帮提期用户的？</view>
+<view class="rule_answer">答：佣金是按照用户付款金额等比分配，付的金额越多获取佣金也越多。但是必须要帮提期用户成功的帮助他人提期。</view>
+<view class="rule_question">如果提期未完成、已撤销、已失效佣金会退还给我吗？</view>
+<view class="rule_answer">答：仅返还没有提期成功的部分佣金，已成功提期的部分佣金将不予返还，因为这部分佣金已奖励给帮提期用户。</view>
+<view class="rule_title">三、最终解释权及协议</view>
+<view class="rule_value">1、用户所获收益平台将自动发放，收益可在余额明细或待返明细页面查看。</view>
+<view class="rule_value">2、用户的预估年化收益率随市场变动调整，并非为固定年化收益率。</view>
+<view class="rule_value">3、用户凡以不正当手段（作弊、恶意套现、虚假交易、扰乱系统、实施网络攻击、卡系统BUG、等不正当行为获取的收益），寻草记商城将有权终止其参与，且有权追回所获收益。</view>
+<view class="rule_value">4、如遇不可抗力因素（包括但不限于重大灾害事件、政府机关指令、大面积作弊行为、遭受网络攻击、系统发生严重故障等造成活动不能正常进行的），寻草记有权取消、修改、暂停本活动。</view>
+<view class="rule_value">5、若有任何疑问，请联系客服，进入寻草记——我的——联系客服咨询反馈。</view>
+<view class="bottom"></view>
+
+
+
+
+                                
+
+
+
+
+
+
+
+
+                            
+
+
+                                
+
+
+
+
+
+
+
+
+
+
+                                
+

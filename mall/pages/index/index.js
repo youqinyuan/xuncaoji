@@ -341,6 +341,14 @@ Page({
             wx.navigateTo({
               url: '/pages/sponsor/sponsor',
             })
+          }else if (res.data.content.param == 19) {
+            wx.navigateTo({
+              url: '/packageA/pages/mentionPeriodIndex/mentionPeriodIndex',
+            })
+          }else if (res.data.content.param == 20) {
+            wx.navigateTo({
+              url: '/packageA/pages/allStore/allStore',
+            })
           }
         } else if (res.data.content.category == 2) {
           wx.navigateTo({
@@ -433,7 +441,7 @@ Page({
             })
           }
         } else if (oblong.length == 0) {
-          if (that.data.activityList[4].showStyle == 1) {
+          if (that.data.activityList.length>=4&&that.data.activityList[4].showStyle == 1) {
             that.setData({
               maxHeight: 822,
               activityList: that.data.activityList.slice(0, 5)
@@ -524,6 +532,14 @@ Page({
           } else if (res.data.content.param == 18) {
             wx.navigateTo({
               url: '/pages/sponsor/sponsor',
+            })
+          }else if (res.data.content.param == 19) {
+            wx.navigateTo({
+              url: '/packageA/pages/mentionPeriodIndex/mentionPeriodIndex',
+            })
+          }else if (res.data.content.param == 20) {
+            wx.navigateTo({
+              url: '/packageA/pages/allStore/allStore',
             })
           }
         } else if (res.data.content.category == 2) {
@@ -1246,6 +1262,10 @@ Page({
     } else if (forwarddest === 11) {
       wx.navigateTo({
         url: '/pages/sponsor/sponsor',
+      })
+    }else if (forwarddest === 12) {
+      wx.navigateTo({
+        url: '/packageA/pages/allStore/allStore',
       })
     }
   },

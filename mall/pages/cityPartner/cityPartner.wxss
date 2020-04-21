@@ -28,8 +28,6 @@
   width: 160rpx;
   margin-left: 30rpx;
   font-size: 28rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -63,8 +61,6 @@
   right: 30rpx;
   top: 15rpx;
   font-size: 26rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   background: rgba(255, 255, 255, 1);
 }
 
@@ -114,8 +110,6 @@ button::after {
   background: #ff2644;
   border-radius: 40rpx;
   font-size: 32rpx;
-  font-family: PingFang-SC-Medium;
-  font-weight: 500;
   margin: 0 auto;
   margin-top: 70rpx;
   margin-bottom: 70rpx;
@@ -138,8 +132,6 @@ button::after {
   margin-top: 30rpx;
   text-align: center;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
 }
 
@@ -149,8 +141,6 @@ button::after {
   margin-top: 66rpx;
   text-align: center;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #aaa;
 }
 
@@ -168,8 +158,6 @@ button::after {
   background: rgba(255, 100, 23, 1);
   border-radius: 40rpx;
   font-size: 32rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #fff;
 }
 

@@ -1,0 +1,148 @@
+<!--packageA/pages/placeorderSearch/placeorderSearch.wxml-->
+<!-- 商品实际支出保留两位小数 -->
+<wxs module="foo">
+  module.exports = {
+    toStr: function(n) {
+      n = n.toFixed(2)
+      return n
+    }
+  }
+</wxs>
+<view class="section-wrapper">
+  <view class="section">
+    <image src="{{hostUrl}}/icon/index_nav_search_n.png" class="section-img"></image>
+    <input value="{{inputValue}}" confirm-type="search" bindconfirm='confirmTap' focus="{{true}}" placeholder="更多好货等你来发现" placeholder-style="color:#AAAAAA" bindinput='bindInput' />
+  </view>
+  <view class="cancel" wx:if="{{show}}" catchtap='cancel'>
+    <image src="{{hostUrl}}/icon/nav_search_delete_n.png"></image>
+  </view>
+  <view class="search" bindtap="search">搜索</view>
+</view>
+<view class="history_wrap" wx:if="{{goodsResult.length==0}}">
+  <view class="wrapper">
+    <view class="history">
+      <view class="history-search">搜索历史</view>
+      <view class="history-empty" catchtap='detele'>清空</view>
+    </view>
+    <view class="content">
+      <view class="content-list" wx:for="{{history}}" wx:key="{{index}}" bindtap='searchClick' data-item="{{item}}">{{item}}</view>
+    </view>
+  </view>
+</view>
+<view class="searchList1-wrap" wx:if="{{goodsResult.length>0}}">
+  <view class="goods-list-wrap">
+    <view class="goods-list" wx:for="{{goodsResult}}" wx:key="{{item.id}}" data-id="{{item.id}}" catchtap="showOrder">
+      <view class="goods-list-img">
+        <image wx:if="{{item.imageUrls[0]}}" src="{{item.imageUrls[0]}}"></image>
+        <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+      </view>
+      <view class="goods-list-item">
+        <view class="goods-list-text">
+          <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}
+        </view>
+        <view class="goods-list-price">
+          <view class="newprice-wrap">
+            <view class="pricesign">￥</view>
+            <view class="newprice">{{item.truePrice}}</view>
+          </view>
+          <view class="oldprice-wrap">
+            <view class="pricesign1">￥</view>
+            <view class="oldprice">{{item.orgPrice}}</view>
+          </view>
+        </view>
+        <view class="return-cart">
+          <view class="return-wrap wrapMoney">
+            <view class="return-money">
+              <text>实付</text>
+              <text>￥</text>
+              <text>{{item.dctPrice}}</text>
+            </view>
+            <view class="pay-money">
+              <text>返现</text>
+              <text>￥</text>
+              <text>{{item.marketingCashBack.totalAmount}}</text>
+            </view>
+          </view>
+          <image wx:if="{{store.status==1}}" data-id="{{item.id}}" catchtap="showOrder" class="cart" src="{{hostUrl}}/changeImg/takeCart.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="shops-bottom">{{textToast}}</view>
+</view>
+
+<view class="block"></view>
+<view class="addCart-wrap" wx:if="{{store.status==1}}">
+  <view class="circle" wx:if="{{shoppingCart}}">{{shoppingCart.goodsCount}}</view>
+  <view class="addCart_left" catchtap="toPlaceorde">
+    <image class="addCart_img" src="{{hostUrl}}/changeImg/add_cart.png"></image>
+  </view>
+  <view class="addCart_right">
+    <view class="add_price" wx:if="{{shoppingCart}}">
+      <view class="allSign">
+        <text>￥</text>
+        <text>{{shoppingCart.afterCashBackAmount}}</text>
+      </view>
+      <view class="allPrice">
+        <text>实付 ¥{{shoppingCart.goodsPriceAmount}} 返 ¥{{shoppingCart.cashBackAmount}}</text>
+      </view>
+    </view>
+      <view class="btnWrap" wx:if="{{shoppingCart}}">
+        <view class="delete" catchtap="delete">清空</view>
+        <view class="placeorder" catchtap="toPlaceorde">下单</view>
+      </view>
+      <view class="add_text" wx:if="{{!shoppingCart}}">请选择商品</view>
+      <view class="btn" style="background:#AAAAAA;" wx:if="{{!shoppingCart}}">下单</view>
+  </view>
+</view>
+<view class="addCart-wrap1" wx:if="{{store.status==2}}">本店已打烊</view>
+
+<view class="commodity_screen" bindtap="hideShowOrder" wx:if="{{showOrder}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showOrder}}">
+  <view class="commodity-top">
+    <view class="commodity-top-img">
+      <image wx:if="{{iconUrl}}" src="{{iconUrl}}"></image>
+      <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+    </view>
+    <view class="commodity-top-right">
+      <view class="commodity-top-right-item">
+        <view class="commodity-top-right-title">返后价:
+          <view class="sign">￥</view>
+          <view class="price">{{stockDetail1.dctPrice?foo.toStr(stockDetail1.dctPrice-cashMoney):0}}</view>
+        </view>
+        <view class="commodity-top-right-cancel" bindtap="hideShowOrder">
+          <image src="{{hostUrl}}/icon/tanc_close_n.png"></image>
+        </view>
+      </view>
+      <view class="commodity-save">库存{{stockDetail1.quantity}}件</view>
+      <view class="commodity-size">已选：{{selectName}}</view>
+    </view>
+  </view>
+  <view class="content-wrapper" style="{{stockDetail1.cashbackItems?'max-height: 585rpx;':'max-height: 630rpx;'}}">
+    <!--选择规格-->
+    <block wx:for="{{spec}}" wx:key="{{item.id}}" wx:for-index="group_idx">
+      <view class="color-size" data-index="{{group_idx}}" bindtap='specIndex'>
+        <view class="color-size-title">{{item.name}}</view>
+        <view class="color-size-list">
+          <block wx:for="{{item.items}}" wx:key="{{item.id}}">
+            <text bindtap='clickAttr' data-attr-index="{{index}}" data-name="{{item.name}}" data-select-index="{{group_idx}}" data-attr-id="{{item.id}}" class="text1 {{item.isSelect==true? 'active' : ''}}">{{item.name}}</text>
+          </block>
+        </view>
+      </view>
+    </block>
+    <view class="num">
+      <view class="num-title">购买数量</view>
+      <view class="num-item">
+        <text class="{{minusStatus}}" bindtap="bindMinus">-</text>
+        <input type="number" bindchange="bindManual" value="{{num}}" />
+        <text class="{plusStatus}}" bindtap="bindPlus">+</text>
+      </view>
+    </view>
+  </view>
+  <view class="showOrderText" catchtap="jumpZero">什么是0成本购?</view>
+  <view class="btn-wrap">
+    <view class="showOrderBtn_a" bindtap="addTocart" data-cashbackid="{{stockDetail1.cashbackItems ? cashbackId:'' }}" data-quantity="{{num}}" data-goodsid="{{goodsId}}" data-stockid="{{stockDetail1.stockId}}">普通购买</view>
+    <view class="showOrderBtn" bindtap="getZeroCart" data-quantity="{{num}}" data-goodsid="{{goodsId}}" data-stockid="{{stockDetail1.stockId}}">0成本购</view>
+  </view>
+  <view class="showOrderBlock"></view>
+</view>

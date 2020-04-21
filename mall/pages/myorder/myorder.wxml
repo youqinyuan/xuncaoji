@@ -70,9 +70,12 @@
       <view class="service" wx:if="{{itemName.whetherAdvanceSale==1}}">
         <view class="service_one">服务</view>
         <view class="service_two">预售订单</view>
-        <view class="service_three" bindtap="cancelPreSell" data-advanceSaleStatus="{{itemName.advanceSaleStatus}}" data-orderId="{{itemName.id}}">撤销预售</view>
-        <view class="service_four" wx:if="{{itemName.advanceSaleStatus==2}}">买方已预定</view>
-        <view class="service_four" wx:if="{{itemName.advanceSaleStatus==1}}">未被预定</view>
+        <view class="service_three" bindtap="cancelPreSell" data-advanceSaleStatus="{{itemName.advanceSaleStatus}}" data-orderId="{{itemName.id}}" wx:if="{{itemName.whetherAdvanceSale==1&&itemName.latestStatus!==12&&itemName.defaultAmountStatus==2?itemName.advanceSaleStatus==2||itemName.advanceSaleStatus==1:false}}">撤销预售</view>
+        <view class="service_four" wx:if="{{itemName.advanceSaleStatus==2}}">买方已预订</view>
+        <view class="service_four" wx:if="{{itemName.advanceSaleStatus==1}}">未被预订</view>
+         <view class="service_four" wx:if="{{itemName.advanceSaleStatus==3}}">买方已毁约</view>
+         <view class="service_four" wx:if="{{itemName.advanceSaleStatus==4}}">卖方已毁约</view>
+         <view class="service_four" wx:if="{{itemName.advanceSaleStatus==5}}">交易完成</view>
       </view>
       <!-- 付款 -->
       <view class="all">
@@ -86,15 +89,15 @@
     </view>
     <!-- 底部按钮 -->
     <view class="button">
-      <button class="stopzero" catchtap="stopZero" wx:if="{{itemName.isStop==1&&itemName.latestStatus!==1&&itemName.latestStatus!==9&&itemName.latestStatus!==12&&itemName.latestStatus!==7&&itemName.latestStatus!==10}}" data-orderid="{{itemName.id}}" disabled="{{itemName.isStop==2?true:false}}">终止FreeBuy转购买</button>
-      <text class="cancel" wx:if="{{itemName.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{itemName.id}}">取消订单</text>
+      <button class="stopzero" catchtap="stopZero" wx:if="{{itemName.isStop==1&&itemName.latestStatus!==1&&itemName.latestStatus!==9&&itemName.latestStatus!==12&&itemName.latestStatus!==7&&itemName.latestStatus!==10&&itemName.orderSource!==2}}" data-orderid="{{itemName.id}}" disabled="{{itemName.isStop==2?true:false}}">终止FreeBuy转购买</button>
+      <text class="cancel" wx:if="{{itemName.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{itemName.id}}" data-whetherAdvanceSale="{{itemName.whetherAdvanceSale}}" data-defaultAmountStatus="{{itemName.defaultAmountStatus}}" data-defaultAmount="{{itemName.defaultAmount}}" data-advanceSaleStatus="{{itemName.advanceSaleStatus}}">取消订单</text>
       <text class="cancel" wx:if="{{itemName.latestStatus==2}}" catchtap='getMessage' data-orderid="{{itemName.id}}">提醒卖家发货</text>
-      <text class="return-money" wx:if="{{itemName.isCashBack==true}}" catchtap='periodCash' data-lateststatus="{{itemName.latestStatus}}" data-orderid="{{itemName.id}}" data-whetherAdvanceSale="{{itemName.whetherAdvanceSale}}" data-defaultAmountStatus="{{itemName.defaultAmountStatus}}">分期返现</text>
+      <text class="return-money" wx:if="{{itemName.isCashBack==true&&itemName.orderSource!==2}}" catchtap='periodCash' data-lateststatus="{{itemName.latestStatus}}" data-orderid="{{itemName.id}}" data-whetherAdvanceSale="{{itemName.whetherAdvanceSale}}" data-defaultAmountStatus="{{itemName.defaultAmountStatus}}">分期返现</text>
       <!-- <text class="return" catchtap='refund' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==2 || itemName.latestStatus==5 || itemName.latestStatus==11}}">退款</text> -->
       <!-- <text class="return" catchtap='cancelRefund' wx:if="{{itemName.latestStatus==7 || itemName.latestStatus==8}}" data-orderid="{{itemName.id}}">取消退款</text> -->
-      <text class="pay" wx:if="{{itemName.latestStatus==1}}" catchtap='toPay' data-id="{{itemName.transStatementDetail.transId}}" data-orderid="{{itemName.id}}" data-ordertype="{{itemName.orderType}}">付款</text>
-      <text class="pay" catchtap='toEvaluate' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==5}}">去评价</text>
-      <text class="pay" catchtap='confirmReceipt' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==4}}">确认收货</text>
+      <text class="pay" wx:if="{{itemName.latestStatus==1}}" catchtap='toPay' data-id="{{itemName.transStatementDetail.transId}}" data-orderid="{{itemName.id}}" data-ordertype="{{itemName.orderType}}" data-advanceSaleStatus="{{itemName.advanceSaleStatus}}" data-defaultAmountStatus="{{itemName.defaultAmountStatus}}">付款</text>
+      <text class="pay" catchtap='toEvaluate' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==5&&itemName.orderSource!==1}}">去评价</text>
+      <text class="pay" catchtap='confirmReceipt' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==4&&itemName.orderSource!==1}}">确认收货</text>
     </view>
   </view>
   <!-- 否则 -->
@@ -203,7 +206,7 @@
       <view class="contentainer3-button">
         <view class="reject" bindtap='cancelorder'>取消</view>
         <button class="comfirm" bindtap="sureorder">确定</button>
-      </view>
+      </view>s
     </view>
   </view>
 </view> -->
@@ -215,7 +218,7 @@
       <view class="text text2">
          <view class="contentainer3-content-text {{current == index ?'active1':''}}" bindtap="getText1" wx:for="{{cancelOrder}}" wx:for-item="reasons1" wx:key="{{reasons1}}" data-current="{{index}}" data-text="{{reasons1}}">{{reasons1}}</view>
       </view>
-      <view class="penalSum">提示：取消订单您需要支付违约金￥500</view>
+      <view class="penalSum" wx:if="{{whetherAdvanceSale==1&&defaultAmountStatus==2&&advanceSaleStatus==2}}">提示：取消订单您需要支付违约金￥{{defaultAmount}}</view>
       <view class="but_box1">
         <button class="shure_one1" bindtap='cancelorder'>取消</button>
         <button class="shure_one2" bindtap="sureorder">确认</button>
@@ -313,7 +316,7 @@
     </view>
     <!-- 底部按钮 -->
     <view class="button">
-      <text class="return-money" wx:if="{{itemName.period&&itemName.period>0}}" catchtap='periodCash' data-orderid="{{itemName.orderId}}">分期返现</text>
+      <text class="return-money" wx:if="{{itemName.period&&itemName.period>0&&itemName.orderSource!==2}}" catchtap='periodCash' data-orderid="{{itemName.orderId}}">分期返现</text>
     </view>
   </view>
   <!-- 否则 -->
@@ -373,7 +376,7 @@
     <image wx:if="{{sellOneStatus}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sellClose1'></image>
     <view class="title">撤销预售</view>
       <view class="text">
-        <view >此预售订单无人预定，撤销后将返还您所支付的违约金，是否撤销？</view>
+        <view >此预售订单无人预订，撤销后将返还您所支付的违约金，是否撤销？</view>
       </view>
       <view class="but_box1">
         <button class="shure_one1" bindtap='sellClose1'>取消</button>
@@ -388,7 +391,7 @@
     <view class="title">撤销预售</view>
       <view class="text">
         <view >
-          您的预售订单已被买方预定，如果现在撤销预售订单系统将扣除您的违约金，并删除订单交易中的卖贴信息。是否撤销？</view>
+          您的预售订单已被买方预订，如果现在撤销预售订单系统将扣除您的违约金，并删除订单交易中的卖贴信息。是否撤销？</view>
       </view>
       <view class="but_box1">
         <button class="shure_one1" bindtap='sellClose2'>取消</button>
@@ -399,15 +402,15 @@
 <!-- 付款提示 -->
 <view class="sell-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{payStatus}}">
   <view class="sell-dialog__container heigh440" wx:if="{{payStatus}}">
-    <image wx:if="{{payStatus}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sellClose2'></image>
+    <image wx:if="{{payStatus}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='closePay'></image>
     <view class="title">付款提示</view>
       <view class="text">
         <view >
-          此预售订单无人预定，如果您现在付款系统将视你自动放弃预售，并删除订单交易中的卖贴信息，是否付款？</view>
+          此预售订单无人预订，如果您现在付款系统将视你自动放弃预售，并删除订单交易中的卖贴信息，是否付款？</view>
       </view>
       <view class="but_box1">
-        <button class="shure_one1" bindtap=''>取消</button>
-        <button class="shure_one2" bindtap="">确认</button>
+        <button class="shure_one1" bindtap='closePay'>取消</button>
+        <button class="shure_one2" bindtap="toPay2">确认</button>
       </view>
   </view>
 </view>

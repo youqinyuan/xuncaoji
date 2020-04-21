@@ -69,5 +69,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  blackOrder:function(){
+    wx.navigateBack({
+      delta: 1
+    })
   }
 })

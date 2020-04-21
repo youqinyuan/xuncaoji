@@ -136,8 +136,6 @@ page {
   margin-top: -3rpx;
   margin-left: 28rpx;
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
 }
 
@@ -273,7 +271,6 @@ page {
   border-radius: 40rpx;
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -329,8 +326,6 @@ page {
 .show-showNotice .show-showNotice-container .rule_text {
   text-align: left;
   font-size: 28rpx;
-  font-family: PingFang SC;
-  font-weight: 500;
   color: #333;
   line-height: 46rpx;
   padding: 0 40rpx;
@@ -347,7 +342,6 @@ page {
 
 .show-showNotice .show-showNotice-container .rule_content {
   font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: #999;
 }
 
@@ -422,7 +416,6 @@ page {
   border-radius: 40rpx;
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: #ff2644;
   border: 2rpx solid #ff2644;
 }
@@ -436,7 +429,6 @@ page {
   border-radius: 40rpx;
   font-size: 32rpx;
   font-family: PingFang-SC-Medium;
-  font-weight: 500;
   color: rgba(255, 255, 255, 1);
   margin-left: 30rpx;
 }
@@ -514,7 +506,6 @@ page {
   margin-bottom: 60rpx;
   font-size: 34rpx;
   font-family: PingFang-SC-Bold;
-  font-weight: 500;
   color: #222;
   text-align: left;
 }
@@ -531,7 +522,6 @@ page {
 .wait_shure-one-dialog__mask .zan-dialog__container1 .cause {
   letter-spacing: 3rpx;
   font-size: 28rpx;
-  font-weight: 500;
   color: #333;
   text-align: left !important;
 }
@@ -701,7 +691,6 @@ page {
   font-family: PingFang-SC-Bold;
   color: #222;
   text-align: left;
-  font-weight: 500;
   height: 20rpx;
 }
 .peopleCancle_box{
@@ -720,8 +709,6 @@ page {
 .people_info_name{
   display: inline-block;
   font-size:24rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   color:rgba(51,51,51,1);
   position: absolute;
   left: 151rpx;
@@ -730,8 +717,6 @@ page {
 .people_info_acountnumber{
   display: inline-block;
   font-size:24rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   color:rgba(51,51,51,1);
   position: absolute;
   left: 151rpx;
@@ -740,8 +725,6 @@ page {
 .cancle_font{
   display: inline-block;
   font-size:26rpx;
-  font-family:PingFang SC;
-  font-weight:500;
   color:rgba(51,51,51,1);
   position: absolute;
   left: 39rpx;

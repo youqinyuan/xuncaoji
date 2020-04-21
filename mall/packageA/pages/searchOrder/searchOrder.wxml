@@ -1,0 +1,64 @@
+<!--packageA/pages/searchOrder/searchOrder.wxml-->
+<view class="wrapper">
+  <view class="section-wrapper">
+    <view class="section">
+      <image src="{{hostUrl}}/icon/index_nav_search_n.png" class="section-img"></image>
+      <input value="{{inputValue}}" confirm-type="search" bindconfirm='confirmTap' focus="{{true}}" placeholder="请输入你想找的商品名称" placeholder-style="color:#AAAAAA" bindinput='bindInput' />
+    </view>
+     <view class="cancel" wx:if="{{show}}" catchtap='cancel'>
+    <image src="{{hostUrl}}/icon/nav_search_delete_n.png"></image>
+  </view>
+  <view class="search" bindtap="search">搜索</view>
+  </view>
+  <view class="content_top" wx:if="{{goodsResult.length>0}}">
+    <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
+      <view class="nav-box">
+        <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" data-type="{{item.type}}" catchtap="switchNav">{{item.text}}</view>
+        <view class="nav-item {{currentTab == idx ?'active1':''}}"></view>
+      </view>
+    </block>
+  </view>
+</view>
+
+<!--商品-->
+<view class="searchList1-wrap">
+  <view class="goods-list-wrap">
+    <view class="goods-list" wx:for="{{goodsResult}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
+      <view class="goods-list-img">
+        <image src="{{item.imageUrls[0]}}"></image>
+      </view>
+      <view class="goods-list-item">
+        <view class="goods-list-text">
+          <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}
+        </view>
+        <view class="goods-list-price">
+          <view class="newprice-wrap">
+            <view class="pricesign">￥</view>
+            <view class="newprice">{{item.truePrice}}</view>
+          </view>
+          <view class="oldprice-wrap">
+            <view class="pricesign1">￥</view>
+            <view class="oldprice">{{item.orgPrice}}</view>
+          </view>
+        </view>
+        <view class="return-wrap">
+          <view class="return-money">
+            <text>实付</text>
+            <text>￥</text>
+            <text>{{item.dctPrice}}</text>
+          </view>
+          <view class="pay-money">
+            <text>返现</text>
+            <text>￥</text>
+            <text>{{item.marketingCashBack.totalAmount}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="shops-bottom">{{textToast}}</view>
+  <!-- <view class="empty-wrap" wx:if="{{goodsResult.length===0}}">
+    <image class="empty-img" src="{{hostUrl}}/icon/nohave_n.png"></image>
+    <view class="empty-content">无搜索结果，换个词试试吧~</view>
+  </view> -->
+</view>

@@ -34,7 +34,7 @@ Page({
     expectedAmountStatus: false,
     expectedAmountNumber: 0,
     monthNumber: 0,
-    monthInput: "请输出分期数",
+    monthInput: "请输入分期数",
     expectedAmountInput: "请输入最终成本价",
     inputBorder: "border: #DBDBDB 2rpx solid;",
     expectedAmountNumbertemp: 0,
@@ -42,17 +42,18 @@ Page({
     newPeopleActivity: 1, //新人专区跳转页面状态
     activityId: null,
     hostUrl: app.Util.getUrlImg().hostUrl,
-    isShowBook:0,
-    yuShow: false
+    isShowBook: 0,
+    yuShow: false,
+    freeBuyMode: 2 //0元购类型，1-月返，2-天天返
   },
   //跳转到服务问题页面
-  goIntoProblem: function (e) {
+  goIntoProblem: function(e) {
     wx.navigateTo({
       url: '/packageA/pages/serviceProblem/serviceProblem',
     })
   },
   //立即体验
-  experience: function (e) {
+  experience: function(e) {
     var that = this
     //引导服务页面
     if (wx.getStorageSync('experienceStatus')) {
@@ -63,10 +64,10 @@ Page({
             url: '/pages/placeorder/placeorder?activityGoodsId=' + that.data.options.activityGoodsId + '&&buyType=' + that.data.buyType + '&&stockId=' + that.data.options.stockId + '&&quantity=' + that.data.options.quantity + '&&newPeopleActivity=' + that.data.options.newPeopleActivity + '&&isShowBook=' + 2
           })
         }
-        setTimeout(function () {
+        setTimeout(function() {
           newCount = true
         }, 1000)
-      }else{
+      } else {
         if (newCount) {
           newCount = false
           if (that.data.activityId) {
@@ -79,7 +80,7 @@ Page({
             })
           }
         }
-        setTimeout(function () {
+        setTimeout(function() {
           newCount = true
         }, 1000)
       }
@@ -90,14 +91,14 @@ Page({
       wx.setStorageSync('experienceStatus', 1)
     }
   },
-  noNeed: function (e) {
+  noNeed: function(e) {
     var that = this
     that.setData({
       yuShow: false
     })
     wx.setStorageSync('experienceStatus', 1)
   },
-  need: function (e) {
+  need: function(e) {
     var that = this
     that.setData({
       yuShow: false
@@ -116,12 +117,25 @@ Page({
       that.setData({
         isShowBook: 2
       })
-    }else{
+    } else {
       that.setData({
         isShowBook: 1
       })
     }
-    if (options.newPeopleActivity == 2 && options.newPeople == 1) {
+    //购买省钱帖初始化
+    if (options.getOrder) {
+      var arr = JSON.parse(options.getOrder)
+      var obj = {}
+      obj.goodsId = arr.goodsid
+      obj.stockId = arr.stock
+      obj.quantity = arr.quantity
+      that.setData({
+        goodsMsg: obj,
+        options: arr,
+        getOrder: options.getOrder
+      })
+      that.getInit(obj.stockId)
+    } else if (options.newPeopleActivity == 2 && options.newPeople == 1) {
       that.setData({
         newPeopleActivity: options.newPeopleActivity,
         options: options
@@ -198,7 +212,8 @@ Page({
       //获取页面分期判断数据
       if (res.data.messageCode == 'MSG_1001') {
         //计算需要支付的金额
-        if (that.data.expectedAmount !== 0) {
+        if (that.data.cashbackperiods!==0&&that.data.cashbackperiods !== res.data.content.cashbackperiods) {
+          //从购物车进来，查看0元购
           that.compute2(that.data.expectedAmount, that.data.cashbackperiods);
           var tempList = res.data.content;
           tempList.expectedAmount = that.data.expectedAmount
@@ -207,6 +222,7 @@ Page({
             cashMsg: tempList
           })
         } else {
+          //初始化
           that.setData({
             cashMsg: res.data.content
           })
@@ -418,12 +434,12 @@ Page({
   },
   addOrCompute: function() {
     var that = this
-    if(that.data.isShowBook==2){
+    if (that.data.isShowBook == 2) {
       wx.showToast({
         title: '预售订单无法加入购物车，如需加入购物车请单独购买。',
-        icon:'none'
+        icon: 'none'
       })
-    }else{
+    } else {
       if (that.data.reviseStatus == 1 || that.data.reviseStatus2 == 1) {
         app.Util.ajax('mall/cart/updateShoppingCartApply', {
           shoppingCartGoodsId: that.data.shoppingcartgoodsid, //修改购物车的id
@@ -527,7 +543,6 @@ Page({
   //期限(隐藏)
   monthStop: function() {
     var that = this;
-    //that.getInit(that.data.goodsMsg.stockId)
     that.setData({
       monthStatus: false,
       cashMsg: that.data.cashMsg
@@ -672,6 +687,34 @@ Page({
         wx.navigateTo({
           url: '/pages/placeorder/placeorder?goodsId=' + this.data.goodsMsg.goodsId + '&&activityId=' + that.data.activityId + '&&stockId=' + this.data.goodsMsg.stockId + '&&quantity=' + this.data.goodsMsg.quantity + '&&goodsType=applyZero' + '&&needPaymentAmount=' + this.data.payMsg.needPaymentAmount + '&&cashBackPeriods=' + this.data.cashMsg.cashBackPeriods + '&&expectedAmount=' + this.data.cashMsg.expectedAmount + '&&buyType=' + this.data.buyType + '&&isShowBook=' + this.data.isShowBook
         })
+      }else if(that.data.getOrder){ 
+        let orderType;
+        if (that.data.activityId) {
+          orderType = 19
+        } else {
+          if (that.data.sponsor == 1) {
+            orderType = 14
+          } else {
+            orderType = 7
+          }
+        }      
+        let data = {
+          goodsId: that.data.options.goodsid,
+          stockId: that.data.options.stock,
+          quantity: that.data.options.quantity,
+          source: that.data.options.source,
+          topicId: that.data.options.topicid,
+          needPaymentAmount: that.data.payMsg.needPaymentAmount,
+          cashBackPeriods: that.data.cashMsg.cashBackPeriods,
+          expectedAmount: that.data.cashMsg.expectedAmount,
+          buyType: that.data.buyType,
+          orderType:orderType,
+          isShowBook:2
+        }
+        let getOrder = JSON.stringify(data)
+        wx.navigateTo({
+          url: '/pages/placeorder/placeorder?getOrder=' + getOrder +'&goodsType=applyZero'
+        })
       } else {
         wx.navigateTo({
           url: '/pages/placeorder/placeorder?goodsId=' + this.data.goodsMsg.goodsId + '&&stockId=' + this.data.goodsMsg.stockId + '&&quantity=' + this.data.goodsMsg.quantity + '&&goodsType=applyZero' + '&&needPaymentAmount=' + this.data.payMsg.needPaymentAmount + '&&cashBackPeriods=' + this.data.cashMsg.cashBackPeriods + '&&expectedAmount=' + this.data.cashMsg.expectedAmount + '&&buyType=' + this.data.buyType + '&&isShowBook=' + this.data.isShowBook
@@ -792,7 +835,6 @@ Page({
         cashBackPeriods: month,
         orderType: orderType
       }, 'POST').then((res) => {
-        console.log("aaaa" + JSON.stringify(res))
         if (res.data.messageCode == 'MSG_1001') {
           var cashBackDetails = res.data.content.cashBackDetails
           cashBackDetails.forEach((v, i) => {
@@ -892,7 +934,6 @@ Page({
       this.setData({
         [`inputs[${e.currentTarget.dataset.index}]`]: e.detail.value
       })
-      console.log(this.data.inputs[e.currentTarget.dataset.index])
     }
     let value = this.validateNumber(e.detail.value)
     this.setData({
@@ -918,7 +959,7 @@ Page({
    */
   onShow: function() {
     var that = this
-   
+
   },
 
   /**
@@ -962,7 +1003,6 @@ Page({
   },
   sponsorShow: function() {
     var that = this
-    console.log(that.data.expectedAmount, that.data.cashMsg.cashBackPeriods)
     this.setData({
       sponsorShow: true
     })

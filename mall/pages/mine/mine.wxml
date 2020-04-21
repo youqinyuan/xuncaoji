@@ -250,19 +250,19 @@
     <text class="service-text">我的服务</text>
   </view>
   <view class="service-list">
-    <view class="pay" catchtap='payMoney'>
+    <view class="pay" catchtap='saveAndmake'>
       <view class="pay-img">
-        <image src="{{hostUrl}}/icon/my_service_list1_icon.png"></image>
+        <image src="{{hostUrl}}/changeImg/my_service_list1_icon.png"></image>
       </view>
       <view class="pay-text">
-        <view class="pay-text-big">付钱</view>
-        <view class="pay-text-small">扫码付款</view>
+        <view class="pay-text-big">赚钱/省钱订单</view>
+        <view class="pay-text-small">省赚都在这里哦</view>
       </view>
     </view>
     <view class="pay" catchtap='myForum'>
       <view class="forum" wx:if="{{messageNum>0}}">{{messageNum}}</view>
       <view class="pay-img">
-        <image src="{{hostUrl}}/add/my_service_list2_icon.png"></image>
+        <image src="{{hostUrl}}/changeImg/my_service_list2_icon.png"></image>
       </view>
       <view class="pay-text">
         <view class="pay-text-big">订单交易</view>
@@ -271,7 +271,7 @@
     </view>
     <view class="pay" catchtap='myTeam'>
       <view class="pay-img">
-        <image src="{{hostUrl}}/icon/my_service_list3_icon.png"></image>
+        <image src="{{hostUrl}}/changeImg/my_service_list3_icon.png"></image>
       </view>
       <view class="pay-text">
         <view class="pay-text-big">我的团队</view>
@@ -280,7 +280,7 @@
     </view>
     <view class="pay" catchtap='toMyPeriod'>
       <view class="pay-img">
-        <image src="{{hostUrl}}/add/my_service_list4_icon.png"></image>
+        <image src="{{hostUrl}}/changeImg/my_service_list4_icon.png"></image>
       </view>
       <view class="pay-text">
         <view class="pay-text-big">我的分期</view>
@@ -292,31 +292,39 @@
 <!-- 购物车、我的地址、支付密码、邀请码、商家入驻、客服 -->
 <view class="mine">
   <view class="mine-list" bindtap='toCart'>
-    <image class="mine-list-img" src="{{hostUrl}}/add/my_otherservice_list0_icon.png"></image>
+    <image class="mine-list-img" src="{{hostUrl}}/changeImg/tonewpage.png"></image>
     <view class="mine-list-text">购物车</view>
   </view>
   <view class="mine-list" catchtap='toAdress'>
-    <image class="mine-list-img" src="{{hostUrl}}/icon/my_otherservice_list1_icon.png"></image>
+    <image class="mine-list-img" src="{{hostUrl}}/changeImg/tonewpage.png"></image>
     <view class="mine-list-text">我的地址</view>
   </view>
+  <view class="mine-list" catchtap='toDistributionAddress'>
+    <image class="mine-list-img" src="{{hostUrl}}/changeImg/tonewpage.png"></image>
+    <view class="mine-list-text">我的配送地址</view>
+  </view>
+  <view class="mine-list" catchtap='topayAttention'>
+    <image class="mine-list-img" src="{{hostUrl}}/changeImg/tonewpage.png"></image>
+    <view class="mine-list-text">关注店铺</view>
+  </view>
   <view class="mine-list" catchtap='toPassword'>
-    <image class="mine-list-img" src="{{hostUrl}}/icon/my_otherservice_list2_icon.png"></image>
+    <image class="mine-list-img" src="{{hostUrl}}/changeImg/tonewpage.png"></image>
     <view class="mine-list-text">支付密码</view>
   </view>
   <view class="mine-list" bindtap='showInviterCode'>
-    <image class="mine-list-img" src="{{hostUrl}}/icon/my_otherservice_list3_icon.png"></image>
+    <image class="mine-list-img" src="{{hostUrl}}/changeImg/tonewpage.png"></image>
     <view class="mine-list-text">邀请码</view>
   </view>
-  <!-- <view class="mine-list" bindtap='toMerchantEntry'>
-    <image class="mine-list-img" src="{{hostUrl}}/icon/my_otherservice_list4_icon.png"></image>
+  <view class="mine-list" bindtap='toMerchantEntry'>
+    <image class="mine-list-img" src="{{hostUrl}}/changeImg/tonewpage.png"></image>
     <view class="mine-list-text">商家入驻</view>
-  </view> -->
+  </view>
   <button class="mine-list service1" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" open-type="contact" bindcontact="handleContact">
-    <image class="mine-list-img" src="{{hostUrl}}/icon/my_otherservice_list5_icon.png"></image>
-    <view class="mine-list-text">客服</view>
+    <image class="mine-list-img" src="{{hostUrl}}/changeImg/tonewpage.png"></image>
+    <view class="mine-list-text kefu">客服</view>
   </button>
   <view class="mine-list" bindtap='downAppShow'>
-    <image class="mine-list-img" src="{{hostUrl}}/icon/my_otherservice_list6_icon@3x.png"></image>
+    <image class="mine-list-img" src="{{hostUrl}}/changeImg/tonewpage.png"></image>
     <view class="mine-list-text">下载APP</view>
   </view>
 </view>
@@ -343,7 +351,7 @@
 </view>
 <!-- 下载APP弹窗 -->
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{downAppStatus}}">
-  <view class="zan-dialog__container" wx:if="{{}}">
+  <view class="zan-dialog__container" wx:if="{{downAppStatus}}">
     <view class="title1">扫码下载APP</view>
     <image src="{{QRUrl}}" class="QR" />
     <view class="value">

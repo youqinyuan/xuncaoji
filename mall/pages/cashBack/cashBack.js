@@ -28,7 +28,13 @@ Page({
     var that = this
     var latestStatus = options.latestStatus //订单状态
     var orderId = parseInt(options.orderId)
+    if(options.code){
+      that.setData({
+        code:options.code
+      })
+    }
     if(options.whetherAdvanceSale){
+      console.log(options.whetherAdvanceSale)
       that.setData({
         whetherAdvanceSale:options.whetherAdvanceSale,
         defaultAmountStatus:options.defaultAmountStatus
@@ -68,7 +74,8 @@ Page({
   init: function () {
     var that = this
     app.Util.ajax('mall/order/queryOrderCashBack', {
-      orderId: that.data.orderId
+      orderId: that.data.orderId,
+      code:that.data.code?that.data.code:''
     }, 'GET').then((res) => { // 使用ajax函数
       // console.log("返现明细："+JSON.stringify(res))
       if (res.data.content) {
@@ -101,6 +108,7 @@ Page({
       orderId: that.data.return_one,
       orderGoodsId: that.data.return_two,
       transferId:that.data.return_three, 
+      code:that.data.code?that.data.code:''
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         if(res.data.content.cashBackType==2){

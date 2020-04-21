@@ -28,8 +28,6 @@ page{
     width:334rpx;
     height:75rpx;
     font-size:28rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(51,51,51,1);
     display: -webkit-box;
     word-break: break-all;
@@ -85,8 +83,6 @@ page{
     height: 80rpx;
     line-height: 80rpx;
     font-size:28rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:#333333;
     position: absolute;
     left:30rpx;
@@ -96,8 +92,6 @@ page{
     height: 80rpx;
     line-height: 80rpx;
     font-size:32rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:#FF2644;
     position: absolute;
     left:150rpx;
@@ -107,8 +101,6 @@ page{
     height: 80rpx;
     line-height: 80rpx;
     font-size:28rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:#666666;
     position: absolute;
     right:66rpx;
@@ -118,8 +110,6 @@ page{
     height: 80rpx;
     line-height: 80rpx;
     font-size:28rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:#999;
     position: absolute;
     right:20rpx;
@@ -142,8 +132,6 @@ page{
 }
 .col{
     font-size:24rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     display: inline-block;
     height: 50rpx;
     line-height: 50rpx;
@@ -161,8 +149,6 @@ page{
     width: 240rpx;
     height: 50rpx;
     font-size:28rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     background: #f4f4f4;
     border: #ddd 2rpx solid;
     border-radius: 8rpx;
@@ -174,8 +160,6 @@ page{
 }
 .max_money{
     font-size:24rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(255,100,23,1);
     display: inline-block;
     position: absolute;
@@ -184,8 +168,6 @@ page{
 }
 .max_money2{
     font-size:24rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(255,100,23,1);
     display: inline-block;
     position: absolute;
@@ -199,8 +181,6 @@ page{
 }
 .shuoming{
     font-size:24rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(170,170,170,1);
     position: absolute;
     top: 213rpx;
@@ -294,8 +274,6 @@ page{
     margin-top: 46rpx;
     margin-bottom: 35rpx;
     font-size:36rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(51,51,51,1);
     text-align: left;
   }
@@ -303,8 +281,6 @@ page{
   .dialog__mask .dialog__container .text {
     margin-left: 32rpx;
     font-size:30rpx;
-    font-family:PingFang SC;
-    font-weight:500;
     color:rgba(51,51,51,1);
   }
   .text_one{
@@ -359,8 +335,6 @@ page{
         margin-top: 46rpx;
         margin-bottom: 35rpx;
         font-size:36rpx;
-        font-family:PingFang SC;
-        font-weight:500;
         color:rgba(51,51,51,1);
         text-align: left;
       }
@@ -368,8 +342,6 @@ page{
       .dialog__mask2 .dialog__container2 .text2 {
         margin-left: 32rpx;
         font-size:30rpx;
-        font-family:PingFang SC;
-        font-weight:500;
         color:rgba(51,51,51,1);
       }
       .text_one2{

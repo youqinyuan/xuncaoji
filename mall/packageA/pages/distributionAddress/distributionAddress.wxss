@@ -1,0 +1,87 @@
+/* packageA/pages/distributionAddress/distributionAddress.wxss */
+page{
+    font-family:PingFang SC;
+    background:rgba(244,244,244,1);
+}
+.content{
+    background:#fff;
+}
+.addressList{
+    height: 176rpx;
+    position: relative;
+    margin-left: 60rpx;
+    overflow: hidden;
+    border-bottom: 2rpx solid #E7E7E7;
+}
+.fontColorCCC{
+    color:#CCCCCC !important;
+}
+.address_one{
+    font-size:32rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:rgba(51,51,51,1);
+    height: 50rpx;
+    margin-top: 20rpx;
+    line-height: 50rpx;
+}
+.address_two{
+    font-size:28rpx;
+    font-family:PingFang SC;
+    color:rgba(51,51,51,1);
+    height: 50rpx;
+    line-height: 50rpx;
+    max-width: 615rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+.name{
+    font-size:28rpx;
+    font-family:PingFang SC;
+    color:rgba(153,153,153,1);
+    display: inline-block;
+    height: 50rpx;
+    line-height: 50rpx;
+}
+.phone{
+    font-size:28rpx;
+    font-family:PingFang SC;
+    color:rgba(153,153,153,1);
+    display: inline-block;
+    height: 50rpx;
+    margin-left: 20rpx;
+    line-height: 50rpx;
+}
+.bianji{
+    display: inline-block;
+    position: absolute;
+    height: 38rpx;
+    width: 38rpx;
+    top: 25rpx;
+    right: 40rpx;
+    z-index: 99;
+}
+.outFont{
+    font-size:28rpx;
+    font-family:PingFang SC;
+    color:rgba(51,51,51,1);
+    height: 86rpx;
+    line-height: 86rpx;
+    padding-left: 66rpx;
+}
+.setDistribution{
+    width:690rpx;
+    height:80rpx;
+    background:linear-gradient(90deg,rgba(255,106,72,1) 0%,rgba(255,38,68,1) 100%);
+    border-radius:40rpx;
+    font-size:32rpx;
+    font-family:PingFang SC;
+    color:rgba(255,255,255,1);
+    position: fixed;
+    bottom: 13rpx;
+    left: 30rpx;
+    line-height: 80rpx;
+    text-align: center;
+}

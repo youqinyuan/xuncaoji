@@ -15,6 +15,8 @@ Page({
     addressItems: [],
     showModalStatus: false,
     goodsList: {}, //单个商品下单
+    goodsList1: {},//购买省钱帖
+    goodsList2:{},//购买赚钱帖
     cardIds: [], //购物车下单id
     name: '', //姓名
     phoneNumber: '', //电话号码
@@ -46,6 +48,8 @@ Page({
     getMoney: null,
     saleText: null,
     inputValue: null,
+    getOrder: null, //购买省钱帖
+    goods:null,//购买赚钱帖
   },
   //跳转到服务问题页面
   goIntoProblem: function(e) {
@@ -93,6 +97,13 @@ Page({
     that.setData({
       options: options,
     })
+    var goodsId = parseInt(options.goodsId)
+    var stockId = parseInt(options.stockId)
+    var quantity = parseInt(options.quantity)
+    var cashBackId = parseInt(options.cashbackId)
+    var activityId = parseInt(options.activityId)
+    var type = parseInt(options.type)
+    var expectedAmount = parseInt(options.expectedAmount) //想花多少钱获得商品
     if (options.isShowBook == 2) {
       that.setData({
         isShowBook: 2
@@ -102,13 +113,6 @@ Page({
         isShowBook: 1
       })
     }
-    var goodsId = parseInt(options.goodsId)
-    var stockId = parseInt(options.stockId)
-    var quantity = parseInt(options.quantity)
-    var cashBackId = parseInt(options.cashbackId)
-    var activityId = parseInt(options.activityId)
-    var type = parseInt(options.type)
-    var expectedAmount = parseInt(options.expectedAmount) //想花多少钱获得商品
     if (options.buyType) {
       that.setData({
         buyType: options.buyType,
@@ -129,6 +133,13 @@ Page({
       } else if (options.activityId) {
         //商品专区申请0元购订单
         that.applyArea()
+      } else if (options.getOrder) {
+        //购买省钱帖
+        that.setData({
+          getOrder: JSON.parse(options.getOrder),
+          options: options
+        })
+        that.applyGetorder()
       } else {
         //申请0元购订单
         that.applyPurchase();
@@ -341,6 +352,18 @@ Page({
     } else if (that.data.newPeopleActivity == 2) {
       //新人专享商品校验下单
       that.getNewPeople();
+    } else if (options.goods) {
+      let goods = JSON.parse(options.goods)
+      //购买赚钱帖
+      goods.iconurl = goods.goodsImageUrl ? goods.goodsImageUrl + '?' + wx.getStorageSync('goodsImageUrl') : null     
+      let data = {
+        topicId: parseInt(goods.id)
+      }
+      that.setData({
+        goods: goods,
+        goodsList2: data
+      })
+      that.getSavemoney()
     } else {
       //单个商品校验下单
       that.getSingle();
@@ -376,9 +399,14 @@ Page({
           cashBackPeriods: options.cashBackPeriods
         },
       })
+    } else if (that.data.getOrder) {
+      that.setData({
+        goodsList: that.data.goodsList
+      })
     } else {
       app.Util.ajax('mall/personal/addressInfo', 'GET').then((res) => { // 使用ajax函数
         if (res.data.content.length > 0) {
+          that.data.goodsList2.userAddressBookId = res.data.content[0].id
           that.setData({
             addressItems: res.data.content,
             name: res.data.content[0].receiverName, //姓名
@@ -394,7 +422,8 @@ Page({
               userAddressBookId: res.data.content[0].id,
               expectedAmount: options.expectedAmount,
               cashBackPeriods: options.cashBackPeriods
-            }
+            },
+            goodsList2: that.data.goodsList2
           })
         } else {
           // wx.showToast({
@@ -429,6 +458,7 @@ Page({
     var address = wx.getStorageSync('address')
     if (address) {
       address.length = 1
+      that.data.goodsList2.userAddressBookId = address.id
       that.setData({
         addressItems: address,
         name: address.receiverName,
@@ -444,11 +474,13 @@ Page({
           expectedAmount: that.data.options.expectedAmount,
           cashBackPeriods: that.data.options.cashBackPeriods
         },
-        userAddressBookId: address.id
+        userAddressBookId: address.id,
+        goodsList2: that.data.goodsList2
       })
     } else {
       app.Util.ajax('mall/personal/addressInfo', 'GET').then((res) => { // 使用ajax函数
         if (res.data.content.length > 0) {
+          that.data.goodsList2.userAddressBookId = res.data.content[0].id
           that.setData({
             addressItems: res.data.content,
             name: res.data.content[0].receiverName, //姓名
@@ -464,7 +496,8 @@ Page({
               userAddressBookId: res.data.content[0].id,
               expectedAmount: that.data.options.expectedAmount,
               cashBackPeriods: that.data.options.cashBackPeriods
-            }
+            },
+            goodsList2: that.data.goodsList2
           })
         } else {
           // wx.showToast({
@@ -493,6 +526,7 @@ Page({
   onUnload: function() {
     wx.removeStorageSync('address')
     wx.removeStorageSync('goAddress')
+    wx.removeStorageSync('goodsImageUrl')
   },
 
   /**
@@ -515,7 +549,7 @@ Page({
   onShareAppMessage: function() {
 
   },
-  //跳转到支付订单页面
+  //提交订单
   toPaymentorder: function(e) {
     if (newCount) {
       newCount = false
@@ -524,7 +558,7 @@ Page({
       var goodsList = that.data.goodsList;
       var type = that.data.options.type;
       goodsList.remark = that.data.beizhuList1[0]
-      if (that.data.addressItems != '' || that.data.buyType == 2) {
+      if (that.data.addressItems != '' || that.data.buyType == 2 || that.data.getOrder) {
         if (that.data.cardIds.length > 0) {
           var cardIds = that.data.cardIds
           var temp = that.data.placeOrder
@@ -813,7 +847,37 @@ Page({
               }
             })
           }
-        } else {
+        } else if (that.data.options.getOrder) {
+          that.data.goodsList1.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
+          that.data.goodsList1.useSeed = that.data.seedShow == true ? 1 : 0
+          that.data.goodsList1.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
+          app.Util.ajax('mall/order/addOrderByGoods', that.data.goodsList1, 'POST').then((res) => {
+            if (res.data.content) {
+              wx.navigateTo({
+                url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}`,
+              })
+            } else {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none'
+              })
+            }
+          })
+        } else if (that.data.options.goods){
+          app.Util.ajax('mall/forum/topic/goodsPreSaleTopicPurchase', that.data.goodsList2, 'POST').then((res) => {
+            if (res.data.content) {
+              wx.navigateTo({
+                url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&goods=${that.data.options.goods}`,
+              })
+              wx.removeStorageSync('goodsImageUrl')
+            } else {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none'
+              })
+            }
+          })
+        }else {
           if (that.data.isShowBook == 2) {
             if (!that.data.getMoney) {
               wx.showToast({
@@ -913,10 +977,14 @@ Page({
   },
   remarksBtn: function(e) {
     var that = this
-    that.setData({
-      showReMark: true,
-      tempIndex: e.currentTarget.dataset.index,
-    })
+    if (e.currentTarget.dataset.val == '对方填写') {
+      return false;
+    } else {
+      that.setData({
+        showReMark: true,
+        tempIndex: e.currentTarget.dataset.index,
+      })
+    }
   },
   //获取文本框的值
   bindTextAreaBlur: function(e) {
@@ -966,6 +1034,34 @@ Page({
           })
         }
       }
+    })
+  },
+  //购买省钱赚钱帖
+  getSavemoney() {
+    let that = this
+    let arr = []
+    let arr1 = arr.concat(that.data.goods)
+    for (let i in arr1) {
+      arr1[i].remark = '选填'
+      arr1[i].colors = '#ff6417'
+    }
+    let tempRemark1 = []
+    arr1.forEach((v, i) => {
+      if (v.remark == '选填') {
+        tempRemark1.push('')
+      }
+    })
+    that.setData({
+      placeOrder: arr1,
+      beizhuList1: tempRemark1,
+    })
+    let actualPrice = 0
+    let placeOrder = that.data.placeOrder
+    placeOrder.forEach((v, i) => { 
+      actualPrice = Number((v.expectAmount + v.expressFee).toFixed(2))
+    })
+    that.setData({
+      actualPrice: actualPrice
     })
   },
   //新人专享校验下单
@@ -1078,6 +1174,94 @@ Page({
           var price1 = Number(actualPrice).toFixed(2);
           that.setData({
             actualPrice: price1
+          })
+        }
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+      }
+    })
+  },
+  //购买省钱校验下单
+  applyGetorder() {
+    let that = this
+    let goodsType = that.data.options.goodsType;
+    let data = {
+      goodsId: parseInt(that.data.getOrder.goodsId),
+      stockId: parseInt(that.data.getOrder.stockId),
+      quantity: parseInt(that.data.getOrder.quantity),
+      orderType: parseInt(that.data.getOrder.orderType),
+      expectedAmount: that.data.getOrder.expectedAmount,
+      cashBackPeriods: that.data.getOrder.cashBackPeriods,
+      topicId: parseInt(that.data.getOrder.topicId),
+      useSeed: that.data.seedShow == true ? 1 : 0
+    }
+    that.setData({
+      goodsList1: data
+    })
+    app.Util.ajax('mall/order/checkGoods', data, 'POST').then((res) => {
+      if (res.data.content) {
+        var arr = []
+        var arr1 = arr.concat(res.data.content)
+        var deductionAmount = 0
+        var deductionSeed = 0
+        var deductionAfterAmount = 0
+        var discountRatio = 0 //freebuy折扣
+        var discountAmount = 0 //freebuy折扣抵扣金额
+        var shoppingAmount = 0 //购物金抵扣金额
+        var shoppingNum = arr1[0].order.shoppingNum //购物金剩余次数
+        var totalDiscount = 0 //优惠总金额
+        for (let i in arr1) {
+          arr1[i].remark = '对方填写'
+          arr1[i].colors = '#ff6417'
+        }
+        var tempRemark1 = []
+        arr1.forEach((v, i) => {
+          if (v.remark == '对方填写') {
+            tempRemark1.push('')
+          }
+          deductionAmount = v.order.deductionAmount + deductionAmount
+          deductionSeed = v.order.deductionSeed + deductionSeed
+          deductionAfterAmount = deductionAfterAmount + v.order.deductionAfterAmount
+          discountRatio = v.order.discountRatio / 10
+          discountAmount = v.order.discountAmount
+          shoppingAmount = v.order.shoppingAmount
+          totalDiscount = v.order.totalDiscount
+          v.orderGoodsBo.forEach((v, i) => {
+            if (that.data.buyType == 2) {
+              v.orderGoods.payAmount = Number((v.orderGoods.payAmount + v.orderGoods.expressFee - v.orderGoods.expressFee).toFixed(2))
+              v.orderGoods.discountRatio = v.orderGoods.discountRatio / 10
+            } else {
+              v.orderGoods.payAmount = Number((v.orderGoods.payAmount + v.orderGoods.expressFee).toFixed(2))
+              v.orderGoods.discountRatio = v.orderGoods.discountRatio / 10
+            }
+          })
+        })
+        that.setData({
+          placeOrder: arr1,
+          beizhuList1: tempRemark1,
+          goodsType: goodsType, //类型为申请零元购
+          buyMode: res.data.content.order.buyMode,
+          deductionAmount: deductionAmount.toFixed(2),
+          deductionSeed: deductionSeed,
+          deductionAfterAmount: deductionAfterAmount.toFixed(2),
+          discountRatio: discountRatio.toFixed(1),
+          discountAmount: discountAmount.toFixed(2),
+          shoppingAmount: shoppingAmount.toFixed(2),
+          shoppingNum: shoppingNum,
+          totalDiscount: totalDiscount.toFixed(2)
+        })
+        var actualPrice = 0
+        for (var i = 0; i < that.data.placeOrder.length; i++) {
+          var orderGoods = that.data.placeOrder[i].orderGoodsBo
+          for (var j = 0; j < orderGoods.length; j++) {
+            actualPrice += Number(orderGoods[j].orderGoods.payAmount - orderGoods[j].orderGoods.expressFee)
+          }
+          var price1 = Number(actualPrice).toFixed(2);
+          that.setData({
+            actualPrice: price1,
           })
         }
       } else {
@@ -1516,6 +1700,9 @@ Page({
       } else if (that.data.options.activityId) {
         //商品专区校验
         that.applyArea()
+      } else if (that.data.options.getOrder) {
+        //购买省钱帖
+        that.applyGetorder()
       } else {
         //申请0元购订单
         that.applyPurchase();
@@ -1560,6 +1747,9 @@ Page({
       if (that.data.options.sponsorId) {
         //赞助0元购申请订单
         that.applyPurchase2();
+      } else if (that.data.options.getOrder) {
+        //购买省钱帖
+        that.applyGetorder()
       } else {
         //申请0元购订单
         that.applyPurchase();

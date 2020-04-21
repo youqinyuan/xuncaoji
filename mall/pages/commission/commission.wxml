@@ -31,7 +31,7 @@
           <view class="allMoney-text">总计赚得佣金</view>
           <view class="allMoney-num">
             <text class="sign">￥</text>
-            <text>{{content.totalAmount||0}}</text>
+            <text>{{content.totalCommission||0}}</text>
           </view>
         </view>
         <view class="allMoney">

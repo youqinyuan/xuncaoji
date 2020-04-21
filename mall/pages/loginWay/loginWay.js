@@ -32,8 +32,8 @@ Page({
           wx.setStorageSync('encryptedData', encryptedData)
           wx.setStorageSync('iv', iv)
           var pages = getCurrentPages() //获取加载的页面
-          var currentPage = pages[pages.length - 3] //获取当前页面的对象
-          var url = currentPage.route
+          var currentPage = pages[pages.length - 3]?pages[pages.length - 3] :'' //获取当前页面的对象
+          var url = currentPage.route?currentPage.route:''
           console.log(getCurrentPages())
           console.log(url)
           if (url == 'pages/detail/detail') {
@@ -53,17 +53,27 @@ Page({
               key: "url",
               data: url + '?id=' + wx.getStorageSync('zeroGoods_id') + '&&type=' + wx.getStorageSync('type') + '&&orgPrice=' + wx.getStorageSync('orgPrice')
             })
+          }else if (url == 'packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity') {
+            wx.setStorage({
+              key: "url",
+              data: url
+            })
+          }else if (url == 'packageA/pages/storeEnter/storeEnter') {
+            wx.setStorage({
+              key: "url",
+              data: url
+            })
           } else if (url == 'packageA/pages/zeroBuy/zeroBuy') {
             wx.setStorage({
               key: "url",
               data: url
             })
-          } else if (url == '/packageA/pages/cooperate/cooperate') {
+          } else if (url == 'packageA/pages/cooperate/cooperate') {
             wx.setStorage({
               key: "url",
               data: url
             })
-          } else if (url == 'packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity') {
+          } else if (url == 'packageA/pages/shareMentionPeriod/shareMentionPeriod') {
             wx.setStorage({
               key: "url",
               data: url
@@ -92,6 +102,21 @@ Page({
             wx.setStorage({
               key: "url",
               data: url
+            })
+          } else if (url == 'pages/takeoutHomeage/takeoutHomeage') {
+            wx.setStorage({
+              key: "url",
+              data: url
+            })
+          }else if (url == 'packageA/pages/takeoutHomeage/takeoutHomeage') {
+            wx.setStorage({
+              key: "url",
+              data: url
+            })
+          }else if (url == 'packageA/pages/placeorderSearch/placeorderSearch') {
+            wx.setStorage({
+              key: "url",
+              data: 'packageA/pages/takeoutHomeage/takeoutHomeage'
             })
           }
           app.Util.ajax('mall/account/authLogin', {

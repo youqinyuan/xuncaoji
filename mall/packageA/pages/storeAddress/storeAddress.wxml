@@ -1,0 +1,5 @@
+<!--packageA/pages/storeAddress/storeAddress.wxml-->
+<block wx:if='{{ moveData.lng }}'>
+  <view>lng：{{ moveData.lng }}</view>
+  <view>lat：{{ moveData.lat }}</view>
+</block>
