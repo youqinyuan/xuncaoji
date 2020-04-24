@@ -1228,21 +1228,24 @@ page {
 .stop-reject {
   border-right: 2rpx solid #eaeaea;
   width: 270rpx;
-  height: 75rpx;
-  line-height: 75rpx;
+  height: 85rpx;
+  line-height: 85rpx;
   font-size: 34rpx;
   color: #ff2644;
 }
 
 .stop-comfirm {
   height: 85rpx;
-  line-height: 66rpx;
+  line-height: 85rpx;
   font-size: 34rpx;
   text-align: center;
   width: 270rpx;
   background: rgba(255, 255, 255, 1);
-  border: none !important;
   color: rgba(51, 51, 51, 1);
+}
+
+.stop-comfirm::after {
+  border: none !important;
 }
 
 .stopZero-platform10 {

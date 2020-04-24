@@ -174,8 +174,8 @@ page {
   margin-right: 13rpx;
   font-size: 20rpx;
   color: rgba(255, 100, 23, 1);
-  border: 2rpx solid rgba(255, 100, 23, 1);
-  border-radius: 14rpx;
+  border: 1rpx solid rgba(255, 100, 23, 1);
+  border-radius: 20rpx;
 }
 
 .goods-zero3 {
@@ -184,7 +184,7 @@ page {
   font-size: 20rpx;
   color: #fff;
   background: rgba(255, 100, 23, 1);
-  border-radius: 14rpx;
+  border-radius: 20rpx;
   height: 34rpx;
 }
 
@@ -193,8 +193,8 @@ page {
   margin-right: 13rpx;
   font-size: 20rpx;
   color: #ff2644;
-  border: 2rpx solid #ff2644;
-  border-radius: 14rpx;
+  border: 1rpx solid #ff2644;
+  border-radius: 20rpx;
 }
 
 /*商品比较*/
@@ -548,11 +548,11 @@ page {
   width: 210rpx;
   height: 60rpx;
   line-height: 60rpx;
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
   color: #ff2644;
   margin: 0 auto;
   margin-top: 30rpx;
-  border-radius: 30rpx;
+  border-radius: 40rpx;
 }
 
 /* 省钱购购 */
@@ -2105,7 +2105,7 @@ button::after {
   padding-bottom: 20rpx;
   overflow: hidden;
   position: fixed;
-  top: 74rpx;
+  top: 120rpx;
   left: 61rpx;
   z-index: 99;
 }
@@ -2115,7 +2115,7 @@ button::after {
   height: 74rpx;
   position: absolute;
   right: 79rpx;
-  top: 0rpx;
+  top: 45rpx;
 }
 
 .get-zan-dialog__mask .zan-dialog__container .height_text {

@@ -5,8 +5,11 @@ page {
   background: #fff;
 }
 
-
 /*导航栏*/
+
+.container {
+  padding-bottom: 30rpx;
+}
 
 .content_top {
   width: 100%;
@@ -16,7 +19,7 @@ page {
   height: 80rpx;
   line-height: 72rpx;
   border-bottom: 2rpx solid #f4f4f4;
-  z-index: 97;
+  z-index: 999;
 }
 
 .nav {
@@ -76,11 +79,11 @@ page {
   font-size: 32rpx;
 }
 
-.container{
+.container {
   border-bottom: 2rpx solid #f4f4f4;
   margin-top: 0;
-
 }
+
 .notcontainer {
   display: flex;
   justify-content: center;
@@ -88,5 +91,3 @@ page {
   color: #666;
   margin-top: 100rpx;
 }
-
-

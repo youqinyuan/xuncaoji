@@ -77,7 +77,7 @@ Page({
       goWaitReentry: wx.getStorageSync('goWaitReentry')
     })
     that.setData({
-      goMentionPeriod: wx.getStorageSync('goMentionPeriod')
+      goMentionPeriod: options.goMentionPeriod
     })
     if (options.temp) {
       setTimeout(function() {
@@ -92,7 +92,7 @@ Page({
         title: '选择待返合约',
       })
       that.initDetail1();
-    }else if(wx.getStorageSync('goMentionPeriod')){
+    }else if(that.data.goMentionPeriod){
       wx.setNavigationBarTitle({
         title: '选择待返合约',
       })
@@ -108,7 +108,7 @@ Page({
   backPosting: function(e) {
     var that = this
     var is_waitReentry = wx.getStorageSync('goWaitReentry')
-    let is_mentionPeriod = wx.getStorageSync('goMentionPeriod')
+    let is_mentionPeriod = that.data.goMentionPeriod
     if (is_waitReentry||is_mentionPeriod) {
       wx.setStorage({
         key: "waitReentry",

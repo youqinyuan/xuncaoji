@@ -214,7 +214,7 @@ page {
 .saveAndmakeBtn {
   display: flex;
   justify-content: flex-end;
-  height: 140rpx;
+  height: 120rpx;
   align-items: center;
   margin-right: 30rpx;
   font-size: 26rpx;
@@ -222,16 +222,16 @@ page {
 }
 
 .cancel {
-  border-radius: 30rpx;
+  border-radius: 40rpx;
   border: 2rpx solid #999;
   width: 172rpx;
-  height: 60rpx;
+  height: 56rpx;
   line-height: 60rpx;
   text-align: center;
 }
 
 .editPrice {
-  border-radius: 30rpx;
+  border-radius: 40rpx;
   border: 2rpx solid #ff2644;
   color: #ff2644;
   width: 172rpx;
@@ -242,18 +242,18 @@ page {
 }
 
 .editPrice1 {
-  border-radius: 30rpx;
+  border-radius: 40rpx;
   border: 2rpx solid #ff2644;
   color: #ff2644;
   width: 210rpx;
-  height: 60rpx;
-  line-height: 60rpx;
+  height: 56rpx;
+  line-height: 56rpx;
   text-align: center;
   margin-left: 20rpx;
 }
 
 .cancelFinish {
-  border-radius: 30rpx;
+  border-radius: 40rpx;
   background: #e7e7e7;
   color: #fff;
   width: 172rpx;
@@ -263,7 +263,7 @@ page {
 }
 
 .editPriceFinish {
-  border-radius: 30rpx;
+  border-radius: 40rpx;
   background: #e7e7e7;
   color: #fff;
   width: 172rpx;

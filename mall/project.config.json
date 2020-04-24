@@ -367,7 +367,7 @@
 					"id": 44,
 					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
 					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
-					"query": "id=2",
+					"query": "id=122",
 					"scene": null
 				},
 				{
@@ -458,7 +458,7 @@
 					"id": 57,
 					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
 					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
-					"query": "id=2",
+					"query": "id=124",
 					"scene": null
 				},
 				{
@@ -891,6 +891,41 @@
 				{
 					"id": -1,
 					"name": "pages/index/index",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=122&businessId=5&goodsId=236&inviterCode=6461682",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/helpFail/helpFail",
+					"pathName": "packageA/pages/helpFail/helpFail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/friendSponsor/friendSponsor",
+					"pathName": "pages/friendSponsor/friendSponsor",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=122&businessId=5&goodsId=236&inviterCode=6461682",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
+					"query": "storeId=79&businessId=3&inviterCode=7764975",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutHomeage/takeoutHomeage",
 					"pathName": "packageA/pages/takeoutHomeage/takeoutHomeage",
 					"query": "storeId=122&businessId=5&goodsId=236&inviterCode=6461682",
 					"scene": null

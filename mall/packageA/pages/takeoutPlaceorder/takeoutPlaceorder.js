@@ -1,4 +1,5 @@
 // packageA/pages/takeoutPlaceorder/takeoutPlaceorder.js
+var time = require('../../../utils/util.js');
 let app = getApp()
 Page({
 
@@ -13,8 +14,10 @@ Page({
     cur: 0, //选中返还期数
     monthStatus: false, //自定义分期数
     showWay: false, //在线支付时间和支付方式
-    showText: '在线支付',
-    showTake: '在线支付',
+    showText: '在线支付', //到店自取
+    showTake: '在线支付', //外卖配送
+    getWayTime: '',
+    appointment: [],
     shoppingAmountShow: true, //是否使用购物金
     useSeed: true, //是否使用种子
     monthInput: '请输入分期数',
@@ -129,7 +132,7 @@ Page({
   nav: function() {
     let that = this;
     wx.getLocation({
-      type: 'wgs84',
+      type: 'gcj02',
       altitude: true,
       success: function(res) {
         wx.openLocation({ //?使用微信内置地图查看位置。
@@ -183,7 +186,7 @@ Page({
   queryAddress() {
     let that = this
     app.Util.ajax('mall/bag/queryAddressBook', {
-      storeId: 2
+      storeId: that.data.store.id
     }, 'GET').then((res) => {
       if (res.data.messageCode == 'MSG_1001') {
         that.setData({
@@ -194,15 +197,84 @@ Page({
   },
   queryTime() {
     let that = this
+    let appointment = []
+    let canUseTime = []
     app.Util.ajax('mall/bag/queryAppointmentTime', {
-      storeId: 2
+      storeId: that.data.store.id
     }, 'GET').then((res) => {
       if (res.data.messageCode == 'MSG_1001') {
+        canUseTime = res.data.content
+        appointment = JSON.stringify(res.data.content)
         that.setData({
-          canUseTime: res.data.content
+          appointment: appointment,
+          canUseTime: canUseTime
         })
+        for (let i of that.data.canUseTime) {
+          i.time = that.toDate(i.time)
+        }
+
+        let timestamp = (new Date()).getTime();
+        let date = new Date(timestamp);
+        //获取年份  
+        let Y = date.getFullYear();
+        //获取月份  
+        let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+        //获取当日日期 
+        let D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+        let H = date.getHours();
+        let S = date.getMinutes();
+        let cusxin = []
+        let scisxn = []
+        for (let i = 0; i < that.data.canUseTime.length; i++) {
+          scisxn.push(that.data.canUseTime[i].time.substring(0, 10))
+          cusxin.push(that.data.canUseTime[i].time.substring(11, 16))
+        }
+        let appTime = JSON.parse(that.data.appointment)
+        let hh = timestamp - appTime[0].time
+        for (let i = 0; i < appTime.length; i++) {
+          if (appTime[i].time <= timestamp+60000) {
+            cusxin[i] = '立即送出'
+          }
+        }       
+        for (let x = 0; x < scisxn.length; x++) {
+         if (scisxn[x] == (Y + '-' + M + '-' + D)) {
+            cusxin[x] = cusxin[x]
+          } else if (scisxn[x] == (Y + '-' + M + '-' + (D + 1))) {
+            cusxin[x] = '次日' + cusxin[x]
+          }
+        }
+        that.setData({
+          canUseTime: cusxin
+        })
+        if (res.data.content.length>0){
+          that.setData({
+            getWayTime:'选择配送时间'
+          })
+        }else{
+          that.setData({
+            getWayTime: '立即送出'
+          })
+        }
       }
     })
+  },
+  changeType(data) {
+    return new Date().getTime();
+  },
+  toDate: function(value) {
+    var time = new Date(value);
+    var year = time.getFullYear();
+    var month = time.getMonth() + 1;
+    var date = time.getDate();
+    var hour = time.getHours();
+    var minute = time.getMinutes();
+    var second = time.getSeconds();
+    month = month < 10 ? "0" + month : month;
+    date = date < 10 ? "0" + date : date;
+    hour = hour < 10 ? "0" + hour : hour;
+    minute = minute < 10 ? "0" + minute : minute;
+    second = second < 10 ? "0" + second : second;
+    return year + "-" + month + "-" + date + ' ' + hour + ':' + minute
   },
   //校验购物袋
   checkCart() {
@@ -237,7 +309,7 @@ Page({
       }
     })
   },
-  toPlaceOerder() {
+  toPlaceOrder() {
     let that = this
     if (that.data.bgColor == '#ff2644') {
       if (that.data.payType == 1) {
@@ -255,7 +327,11 @@ Page({
             wx.navigateTo({
               url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buyWay=${1}`,
             })
-
+          } else if (res.data.message =='[userAddressId] 不能为空'){
+            wx.showToast({
+              title:'请选择配送地址',
+              icon: 'none'
+            })
           } else {
             wx.showToast({
               title: res.data.message,
@@ -284,7 +360,11 @@ Page({
                 url: `/pages/myorder/myorder?status=${0}`,
               })
             })
-
+          } else if (res.data.message == '[userAddressId] 不能为空') {
+            wx.showToast({
+              title: '请选择配送地址',
+              icon: 'none'
+            })
           } else {
             wx.showToast({
               title: res.data.message,
@@ -341,7 +421,13 @@ Page({
         }
       }
     } else if (that.data.tempStatus == 2) {
-
+      let appointment = JSON.parse(that.data.appointment)
+      that.setData({
+        getWayTime: e.currentTarget.dataset.time,
+        showWay: false,
+        appointmentTime: e.currentTarget.dataset.time == '立即送出' ? null : appointment[e.currentTarget.dataset.index].time
+      })
+      that.checkCart();
     }
   },
   //是否使用种子
@@ -351,6 +437,18 @@ Page({
       useSeed: !that.data.useSeed
     })
     if (that.data.useSeed == true) {
+      that.checkCart();
+    } else {
+      that.checkCart();
+    }
+  },
+  //是否使用购物金
+  shoppingAmountShow() {
+    let that = this
+    that.setData({
+      shoppingAmountShow: !that.data.shoppingAmountShow
+    })
+    if (that.data.shoppingAmountShow == true) {
       that.checkCart();
     } else {
       that.checkCart();
@@ -367,6 +465,8 @@ Page({
         payType: 1,
         showTake: '在线支付',
         showWay: false,
+        appointmentTime: that.data.appointmentTime,
+        userAddressBookId: that.data.canUse.id //地址id
       })
       that.checkCart()
     } else if (that.data.current == 1) {
@@ -381,11 +481,13 @@ Page({
   //请选择返还的期数
   getPeriod(e) {
     let that = this
+    that.setData({
+      cur: e.currentTarget.dataset.index
+    })
     let data = {
       id: that.data.bagId,
       quantity: that.data.quantity,
       cashBackId: e.currentTarget.dataset.cashbackid,
-      cur: e.currentTarget.dataset.index
     }
     app.Util.ajax('mall/bag/updateShoppingCart', data, 'POST').then((res) => {
       if (res.data.messageCode == 'MSG_1001') {
@@ -521,7 +623,8 @@ Page({
   isPayType() {
     let that = this
     that.setData({
-      showWay: true
+      showWay: true,
+      tempStatus: 1
     })
   },
   //支付方式和送达时间
@@ -529,11 +632,14 @@ Page({
     let that = this
     that.setData({
       showWay: true,
+      tempTitle: '选择支付方式',
+      tempStatus: 1
     })
   },
   getWay() {
     let that = this
-    if (that.data.canUseTime.length == 0) {
+    let appointment = JSON.parse(that.data.appointment)
+    if (appointment.length == 0) {
       wx.showToast({
         title: '该商家没有可选配送时间',
         icon: 'none'
@@ -541,6 +647,7 @@ Page({
     } else {
       that.setData({
         showWay: true,
+        tempTitle: '选择预订送达时间',
         tempStatus: 2
       })
     }

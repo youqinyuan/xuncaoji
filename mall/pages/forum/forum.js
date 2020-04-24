@@ -53,12 +53,12 @@ Page({
     messageNum: null,
     showClassify: false, //帖子类型弹框
     list: [{
-      img: app.Util.getUrlImg().hostUrl + '/update/ic_buy.png',
+      img: '/assets/images/temp/ic_buy1.png',
       // text: '我要买订单',
       remark: '我要买订单',
       status: 2
     }, {
-      img: app.Util.getUrlImg().hostUrl + '/update/ic_sale.png',
+      img: '/assets/images/temp/ic_sale1.png',
       // text: '卖帖',
       remark: '我要卖订单',
       status: 3
@@ -319,7 +319,6 @@ Page({
   getMentionPeriodInit: function() {
     var that = this
     var mentionPeriodPageNum = that.data.mentionPeriodPageNum + 1
-    console.log(mentionPeriodPageNum)
     app.Util.ajax('mall/forum/topic/findPageList', {
       pageNumber: mentionPeriodPageNum,
       pageSize: that.data.pageSize,

@@ -73,8 +73,8 @@ App({
           console.log('登录首选项查询：' + JSON.stringify(res.data.content))
           if (res.data.content.authAvatarNikeName == 1 && res.data.content.authMobileNumber == 1) {
             //此时不用再授权,自动进入登录状态
-            wx.setStorageSync('authLoginStatus', 1)
-            that.selfLogin()
+            // wx.setStorageSync('authLoginStatus', 1)
+            // that.selfLogin()
           } else {
             //需登录授权
             wx.setStorageSync('authLoginStatus', 2)

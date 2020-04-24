@@ -14,11 +14,13 @@
   <image src="{{hostUrl}}/sponsor/bg_card3.png" class="img_bg" wx:if="{{item.status==1&&item.preSaleStatus ==0}}" />
   <image src="{{hostUrl}}/bg_card5.png" class="img_bg" wx:if="{{item.preSaleStatus ==7&&item.otherTransfer==1}}" />
   <image src="{{hostUrl}}/sponsor/bg_card4.png" class="img_bg" wx:if="{{item.preSaleStatus ==7&&item.otherTransfer==2}}" />
-  <image src="{{hostUrl}}/bg_card5.png" class="img_bg" wx:if="{{item.preSaleStatus !==0&&item.preSaleStatus !==7&&item.preSaleStatus !==8}}" />
+  <image src="{{hostUrl}}/bg_card5.png" class="img_bg" wx:if="{{item.preSaleStatus !==0&&item.preSaleStatus !==7&&item.preSaleStatus !==8&&item.status!==4}}" />
   <image src="{{hostUrl}}/sponsor/bg_card1.png" class="img_bg" wx:if="{{item.status==2&&item.userId==item.purchaserId&&item.preSaleStatus ==0}}" />
   <image src="{{hostUrl}}/sponsor/bg_card2.png" class="img_bg" wx:if="{{item.status==2&&item.userId!==item.purchaserId&&item.preSaleStatus ==0}}" />
   <image src="{{hostUrl}}/sponsor/bg_card4.png" class="img_bg" wx:if="{{item.preSaleStatus ==0?item.status==4||item.status==3:false}}" />
-   <image src="{{hostUrl}}/sponsor/bg_card4.png" class="img_bg" wx:if="{{item.preSaleStatus ==8}}" />
+  <image src="{{hostUrl}}/sponsor/bg_card4.png" class="img_bg" wx:if="{{item.preSaleStatus ==8}}" />
+  <!-- 单独处理预售订单买方违约，卖方进行商品退款的情况 -->
+  <image src="{{hostUrl}}/sponsor/bg_card4.png" class="img_bg" wx:if="{{item.preSaleStatus ==2&&item.status==4}}" />
   <view class="ReentryStatus">
     <text class="ReentryStatusValue color3" wx:if="{{item.status==1&&item.userId!==item.transferorId&&item.otherTransfer==1&&item.preSaleStatus ==0}}">转让完成-转让人：{{item.phone}}</text>
     <text class="ReentryStatusValue color2" wx:if="{{item.status==2&&item.userId==item.transferorId&&item.preSaleStatus ==0}}">待返转让-购买人：{{item.mobileNumber}}<text >{{item.hours}}小时后取消</text></text>
@@ -29,8 +31,10 @@
     <text class="ReentryStatusValue color4" wx:if="{{item.status==4&&item.type==2&&item.preSaleStatus ==0}}">终止返现-终止</text>
     <!-- 预售待返 -->
     <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==1}}">预售订单-未支付尾款</text>
-    <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==2&&item.latestStatus!==1}}">预售订单-已支付尾款</text>
-    <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==2&&item.latestStatus ==1}}">预售订单-预售撤销</text>
+    <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==2&&item.latestStatus!==1&&item.status!==4}}">预售订单-已支付尾款</text>
+    <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==2&&item.latestStatus ==1&&item.status!==4}}">预售订单-预售撤销</text>
+      <!-- 单独处理预售订单买方违约，卖方进行商品退款的情况 -->
+    <text class="ReentryStatusValue color4" wx:if="{{item.preSaleStatus ==2&&item.status==4}}">预售订单-退款</text>
     <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==3}}">买方已预订-请支付尾款-购买人：{{item.mobileNumber}}</text>
     <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==4}}">买方已预订-卖方已支付尾款-购买人：{{item.mobileNumber}}</text>
     <text class="ReentryStatusValue color5" wx:if="{{item.preSaleStatus ==5}}">预订成功-待卖方支付尾款-转让人：{{item.phone}}</text>
@@ -44,8 +48,10 @@
     <image src="{{hostUrl}}/sponsor/tab_44.png" class="img_tab11" wx:if="{{item.preSaleStatus ==0?item.status==4||item.status==3:false}}" />
     <image src="{{hostUrl}}/sponsor/tab_44.png" class="img_tab11" wx:if="{{item.preSaleStatus ==7?item.otherTransfer==2:item.preSaleStatus ==8}}" />
     <!-- 预售待返 -->
-    <image src="{{hostUrl}}/tab_55.png" class="img_tab11" wx:if="{{item.preSaleStatus !==0&&item.preSaleStatus !==8&&item.preSaleStatus !==7}}" />
+    <image src="{{hostUrl}}/tab_55.png" class="img_tab11" wx:if="{{item.preSaleStatus !==0&&item.preSaleStatus !==8&&item.preSaleStatus !==7&&item.status !==4}}" />
     <image src="{{hostUrl}}/tab_55.png" class="img_tab11" wx:if="{{item.preSaleStatus ==7&&item.otherTransfer==1}}" />
+      <!-- 单独处理预售订单买方违约，卖方进行商品退款的情况 -->
+     <image src="{{hostUrl}}/sponsor/tab_44.png" class="img_tab11" wx:if="{{item.preSaleStatus ==2&&item.status==4}}" />
   </view>
   <view class="Reentry_title">
     <text>{{item.remark}}</text>

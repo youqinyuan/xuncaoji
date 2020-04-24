@@ -1,4 +1,4 @@
-// packageA/pages/helpSuccess/helpSuccess.js
+// packageA/pages/helpFail/helpFail.js
 let app = getApp()
 Page({
 
@@ -6,18 +6,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    hostUrl: app.Util.getUrlImg().hostUrl,
-    period:0
+    hostUrl: app.Util.getUrlImg().hostUrl
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this
-    that.setData({
-      period : options.period
-    })
+  
   },
 
   /**
@@ -45,16 +41,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    if(wx.getStorageSync("mentionPeriodFrom")){
-      app.globalData.type = 5
-      wx.switchTab({
-        url: '/pages/forum/forum',
-      })
-    }else{
       wx.navigateBack({
         delta: 2
       })
-    }
   },
 
   /**
@@ -77,15 +66,10 @@ Page({
   onShareAppMessage: function () {
 
   },
-  toHelpOther:function(){
+  toHelpOther: function () {
     app.globalData.type = 5
-    wx.switchTab({
-      url: '/pages/forum/forum',
+    wx.navigateTo({
+      url: '/pages/mine/recharge/recharge'
     })
   },
-  toReturn:function(){
-    wx.navigateTo({
-      url: `/pages/waitReentryDetail/waitReentryDetail`,
-    })
-  }
 })

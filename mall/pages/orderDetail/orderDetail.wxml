@@ -157,13 +157,13 @@
   <view class="shops-wrap-container">
     <view class="shops-wrap">
       <view class="shops-wrap-bottom-item" wx:for="{{content.orderGoodsDetail}}" wx:key="{{item.id}}">
-        <view class="shops-wrap-bottom">
-          <view class="shops-wrap-bottom-img" src="{{item.imageUrl}}" bindtap="toGoodsDetail" data-goodsid="{{item.goodsId}}">
+        <view class="shops-wrap-bottom"  data-ordertype="{{content.orderType}}" catchtap="toGoodsDetail" data-goodsid="{{item.goodsId}}">
+          <view class="shops-wrap-bottom-img" src="{{item.imageUrl}}">
             <image src="{{item.imageUrl}}"></image>
           </view>
           <view class="shops-wrap-bottom-right">
             <view class="shops-wrap-bottom-right-item">
-              <view class="shops-wrap-bottom-title" bindtap="toGoodsDetail" data-goodsid="{{item.goodsId}}">{{item.goodsName}}</view>
+              <view class="shops-wrap-bottom-title" data-ordertype="{{content.orderType}}" catchtap="toGoodsDetail" data-goodsid="{{item.goodsId}}">{{item.goodsName}}</view>
               <view class="shops-wrap-bottom-size">{{item.specDesc}}</view>
             </view>
             <view class="shops-wrap-bottom-right-list">

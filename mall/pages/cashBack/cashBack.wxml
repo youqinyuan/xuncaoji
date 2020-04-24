@@ -58,7 +58,7 @@
       </view>
     </view>
   </view>
-  <view class="stageInterest" wx:if="{{itemName.stageInterest}}">您共可获得利息：￥{{itemName.stageInterest}}</view>
+  <view class="stageInterest" wx:if="{{itemName.stageInterest}}">您共可获得利息约为：￥{{itemName.stageInterest}}</view>
   <view class="cashback-zero">
     <view class="list" wx:for="{{itemName.orderGoodsStageInterestItem}}" wx:key="" wx:for-item="zero">
       <view class="item">
@@ -136,7 +136,7 @@
       </view>
     </view>
   </view>
-  <view class="stageInterest" wx:if="{{content.stageInterest}}">您共可获得利息：￥{{content.stageInterest}}</view>
+  <view class="stageInterest" wx:if="{{content.stageInterest}}">您共可获得利息约为：￥{{content.stageInterest}}</view>
   <view class="cashback-zero">
     <view class="list" wx:for="{{content.orderGoodsStageInterestItem}}" wx:key="" wx:for-item="zero">
       <view class="item">
@@ -204,7 +204,7 @@
     <view class="return_already " wx:if="{{itemName.status==3}}">已返现</view>
     <view class="return_already " wx:if="{{itemName.status==6}}">已提期</view>
   </view>
-  <view class="stageInterest" wx:if="{{content.stageInterest}}">您共可获得利息：￥{{content.stageInterest}}</view>
+  <view class="stageInterest" wx:if="{{content.stageInterest}}">您共可获得利息约为：￥{{content.stageInterest}}</view>
   <view class="cashback-zero">
     <view class="list" wx:for="{{content.orderGoodsStageInterestItem}}" wx:key="" wx:for-item="zero">
       <view class="item">
@@ -272,7 +272,7 @@
     <view class="return_already " wx:if="{{itemName.status==3}}">已返现</view>
     <view class="return_already " wx:if="{{itemName.status==6}}">已提期</view>
   </view>
-  <view class="stageInterest" wx:if="{{item.stageInterest}}">您共可获得利息：￥{{item.stageInterest}}</view>
+  <view class="stageInterest" wx:if="{{item.stageInterest}}">您共可获得利息约为：￥{{item.stageInterest}}</view>
   <view class="cashback-zero">
     <view class="list" wx:for="{{item.orderGoodsStageInterestItem}}" wx:key="" wx:for-item="zero">
       <view class="item">

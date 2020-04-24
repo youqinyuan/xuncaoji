@@ -38,8 +38,8 @@
   <image src="{{hostUrl}}/sponsor/icon2.png" class="news_img"/>
       <view class="user_box">
         <view class="user_name">邀请好友赞助1元，1元将立刻返还到好友的账户上</view>
-        <view class="black">|</view>
-        <view class="goods_name" bindtap="Show1">具体规则</view>
+        <!-- <view class="black">|</view>
+        <view class="goods_name" bindtap="Show1">具体规则</view> -->
     </view>
 </view>
 <view class="sponsor_box">

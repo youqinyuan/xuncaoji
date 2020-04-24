@@ -74,7 +74,7 @@
 <view class="block"></view>
 <view class="addCart-wrap" wx:if="{{store.status==1}}">
   <view class="circle" wx:if="{{shoppingCart}}">{{shoppingCart.goodsCount}}</view>
-  <view class="addCart_left" catchtap="toPlaceorde">
+  <view class="addCart_left" catchtap="toPlaceorder">
     <image class="addCart_img" src="{{hostUrl}}/changeImg/add_cart.png"></image>
   </view>
   <view class="addCart_right">
@@ -89,7 +89,7 @@
     </view>
       <view class="btnWrap" wx:if="{{shoppingCart}}">
         <view class="delete" catchtap="delete">清空</view>
-        <view class="placeorder" catchtap="toPlaceorde">下单</view>
+        <view class="placeorder" catchtap="toPlaceorder">下单</view>
       </view>
       <view class="add_text" wx:if="{{!shoppingCart}}">请选择商品</view>
       <view class="btn" style="background:#AAAAAA;" wx:if="{{!shoppingCart}}">下单</view>

@@ -66,6 +66,11 @@ page{
     font-size:42rpx;
     font-weight:bold;
     color:rgba(255,38,68,1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200rpx;
+
 }
 .nianhua_font{
     font-size:22rpx;
@@ -88,8 +93,8 @@ page{
     width:110rpx;
     height:46rpx;
     line-height: 46rpx;
-    border:2rpx solid rgba(255,38,68,1);
-    border-radius:23rpx;
+    border:1rpx solid rgba(255,38,68,1);
+    border-radius:30rpx;
     font-size:26rpx;
     color:rgba(255,38,68,1);
     position: absolute;
@@ -449,8 +454,8 @@ page{
   .button_one{
     width:240rpx;
     height:76rpx;
-    border:2rpx solid rgba(255,38,68,1);
-    border-radius:38rpx;
+    border:1rpx solid rgba(255,38,68,1);
+    border-radius:48rpx;
     font-size:32rpx;
     color:rgba(255,38,68,1);
     text-align: center;
@@ -463,7 +468,7 @@ page{
     width:240rpx;
     height:76rpx;
     background:rgba(255,38,68,1);
-    border-radius:38rpx;
+    border-radius:48rpx;
     font-size:32rpx;
     font-family:PingFang SC;
     color:rgba(255,255,255,1);

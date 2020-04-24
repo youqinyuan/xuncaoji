@@ -29,10 +29,11 @@
       <image wx:for="{{content.attachmentList}}" wx:for-item="contentImg" wx:key="" src="{{contentImg.fileKey}}" catchtap='imgYu' data-index='{{index}}' style="background:{{content.attachmentList.length>0?'#fff':'#e7e7e7'}}"></image>
     </view>
     <view class="content_imgBuy" wx:if="{{content.type==2}}">
+      <view class="modalStatus1" wx:if="{{content.status==3||content.status==4||content.status==5}}"></view>
       <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-      <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{content.status==3}}"></image>
-      <image src="{{hostUrl}}/changeImg/ic_change.png" class='imgs' wx:if="{{content.status==4}}"></image>
-      <image src="{{hostUrl}}/changeImg/ic_expire.png" class='imgs' wx:if="{{content.status==5}}"></image>
+      <image src="/assets/images/temp/ic_saled.png" class='imgs' wx:if="{{content.status==3}}"></image>
+      <image src="/assets/images/temp/ic_change.png" class='imgs' wx:if="{{content.status==4}}"></image>
+      <image src="/assets/images/temp/ic_expire.png" class='imgs' wx:if="{{content.status==5}}"></image>
       <view class="buy_price">
         <view class="expect_buy" wx:if="{{content.expectAmount}}">
           <view class="expect_buy1">售价：</view>
@@ -103,9 +104,10 @@
     </view>
     <!-- 预售订单 -->
     <view class="content_imgBuy" wx:if="{{content.type==4}}">
+      <view class="modalStatus1" wx:if="{{content.status==3||content.status==6}}"></view>
       <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-      <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{content.status==3}}"></image>
-      <image src="{{hostUrl}}/changeImg/ic_yud.png" class='imgs' wx:if="{{content.status==6}}"></image>
+      <image src="/assets/images/temp/ic_saled.png" class='imgs' wx:if="{{content.status==3}}"></image>
+      <image src="/assets/images/temp/ic_yud.png" class='imgs' wx:if="{{content.status==6}}"></image>
       <view class="buy_price">
         <view class="expect_buy">
           <view class="expect_buy1">卖方已缴违约金：</view>
@@ -148,11 +150,12 @@
       </view>
       <view class="purchase" catchtap="subscribe" wx:if="{{content.status==2&&content.canRemove==2}}" data-id="{{content.id}}" data-type="{{content.type}}">立即预订</view>
     </view>
-     <!-- 卖商品赚钱 -->
+    <!-- 卖商品赚钱 -->
     <view class="content_money" wx:if="{{content.type==5||content.type==6}}">
+      <view class="modalStatus" wx:if="{{content.status==3}}"></view>
       <image src="{{hostUrl}}/changeImg/getMoney.png" class="moneyImg" wx:if="{{content.type==6}}"></image>
       <image src="{{hostUrl}}/changeImg/save.png" class="moneyImg" wx:if="{{content.type==5}}"></image>
-      <image src="{{hostUrl}}/changeImg/yi_buy.png" class="moneyImg1" wx:if="{{content.status==3}}"></image>
+      <image src="/assets/images/temp/yi_buy.png" class="moneyImg1" wx:if="{{content.status==3}}"></image>
       <view class="goods">
         <image wx:if="{{content.goodsImageUrl}}" class="goodsImg" src="{{content.goodsImageUrl}}"></image>
         <image wx:else class="goodsImg" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
@@ -181,7 +184,8 @@
           <view class="saveGetMoney3">元</view>
         </view>
       </view>
-      <view class="earnMoney" catchtap="earnMoney" wx:if="{{content.type==6&&content.status==2&&content.canRemove==2}}" data-topicId="{{content.id}}" data-specItemIds="{{content.specItemIds}}" data-id="{{content.goodsId}}" data-quantity="{{content.goodsQuantity}}" data-stockid="{{content.stockId}}">购买赚钱</view>
+      <view class="earnMoney" catchtap="earnMoney" wx:if="{{content.type==6&&content.status==2&&content.canRemove==2}}" data-topicId="{{content.id}}" data-specItemIds="{{content.specItemIds}}" data-id="{{content.goodsId}}" data-quantity="{{content.goodsQuantity}}"
+        data-stockid="{{content.stockId}}">购买赚钱</view>
       <view class="buySaveMoney" data-item="{{content}}" catchtap="buySaveMoney" wx:if="{{content.type==5&&content.status==2&&content.canRemove==2}}">购买省钱</view>
     </view>
     <view class="content_time">
@@ -200,7 +204,7 @@
         </view>
       </view>
     </view>
-    <view class="content_comment">
+    <view class="content_comment padding0" wx:if="{{content.commentPageResponse.items.length>0}}">
       <view class="content_comment_wrap">
         <view class="content_comment_text" wx:for="{{content.commentPageResponse.items}}" wx:for-item="response" wx:key="{{response.id}}" bindlongpress="delRemark" catchtap="comment" data-replyUserId="{{response.userId}}" data-nickname="{{response.nickname}}"
           data-commentid="{{response.id}}" data-canremove="{{response.canRemove}}">

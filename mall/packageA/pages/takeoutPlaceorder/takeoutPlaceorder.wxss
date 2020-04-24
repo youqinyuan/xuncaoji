@@ -31,14 +31,16 @@ page {
 
 .nav_take_imgs {
   position: absolute;
-  left: -1.5rpx;
+  top:3rpx;
+  left: 0.5rpx;
   height: 87rpx;
   width: 380rpx;
 }
 
 .nav_take_img1 {
   position: absolute;
-  right: -2rpx;
+  top:3rpx;
+  right: -2.8rpx;
   height: 87rpx;
   width: 380rpx;
 }
@@ -187,9 +189,10 @@ page {
   -webkit-line-clamp: 1;
 }
 
-.takeout_e{
-  color: #999999;
+.takeout_e {
+  color: #999;
 }
+
 .takeout_name {
   font-size: 24rpx;
   font-family: PingFang SC;
@@ -353,14 +356,14 @@ page {
   width: 750rpx;
 }
 
-.all_a{
+.all_a {
   font-size: 24rpx;
 }
+
 /* 下单 */
 
 .takeOut_placeOrder {
   width: 710rpx;
-  height: 179rpx;
   background: #fff5e4;
   border-radius: 10rpx 10rpx 52rpx 52rpx;
   position: fixed;
@@ -470,10 +473,11 @@ page {
   color: #fff;
   font-size: 18rpx;
   position: absolute;
- top: 94rpx;
+  top: 94rpx;
   left: 81rpx;
   z-index: 99;
 }
+
 /* 想要的分期月数 */
 
 .period-zan-dialog__mask {
@@ -670,6 +674,18 @@ page {
   border-radius: 28rpx 28rpx 0rpx 0rpx;
 }
 
+.commodity_attr_box1 .text2 {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  height: auto;
+  max-height: 600rpx;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
+  text-align: center;
+}
+
 .content-wrapper1 .cancel {
   width: 26rpx;
   height: 26rpx;
@@ -694,7 +710,6 @@ page {
   align-items: center;
   border-bottom: 2rpx solid #f4f4f4;
   width: 690rpx;
-  margin-left: 30rpx;
 }
 
 .content-wrapper1 .text {

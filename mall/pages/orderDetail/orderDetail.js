@@ -682,10 +682,14 @@ Page({
   },
   //跳转商品详情
   toGoodsDetail:function(e){
-    console.log(e.currentTarget.dataset.goodsid)
-    var goodsId = e.currentTarget.dataset.goodsid
-    wx.navigateTo({
-      url:"/pages/detail/detail?id="+goodsId
-    })
+    let goodsId = e.currentTarget.dataset.goodsid
+    let orderType = e.currentTarget.dataset.ordertype
+    if (orderType == 23 || orderType==24){
+      return;
+    }else{
+      wx.navigateTo({
+        url: "/pages/detail/detail?id=" + goodsId
+      })
+    }
   }
 })

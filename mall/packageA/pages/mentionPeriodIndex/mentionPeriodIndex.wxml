@@ -22,7 +22,9 @@
           <view class="name">{{item.nickname}}</view>
           <image src="{{hostUrl}}/changeImg/huiyuan.png" class="huiyuanImg" wx:if="{{item.role==2}}"/>
         </view>
-        <image src="{{hostUrl}}/changeImg/share_mention_period.png" class="shareImg" bindtap="shares" data-id="{{item.id}}" wx:if="{{item.status==2}}"/>
+        <view class="share_box" bindtap="shares" data-id="{{item.id}}" wx:if="{{item.status==2}}">
+            <image src="{{hostUrl}}/changeImg/share_mention_period.png" class="shareImg" />
+        </view>
       </view>
       <view class="info">
         <view class="top_left">

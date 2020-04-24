@@ -39,6 +39,10 @@ page{
     font-size:42rpx;
     font-weight:bold;
     color:rgba(255,38,68,1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 215rpx;
 }
 .nianhua_font{
     font-size:22rpx;
@@ -75,7 +79,7 @@ page{
     height:60rpx;
     background:rgba(255,255,255,1);
     border:1rpx solid #999;
-    border-radius:30rpx;
+    border-radius:40rpx;
     text-align: center;
     line-height: 60rpx;
 }
@@ -329,7 +333,7 @@ page{
         width:440rpx;
         height:76rpx;
         background:linear-gradient(90deg,rgba(255,38,68,1) 0%,rgba(255,106,72,1) 100%);
-        border-radius:38rpx;
+        border-radius:48rpx;
         text-align: center;
         line-height: 76rpx;
         color:rgba(255,255,255,1);

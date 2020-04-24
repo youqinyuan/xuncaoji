@@ -444,9 +444,24 @@ Page({
     })
   },
   //跳转到下单
-  toPlaceorde(e) {
+  toPlaceorder(e) {
     let that = this
-    let store = JSON.stringify(that.data.store)
+    let shop = {
+      addressDetail: that.data.store.addressDetail,
+      channel: that.data.store.channel,
+      deliveryFee: that.data.store.deliveryFee,
+      deliveryType: that.data.store.deliveryType,
+      id: that.data.store.id,
+      isFollow: that.data.store.isFollow,
+      lat: that.data.store.lat,
+      lng: that.data.store.lng,
+      score: that.data.store.score,
+      status: that.data.store.status,
+      storePickUp: that.data.store.storePickUp,
+      takeAway: that.data.store.takeAway,
+      useDelivery: that.data.store.useDelivery,
+    }
+    let store = JSON.stringify(shop)
     if (that.data.shoppingCart) {
       wx.navigateTo({
         url: '../takeoutPlaceorder/takeoutPlaceorder?store=' + store,

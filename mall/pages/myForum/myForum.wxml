@@ -38,10 +38,11 @@
       <image wx:for="{{item.attachmentList}}" wx:for-item="contentImg" wx:key="" src="{{contentImg.fileKey}}" catchtap='imgYu' data-index='{{index}}' data-idx="{{index1}}" style="background:{{item.attachmentList.length>0?'#fff':'#e7e7e7'}}"></image>
     </view>
     <view class="content_imgBuy" wx:if="{{item.type==2}}">
+      <view class="modalStatus1" wx:if="{{item.status==3||item.status==4||item.status==5}}"></view>
       <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-      <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
-      <image src="{{hostUrl}}/changeImg/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
-      <image src="{{hostUrl}}/changeImg/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
+      <image src="/assets/images/temp/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+      <image src="/assets/images/temp/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
+      <image src="/assets/images/temp/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
       <view class="buy_price">
         <view class="expect_buy" wx:if="{{item.expectAmount}}">
           <view class="expect_buy1">售价：</view>
@@ -120,9 +121,10 @@
     </view>
     <!-- 预售订单 -->
     <view class="content_imgBuy" wx:if="{{item.type==4}}">
+      <view class="modalStatus1" wx:if="{{item.status==3||item.status==6}}"></view>
       <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-      <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
-      <image src="{{hostUrl}}/changeImg/ic_yud.png" class='imgs' wx:if="{{item.status==6}}"></image>
+      <image src="/assets/images/temp/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+      <image src="/assets/images/temp/ic_yud.png" class='imgs' wx:if="{{item.status==6}}"></image>
       <view class="buy_price">
         <view class="expect_buy">
           <view class="expect_buy1">卖方已缴违约金：</view>
@@ -167,9 +169,10 @@
     </view>
     <!-- 卖商品赚钱 -->
     <view class="content_money" wx:if="{{item.type==5||item.type==6}}">
+      <view class="modalStatus" wx:if="{{item.status==3}}"></view>
       <image src="{{hostUrl}}/changeImg/getMoney.png" class="moneyImg" wx:if="{{item.type==6}}"></image>
       <image src="{{hostUrl}}/changeImg/save.png" class="moneyImg" wx:if="{{item.type==5}}"></image>
-      <image src="{{hostUrl}}/changeImg/yi_buy.png" class="moneyImg1" wx:if="{{item.status==3}}"></image>
+      <image src="/assets/images/temp/yi_buy.png" class="moneyImg1" wx:if="{{item.status==3}}"></image>
       <view class="goods">
         <image wx:if="{{item.goodsImageUrl}}" class="goodsImg" src="{{item.goodsImageUrl}}"></image>
         <image wx:else class="goodsImg" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
@@ -217,7 +220,7 @@
         </view>
       </view>
     </view>
-    <view class="content_comment" catchtap="jumpComment" data-id="{{item.id}}">
+    <view class="content_comment" catchtap="jumpComment" data-id="{{item.id}}" wx:if="{{item.commentPageResponse.items.length>0}}">
       <view class="content_comment_wrap">
         <view class="content_comment_text" wx:for="{{item.commentPageResponse.items}}" wx:for-item="response" wx:key="{{response.id}}">
           <text>{{response.nickname}}</text>

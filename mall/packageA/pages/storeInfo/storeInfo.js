@@ -39,7 +39,7 @@ Page({
   getLocation: function () {
     var that = this;
     wx.getLocation({
-      type: 'wgs84',
+      type: 'gcj02',
       altitude: true,
       success: function (res) {
         var longitude = res.longitude

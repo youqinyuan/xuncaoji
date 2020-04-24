@@ -54,7 +54,7 @@ Page({
   getLocation: function () {
     var that = this;
     wx.getLocation({
-      type: 'wgs84',
+      type: 'gcj02',
       altitude: true,
       success: function (res) {
         var longitude = res.longitude
@@ -95,7 +95,7 @@ Page({
                           var is_agree = res.authSetting['scope.userLocation']
                           if (is_agree) {
                             wx.getLocation({
-                              type: 'wgs84',
+                              type: 'gcj02',
                               success: function (res) {
                                 var longitude = res.longitude
                                 var latitude = res.latitude

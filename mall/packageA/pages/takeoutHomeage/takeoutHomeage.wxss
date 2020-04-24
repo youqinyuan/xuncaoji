@@ -1,6 +1,10 @@
 /* packageA/pages/takeoutHomeage/takeoutHomeage.wxss */
 @import "../ecommerceStore/ecommerceStore";
 
+.section-block{
+  height: 80rpx;
+  width: 750rpx;
+}
 .return-cart {
   display: flex;
   justify-content: space-between;
@@ -17,7 +21,6 @@
 }
 
 .block {
-  height: 120rpx;
   width: 750rpx;
 }
 

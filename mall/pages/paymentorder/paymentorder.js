@@ -89,8 +89,18 @@ Page({
                     url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.balance.businessId,
                   })
                 }else if (that.data.helpMentionPeriod) {
-                  wx.navigateTo({
-                    url: `/packageA/pages/helpSuccess/helpSuccess?id=`+res.data.content.balance.businessId,
+                  app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
+                    id: res.data.content.balance.businessId
+                  }, 'GET').then((res) => { // 使用ajax函数
+                    if (res.data.content.status!==1) {
+                      wx.navigateTo({
+                        url: `/packageA/pages/helpSuccess/helpSuccess?period=`+res.data.content.mentionPeriod,
+                      })
+                    }else{
+                      wx.navigateTo({
+                        url: `/packageA/pages/helpFail/helpFail`,
+                      })
+                    }
                   })
                 } else if (that.data.getMoneyOrder) {
                   wx.navigateBack({
@@ -193,9 +203,19 @@ Page({
                 wx.navigateBack({
                   delta: 1
                 })
-              }else if (that.data.helpMentionPeriod) {
-                wx.navigateTo({
-                  url: `/packageA/pages/helpSuccess/helpSuccess?id=`+res.data.content.balance.businessId,
+              }else if (that.data.helpMentionPeriod){
+                app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
+                  id: res.data.content.balance.businessId
+                }, 'GET').then((res) => { // 使用ajax函数
+                  if (res.data.content.status!==1) {
+                    wx.navigateTo({
+                      url: `/packageA/pages/helpSuccess/helpSuccess?period=`+res.data.content.mentionPeriod,
+                    })
+                  }else{
+                    wx.navigateTo({
+                      url: `/packageA/pages/helpFail/helpFail`,
+                    })
+                  }
                 })
               } else if (that.data.mentionPeriod) {
                 wx.navigateTo({
@@ -295,8 +315,18 @@ Page({
                         delta: 1
                       })
                     }else if (that.data.helpMentionPeriod) {
-                      wx.navigateTo({
-                        url: `/packageA/pages/helpSuccess/helpSuccess?id=`+res.data.content.businessId,
+                      app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
+                        id: res.data.content.businessId
+                      }, 'GET').then((res) => { // 使用ajax函数
+                        if (res.data.content.status!==1) {
+                          wx.navigateTo({
+                            url: `/packageA/pages/helpSuccess/helpSuccess?period=`+res.data.content.mentionPeriod,
+                          })
+                        }else{
+                          wx.navigateTo({
+                            url: `/packageA/pages/helpFail/helpFail`,
+                          })
+                        }
                       })
                     } else if (that.data.mentionPeriod) {
                       wx.navigateTo({
@@ -491,8 +521,18 @@ Page({
                       delta: 1
                     })
                   }else if (that.data.helpMentionPeriod) {
-                    wx.navigateTo({
-                      url: `/packageA/pages/helpSuccess/helpSuccess?id=`+res.data.content.balance.businessId,
+                    app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
+                      id: res.data.content.balance.businessId
+                    }, 'GET').then((res) => { // 使用ajax函数
+                      if (res.data.content.status!==1) {
+                        wx.navigateTo({
+                          url: `/packageA/pages/helpSuccess/helpSuccess?period=`+res.data.content.mentionPeriod,
+                        })
+                      }else{
+                        wx.navigateTo({
+                          url: `/packageA/pages/helpFail/helpFail`,
+                        })
+                      }
                     })
                   } else if (that.data.mentionPeriod) {
                     wx.navigateTo({
@@ -658,7 +698,7 @@ Page({
     }
     that.setData({
       options: options,
-      buyType: options.buyType,
+      buyType: options.buyType ? options.buyType:null,
       isShowBook: options.isShowBook ? options.isShowBook : null,
       goods: options.goods ? options.goods:null,
       amount: options.amount ? options.amount : null,
@@ -910,8 +950,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-    clearInterval(interval2)
-    clearInterval(interval)
+
   },
 
   /**

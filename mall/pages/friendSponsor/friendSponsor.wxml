@@ -51,9 +51,9 @@
 <view class="news_box">
   <image src="{{hostUrl}}/sponsor/icon2.png" class="news_img"/>
       <view class="user_box">
-        <view class="user_name">赞助需支付1元，1元将即可返还到您的账户，可马上提现</view>
-        <view class="black">|</view>
-        <view class="goods_name" bindtap="Show1">具体规则</view>
+        <view class="user_name">赞助需支付1元，1元即可返还到您的账户，可马上提现！</view>
+        <!-- <view class="black">|</view>
+        <view class="goods_name" bindtap="Show1">具体规则</view> -->
     </view>
 </view>
 <view class="friend_sponsor_box">

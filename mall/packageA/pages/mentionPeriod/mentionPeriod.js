@@ -83,7 +83,7 @@ Page({
   },
   chooseReturn:function(){
     wx.navigateTo({
-        url: '/pages/waitReentryDetail/waitReentryDetail',
+        url: '/pages/waitReentryDetail/waitReentryDetail?goMentionPeriod=1',
       })
       wx.setStorage({
         key: "goMentionPeriod",

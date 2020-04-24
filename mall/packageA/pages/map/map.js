@@ -41,7 +41,7 @@ Page({
     });
     //定位
     wx.getLocation({
-      type: 'wgs84',
+      type: 'gcj02',
       success(res) {
         //console.log(res)
         const latitude = res.latitude

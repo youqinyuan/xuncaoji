@@ -864,6 +864,7 @@ Page({
             }
           })
         } else if (that.data.options.goods){
+          that.data.goodsList2.content = that.data.beizhuList1[0]
           app.Util.ajax('mall/forum/topic/goodsPreSaleTopicPurchase', that.data.goodsList2, 'POST').then((res) => {
             if (res.data.content) {
               wx.navigateTo({

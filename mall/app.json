@@ -121,7 +121,8 @@
         "pages/setDisbutionAddress/setDisbutionAddress",
         "pages/shareMentionPeriod/shareMentionPeriod",
         "pages/map/map",
-        "pages/allStore/allStore"
+        "pages/allStore/allStore",
+        "pages/helpFail/helpFail"
       ]
     }
   ],

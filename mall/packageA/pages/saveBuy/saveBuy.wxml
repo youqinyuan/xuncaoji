@@ -24,9 +24,10 @@
     </view>
     <!-- 卖商品赚钱 -->
     <view class="content_money" wx:if="{{item.type==5||item.type==6}}">
+      <view class="modalStatus" wx:if="{{item.status==3}}"></view>
       <image src="{{hostUrl}}/changeImg/getMoney.png" class="moneyImg" wx:if="{{item.type==6}}"></image>
       <image src="{{hostUrl}}/changeImg/save.png" class="moneyImg" wx:if="{{item.type==5}}"></image>
-      <image src="{{hostUrl}}/changeImg/yi_buy.png" class="moneyImg1" wx:if="{{item.status==3}}"></image>
+      <image src="/assets/images/temp/yi_buy.png" class="moneyImg1" wx:if="{{item.status==3}}"></image>
       <view class="goods">
         <image wx:if="{{item.goodsImageUrl}}" class="goodsImg" src="{{item.goodsImageUrl}}"></image>
         <image wx:else class="goodsImg" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>

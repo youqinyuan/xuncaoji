@@ -1,0 +1,9 @@
+<!--packageA/pages/helpFail/helpFail.wxml-->
+<view class="img_box">
+    <image src="{{hostUrl}}/changeImg/fail.png" class="success_img" />
+</view>
+<view class="success_text">很抱歉提期失败，提期金额已退还至您余额。</view>
+<view class="button_box">
+    <view class="button_one" bindtap="toHelpOther">去我的余额</view>
+</view>
+

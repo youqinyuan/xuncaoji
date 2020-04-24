@@ -174,6 +174,10 @@ page {
   font-size: 26rpx;
 }
 
+.all-wrap {
+  border-top: 2rpx solid #f4f4f4;
+}
+
 .all {
   display: flex;
   height: 80rpx;
@@ -285,7 +289,6 @@ page {
 .content-cashBack-wrap {
   background: #fff;
   padding-bottom: 30rpx;
-  border-bottom: 2rpx solid #f4f4f4;
 }
 
 .content-cashBack {
@@ -721,7 +724,6 @@ page {
   color: rgba(153, 153, 153, 1);
 }
 
-
 .contentainer2-button {
   display: flex;
   height: 75rpx;
@@ -816,22 +818,23 @@ page {
   width: 225rpx;
   height: 76rpx;
   line-height: 76rpx;
-  border-radius:8rpx;
-  font-size:32rpx;
-  color:rgba(102,102,102,1);
+  border-radius: 8rpx;
+  font-size: 32rpx;
+  color: rgba(102, 102, 102, 1);
   margin-bottom: 30rpx;
-  background: #F1F1F1;
+  background: #f1f1f1;
 }
-.penalSum{
-  font-size:26rpx;
-  color:rgba(255,38,68,1);
-  line-height:40rpx;
+
+.penalSum {
+  font-size: 26rpx;
+  color: rgba(255, 38, 68, 1);
+  line-height: 40rpx;
   padding: 0 50rpx;
 }
 
 .active1 {
-  color:rgba(255,38,68,1);
-  background:rgba(255,234,237,1);
+  color: rgba(255, 38, 68, 1);
+  background: rgba(255, 234, 237, 1);
 }
 
 .contentainer3-button {
@@ -941,42 +944,49 @@ page {
 .stop-comfirm::after {
   border: none;
 }
-.service{
+
+.service {
   height: 90rpx;
   position: relative;
-  font-size:26rpx;
-  border-bottom:#E7E7E7 2rpx solid ;
+  font-size: 26rpx;
+  border-bottom: #e7e7e7 2rpx solid;
 }
-.service_one{
+
+.service_one {
   height: 90rpx;
   line-height: 85rpx;
   position: absolute;
   left: 106rpx;
-  color:rgba(102,102,102,1);
+  color: rgba(102, 102, 102, 1);
 }
-.service_two{
+
+.service_two {
   height: 90rpx;
   line-height: 85rpx;
   position: absolute;
   left: 181rpx;
-  color:rgba(153,153,153,1);
+  color: rgba(153, 153, 153, 1);
 }
-.service_three{
+
+.service_three {
   height: 90rpx;
   line-height: 85rpx;
   position: absolute;
   right: 191rpx;
-  text-decoration:underline;
-  color:rgba(153,153,153,1);
+  text-decoration: underline;
+  color: rgba(153, 153, 153, 1);
 }
-.service_four{
+
+.service_four {
   height: 90rpx;
   line-height: 85rpx;
   position: absolute;
   right: 30rpx;
-  color:rgba(212,172,117,1);
+  color: rgba(212, 172, 117, 1);
 }
+
 /* 撤销预售 */
+
 .sell-one-dialog__mask {
   position: fixed;
   top: 0;
@@ -998,7 +1008,8 @@ page {
   left: 80rpx;
   z-index: 9999;
 }
-.sell-one-dialog__mask .sell-dialog__container{
+
+.sell-one-dialog__mask .sell-dialog__container {
   width: 600rpx;
   height: 395rpx;
   background: rgba(255, 255, 255, 1);
@@ -1009,13 +1020,16 @@ page {
   left: 80rpx;
   z-index: 9999;
 }
-.heigh480{
+
+.heigh480 {
   height: 480rpx !important;
 }
-.heigh440{
+
+.heigh440 {
   height: 440rpx !important;
 }
-.heigh563{
+
+.heigh563 {
   height: 563rpx !important;
 }
 
@@ -1045,7 +1059,8 @@ page {
   color: #222;
   line-height: 40rpx;
 }
-.text2{
+
+.text2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -1058,13 +1073,14 @@ page {
   text-align: center;
   display: inline-block;
   font-size: 32rpx;
-  color: #FF2644;
+  color: #ff2644;
   width: 240rpx;
   height: 76rpx;
-  border: 2rpx solid #FF2644;
-  background-color: #FFF;
+  border: 2rpx solid #ff2644;
+  background-color: #fff;
   border-radius: 38rpx;
 }
+
 .shure_one2 {
   margin-top: 50rpx;
   margin-left: 20rpx;
@@ -1072,13 +1088,17 @@ page {
   text-align: center;
   display: inline-block;
   font-size: 32rpx;
-  color: #FFF;
+  color: #fff;
   width: 240rpx;
   height: 76rpx;
-  background-color: #FF2644;
+  background-color: #ff2644;
   border-radius: 38rpx;
 }
 
+.width172 {
+  width: 168rpx !important;
+  padding: 0 !important;
+}
 
 /* 去评价弹框 */
 

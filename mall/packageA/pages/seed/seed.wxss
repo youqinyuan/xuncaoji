@@ -2,12 +2,13 @@
 
 page {
   background: #f4f4f4;
-  overflow-x: hidden;
+  
 }
 
 .seed {
   position: relative;
   height: 716rpx;
+  overflow-x: hidden;
 }
 
 .bg_img {
