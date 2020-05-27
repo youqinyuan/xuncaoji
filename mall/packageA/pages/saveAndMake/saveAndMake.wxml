@@ -61,7 +61,8 @@
     <!-- <view class="saveAndmakeText" wx:if="{{item.type==5&&item.status==8&&currentTab==0}}">因您在规定时间内未进行支付，已扣除您的违约金</view>
     <view class="saveAndmakeText" wx:if="{{item.type==5&&item.status==7&&currentTab==0}}">因在对方确认后，您关闭了交易，已扣除您的违约金</view> -->
     <view class="saveAndmakeBtn">
-      <view wx:if="{{currentTab==1}}" catchtap="modifyPrice"  data-id="{{item.id}}">
+      <view wx:if="{{currentTab==1}}" catchtap="modifyPrice"  data-id="{{item.id}}" data-stockId="{{item.stockId}}" data-dctPrice="{{item.platformOrgAmount}}" data-spec="{{item.specDesc}}" data-expressFee="{{item.expressFee}}" data-iconUrl="{{item.goodsImageUrl}}" data-name="{{item.goodsName}}"
+        data-quantity="{{item.goodsQuantity}}" data-expectAmount="{{item.expectAmount}}" data-content="{{item.content}}" data-userbook="{{item.userAddressBookId}}">
         <view class="modifyMsg" wx:if="{{item.status==2||item.status==6}}">修改购买信息</view>
       </view>
       <view class="cancel" data-type="{{item.type}}" data-id="{{item.id}}" data-status="{{item.status}}" data-liquidate="{{item.liquidateDamageAmountVendor}}" bindtap="exchangeClosed" wx:if="{{item.status==2||item.status==6}}">交易关闭</view>

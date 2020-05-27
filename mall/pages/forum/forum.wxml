@@ -58,6 +58,10 @@
         <view class="content-item" style="-webkit-line-clamp:{{item.ellipsis==false?'4':'0'}}">{{item.content}}</view>
         <view class="all_text" catchtap='ellipsis' wx:if="{{item.isShowAll==2}}" data-index="{{index1}}">{{item.isText}}</view>
       </view>
+      <view class="content-text" wx:else>
+        <view class="content-item"></view>
+        <view class="all_text"></view>
+      </view>
       <!-- 普通帖 -->
       <view class="content_img" wx:if="{{item.type==1}}">
         <image wx:for="{{item.attachmentList}}" wx:for-item="contentImg" wx:key="" src="{{contentImg.fileKey}}" catchtap='imgYu' data-index='{{index}}' data-idx="{{index1}}" style="background:{{item.attachmentList.length>0?'#f4f4f4':'#e7e7e7'}}"></image>

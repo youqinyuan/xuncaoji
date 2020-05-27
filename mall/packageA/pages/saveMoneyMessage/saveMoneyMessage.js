@@ -26,7 +26,6 @@ Page({
     if (options.editPrice) {
       let editPrice = JSON.parse(options.editPrice)
       editPrice.iconurl = editPrice.iconurl ? editPrice.iconurl + '?' + wx.getStorageSync('iconurl') : null
-      let price = ((editPrice.dctprice * editPrice.quantity) * 0.95).toFixed(2)
       that.setData({
         getOrder: editPrice,
         getOffer: editPrice.expectamount,

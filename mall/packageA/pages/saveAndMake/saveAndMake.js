@@ -312,8 +312,21 @@ Page({
   // 修改地址信息
   modifyPrice(e) {
     let that = this
+    let img = e.currentTarget.dataset.iconurl
+    let iconurl = img ? img.split('?') : null
+    let iconurl1 = iconurl ? iconurl[0] : null
+    wx.setStorageSync('iconurl', iconurl1 ? iconurl[1] : null)
     let data = {
+      dctprice: e.currentTarget.dataset.dctprice,
+      name: e.currentTarget.dataset.name,
+      spec: e.currentTarget.dataset.spec,
+      stockid: e.currentTarget.dataset.stockid,
+      iconurl: iconurl1,
+      expressfee: e.currentTarget.dataset.expressfee,
+      expectamount: e.currentTarget.dataset.expectamount,
+      content: e.currentTarget.dataset.content,
       id: e.currentTarget.dataset.id,
+      userAddressBookId: e.currentTarget.dataset.userbook
     }
     let editPrice = JSON.stringify(data)
     wx.navigateTo({
