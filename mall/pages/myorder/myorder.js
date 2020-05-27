@@ -43,7 +43,7 @@ Page({
         status: '7, 8, 9, 10, 11'
       }
     ],
-    allOrder: [],
+    allOrder: null,
     list: [], //更多好货
     pageNumber: 1,
     pageNumber1:1,
@@ -342,8 +342,9 @@ Page({
         url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}&buyWay=${1}`,
       })
     }else{
+      //预售订单卖方付尾款提示 orderSell
       wx.navigateTo({
-        url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}`,
+        url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}&orderSell=1`,
       })
     }
   },

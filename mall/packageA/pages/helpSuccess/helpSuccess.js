@@ -45,12 +45,14 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    if(wx.getStorageSync("mentionPeriodFrom")){
+    if(app.globalData.helpMentionPeriod == 2){
+      console.log(1)
       app.globalData.type = 5
       wx.switchTab({
         url: '/pages/forum/forum',
       })
     }else{
+      console.log(2)
       wx.navigateBack({
         delta: 2
       })

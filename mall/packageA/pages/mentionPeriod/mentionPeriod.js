@@ -8,6 +8,7 @@ Page({
   data: {
     // waitReentry:{}
     hostUrl: app.Util.getUrlImg().hostUrl,
+    choose:true
   },
 
   /**
@@ -115,6 +116,26 @@ Page({
         commission:e.detail.value
        })
     },
+    getNianHua:function(){
+      let that = this
+      if(that.data.commission){
+        app.Util.ajax('mall/forum/topic/getMentionPeriodAnnualized', {
+          amount:that.data.waitReentry.maxMentionPeriodAmount,
+          commission:that.data.commission
+        }, 'GET').then((res) => { // 使用ajax函数
+          if (res.data.messageCode=="MSG_1001"){
+            that.setData({
+              nianhua:res.data.content
+            })
+          }else{
+            wx.showToast({
+              title:res.data.message,
+              icon:'none'
+            })
+          }
+        })
+      }
+    },
     setMentionPeriod:function(){
       let that = this
       console.log(that.data.commission)
@@ -126,7 +147,8 @@ Page({
               orderGoodsId: that.data.waitReentry.orderGoodsId,
               transferId:that.data.waitReentry.transferId,
               commissionAmount:that.data.commission,
-              code:that.data.waitReentry.code
+              code:that.data.waitReentry.code,
+              visible:that.data.choose?1:2
             }, 'POST').then((res) => { // 使用ajax函数
               if (res.data.messageCode=="MSG_1001"){
                 console.log(res.data.content.id)
@@ -159,5 +181,17 @@ Page({
         })
       }
       
+    },
+    choose:function(){
+      let that = this
+      if(that.data.choose){
+        wx.showToast({
+          title:'再次发帖请至“我发起的提期”页面进行操作',
+          icon:'none'
+        })
+      }
+        that.setData({
+          choose:!that.data.choose
+        })
     }
 })

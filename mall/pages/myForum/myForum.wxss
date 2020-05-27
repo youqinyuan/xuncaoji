@@ -31,6 +31,7 @@ page {
 .nav-box {
   display: inline-block;
   width: 375rpx;
+  padding: 0;
 }
 
 .nav-item {
@@ -39,15 +40,15 @@ page {
 }
 
 .nav-item.active {
-  color: #ff6417;
+  color: #ff2644;
   border-bottom: none;
 }
 
 .nav-item.active1 {
-  width: 60rpx;
+  width: 40rpx;
   height: 6rpx;
-  background: #ff6417;
-  margin-left: 160rpx;
+  background: #ff2644;
+  margin-left: 170rpx;
 }
 
 .block {

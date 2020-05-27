@@ -68,6 +68,11 @@ Page({
               key: "url",
               data: url
             })
+          } else if (url == 'packageA/pages/seedMask/seedMask') {
+            wx.setStorage({
+              key: "url",
+              data: url
+            })
           } else if (url == 'packageA/pages/cooperate/cooperate') {
             wx.setStorage({
               key: "url",

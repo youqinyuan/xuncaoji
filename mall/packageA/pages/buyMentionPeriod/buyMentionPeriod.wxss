@@ -51,11 +51,13 @@ page{
 }
 .bottom{
     height: 110rpx;
-    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     font-size: 26rpx;
 }
 .button{
-    width:172rpx;
+    width:130rpx;
     height:60rpx;
     background:rgba(255,255,255,1);
     border:1rpx solid #999;
@@ -63,20 +65,16 @@ page{
     text-align: center;
     line-height: 60rpx;
 }
-.one{
-    position: absolute;
-    top:24rpx;
-    left: 103rpx;
+.three{
+  margin-right: 21rpx;
 }
 .two{
-    position: absolute;
-    top:24rpx;
-    left: 296rpx;
+  margin-right: 16rpx;
 }
-.three{
-    position: absolute;
-    top:24rpx;
-    right: 30rpx;
+.to_share{
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 33rpx;
 }
 .share{
     width: 60rpx;

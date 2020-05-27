@@ -5,18 +5,17 @@ page {
 }
 
 .explain-wrap {
-  position: relative;
   background: #fff;
-  height: 90rpx;
-  line-height: 90rpx;
   display: flex;
-  justify-content: space-between;
-  font-size: 28rpx;
+  align-items:center;
+  height: 90rpx;
+  font-size: 24rpx;
   color: #333;
   margin-bottom: 20rpx;
 }
 
 .explain {
+  width: 690rpx;
   margin-left: 30rpx;
 }
 

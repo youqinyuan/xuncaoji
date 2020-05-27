@@ -31,34 +31,34 @@
       <swiper class="section-wrap" autoplay="{{false}}" circular="{{false}}" interval="5000" indicator-color="#CCCCCC" indicator-active-color="#FF6417" indicator-dots="{{indicatorDots}}" style="height:{{height}}rpx;padding-top:{{paddingTop}}rpx;">
         <swiper-item class="section-classify">
           <view class="section-list" wx:for="{{navigationList1}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}">
-            <view class="section-list_wrap" wx:if="{{item.param !==8}}">
-              <view class="section-list-img">
-                <image src="{{item.iconUrl}}"></image>
-              </view>
-              <view class="section-list-text">{{item.title}}</view>
-            </view>
-            <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.param===8}}">
+            <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.category==1&&item.param===8}}">
               <view class="section-list-img1">
                 <image src="{{item.iconUrl}}"></image>
               </view>
               <view class="section-list-text">{{item.title}}</view>
             </button>
+            <view class="section-list_wrap" wx:else>
+              <view class="section-list-img">
+                <image src="{{item.iconUrl}}"></image>
+              </view>
+              <view class="section-list-text">{{item.title}}</view>
+            </view>
           </view>
         </swiper-item>
         <swiper-item class="section-classify" wx:if="{{navigationList.length>10}}">
           <view class="section-list" wx:for="{{navigationList2}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}">
-            <view class="section-list_wrap" wx:if="{{item.param !==8}}">
-              <view class="section-list-img">
-                <image src="{{item.iconUrl}}"></image>
-              </view>
-              <view class="section-list-text">{{item.title}}</view>
-            </view>
-            <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.param===8}}">
+          <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.category==1&&item.param===8}}">
               <view class="section-list-img1">
                 <image src="{{item.iconUrl}}"></image>
               </view>
               <view class="section-list-text">{{item.title}}</view>
             </button>
+            <view class="section-list_wrap" wx:else>
+              <view class="section-list-img">
+                <image src="{{item.iconUrl}}"></image>
+              </view>
+              <view class="section-list-text">{{item.title}}</view>
+            </view>            
           </view>
         </swiper-item>
       </swiper>

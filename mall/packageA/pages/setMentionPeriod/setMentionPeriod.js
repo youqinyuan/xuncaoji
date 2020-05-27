@@ -260,4 +260,12 @@ Page({
       showModal:true
     })
   },
+  toHelp:function(e){
+      //此缓存解决从待返提期完成后的页面跳转问题，清除是为了确保此时无缓存
+      app.globalData.helpMentionPeriod = 2
+        let id = e.currentTarget.dataset.id
+        wx.navigateTo({
+          url: '/packageA/pages/helpMentionPeriod/helpMentionPeriod?id='+id
+        })
+  },
 })

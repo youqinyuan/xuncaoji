@@ -1,0 +1,60 @@
+<!--packageA/pages/seedMask/seedMask.wxml-->
+<wxs module="foo">
+  module.exports = {
+    toStr: function(n) {
+      n = n.toFixed(2)
+      return n
+    }
+  }
+</wxs>
+<view class="seedMask-top">
+  <image class="seedMask-circle" src="{{hostUrl}}/newIndex/seedMask.png"></image>
+  <view class="seedMask-wrap">
+    <view class="seedMask-text">-今日签到-</view>
+    <view class="seedMask-day">{{seedNumber?seedNumber:seedNum}}
+      <text class="day">颗</text>
+    </view>
+    <view class="seedMask-Item" catchtap="getSeed">立即签到</view>
+    <image class="seedMask-btn" catchtap="getSeed" src="{{hostUrl}}/newIndex/seedBtn.png"></image>
+    <view class="seedMask-items">种子
+      <text class="seedNum">+{{seedNumber?seedNumber:seedNum}}</text>≈{{foo.toStr((seedNumber?seedNumber:seedNum)/seedRole)}}RMB</view>
+  </view>
+  <view class="seedMask-bigBtn">
+    <image class="seedMask-use" src="{{hostUrl}}/newIndex/seedIcon.png"></image>
+    <view>可用种子 {{seedAmount}}</view>
+  </view>
+</view>
+<view class="seedMask-title">获得更多种子</view>
+<view class="seedMask-save" wx:for="{{seedList}}" wx:key="{{index}}" catchtap="jumpPages" data-index="{{index}}">
+  <image class="seedMask-saveImg" src="{{item.img}}"></image>
+  <view class="seedMask-saveText">{{item.text}}</view>
+  <image class="seedMask-saveImgs" src="{{item.imgs}}"></image>
+  <view class="seedMask-saveTexts">{{item.texts}}</view>
+</view>
+<view class="seedMask-title">种子能干嘛？</view>
+<view class="seedMask-doBtn">
+  <view class="seedMask-buyBtn buyBtn" catchtap="jumpIndex">购买商品抵扣现金</view>
+  <view class="buyBtn" catchtap="getMessage">兑换现金</view>
+</view>
+<view class="seedMaskBtn" catchtap="seedMaskBtn">分享给好友一起发财</view>
+<view class="block"></view>
+
+<!-- 分享弹框 -->
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen1" bindtap="cancelShare" wx:if="{{showModalStatus}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+    </view>
+  </view>
+</view>

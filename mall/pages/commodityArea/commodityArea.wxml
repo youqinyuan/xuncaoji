@@ -15,22 +15,22 @@
     <view class="role" bindtap="showRole">活动规则</view>
   </view>
 </view>
-<view class="classify" style="{{fixed==true?'position:fixed;top:0;z-index:99;':''}}">
-  <view class="classify_wrap">
+<view class="classify" style="{{fixed==true?'position:sticky;top:0;z-index:99;':''}}">
+  <view class="classify_wrap" >
     <view class='classify_one' bindtap="toViewClick" data-hash="infoBox1">{{category[0]}}</view>
-    <view class='{{nowstatus == "infoBox1" ? "titleActive" : ""}}'></view>
+    <view class='{{nowstatus == "infoBox1" ? "category" : ""}}'></view>
   </view>
   <view class="classify_wrap">
     <view class='classify_one' bindtap="toViewClick" data-hash="infoBox2">{{category[1]}}</view>
-    <view class='{{nowstatus == "infoBox2" ? "titleActive" : ""}}'></view>
+    <view class='{{nowstatus == "infoBox2" ? "category" : ""}}'></view>
   </view>
   <view class="classify_wrap">
     <view class='classify_one' bindtap="toViewClick" data-hash="infoBox3">{{category[2]}}</view>
-    <view class='{{nowstatus == "infoBox3" ? "titleActive" : ""}}'></view>
+    <view class='{{nowstatus == "infoBox3" ? "category" : ""}}'></view>
   </view>
   <view class="classify_wrap">
     <view class='classify_one' bindtap="toViewClick" data-hash="infoBox4">{{category[3]}}</view>
-    <view class='{{nowstatus == "infoBox4" ? "titleActive" : ""}}'></view>
+    <view class='{{nowstatus == "infoBox4" ? "category" : ""}}'></view>
   </view>
 </view>
 <view class="infoBox_wrap">
@@ -130,10 +130,11 @@
       </view>
     </view>
   </view>
+  <view style="{{listItem.activityAreaInfo[3].activityGoodsList.length<6?'height:500rpx;':''}}"></view>
 </view>
 <!-- 活动规则弹窗 -->
-<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showRole}}">
-  <view class="zan-dialog__container" wx:if="{{showRole}}">
+<view class="get-zan-dialog__mask" wx:if="{{showRole}}">
+  <view class="zan-dialog__container" animation="{{animationData}}" wx:if="{{showRole}}">
     <view class="role_title">活动规则</view>
     <view class="height_text">
       <rich-text nodes="{{listItem.ruleContent}}" />

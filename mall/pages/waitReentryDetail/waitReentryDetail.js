@@ -508,7 +508,6 @@ Page({
     wx.removeStorageSync("endTime");
     wx.removeStorageSync("source");
     wx.removeStorageSync("pageNumber2");
-    wx.removeStorageSync("mentionPeriodFrom");
   },
 
   /**
@@ -888,7 +887,7 @@ Page({
           // console.log(JSON.stringify(res))
           if (res.data.messageCode == 'MSG_1001') {
             wx.showToast({
-              title: "交易已完成，请在待返明细中查看",
+              title: "支付成功，请在待返明细中查看待返",
               icon: "none",
             })
             that.setData({
@@ -901,7 +900,7 @@ Page({
             })
             setTimeout(function() {
               that.initDetail();
-            }, 500)
+            }, 1000)
           } else {
             wx.showToast({
               title:res.data.message,
@@ -1551,10 +1550,7 @@ Page({
         key: "waitReentry",
         data: that.data.content[e.currentTarget.dataset.index]
       })
-      wx.setStorage({
-        key: "mentionPeriodFrom",
-        data: '1'
-      })
+      app.globalData.mentionPeriodFrom = 2
       wx.navigateTo({
         url: '/packageA/pages/mentionPeriod/mentionPeriod'
       })

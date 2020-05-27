@@ -21,6 +21,7 @@ Page({
         for (var i = 0; i < res.data.content.length; i++) {
           name = res.data.content[i].receiverName.substring(0, 1)
           res.data.content[i]['name'] = name
+          res.data.content[0]['isDefault'] = 1
         }
         that.setData({
           items: res.data.content

@@ -1,0 +1,36 @@
+<!--packageA/pages/profitOrder/profitOrder.wxml-->
+<view style="height:200rpx;">
+    <view class="head"></view>
+    <image src="{{hostUrl}}/newIndex/profit_huxing.png" class="profit_huxing"/>
+</view>
+<view class="profit_box">
+    <view class="title">
+        <view class="all_profit">
+            <view class="font">总计收益</view>
+            <view class="number"><text >￥</text>{{content.totalIncome?content.totalIncome:0}}</view>
+        </view>
+        <view class="jiange"></view>
+        <view class="all_profit">
+            <view class="font">总占比</view>
+            <view class="number">{{content.totalProportion?content.totalProportion:0}}%</view>
+        </view>
+        <view class="all_profit">
+            <view class="font">年收益率</view>
+            <view class="number">{{content.totalAnnualizedRate?content.totalAnnualizedRate:0}}%</view>
+        </view>
+    </view>
+</view>
+<view class="content" wx:for="{{arr}}" wx:key="{{item.id}}">
+    <view class="left">
+        <view class="nianhua_number">{{item.annualizedRate}}<text >%</text></view>
+        <view class="nianhua">年化率</view>
+    </view>
+    <view class="right">
+        <view class="right_one martop20">售价：￥{{item.expendAmount}}</view>
+        <view class="right_one">共返：￥{{item.incomeAmount}}</view>
+        <view class="right_one">收益：￥{{item.profitAmount}}</view>
+    </view>
+</view>
+<view class="nothing" wx:if="{{arr.length==0}}">暂无数据</view>
+<view style="height:81rpx;"></view>
+

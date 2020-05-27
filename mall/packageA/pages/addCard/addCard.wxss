@@ -1,0 +1,27 @@
+/* packageA/pages/addCard/addCard.wxss */
+@import "/pages/addaddress/addaddress";
+
+.listItems-item {
+  margin-top: 0;
+}
+
+.listLeft {
+  width: 180rpx;
+  color: #666;
+}
+
+.listItems-item .listLeft {
+  margin-right: 405rpx;
+}
+
+.btn {
+  width: 690rpx;
+  height: 80rpx;
+  background: linear-gradient(90deg, #ff6a48 0%, #ff2644 100%);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: #fff;
+  margin-left: 30rpx;
+}

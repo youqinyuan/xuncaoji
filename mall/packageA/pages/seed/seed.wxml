@@ -78,6 +78,10 @@
     <text class="column_font">趣玩游戏</text>
   </view> -->
 </view>
+<view class="seedBtn" wx:if="{{querySeedSwitch==1}}">
+  <view class="seedRecharge seedBtn1" bindtap="seedRecharge">种子充值</view>
+  <view class="seedRecharge seedBtn2" bindtap="showDetail">种子兑换</view>
+</view>
 <view class="goods">
   <view class="goods_box" wx:for="{{seedGoodsContent}}" wx:key="id" bindtap="toGoodsDetail" data-goodsid="{{item.id}}">
     <view>
@@ -153,4 +157,11 @@
     <view class="more">滑动查看更多</view>
   </view>
   <image wx:if="{{show2}}" class="cancel-get2" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow2'></image>
+</view>
+
+<!--兑换弹窗-->
+<view class="modal-mask1" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{showBuy}}"></view>
+<view class="modal" wx:if="{{showBuy}}" bindtap="hide">
+  <image class="modal-img" src="{{hostUrl}}/icon/withdraw.png"></image>
+  <image class="modal-cancel" src="{{hostUrl}}/icon/tanc_close_n.png" bindtap="hide"></image>
 </view>

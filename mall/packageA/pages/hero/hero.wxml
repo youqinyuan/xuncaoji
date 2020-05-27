@@ -1,0 +1,54 @@
+<!--packageA/pages/hero/hero.wxml-->
+<view class="head_box">
+    <image src="{{hostUrl}}/newIndex/hero_head.png" class="hero_head"/>
+    <view class="my_ranking">
+        <view class="ranking_number_box">
+            <view class="ranking_number">我的排名：{{content.rank?content.rank>500?'500+':content.rank:'-'}}</view>
+        </view>
+        <view class="nianhua_shaixuan_box">
+            <view class="nianhua_shaixuan" bindtap="show">{{shaixuanText}}</view>
+            <image src="{{hostUrl}}/newIndex/nianhua_dwon.png" class="nianhua_dwon"/>
+        </view>
+    </view>
+</view>
+    <image src="{{hostUrl}}/newIndex/hero_xiala.png" class="hero_xiala" wx:if="{{shaixuan}}"/>
+    <view class="xiala_font" wx:if="{{shaixuan}}">
+        <view class="font_one mag" bindtap="shaixuan" data-index="1">年化率排名</view>
+        <view class="font_one" bindtap="shaixuan" data-index="2">收益排名</view>
+    </view>
+<view class="value_box">
+    <view class="value_title">
+        <view class="ranking">
+            <view class="ranking_postion">排名</view>
+        </view>
+        <view class="user_name">
+           <view class="user_postion">用户</view> 
+        </view>
+        <view class="nianhua">
+            <view class="nianhua_postion">年化率(%)</view>
+        </view>
+        <view class="profit">
+            <view class="profit_postion">收益(￥)</view>
+        </view>
+    </view>
+    <view style="margin-bottom:40rpx;">
+        <view class="vlaue {{item.rank==1?'matop80':''}}" wx:for="{{arr}}" wx:key="{{item.id}}">
+            <view class="ranking_value" wx:if="{{item.rank==1||item.rank==2||item.rank==3}}">
+                <image src="{{hostUrl}}/newIndex/ic_no.1.png" class="ranking_img" wx:if="{{item.rank==1}}"/>
+                <image src="{{hostUrl}}/newIndex/ic_no.2.png" class="ranking_img" wx:elif="{{item.rank==2}}"/>
+                <image src="{{hostUrl}}/newIndex/ic_no.3.png" class="ranking_img" wx:elif="{{item.rank==3}}"/>
+            </view>
+            <view class="ranking_value" wx:else>{{item.rank}}</view>
+            <view class="user_value">
+                <image src="{{item.avatarUrl?item.avatarUrl:hostUrl+'/icon/zhanw_tb_n.png'}}" class="head_img"/>
+                <view class="name">{{item.userName?item.userName:''}}</view>
+            </view>
+            <view class="nianhua_value">
+                <view>{{item.annualizedRate}}</view>
+            </view>
+            <view class="profit_value">
+                <view >{{item.profitAmount}}</view>
+            </view>
+        </view>
+    </view>
+</view>

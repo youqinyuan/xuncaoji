@@ -14,6 +14,7 @@ Page({
     showModalStatus1: false,
     haibao: false,
     hostUrl: app.Util.getUrlImg().hostUrl,
+    sponsorCancle:false
   },
 
   /**
@@ -39,6 +40,10 @@ Page({
           content: res.data.content.apply,
           sponsorItems: res.data.content.sponsorItems
         })
+        //分享数据
+        setTimeout(function(){
+          that.chooseShare()
+        },100)
         //倒计时初始化
         that.countDownInit(res.data.content.apply.leftTime)
       } else {
@@ -50,8 +55,6 @@ Page({
     })
     app.Util.ajax('mall/marketingAuspicesGoods/queryAuspices', null, 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
-        //分享数据
-        that.chooseShare()
         var tempList = []
         for (let i of res.data.content.configList) {
           var obj = {}
@@ -207,17 +210,6 @@ Page({
         that.setData({
           showModalStatus1: false
         })
-        console.log(333)
-        app.Util.ajax('mall/weChat/sharing/onSuccess', {
-          mode: 13
-        }, 'POST').then((res) => {
-          if (res.data.content) {
-            wx.showToast({
-              title: '分享成功',
-              icon: 'none'
-            })
-          } else {}
-        })
         return {
           title: '是朋友帮我支付1元，我真的需要你的帮助，么么哒～',
           path: that.data.shareList.link,
@@ -234,18 +226,6 @@ Page({
         that.setData({
           showModalStatus1: false
         })
-        app.Util.ajax('mall/weChat/sharing/onSuccess', {
-          mode: 13
-        }, 'POST').then((res) => {
-          if (res.data.content) {
-            wx.showToast({
-              title: '分享成功',
-              icon: 'none'
-            })
-          } else {
-
-          }
-        })
         return {
           title: '我在0成本购买心仪商品，活动100%真实，麻烦你帮我赞助一下。',
           path: that.data.shareList.link,
@@ -253,20 +233,8 @@ Page({
         }
       }
     } else {
-      app.Util.ajax('mall/weChat/sharing/onSuccess', {
-        mode: 13
-      }, 'POST').then((res) => {
-        if (res.data.content) {
-          wx.showToast({
-            title: '分享成功',
-            icon: 'none'
-          })
-        } else {
-
-        }
-      })
       return {
-        title: that.data.shareList.desc,
+        title: '我在0成本购买心仪商品，活动100%真实，麻烦你帮我赞助一下。',
         path: that.data.shareList.link,
         imageUrl: that.data.shareList.imageUrl,
         success: function(res) {
@@ -350,6 +318,41 @@ Page({
     console.log(id)
     wx.navigateTo({
       url: "/pages/detail/detail?id=" + id
+    })
+  },
+  showCancle:function(e){
+    this.setData({
+      sponsorCancle:true,
+      sponsorId:e.currentTarget.dataset.id
+    })
+  },
+  closeShow:function(){
+    this.setData({
+      sponsorCancle:false
+    })
+  },
+  shure:function(){
+    let that = this
+    let sponsorId = that.data.sponsorId
+    app.Util.ajax('mall/marketingAuspicesGoods/cancelApply', {id:sponsorId}, 'POST').then((res) => {
+      if (res.data.messageCode == 'MSG_1001') {
+        that.setData({
+          sponsorCancle:false
+        })
+        wx.showToast({
+          title:'取消成功',
+          icon:'none'
+        })
+        setTimeout(function(){
+          clearInterval(interval2)
+          that.init(that.data.options)
+        },1000)
+      } else {
+        wx.showToast({
+          title:res.data.message,
+          icon:'none'
+        })
+      }
     })
   }
 })

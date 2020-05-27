@@ -7,7 +7,8 @@ Page({
    */
   data: {
     hostUrl: app.Util.getUrlImg().hostUrl,
-    remark:''
+    remark:'',
+    DownloadAddress:'https://xuncaoji.net:8087'
   },
 
   /**
@@ -87,5 +88,22 @@ Page({
     wx.navigateTo({
       url: '/packageA/pages/storeEnter/storeEnter?check=1&inviterCode='+that.data.inviterCode+'&mobileNumber='+that.data.mobileNumber,
     })
+  },
+  copy:function(){
+    var that = this
+    wx.setClipboardData({
+      //准备复制的数据
+      data: that.data.DownloadAddress,
+      success: function (res) {
+        wx.showToast({
+          title: '复制成功',
+          icon: "none"
+        }, 2000);
+
+        that.setData({
+          downAppStatus: false
+        });
+      }
+    });
   }
 })

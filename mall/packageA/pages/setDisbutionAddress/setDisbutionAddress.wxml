@@ -2,8 +2,8 @@
 <form report-submit='true' bindsubmit='save'>
 <view class="content">
     <view class="list bortop">
-        <view class="title">姓名</view>
-        <input class="text" value="" placeholder="请输入您的姓名" placeholder-style="color:#999999" name="receiverName" maxlength="8"/>
+        <view class="title">联系人</view>
+        <input class="text" value="" placeholder="请输入您的姓名" placeholder-style="color:#999999" name="receiverName" maxlength="10"/>
     </view>
     <view class="list">
         <view class="title">电话</view>
@@ -11,12 +11,12 @@
     </view>
     <view class="list" bindtap='hrefMap'>
         <view class="title">选址</view>
-        <input class="text right54" disabled="true" placeholder="选择配送收货地址" placeholder-style="color:#999999" value="{{centerData.addr}}"/>
+        <input class="text right54" disabled="true" placeholder="选择配送收货地址" placeholder-style="color:#999999" value="{{centerData.title}}"/>
         <image src="{{hostUrl}}/changeImg/tonewpage.png" class="tonewpage"/>
     </view>
         <view class="list">
         <view class="title">门牌号</view>
-        <input class="text" value="" placeholder="请输入门牌号" placeholder-style="color:#999999" name="houseNumber" maxlength="40"/>
+        <input class="text" value="" placeholder="请输入详细地址" placeholder-style="color:#999999" name="houseNumber" maxlength="30"/>
     </view>
 </view>
 <view class="button_box">

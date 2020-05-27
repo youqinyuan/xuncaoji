@@ -22,7 +22,7 @@ page {
   margin-right: 0;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
-  background: rgb(255, 255, 255);
+  background: #fff;
   -webkit-transform: translateX(90px);
   transform: translateX(90px);
   margin-left: -90px;
@@ -34,10 +34,10 @@ page {
   height: 64rpx;
   line-height: 64rpx;
   text-align: center;
-  color: rgb(255, 255, 255);
+  color: #fff;
   margin-left: 30rpx;
   margin-top: 55rpx;
-  background: rgba(170, 170, 170, 1);
+  background: #aaa;
   border-radius: 50%;
 }
 
@@ -50,25 +50,21 @@ page {
   display: flex;
   margin-top: 36rpx;
   font-size: 30rpx;
-  color: rgba(51, 51, 51, 1);
+  color: #333;
 }
 
 .content-name view:nth-child(1) {
-  width: 125rpx;
+  max-width: 120rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .content-name view {
-  padding-left: 19rpx;
+  margin-left: 19rpx;
 }
 
 .default {
-  position: fixed;
-  z-index: 10;
-  right: 170rpx;
-  top: 33rpx;
   height: 34rpx;
   text-align: center;
   width: 76rpx;

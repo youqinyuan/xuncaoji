@@ -4,7 +4,7 @@
     <block wx:for='{{orderTabItem}}' wx:for-index="idx" wx:key="idx">
       <view class="nav-box">
         <view class="nav-item {{item.select==true ?'active':''}}" data-current="{{idx}}" data-index="{{index}}" data-status="{{item.status}}" bindtap="tab">{{item.title}}</view>
-        <view class="nav-item {{item.select==true ?'active1':''}}"></view>
+        <view class="nav-item {{item.select==true ?'active2':''}}"></view>
       </view>
     </block>
   </scroll-view>

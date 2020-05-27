@@ -36,11 +36,13 @@ Page({
       }else{
         that.data.url = '/' + url + '?id=' + wx.getStorageSync('goods_id')
       }     
-    } else if (url == 'pages/zeroPurchase/zeroPurchase') {
+    } else if (url == 'packageA/pages/zeroPurchase/zeroPurchase') {
       that.data.url = '/' + url + '?id=' + wx.getStorageSync('zeroGoods_id') + '&&type=' + wx.getStorageSync('type') + '&&orgPrice=' + wx.getStorageSync('orgPrice')
     } else if (url == 'packageA/pages/cooperate/cooperate') {
       that.data.url = '/' + url
     } else if (url == 'packageA/pages/zeroBuy/zeroBuy') {
+      that.data.url = '/' + url
+    } else if (url == 'packageA/pages/seedMask/seedMask') {
       that.data.url = '/' + url
     } else if (url == 'packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity') {
       that.data.url = '/' + url

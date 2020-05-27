@@ -9,7 +9,7 @@
   }
 </wxs>
 <view class="haveStore" wx:if="{{store}}">
-  <view class="store" wx:if="{{fixed==1&&store.channel==2}}">
+  <view class="store" wx:if="{{fixed==1&&store.channel==2}}" catchtap="businessInfo" data-id="{{store.id}}">
     <image class="storeImg" src="{{store.logoUrl}}" wx:if="{{store.logoUrl}}"></image>
     <image class="storeImg" src="{{hostUrl}}/icon/zhanw_tb_n.png" wx:else></image>
     <view class="storeMiddle">
@@ -19,7 +19,7 @@
           <view class="storeText">店铺评分</view>
           <view class="storeGrade">{{store.score}}</view>
         </view>
-        <view class="gradeText" wx:if="{{store.deliveryType==1}}">配送费：{{store.deliveryFee}}元</view>
+        <view class="gradeText" wx:if="{{store.deliveryType==1&&store.useDelivery==1}}">配送费：{{store.deliveryFee}}元</view>
       </view>
     </view>
     <view class="{{store.isFollow==2?'storeRight':'storeRight1'}}" catchtap="follow">
@@ -30,10 +30,12 @@
   <view class="section-wrapper" style="{{fixed==1?'position:static;':'position:fixed;top:0'}}">
     <view class="section" wx:if="{{fixed==1}}" catchtap="toSearch" data-id="{{store.id}}">
       <image src="{{hostUrl}}/changeImg/search.png" class="section-img"></image>
+      <view class="section-text">搜索店内商品</view>
     </view>
     <view class="wrapText" wx:if="{{fixed==2}}" catchtap="toSearch" data-id="{{store.id}}">
       <view class="section1">
         <image src="{{hostUrl}}/changeImg/search.png" class="section-img"></image>
+        <view class="section-text">搜索店内商品</view>
       </view>
       <view class="textHtx" catchtap="follow">
         <image class="storeXing" src="{{hostUrl}}/changeImg/wujiao.png"></image>
@@ -52,7 +54,7 @@
       </scroll-view>
     </view>
   </view>
- 
+
   <view class="quality-list-wrapper" wx:if="{{store.channel==2}}" style="{{fixed==2?' margin-top: 170rpx;':' margin-top: 0rpx;'}}">
     <view class="quality-list" wx:for="{{list}}" wx:key="{{item.id}}" data-id="{{item.id}}" catchtap="showOrder">
       <view class="quality-list-img">
@@ -85,8 +87,8 @@
   </view>
   <view class="block" style="{{list.length<=4?'height:300rpx;':'height: 120rpx;'}}"></view>
   <view class="addCart-wrap" wx:if="{{store.status==1}}">
-    <view class="circle" wx:if="{{shoppingCart}}">{{shoppingCart.goodsCount}}</view>
-    <view class="addCart_left" catchtap="toPlaceorder">
+    <view class="circle" wx:if="{{shoppingCart}}" catchtap="toCart">{{shoppingCart.goodsCount}}</view>
+    <view class="addCart_left" catchtap="toCart">
       <image class="addCart_img" src="{{hostUrl}}/changeImg/add_cart.png"></image>
     </view>
     <view class="addCart_right">
@@ -99,9 +101,8 @@
           <text>实付 ¥{{shoppingCart.goodsPriceAmount}} 返 ¥{{shoppingCart.cashBackAmount}}</text>
         </view>
       </view>
-      <view class="btnWrap" wx:if="{{shoppingCart}}">
-        <view class="delete" catchtap="delete">清空</view>
-        <view class="placeorder" catchtap="toPlaceorder">下单</view>
+      <view class="btnWrap" catchtap="toPlaceorder" wx:if="{{shoppingCart}}">
+        <view class="btn" style="background:#FF2644;" catchtap="toPlaceorder">下单</view>
       </view>
       <view class="add_text" wx:if="{{!shoppingCart}}">请选择商品</view>
       <view class="btn" style="background:#AAAAAA;" wx:if="{{!shoppingCart}}">下单</view>
@@ -109,7 +110,7 @@
   </view>
   <view class="addCart-wrap1" wx:if="{{store.status==2}}">本店已打烊</view>
 </view>
-<view class="notStore" wx:if="{{!store}}">
+<view class="notStore" wx:if="{{store==null}}">
   <image src="{{hostUrl}}/changeImg/picStore.png"></image>
   <view class="notStoreText">该店不存在了</view>
   <view class="btnGoIndex" catchtap="goIndex">返回首页</view>
@@ -174,6 +175,65 @@
       <view class="order_box">
         <view class="order_box1" catchtap="noNeed">取消</view>
         <view class="order_box2" catchtap="need">确定</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<view class="commodity_screen" bindtap="showCart" wx:if="{{showCart}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showCart}}">
+  <view class="storeDelete">
+    <view class="storeDelete-title">已选商品</view>
+    <view class="storeDelete-wrap" catchtap="delete">
+      <image src="{{hostUrl}}/add/wish_del.png"></image>
+      <view class="storeDelete-text">清空</view>
+    </view>
+  </view>
+  <view class="store-wrapper">
+    <view class="storeGoods" wx:for="{{shoppingCart.bagDetails}}" wx:key="{{item.id}}">
+      <view class="storeLeft">
+        <image wx:if="{{item.imageUrl}}" src="{{item.imageUrl}}"></image>
+        <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+      </view>
+      <view class="storeR">
+        <view class="storeName">{{item.goodsName}}</view>
+        <view class="storeSpec">{{item.spcDesc}}</view>
+        <view class="storeBottom">
+          <view class="storePrice">
+            <view class="storeT">返后</view>
+            <view class="storeSign">￥</view>
+            <view class="storeP">{{item.afterCashBack}}</view>
+            <view class="storeT">实付</view>
+            <view class="storeSign">￥</view>
+            <view class="storeP">{{item.goodsPrice}}</view>
+          </view>
+          <view class="storeNum">
+            <image class="storeReduce" catchtap="storeReduce" data-id="{{item.id}}" data-quantity="{{item.quantity}}" src="{{hostUrl}}/newIndex/reduce.png"></image>
+            <view class="storeNumber">{{item.quantity}}</view>
+            <image class="storeAdd" catchtap="storeAdd" data-id="{{item.id}}" data-quantity="{{item.quantity}}" src="{{hostUrl}}/newIndex/add.png"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+ <view class="addCart-wrap" wx:if="{{store.status==1}}">
+    <view class="circle" wx:if="{{shoppingCart}}">{{shoppingCart.goodsCount}}</view>
+    <view class="addCart_left" catchtap="showCart">
+      <image class="addCart_img" src="{{hostUrl}}/changeImg/add_cart.png"></image>
+    </view>
+    <view class="addCart_right">
+      <view class="add_price" wx:if="{{shoppingCart}}">
+        <view class="allSign">
+          <text>￥</text>
+          <text>{{shoppingCart.afterCashBackAmount}}</text>
+        </view>
+        <view class="allPrice">
+          <text>实付 ¥{{shoppingCart.goodsPriceAmount}} 返 ¥{{shoppingCart.cashBackAmount}}</text>
+        </view>
+      </view>
+      <view class="btnWrap" catchtap="toPlaceorder" wx:if="{{shoppingCart}}">
+        <view class="btn" style="background:#FF2644;" catchtap="toPlaceorder">下单</view>
       </view>
     </view>
   </view>

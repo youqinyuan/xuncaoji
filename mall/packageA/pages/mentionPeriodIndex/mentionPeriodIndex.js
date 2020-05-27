@@ -18,6 +18,7 @@ Page({
     shareImg:'',
     shareList:{},
     showModalStatus1:false,
+    mentionPeriodContent:[]
   },
 
   /**
@@ -53,38 +54,26 @@ Page({
     var mentionPeriodPageNum = that.data.mentionPeriodPageNum + 1
     console.log(mentionPeriodPageNum)
     app.Util.ajax('mall/forum/topic/findPageList', {
-      pageNumber:mentionPeriodPageNum,
-      pageSize:that.data.pageSize,
-      type:7,
-      isShield:that.data.isShield,
-      sort:that.data.sort
+      pageNumber: mentionPeriodPageNum,
+      pageSize: that.data.pageSize,
+      type: 7,
+      isShield: that.data.isShield,
+      sort: that.data.sort
     }, 'GET').then((res) => {
       if (res.data.content) {
-        if (res.data.content.items == '' && that.data.mentionPeriodContent !== '') {
+        if (res.data.content.items == '' && that.data.content !== '') {
           wx.showToast({
             title: '已经到底啦',
             icon: 'none'
           })
         }
-        var arr = that.data.mentionPeriodContent
+        let arr = that.data.content
         if (res.data.content.items.length > 0) {
-          for (var i = 0; i < res.data.content.items.length; i++) {
-            var arr1 = arr.concat(res.data.content.items)
-            for (let i in arr1) {
-              if (arr1[i].content) {
-                arr1[i].content = arr1[i].content
-              } else {
-                arr1[i].content = ''
-              }
-              arr1[i].commentPageResponse.items = arr1[i].commentPageResponse.items.slice(0, 2)
-              arr1[i].isShowAll = 2
-              arr1[i].isText = ''
-              arr1[i].ellipsis = true
-              arr1[i].flag = 1
-            }
+          for (let i = 0; i < res.data.content.items.length; i++) {
+            arr.push(res.data.content.items[i])
           }
           that.setData({
-            mentionPeriodContent: arr1,
+            content: arr,
             mentionPeriodPageNum: mentionPeriodPageNum
           })
         }
@@ -289,7 +278,7 @@ Page({
     let that = this
     if (token) {
       //此缓存解决从待返提期完成后的页面跳转问题，清除是为了确保此时无缓存
-        wx.removeStorageSync("mentionPeriodFrom");
+        app.globalData.mentionPeriodFrom = 1
         let id = e.currentTarget.dataset.id
         wx.navigateTo({
           url: '/packageA/pages/mentionPeriod/mentionPeriod'
@@ -305,14 +294,14 @@ Page({
     let that = this
     if (token) {
       //此缓存解决从待返提期完成后的页面跳转问题，清除是为了确保此时无缓存
-        wx.removeStorageSync("mentionPeriodFrom");
+      app.globalData.helpMentionPeriod = 1
         let id = e.currentTarget.dataset.id
         wx.navigateTo({
           url: '/packageA/pages/helpMentionPeriod/helpMentionPeriod?id='+id
         })
     } else {
       wx.navigateTo({
-        url: "/pages/invitationCode/invitationCode?"
+        url: "/pages/invitationCode/invitationCode"
       })
     }
   },

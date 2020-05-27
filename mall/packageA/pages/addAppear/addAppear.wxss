@@ -1,0 +1,74 @@
+/* packageA/pages/addAppear/addAppear.wxss */
+
+.addAppear-img {
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  width: 690rpx;
+  height: 230rpx;
+}
+
+.addAppear-text {
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #666;
+  margin-top: 60rpx;
+  width: 665rpx;
+  margin-left: 30rpx;
+}
+
+.listItem {
+  width: 690rpx;
+  height: 109rpx;
+  box-shadow: 0rpx 0rpx 16rpx 0rpx #dadada;
+  border-radius: 10rpx;
+  margin-left: 30rpx;
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  margin-top: 40rpx;
+}
+
+.listItem-list {
+  height: 109rpx;
+  display: flex;
+  align-items: center;
+}
+
+.listItem-right {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  width: 630rpx;
+  margin: 0 auto;
+  height: 109rpx;
+}
+
+.seedNumber {
+  font-size: 32rpx;
+  color: #999;
+  margin-top: 120rpx;
+  margin-left: 155rpx;
+}
+
+.seedNumber text {
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #ff2644;
+}
+
+.addAppear {
+  position: fixed;
+  bottom: 60rpx;
+  width: 690rpx;
+  height: 80rpx;
+  background: linear-gradient(90deg, #ff6a48 0%, #ff2644 100%);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: #fff;
+  margin-left: 30rpx;
+}

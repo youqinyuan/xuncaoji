@@ -65,7 +65,7 @@
   <view class="wrap_way1">
     <view class="getSelf_wrap">
       <view class="getTitle">到店自取</view>
-      <view class="getTitleSelf" catchtap="nav">
+      <view class="getTitleSelf" catchtap="nav" style="{{orderContent.order.buyMode==2?'border-bottom:none;':''}}">
         <view class="getSelf_address" wx:if="{{store.addressDetail}}">{{store.addressDetail}}</view>
         <view class="getSelf_address" wx:else>暂未获取到商户地址</view>
         <image class="getSelf_img" src="{{hostUrl}}/changeImg/goThere.png"></image>
@@ -99,8 +99,8 @@
         </view>
         <view class="goodsReturn" wx:if="{{item.orderGoods.stageType==1}}">
           <view class="goodsReturn-way" wx:if="{{item.orderGoods.period>0}}">分期返现:{{item.orderGoods.period}}期</view>
-          <view class="goodsReturn-way" wx:else>立即返</view>
-          <view class="goodsBtn" wx:if="{{item.orderGoods.period>0}}" catchtap="getShowPeriod" data-cashBackType="{{item.orderGoods.cashBackType}}" data-stageType="{{item.orderGoods.stageType}}" data-bagId="{{item.orderGoods.bagId}}" data-index="{{index}}" data-quantity="{{item.orderGoods.quantity}}">修改</view>
+          <view class="goodsReturn-way" wx:if="{{item.orderGoods.period==0}}">立即返</view>
+          <view class="goodsBtn" wx:if="{{item.orderGoods.period!==null}}" catchtap="getShowPeriod" data-cashBackType="{{item.orderGoods.cashBackType}}" data-stageType="{{item.orderGoods.stageType}}" data-bagId="{{item.orderGoods.bagId}}" data-index="{{index}}" data-quantity="{{item.orderGoods.quantity}}" data-cashBackId="{{item.orderGoods.cashBackId}}">修改</view>
         </view>
         <view class="goodsReturn" wx:if="{{item.orderGoods.stageType==2}}">
           <view class="goodsReturn-way" wx:if="{{item.orderGoods.cashBackType==0||item.orderGoods.cashBackType==1}}">返还月数：{{item.orderGoods.period}}月</view>
@@ -119,112 +119,128 @@
     <view class="discount_d_price">-{{orderContent.order.discountAmount}}</view>
   </view>
   <view class="discount_d" wx:if="{{orderContent.order.shoppingAmount>0}}">
-    <view class="discount_d_text">钻石合伙人购物金（剩余次数：{{orderContent.order.shoppingNum<0?0:orderContent.order.shoppingNum}}）</view>
-    <view class="discount_d_price" bindtap="shoppingAmountShow">
-      <text>-{{orderContent.order.shoppingAmount}}</text>
-      <image wx:if="{{shoppingAmountShow==false}}" class="discount_d_img" src="{{hostUrl}}/sponsor/rchoose_icon.png"></image>
-      <image wx:else class="discount_d_img" src="{{hostUrl}}/changeImg/order_choose_icon.png"></image>
-    </view>
-  </view>
-  <view class="discount_d" wx:if="{{orderContent.order.deductionSeed>0}}">
-    <view class="discount_d_text">可用{{orderContent.order.deductionSeed}}颗种子抵扣</view>
-    <view class="discount_d_price" bindtap="seedShow">
-      <text>-{{orderContent.order.deductionAmount}}</text>
-      <image wx:if="{{useSeed==false}}" class="discount_d_img" src="{{hostUrl}}/sponsor/rchoose_icon.png"></image>
-      <image wx:else class="discount_d_img" src="{{hostUrl}}/changeImg/order_choose_icon.png"></image>
-    </view>
-  </view>
-  <view class="discount_d" wx:if="{{orderContent.order.totalDiscount>0}}">
-    <view class="discount_d_text">优惠总金额</view>
-    <view class="discount_d_price">-{{orderContent.order.totalDiscount}}</view>
-  </view>
-</view>
-<view class="takeout-block"></view>
-
-<!-- 按钮 -->
-<view class="takeOut_placeOrder" style="{{orderContent.order.buyMode==2?'height: 179rpx;':''}}">
-  <view class="circle">{{orderContent.order.goodsCount}}</view>
-  <view class="takeOut_get" wx:if="{{orderContent.order.buyMode==2}}">
-    <view>试试快捷设置吧</view>
-    <view class="takeOut_get_btn" catchtap="payMin">支付最少</view>
-    <view class="takeOut_get_btn" catchtap="cashFast">返还最快</view>
-  </view>
-  <view class="addCart-wrap">
-    <view class="addCart_left">
-      <image class="addCart_img" src="{{hostUrl}}/changeImg/add_cart.png"></image>
-    </view>
-    <view class="addCart_right">
-      <view class="add_price">
-        <view class="allSign">
-          <text>￥</text>
-          <text>{{orderContent.order.orderAmount}}</text>
-          <text class="all_a" wx:if="{{current==0}}">(含配送费:￥{{orderContent.order.expressFee||0}})</text>
+    <view class="discount_d_text">钻石合伙人购物金（剩余次数：{{orderContent.order.shoppingNum
+      <0?0:orderContent.order.shoppingNum}}）</view>
+        <view class="discount_d_price" bindtap="shoppingAmountShow">
+          <text>-{{orderContent.order.shoppingAmount}}</text>
+          <image wx:if="{{shoppingAmountShow==false}}" class="discount_d_img" src="{{hostUrl}}/sponsor/rchoose_icon.png"></image>
+          <image wx:else class="discount_d_img" src="{{hostUrl}}/changeImg/order_choose_icon.png"></image>
         </view>
-        <view class="allPrice">
-          <text>返 ¥{{orderContent.order.cashBackAmount}} 返后 ¥{{orderContent.order.afterCashBackAmount}}</text>
+    </view>
+    <view class="discount_d" wx:if="{{orderContent.order.deductionSeed>0}}">
+      <view class="discount_d_text">可用{{orderContent.order.deductionSeed}}颗种子抵扣</view>
+      <view class="discount_d_price" bindtap="seedShow">
+        <text>-{{orderContent.order.deductionAmount}}</text>
+        <image wx:if="{{useSeed==false}}" class="discount_d_img" src="{{hostUrl}}/sponsor/rchoose_icon.png"></image>
+        <image wx:else class="discount_d_img" src="{{hostUrl}}/changeImg/order_choose_icon.png"></image>
+      </view>
+    </view>
+    <view class="discount_d" wx:if="{{orderContent.order.totalDiscount>0}}">
+      <view class="discount_d_text">优惠总金额</view>
+      <view class="discount_d_price">-{{orderContent.order.totalDiscount}}</view>
+    </view>
+  </view>
+  <view class="takeout-block"></view>
+
+  <!-- 按钮 -->
+  <view class="takeOut_placeOrder" style="{{orderContent.order.buyMode==2?'height: 179rpx;':''}}">
+    <view class="takeOut_get" wx:if="{{orderContent.order.buyMode==2}}">
+      <view>试试快捷设置吧</view>
+      <view class="takeOut_get_btn" catchtap="payMin">支付最少</view>
+      <view class="takeOut_get_btn" catchtap="cashFast">返还最快</view>
+    </view>
+    <view class="addCart-wrap">
+      <view class="addCart_left">
+        <image class="addCart_img" src="{{hostUrl}}/changeImg/add_cart.png"></image>
+      </view>
+      <view class="circle">{{orderContent.order.goodsCount}}</view>
+      <view class="addCart_right">
+        <view class="add_price">
+          <view class="allSign">
+            <text>￥</text>
+            <text>{{orderContent.order.orderAmount}}</text>
+            <text class="all_a" wx:if="{{current==0}}">(含配送费:￥{{orderContent.order.expressFee||0}})</text>
+          </view>
+          <view class="allPrice">
+            <text>返 ¥{{orderContent.order.cashBackAmount}} 返后 ¥{{orderContent.order.afterCashBackAmount}}</text>
+          </view>
+        </view>
+        <view class="btn" style="background:{{bgColor}};" catchtap="toPlaceOrder">下单</view>
+      </view>
+    </view>
+  </view>
+
+
+  <!-- 您想要分期的月数 -->
+  <view class="period-zan-dialog__mask" wx:if="{{showPeriod}}">
+    <view class="zan-dialog__container" animation="{{animationData}}" wx:if="{{showPeriod}}">
+      <view class="title" wx:if="{{stagetype==2}}">请选择返还的{{cashBackType==2?'天':'月'}}数</view>
+      <view class="title" wx:if="{{stagetype==1}}">请选择返还的期数</view>
+      <view class="period_wrap" wx:if="{{stagetype==2}}">
+        <view class="confirm">{{cashBackType==2?'':'(每月一返)'}}</view>
+        <text class="monthFont">温馨提示：{{cashBackType==2?'天':'月'}}数越大，支付金额越小</text>
+        <scroll-view class="period-month-wrap" scroll-y="{{true}}">
+          <view class="period-month" wx:for="{{cashBackPeriods}}" wx:key="{{index}}">
+            <view class="period-detail" catchtap="getMonthText" data-periods="{{item.periods}}">{{item.periods}}{{cashBackType==2?'天':'月'}}</view>
+          </view>
+        </scroll-view>
+        <view class="custom" catchtap="custom">自定义</view>
+      </view>
+      <view class="period_a" wx:if="{{stagetype==1}}">
+        <scroll-view class="period-month-wrap1" scroll-y="{{true}}">
+         <view wx:if="{{item.periods==0}}" class="circle_period {{cur==index?'active':''}}" data-index="{{index}}" catchtap="getPeriod" data-cashbackid="{{item.cashBackId}}" wx:for="{{cashBackPeriods}}" wx:key="{{index}}">立即返 返现{{item.cashBack}}元</view>
+          <view wx:if="{{item.periods>0}}" class="circle_period {{cur==index?'active':''}}" data-index="{{index}}" catchtap="getPeriod" data-cashbackid="{{item.cashBackId}}" wx:for="{{cashBackPeriods}}" wx:key="{{index}}">{{item.periods}}期返{{item.cashBackAmount}}元 每期返{{item.cashBack}}元</view>       
+        </scroll-view>
+      </view>
+    </view>
+    <image wx:if="{{showPeriod}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelPeriod'></image>
+  </view>
+  <!-- 自定义分期弹窗 -->
+  <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{monthStatus}}">
+    <view class="zan-dialog__container" wx:if="{{monthStatus}}">
+      <view class="title">自定义分期数</view>
+      <view class="text">
+        <view style="font-size:28rpx;font-family:PingFang SC;font-weight:400;">温馨提示：天数越大，支付金额越小</view>
+        <input placeholder-class="placeholder" placeholder="{{monthInput}}" type="digit" bindinput="monthNumber" name="month" class="expectedAmountInput" value="{{monthValue}}" style="{{inputBorder}}" />
+        <view class="expectedAmountButton" bindtap="monthButton">确定</view>
+      </view>
+    </view>
+    <image wx:if="{{monthStatus}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='monthStop'></image>
+  </view>
+
+  <!-- 在线支付以及送达时间弹窗 -->
+
+  <!-- 筛选条件弹窗 -->
+  <view class="commodity_screen1" wx:if="{{showWay}}"></view>
+  <view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showWay}}">
+    <view class="content-wrapper1">
+      <image class="cancel" src="{{hostUrl}}/add/withdraw_close.png" catchtap='cancelCondition'></image>
+      <view class="title">{{tempTitle}}</view>
+      <view class="text2">
+        <block wx:for="{{arry1}}" wx:key="" wx:if="{{tempStatus==1}}">
+          <view class="tab" bindtap="tapWay" data-index="{{index}}" data-name="{{item.name}}">
+            <view class="text">{{item.name}}</view>
+          </view>
+        </block>
+        <block wx:for="{{canUseTime}}" wx:key="" wx:if="{{tempStatus==2}}">
+          <view class="tab" bindtap="tapWay" data-index="{{index}}" data-time="{{item}}">
+            <view class="text">{{item}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="yudialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}">
+    <view class="dialog__container" wx:if="{{showModal}}">
+      <view class="tishi">提示</view>
+      <view class="order">
+        <view class="order_one">您将无法累计积分以及参与平台</view>
+        <view class="order_one">的各类权益，价格会重新调整！</view>
+        <view class="order_box">
+          <view class="order_box1" catchtap="noNeed">取消</view>
+          <view class="order_box2" catchtap="need">确定</view>
         </view>
       </view>
-      <view class="btn" style="background:{{bgColor}};" catchtap="toPlaceOrder">下单</view>
     </view>
   </view>
-</view>
-
-
-<!-- 您想要分期的月数 -->
-<view class="period-zan-dialog__mask" wx:if="{{showPeriod}}">
-  <view class="zan-dialog__container" animation="{{animationData}}" wx:if="{{showPeriod}}">
-    <view class="title" wx:if="{{stagetype==2}}">请选择返还的{{cashBackType==2?'天':'月'}}数</view>
-    <view class="title" wx:if="{{stagetype==1}}">请选择返还的期数</view>
-    <view class="period_wrap" wx:if="{{stagetype==2}}">
-      <view class="confirm">{{cashBackType==2?'':'(每月一返)'}}</view>
-      <text class="monthFont">温馨提示：月数越大，支付金额越小</text>
-      <scroll-view class="period-month-wrap" scroll-y="{{true}}">
-        <view class="period-month" wx:for="{{cashBackPeriods}}" wx:key="{{index}}">
-          <view class="period-detail" catchtap="getMonthText" data-periods="{{item.periods}}">{{item.periods}}{{cashBackType==2?'天':'月'}}</view>
-        </view>
-      </scroll-view>
-      <view class="custom" catchtap="custom">自定义</view>
-    </view>
-    <view class="period_a" wx:if="{{stagetype==1}}">
-      <scroll-view class="period-month-wrap1" scroll-y="{{true}}">
-        <view class="circle_period {{cur==index?'active':''}}" data-index="{{index}}" catchtap="getPeriod" data-cashbackid="{{item.cashBackId}}" wx:for="{{cashBackPeriods}}" wx:key="{{index}}">{{item.periods}}期返{{item.cashBackAmount}}元 每期返{{item.cashBackAmount}}元</view>
-      </scroll-view>
-    </view>
-  </view>
-  <image wx:if="{{showPeriod}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelPeriod'></image>
-</view>
-<!-- 自定义分期弹窗 -->
-<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{monthStatus}}">
-  <view class="zan-dialog__container" wx:if="{{monthStatus}}">
-    <view class="title">自定义分期数</view>
-    <view class="text">
-      <view style="font-size:28rpx;font-family:PingFang SC;font-weight:400;">温馨提示：天数越大，支付金额越小</view>
-      <input placeholder-class="placeholder" placeholder="{{monthInput}}" type="digit" bindinput="monthNumber" name="month" class="expectedAmountInput" value="{{monthValue}}" style="{{inputBorder}}" />
-      <view class="expectedAmountButton" bindtap="monthButton">确定</view>
-    </view>
-  </view>
-  <image wx:if="{{monthStatus}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='monthStop'></image>
-</view>
-
-<!-- 在线支付以及送达时间弹窗 -->
-
-<!-- 筛选条件弹窗 -->
-<view class="commodity_screen1" wx:if="{{showWay}}"></view>
-<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showWay}}">
-  <view class="content-wrapper1">
-    <image class="cancel" src="{{hostUrl}}/add/withdraw_close.png" catchtap='cancelCondition'></image>
-    <view class="title">{{tempTitle}}</view>
-    <view class="text2">
-      <block wx:for="{{arry1}}" wx:key="" wx:if="{{tempStatus==1}}">
-        <view class="tab" bindtap="tapWay" data-index="{{index}}" data-name="{{item.name}}">
-          <view class="text">{{item.name}}</view>
-        </view>
-      </block>
-      <block wx:for="{{canUseTime}}" wx:key="" wx:if="{{tempStatus==2}}">
-        <view class="tab" bindtap="tapWay" data-index="{{index}}" data-time="{{item}}">
-          <view class="text">{{item}}</view>
-        </view>
-      </block>
-    </view>
-  </view>
-</view>

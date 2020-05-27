@@ -59,7 +59,6 @@ Page({
       success: function (res) {
         var longitude = res.longitude
         var latitude = res.latitude
-
         wx.setStorageSync('longitude', longitude);
         wx.setStorageSync('latitude', latitude);
 
@@ -204,7 +203,7 @@ Page({
       app.Util.ajax('mall/personal/updateAddressInfo', {
         mobileNumber: e.detail.value.mobileNumber,
         receiverName:e.detail.value.receiverName,
-        detailedAddress:that.data.centerData.addr,
+        detailedAddress:that.data.centerData.title,
         houseNumber:e.detail.value.houseNumber,
         addressType:2,
         lng:that.data.centerData.longitude,

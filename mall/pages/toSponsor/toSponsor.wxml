@@ -34,14 +34,14 @@
   </view>
   <image wx:if="{{show1}}" class="cancel-get2" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
 </view>
-<view class="news_box">
+<!-- <view class="news_box">
   <image src="{{hostUrl}}/sponsor/icon2.png" class="news_img"/>
       <view class="user_box">
         <view class="user_name">邀请好友赞助1元，1元将立刻返还到好友的账户上</view>
-        <!-- <view class="black">|</view>
-        <view class="goods_name" bindtap="Show1">具体规则</view> -->
+        <view class="black">|</view>
+        <view class="goods_name" bindtap="Show1">具体规则</view>
     </view>
-</view>
+</view> -->
 <view class="sponsor_box">
     <view class="sponsor_goods">
         <view class="sponsor_goods_img_box">
@@ -55,6 +55,7 @@
              现在购买支付金额:<text class="price">￥{{content.needPaymentAmount}}</text>        
         </view>
     </view>
+    <view class="new_text">邀请好友赞助1元，1元将立即返回到好友账户</view>
     <view class="sponsor_production_box" wx:if="{{content.sponsorCount!==content.requireSponsorCount}}">
         <view class="sponsor_times_box">
             <view class="sponsor_times_left" wx:if="{{content.sponsorCount==0}}">可被赞助<text class="red">{{content.requireSponsorCount}}</text>次,共计可减少支付<text class="red">{{content.savedAmount}}元</text></view>
@@ -74,6 +75,7 @@
     </view>
     <view class="production_end" wx:if="{{content.sponsorCount==content.requireSponsorCount}}">“已完成赞助，少支付{{content.sponsorSavedAmount}}元”</view>
     <view class="get_button_box" wx:if="{{content.sponsorCount==0}}">
+        <view class="cancle_button" catchtap="showCancle" data-id="{{content.id}}">取消赞助</view>
         <view class="get_button" catchtap="share">邀请好友赞助</view>
     </view>
     <view class="get_button_box" wx:if="{{content.sponsorCount!==0&&content.sponsorCount!==content.requireSponsorCount}}">
@@ -168,6 +170,16 @@
   <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
   <view class="close_hb" wx:if="{{haibao}}">
     <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>
+<view class="interest-zan-dialog__mask" wx:if="{{sponsorCancle}}">
+  <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{sponsorCancle}}">
+    <view class="title1">提示</view>
+    <view class="text1">取消赞助后也会减少当日，发起赞助的次数哦</view>
+    <view class="button_box">
+        <view class="button_one" bindtap="closeShow">取消</view>
+        <view class="button_two" bindtap="shure">确定</view>
+    </view>
   </view>
 </view>
 

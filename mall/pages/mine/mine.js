@@ -211,6 +211,19 @@ Page({
       })
     }    
   },
+  //跳转到提现银行卡
+  toBankCard: function () {
+    let token = wx.getStorageSync('token')
+    if (token) {
+      wx.navigateTo({
+        url: '/packageA/pages/bankCard/bankCard',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/invitationCode/invitationCode',
+      })
+    }
+  },
   //跳转到购物车
   toCart: function () {
     var token = wx.getStorageSync('token')
@@ -359,28 +372,14 @@ Page({
         })
       }
     })
-    //账户余额与未到账金额
-    // app.Util.ajax('mall/personal/balanceDetails', {
-    //   pageNumber: 1,
-    //   pageSize: 1,
-    //   status: 1
-    // }, 'GET').then((res) => {
-    //   if (res.data.content){
-    //     that.setData({
-    //       noCashBackAmount: res.data.content.noCashBackAmount,
-    //       balance: res.data.content.balance,
-    //       commissionBalance: res.data.content.commissionBalance
-    //     })
-    //   }
-    // })
     //账户资产数据
     app.Util.ajax('mall/personal/assets', null, 'GET').then((res) => {
       if(res.data.content){
         that.setData({
           seedContent: res.data.content,
-          noCashBackAmount: res.data.content.noCashBackAmount,
-          balance: res.data.content.balance,
-          commissionBalance: Number(res.data.content.commissionBalance + res.data.content.pendingCommission).toFixed(2)
+          noCashBackAmount: (res.data.content.noCashBackAmount).toFixed(2),
+          balance: (res.data.content.balance).toFixed(2),
+          commissionBalance: (res.data.content.totalCommission).toFixed(2)
         })
       }      
     })
@@ -792,20 +791,8 @@ Page({
     var columnTemp = e.currentTarget.dataset.index
     if(wx.getStorageSync("token")){
       if(columnTemp==1){
-        app.Util.ajax('mall/seed/sign', {
-        }, 'POST').then((res) => {
-          // console.log(res)
-          if(res.data.content){
-            wx.showToast({
-              title:"签到成功，奖励"+res.data.content+"种子",
-              icon:"none"
-             })
-          }else{
-            wx.showToast({
-              title:res.data.message,
-              icon:"none"
-             })
-          }
+        wx.navigateTo({
+          url: '/packageA/pages/seedMask/seedMask',
         })
       }else if(columnTemp==2){
         wx.navigateTo({

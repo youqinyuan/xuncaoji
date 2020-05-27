@@ -93,6 +93,7 @@ Page({
     let nowTime = Date.now()
     let tempTime = wx.getStorageSync('mentionPeriodTime')
     if (token) {
+      app.globalData.helpMentionPeriod = 2
       if(that.data.paymentAmount){
         if(that.data.choose&&!that.data.shurePeriod){
           if(tempTime&&tempTime-nowTime>86400000){

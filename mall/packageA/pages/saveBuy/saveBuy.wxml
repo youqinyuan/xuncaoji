@@ -27,7 +27,8 @@
       <view class="modalStatus" wx:if="{{item.status==3}}"></view>
       <image src="{{hostUrl}}/changeImg/getMoney.png" class="moneyImg" wx:if="{{item.type==6}}"></image>
       <image src="{{hostUrl}}/changeImg/save.png" class="moneyImg" wx:if="{{item.type==5}}"></image>
-      <image src="/assets/images/temp/yi_buy.png" class="moneyImg1" wx:if="{{item.status==3}}"></image>
+      <image src="{{hostUrl}}/changeImg/yi_buy.png" class="moneyImg1" wx:if="{{item.status==3}}"></image>
+      <image src="/assets/images/temp/ic_yud.png" class='moneyImg2' wx:if="{{item.status==6}}"></image>
       <view class="goods">
         <image wx:if="{{item.goodsImageUrl}}" class="goodsImg" src="{{item.goodsImageUrl}}"></image>
         <image wx:else class="goodsImg" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
@@ -39,12 +40,12 @@
       </view>
       <view class="saveGetMoney-wrap">
         <view class="saveGetMoney">
-          <view class="saveGetMoney1">平台原价：</view>
+          <view class="saveGetMoney1">商品原价：</view>
           <view class="saveGetMoney2">{{item.platformOrgAmount}}</view>
           <view class="saveGetMoney3">元</view>
         </view>
         <view class="saveGetMoney">
-          <view class="saveGetMoney1">出价：</view>
+          <view class="saveGetMoney1">对方出售意向价</view>
           <view class="saveGetMoney2">{{item.expectAmount}}</view>
           <view class="saveGetMoney3">元</view>
         </view>
@@ -56,8 +57,8 @@
           <view class="saveGetMoney3">元</view>
         </view>
       </view>
-      <view class="earnMoney" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">购买赚钱</view>
-      <view class="buySaveMoney" data-item="{{item}}" catchtap="buySaveMoney" wx:if="{{item.type==5&&item.status==2&&item.canRemove==2}}">购买省钱</view>
+      <view class="earnMoney" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">赚钱</view>
+      <view class="buySaveMoney" data-item="{{item}}" catchtap="buySaveMoney" wx:if="{{item.type==5&&item.status==2&&item.canRemove==2}}">省钱购买</view>
     </view>
     <view class="content_time">
       <view class="content_time_left">
@@ -92,7 +93,7 @@
 <view class="notStore" wx:if="{{allPost.length===0}}">
   <image src="{{hostUrl}}/changeImg/picStore.png"></image>
   <view class="notStoreText">暂时没有可以直接购买的省钱商品</view>
-  <view class="notStoreText">试试自己挂省钱订单吧。</view>
+  <view class="notStoreText">试试自己挂商品买帖吧。</view>
 </view>
 <!-- 删除帖子弹框 -->
 <view class="del-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDel}}">

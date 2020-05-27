@@ -1,0 +1,36 @@
+<!--packageA/pages/bankCard/bankCard.wxml-->
+<view class="bankCard_wrap" wx:if="{{queryBankList.length>0}}">
+  <view class="bankCard" wx:for="{{queryBankList}}" wx:key="{{item.id}}">
+    <view class="bankCard-top">
+      <view class="bankCard-text">{{item.bankAddress}}</view>
+      <view class="bankCard-sign" wx:if="{{item.isDefault==1}}">默认</view>
+    </view>
+    <view class="bankCard-name">{{item.realName}}</view>
+    <view class="bankCard-bottom">
+      <view class="bankCard-card">**** **** **** <text class="bankCard-num">{{item.bankCardNumber}}</text></view>
+      <view class="bankCard-btn">
+        <view class="deleteBtn btn" catchtap="delBtn" data-id="{{item.id}}">删除</view>
+        <view class="modifyBtn btn" catchtap="editCard" data-address="{{item.bankAddress}}" data-isdefault="{{item.isDefault}}" data-name="{{item.realName}}" data-bank="{{item.bankNumber}}" data-id="{{item.id}}">修改</view>
+      </view>
+    </view>
+  </view>
+</view>
+ <view class="addBtn" bindtap="addCard">添加银行卡</view>
+<view class="notStore" wx:if="{{queryBankList.length==0}}">
+  <image src="{{hostUrl}}/changeImg/nothing.png"></image>
+  <view class="notStoreText">暂时没有添加过银行卡哦！</view>
+</view>
+
+
+<view class="yudialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}">
+  <view class="dialog__container" wx:if="{{showModal}}">
+    <view class="tishi">提示</view>
+    <view class="order">
+      <view class="order_one">是否删除银行卡？</view>
+      <view class="order_box">
+        <view class="order_box1" catchtap="noNeed">取消</view>
+        <view class="order_box2" catchtap="need">确定</view>
+      </view>
+    </view>
+  </view>
+</view>

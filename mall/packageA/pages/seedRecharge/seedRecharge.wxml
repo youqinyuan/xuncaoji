@@ -1,0 +1,21 @@
+<!--packageA/pages/seedRecharge/seedRecharge.wxml-->
+
+<view class="fill">请选择种子充值数量：</view>
+<view class="seedWrap">
+  <view class="seeds {{seedIndex==index?'active':''}}" wx:for="{{listSeed}}" wx:key="{{index}}" catchtap="selectSeed" data-index="{{index}}" data-num="{{item}}">{{item}}颗</view>
+</view>
+<view class="fill">其他数额：</view>
+<view class="listItem">
+  <view class="listItem-list">
+    <input class="listItem-left" bindblur="blurNumber" maxlength="{{8}}" placeholder-style="color:#AAAAAA" type="number" bindinput="getNumber" value="{{getNumber}}"></input>
+    <view class="listItem-right">颗</view>
+  </view>
+</view>
+<view class="seedRecharge-bottom">
+  <view class="price-text">
+    <view class="text">需支付：</view>
+    <view class="sign">￥</view>
+    <view class="price">{{paymentAmount}}</view>
+  </view>
+  <view class="seedBtn" bindtap="seedBtn">立即充值</view>
+</view>

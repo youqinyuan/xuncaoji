@@ -7,7 +7,8 @@ Page({
    */
   data: {
     pageNumber: 1,
-    pageSize: 20
+    pageSize: 20,
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**

@@ -1,0 +1,20 @@
+<!--packageA/pages/addCard/addCard.wxml-->
+<view class="wraper">
+  <view class="listItems">
+    <text class="listLeft">银行卡卡号: </text>
+    <input class="listRight" maxlength="18" placeholder="请输入银行卡卡号" type="number" value="{{card}}" bindinput='bindCard' />
+  </view>
+  <view class="listItems">
+    <text class="listLeft">开户行: </text>
+    <input class="listRight" maxlength="20" placeholder="例如建设银行，某某支行" type="string" value="{{address}}" bindinput='bindAddress' />
+  </view>
+  <view class="listItems">
+    <text class="listLeft">真实姓名: </text>
+    <input class="listRight" maxlength="10" placeholder="请输入持卡人的真实姓名" type="string" value="{{name}}" bindinput='bindName' />
+  </view>
+  <view class="listItems-item">
+    <text class="listLeft">设为默认使用</text>
+    <switch color="#04BE02" checked="{{switchChecked}}" bindchange="switchChange" />
+  </view>
+  <button class="btn" bindtap='submit'>保存</button>
+</view>

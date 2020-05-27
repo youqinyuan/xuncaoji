@@ -89,7 +89,9 @@ Page({
     showRole: false, //赚钱购省钱购
     showOrder: false, //省钱赚钱规格弹框
     showText1: '选择您想出售的规格型号',
-    showText2: '选好了，下一步'
+    showText2: '选好了，下一步',
+    yindao1:false,
+    yindao2:false
   },
   //赚钱省钱规则
   getIntoMoney: function(e) {
@@ -127,6 +129,7 @@ Page({
       options: that.data.options
     })
     that.setData({
+      showText1: '选择您想出售的规格型号',
       showOrder: true
     })
     wx.setStorageSync('goShowOrder', 1)
@@ -237,6 +240,7 @@ Page({
   //可申请0元购
   applyZero: function(e) {
     var that = this
+    //0成本引导2
     if (wx.getStorageSync('token')) {
       if (e.detail.formId !== 'the formId is a mock one') {
         app.Util.ajax('mall/userFromRecord/addRecord', {
@@ -248,11 +252,11 @@ Page({
     }
     var token = wx.getStorageSync('token')
     if (token) {
-      that.setData({
-        zero: true,
-        showModalStatus: true,
-        isCart: false
-      })
+        that.setData({
+          zero: true,
+          showModalStatus: true,
+          isCart: false
+        })
     } else {
       wx.navigateTo({
         url: "/pages/invitationCode/invitationCode?inviterCode=" + that.data.inviterCode
@@ -1339,10 +1343,16 @@ Page({
         })
       }
       //发布赚钱省钱订单
-      if (options.searchOrder) {
+      if (options.searchOrder==2) {
         that.setData({
+          showText1: '选择您想购买的规格型号',
           showOrder: true
         })
+      } else if (options.searchOrder == 1){
+        that.setData({
+          showText1: '选择您想出售的规格型号',
+          showOrder: true
+        })        
       }
       if (options.source) {
         that.setData({
@@ -1383,6 +1393,12 @@ Page({
       that.newPeopleGoodsData()
     } else {
       that.getGoodsData()
+      //0成本购引导
+      if(app.globalData.freeBuyYinDao==1){
+        that.setData({
+          yindao1:true
+        })
+      }
     }
     //查询分享数据
     that.chooseShare();
@@ -1583,7 +1599,6 @@ Page({
         that.setData({
           saveForum: res.data.content.items
         })
-        // console.log(that.data.saveForum)
       }
     })
   },
@@ -2053,7 +2068,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function(options) {
-    var that = this;
+    let that = this;
     that.setData({
       pageNumber: 1,
       num: 1,
@@ -2086,6 +2101,7 @@ Page({
    */
   onUnload: function() {
     var that = this
+    app.globalData.freeBuyYinDao = 1
     wx.removeStorageSync('stages')
     wx.removeStorageSync('goods_id')
     setTimeout(function() {
@@ -2470,5 +2486,30 @@ Page({
         })
       }
     }
+  },
+  closeyindao1:function(){
+    this.setData({
+      yindao1:false
+    })
+  },
+  closeyindao2:function(){
+    let that = this
+    that.setData({
+      yindao2:false
+    })
+    setTimeout(function(){
+      that.setData({
+        zero: true,
+        showModalStatus: true,
+        isCart: false
+      })
+    },200)
+  },
+  closeyindao:function(){
+    let that = this
+    that.setData({
+      yindao1:false
+    })
+    app.globalData.freeBuyYinDao = 2
   }
 })

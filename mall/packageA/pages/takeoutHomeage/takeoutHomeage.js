@@ -13,7 +13,7 @@ Page({
     currentTab: 0,
     hostUrl: app.Util.getUrlImg().hostUrl,
     navData: [], //店铺分类
-    store: null, //店铺详情
+    store: {}, //店铺详情
     list: [],
     pageNumber: 1, //分页记录数
     pageSize: 20, //分页大小
@@ -38,6 +38,7 @@ Page({
     spec: null, //规格
     goodsId: null, //商品id
     showModal: false, //清空购物车弹窗
+    showCart: false, //购物车
   },
 
   /**
@@ -92,6 +93,7 @@ Page({
     if (wx.getStorageSync('token')) {
       that.queryCart()
     }
+
   },
 
   /**
@@ -105,7 +107,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    let that = this;
+    that.need();
   },
 
   /**
@@ -128,6 +131,11 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  businessInfo(e){
+    wx.navigateTo({
+      url: '/packageA/pages/businessInfo/businessInfo?storeId=' + e.currentTarget.dataset.id,
+    })
   },
   getHeight1() {
     let that = this;
@@ -181,7 +189,11 @@ Page({
     app.Util.ajax('mall/home/storeDetail', {
       id: that.data.storeId
     }, 'GET').then((res) => {
-      if (res.data.content) {
+      if (!res.data.content) {
+        that.setData({
+          store: null
+        })
+      } else {
         if (res.data.content.isFollow == 2) {
           that.setData({
             showText: '关注'
@@ -195,10 +207,6 @@ Page({
           store: res.data.content
         })
         that.getHeight1();
-      } else {
-        that.setData({
-          store: null
-        })
       }
     })
   },
@@ -261,10 +269,11 @@ Page({
       if (res.data.messageCode == 'MSG_1001') {
         if (res.data.content.goodsCount == 0) {
           that.setData({
-            shoppingCart: null
+            shoppingCart: null,
+            showCart:false
           })
         } else {
-          res.data.content.goodsCount = res.data.content.goodsCount > 99 ? '99+' : res.data.content.goodsCount
+          res.data.content.goodsCount = res.data.content.goodsCount > 99 ? '99' : res.data.content.goodsCount
           that.setData({
             shoppingCart: res.data.content
           })
@@ -719,5 +728,63 @@ Page({
     wx.switchTab({
       url: '/pages/index/index',
     })
-  }
+  },
+  toCart() {
+    let that = this
+    if (that.data.shoppingCart) {
+      that.setData({
+        showCart: true
+      })
+    }
+  },
+  showCart() {
+    let that = this
+    that.setData({
+      showCart: false
+    })
+  },
+  storeReduce(e) {
+    let that = this
+    let quantity = Number(e.currentTarget.dataset.quantity)
+    if (quantity > 1) {
+      console.log(quantity)
+      app.Util.ajax('mall/bag/updateShoppingCart', {
+        id: e.currentTarget.dataset.id,
+        quantity: quantity - 1
+      }, 'POST').then((res) => {
+        if (res.data.content) {
+          that.queryCart()
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+    } else {
+      console.log(e)
+      app.Util.ajax('mall/bag/deleteById?id=' + e.currentTarget.dataset.id, null, 'DELETE').then((res) => {
+        if (res.data.messageCode = 'MSG_1001') {
+          that.queryCart()
+        }
+      })
+    }
+
+  },
+  storeAdd(e) {
+    let that = this
+    app.Util.ajax('mall/bag/updateShoppingCart', {
+      id: e.currentTarget.dataset.id,
+      quantity: Number(e.currentTarget.dataset.quantity) + 1
+    }, 'POST').then((res) => {
+      if (res.data.content) {
+        that.queryCart()
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+      }
+    })
+  },
 })

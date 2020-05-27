@@ -37,6 +37,7 @@ Page({
     selectAttrid: [], //选择的属性id
     spec: null, //规格
     goodsId: null, //商品id
+    showCart: false
   },
 
   /**
@@ -95,7 +96,8 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    let that = this
+    that.getMore();
   },
 
   /**
@@ -134,10 +136,11 @@ Page({
       if (res.data.messageCode = 'MSG_1001') {
         if (res.data.content.goodsCount == 0) {
           that.setData({
-            shoppingCart: null
+            shoppingCart: null,
+            showCart: false
           })
         } else {
-          res.data.content.goodsCount = res.data.content.goodsCount > 99 ? '99+' : res.data.content.goodsCount
+          res.data.content.goodsCount = res.data.content.goodsCount > 99 ? '99' : res.data.content.goodsCount
           that.setData({
             shoppingCart: res.data.content
           })
@@ -488,10 +491,10 @@ Page({
       that.setData({
         history:title.slice(0, 10),
         inputValue: value,
-        textToast: ''
+        textToast: '',
+        pageNumber: 1
       })
       wx.setStorageSync("search2", that.data.history)
-      that.data.pageNumber == 1
       let data = {
         keyword: value,
         scope: 1,
@@ -540,10 +543,10 @@ Page({
       that.setData({
         history: title.slice(0, 10),
         inputValue: value,
-        textToast: ''
+        textToast: '',
+        pageNumber: 1
       })
       wx.setStorageSync("search2", that.data.history)
-      that.data.pageNumber == 1
       let data = {
         keyword: value,
         scope: 1,
@@ -619,7 +622,7 @@ Page({
     let data = {
       keyword: that.data.inputValue,
       scope: 1,
-      pageNumber: that.data.pageNumber,
+      pageNumber: pageNumber,
       pageSize: that.data.pageSize,
       storeId: that.data.storeId
     }
@@ -686,6 +689,64 @@ Page({
       title: '历史记录已删除',
       icon: 'none',
       duration: 2000
+    })
+  },
+  toCart() {
+    let that = this
+    if (that.data.shoppingCart) {
+      that.setData({
+        showCart: true
+      })
+    }
+  },
+  showCart() {
+    let that = this
+    that.setData({
+      showCart: false
+    })
+  },
+  storeReduce(e) {
+    let that = this
+    let quantity = Number(e.currentTarget.dataset.quantity)
+    if (quantity > 1) {
+      console.log(quantity)
+      app.Util.ajax('mall/bag/updateShoppingCart', {
+        id: e.currentTarget.dataset.id,
+        quantity: quantity - 1
+      }, 'POST').then((res) => {
+        if (res.data.content) {
+          that.queryCart()
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+    } else {
+      console.log(e)
+      app.Util.ajax('mall/bag/deleteById?id=' + e.currentTarget.dataset.id, null, 'DELETE').then((res) => {
+        if (res.data.messageCode = 'MSG_1001') {
+          that.queryCart()
+        }
+      })
+    }
+
+  },
+  storeAdd(e) {
+    let that = this
+    app.Util.ajax('mall/bag/updateShoppingCart', {
+      id: e.currentTarget.dataset.id,
+      quantity: Number(e.currentTarget.dataset.quantity) + 1
+    }, 'POST').then((res) => {
+      if (res.data.content) {
+        that.queryCart()
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+      }
     })
   },
 })

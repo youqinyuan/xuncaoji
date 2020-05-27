@@ -15,6 +15,7 @@ Page({
     toBottom: false,
     temp: [],
     hostUrl: app.Util.getUrlImg().hostUrl,
+    sponsorCancle:false
   },
 
   /**
@@ -216,6 +217,41 @@ Page({
     var goodsId = e.currentTarget.dataset.goodsid
     wx.navigateTo({
       url: '/pages/detail/detail?sponsorId=' + sponsorId + '&&id=' + goodsId,
+    })
+  },
+  showCancle:function(e){
+    this.setData({
+      sponsorCancle:true,
+      sponsorId:e.currentTarget.dataset.id
+    })
+  },
+  closeShow:function(){
+    this.setData({
+      sponsorCancle:false
+    })
+  },
+  shure:function(){
+    let that = this
+    let sponsorId = that.data.sponsorId
+    app.Util.ajax('mall/marketingAuspicesGoods/cancelApply', {id:sponsorId}, 'POST').then((res) => {
+      if (res.data.messageCode == 'MSG_1001') {
+        that.setData({
+          sponsorCancle:false
+        })
+        wx.showToast({
+          title:'取消成功',
+          icon:'none'
+        })
+        setTimeout(function(){
+          clearInterval(interval2)
+          that.mySponsorinit()
+        },1000)
+      } else {
+        wx.showToast({
+          title:res.data.message,
+          icon:'none'
+        })
+      }
     })
   }
 })

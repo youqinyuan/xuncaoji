@@ -1,0 +1,29 @@
+<!--packageA/pages/addressLocation/addressLocation.wxml-->
+<view class="location-top">
+  <view class="current">
+    <image class="current-img" src="{{hostUrl}}/newIndex/current_location.png"></image>
+    <view class="current-text">当前位置</view>
+  </view>
+  <view class="location">
+    <view class="location-address">{{nearList.title}}</view>
+    <view class="towLocation" bindtap="reLocation">
+      <image class="towLocation-img" src="{{hostUrl}}/newIndex/tow_location.png"></image>
+      <view class="towLocation-text">重新定位</view>
+    </view>
+  </view>
+</view>
+<view class="block" wx:if="{{initAddress.length>0}}"></view>
+<view class="location-bottom" wx:if="{{initAddress.length>0}}">
+  <view class="current">
+    <image class="current-img" src="{{hostUrl}}/newIndex/address.png"></image>
+    <view class="current-text">收货地址</view>
+  </view>
+  <view class="address-wrap" wx:for="{{initAddress}}" wx:key="{{item.id}}" catchtap="jumpLocation" data-lat="{{item.lat}}" data-lng="{{item.lng}}" data-detail="{{item.detailedAddress}}">
+    <view class="address">{{item.detailedAddress}}</view>
+    <view class="address-door">{{item.houseNumber}}</view>
+    <view class="realName">
+      <text class="realName-name">{{item.receiverName}}</text>
+      <text>{{item.mobileNumber}}</text>
+    </view>
+  </view>
+</view>

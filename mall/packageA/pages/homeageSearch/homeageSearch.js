@@ -96,7 +96,8 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    let that = this
+    that.getMore()
   },
 
   /**
@@ -131,10 +132,10 @@ Page({
       that.setData({
         history: title.slice(0, 10),
         inputValue: value,
-        textToast: ''
+        textToast: '',
+        pageNumber:1
       })
       wx.setStorageSync("search1", that.data.history)
-      that.data.pageNumber == 1
       let data = {
         keyword: value,
         scope: 1,
@@ -183,10 +184,10 @@ Page({
       that.setData({
         history: title.slice(0, 10),
         inputValue: value,
-        textToast: ''
+        textToast: '',
+        pageNumber: 1
       })
       wx.setStorageSync("search1", that.data.history)
-      that.data.pageNumber == 1
       let data = {
         keyword: value,
         scope: 1,
@@ -263,7 +264,7 @@ Page({
     let data = {
       keyword: that.data.inputValue,
       scope: 1,
-      pageNumber: that.data.pageNumber,
+      pageNumber: pageNumber,
       pageSize: that.data.pageSize,
       storeId: that.data.storeId
     }

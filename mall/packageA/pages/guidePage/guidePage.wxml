@@ -1,0 +1,24 @@
+<!--packageA/pages/guidePage/guidePage.wxml-->
+<view class="wrap" wx:if="{{html}}">
+  <rich-text nodes="{{html}}" />
+</view>
+<view class="goodsTitle">尝试全网最低价</view>
+<view class="goods">
+  <view class="goods_box" wx:for="{{seedGoodsContent}}" wx:key="id" bindtap="toGoodsDetail" data-goodsid="{{item.id}}">
+    <view>
+      <image src="{{item.imageUrls[0]}}" class="goods_img" />
+    </view>
+    <view class="goodsName_box">
+      <text class="ziying" wx:if="{{item.tags==1}}">自营</text>
+      <text class="freeBuy">支持0成本购</text>
+      <text class="goodsName">{{item.name}}</text>
+    </view>
+    <view class="price_box">
+      <text class="price_one">￥<text class="price_three">{{item.dctPrice}}</text></text>
+      <text class="price_two">￥{{item.orgPrice}}</text>
+    </view>
+    <view class="youhui_box">
+      <text class="youhui_detail">实付<text class="">￥{{item.dctPrice}}</text>返现<text>￥{{item.marketingCashBack.totalAmount}}</text></text>
+    </view>
+  </view>
+</view>

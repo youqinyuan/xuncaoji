@@ -162,7 +162,7 @@ page {
 .address-name .address-name-xm {
   margin-right: 20rpx;
   font-size: 28rpx;
-  width: 100rpx;
+  max-width: 120rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -577,17 +577,24 @@ page {
 }
 
 .order-message .pay-amount {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   height: 60rpx;
-  line-height: 60rpx;
   font-size: 28rpx;
   color: #999;
+  margin-right: 30rpx;
 }
 
 .order-message .pay-amount text:nth-child(2) {
-  position: absolute;
-  right: 30rpx;
   color: #666;
+  max-width:500rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .order-block {
@@ -1210,9 +1217,9 @@ page {
 }
 
 .stop-content-container {
-  width: 357rpx;
+  /* width: 357rpx; */
   height: 66rpx;
-  margin-left: 100rpx;
+  /* margin-left: 100rpx; */
   margin-bottom: 35rpx;
   font-size: 30rpx;
   text-align: center;
@@ -1258,8 +1265,7 @@ page {
 
 .stopZero10 {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
   padding: 30rpx 0;
   width: 750rpx;
   height: 70rpx;
@@ -1268,7 +1274,6 @@ page {
   font-family: PingFang SC;
   font-weight: 400;
   color: rgba(255, 38, 68, 1);
-  position: relative;
   margin-top: 20rpx;
 }
 
@@ -1599,10 +1604,11 @@ page {
 .stop_img {
   width: 24rpx;
   height: 24rpx;
-  display: inline-block;
+  margin-left: 15rpx;
+  /* margin-top: 2rpx; *//* display: inline-block;
   position: absolute;
-  top: 76rpx;
-  right: 72rpx;
+  top: 47rpx;
+  right: 35rpx; */
 }
 
 .font28 {

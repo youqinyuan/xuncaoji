@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarBackgroundColor": "#FFFFFF",
   "navigationBarTitleText": "FreeBuy",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "black"
 }

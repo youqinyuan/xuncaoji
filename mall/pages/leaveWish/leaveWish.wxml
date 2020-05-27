@@ -1,8 +1,8 @@
 <!--pages/leaveWish/leaveWish.wxml-->
-<view class="explain-wrap" catchtap="showGetMark">
-  <view class="explain">FreeBuy心愿池是什么？</view>
-  <view class="poke">戳我</view>
-  <image src="{{hostUrl}}/add/poke.png" class="poke-img"></image>
+<view class="explain-wrap">
+  <view class="explain">温馨提示：在商城内没有找到想要的商品，在这里发布想要商品的信息后，24小时内为您找到全网最低价！</view>
+  <!-- <view class="poke">戳我</view>
+  <image src="{{hostUrl}}/add/poke.png" class="poke-img"></image> -->
 </view>
 <view class="text_wrap">
   <textarea class="text-top" wx:if="{{showText==true}}" placeholder="请输入您想要物品的名称或购买链接等信息" maxlength="{{2000}}" bindinput="getTextareaValue" data-index="{{index}}" value="{{goodsData.goodsComment}}">
@@ -19,7 +19,7 @@
 </textarea>
 <view class="btn">
   <button class="btn1" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" open-type="contact" bindcontact="handleContact">咨询客服</button>
-  <view class="btn2" bindtap="submit">提交心愿</view>
+  <view class="btn2" bindtap="submit">发布</view>
 </view>
 
 <!-- FreeBuy心愿池是什么？ -->

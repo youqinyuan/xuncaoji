@@ -31,6 +31,7 @@ page{
     margin-left: 30rpx;
 }
 .top_right{
+    width: 350rpx;
     display: inline-block;
     margin-left: 75rpx;
     margin-top: 30rpx;
@@ -51,9 +52,17 @@ page{
     margin-top: 15rpx;
 }
 .mentionPeriod_number{
+  display: flex;
     font-size:32rpx;
     font-weight:400;
     color:#333333;
+    display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    max-width: 350rpx;
 }
 .mentionPeriod_font{
     font-size:22rpx;
@@ -63,11 +72,9 @@ page{
 }
 .fuhao{
     font-size: 28rpx !important;
-    display: inline-block;
 }
 .mentionPeriod_period{
     color: #666666 !important;
-    display: inline-block;
 }
 .bottom{
     height: 110rpx;

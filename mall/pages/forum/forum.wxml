@@ -17,7 +17,7 @@
   <image src="{{imgPublish}}" class="content_all" catchtap="publish" wx:if="{{currentTab==1||currentTab==2||currentTab==3||currentTab==4||currentTab==5}}"></image>
 </view>
 <view class="content_top">
-  <scroll-view scroll-x class="nav {{currentTab == 2||currentTab == 4?'navcolor1':'navcolor2'}}" scroll-left="{{navScrollLeft}}">
+  <scroll-view scroll-x class="nav {{currentTab == 2||currentTab == 3?'navcolor1':'navcolor2'}}" scroll-left="{{navScrollLeft}}">
     <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
       <view class="nav-box">
         <view class="nav-item {{currentTab == idx ?'active':''}}" data-index="{{idx}}" data-type="{{item.type}}" catchtap="switchNav">{{item.text}}</view>
@@ -27,21 +27,21 @@
   </scroll-view>
 </view>
 <view class="block"></view>
-<view class="getSaveMoney" wx:if="{{currentTab==2}}">
-  <view class="getMoney {{showClass==1?'selectClass':''}}" bindtap="getMoney">卖商品赚钱</view>
-  <view class="getMoney {{showClass==2?'selectClass':''}}" bindtap="saveMoney">买商品省钱</view>
+<view class="getSaveMoney" wx:if="{{currentTab==3}}">
+  <view class="getMoney {{showClass==1?'selectClass':''}}" bindtap="getMoney">商品买帖</view>
+  <view class="getMoney {{showClass==2?'selectClass':''}}" bindtap="saveMoney">商品卖帖</view>
 </view>
-<view class="orderGet" wx:if="{{currentTab==4}}">
+<view class="orderGet" wx:if="{{currentTab==2}}">
+  <view class="yuOrder {{selectClass==2?'addClass':''}}" bindtap="buyOrder">订单卖帖</view>
   <view class="yuOrder {{selectClass==4?'addClass':''}}" bindtap="yuOrder">预售订单</view>
-  <view class="yuOrder {{selectClass==3?'addClass':''}}" bindtap="saleOrder">我要卖订单</view>
-  <view class="yuOrder {{selectClass==2?'addClass':''}}" bindtap="buyOrder">我要买订单</view>
+  <view class="yuOrder {{selectClass==3?'addClass':''}}" bindtap="saleOrder">订单买帖</view>
 </view>
 <!-- 新消息 -->
-<view class="container-wrap" style="{{currentTab==2||currentTab==4?'margin-top:112rpx;':''}}">
+<view class="container-wrap" style="{{currentTab==2||currentTab==3?'margin-top:112rpx;':''}}">
   <view class="new_meg" catchtap="jumpMessage" wx:if="{{messageNum>0}}">
     <view class="new_btn">{{messageNum}}条新消息</view>
   </view>
-  <view class="container" wx:for="{{allPost}}" wx:key="{{item.id}}" wx:for-index="index1" catchtap="jumpForumDetail" data-id="{{item.id}}" wx:if="{{allPost.length>0&&currentTab!==3}}">
+  <view class="container" wx:for="{{allPost}}" wx:key="{{item.id}}" wx:for-index="index1" catchtap="jumpForumDetail" data-id="{{item.id}}" wx:if="{{allPost.length>0&&currentTab!==4}}">
     <view class="content_box">
       <view class="content_box_photo">
         <view class="content_box_left">
@@ -54,7 +54,7 @@
           <image src="{{hostUrl}}/add/btn_notattention.png" wx:if="{{item.canRemove==2&&item.isAttention==2}}" data-index="{{index1}}" data-id="{{item.id}}" class="follow" catchtap="notFollow"></image>
         </view>
       </view>
-      <view class="content-text">
+      <view class="content-text" wx:if="{{item.type!==5&&item.type!==6}}">
         <view class="content-item" style="-webkit-line-clamp:{{item.ellipsis==false?'4':'0'}}">{{item.content}}</view>
         <view class="all_text" catchtap='ellipsis' wx:if="{{item.isShowAll==2}}" data-index="{{index1}}">{{item.isText}}</view>
       </view>
@@ -66,9 +66,9 @@
       <view class="content_imgBuy" wx:if="{{item.type==2}}">
         <view class="modalStatus1" wx:if="{{item.status==3||item.status==4||item.status==5}}"></view>
         <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-        <image src="/assets/images/temp/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
-        <image src="/assets/images/temp/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
-        <image src="/assets/images/temp/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
+        <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+        <image src="{{hostUrl}}/changeImg/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
+        <image src="{{hostUrl}}/changeImg/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
         <view class="buy_price">
           <view class="expect_buy" wx:if="{{item.expectAmount}}">
             <view class="expect_buy1">售价：</view>
@@ -86,6 +86,9 @@
               <view class="box1">每期返还</view>
               <view class="box2">{{item.perReturnAmount}}</view>
               <view class="box3">元</view>
+              <view class="box1" wx:if="{{item.lastReturnAmount}}">，最后一期返还</view>
+              <view class="box2" wx:if="{{item.lastReturnAmount}}">{{item.lastReturnAmount}}</view>
+              <view class="box3" wx:if="{{item.lastReturnAmount}}">元</view>
             </view>
           </view>
           <view class="expect_leave" wx:if="{{item.returnType==3}}">
@@ -104,13 +107,14 @@
         </view>
         <view class="purchase" catchtap="sure" wx:if="{{item.status==2&&item.canRemove==2}}" data-avatarkey="{{item.avatarKey}}" data-nickname="{{item.nickname}}" data-cashBackAmount="{{item.cashBackAmount}}" data-periodLeft="{{item.periodLeft}}" data-expectAmount="{{item.expectAmount}}"
           data-mobileNumber="{{item.mobileNumber}}" data-returnType="{{item.returnType}}" data-id="{{item.id}}" data-type="{{item.type}}">立即购买</view>
+        <view class="purchase" catchtap="addAppear" data-id="{{item.id}}" wx:if="{{item.status==2&&item.canRemove==1}}">增加曝光</view>
       </view>
       <!-- 预售订单 -->
       <view class="content_imgBuy" wx:if="{{item.type==4}}">
         <view class="modalStatus1" wx:if="{{item.status==3||item.status==6}}"></view>
         <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-        <image src="/assets/images/temp/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
-        <image src="/assets/images/temp/ic_yud.png" class='imgs' wx:if="{{item.status==6}}"></image>
+        <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+        <image src="{{hostUrl}}/changeImg/ic_yud.png" class='imgs' wx:if="{{item.status==6}}"></image>
         <view class="buy_price">
           <view class="expect_buy">
             <view class="expect_buy1">卖方已缴违约金：</view>
@@ -135,6 +139,9 @@
               <view class="box1">每期返还</view>
               <view class="box2">{{item.perReturnAmount}}</view>
               <view class="box3">元</view>
+              <view class="box1" wx:if="{{item.lastReturnAmount}}">，最后一期返还</view>
+              <view class="box2" wx:if="{{item.lastReturnAmount}}">{{item.lastReturnAmount}}</view>
+              <view class="box3" wx:if="{{item.lastReturnAmount}}">元</view>
             </view>
           </view>
           <view class="expect_leave" wx:if="{{item.returnType==3}}">
@@ -152,6 +159,7 @@
           </view>
         </view>
         <view class="purchase" catchtap="subscribe" wx:if="{{item.status==2&&item.canRemove==2}}" data-id="{{item.id}}" data-type="{{item.type}}">立即预订</view>
+        <view class="purchase" catchtap="addAppear" data-id="{{item.id}}" wx:if="{{item.status==2&&item.canRemove==1}}">增加曝光</view>
       </view>
       <!-- 卖订单 -->
       <view class="content_sale" wx:if="{{item.type==3}}">
@@ -191,7 +199,8 @@
         <view class="modalStatus" wx:if="{{item.status==3}}"></view>
         <image src="{{hostUrl}}/changeImg/getMoney.png" class="moneyImg" wx:if="{{item.type==6}}"></image>
         <image src="{{hostUrl}}/changeImg/save.png" class="moneyImg" wx:if="{{item.type==5}}"></image>
-        <image src="/assets/images/temp/yi_buy.png" class="moneyImg1" wx:if="{{item.status==3}}"></image>
+        <image src="{{hostUrl}}/changeImg/yi_buy.png" class="moneyImg1" wx:if="{{item.status==3}}"></image>
+        <image src="/assets/images/temp/ic_yud.png" class='moneyImg2' wx:if="{{item.status==6}}"></image>
         <view class="goods">
           <image wx:if="{{item.goodsImageUrl}}" class="goodsImg" src="{{item.goodsImageUrl}}"></image>
           <image wx:else class="goodsImg" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
@@ -203,12 +212,12 @@
         </view>
         <view class="saveGetMoney-wrap">
           <view class="saveGetMoney">
-            <view class="saveGetMoney1">平台原价：</view>
+            <view class="saveGetMoney1">商品原价：</view>
             <view class="saveGetMoney2">{{item.platformOrgAmount}}</view>
             <view class="saveGetMoney3">元</view>
           </view>
           <view class="saveGetMoney">
-            <view class="saveGetMoney1">出价：</view>
+            <view class="saveGetMoney1">对方{{showClass==1?'购买':'出售'}}意向价：</view>
             <view class="saveGetMoney2">{{item.expectAmount}}</view>
             <view class="saveGetMoney3">元</view>
           </view>
@@ -220,8 +229,9 @@
             <view class="saveGetMoney3">元</view>
           </view>
         </view>
-        <view class="earnMoney" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">购买赚钱</view>
-        <view class="buySaveMoney" data-item="{{item}}" catchtap="buySaveMoney" wx:if="{{item.type==5&&item.status==2&&item.canRemove==2}}">购买省钱</view>
+        <view class="earnMoney" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">赚钱</view>
+        <view class="buySaveMoney" data-item="{{item}}" catchtap="buySaveMoney" wx:if="{{item.type==5&&item.status==2&&item.canRemove==2}}">省钱购买</view>
+        <view class="purchase" catchtap="addAppear" data-id="{{item.id}}" wx:if="{{item.type==5&&item.status==2&&item.canRemove==1}}">增加曝光</view>
       </view>
       <view class="content_time">
         <view class="content_time_left">
@@ -254,15 +264,15 @@
       <view class="block1"></view>
     </view>
   </view>
-  <view class="container_period" wx:if="{{currentTab==3}}">
+  <view class="container_period" wx:if="{{currentTab==4}}">
     <view class="tab_bottom">
       <view class="bottom_left">
         <view class="bottom_left_font" bindtap="toMySet">我发起的提期</view>
         <image src="{{hostUrl}}/changeImg/set_mention_period.png" class="bottomLeftImg" />
       </view>
       <view class="bottom_right">
-        <view class="bottom_left_font" bindtap="toMyBuy">我购买的提期</view>
-        <image src="/assets/images/temp/shop_cart1.png" class="bottomLeftImg" />
+        <view class="bottom_left_font" bindtap="toMyBuy">我帮助的提期</view>
+        <image src="{{hostUrl}}/changeImg/shop_cart1.png" class="bottomLeftImg" />
       </view>
     </view>
     <view class="head_box">
@@ -270,7 +280,7 @@
       <view class="mentionPeriodRlue" bindtap="toRule">规则</view>
     </view>
     <view class="siftThings">
-      <view class="sift_wrap" wx:if="{{mentionPeriodContent.length>0}}">
+      <view class="sift_wrap" wx:if="{{siftLeft||mentionPeriodContent.length>0}}">
         <view class="sift_left {{siftLeft?'color_red':''}}" bindtap="selectSiftLeft">不看已失效/已完成/已撤销</view>
         <view class="sift_right" bindtap="selectSiftShow">
           <view class="sift_right_name">{{tabName}}</view>
@@ -284,17 +294,17 @@
       <view class="mentionPeriodContent" wx:if="{{mentionPeriodContent.length>0}}">
         <view class="mentionPeriodList">
           <view class="mentionPeriod" wx:for="{{mentionPeriodContent}}" wx:key="{{mentionPeriodContent.id}}">
-            <view class="user_name_box">
-              <image src="{{item.avatarKey}}" class="userImg" />
+            <view class="user_name_box" bindtap="toHelp" data-id="{{item.id}}">
+              <image src="{{item.avatarKey?item.avatarKey:hostUrl+'/icon/zhanw_tb_n.png'}}" class="userImg" />
               <view class="user_name">
                 <view class="name">{{item.nickname}}</view>
                 <image src="{{hostUrl}}/changeImg/huiyuan.png" class="huiyuanImg" wx:if="{{item.role==2}}" />
               </view>
-              <view class="share_box" bindtap="shares" data-id="{{item.id}}" wx:if="{{item.status==2}}">
+              <view class="share_box" catchtap="shares" data-id="{{item.id}}" wx:if="{{item.status==2}}">
                 <image src="{{hostUrl}}/changeImg/share_mention_period.png" class="shareImg" />
               </view>
             </view>
-            <view class="info">
+            <view class="info" bindtap="toHelp" data-id="{{item.id}}">
               <view class="top_left">
                 <view class="nianhua_number {{item.status==3||item.status==7||item.status==5?'color999':''}}">{{item.annualizedRate}}%</view>
                 <view class="nianhua_font {{item.status==3||item.status==7||item.status==5?'color999':''}}">预估年化收益</view>
@@ -303,7 +313,7 @@
                 <view class="mentionPeriod_number {{item.status==3||item.status==7||item.status==5?'color999':''}}">需要提{{item.periodLeft+item.estimatedPeriod-2}}期</view>
                 <view class="mentionPeriod_font">帮助金额越多，收益越高</view>
               </view>
-              <view class="button" wx:if="{{item.status==2}}" bindtap="toHelp" data-id="{{item.id}}">提期</view>
+              <view class="button" wx:if="{{item.status==2}}">提期</view>
               <view class="button bge7" wx:if="{{item.status==3}}">已完成</view>
               <view class="button bge7" wx:if="{{item.status==5}}">已失效</view>
               <view class="button bge7" wx:if="{{item.status==7}}">已撤销</view>
@@ -327,15 +337,15 @@
   </view>
 </view>
 <!-- 没有赚钱省钱订单 -->
-<view class="notStore" wx:if="{{currentTab==2&&allPost.length===0&&type==6}}">
+<view class="notStore" wx:if="{{currentTab==3&&allPost.length===0&&type==6}}">
   <image src="{{hostUrl}}/changeImg/picStore.png"></image>
   <view class="notStoreText">暂时没有可以直接购买的赚钱商品</view>
-  <view class="notStoreText">试试自己挂赚钱订单吧。</view>
+  <view class="notStoreText">试试自己挂商品买帖吧。</view>
 </view>
-<view class="notStore" wx:if="{{currentTab==2&&allPost.length===0&&type==5}}">
+<view class="notStore" wx:if="{{currentTab==3&&allPost.length===0&&type==5}}">
   <image src="{{hostUrl}}/changeImg/picStore.png"></image>
   <view class="notStoreText">暂时没有可以直接购买的省钱商品</view>
-  <view class="notStoreText">试试自己挂省钱订单吧。</view>
+  <view class="notStoreText">试试自己挂商品卖帖吧。</view>
 </view>
 <view class="recommend-title" wx:if="{{isRecommend==true}}">
   <view class="recommend-left">
@@ -346,7 +356,7 @@
   </view>
 </view>
 <!-- 列表 -->
-<view class="container" wx:if="{{isRecommend==true}}" wx:for="{{allPost1}}" wx:key="{{item.id}}" wx:for-index="index1" bindtap="jumpForumDetail" data-id="{{item.id}}">
+<view class="container1" wx:if="{{isRecommend==true}}" wx:for="{{allPost1}}" wx:key="{{item.id}}" wx:for-index="index1" bindtap="jumpForumDetail" data-id="{{item.id}}">
   <view class="content_box">
     <view class="content_box_photo">
       <view class="content_box_left">
@@ -369,9 +379,9 @@
     <view class="content_imgBuy" wx:if="{{item.type==2}}">
       <view class="modalStatus1" wx:if="{{item.status==3||item.status==4||item.status==5}}"></view>
       <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-      <image src="/assets/images/temp/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
-      <image src="/assets/images/temp/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
-      <image src="/assets/images/temp/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
       <view class="buy_price">
         <view class="expect_buy" wx:if="{{item.expectAmount}}">
           <view class="expect_buy1">售价：</view>
@@ -454,7 +464,7 @@
         </view>
       </view>
     </view>
-    <view class="content_comment" catchtap="jumpForumDetail" data-id="{{item.id}}">
+    <view class="content_comment" catchtap="jumpForumDetail" data-id="{{item.id}}" wx:if="{{item.commentPageResponse.items.length>0}}">
       <view class="content_comment_wrap">
         <view class="content_comment_text" wx:for="{{item.commentPageResponse.items}}" wx:for-item="response" wx:key="{{response.id}}">
           <text>{{response.nickname}}</text>
@@ -525,19 +535,19 @@
 <!-- 帖子类型弹框 -->
 <view class="return-zan-dialog__mask" wx:if="{{showClassify}}">
   <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{showClassify}}">
-    <view class="wrap" wx:for='{{list}}' wx:key='' bindtap="jumpPosting" data-status="{{item.status}}" wx:if="{{currentTab==4}}">
+    <view class="wrap" wx:for='{{list}}' wx:key='' bindtap="jumpPosting" data-status="{{item.status}}" wx:if="{{currentTab==2}}">
       <image src="{{item.img}}" class="wrap_img"></image>
       <view class="wrap_item" wx:if="{{item.status==1}}">{{item.text}}</view>
-      <view class="wrap_item2" wx:if="{{item.status==2}}">
+      <view class="wrap_item4" wx:if="{{item.status==2}}">
         <view>{{item.text}}</view>
         <view>{{item.remark}}</view>
       </view>
-      <view class="wrap_item3" wx:if="{{item.status==3}}">
+      <view class="wrap_item5" wx:if="{{item.status==3}}">
         <view>{{item.text}}</view>
         <view>{{item.remark}}</view>
       </view>
     </view>
-    <view class="wrap" wx:for='{{list1}}' wx:key='' bindtap="postingMoney" data-status="{{item.status}}" wx:if="{{currentTab==2}}">
+    <view class="wrap" wx:for='{{list1}}' wx:key='' bindtap="postingMoney" data-status="{{item.status}}" wx:if="{{currentTab==3}}">
       <image src="{{item.img}}" class="wrap_img1"></image>
       <view class="wrap_item2" wx:if="{{item.status==1}}">
         <view>{{item.text}}</view>
@@ -720,9 +730,9 @@
 </view>
 <!-- 分享弹框 -->
 <!--屏幕背景变暗的背景  -->
-<view class="commodity_screen1" bindtap="hide" wx:if="{{showModalStatus1&&currentTab==3}}"></view>
+<view class="commodity_screen1" bindtap="hide" wx:if="{{showModalStatus1&&currentTab==4}}"></view>
 <!--弹出框 选择开始 -->
-<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1&&currentTab==3}}">
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1&&currentTab==4}}">
   <view class="content-wrapper1">
     <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
     <view class="share-wrap">

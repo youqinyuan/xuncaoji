@@ -59,11 +59,10 @@ Page({
       that.setData({
         template: 2
       })
-      that.data.pageNumber == 1
       app.Util.ajax('mall/home/_search', {
         keyword: value,
         scope: 4,
-        pageNumber: that.data.pageNumber,
+        pageNumber: 1,
         pageSize: that.data.pageSize
       }, 'GET').then((res) => {  
         if (res.data.messageCode == 'MSG_1001') {
@@ -106,11 +105,10 @@ Page({
       that.setData({
         template: 2
       })
-      that.data.pageNumber == 1
       app.Util.ajax('mall/home/_search', {
         keyword: value,
         scope: 4,
-        pageNumber: that.data.pageNumber,
+        pageNumber: 1,
         pageSize: that.data.pageSize
       }, 'GET').then((res) => {  
         if (res.data.messageCode == 'MSG_1001') {

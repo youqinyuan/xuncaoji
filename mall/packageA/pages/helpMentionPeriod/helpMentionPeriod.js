@@ -54,6 +54,7 @@ Page({
       transferId:that.data.content.transferId?that.data.content.transferId:'',
       userId:that.data.content.userId,
       code:that.data.content.code?that.data.content.code:'',
+      perHelpAmount:that.data.content.perHelpAmount?that.data.content.perHelpAmount:''
     }, 'GET').then((res) => {
       if (res.data.messageCode == 'MSG_1001') {
         that.setData({

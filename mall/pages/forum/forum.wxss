@@ -11,7 +11,7 @@ page {
   z-index: 100;
   position: absolute;
   top: 20rpx;
-  border-radius:8rpx;
+  border-radius: 8rpx;
 }
 
 .modalStatus1 {
@@ -21,7 +21,7 @@ page {
   z-index: 100;
   position: absolute;
   top: 20rpx;
-  border-radius:8rpx;
+  border-radius: 8rpx;
 }
 
 .content_pulish_wrap {
@@ -93,11 +93,11 @@ page {
 }
 
 .nav-item.active1 {
-  width: 100%;
+  width: 40rpx;
   height: 6rpx;
-  border-radius: 3px;
+  border-radius: 10rpx;
+  margin: 0 auto;
   background: #ff2644;
-  /* margin-left: 35rpx; */
 }
 
 .nav-item {
@@ -255,6 +255,16 @@ page {
   z-index: 101;
 }
 
+.moneyImg2 {
+  margin-top: 20rpx;
+  width: 750rpx;
+  height: 437rpx;
+  position: absolute;
+  top: 0;
+  left: -30rpx;
+  z-index: 101;
+}
+
 .goods {
   position: absolute;
   top: 35rpx;
@@ -355,6 +365,12 @@ page {
 
 .content_box {
   margin: 0 30rpx;
+}
+
+.container1 {
+  background: #fff;
+  margin-top: 20rpx;
+  padding-bottom: 30rpx;
 }
 
 .content_box_photo {
@@ -888,14 +904,24 @@ page {
   color: #ff6417;
 }
 
-.return-zan-dialog__mask .wrap_item2 {
+.return-zan-dialog__mask .wrap_item4 {
   height: 79rpx;
   color: #2696ff;
 }
 
-.return-zan-dialog__mask .wrap_item3 {
+.return-zan-dialog__mask .wrap_item5 {
   height: 79rpx;
   color: #ff2644;
+}
+
+.return-zan-dialog__mask .wrap_item2 {
+  height: 79rpx;
+  color: #ff2644;
+}
+
+.return-zan-dialog__mask .wrap_item3 {
+  height: 79rpx;
+  color: #2696ff;
 }
 
 .weihu {
@@ -905,7 +931,7 @@ page {
   right: 0;
   bottom: 0;
   background: #fff;
-  z-index: 97;
+  z-index: 9999;
 }
 
 .open {
@@ -925,7 +951,7 @@ page {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
-  z-index: 99;
+  z-index: 9999;
 }
 
 .sure-one-dialog__mask .zan-dialog__container {
@@ -937,7 +963,7 @@ page {
   position: fixed;
   top: 300rpx;
   left: 60rpx;
-  z-index: 99;
+  z-index: 9999;
 }
 
 .sure-one-dialog__mask .cancel-img {
@@ -1015,7 +1041,7 @@ page {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
-  z-index: 99;
+  z-index: 9999;
 }
 
 .sure-two-dialog__mask .zan-dialog__container {
@@ -1026,7 +1052,7 @@ page {
   position: fixed;
   top: 300rpx;
   left: 60rpx;
-  z-index: 99;
+  z-index: 9999;
 }
 
 .sure-two-dialog__mask .cancel-img {
@@ -1901,12 +1927,14 @@ page {
 .info {
   position: relative;
   height: 137rpx;
+  display: flex;
 }
 
 .top_left {
   display: inline-block;
   /* margin-top: 30rpx; */
   margin-left: 30rpx;
+  margin-top: 19rpx;
 }
 
 .top_right {
@@ -1938,7 +1966,7 @@ page {
 }
 
 .mentionPeriod_font {
-  margin-top: 15rpx;
+  margin-top: 20rpx;
   font-size: 22rpx;
   color: #999;
 }

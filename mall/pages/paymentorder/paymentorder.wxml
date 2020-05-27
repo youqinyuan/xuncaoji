@@ -13,8 +13,7 @@
   </view> -->
   <view class="paytime">
     <text>请在</text>
-    <text class="paytime1" wx:if="{{flag===false}}">{{time}}</text>
-    <text class="paytime1" wx:if="{{flag===true}}">{{clientTime}}</text>
+    <text class="paytime1">{{time}}</text>
     <text>内完成支付</text>
   </view>
 </view>
@@ -23,11 +22,11 @@
   <block wx:for="{{content.channels}}" wx:key="">
     <view class="payway" wx:if="{{item.channel==1}}" catchtap='wallet_pay'>
       <view class="payway-img">
-        <image src="/assets/images/temp/order_yhk_icon.png"></image>
+        <image src="{{hostUrl}}/changeImg/order_yhk_icon.png"></image>
       </view>
       <view class="payway-text">
         <view class="payway-title">余额支付</view>
-        <view class="payway-price">余额:￥{{content.balance}}</view>
+        <view class="payway-price">余额:￥{{balance}}</view>
       </view>
       <view class="payway-right-img" >
         <!-- <checkbox-group class="store-box">
@@ -36,7 +35,7 @@
           </label>
         </checkbox-group> -->
           <image src="{{hostUrl}}/changeImg/no_period_choose.png" class="chooseImg" wx:if="{{payment_mode2}}"/>
-          <image src="/assets/images/temp/pay_choose.png" class="chooseImg" wx:if="{{payment_mode1}}"/>
+          <image src="{{hostUrl}}/changeImg/pay_choose.png" class="chooseImg" wx:if="{{payment_mode1}}"/>
       </view>
     </view>
     <view class="wx" wx:if="{{item.channel==2}}" catchtap="wx_pay">
@@ -46,7 +45,7 @@
       <view class="wx-text">微信支付</view>
       <view class="wx-right-img" >
           <image src="{{hostUrl}}/changeImg/no_period_choose.png" class="chooseImg" wx:if="{{payment_mode1}}"/>
-          <image src="/assets/images/temp/pay_choose.png" class="chooseImg" wx:if="{{payment_mode2}}"/>
+          <image src="{{hostUrl}}/changeImg/pay_choose.png" class="chooseImg" wx:if="{{payment_mode2}}"/>
       </view>
     </view>
   </block>

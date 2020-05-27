@@ -1,6 +1,6 @@
 <!--packageA/pages/helpMentionPeriod/helpMentionPeriod.wxml-->
 <view class="head">
-    <image class="headImg" src="{{content.avatarKey}}"/>
+    <image class="headImg" src="{{content.avatarKey?content.avatarKey:hostUrl+'/icon/zhanw_tb_n.png'}}"/>
     <view class="user_box">
         <view class="user_name">{{content.nickname}}</view>
         <image src="{{hostUrl}}/changeImg/huiyuan.png" class="huiyuan" wx:if="{{content.role==2}}"/>

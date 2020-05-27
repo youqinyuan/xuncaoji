@@ -4,13 +4,7 @@
   <view class="store-title">
     <!--pages/cart/cart.wxml-->
     <view class="store-wrapper">
-      <view class="store-container" wx:if="{{shops.length ===0 }}">
-        <view class="store-item">
-          <image src="{{hostUrl}}/icon/gouwuche_no_n.png" class="store-img"></image>
-        </view>
-        <view class="store-text">还没有商品呦</view>
-      </view>
-      <!--商品列表-->
+     <!--商品列表-->
       <view class="store-container-wrapper" wx:if="{{shops.length >0 }}">
         <view class="shop-view" style="margin-bottom: 400rpx;">
           <view class="shop-view-wrapper" wx:for="{{shops}}" wx:key="{{index}}" wx:for-index="groupIndex">
@@ -69,6 +63,12 @@
           </view>
         </view>
       </view>
+      <view class="store-container" wx:else>
+        <view class="store-item">
+          <image src="{{hostUrl}}/icon/gouwuche_no_n.png" class="store-img"></image>
+        </view>
+        <view class="store-text">还没有商品呦</view>
+      </view>     
     </view>
   </view>
 </view>

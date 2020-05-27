@@ -17,10 +17,12 @@
 <view class="section-wrapper" style="{{fixed==1?'position:static;':'position:fixed;top:0'}}">
   <view class="section" wx:if="{{fixed==1}}" catchtap="toSearch" data-id="{{store.id}}">
     <image src="{{hostUrl}}/changeImg/search.png" class="section-img"></image>
+    <view class="section-text">搜索店内商品</view>
   </view>
   <view class="wrapText" wx:if="{{fixed==2}}" catchtap="toSearch" data-id="{{store.id}}">
     <view class="section1">
       <image src="{{hostUrl}}/changeImg/search.png" class="section-img"></image>
+      <view class="section-text">搜索店内商品</view>
     </view>
     <view class="textHtx" catchtap="follow">
       <image class="storeXing" src="{{hostUrl}}/changeImg/wujiao.png"></image>

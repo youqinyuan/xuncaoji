@@ -146,11 +146,13 @@ page{
 .info{
     position: relative;
     height: 137rpx;
+    display: flex;
 }
 .top_left{
     display: inline-block;
     /* margin-top: 30rpx; */
     margin-left: 30rpx;
+    margin-top: 19rpx;
 }
 .top_right{
     display: inline-block;
@@ -177,7 +179,7 @@ page{
     color:#333333;  
 }
 .mentionPeriod_font{
-    margin-top: 15rpx;
+    margin-top: 20rpx;
     font-size:22rpx;
     color:#999;
 }

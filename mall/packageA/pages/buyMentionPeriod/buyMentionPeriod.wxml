@@ -9,7 +9,7 @@
 </wxs>
 <view class="content" wx:if="{{content.length>0}}">
     <view class="periodList" wx:for="{{content}}" wx:key="{{content.id}}">
-        <view class="top">
+        <view class="top" bindtap="toHelp" data-id="{{item.id}}">
             <view class="return">
                 <view class="return_left top5">待返</view>
                 <view class="return_right top5">{{item.otherTransfer==1?'他人转让订单':item.goodsName}}</view>
@@ -35,18 +35,20 @@
                 <view class="return_right" wx:if="{{item.status==7}}">{{item.updateTime}} 已撤销</view>
             </view>
         </view>
-        <view class="bottom">
-            <view class="button one" wx:if="{{item.status==1||item.status==2}}" bindtap="toHelp" data-id="{{item.id}}">自己提期</view>
-            <view class="button two" bindtap="showPrompt" data-id="{{item.id}}" wx:if="{{item.status==1||item.status==2}}" data-index="1">撤销提期</view>
-            <view class="button two" bindtap="showPrompt" data-id="{{item.id}}" wx:if="{{item.status==3||item.status==5||item.status==7}}" data-index="2">删除记录</view>
-            <view class="button three" bindtap="showModal" data-temp="{{index}}">提期明细</view>
-            <view class="share" bindtap="showShare" data-index="{{index}}" wx:if="{{item.status==1||item.status==2}}">...</view>
+        <view class="bottom" bindtap="toHelp" data-id="{{item.id}}">
+            <image src="{{hostUrl}}/newIndex/to_share.png" class="to_share" catchtap="shares" data-id="{{item.id}}"/>
+            <view class="button two"  data-temp="{{index}}" catchtap="showPrompt" data-id="{{item.id}}">发布</view>
+            <view class="button two" wx:if="{{item.status==1||item.status==2}}" catchtap="toHelp" data-id="{{item.id}}">提期</view>
+            <view class="button two" catchtap="showPrompt" data-id="{{item.id}}" wx:if="{{item.status==1||item.status==2}}" data-index="1">撤销</view>
+            <view class="button two" catchtap="showPrompt" data-id="{{item.id}}" wx:if="{{item.status==3||item.status==5||item.status==7}}" data-index="2">删除</view>
+            <view class="button three" catchtap="showModal" data-temp="{{index}}">明细</view>
+            <!-- <view class="share" bindtap="showShare" data-index="{{index}}" wx:if="{{item.status==1||item.status==2}}">...</view> -->
         </view>
-        <view class="set_share" wx:if="{{tempArr[index]}}">
+        <!-- <view class="set_share" wx:if="{{tempArr[index]}}">
             <image  src="{{hostUrl}}/changeImg/set_share.png" class="setShare"/>
         </view>
         <view class="button_one" wx:if="{{tempArr[index]}}" bindtap="showPrompt" data-index="3" data-id="{{item.id}}" data-temp="{{index}}">发布帖子</view>
-        <view class="button_two" wx:if="{{tempArr[index]}}" bindtap="shares" data-id="{{item.id}}">分享</view>
+        <view class="button_two" wx:if="{{tempArr[index]}}" bindtap="shares" data-id="{{item.id}}">分享</view> -->
     </view>
 </view>
 <!-- 页面暂无数据 -->

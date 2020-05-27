@@ -1,6 +1,5 @@
 <!--pages/address/address.wxml-->
 <view class="container">
-  <view class='default' wx:if="{{items[0]}}">{{text}}</view>
   <view class="touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove" wx:for="{{items}}" wx:key="{{item.id}}" bindtap='backPlaceorder' data-name="{{item.receiverName}}" data-number="{{item.mobileNumber}}"
     data-province="{{item.provinceName}}" data-city="{{item.cityName}}" data-district="{{item.districtName}}" data-districtid="{{item.districtId}}" data-detailed="{{item.detailedAddress}}" data-id="{{item.id}}">
     <view class="content">
@@ -11,6 +10,7 @@
         <view class="content-name">
           <view>{{item.receiverName}}</view>
           <view>{{item.mobileNumber}}</view>
+          <view class='default' wx:if="{{item.isDefault==1}}">{{text}}</view>
         </view>
         <view class="content-address">{{item.provinceName}}{{item.cityName}}{{item.districtName}}{{item.detailedAddress}}
         </view>

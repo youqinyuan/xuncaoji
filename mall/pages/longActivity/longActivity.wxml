@@ -80,8 +80,8 @@
 </view>
 <view class="height30"></view>
 <!-- 活动规则弹窗 -->
-<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{show1}}">
-  <view class="zan-dialog__container" wx:if="{{show1}}">
+<view class="get-zan-dialog__mask"  wx:if="{{show1}}">
+  <view class="zan-dialog__container" animation="{{animationData}}" wx:if="{{show1}}">
     <view class="role_title">活动规则</view>
     <view class="height_text">
       <rich-text nodes="{{content.rule}}" />

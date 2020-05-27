@@ -2,20 +2,20 @@
 <form report-submit='true' bindsubmit='save'>
 <view class="content">
     <view class="list bortop">
-        <view class="title">姓名</view>
-        <input class="text" value="{{receiverName}}" name="receiverName"/>
+        <view class="title">联系人</view>
+        <input class="text" value="{{receiverName}}" name="receiverName" maxlength="10" placeholder="请输入您的姓名"/>
     </view>
     <view class="list">
         <view class="title">电话</view>
-        <input class="text" value="{{mobileNumber}}" maxlength="11" type="number" name="mobileNumber"/>
+        <input class="text" value="{{mobileNumber}}" maxlength="11" type="number" name="mobileNumber" placeholder="请输入您的手机号码"/>
     </view>
      <view class="list" bindtap='hrefMap'>
         <view class="title">选址</view>
-        <input class="text" disabled="true" value="{{centerData.addr?centerData.addr:detailedAddress}}" name="detailedAddress"/>
+        <input class="text" disabled="true" value="{{centerData.title?centerData.title:detailedAddress}}" name="detailedAddress"/>
     </view>
         <view class="list">
         <view class="title">门牌号</view>
-        <input class="text" value="{{houseNumber}}" name="houseNumber"/>
+        <input class="text" value="{{houseNumber}}" name="houseNumber" maxlength="30" placeholder="请输入详细地址"/>
     </view>
 </view>
 <view class="button_box">

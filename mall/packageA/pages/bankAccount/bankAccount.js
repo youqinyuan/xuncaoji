@@ -103,9 +103,9 @@ Page({
       that.setData({
         cardNumber: String(cardNumber)
       })
-      var card = cardNumber.replace(/(\d{4})(?=\d)/g, "$1 "); //replace(/\s/g,'');
+      // var card = cardNumber.replace(/(\d{4})(?=\d)/g, "$1 ");
       this.setData({
-        cardNum: card
+        cardNum: e.detail.value
       })
     },
 })

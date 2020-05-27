@@ -1,0 +1,147 @@
+<!--pages/newIndex/newIndex.wxml-->
+<view style="height:428rpx;">
+  <view class="profit">
+      <!-- <view class="message_number">10</view>
+      <image src="{{hostUrl}}/message.png" class="message" />
+      <image src="{{hostUrl}}/message_bg.png" class="message_bg" /> -->
+      <view class="all_profit" bindtap="toProfit">
+        <view class="profit_font">总收益</view>
+        <view class="profit_number">{{profitStatus==1?'****':totalIncome?totalIncome:0}}</view>
+        <image src="{{hostUrl}}/newIndex/profit.png" class="profit_img" wx:if="{{profitStatus==1}}" catchtap="updateProfitStatus" data-index="{{profitStatus}}"/>
+        <image src="/assets/images/temp/profit2.png" class="profit_img" wx:if="{{profitStatus==2}}" catchtap="updateProfitStatus" data-index="{{profitStatus}}"/>
+      </view>
+      <view class="jiange"></view>
+      <view class="all_nianhua" bindtap="toProfit">
+        <view class="profit_font">当前年化率</view>
+        <view class="profit_number">{{profitStatus==1?'****':totalAnnualizedRate?totalAnnualizedRate+'%':'0%'}}</view>
+      </view>
+    </view>
+    <view class="huxing_box">
+      <image src="{{hostUrl}}/newIndex/huxing.png" class="huxing" />
+    </view>    
+  </view>
+      <!--轮播图-->
+      <view class="swiper-container">
+            <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" circular="{{circular}}"  interval="{{interval}}" duration="{{duration}}" bindchange="swiperChange">
+      <swiper-item wx:if="{{imgUrls.length>0}}" wx:for="{{imgUrls}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}" data-name="{{item.name}}">
+        <image wx:if="{{imgUrls.length===0}}" src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
+        <image wx:else src="{{item.imageUrl}}" class="slide-image" />
+      </swiper-item>
+      <swiper-item wx:if="{{imgUrls.length===0}}">
+        <image src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
+      </swiper-item>
+    </swiper>
+        <view class="dots">
+    <block wx:for="{{imgUrls}}" wx:key="unique">
+      <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
+    </block>
+  </view>
+      </view>
+
+            <!-- 公告 -->
+    <view class="notice-swiper" wx:if="{{noticeList.length>0}}">
+      <image src="{{hostUrl}}/newIndex/zixun.png" />
+      <!-- <view class="font_two">最新</view> -->
+      <swiper class="notice" vertical="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="3000">
+        <block wx:for="{{noticeList}}" wx:key="{{item.id}}">
+          <swiper-item>
+            <view class="notice-swiper_item" bindtap="showNotice" data-id="{{item.id}}">
+              <text>{{item.title}}</text>
+            </view>
+          </swiper-item>
+        </block>
+        <block wx:for="{{noticeList}}" wx:key="{{item.id}}" wx:if="{{noticeList.length===1}}">
+          <swiper-item>
+            <view class="notice-swiper_item" bindtap="showNotice" data-id="{{item.id}}">
+              <text>{{item.title}}</text>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <!-- 类别 -->
+    <view class="section-swiper">
+      <swiper class="section-wrap" autoplay="{{false}}" circular="{{false}}" interval="5000" indicator-color="#CCCCCC" indicator-active-color="#FF6417" indicator-dots="{{indicatorDots}}" style="height:{{height}}rpx;padding-top:{{paddingTop}}rpx;">
+        <swiper-item class="section-classify">
+          <view class="section-list" wx:for="{{navigationList1}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}">
+            <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.category==1&&item.param===8}}">
+              <view class="section-list-img1">
+                <image src="{{item.iconUrl}}"></image>
+              </view>
+              <view class="section-list-text">{{item.title}}</view>
+            </button>
+            <view class="section-list_wrap" wx:else>
+              <view class="section-list-img">
+                <image src="{{item.iconUrl}}"></image>
+              </view>
+              <view class="section-list-text">{{item.title}}</view>
+            </view>
+          </view>
+        </swiper-item>
+        <swiper-item class="section-classify" wx:if="{{navigationList.length>10}}">
+          <view class="section-list" wx:for="{{navigationList2}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}">
+          <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.category==1&&item.param===8}}">
+              <view class="section-list-img1">
+                <image src="{{item.iconUrl}}"></image>
+              </view>
+              <view class="section-list-text">{{item.title}}</view>
+            </button>
+            <view class="section-list_wrap" wx:else>
+              <view class="section-list-img">
+                <image src="{{item.iconUrl}}"></image>
+              </view>
+              <view class="section-list-text">{{item.title}}</view>
+            </view>            
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+  <!-- 英雄榜 -->
+  <view class="haro_banner_box" wx:if="{{heroContent.length>0}}" bindtap='toHero'>
+    <block wx:for="{{heroContent}}" wx:key="{{item.id}}">
+        <image src="{{item.iconUrl}}"  class="haro_banner"/>
+    </block>
+  </view>
+  <!-- 自定义模块 -->
+  <view class="mokuai_title">去赚钱</view>
+  <view class="mokuai_value">
+    <block wx:for="{{module1}}" wx:key="{{item.id}}">
+        <image src="{{item.iconUrl}}"  class="mokuai_img" bindtap="navigatePage" data-id="{{item.id}}"/>
+    </block>
+  </view>
+   <!-- 自定义模块 -->
+  <view class="mokuai_title">种子</view>
+  <view class="mokuai_value">
+    <block wx:for="{{module2}}" wx:key="{{item.id}}">
+      <image src="{{item.iconUrl}}"  class="mokuai_img" bindtap="navigatePage" data-id="{{item.id}}"/>
+    </block>
+  </view>
+   <!-- 自定义模块 -->
+  <view class="mokuai_title">附近</view>
+  <view class="mokuai_value">
+    <block wx:for="{{module3}}" wx:key="{{item.id}}">
+      <image src="{{item.iconUrl}}"  class="mokuai_img" bindtap="navigatePage" data-id="{{item.id}}"/>
+    </block>
+  </view>
+  <view style="height:61rpx;"></view>
+    <!-- 公告弹窗 -->
+  <view class="show-showNotice" wx:if="{{showNotice}}">
+    <view class="show-showNotice-container" animation="{{animationData}}" wx:if="{{showNotice}}">
+      <view class="rule">公告</view>
+      <view class="rule_text">
+        <view class="rule_wrap" wx:for="{{noticeList}}" wx:key="{{item.id}}">
+           <view class="rule_title">{{item.title}}</view>
+           <view class="rule_content">{{item.content}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="show-showNotice-cancel" wx:if="{{showNotice}}" bindtap='cancelNotice'>
+      <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
+    </view>
+  </view>
+  <view class="mengceng" wx:if="{{guide}}">
+    <image  class="cancel" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap="cancleguide"></image>
+    <image  src="/assets/images/temp/main.png" class="guideImg"/>
+    <view class="guideButton" bindtap="toguide">立即查看</view>
+  </view>
+

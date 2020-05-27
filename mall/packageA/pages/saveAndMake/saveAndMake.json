@@ -1,7 +1,7 @@
 {
   "usingComponents": {},
   "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTitleText": "赚钱订单",
+  "navigationBarTitleText": "卖商品",
   "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true
 }

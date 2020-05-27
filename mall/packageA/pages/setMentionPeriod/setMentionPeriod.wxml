@@ -2,20 +2,20 @@
 <view class="head_font" wx:if="{{content.length>0}}">购买后请到“待返明细”页面查看你的返现信息</view>
 <view class="content" wx:if="{{content.length>0}}">
     <view class="value" wx:for="{{content}}" wx:key="{{item.id}}">
-        <view class="top">
+        <view class="top" bindtap="toHelp" data-id="{{item.topicId}}">
             <view class="top_left">
                 <view class="nianhua_number">+{{item.annualizedRate}}%</view>
                 <view class="nianhua_font">预估年化收益</view>
             </view>
             <view class="top_right">
-                <view class="mentionPeriod_number">帮付<view class="fuhao">￥</view>{{item.paymentAmount}} <view class="mentionPeriod_period">提前了{{item.mentionPeriod}} 期</view></view>
+                <view class="mentionPeriod_number">帮付<text class="fuhao">￥</text>{{item.paymentAmount}} <text class="mentionPeriod_period">提前了{{item.mentionPeriod}} 期</text></view>
                 <view class="mentionPeriod_font">帮助金额越多，收益越高</view>
             </view>
         </view>
-        <view class="bottom">
-            <view class="button one" bindtap="shares" data-id="{{item.topicId}}" wx:if="{{item.topicStatus==1||item.topicStatus==2}}">分享</view>
-            <view class="button two" bindtap="showModal" data-temp="{{index}}">购买信息</view>
-            <view class="button three" bindtap="delete" data-id="{{item.id}}">删除记录</view>
+        <view class="bottom" bindtap="toHelp" data-id="{{item.topicId}}">
+            <view class="button one" catchtap="shares" data-id="{{item.topicId}}" wx:if="{{item.topicStatus==1||item.topicStatus==2}}">分享</view>
+            <view class="button two" catchtap="showModal" data-temp="{{index}}">购买信息</view>
+            <view class="button three" catchtap="delete" data-id="{{item.id}}">删除记录</view>
         </view>
     </view>
 </view>

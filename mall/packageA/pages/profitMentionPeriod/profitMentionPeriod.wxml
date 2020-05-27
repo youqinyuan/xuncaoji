@@ -1,0 +1,45 @@
+<!--packageA/pages/profitMentionPeriod/profitMentionPeriod.wxml-->
+<view style="height:200rpx;">
+    <view class="head"></view>
+    <image src="{{hostUrl}}/newIndex/profit_huxing.png" class="profit_huxing"/>
+</view>
+<view class="profit_box">
+    <view class="title">
+        <view class="all_profit">
+            <view class="font">总计收益</view>
+            <view class="number"><text >￥</text>{{content.totalIncome?content.totalIncome:0}}</view>
+        </view>
+        <view class="jiange"></view>
+        <view class="all_profit">
+            <view class="font">总占比</view>
+            <view class="number">{{content.totalProportion?content.totalProportion:0}}%</view>
+        </view>
+        <view class="all_profit">
+            <view class="font">年收益率</view>
+            <view class="number">{{content.totalAnnualizedRate?content.totalAnnualizedRate:0}}%</view>
+        </view>
+    </view>
+</view>
+<view class="content" wx:for="{{arr}}" wx:key="{{item.id}}">
+    <view class="top">
+        <view class="top_one">赞助对象：<text >{{item.helpObjectUserName}}</text></view>
+        <view class="time">{{item.createTime}}</view>
+    </view>
+    <view class="bottom">
+        <view class="value">
+            <view class="sponsor">赞助</view>
+            <view class="sponsor_number"><text >￥</text>{{item.expendAmount}}</view>
+        </view>
+        <view class="value">
+            <view class="sponsor">返还</view>
+            <view class="sponsor_number"><text >￥</text>{{item.incomeAmount}}</view>
+        </view>
+        <view class="value">
+            <view class="sponsor">年化率</view>
+            <view class="sponsor_number">{{item.annualizedRate}}%</view>
+        </view>
+    </view>
+</view>
+<view class="nothing" wx:if="{{arr.length==0}}">暂无数据</view>
+<view style="height:81rpx;"></view>
+

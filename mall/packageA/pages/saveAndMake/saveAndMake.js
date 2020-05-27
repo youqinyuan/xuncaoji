@@ -14,10 +14,10 @@ Page({
     type: 5,
     navData: [{
       type: 5,
-      text: '赚钱订单'
+      text: '卖商品'
     }, {
       type: 6,
-      text: '省钱订单'
+        text: '买商品'
     }],
     showModal: false, //交易关闭
     pageNumber: 1,
@@ -203,13 +203,13 @@ Page({
     })
     if (type == 5) {
       wx.setNavigationBarTitle({
-        title: '赚钱订单'
+        title: '卖商品'
       });
       clearInterval(interval2)
       that.getData()
     } else if (type == 6) {
       wx.setNavigationBarTitle({
-        title: '省钱订单'
+        title: '买商品'
       });
       clearInterval(interval2)
       that.getData()
@@ -286,6 +286,7 @@ Page({
       url: '/pages/applyZero/applyZero?getOrder=' + getOrder,
     })
   },
+  // 改价
   editPriceFinish(e) {
     let that = this
     let img = e.currentTarget.dataset.iconurl
@@ -307,5 +308,16 @@ Page({
     wx.navigateTo({
       url: "/packageA/pages/getMoneyMessage/getMoneyMessage?editPrice=" + editPrice
     })
-  }
+  },
+  // 修改地址信息
+  modifyPrice(e) {
+    let that = this
+    let data = {
+      id: e.currentTarget.dataset.id,
+    }
+    let editPrice = JSON.stringify(data)
+    wx.navigateTo({
+      url: "/packageA/pages/saveMoneyMessage/saveMoneyMessage?editPrice=" + editPrice
+    })
+  },
 })

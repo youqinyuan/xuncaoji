@@ -5,6 +5,9 @@ page {
 }
 
 .nav {
+  box-sizing: border-box;
+  font-size: 30rpx;
+  white-space: nowrap;
   width: 100%;
   display: flex;
   background: #fff;
@@ -14,9 +17,6 @@ page {
   line-height: 72rpx;
   border-bottom: 2rpx solid #f4f4f4;
   z-index: 999;
-  box-sizing: border-box;
-  font-size: 30rpx;
-  white-space: nowrap;
 }
 
 .nav-box {
@@ -30,14 +30,15 @@ page {
 }
 
 .nav-item.active {
-  color: #ff6417;
+  color: #FF2644;
 }
 
-.nav-item.active1 {
-  width: 60rpx;
+.nav-item.active2 {
+  width: 40rpx;
   height: 6rpx;
-  background: #ff6417;
-  margin-left: 10rpx;
+  border-radius: 10rpx;
+  margin: 0 auto;
+  background: #FF2644;
 }
 
 /* 列表 */
@@ -907,9 +908,9 @@ page {
 }
 
 .stop-content-container {
-  width: 357rpx;
+  /* width: 357rpx; */
   height: 66rpx;
-  margin-left: 100rpx;
+  /* margin-left: 100rpx; */
   margin-bottom: 35rpx;
   font-size: 30rpx;
   text-align: center;

@@ -33,8 +33,14 @@ App({
     host: 'http://move.alijuly.cn/index.php?s=',
     tempMoveData: {},//临时搬家搬入搬出地址信息，当在含有腾讯地图的页面点击了【确定】之后，才将该对象的值赋值到moveData，moveData才是真正的提交数据
     moveData: {},//搬家搬入搬出地址信息；提交所需数据
-    stoerEnterData:{}//商家入驻填写信息
-  },
+    stoerEnterData:{},//商家入驻填写信息
+    mentionPeriodFrom:1, //判断发起提期成功后返回页面
+    helpMentionPeriod:1, //判断帮提期成功后返回页面
+    freeBuyYinDao:2, //0成本购引导 1-开启 2-关闭
+    location:0,//0-没点收货地址 1-点了收货地址
+    addLocation: 0,//0-没点重新定位 1-点了重新定位 
+    seedText:'',//种子充值
+    },
 
   //通用导航方法
   nav: function(e) {
@@ -73,8 +79,8 @@ App({
           console.log('登录首选项查询：' + JSON.stringify(res.data.content))
           if (res.data.content.authAvatarNikeName == 1 && res.data.content.authMobileNumber == 1) {
             //此时不用再授权,自动进入登录状态
-            // wx.setStorageSync('authLoginStatus', 1)
-            // that.selfLogin()
+            wx.setStorageSync('authLoginStatus', 1)
+            that.selfLogin()
           } else {
             //需登录授权
             wx.setStorageSync('authLoginStatus', 2)

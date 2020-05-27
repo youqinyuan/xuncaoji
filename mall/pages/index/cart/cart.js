@@ -7,7 +7,7 @@ Page({
    */
   data: {
     hostUrl: app.Util.getUrlImg().hostUrl,
-    shops: [], //店铺以及商品
+    shops:[], //店铺以及商品
     pageNumber: 1,
     pageSize: 20,
     checkedAll: false, //全选
@@ -24,7 +24,6 @@ Page({
   //单个店铺全选
   checkall: function(e) {
     var that = this;
-    console.log(e)
     var index = e.target.dataset.index;
     var list = that.data.shops[index].cartDetails;
     var status = that.data.shops[index].checkeedAll;
@@ -390,7 +389,6 @@ Page({
       pageNumber: that.data.pageNumber,
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
-      //  console.log("购物车详情:"+JSON.stringify(res.data))
       if (res.data.content) {
         that.setData({
           shops: res.data.content.items

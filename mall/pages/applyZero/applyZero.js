@@ -44,7 +44,9 @@ Page({
     hostUrl: app.Util.getUrlImg().hostUrl,
     isShowBook: 0,
     yuShow: false,
-    freeBuyMode: 2 //0元购类型，1-月返，2-天天返
+    freeBuyMode: 2, //0元购类型，1-月返，2-天天返
+    yindao1:false,
+    yindao2:false
   },
   //跳转到服务问题页面
   goIntoProblem: function(e) {
@@ -113,6 +115,12 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    //0成本购引导3
+    if(app.globalData.freeBuyYinDao==1){
+      that.setData({
+        yindao1:true
+      })
+    }
     if (options.isShowBook == 2) {
       that.setData({
         isShowBook: 2
@@ -1032,6 +1040,21 @@ Page({
           icon: 'none'
         })
       }
+    })
+  },
+  closeyindao1:function(){
+    this.setData({
+      yindao1:false,
+      yindao2:true
+    })
+  },
+  closeyindao2:function(){
+    this.setData({
+      yindao2:false
+    })
+    wx.showToast({
+      title:'引导完成',
+      icon:'none'
     })
   }
 })

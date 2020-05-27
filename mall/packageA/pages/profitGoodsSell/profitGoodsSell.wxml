@@ -1,0 +1,37 @@
+<!--packageA/pages/profitGoodsSell/profitGoodsSell.wxml-->
+<view style="height:200rpx;">
+    <view class="head"></view>
+    <image src="{{hostUrl}}/newIndex/profit_huxing.png" class="profit_huxing"/>
+</view>
+<view class="profit_box">
+    <view class="title">
+        <view class="all_profit">
+            <view class="font">总计收益</view>
+            <view class="number"><text >￥</text>{{content.totalIncome?content.totalIncome:0}}</view>
+        </view>
+        <view class="jiange"></view>
+        <view class="all_profit">
+            <view class="font">总占比</view>
+            <view class="number">{{content.totalProportion?content.totalProportion:0}}%</view>
+        </view>
+        <view class="all_profit">
+            <view class="font">年收益率</view>
+            <view class="number">{{content.totalAnnualizedRate?content.totalAnnualizedRate:0}}%</view>
+        </view>
+    </view>
+</view>
+<view class="content" wx:for="{{arr}}" wx:key="{{item.id}}">
+    <view class="left">
+        <image src="{{item.goodsImgUrl?item.goodsImgUrl:hostUrl+'/icon/zhanw_tb_n.png'}}" class="goodsImg" />
+    </view>
+    <view class="right">
+        <view class="goodsName">{{item.goodsName}}</view>
+        <view class="profit">
+            <view class="profit_value">收益：<text >￥</text>{{item.profitAmount}}</view>
+            <view class="nianhua1">年化率：{{item.annualizedRate}}%</view>
+        </view>
+        <view class="time">{{item.createTime}}</view>
+    </view>
+</view>
+<view class="nothing" wx:if="{{arr.length==0}}">暂无数据</view>
+<view style="height:81rpx;"></view>

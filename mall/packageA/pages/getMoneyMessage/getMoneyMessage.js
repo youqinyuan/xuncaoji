@@ -81,6 +81,7 @@ Page({
   onUnload: function() {
     wx.removeStorageSync('getMoneyOrder')
     wx.removeStorageSync('goShowOrder')
+    wx.removeStorageSync('iconurl')
   },
 
   /**
@@ -206,7 +207,7 @@ Page({
           title: '出价不可大于原价',
           icon: 'none'
         })
-      }  else if (that.data.getDefault < that.data.getDefault1) {
+      } else if (Number(that.data.getDefault) < Number(that.data.getDefault1)) {
         wx.showToast({
           title: `违约金不可低于${that.data.getDefault1}元哦`,
           icon: 'none'

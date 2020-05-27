@@ -5,7 +5,7 @@
   <view class="search-box {{addListShow?'search-box1':''}}">
     <view class="region" bindtap="chooseCity">{{currentRegion.district}}</view>
     <view class="shu"></view>
-    <input bindinput="getsuggest" placeholder="请输入您的店铺地址"></input>
+    <input bindinput="getsuggest" placeholder="请输入您的地址"></input>
   </view>
 </view>
 <!--关键词输入提示列表渲染-->

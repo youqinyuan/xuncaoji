@@ -5,8 +5,8 @@
   font-family: PingFang SC;
   color: #333;
   margin-left: 30rpx;
-  height: 106rpx;
-  line-height: 106rpx;
+  height: 116rpx;
+  line-height: 116rpx;
 }
 
 .goods {
@@ -93,6 +93,16 @@
   width: 630rpx;
   margin: 0 auto;
   height: 109rpx;
+}
+
+.listItem-right1 {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-height: 109rpx;
+  margin-left: 30rpx;
 }
 
 .listBorder {

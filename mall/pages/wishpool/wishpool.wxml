@@ -1,32 +1,76 @@
 <!-- pages/wishpool/wishpool.wxml -->
-<image class="star_bg" src="{{hostUrl}}/add/star_bg.png" bindtap="leaveWish"></image>
-<view catchtap="jumpMyWish">
+<image class="star_bg" src="{{hostUrl}}/newIndex/wishBgtop.png" bindtap="leaveWish"></image>
+<!-- <view catchtap="jumpMyWish">
   <image class="activity_11" src="{{hostUrl}}/add/ic_wish.png"></image>
-</view>
+</view> -->
 <view bindtap="leaveWish">
-  <image class="star_pool" src="{{hostUrl}}/wishpool/star_pool.png"></image>
-  <view class="leave_wish">点我留下心愿~</view>
+  <image class="star_pool" src="{{hostUrl}}/newIndex/wishPools.png"></image>
+  <view class="leave_wish">点我提交商品</view>
 </view>
-<view class="what_wish" catchtap="showGetMark">FreeBuy心愿池是什么？</view>
-<image class="star_lang" wx:if="{{recommend.length>0}}" src="{{hostUrl}}/wishpool/ic_lang.png"></image>
-<view class="wish_pool" wx:if="{{recommend.length>0}}">种草心愿池</view>
-<!-- 列表页 -->
-<view class="wrap">
-  <view class="items" wx:for="{{recommend}}" wx:for-item="recommend" wx:key="{{recommend.id}}">
-    <view class="img_wrap">
-      <image src="{{recommend.imageUrls[0]}}"></image>
+<view class="what_wish">在商城内没有找到想要的商品，在这里发布想要商品的 信息，24小时内为您找到全网最低价！
+</view>
+<image class="star_lang1" wx:if="{{wishpool.length>0}}" src="{{hostUrl}}/newIndex/wishLeft.png"></image>
+<image class="star_lang2" wx:if="{{wishpool.length>0}}" src="{{hostUrl}}/newIndex/wishRight.png"></image>
+<view class="wish_pool" wx:if="{{wishpool.length>0}}">我寻找的商品</view>
+<view class="wish-wrap" wx:if="{{wishpool.length>0}}">
+  <view class="list" bindlongpress="deleteList" data-id="{{wishpool.id}}" wx:for-index="index1" wx:for="{{wishpool}}" wx:for-item="wishpool" wx:key="{{wishpool.id}}">
+    <view class="listTitle">{{wishpool.content}}</view>
+    <view class="copy" bindtap='copyText' data-text="{{wishpool.content}}">复制</view>
+    <view class="content_img">
+      <image wx:for="{{wishpool.imageList}}" wx:for-item="contentImg" wx:key="" src="{{contentImg.imageUrl}}" catchtap='imgYu' data-index='{{index}}' data-idx="{{index1}}"></image>
     </view>
-    <view class="goodsDetail">
-      <view class="goodsName">{{recommend.name}}</view>
-      <view class="goodsText">{{recommend.wishCount}}人共同的心愿</view>
-      <view class="goodsPrice">
-        心愿价（最终成本）:
-        <text>￥</text>
-        <text>{{recommend.wishPrice}}</text>
+    <!-- <view class="getwish" wx:if="{{wishpool.progressBar<=8}}">正在加急满足心愿哦，还有{{wishpool.hours}}小时{{wishpool.minutes}}分您的心愿就满足啦</view> -->
+    <view class="getwish" wx:if="{{wishpool.progressBar<24}}">正在加急寻找哦，预计{{wishpool.hours}}小时{{wishpool.minutes}}分内找到</view>
+    <view class="getwish" wx:if="{{wishpool.progressBar==24&&wishpool.status==2}}">商品已经找到了，快去购买吧</view>
+    <view class="getwish" wx:if="{{wishpool.progressBar==24&&wishpool.status==3}}">您寻找的商品暂无库存，找点其他的吧</view>
+    <view class="process_box" style="width:{{wishpool.boxWidth}}rpx;">
+      <view class="process_box_left" style="width:{{wishpool.backWidth}}rpx;"></view>
+    </view>
+    <view class="listBtn">
+      <view class="bottom">
+        <button class="service" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" send-message-title="{{detail.name}}" send-message-img='{{imageUrls[0]}}' show-message-card="true"
+          bindcontact="handleContact" open-type="contact">
+          <image src="{{hostUrl}}/icon/xqing_downbar_kefu_n.png"></image>
+          <view class="service-text">客服</view>
+        </button>
+        <view class="del" bindtap="deleteList" data-id="{{wishpool.id}}">
+          <image src="{{hostUrl}}/add/wish_del.png"></image>
+          <view class="del-text">删除</view>
+        </view>
       </view>
-      <view class="btn-wrap" catchtap="jumpToDetail" data-id="{{recommend.id}}">
-        <image src="{{hostUrl}}/wishpool/starsmall.png"></image>
-        <text class="btn">我也想要</text>
+      <view class="btn1" wx:if="{{wishpool.status==2}}" catchtap="getDetail" data-id="{{wishpool.matchedGoodsId}}" data-status="{{wishpool.status}}">
+        马上购买
+      </view>
+      <view class="btn2" wx:if="{{wishpool.status==1}}" catchtap="urgeData" data-id="{{wishpool.id}}">
+        催一催
+      </view>
+      <view class="btn3" wx:if="{{wishpool.status==3}}">催一催</view>
+    </view>
+  </view>
+</view>
+<!-- 列表页 -->
+<view style="{{wishpool.length==0?'position:absolute;top:590rpx;':''}}">
+  <view class="star_wrap" wx:if="{{recommend.length>0}}">
+    <image class="star_lang3" src="{{hostUrl}}/newIndex/wishLeft.png"></image>
+    <view class="wish_pool1">他们都在寻找</view>
+    <image class="star_lang4" src="{{hostUrl}}/newIndex/wishRight.png"></image>
+  </view>
+  <view class="wrap">
+    <view class="items" wx:for="{{recommend}}" wx:for-item="recommend" wx:key="{{recommend.id}}">
+      <view class="img_wrap">
+        <image src="{{recommend.imageUrls[0]}}"></image>
+      </view>
+      <view class="goodsDetail">
+        <view class="goodsName">{{recommend.name}}</view>
+        <view class="goodsPrice">
+          最终成本:
+          <text>￥</text>
+          <text>{{recommend.wishPrice}}</text>
+        </view>
+        <view class="goodsWish">
+          <view class="goodsText">{{recommend.wishCount}}人都在寻找</view>
+          <view class="btn-wrap" catchtap="jumpToDetail" data-id="{{recommend.id}}">我也想要</view>
+        </view>
       </view>
     </view>
   </view>
@@ -48,7 +92,18 @@
   </view>
   <image wx:if="{{showGet}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
 </view>
-
+<!-- 删除弹框 -->
+<view class="zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>
+<view class="zan-dialog__container" wx:if="{{showDialog}}">
+  <view class='content'>
+    <view class="content-title">提示</view>
+    <view class="content-container">您确定删除吗？</view>
+    <view class="content-button">
+      <view class="reject" catchtap='reject'>取消</view>
+      <view class="comfirm" catchtap='comfirm'>删除</view>
+    </view>
+  </view>
+</view>
 <!-- 待返转让弹窗 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry}}">
   <view class="zan-dialog__container2" wx:if="{{waitReentry}}">
@@ -109,15 +164,15 @@
 <view class="return-two-dialog__maskPeople" catchtouchmove="preventTouchMove" wx:if="{{returnCanclePeople}}">
   <view class="zan-dialog__containerPeople" wx:if="{{returnCanclePeople}}">
     <view class="head_title"></view>
-          <view class="peopleCancle_box" wx:for="{{returnContent3}}" wx:key="{{item.id}}">
-            <image class="people_info_img" src="{{item.imgUrl}}"/>
-            <view class="people_info_name">{{item.nikeName}}</view>
-            <view class="people_info_acountnumber">{{item.mobileNumber}}</view>
-            <view class="cancle_font">转让方撤销了与您的交易！如有疑问请联系该用户。</view>
-            <view class="border_bottom"></view>
-        </view>
-  </view>
-    <view class="peopleCanlce_close" wx:if="{{returnCanclePeople}}" bindtap='returnCanclePeople'>
-      <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
+    <view class="peopleCancle_box" wx:for="{{returnContent3}}" wx:key="{{item.id}}">
+      <image class="people_info_img" src="{{item.imgUrl}}" />
+      <view class="people_info_name">{{item.nikeName}}</view>
+      <view class="people_info_acountnumber">{{item.mobileNumber}}</view>
+      <view class="cancle_font">转让方撤销了与您的交易！如有疑问请联系该用户。</view>
+      <view class="border_bottom"></view>
     </view>
+  </view>
+  <view class="peopleCanlce_close" wx:if="{{returnCanclePeople}}" bindtap='returnCanclePeople'>
+    <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
+  </view>
 </view>

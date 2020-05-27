@@ -15,7 +15,7 @@
 <view class="fill">出售信息：</view>
 <view class="listItem">
   <view class="listItem-list">
-    <input  class="listItem-right" placeholder-style="color:#AAAAAA" placeholder="{{placeholder1}}" type="digit" bindinput="getOffer" value="{{getOffer}}"></input>    
+    <input class="listItem-right" placeholder-style="color:#AAAAAA" placeholder="{{placeholder1}}" type="digit" bindinput="getOffer" value="{{getOffer}}"></input>
   </view>
   <view class="listItem-list">
     <input wx:if="{{showBtn=='发布并支付违约金'}}" class="listItem-right listBorder" placeholder-style="color:#AAAAAA" placeholder="{{placeholder2}}" type="digit" bindinput="getDefault" value="{{getDefault}}"></input>
@@ -31,10 +31,10 @@
 <!-- 发布成功 -->
 
 <view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showSuccess}}">
-  <image class="tanImg"  src="{{hostUrl}}/changeImg/success.png"></image>
+  <image class="tanImg" src="{{hostUrl}}/changeImg/success.png"></image>
   <view class="zan-dialog__container" wx:if="{{showSuccess}}">
     <view class="successTitle">发布成功</view>
-     <view class="successText">温馨提示：如果有人购买您出售的商品后，将会有短信提醒哦，有人购买后，请在{{getDeTime}}小时内完成支付。支付完成后您将获得您填写的出售金额！</view>
-     <view class="successBtn" bindtap="cancelGetMoney">好的，我知道了</view>
+    <view class="successText">温馨提示：如果有人购买您出售的商品后，将会有短信提醒哦，有人购买后，请在{{getDeTime}}小时内完成支付。支付完成后您将获得您填写的出售金额！</view>
+    <view class="successBtn" bindtap="cancelGetMoney">好的，我知道了</view>
   </view>
 </view>

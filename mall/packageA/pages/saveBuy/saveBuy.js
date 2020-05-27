@@ -172,6 +172,7 @@ Page({
       data.options.searchOrder = 2
       curPage.setData({
         showOrder: true,
+        showText1:'选择您想购买的规格型号',
         options: data.options
       });
       wx.navigateBack({})

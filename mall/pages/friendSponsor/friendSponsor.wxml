@@ -48,14 +48,12 @@
     </view>
     <view class="button_font" bindtap="toIndex">去首页逛逛</view>
 </view>
-<view class="news_box">
+<!-- <view class="news_box">
   <image src="{{hostUrl}}/sponsor/icon2.png" class="news_img"/>
       <view class="user_box">
         <view class="user_name">赞助需支付1元，1元即可返还到您的账户，可马上提现！</view>
-        <!-- <view class="black">|</view>
-        <view class="goods_name" bindtap="Show1">具体规则</view> -->
     </view>
-</view>
+</view> -->
 <view class="friend_sponsor_box">
     <view class="sponsor_goods">
         <view class="sponsor_goods_img_box">
@@ -68,10 +66,10 @@
             <text class="hour">{{hours}}</text>:<text class="min">{{minutes}}</text>:<text class="sec">{{seconds}}</text><text class="font26">后赞助过期</text>
         </view>
         <view class="sponsor_money">
-             本次赞助可帮好友省：<text >{{content.savedAmountPerSponsor}}元</text>
+             本次赞助<text >1元</text>可帮好友省<text >{{content.savedAmountPerSponsor}}元</text>
         </view>
         <view class="sponsor_button_box">
-            <view class="sponsor_button" bindtap="sponsor" wx:if="{{sponsorButton==true}}" data-id="{{content.id}}">帮忙赞助</view>
+            <view class="sponsor_button" bindtap="sponsor" wx:if="{{sponsorButton==true}}" data-id="{{content.id}}">帮忙赞助<text style="font-size:26rpx;">（1元将立刻返回到您的账户）</text></view>
             <view class="sponsor_button" bindtap="toIndex" wx:if="{{toIndexButton==true}}">去首页逛逛</view>
         </view>
         <view class="sponsor_news" wx:if="{{sponsorNews==true}}">全品类商品均可发起赞助，并0成本购</view>

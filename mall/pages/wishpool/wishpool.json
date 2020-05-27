@@ -1,7 +1,7 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#782176",
-  "navigationBarTitleText": "FreeBuy心愿池",
+  "navigationBarBackgroundColor": "#031D42",
+  "navigationBarTitleText": "寻商品",
   "navigationBarTextStyle": "white",
   "enablePullDownRefresh": true
 }

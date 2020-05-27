@@ -141,6 +141,10 @@ page {
   border-radius: 8rpx;
   font-size: 24rpx;
   color: rgba(153, 153, 153, 1);
+  overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+
 }
 
 .cashback-detail .list {
@@ -312,9 +316,9 @@ button::after {
 }
 
 .stop-content-container {
-  width: 357rpx;
+  /* width: 357rpx; */
   height: 66rpx;
-  margin-left: 100rpx;
+  /* margin-left: 100rpx; */
   margin-bottom: 35rpx;
   font-size: 30rpx;
   text-align: center;

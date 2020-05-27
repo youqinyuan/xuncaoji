@@ -50,8 +50,8 @@
             <view class="sponsor_production_box"  wx:if="{{item.sponsorCount<item.requireSponsorCount}}">
                 <view class="sponsor_times_box">
                     <view class="sponsor_times_left">已赞助<text class="red">{{item.sponsorCount}}</text>次</view>
-                    <view class="sponsor_times_right" wx:if="{{item.sponsorCount==0}}">还差{{foo.toInt(item.requireSponsorCount-item.sponsorCount)}}次</view>
-                    <view class="sponsor_times_right" wx:else>还差<text class="red">{{foo.toInt(item.requireSponsorCount-item.sponsorCount)}}</text>次</view>
+                    <!-- <view class="sponsor_times_right" wx:if="{{item.sponsorCount==0}}">还差{{foo.toInt(item.requireSponsorCount-item.sponsorCount)}}次</view> -->
+                    <view class="sponsor_times_right">还差<text class="red">{{foo.toInt(item.requireSponsorCount-item.sponsorCount)}}</text>次</view>
                 </view>
             </view>
             <view class="production_box"  wx:if="{{item.sponsorCount<item.requireSponsorCount}}">
@@ -63,8 +63,10 @@
             </view>
             <view class="production_end"  wx:if="{{item.sponsorCount==item.requireSponsorCount}}">“已完成赞助，少支付{{item.sponsorSavedAmount}}元”</view>
             <view class="get_button_box" >
-                <view class="get_button"  wx:if="{{item.sponsorCount<item.requireSponsorCount}}">继续拉赞助</view>
-                <view class="get_button"  wx:if="{{item.sponsorCount==item.requireSponsorCount}}">去下单</view>
+                <view class="cancle" wx:if="{{item.sponsorCount==0}}" catchtap="showCancle" data-id="{{item.id}}">取消赞助</view>
+                <view class="to_invite" wx:if="{{item.sponsorCount==0}}">邀请好友赞助</view>
+                <view class="get_button"  wx:if="{{item.sponsorCount>0&&item.sponsorCount<item.requireSponsorCount}}">继续拉赞助</view>
+                <view class="get_button"  wx:if="{{item.sponsorCount>0&&item.sponsorCount==item.requireSponsorCount}}">去下单</view>
             </view>
     </view>
     <view class="mengceng" wx:if="{{item.status=='INVALID'||item.status=='NO_ORDER'}}">
@@ -90,7 +92,7 @@
             <text class="goods_box_name">{{item.goodsName}}</text>
         </view>
         <view class="sponsor_people">已有<text class="number">{{item.sendUserCount}}人</text>发起</view>
-        <view class="sponsor_button" bindtap="setSponsor" data-id="{{item.id}}" data-goodsid="{{item.goodsId}}">发起赞助</view>
+        <view class="sponsor_button" bindtap="setSponsor" data-id="{{item.id}}" data-goodsid="{{item.goodsId}}">好友赞助</view>
         <view class="bor"></view>
     </view>
     <view class="buttom" wx:if="{{toBottom}}">好像没啦~</view>
@@ -99,22 +101,31 @@
   <view class="dialog__container" wx:if="{{show1}}">
     <view class="titlez">规则说明</view>
     <view class="text">
+        <view class="warp">1、好友赞助支付后1元后，1元立刻返回好友的账户余额</view>
         <block wx:for="{{configList}}" wx:key="">
-            <view class="rule_value" wx:if="{{item.name=='AUSPICES_TIMES_USER_PER_DAY'}}">1、每人一天最多可以发起赞助{{item.value}}个商品</view>
+            <view class="rule_value" wx:if="{{item.name=='AUSPICES_TIMES_USER_PER_DAY'}}">2、每人一天最多可以发起赞助{{item.value}}个商品</view>
         </block>
-        <view class="rule_value">2、赞助必须超过1次后可进行直接购买</view>
+        <view class="rule_value">3、必须有一个好友赞助后可购买</view>
         <block wx:for="{{configList}}" wx:key="">
-            <view class="rule_value" wx:if="{{item.name=='AUSPICES_EXPIRE_HOURS'}}">3、赞助发起后持续{{item.value}}小时</view>
+            <view class="rule_value" wx:if="{{item.name=='AUSPICES_EXPIRE_HOURS'}}">4、赞助发起后{{item.value}}小时内可以邀请好友赞助</view>
         </block>
-        <view class="rule_value">4、每个用户可为发起赞助的人赞助1元</view>
         <block wx:for="{{configList}}" wx:key="">
-            <view class="rule_value" wx:if="{{item.name=='AUSPICES_TIMES_OTHERS_USER_PER_DAY'}}">5、每个用户每天只可以赞助{{item.value}}次</view>
+            <view class="rule_value" wx:if="{{item.name=='AUSPICES_TIMES_OTHERS_USER_PER_DAY'}}">5、每人每天只可以帮助他人赞助{{item.value}}次</view>
         </block>
-        <view class="rule_value">6、赞助人的赞助金1元将立刻返还到账户余额</view>
-        <view class="rule_value">7、赞助成功后必须在7天内下单</view>
-        <view class="rule_value">8、活动最终解释权归寻草记所有</view>
+        <view class="rule_value">6、赞助成功后必须在7天内下单</view>
+        <view class="rule_value">7、活动最终解释权归寻草记所有</view>
     </view>
   </view>
   <image wx:if="{{show1}}" class="cancel-get2" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
+</view>
+<view class="interest-zan-dialog__mask" wx:if="{{sponsorCancle}}">
+  <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{sponsorCancle}}">
+    <view class="title1">提示</view>
+    <view class="text1">取消赞助后也会减少当日，发起赞助的次数哦</view>
+    <view class="button_box">
+        <view class="button_one" bindtap="closeShow">取消</view>
+        <view class="button_two" bindtap="shure">确定</view>
+    </view>
+  </view>
 </view>
 

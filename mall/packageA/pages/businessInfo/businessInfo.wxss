@@ -1,0 +1,219 @@
+/* packageA/pages/businessInfo/businessInfo.wxss*/
+
+page {
+  background: #f4f4f4;
+}
+
+.businessInfo-top {
+  width: 750rpx;
+  height: 112rpx;
+  background: #ff2644;
+}
+
+.businessInfo {
+  width: 690rpx;
+  height: 160rpx;
+  background: #fff;
+  box-shadow: 0rpx 0rpx 12rpx 0rpx #dadada;
+  border-radius: 20rpx;
+  position: absolute;
+  top: 32rpx;
+  left: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.businessInfo-name {
+  margin-left: 30rpx;
+}
+
+.stroeName {
+  text-align: left;
+  height: 80rpx;
+  line-height: 80rpx;
+  max-width: 560rpx;
+  font-size: 32rpx;
+  color: #333;
+  font-family: PingFang SC;
+  font-weight: bold;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.storeGrade {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #ff6417;
+}
+
+.businessInfo-name image {
+  width: 31rpx;
+  height: 29rpx;
+  margin-right: 8rpx;
+}
+
+.stroeImg {
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 100rpx;
+  height: 100rpx;
+  margin-right: 30rpx;
+  border-radius: 12rpx;
+}
+
+.store-address {
+  width: 750rpx;
+  height: 299rpx;
+  background: #fff;
+  overflow: hidden;
+}
+
+.store-location {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 109rpx;
+  width: 690rpx;
+  border-bottom: 2rpx solid #e7e7e7;
+  margin-left: 30rpx;
+  margin-top: 80rpx;
+}
+
+.store-locations {
+  text-align: left;
+  height: 109rpx;
+  line-height: 109rpx;
+  width: 587rpx;
+  font-size: 28rpx;
+  color: #333;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.store-location image {
+  width: 28rpx;
+  height: 34rpx;
+}
+
+.phone {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 109rpx;
+  margin: 0 30rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.storePhone {
+  display: flex;
+  align-items: center;
+}
+
+.phone-img {
+  width: 26rpx;
+  height: 26rpx;
+  margin-right: 10rpx;
+}
+
+.phone-text {
+  color: #ff2644;
+  font-size: 24rpx;
+}
+
+.businessInfo-notice {
+  background: #fff;
+  margin-top: 20rpx;
+  padding-bottom: 30rpx;
+}
+
+.notice-title {
+  height: 107rpx;
+  line-height: 107rpx;
+  margin-left: 30rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+}
+
+.notice-content {
+  margin-left: 30rpx;
+}
+
+.notice-img {
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 150rpx;
+  height: 150rpx;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.notice-text {
+  width: 637rpx;
+  line-height: 1.5;
+  color: #666;
+  font-size: 24rpx;
+}
+
+.store-message {
+  background: #fff;
+  width: 750rpx;
+  height: 531rpx;
+  margin-top: 20rpx;
+}
+
+.message {
+  width: 690rpx;
+  height: 106rpx;
+  display: flex;
+  align-items: center;
+  margin-right: 30rpx;
+  justify-content: space-between;
+  margin-left: 30rpx;
+  border-bottom: 2rpx solid #e7e7e7;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+}
+
+.no-border {
+  border-bottom: none;
+}
+
+.store-name {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+}
+
+.store-msg {
+  max-width: 300rpx;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.block {
+  height: 140rpx;
+}

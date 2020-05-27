@@ -1,0 +1,38 @@
+<!--packageA/pages/storeSearch/storeSearch.wxml-->
+<view class="page" style="{{goodsResult.length===0?'background:#fff;':'background:#f4f4f4;'}}">
+  <view class="section-wrapper">
+    <view class="section">
+      <image src="{{hostUrl}}/icon/index_nav_search_n.png" class="section-img"></image>
+      <input value="{{inputValue}}" confirm-type="search" bindconfirm='confirmTap' focus="{{true}}" placeholder="搜索店铺" placeholder-style="color:#AAAAAA" bindinput='bindInput' />
+    </view>
+    <view class="cancel" wx:if="{{show}}" catchtap='cancel'>
+      <image src="{{hostUrl}}/icon/nav_search_delete_n.png"></image>
+    </view>
+    <view class="search" bindtap="search">搜索</view>
+  </view>
+  <view class="history_wrap" wx:if="{{goodsResult.length===0}}">
+    <view class="wrapper">
+      <view class="history">
+        <view class="history-search">搜索历史</view>
+        <view class="history-empty" catchtap='detele'>清空</view>
+      </view>
+      <view class="content">
+        <view class="content-list" wx:for="{{history}}" wx:key="{{index}}" bindtap='searchClick' data-item="{{item}}">{{item}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!--商品-->
+  <view class="wrap" wx:if="{{goodsResult.length>0}}">
+     <view class="items" wx:for="{{goodsResult}}" catchtap="businessInfo" wx:key="{{item.id}}" data-id="{{item.id}}" data-count="{{item.goodsCount}}">
+    <view class="img_wrap">
+      <image src="{{item.logoUrl}}"></image>
+    </view>
+    <view class="goodsDetail">
+      <view class="goodsName">{{item.name}}</view>
+      <view class="takeout-sign">{{item.goodsCount==0?'可到店':'0成本购'}}</view>
+      <view class="takeoutT">月销量：{{item.sales}}</view>
+    </view>
+  </view>
+  </view>
+</view>

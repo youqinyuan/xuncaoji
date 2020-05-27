@@ -21,7 +21,7 @@
         <view class="right_font">已返现金额￥{{waitReentry.amountReturned}}，剩余返现金额￥{{waitReentry.noCashBackAmount}}</view>
     </view>
 </view>
-<view class="return_info">
+<view class="return_info height280">
     <view class="list bottom_bor">
         <view class="list_left">提期信息</view>
         <view class="list_right" bindtap="toRule">规则</view>
@@ -29,12 +29,26 @@
     <view class="money_box">
         <view class="money_left">您想给予帮助你提期的朋友 ￥</view>
         <view class="money">
-            <input class="moneyInput" bindinput="getMoney" type="number" maxlength="6"/>
+            <input class="moneyInput" bindinput="getMoney" bindblur="getNianHua" type="number" maxlength="6"/>
         </view>
         <view class="money_right">作为</view>
         <view class="money_bottom">佣金奖励</view>
     </view>
     <view class="tishi">提示：佣金需要为整数，佣金越高帮助你的朋友意愿越高哦</view>
-    <view class="all_money" wx:if="{{waitReentry}}">提至最短期返现共需要<text class="fuhao">￥</text>{{waitReentry.maxMentionPeriodAmount}}</view>
+    <!-- <view class="all_money" wx:if="{{waitReentry}}">提至最短期返现共需要<text class="fuhao">￥</text>{{waitReentry.maxMentionPeriodAmount}}</view> -->
+</view>
+<view class="return_info height296">
+    <view class="list bottom_bor">
+        <view class="list_left">预估结果</view>
+    </view>
+    <view class="nianhua_box">
+        <view class="text_one">帮提期用户预估年化收益为<text style="color:#FF2644;"> {{nianhua?nianhua:0}}%</text> </view>
+        <view class="text_two">提至最短期返现预估需要 <text style="color:#FF2644;"> ￥{{waitReentry.maxMentionPeriodAmount?waitReentry.maxMentionPeriodAmount:0}}</text> </view>
+        <view class="text_three" bindtap="choose">
+            <view class="text_three_font">发布成功后同时发帖至订单交易</view>
+        </view>
+        <image src="{{hostUrl}}/changeImg/no_period_choose.png" class="chooseImg" wx:if="{{!choose}}" bindtap="choose"/>
+        <image src="{{hostUrl}}/changeImg/period_choose.png" class="chooseImg" wx:if="{{choose}}" bindtap="choose"/>
+    </view>
 </view>
 <view class="set" bindtap="setMentionPeriod">发布</view>

@@ -1,0 +1,89 @@
+/* packageA/pages/storeSearch/storeSearch.wxss */
+@import '../placeorderSearch/placeorderSearch/';
+
+.page {
+  display: block;
+  min-height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.wrap {
+  margin-left: 30rpx;
+  width: 690rpx;
+  box-sizing: border-box;
+  margin-top: 110rpx;
+}
+
+.items {
+  width: 100%;
+  height: 200rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  display: flex;
+  padding-left: 30rpx;
+  padding-right: 20rpx;
+  margin-bottom: 20rpx;
+  margin-top: 20rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.img_wrap {
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 140rpx;
+  height: 140rpx;
+  margin-right: 30rpx;
+  margin-top: 30rpx;
+  border-radius: 20rpx;
+}
+
+.img_wrap image {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 20rpx;
+}
+
+.goodsDetail {
+  width: 500rpx;
+  height: 100%;
+  padding-bottom: 30rpx;
+  box-sizing: border-box;
+}
+
+.goodsName {
+  text-align: left;
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 100%;
+  font-size: 32rpx;
+  color: #333;
+  font-family: PingFang SC;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.takeout-sign {
+  display: inline-block;
+  border: 2rpx solid #ff6417;
+  border-radius: 6rpx;
+  font-size: 20rpx;
+  color: #ff6417;
+  padding: 0 10rpx;
+  margin-bottom: 25rpx;
+}
+
+.takeoutT {
+  font-size: 24rpx;
+  color: #666;
+}

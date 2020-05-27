@@ -106,7 +106,7 @@ page {
 .address-name .address-name-xm {
   margin-right: 26rpx;
   font-size: 28rpx;
-  width: 125rpx;
+  max-width: 120rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

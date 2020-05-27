@@ -811,4 +811,10 @@ Page({
       url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id,
     })
   },
+  // 增加曝光
+  addAppear(e) {
+    wx.navigateTo({
+      url: '/packageA/pages/addAppear/addAppear?topicid=' + e.currentTarget.dataset.id,
+    })
+  }
 })

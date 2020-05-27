@@ -24,7 +24,7 @@ Page({
   },
   init:function(){
     let that = this
-    app.Util.ajax('mall/personal/querAuditDetails', { pageNumber: that.data.pageNumber, pageSize: that.data.pageSize}, 'GET').then((res) => { // 使用ajax函数
+    app.Util.ajax('mall/personal/querAuditDetails', { pageNumber: that.data.pageNumber, pageSize: that.data.pageSize}, 'GET').then((res) => { 
       console.log(JSON.stringify(res.data.content))
       if (res.data.content) {
         for (var i = 0; i < res.data.content.items.length; i++) {

@@ -45,9 +45,9 @@ Page({
       topicId: parseInt(options.id)
     })
     if (options.postingStatus == 2 || options.postingStatus == 3) {
-     
+      that.recommend();
     }
-    that.recommend();
+    
     if (wx.getStorageSync('recharge') || wx.getStorageSync('password')) {
       that.setData({
         sureOne: false,
@@ -618,5 +618,10 @@ Page({
       url: '/pages/paypassword/paypassword',
     })
   },
-
+  // 增加曝光
+  addAppear(e) {
+    wx.navigateTo({
+      url: '/packageA/pages/addAppear/addAppear?topicid=' + e.currentTarget.dataset.id,
+    })
+  }
 })

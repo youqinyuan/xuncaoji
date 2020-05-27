@@ -17,5 +17,5 @@
   </view>
 </view>
 <view class="postingBtn-wrap" bindtap="toDetail">
-  <view class="postingBtn">发布赚钱订单</view>
+  <view class="postingBtn">发布商品卖贴</view>
 </view>

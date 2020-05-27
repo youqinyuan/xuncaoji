@@ -99,16 +99,8 @@ Page({
           encodedImages: that.data.goodsData.img_compress,
         }, 'POST').then((res) => {
           if (res.data.messageCode == 'MSG_1001') {
-            if (!wx.getStorageSync('jumpStatus')){
-              var messages = '我们已收到您的心愿，我们会在两天内替您满足心愿，常回来看看哦'
-              wx.navigateTo({
-                url: '/pages/myWish/myWish?messages=' + messages,
-              }) 
-            }else{
-              wx.navigateBack({})
-              wx.setStorageSync('messages', '我们已收到您的心愿，我们会在两天内替您满足心愿，常回来看看哦')  
-              wx.setStorageSync('pageNum',1)     
-            }                
+            wx.navigateBack({})
+            wx.setStorageSync('messages', '发布成功，请等待')          
           } else {
             wx.showToast({
               title: res.data.message,

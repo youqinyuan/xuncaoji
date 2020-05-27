@@ -204,7 +204,7 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}`,
+        url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}&orderSell=1`,
       })
     }
   },

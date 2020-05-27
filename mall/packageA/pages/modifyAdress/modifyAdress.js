@@ -235,7 +235,7 @@ Page({
         id:that.data.id,
         mobileNumber: e.detail.value.mobileNumber,
         receiverName:e.detail.value.receiverName,
-        detailedAddress:that.data.centerData.addr?that.data.centerData.addr:e.detail.value.detailedAddress,
+        detailedAddress:that.data.centerData.title?that.data.centerData.title:e.detail.value.detailedAddress,
         houseNumber:e.detail.value.houseNumber,
         addressType:2,
         lng:that.data.centerData.longitude?that.data.centerData.longitude:that.data.lng,

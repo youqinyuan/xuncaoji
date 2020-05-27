@@ -263,7 +263,7 @@ Page({
                 periodLeft: that.data.periodLeft,
                 periodLeftEnd: that.data.periodLeftEnd,
                 annualizedRate: that.data.annualizedRateBegin,
-                annualizedRateEnd: that.data.annualizedRateEnd
+                annualizedRateEnd: that.data.annualizedRateEnd,
               }, 'POST').then((res) => {
                 if (res.data.content) {
                   wx.navigateTo({
@@ -309,7 +309,7 @@ Page({
                 periodLeft: that.data.periodLeft,
                 periodLeftEnd: that.data.periodLeftEnd,
                 annualizedRate: that.data.annualizedRateBegin,
-                annualizedRateEnd: that.data.annualizedRateEnd
+                annualizedRateEnd: that.data.annualizedRateEnd,
               }, 'POST').then((res) => {
                 if (res.data.content) {
                   wx.navigateTo({
@@ -356,7 +356,8 @@ Page({
               perReturnAmount: that.data.waitReentry.perReturnAmount,
               maxReturnTime: waitReentry.maxReturnTime,
               periodLeft: that.data.waitReentry.periodLeft,
-              code: that.data.waitReentry.code
+              code: that.data.waitReentry.code,
+              lastReturnAmount:that.data.waitReentry.lastReturnAmount?that.data.waitReentry.lastReturnAmount:''
             }
             let data1 = {
               content: that.data.saleText,
@@ -368,7 +369,8 @@ Page({
               transferId: waitReentry.transferId,
               maxReturnTime: waitReentry.maxReturnTime,
               periodLeft: that.data.waitReentry.periodLeft,
-              code: that.data.waitReentry.code
+              code: that.data.waitReentry.code,
+              lastReturnAmount:that.data.waitReentry.lastReturnAmount?that.data.waitReentry.lastReturnAmount:''
             }
             if (that.data.saleText) {
               if (!waitReentry.transferId) {
@@ -416,7 +418,8 @@ Page({
                   perReturnAmount: that.data.waitReentry.perReturnAmount,
                   maxReturnTime: waitReentry.maxReturnTime,
                   periodLeft: that.data.waitReentry.periodLeft,
-                  code: that.data.waitReentry.code
+                  code: that.data.waitReentry.code,
+                  lastReturnAmount:that.data.waitReentry.lastReturnAmount?that.data.waitReentry.lastReturnAmount:''
                 }, 'POST').then((res) => {
                   if (res.data.content) {
                     wx.navigateTo({
@@ -443,7 +446,8 @@ Page({
                   transferId: waitReentry.transferId,
                   maxReturnTime: waitReentry.maxReturnTime,
                   periodLeft: that.data.waitReentry.periodLeft,
-                  code: that.data.waitReentry.code
+                  code: that.data.waitReentry.code,
+                  lastReturnAmount:that.data.waitReentry.lastReturnAmount?that.data.waitReentry.lastReturnAmount:''
                 }, 'POST').then((res) => {
                   if (res.data.content) {
                     wx.navigateTo({

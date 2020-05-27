@@ -1,0 +1,100 @@
+/* packageA/pages/profitOrder/profitOrder.wxss */
+page{
+    background:rgba(244,244,244,1);
+}
+.head{
+    height: 128rpx;
+    background: #D4AC75;
+}
+.profit_huxing{
+    width: 750rpx;
+    height: 46rpx;
+}
+.profit_box{
+    height: 146rpx;
+    width: 690rpx;
+    position: absolute;
+    left: 30rpx;
+    top: 53rpx;
+    background:rgba(255,255,255,1);
+    box-shadow:0rpx 4rpx 20rpx 0rpx rgba(104,93,94,0.1);
+    border-radius:8rpx;
+}
+
+.title{
+    height: 146rpx;
+    display: flex;
+}
+.all_profit{
+    width: 230rpx;
+    height: 146rpx;
+}
+.font{
+    font-size:22rpx;
+    font-family:PingFang SC;
+    color:rgba(153,153,153,1);
+    margin-top: 32rpx;
+    text-align: center;
+}
+.number{
+    font-size:36rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:#B7905B;
+    text-align: center;
+    margin-top: 12rpx;
+}
+.number text{
+    font-size:24rpx;
+}
+.content{
+    width:690rpx;
+    height:183rpx;
+    background:rgba(255,255,255,1);
+    box-shadow:0rpx 4rpx 20rpx 0rpx rgba(104,93,94,0.1);
+    border-radius:8rpx;
+    display: flex;
+    margin-top: 20rpx;
+    margin-left: 30rpx;
+}
+.left{
+    height: 183rpx;
+    width: 400rpx;
+}
+.nianhua_number{
+    font-size:48rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:rgba(255,38,68,1);
+    margin-top: 42rpx;
+    margin-left: 78rpx;
+}
+.nianhua_number text{
+    font-size:32rpx !important;
+    top: 40rpx;
+}
+.nianhua{
+    font-size:22rpx;
+    font-family:PingFang SC;
+    color:rgba(153,153,153,1);
+    margin-top: 7rpx;
+    margin-left: 78rpx;
+}
+.right{
+    height: 183rpx;
+}
+.right_one{
+    margin-top: 10rpx;
+    font-size:26rpx;
+    font-family:PingFang SC;
+    color:rgba(51,51,51,1);
+}
+.martop20{
+    margin-top:30rpx !important;
+}
+.nothing{
+    text-align: center;
+    color: #666;
+    font-size: 28rpx;
+    margin-top: 30rpx;
+}

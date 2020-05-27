@@ -36,7 +36,7 @@
       <button class="stopzero" catchtap="stopZero" data-ordergoodsid="{{itemName.id}}" disabled="{{itemName.isStop==1?true:false}}" wx:if="{{itemName.stageInterest&&latestStatus!==1&&latestStatus!==7&&latestStatus!==9&&latestStatus!==10&&latestStatus!==12&&from!==2&&whetherAdvanceSale==2}}">
       {{itemName.isStop==1?'已终止0元购':'终止FreeBuy转购买'}}</button>
   <!-- 返现明细 -->
-  <view class="cashback-amount" wx:if="{{itemName.cashBack && itemName.period !==0}}">共分{{itemName.orderGoodsCashBackItem.length}}期返现，已返现{{itemName.returnedPeriod}}期，剩余返现金额为￥{{itemName.remainingCashReturn}}</view>
+  <view class="cashback-amount" wx:if="{{itemName.cashBack && itemName.period !==0}}">共分{{itemName.orderGoodsCashBackItem.length}}期，已返现{{itemName.returnedPeriod}}期，{{itemName.mentionedPeriods>0?'已提'+itemName.mentionedPeriods+'期，':''}}剩余返现金额为￥{{itemName.remainingCashReturn}}</view>
   <view class="cashback-amount" wx:elif="{{itemName.cashBack && itemName.period ==0}}">立即返，剩余返现金额为 ￥{{itemName.remainingCashReturn}}
   </view>
   <view class="cashback-detail">
@@ -111,7 +111,7 @@
   </view>
     <view class="pre_sell" wx:if="{{whetherAdvanceSale==1&&defaultAmountStatus==2}}">此订单未正常支付，返现日将延迟</view>
   <!-- 返现明细 -->
-  <view class="cashback-amount" wx:if="{{content.cashBack && content.period !==0}}">共分{{content.orderGoodsCashBackItem.length}}期返现，已返现{{content.returnedPeriod}}期，剩余返现金额为￥{{content.remainingCashReturn}}</view>
+  <view class="cashback-amount" wx:if="{{content.cashBack && content.period !==0}}">共分{{content.orderGoodsCashBackItem.length}}期，已返现{{content.returnedPeriod}}期，{{content.mentionedPeriods>0?'已提'+content.mentionedPeriods+'期，':''}}剩余返现金额为￥{{content.remainingCashReturn}}</view>
   <view class="cashback-amount" wx:elif="{{content.cashBack && itemName.period ==0}}">立即返，剩余返现金额为 ￥{{content.remainingCashReturn}}
   </view>
   <view class="cashback-detail">

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/newIndex/newIndex",
     "pages/index/index",
     "pages/wishpool/wishpool",
     "pages/leaveWish/leaveWish",
@@ -121,8 +122,26 @@
         "pages/setDisbutionAddress/setDisbutionAddress",
         "pages/shareMentionPeriod/shareMentionPeriod",
         "pages/map/map",
+        "pages/addAppear/addAppear",
+        "pages/bankCard/bankCard",
+        "pages/addCard/addCard",
+        "pages/editCard/editCard",
+        "pages/takeoutStore/takeoutStore",
+        "pages/storeSearch/storeSearch",
+        "pages/seedRecharge/seedRecharge",
+        "pages/addressLocation/addressLocation",
+        "pages/businessInfo/businessInfo",
+        "pages/seedMask/seedMask",
         "pages/allStore/allStore",
-        "pages/helpFail/helpFail"
+        "pages/helpFail/helpFail",
+        "pages/profitDetail/profitDetail",
+        "pages/profitOrder/profitOrder",
+        "pages/profitGoodsSell/profitGoodsSell",
+        "pages/profitGoodsBuy/profitGoodsBuy",
+        "pages/profitMentionPeriod/profitMentionPeriod",
+        "pages/hero/hero",
+        "pages/profitBook/profitBook",
+        "pages/guidePage/guidePage"
       ]
     }
   ],
@@ -136,28 +155,34 @@
     "backgroundColor": "#fff",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/newIndex/newIndex",
         "text": "首页",
-        "iconPath": "assets/images/icon/ic_home_n.png",
-        "selectedIconPath": "assets/images/icon/ic_activehome_n.png"
+        "iconPath": "assets/images/icon/ic_home_n@2x.png",
+        "selectedIconPath": "assets/images/icon/ic_home_s@2x.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "商城",
+        "iconPath": "assets/images/icon/ic_goods_n@2x.png",
+        "selectedIconPath": "assets/images/icon/ic_goods_s@2x.png"
       },
       {
         "pagePath": "pages/wishpool/wishpool",
-        "text": "心愿池",
-        "iconPath": "assets/images/icon/ic_play_n.png",
-        "selectedIconPath": "assets/images/icon/ic_activeplay_n.png"
+        "text": "寻商品",
+        "iconPath": "assets/images/icon/ic_goods_n.png",
+        "selectedIconPath": "assets/images/icon/ic_goods_s@2x(1).png"
       },
       {
         "pagePath": "pages/forum/forum",
         "text": "订单交易",
-        "iconPath": "assets/images/icon/ic_forum_n.png",
-        "selectedIconPath": "assets/images/icon/ic_activeforum_n.png"
+        "iconPath": "assets/images/icon/ic_trade_n@2x.png",
+        "selectedIconPath": "assets/images/icon/ic_trade_s@2x.png"
       },
       {
         "pagePath": "pages/mine/mine",
         "text": "我的",
-        "iconPath": "assets/images/icon/ic_my_n.png",
-        "selectedIconPath": "assets/images/icon/ic_activemy_n.png"
+        "iconPath": "assets/images/icon/ic_my_n@2x.png",
+        "selectedIconPath": "assets/images/icon/ic_my_s@2x.png"
       }
     ]
   },

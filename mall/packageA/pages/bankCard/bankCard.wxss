@@ -1,0 +1,211 @@
+/* packageA/pages/bankCard/bankCard.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+.bankCard_wrap {
+  width: 690rpx;
+  margin: 30rpx;
+}
+
+.bankCard {
+  position: relative;
+  overflow: hidden;
+  width: 690rpx;
+  height: 220rpx;
+  background: #fff;
+  border-radius: 8rpx;
+  margin-bottom: 21rpx;
+}
+
+.bankCard-top {
+  display: flex;
+  align-items: center;
+  margin-top: 43rpx;
+  margin-left: 49rpx;
+}
+
+.bankCard-text {
+  max-width: 570rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+}
+
+.bankCard-sign {
+  width: 58rpx;
+  height: 28rpx;
+  border: 2rpx solid #ff2644;
+  border-radius: 4px;
+  color: #ff2644;
+  text-align: center;
+  line-height: 28rpx;
+  font-size: 18rpx;
+  margin-left: 14rpx;
+}
+
+.bankCard-name {
+  font-size: 26rpx;
+  color: #999;
+  margin-left: 49rpx;
+  margin-top: 10rpx;
+}
+
+.bankCard-bottom {
+  display: flex;
+  height: 106rpx;
+  align-items: center;
+  margin-left: 49rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #666;
+}
+
+.bankCard-num {
+  position: absolute;
+  left: 280rpx;
+  bottom:26rpx;
+}
+
+.bankCard-btn {
+  display: flex;
+  margin-left: 207rpx;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #999;
+}
+
+.deleteBtn {
+  margin-right: 20rpx;
+}
+
+.btn {
+  width: 80rpx;
+  height: 40rpx;
+  border: 2rpx solid #999;
+  border-radius: 20rpx;
+  text-align: center;
+  line-height: 40rpx;
+}
+
+.addBtn {
+  position: fixed;
+  bottom: 60rpx;
+  width: 690rpx;
+  height: 80rpx;
+  background: linear-gradient(90deg, #ff6a48 0%, #ff2644 100%);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: #fff;
+  margin-left: 30rpx;
+}
+/* 没有银行卡的时候 */
+
+.notStore {
+  display: flex;
+  flex-direction: column;
+  font-size: 28rpx;
+  margin-top: 187rpx;
+}
+
+.notStore image {
+  width: 750rpx;
+  height: 320rpx;
+}
+
+.notStoreText {
+  text-align: center;
+  color: #333;
+}
+
+/*删除银行卡弹框 */
+
+.yudialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.yudialog__mask .dialog__container {
+  background: rgba(255, 255, 255, 1);
+  height: 355rpx;
+  width: 600rpx;
+  overflow: hidden;
+  position: fixed;
+  z-index: 9999;
+  border-radius: 30rpx;
+  top: 260rpx;
+  left: 75rpx;
+}
+
+.yudialog__mask .cancelImg {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  right: 55rpx;
+  top: 50rpx;
+}
+
+.yudialog__mask .dialog__container .tishi {
+  text-align: center;
+  margin-top: 46rpx;
+  margin-bottom: 35rpx;
+  font-size: 36rpx;
+  color: rgba(51, 51, 51, 1);
+  margin-left: 50rpx;
+}
+
+.yudialog__mask .dialog__container .order {
+  font-size: 30rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.yudialog__mask .order_one {
+  font-size: 28rpx;
+  color: #333;
+  margin-left: 50rpx;
+  text-align: center;
+}
+
+.yudialog__mask .order_box1 {
+  width: 240rpx;
+  height: 76rpx;
+  border: 2rpx solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: rgba(255, 38, 68, 1);
+  line-height: 76rpx;
+}
+
+.yudialog__mask .order_box2 {
+  width: 240rpx;
+  height: 76rpx;
+  background: #ff2644;
+  border-radius: 38rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #fff;
+  line-height: 76rpx;
+}
+
+.yudialog__mask .order_box {
+  display: flex;
+  justify-content: space-between;
+  margin: 50rpx;
+}

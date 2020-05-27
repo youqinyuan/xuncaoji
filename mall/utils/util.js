@@ -46,8 +46,8 @@ const ajax = (url, data, method, config = {}) => {
     authLoginStatus = authLoginStatus2
   }
   let token = wx.getStorageSync('token')
-  let baseUrl = "https://dev.xuncaoji.net/v2.4/"; //测试环境
-  // let baseUrl = 'https://xuncaoji.net/v2.3/'; //正式环境
+  let baseUrl = "https://dev.xuncaoji.net/v2.5/"; //测试环境
+  // let baseUrl = 'https://xuncaoji.net/v2.4/'; //正式环境
   let headerConfig = { // 默认header ticket、token、params参数是每次请求需要携带的认证信息
     ticket: '...',
     token: '' || token,
@@ -110,8 +110,8 @@ function getUrlImg() {
   var hostUrl = 'https://xuncaoji.net/_download/img';
   var hostVideo = 'https://xuncaoji.net/_download/';
   var host = 'https://xuncaoji.net/'
-  var publicUrl = "https://dev.xuncaoji.net/v2.4/"; //测试环境 
-  // var publicUrl = 'https://xuncaoji.net/v2.3/'; //正式环境
+  var publicUrl = "https://dev.xuncaoji.net/v2.5/"; //测试环境
+  // var publicUrl = 'https://xuncaoji.net/v2.4/'; //正式环境
   return {
     hostUrl,
     publicUrl,

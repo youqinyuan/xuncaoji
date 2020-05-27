@@ -35,6 +35,15 @@ Page({
     that.setData({
       options:options
     })
+    if (options.status == 1) {
+      wx.setNavigationBarTitle({
+        title: '发布商品卖帖'
+      });
+    } else if (options.status == 2) {
+      wx.setNavigationBarTitle({
+        title: '发布商品买帖'
+      });
+    }
   },
 
   /**
@@ -214,7 +223,7 @@ Page({
       scope: 1,
       sortBy: 2,
       sortFlag: that.data.sortFlag,
-      pageNumber: that.data.pageNumber,
+      pageNumber: pageNumber,
       pageSize: that.data.pageSize
     }
     app.Util.ajax('mall/home/_search', data, 'GET').then((res) => { // 使用ajax函数

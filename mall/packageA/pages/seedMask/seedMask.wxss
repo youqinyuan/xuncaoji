@@ -1,0 +1,260 @@
+/* packageA/pages/seedMask/seedMask.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+.seedMask-top {
+  overflow: hidden;
+  width: 750rpx;
+  height: 600rpx;
+  background: linear-gradient(0deg, #f4f4f4 0%, #67d7d3 59%, #57b4eb 99%);
+}
+
+.seedMask-circle {
+  position: absolute;
+  height: 420rpx;
+  width: 420rpx;
+  top: 40rpx;
+  left: 165rpx;
+}
+
+.seedMask-wrap {
+  position: relative;
+  margin-top: 162rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.seedMask-text {
+  font-size: 22rpx;
+}
+
+.seedMask-day {
+  font-size: 100rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+}
+
+.day {
+  font-size: 24rpx;
+}
+
+.seedMask-Item {
+  position: absolute;
+  color: #8c440a;
+  font-size: 28rpx;
+  top: 178rpx;
+  left: 315rpx;
+  z-index: 99;
+}
+
+.seedMask-btn {
+  position: absolute;
+  height: 68rpx;
+  width: 230rpx;
+  top: 165rpx;
+  left: 254rpx;
+}
+
+.seedMask-items {
+  margin-top: 78rpx;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+}
+
+.seedNum {
+  color: #f4f31b;
+}
+
+.seedMask-bigBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 690rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  background: #fff;
+  margin-left: 30rpx;
+  margin-top: 60rpx;
+  color: #fb8f42;
+}
+
+.seedMask-use {
+  height: 48rpx;
+  width: 48rpx;
+  margin-right: 10rpx;
+}
+
+.seedMask-title {
+  height: 127rpx;
+  line-height: 127rpx;
+  margin-left: 30rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+}
+
+.seedMask-save {
+  position: relative;
+  width: 690rpx;
+  height: 110rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 10rpx;
+  margin-left: 30rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+}
+
+.seedMask-saveImg {
+  width: 68rpx;
+  height: 68rpx;
+  margin: 0 30rpx;
+}
+
+.seedMask-saveImgs {
+  position: absolute;
+  width: 118rpx;
+  height: 44rpx;
+  right: 0;
+  top: 0;
+}
+
+.seedMask-saveTexts {
+  color: #fff;
+  font-size: 20rpx;
+  position: absolute;
+  right: 20rpx;
+  top: 10rpx;
+}
+
+.seedMask-doBtn {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 30rpx;
+}
+
+.buyBtn {
+  width: 325rpx;
+  height: 78rpx;
+  line-height: 78rpx;
+  text-align: center;
+  background: rgba(255, 251, 246, 1);
+  border: 2rpx solid #ff9000;
+  color:#ff9000; 
+  border-radius: 10rpx;
+}
+
+.seedMaskBtn{
+  width: 690rpx;
+  height: 80rpx;
+  background: linear-gradient(90deg, #ff6a48 0%, #ff2644 100%);
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: #fff;
+  margin-left: 30rpx;
+  margin-top: 90rpx;
+}
+button::after {
+  border: none;
+}
+
+.block{
+  height: 60rpx;
+  width: 750rpx;
+}
+
+/*对话框 */
+
+.commodity_attr_box1 {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+  z-index: 99999;
+}
+
+.content-wrapper1 {
+  overflow: hidden;
+  height: auto;
+  text-align: center;
+  position: relative;
+}
+
+.content-wrapper1 .cancel {
+  width: 44rpx;
+  height: 44rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 14rpx;
+}
+
+.content-wrapper1 .shareCommission {
+  margin-top: 70rpx;
+  font-size: 32rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.content-wrapper1 .shareText {
+  margin-top: 39rpx;
+  font-size: 28rpx;
+  color: rgba(102, 102, 102, 1);
+}
+
+.content-wrapper1 .share-wrap {
+  width: 565rpx;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.content-wrapper1 .share-button {
+  background: rgba(255, 255, 255, 1);
+  width: 198rpx;
+  border-radius: 0;
+}
+
+button::after {
+  border: none;
+}
+
+.content-wrapper1 .photo {
+  margin-top: 30rpx;
+  width: 128rpx;
+  height: 128rpx;
+}
+
+.content-wrapper1 .wx {
+  margin-top: -35rpx;
+  font-size: 32rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+/* 弹出框 */
+
+.commodity_screen1 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.4;
+  overflow: hidden;
+  z-index: 9999;
+  color: rgba(255, 255, 255, 1);
+}

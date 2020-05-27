@@ -39,6 +39,7 @@ page {
 }
 
 .classify {
+  height: 85rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -48,32 +49,26 @@ page {
 }
 
 .classify_wrap {
-  position: relative;
+  height: 80rpx;
+  line-height: 80rpx;
   width: 100%;
-}
-
-.classify_one {
   text-align: center;
-  height: 72rpx;
-  line-height: 72rpx;
   font-size: 30rpx;
-  font-family: PingFang SC;
-  font-weight: 400;
-  color: #555;
+  color: rgba(51, 51, 51, 1);
+  position: relative;
 }
 
-.titleActive {
-  position: absolute;
-  bottom: 0;
-  left: 40%;
+.category {
   width: 30rpx;
   height: 6rpx;
+  border-radius: 10rpx;
+  margin: 0 auto;
+  margin-top: -10rpx;
   background: rgba(255, 38, 68, 1);
-  border-radius: 3rpx;
 }
 
+
 .infoBox_wrap .infoBox {
-  /* min-height: 570rpx; */
   padding-top: 30rpx;
 }
 

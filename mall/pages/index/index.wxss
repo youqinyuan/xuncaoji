@@ -32,23 +32,21 @@ page {
   z-index: 97;
   width: 42rpx;
   height: 42rpx;
-  line-height: 42rpx;
-  text-align: center;
   background: #ff2644;
-  border-radius: 50%;
-  border: 2rpx solid #ff2644;
   font-size: 20rpx;
-  font-family: PingFang-SC-Bold;
-  font-weight: bold;
-  color: rgba(255, 255, 255, 1);
+  border-radius: 50%;
 }
 
 .small-num {
   width: 36rpx;
   height: 36rpx;
+  line-height: 36rpx;
+  text-align: center;
   background: #ff2644;
   border-radius: 50%;
   border: 2rpx solid #fff;
+  color: #fff;
+  margin: 2rpx auto;
 }
 
 /*搜索框*/
@@ -109,8 +107,7 @@ page {
 
 .nav-box {
   display: inline-block;
-  width: 130rpx;
-  padding: 0 10rpx;
+  padding: 0 20rpx;
 }
 
 .nav-item {
@@ -119,14 +116,15 @@ page {
 }
 
 .nav-item.active {
-  color: #ff6417;
+  color:#ff2644;
 }
 
 .nav-item.active1 {
-  width: 60rpx;
+  width: 40rpx;
   height: 6rpx;
-  background: #ff6417;
-  margin-left: 35rpx;
+  border-radius: 10rpx;
+  margin: 0 auto;
+  background: #ff2644;
 }
 
 .content_all {
@@ -341,7 +339,6 @@ page {
 }
 
 .show-showNotice .show-showNotice-container .rule_content {
-  font-family: PingFang-SC-Medium;
   color: #999;
 }
 
@@ -571,15 +568,18 @@ page {
 .wait_shure-one-dialog__mask .zan-dialog__container1 .cause_box {
   margin-bottom: 10rpx;
 }
-.return_money_img{
+
+.return_money_img {
   width: 119rpx;
   height: 132rpx;
 }
-.return_money_box{
+
+.return_money_box {
   position: fixed;
   right: 9rpx;
   top: 513rpx;
 }
+
 /* 首页返现到账弹窗 */
 
 .show-received1 {
@@ -622,27 +622,32 @@ page {
   left: 0;
   top: 860rpx;
 }
+
 .show-received-cancel1 image {
   width: 56rpx;
   height: 56rpx;
 }
-.bg_img{
+
+.bg_img {
   display: inline-block;
   width: 540rpx;
   height: 680rpx;
 }
-.return_money{
-  font-size:32rpx;
-  font-family:PingFang SC;
-  font-weight:bold;
-  color:rgba(255,255,255,1);
+
+.return_money {
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 1);
   position: absolute;
   left: 0;
   top: 451rpx;
   text-align: center;
-  left: 181rpx;
+  /* left: 181rpx; */
+  width: 540rpx;
 }
-.toyue_img{
+
+.toyue_img {
   width: 381rpx;
   height: 111rpx;
   position: absolute;
@@ -650,9 +655,10 @@ page {
   top: 538rpx;
   z-index: 100;
 }
+
 /* 转让撤销提示弹窗 */
 
-.return-two-dialog__maskPeople{
+.return-two-dialog__maskPeople {
   position: fixed;
   top: 0;
   left: 0;
@@ -693,11 +699,13 @@ page {
   text-align: left;
   height: 20rpx;
 }
-.peopleCancle_box{
+
+.peopleCancle_box {
   position: relative;
   height: 277rpx;
 }
-.people_info_img{
+
+.people_info_img {
   height: 80rpx;
   width: 80rpx;
   border-radius: 40rpx;
@@ -706,42 +714,48 @@ page {
   left: 41rpx;
   top: 50rpx;
 }
-.people_info_name{
+
+.people_info_name {
   display: inline-block;
-  font-size:24rpx;
-  color:rgba(51,51,51,1);
+  font-size: 24rpx;
+  color: rgba(51, 51, 51, 1);
   position: absolute;
   left: 151rpx;
   top: 55rpx;
 }
-.people_info_acountnumber{
+
+.people_info_acountnumber {
   display: inline-block;
-  font-size:24rpx;
-  color:rgba(51,51,51,1);
+  font-size: 24rpx;
+  color: rgba(51, 51, 51, 1);
   position: absolute;
   left: 151rpx;
   top: 97rpx;
 }
-.cancle_font{
+
+.cancle_font {
   display: inline-block;
-  font-size:26rpx;
-  color:rgba(51,51,51,1);
+  font-size: 26rpx;
+  color: rgba(51, 51, 51, 1);
   position: absolute;
   left: 39rpx;
   top: 163rpx;
   width: 546rpx;
 }
-.border_bottom{
+
+.border_bottom {
   height: 3rpx;
   width: 550rpx;
-  background: #E7E7E7;
+  background: #e7e7e7;
   position: absolute;
   left: 40rpx;
   bottom: 0;
 }
-.head_title{
+
+.head_title {
   height: 40rpx;
 }
+
 .peopleCanlce_close {
   width: 200rpx;
   height: 76rpx;
@@ -751,6 +765,7 @@ page {
   right: 10rpx;
   top: 172rpx;
 }
+
 .peopleCanlce_close image {
   width: 44rpx;
   height: 79rpx;

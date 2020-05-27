@@ -1,10 +1,11 @@
 /* packageA/pages/takeoutHomeage/takeoutHomeage.wxss */
 @import "../ecommerceStore/ecommerceStore";
 
-.section-block{
+.section-block {
   height: 80rpx;
   width: 750rpx;
 }
+
 .return-cart {
   display: flex;
   justify-content: space-between;
@@ -132,7 +133,7 @@
   background: #ff2644;
   border-radius: 50%;
   color: #fff;
-  font-size: 18rpx;
+  font-size: 24rpx;
   position: absolute;
   top: 15rpx;
   left: 101rpx;
@@ -508,4 +509,134 @@
   display: flex;
   justify-content: space-between;
   margin: 50rpx;
+}
+
+.storeDelete {
+  display: flex;
+  height: 106rpx;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 30rpx;
+  border-bottom: 2rpx solid #e7e7e7;
+}
+
+.storeDelete-title {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+}
+
+.storeDelete-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.storeDelete-wrap image {
+  width: 22rpx;
+  height: 24rpx;
+  margin-right: 10rpx;
+}
+
+.storeDelete-text {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+}
+
+.store-wrapper {
+  height: auto;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
+  margin-bottom: 120rpx;
+  max-height: 540rpx;
+}
+
+.storeGoods {
+  display: flex;
+  height: 180rpx;
+  align-items: center;
+}
+
+.storeLeft image {
+  width: 120rpx;
+  height: 120rpx;
+  margin-left: 30rpx;
+}
+
+.storeR {
+  width: 545rpx;
+  margin-left: 26rpx;
+  border-bottom: 2rpx solid #e7e7e7;
+}
+
+.storeName {
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+}
+
+.storeSpec {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+}
+
+.storeBottom {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18rpx;
+}
+
+.storePrice {
+  display: flex;
+  align-items: center;  
+}
+
+.storeT {
+  font-size: 24rpx;
+  color: #333;
+}
+
+.storeSign {
+  font-size: 24rpx;
+  color: #ff2644;
+}
+
+.storeP {
+  margin-right: 5rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #ff2644;
+}
+
+.storeNum {
+  display: flex;
+  align-items: center;
+}
+
+.storeNumber {
+  text-align: center;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  width: 52rpx;
+}
+
+.storeReduce {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.storeAdd {
+  width: 50rpx;
+  height: 50rpx;
 }

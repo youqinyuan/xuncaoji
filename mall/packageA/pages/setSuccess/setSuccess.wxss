@@ -32,6 +32,7 @@
     font-size:28rpx;
     font-family:PingFang SC;
     color:rgba(255,255,255,1);
+    margin-top: 57rpx;
 }
 .button_two{
     width:280rpx;

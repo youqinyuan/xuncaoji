@@ -58,7 +58,7 @@
     </view>
     <view class="saleLeave" wx:if="{{waitReentry.returnTypeCash==3}}">剩余{{waitReentry.periodLeft}}天，截止{{waitReentry.maxReturnTime}}，每天返还￥{{waitReentry.perReturnAmount}}</view>
      <view class="saleLeave" wx:if="{{waitReentry.returnTypeCash==4}}">剩余{{waitReentry.periodLeft}}期，截止{{waitReentry.maxReturnTime}}，返还￥{{waitReentry.perReturnAmount}}</view>
-    <view class="saleLeave" wx:if="{{waitReentry.returnTypeCash==1||waitReentry.returnTypeCash==2}}">剩余{{waitReentry.periodLeft}}期，截止{{waitReentry.maxReturnTime}}，每月{{waitReentry.perReturnDay}}号，每期返还￥{{waitReentry.perReturnAmount}}</view>
+    <view class="saleLeave" wx:if="{{waitReentry.returnTypeCash==1||waitReentry.returnTypeCash==2}}">剩余{{waitReentry.periodLeft}}期，截止{{waitReentry.maxReturnTime}}，每月{{waitReentry.perReturnDay}}号，每期返还￥{{waitReentry.perReturnAmount}}{{waitReentry.lastReturnAmount?'，最后一期返还￥'+waitReentry.lastReturnAmount:''}}</view>
     <view class="saleYear" wx:if="{{annualizedRate}}">年收益率：<text>{{annualizedRate}}%</text></view>
     <view class="saleText">年收益率会随剩余时间的变化不断降低。</view>
     <view class="replyChoose" bindtap="jumpWaitReentry">重选</view>

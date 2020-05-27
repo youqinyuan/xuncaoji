@@ -159,7 +159,7 @@
   <image src="{{hostUrl}}/mine/older_more_n.png" class="zhuanshi_to" />
 </view>
 <!-- 我的订单 -->
-<view class="{{content.memberType==2||entrance==0?'order':'order1'}}">
+<view class="{{content.memberType==2||entrance==2?'order':'order1'}}">
   <view class="order-title" bindtap='navOrder' data-url="/pages/myorder/myorder?status=0">
     <image class="order-img" src="{{hostUrl}}/icon/my_order_icon.png"></image>
     <text class="order-text">我的订单</text>
@@ -184,7 +184,7 @@
     <view class="{{content.memberType==2?'circle3':'circle33'}}" wx:if="{{item.status==5}}">{{item.count}}</view>
     <view class="{{content.memberType==2?'circle4':'circle44'}}" wx:if="{{item.status==7&&item.count!==0}}">{{item.count}}</view>
   </view>
-  <view class="circle" wx:for="{{orderCount}}" wx:key="" wx:if="{{entrance==0}}">
+  <view class="circle" wx:for="{{orderCount}}" wx:key="" wx:if="{{entrance==2}}">
     <view class="circle1" wx:if="{{item.status==1}}">{{item.count}}</view>
     <view class="circle2" wx:if="{{item.status==2}}">{{item.count}}</view>
     <view class="circle5" wx:if="{{item.status==4}}">{{item.count}}</view>
@@ -255,7 +255,7 @@
         <image src="{{hostUrl}}/changeImg/my_service_list1_icon.png"></image>
       </view>
       <view class="pay-text">
-        <view class="pay-text-big">赚钱/省钱订单</view>
+        <view class="pay-text-big">商品交易</view>
         <view class="pay-text-small">省赚都在这里哦</view>
       </view>
     </view>
@@ -291,6 +291,10 @@
 </view>
 <!-- 购物车、我的地址、支付密码、邀请码、商家入驻、客服 -->
 <view class="mine">
+  <view class="mine-list" bindtap='toBankCard'>
+    <image class="mine-list-img" src="{{hostUrl}}/changeImg/tonewpage.png"></image>
+    <view class="mine-list-text">提现收款银行卡</view>
+  </view>
   <view class="mine-list" bindtap='toCart'>
     <image class="mine-list-img" src="{{hostUrl}}/changeImg/tonewpage.png"></image>
     <view class="mine-list-text">购物车</view>
@@ -336,13 +340,13 @@
   <view class="title2">我的邀请码</view>
   <view class="invite-code">{{content.inviterCode}}</view>
   <view class="copy" bindtap='copyText' data-text="{{content.inviterCode}}">复制</view>
-  <view class="line"></view>
-  <view class="member1" wx:if="{{content.inviterIsMember===2 && content.inviterNickname}}">
+  <!-- <view class="line"></view> -->
+  <!-- <view class="member1" wx:if="{{content.inviterIsMember===2 && content.inviterNickname}}">
     非Plus会员
   </view>
-  <view class="member1" wx:elif="{{content.inviterIsMember===1}}">Plus会员</view>
-  <image class="attrimage1" wx:if="{{content.inviterIsMember===2 && content.inviterNickname}}" src="{{hostUrl}}/icon/my_viptag_bg.png"></image>
-  <image class="attrimage1" wx:if="{{content.inviterIsMember===1}}" src="{{hostUrl}}/icon/my_viptag_bg.png"></image>
+  <view class="member1" wx:elif="{{content.inviterIsMember===1}}">Plus会员</view> -->
+  <!-- <image class="attrimage1" wx:if="{{content.inviterIsMember===2 && content.inviterNickname}}" src="{{hostUrl}}/icon/my_viptag_bg.png"></image>
+  <image class="attrimage1" wx:if="{{content.inviterIsMember===1}}" src="{{hostUrl}}/icon/my_viptag_bg.png"></image> -->
   <image wx:if="{{content.inviterAvatarKey}}" class="attrimage" src="{{content.inviterAvatarKey}}"></image>
   <image wx:else class="attrimage" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
   <view class="text">我的推荐人</view>
@@ -421,19 +425,19 @@
     </view>
   </view>
 </view>
-  <!-- 转让撤销提示弹窗 -->
-  <view class="return-two-dialog__maskPeople" catchtouchmove="preventTouchMove" wx:if="{{returnCanclePeople}}">
-    <view class="zan-dialog__containerPeople" wx:if="{{returnCanclePeople}}">
-      <view class="head_title"></view>
-          <view class="peopleCancle_box" wx:for="{{returnContent3}}" wx:key="{{item.id}}">
-            <image class="people_info_img" src="{{item.imgUrl}}"/>
-            <view class="people_info_name">{{item.nikeName}}</view>
-            <view class="people_info_acountnumber">{{item.mobileNumber}}</view>
-            <view class="cancle_font">转让方撤销了与您的交易！如有疑问请联系该用户。</view>
-            <view class="border_bottom"></view>
-        </view>
+<!-- 转让撤销提示弹窗 -->
+<view class="return-two-dialog__maskPeople" catchtouchmove="preventTouchMove" wx:if="{{returnCanclePeople}}">
+  <view class="zan-dialog__containerPeople" wx:if="{{returnCanclePeople}}">
+    <view class="head_title"></view>
+    <view class="peopleCancle_box" wx:for="{{returnContent3}}" wx:key="{{item.id}}">
+      <image class="people_info_img" src="{{item.imgUrl}}" />
+      <view class="people_info_name">{{item.nikeName}}</view>
+      <view class="people_info_acountnumber">{{item.mobileNumber}}</view>
+      <view class="cancle_font">转让方撤销了与您的交易！如有疑问请联系该用户。</view>
+      <view class="border_bottom"></view>
     </view>
-      <view class="peopleCanlce_close" wx:if="{{returnCanclePeople}}" bindtap='returnCanclePeople'>
-        <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
-      </view>
   </view>
+  <view class="peopleCanlce_close" wx:if="{{returnCanclePeople}}" bindtap='returnCanclePeople'>
+    <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
+  </view>
+</view>

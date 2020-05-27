@@ -1,0 +1,124 @@
+/* packageA/pages/profitMentionPeriod/profitMentionPeriod.wxss */
+page{
+    background:rgba(244,244,244,1);
+}
+.head{
+    height: 128rpx;
+    background: #D4AC75;
+}
+.profit_huxing{
+    width: 750rpx;
+    height: 46rpx;
+}
+.profit_box{
+    height: 146rpx;
+    width: 690rpx;
+    position: absolute;
+    left: 30rpx;
+    top: 53rpx;
+    background:rgba(255,255,255,1);
+    box-shadow:0rpx 4rpx 20rpx 0rpx rgba(104,93,94,0.1);
+    border-radius:8rpx;
+}
+
+.title{
+    height: 146rpx;
+    display: flex;
+}
+.all_profit{
+    width: 230rpx;
+    height: 146rpx;
+}
+.nianhua{
+    width: 230rpx;
+    height: 146rpx;
+}
+.font{
+    font-size:22rpx;
+    font-family:PingFang SC;
+    color:rgba(153,153,153,1);
+    margin-top: 32rpx;
+    text-align: center;
+}
+.number{
+    font-size:36rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:#B7905B;
+    text-align: center;
+    margin-top: 12rpx;
+}
+.number text{
+    font-size:24rpx;
+}
+.content{
+    width: 690rpx;
+    height: 212rpx;
+    margin-left: 30rpx;
+    margin-top: 20rpx;
+    background:rgba(255,255,255,1);
+    box-shadow:0rpx 4rpx 20rpx 0rpx rgba(104,93,94,0.1);
+    border-radius:8rpx;
+}
+.top{
+    height: 66rpx;
+    width: 690rpx;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1rpx solid #E7E7E7;
+}
+.top_one{
+    font-size:24rpx;
+    font-family:PingFang SC;
+    color:rgba(153,153,153,1);
+    margin-left: 30rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 350rpx;
+}
+.top_one text{
+    color: #666666 !important;
+    height: 66rpx;
+    line-height: 66rpx;
+}
+.time{
+    font-size:24rpx;
+    font-family:PingFang SC;
+    color:rgba(153,153,153,1);
+    height: 66rpx;
+    line-height: 66rpx;
+    margin-right: 30rpx;
+}
+.bottom{
+    display: flex;
+}
+.value{
+    width: 230rpx;
+    height: 144rpx;
+}
+.sponsor{
+    margin-top: 35rpx;
+    width: 230rpx;
+    text-align: center;
+    font-size:24rpx;
+    color:rgba(102,102,102,1);
+}
+.sponsor_number{
+    margin-top: 8rpx;
+    width: 230rpx;
+    text-align: center;
+    font-size:32rpx;
+    font-family:PingFang SC;
+    font-weight:bold;
+    color:rgba(51,51,51,1);
+}
+.sponsor_number text{
+    font-size:24rpx !important;
+}
+.nothing{
+    text-align: center;
+    color: #666;
+    font-size: 28rpx;
+    margin-top: 30rpx;
+}

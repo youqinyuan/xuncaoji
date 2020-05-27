@@ -40,9 +40,9 @@
     <view class="content_imgBuy" wx:if="{{item.type==2}}">
       <view class="modalStatus1" wx:if="{{item.status==3||item.status==4||item.status==5}}"></view>
       <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
-      <image src="/assets/images/temp/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
-      <image src="/assets/images/temp/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
-      <image src="/assets/images/temp/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_saled.png" class='imgs' wx:if="{{item.status==3}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_change.png" class='imgs' wx:if="{{item.status==4}}"></image>
+      <image src="{{hostUrl}}/changeImg/ic_expire.png" class='imgs' wx:if="{{item.status==5}}"></image>
       <view class="buy_price">
         <view class="expect_buy" wx:if="{{item.expectAmount}}">
           <view class="expect_buy1">售价：</view>
@@ -60,6 +60,9 @@
             <view class="box1">每期返还</view>
             <view class="box2">{{item.perReturnAmount}}</view>
             <view class="box3">元</view>
+            <view class="box1" wx:if="{{item.lastReturnAmount}}">，最后一期返还</view>
+            <view class="box2" wx:if="{{item.lastReturnAmount}}">{{item.lastReturnAmount}}</view>
+            <view class="box3" wx:if="{{item.lastReturnAmount}}">元</view>
           </view>
         </view>
         <view class="expect_leave" wx:if="{{item.returnType==3}}">
@@ -76,6 +79,7 @@
           <view class="expect_year3">%</view>
         </view>
       </view>
+      <view class="purchase" catchtap="addAppear" data-id="{{item.id}}" wx:if="{{item.status==2&&item.canRemove==1}}">增加曝光</view>
       <view class="purchase" catchtap="sure" wx:if="{{item.status==2&&item.canRemove==2}}" data-avatarkey="{{item.avatarKey}}" data-nickname="{{item.nickname}}" data-cashBackAmount="{{item.cashBackAmount}}" data-periodLeft="{{item.periodLeft}}" data-expectAmount="{{item.expectAmount}}"
         data-mobileNumber="{{item.mobileNumber}}" data-returnType="{{item.returnType}}" data-id="{{item.id}}">立即购买</view>
     </view>

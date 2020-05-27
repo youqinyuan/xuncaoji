@@ -1,0 +1,11 @@
+<!--packageA/pages/addAppear/addAppear.wxml-->
+<image class="addAppear-img" src="{{hostUrl}}/newIndex/banner.png"></image>
+<view class="addAppear-text">* 消耗种子可以让自己的帖子向上排，获得更多的曝光哦！会更容易被人购买哦。</view>
+<view class="listItem">
+  <view class="listItem-list">
+    <input class="listItem-right" placeholder-style="color:#AAAAAA" placeholder="请输入消耗种子的数量" type="number" bindinput="getSeed" value="{{getSeed}}" bindblur="blurSeed"></input>
+  </view>
+</view>
+<view class="seedNumber">消耗<text>{{getSeed1?getSeed1:'N'}}</text>颗种子可排名到第<text>{{orderNo?orderNo:'N'}}</text>位
+</view>
+<view class="addAppear" bindtap="addAppear">确定</view>

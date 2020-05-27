@@ -36,6 +36,9 @@ page{
     background:rgba(255,255,255,1);
     margin-top: 20rpx;
 }
+.height280{
+    height: 280rpx !important;
+}
 .list{
     height: 80rpx;
     position: relative;
@@ -148,4 +151,38 @@ page{
     color:rgba(255,255,255,1);
     margin-top: 59rpx;
     margin-left: 30rpx;
+    margin-bottom: 55rpx;
+}
+.height296{
+    height: 296rpx !important;
+}
+.nianhua_box{
+    position: relative;
+    font-size:28rpx;
+    font-family:PingFang SC;
+    color:rgba(102,102,102,1);
+}
+.text_one{
+    position: absolute;
+    left: 41rpx;
+    top: 39rpx;
+}
+.text_two{
+    position: absolute;
+    left: 41rpx;
+    top: 91rpx;
+}
+.text_three{
+    position: absolute;
+    left: 83rpx;
+    top: 142rpx;
+    color: #999999 !important;
+    font-size: 24rpx !important;
+}
+.chooseImg{
+    width: 30rpx;
+    height: 30rpx;
+    position: absolute;
+    left: 38rpx;
+    top: 146rpx;
 }

@@ -204,7 +204,7 @@ page{
 .input_right{
     display: inline-block;
     font-size:32rpx;
-    color:rgba(51,51,51,1);
+    color:#FF2644;
     height: 100rpx;
     line-height: 100rpx;
     position: absolute;

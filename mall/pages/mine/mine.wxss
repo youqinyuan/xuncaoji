@@ -206,9 +206,9 @@ page {
   line-height: 44rpx;
   text-align: center;
   color: #ff6417;
-  border-left: 1rpx #ff6417 solid;
-  border-top: 1rpx #ff6417 solid;
-  border-bottom: 1rpx #ff6417 solid;
+  border-left: 1rpx #DC3A50 solid;
+  border-top: 1rpx #DC3A50 solid;
+  border-bottom: 1rpx #DC3A50 solid;
   border-radius: 22rpx 0 0 22rpx;
 }
 

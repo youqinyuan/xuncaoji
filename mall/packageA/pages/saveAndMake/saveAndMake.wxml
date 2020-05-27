@@ -61,11 +61,19 @@
     <!-- <view class="saveAndmakeText" wx:if="{{item.type==5&&item.status==8&&currentTab==0}}">因您在规定时间内未进行支付，已扣除您的违约金</view>
     <view class="saveAndmakeText" wx:if="{{item.type==5&&item.status==7&&currentTab==0}}">因在对方确认后，您关闭了交易，已扣除您的违约金</view> -->
     <view class="saveAndmakeBtn">
+      <view wx:if="{{currentTab==1}}" catchtap="modifyPrice"  data-id="{{item.id}}">
+        <view class="modifyMsg" wx:if="{{item.status==2||item.status==6}}">修改购买信息</view>
+      </view>
       <view class="cancel" data-type="{{item.type}}" data-id="{{item.id}}" data-status="{{item.status}}" data-liquidate="{{item.liquidateDamageAmountVendor}}" bindtap="exchangeClosed" wx:if="{{item.status==2||item.status==6}}">交易关闭</view>
       <view class="editPrice1" bindtap="getOrder" wx:if="{{item.type==5&&item.status==6&&item.source==1}}" data-quantity="{{item.goodsQuantity}}" data-goodsid="{{item.goodsId}}" data-stock="{{item.stockId}}" data-topicid="{{item.id}}">0成本购支付</view>
       <view class="cancelFinish" wx:if="{{item.status==3||item.status==7||item.status==8||item.status==9}}">交易关闭</view>
-      <view wx:if="{{item.type==5&&currentTab==0}}"> <view class="editPriceFinish" wx:if="{{item.status==3||item.status==7||item.status==8||item.status==9}}">改价</view></view>
-      <view wx:if="{{item.type==5}}" catchtap="editPriceFinish" data-stockId="{{item.stockId}}" data-dctPrice="{{item.platformOrgAmount}}" data-spec="{{item.specDesc}}" data-expressFee="{{item.expressFee}}" data-iconUrl="{{item.goodsImageUrl}}" data-name="{{item.goodsName}}" data-quantity="{{item.goodsQuantity}}" data-expectAmount="{{item.expectAmount}}" data-id="{{item.id}}" data-liquidate="{{item.liquidateDamageAmountVendor}}"><view class="editPrice" wx:if="{{item.status==2}}">改价</view></view>
+      <view wx:if="{{item.type==5&&currentTab==0}}">
+        <view class="editPriceFinish" wx:if="{{item.status==3||item.status==7||item.status==8||item.status==9}}">改价</view>
+      </view>
+      <view wx:if="{{item.type==5}}" catchtap="editPriceFinish" data-stockId="{{item.stockId}}" data-dctPrice="{{item.platformOrgAmount}}" data-spec="{{item.specDesc}}" data-expressFee="{{item.expressFee}}" data-iconUrl="{{item.goodsImageUrl}}" data-name="{{item.goodsName}}"
+        data-quantity="{{item.goodsQuantity}}" data-expectAmount="{{item.expectAmount}}" data-id="{{item.id}}" data-liquidate="{{item.liquidateDamageAmountVendor}}">
+        <view class="editPrice" wx:if="{{item.status==2}}">改价</view>
+      </view>
     </view>
   </view>
 </view>

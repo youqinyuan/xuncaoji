@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#D4AC75",
+  "navigationBarTitleText": "我的赚钱收益",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
+}

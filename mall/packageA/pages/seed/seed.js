@@ -5,8 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    querySeedSwitch:null,
     system: '',
     animation: '',
+    showBuy:false,
     show:false,
     show2:false,
     title1:"购物优惠",
@@ -96,7 +98,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    let that = this
+    that.querySeedSwitch()
+  },
+  //查询种子开关
+  querySeedSwitch() {
+    let that = this
+    app.Util.ajax('mall/seed/querySeedSwitch', null, 'GET').then((res) => {
+      if (res.data.content) {
+        that.setData({
+          querySeedSwitch: res.data.content
+        })
+      }
+    })
   },
   //随机数组
   randomArry(arr) {
@@ -336,19 +350,8 @@ Page({
   column: function(e) {
     var columnTemp = e.currentTarget.dataset.index
     if (columnTemp == 1) {
-      app.Util.ajax('mall/seed/sign', {}, 'POST').then((res) => {
-        // console.log(res)
-        if (res.data.messageCode == "MSG_1001") {
-          wx.showToast({
-            title: "签到成功，奖励" + res.data.content + "种子",
-            icon: "none"
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: "none"
-          })
-        }
+      wx.navigateTo({
+        url: '/packageA/pages/seedMask/seedMask',
       })
     } else if (columnTemp == 2) {
       wx.navigateTo({
@@ -442,6 +445,25 @@ Page({
   toGoodsDetail: function(e) {
     wx.navigateTo({
       url: '/pages/detail/detail?id=' + e.currentTarget.dataset.goodsid
+    })
+  },
+  //种子兑换
+  showDetail: function () {
+    let that = this;
+    that.setData({
+      showBuy: true
+    })
+  },
+  //隐藏提现模态框
+  hide: function () {
+    let that = this;
+    that.setData({
+      showBuy: false,
+    });
+  },
+  seedRecharge:function(){
+    wx.navigateTo({
+      url: '/packageA/pages/seedRecharge/seedRecharge'
     })
   }
 

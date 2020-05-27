@@ -388,8 +388,8 @@
   <view class="stopZero10" wx:if="{{content.buyMode==2&&content.orderSource!==2}}">
     <view class="stopZero-platform10">我们是上市挂牌公司（代码837939）旗下电商平台，为消费者存有壹亿消费保障基金，请放心使用！
       <text bindtap="showBox">终止</text>
+      <image src="{{hostUrl}}/sponsor/ic_explain.png" class="stop_img" bindtap="showBox" />
     </view>
-    <image src="{{hostUrl}}/sponsor/ic_explain.png" class="stop_img" bindtap="showBox" />
   </view>
   <view class="payment">
     <view class="payment-text" wx:if="{{content.transStatementDetail.paymentAccount!==3}}">实际付款</view>

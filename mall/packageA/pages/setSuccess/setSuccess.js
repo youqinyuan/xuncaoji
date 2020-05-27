@@ -79,8 +79,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    if(wx.getStorageSync("mentionPeriodFrom")){
+    if(app.globalData.mentionPeriodFrom == 2){
       app.globalData.type = 5
+      app.globalData.mentionPeriodFrom = 1
       wx.switchTab({
         url: '/pages/forum/forum',
       })

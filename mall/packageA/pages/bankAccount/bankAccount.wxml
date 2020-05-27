@@ -12,7 +12,7 @@
         </view>
         <view class="title">
             <view class="left">收款账号</view>
-            <input placeholder="" class="name wid200"  name="bankCardNumber" type="number" value='{{cardNum}}' bindinput='bindCardNum' maxlength="23"/>
+            <input placeholder="" class="name wid200"  name="bankCardNumber" type="number" value='{{cardNum}}' bindinput='bindCardNum' maxlength="19"/>
         </view>
     </view>
     <button form-type="submit" class="submitButton">保存</button>

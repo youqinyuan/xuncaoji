@@ -147,7 +147,7 @@
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showMark}}">
   <view class="zan-dialog__container" wx:if="{{showMark}}" bindlongpress="saveCode">
     <view class="title">加私人导师微信，传授赚钱经验</view>
-    <image src="{{hostUrl}}/diamondPartner/code_img.png" class="QR" />
+    <image src="{{hostUrl}}/newIndex/code_img.png" class="QR" />
     <view class="watch">长按保存二维码后用微信扫码添加好友</view>
   </view>
   <image wx:if="{{showMark}}" class="cancel-img" src="{{hostUrl}}/icon/vip_close_Pop-ups.png" bindtap='showMarkCancel'></image>

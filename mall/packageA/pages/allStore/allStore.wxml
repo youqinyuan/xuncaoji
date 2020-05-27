@@ -1,7 +1,7 @@
 <!--packageA/pages/allStore/allStore.wxml-->
 <view class="content"wx:if="{{content.length>0}}">
     <view class="storeList" wx:for="{{content}}" wx:key="{{item.id}}" data-id="{{item.id}}"  bindtap="toStoreDetail">
-        <image src="{{item.logoUrl}}" class="headImg"/>
+        <image src="{{item.logoUrl?item.logoUrl:hostUrl+'/icon/zhanw_tb_n.png'}}" class="headImg"/>
         <view class="storeName">{{item.name}}</view>
     </view>
 </view>

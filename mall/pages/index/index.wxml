@@ -71,7 +71,7 @@
   <view class="small-cart" bindtap='toCart' data-url='/pages/index/cart/cart'>
     <image src="{{hostUrl}}/icon/gouwuc_ceb_n.png" class="section-img"></image>
   </view>
-  <view class="small-wrapper" wx:if="{{count}}">
+  <view class="small-wrapper" wx:if="{{count}}" bindtap='toCart' data-url='/pages/index/cart/cart'>
     <view class="small-num">{{count}}</view>
   </view>
   <!-- 页面内容 -->

@@ -1,0 +1,3 @@
+/* packageA/pages/editCard/editCard.wxss */
+@import "/pages/addaddress/addaddress";
+@import "../addCard/addCard";

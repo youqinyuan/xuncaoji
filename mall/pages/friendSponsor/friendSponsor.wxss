@@ -248,6 +248,7 @@ page{
     overflow: hidden;
     border-radius: 10rpx;
     position: relative;
+    margin-top: 20rpx;
   }
   .sponsor_goods_img_box{
     width: 670rpx;
@@ -335,14 +336,13 @@ page{
 }
 .sponsor_money{
   font-size:28rpx;
-  color:rgba(255,38,68,1);
+  color:#666666;
   margin-left: 21rpx;
   height: 80rpx;
   line-height: 50rpx;
 }
 .sponsor_money text{
-  font: bold;
-  font-size: 36rpx;
+  color: #FF2644 !important;
 }
 .sponsor_button_box{
   height: 80rpx;

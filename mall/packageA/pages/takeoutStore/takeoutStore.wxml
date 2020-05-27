@@ -1,0 +1,39 @@
+<!--packageA/pages/takeoutStore/takeoutStore.wxml-->
+<view class="takeoutStore-wrap">
+  <view class="takeoutStore-top">
+    <view class="takeout-location" catchtap="jumpLocation" data-address="{{nearList.title}}">
+      <image class="takeout-img" src="{{hostUrl}}/newIndex/takeout_location.png"></image>
+      <view class="takeout-text">{{nearList.title}} <text wx:if="{{nearList}}">></text></view>
+    </view>
+    <view class="section-wrapper">
+      <view class="section" catchtap="toSearch" data-id="{{store.id}}">
+        <image src="{{hostUrl}}/icon/index_nav_search_n.png" class="section-img"></image>
+        <view class="section-text">搜索商家/服务</view>
+      </view>
+      <view class="content_top">
+        <scroll-view scroll-x class="nav" scroll-left="{{navScrollLeft}}">
+          <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
+            <view class="nav-box">
+              <view class="nav-item {{currentTab == idx ?'active2':''}}" data-index="{{idx}}" data-id="{{item.id}}" bindtap="switchNav">{{item.name}}</view>
+              <view class="nav-item {{currentTab == idx ?'active1':''}}"></view>
+            </view>
+          </block>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="wrap">
+  <view class="items" wx:for="{{nearbyResult}}" catchtap="businessInfo" wx:key="{{item.id}}" wx:if="{{nearbyResult.length>0}}" data-id="{{item.id}}" data-count="{{item.goodsCount}}">
+    <view class="img_wrap">
+      <image src="{{item.logoUrl}}"></image>
+    </view>
+    <view class="goodsDetail">
+      <view class="goodsName">{{item.name}}</view>
+      <view class="takeout-sign">{{item.goodsCount==0?'可到店':'0成本购'}}</view>
+      <view class="takeoutT">月销量：{{item.sales}}</view>
+    </view>
+  </view>
+  <view class="empty"wx:if="{{nearbyResult.length===0}}">暂无商家</view>
+</view>

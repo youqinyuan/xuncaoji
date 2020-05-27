@@ -22,23 +22,23 @@ Page({
       type: 9,
       text: '全部'
     }, {
+      type: 2,
+      text: '订单交易'
+    }, {
       type: 6,
       text: '商品交易'
     }, {
       type: 8,
       text: '提期'
     }, {
-      type: 4,
-      text: '订单交易'
-    }, {
       type: 1,
       text: '普通帖'
     }],
     showClass: 1, //省钱/赚钱订单
-    selectClass: 4, //订单交易
+    selectClass: 2, //订单交易
     type: 8,
     tempStatus: null,
-    allPost: [], //帖子列表
+    allPost: null, //帖子列表
     emptyText: '', //空数据的时候
     showDel: false, //删除帖子弹框
     delId: null,
@@ -53,26 +53,26 @@ Page({
     messageNum: null,
     showClassify: false, //帖子类型弹框
     list: [{
-      img: '/assets/images/temp/ic_buy1.png',
+      img: app.Util.getUrlImg().hostUrl + '/changeImg/ic_buy1.png',
       // text: '我要买订单',
-      remark: '我要买订单',
+      remark: '发布订单买帖',
       status: 2
     }, {
-      img: '/assets/images/temp/ic_sale1.png',
+      img: app.Util.getUrlImg().hostUrl + '/changeImg/ic_sale1.png',
       // text: '卖帖',
-      remark: '我要卖订单',
+      remark: '发布订单卖帖',
       status: 3
     }],
     list1: [{
-      img: app.Util.getUrlImg().hostUrl+'/changeImg/ic_earn.png',
-      remark: '发布赚钱订单',
+      img: '/assets/images/temp/ic_earn.png',
+      remark: '发布商品卖帖',
       status: 1
     }, {
-      img: app.Util.getUrlImg().hostUrl+'/changeImg/ic_save.png',
-      remark: '发布省钱订单',
+        img: '/assets/images/temp/ic_save.png',
+      remark: '发布商品买帖',
       status: 2
     }],
-    list2: ['普通贴','卖帖', '买帖', '省钱帖', '赚钱帖'],
+    list2: ['普通贴', '订单卖帖', '订单买帖', '商品买帖', '商品卖帖'],
     weihu: false,
     showPassword: false,
     isFocus: false, //聚焦 
@@ -98,9 +98,9 @@ Page({
     sort: 1, //提期
     showModalStatus1: false, //提期分享
     host: app.Util.getUrlImg().host,
-    isPublish:false,//变换按钮
-    imgPublish: app.Util.getUrlImg().hostUrl  +'/changeImg/btn_publish.png',
-    attr:1,
+    isPublish: false, //变换按钮
+    imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png',
+    attr: 1,
   },
 
   /**
@@ -148,26 +148,26 @@ Page({
   },
   onLoad: function(options) {
     var that = this
-    //新消息总数
-    if (wx.getStorageSync('token')) {
-      that.getMessage();
-    }
-    if (that.data.currentTab == 1){
+    if (that.data.currentTab == 1) {
       that.allOrder()
-    }else if (that.data.currentTab == 2) {
+    } else if (that.data.currentTab == 3) {
       that.allPost()
-    } else if (that.data.currentTab == 4 || that.data.currentTab == 5) {
+    } else if (that.data.currentTab == 2 || that.data.currentTab == 5) {
       that.ordinaryPost()
     } else if (that.data.currentTab == 0) {
       that.followPost()
     } else if (that.data.currentTab == 4) {
       that.mentionPeriodInit()
     }
+    // //新消息总数
+    // if (wx.getStorageSync('token')) {
+    //   that.getMessage();
+    // }
   },
   mentionPeriodInit: function() {
     let that = this
     app.Util.ajax('mall/forum/topic/findPageList', {
-      pageNumber: that.data.mentionPeriodPageNum,
+      pageNumber: 1,
       pageSize: that.data.pageSize,
       type: 7,
       isShield: that.data.isShield,
@@ -196,12 +196,7 @@ Page({
    */
   onShow: function() {
     var that = this
-    //转让消息提示 
-    //新消息总数
-    if (wx.getStorageSync('token')) {
-      that.getMessage();
-      that.returnInfo()
-    }
+
     if (wx.getStorageSync('recharge') || wx.getStorageSync('password')) {
       that.setData({
         sureOne: false,
@@ -209,18 +204,18 @@ Page({
       })
     }
     if (wx.getStorageSync('comment')) {
-      if (that.data.currentTab == 2) {
-        that.allPost()
-      } else if (that.data.currentTab == 3 || that.data.currentTab == 4) {
+      if (that.data.currentTab == 3) {
+        that.allPost(); //商品交易
+      } else if (that.data.currentTab == 2 || that.data.currentTab == 5) {
         that.ordinaryPost()
       } else if (that.data.currentTab == 0) {
         that.followPost()
       }
       wx.removeStorageSync('comment')
     } else if (wx.getStorageSync('wait')) {
-      if (that.data.currentTab == 2) {
-        that.allPost()
-      } else if (that.data.currentTab == 4 || that.data.currentTab == 5) {
+      if (that.data.currentTab == 3) {
+        that.allPost(); //商品交易
+      } else if (that.data.currentTab == 2 || that.data.currentTab == 5) {
         that.ordinaryPost()
       } else if (that.data.currentTab == 0) {
         that.followPost()
@@ -229,32 +224,33 @@ Page({
     } else if (app.globalData.type == 2) {
       that.setData({
         type: 5,
-        currentTab: 2,
-        showClass:2
+        currentTab: 3,
+        showClass: 2
       })
       that.allPost()
     } else if (app.globalData.type == 3) {
       that.setData({
         type: 6,
-        currentTab: 2,
+        currentTab: 3,
         showClass: 1
       })
       that.allPost()
     } else if (app.globalData.type == 4) {
       that.setData({
         type: 4,
-        currentTab: 4
+        currentTab: 2
       })
       that.ordinaryPost()
     } else if (app.globalData.type == 5) {
       that.setData({
         type: 8,
-        currentTab: 3
+        currentTab: 4
       })
       that.mentionPeriodInit()
     } else {
       that.onPullDownRefresh()
     }
+
   },
 
   /**
@@ -287,9 +283,9 @@ Page({
       that.followPost()
     } else if (that.data.currentTab == 1) {
       that.allOrder()
-    }  else if (that.data.currentTab == 2) {
-      that.allPost()
     } else if (that.data.currentTab == 3) {
+      that.allPost()
+    } else if (that.data.currentTab == 4) {
       that.mentionPeriodInit()
     } else {
       that.ordinaryPost()
@@ -308,9 +304,9 @@ Page({
       that.getRecommend()
     } else if (that.data.currentTab == 1) {
       that.getAllOrder()
-    } else if (that.data.currentTab == 2) {
-      that.getAllPost()
     } else if (that.data.currentTab == 3) {
+      that.getAllPost()
+    } else if (that.data.currentTab == 4) {
       that.getMentionPeriodInit()
     } else {
       that.getOrdinary()
@@ -497,7 +493,7 @@ Page({
     })
   },
   //全部
-  allOrder(){
+  allOrder() {
     var that = this
     let data = {
       pageNumber: that.data.pageNumber,
@@ -526,6 +522,12 @@ Page({
         if (that.data.allPost.length > 0) {
           that.getHeight();
         }
+        //转让消息提示 
+        //新消息总数
+        if (wx.getStorageSync('token')) {
+          that.getMessage();
+          that.returnInfo()
+        }
       } else {
         that.setData({
           weihu: true
@@ -533,7 +535,7 @@ Page({
       }
     })
   },
-  getAllOrder: function () {
+  getAllOrder: function() {
     let that = this
     let pageNumber = that.data.pageNumber + 1
     let data = {
@@ -609,10 +611,6 @@ Page({
         that.setData({
           allPost: arr1
         })
-
-        if (that.data.allPost.length > 0) {
-          that.getHeight();
-        }
       }
     })
   },
@@ -837,19 +835,19 @@ Page({
       emptyText: '',
       currentTab: cur
     })
-    if (type == 1 || type == 4) {
+    if (type == 1 || type == 2) {
       that.setData({
         isRecommend: false,
         isPublish: false,
         imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png',
-        selectClass: 4,
+        selectClass: 2,
       })
       that.ordinaryPost()
     } else if (type == 7) {
       that.setData({
         isRecommend: true,
         isPublish: false,
-        attr:1,
+        attr: 1,
         imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png',
       })
       that.followPost()
@@ -870,7 +868,7 @@ Page({
         imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png',
       })
       that.mentionPeriodInit()
-    } else if (type == 9){
+    } else if (type == 9) {
       that.setData({
         isRecommend: false,
       })
@@ -1120,24 +1118,24 @@ Page({
         wx.navigateTo({
           url: '/pages/posting/posting?status=' + 1,
         })
-      } else if (that.data.currentTab == 3) { //提期
+      } else if (that.data.currentTab == 4) { //提期
         wx.navigateTo({
           url: '/packageA/pages/mentionPeriod/mentionPeriod'
         })
       } else if (that.data.currentTab == 1) {
-        that.data.attr++;   
-        if (that.data.attr%2==0){
+        that.data.attr++;
+        if (that.data.attr % 2 == 0) {
           that.setData({
             isPublish: true,
             imgPublish: '/assets/images/icon/btn_publish.png'
           })
-        }else{
+        } else {
           that.setData({
             isPublish: false,
             imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png'
-          })         
+          })
         }
-      }else {
+      } else {
         that.setData({
           showClassify: true
         })
@@ -1149,34 +1147,41 @@ Page({
     }
   },
   //全部发帖
-  getPublish(e){
+  getPublish(e) {
     let that = this
-    let tempAtrr = e.currentTarget.dataset.index
-    that.setData({
-      isPublish: false,
-      attr:1,
-      imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png'
-    })  
-    if (tempAtrr == 0){ 
-      wx.navigateTo({
-        url: '/pages/posting/posting?status=' + 1,
+    var token = wx.getStorageSync('token')
+    if (token) {
+      let tempAtrr = e.currentTarget.dataset.index
+      that.setData({
+        isPublish: false,
+        attr: 1,
+        imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png'
       })
-    }else if (tempAtrr == 1) {
+      if (tempAtrr == 0) {
+        wx.navigateTo({
+          url: '/pages/posting/posting?status=' + 1,
+        })
+      } else if (tempAtrr == 1) {
+        wx.navigateTo({
+          url: '/pages/posting/posting?status=' + 3,
+        })
+      } else if (tempAtrr == 2) {
+        wx.navigateTo({
+          url: '/pages/posting/posting?status=' + 2,
+        })
+      } else if (tempAtrr == 3) {
+        wx.navigateTo({
+          url: '/packageA/pages/searchOrder/searchOrder?status=' + 2,
+        })
+      } else if (tempAtrr == 4) {
+        wx.navigateTo({
+          url: '/packageA/pages/searchOrder/searchOrder?status=' + 1,
+        })
+      }
+    } else {
       wx.navigateTo({
-        url: '/pages/posting/posting?status=' + 3,
+        url: '/pages/invitationCode/invitationCode',
       })
-    } else if (tempAtrr == 2) {
-      wx.navigateTo({
-        url: '/pages/posting/posting?status=' + 2,
-      })
-    } else if (tempAtrr == 3) {
-      wx.navigateTo({
-        url: '/packageA/pages/searchOrder/searchOrder?status=' + 2,
-      })
-    } else if (tempAtrr == 4) {
-      wx.navigateTo({
-        url: '/packageA/pages/searchOrder/searchOrder?status=' + 1,
-      })    
     }
   },
   jumpPosting: function(e) {
@@ -1692,7 +1697,7 @@ Page({
                   that.followPost()
                 } else if (that.data.type == 8) {
                   that.allOrder()
-                }  else {
+                } else {
                   that.allPost()
                 }
               }, 1000) //延迟时间 这里是2秒
@@ -2023,7 +2028,7 @@ Page({
       url: '/packageA/pages/mentionPeriodRule/mentionPeriodRule'
     })
   },
-  toMySet:function(){
+  toMySet: function() {
     let token = wx.getStorageSync('token')
     let that = this
     if (token) {
@@ -2036,7 +2041,7 @@ Page({
       })
     }
   },
-  toMyBuy:function(){
+  toMyBuy: function() {
     let token = wx.getStorageSync('token')
     if (token) {
       wx.navigateTo({
@@ -2058,11 +2063,11 @@ Page({
     let that = this
     if (token) {
       //此缓存解决从待返提期完成后的页面跳转问题，清除是为了确保此时无缓存
-        wx.removeStorageSync("mentionPeriodFrom");
-        let id = e.currentTarget.dataset.id
-        wx.navigateTo({
-          url: '/packageA/pages/helpMentionPeriod/helpMentionPeriod?id='+id
-        })
+      let id = e.currentTarget.dataset.id
+      app.globalData.helpMentionPeriod = 1
+      wx.navigateTo({
+        url: '/packageA/pages/helpMentionPeriod/helpMentionPeriod?id=' + id
+      })
     } else {
       wx.navigateTo({
         url: "/pages/invitationCode/invitationCode?"
@@ -2072,11 +2077,11 @@ Page({
   shares: function(e) {
     var that = this
     let id = e.currentTarget.dataset.id
-      that.setData({
-        showModalStatus1: true
-      })
-      that.share(id)
-      wx.hideTabBar()
+    that.setData({
+      showModalStatus1: true
+    })
+    that.share(id)
+    wx.hideTabBar()
   },
   // 取消分享
   cancelShare: function() {
@@ -2122,4 +2127,10 @@ Page({
       showModalStatus1: false,
     })
   },
+  // 增加曝光
+  addAppear(e) {
+    wx.navigateTo({
+      url: '/packageA/pages/addAppear/addAppear?topicid=' + e.currentTarget.dataset.id,
+    })
+  }
 })

@@ -107,6 +107,13 @@ page {
   background: rgba(255, 255, 255, 0.4);
 }
 
+.section-text {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #fff;
+}
+
 .wrapText {
   display: flex;
   justify-content: space-between;
@@ -157,8 +164,7 @@ page {
 
 .nav-box {
   display: inline-block;
-  width: 130rpx;
-  padding: 0 10rpx;
+  padding: 0 20rpx;
 }
 
 .nav-item {
@@ -167,12 +173,12 @@ page {
 }
 
 .nav-item.active1 {
-  width: 30rpx;
+  width: 40rpx;
   height: 6rpx;
+  border-radius: 10rpx;
+  margin: 0 auto;
+  margin-top: 15rpx;
   background: #fff;
-  margin-left: 50rpx;
-  border-radius: 3rpx;
-  margin-top: 10rpx;
 }
 
 .content_all {

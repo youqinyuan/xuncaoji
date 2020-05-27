@@ -1,0 +1,97 @@
+/* packageA/pages/addressLocation/addressLocation.wxss */
+
+.block {
+  background: #f4f4f4;
+  height: 20rpx;
+  width: 750rpx;
+}
+
+.location-top {
+  width: 750rpx;
+  height: 160rpx;
+  background: #fff;
+  overflow: hidden;
+}
+
+.current {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: #666;
+  margin-top: 30rpx;
+  margin-left: 30rpx;
+}
+
+.current-img {
+  width: 23rpx;
+  height: 28rpx;
+  margin-right: 20rpx;
+}
+
+.location {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 72rpx;
+  margin-right: 30rpx;
+  margin-top: 30rpx;
+}
+
+.location-address {
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+}
+
+.towLocation {
+  display: flex;
+  align-items: center;
+  color: #ff2644;
+  font-size: 28rpx;
+}
+
+.towLocation-img {
+  width: 31rpx;
+  height: 31rpx;
+  margin-right: 10rpx;
+}
+
+.address-wrap {
+  height: 185rpx;
+  width: 648rpx;
+  margin-left: 72rpx;
+  border-bottom: 2rpx solid #e7e7e7;
+}
+
+.address {
+  text-align: left;
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 100%;
+  font-size: 32rpx;
+  color: #333;
+  font-family: PingFang SC;
+  font-weight: bold;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.address-door {
+  font-size: 24rpx;
+  color: #333;
+}
+
+.realName {
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.realName-name {
+  margin-right: 20rpx;
+}

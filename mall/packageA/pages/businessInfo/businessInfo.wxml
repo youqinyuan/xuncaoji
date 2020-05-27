@@ -1,0 +1,66 @@
+<!--packageA/pages/businessInfo/businessInfo.wxml-->
+<view class="businessInfo-top"></view>
+<view class="businessInfo">
+  <view class="businessInfo-name">
+    <view class="stroeName">{{store.name}}</view>
+    <view class="storeGrade">
+      <view class='stars' wx:for='{{[1,2,3,4,5]}}' wx:key="{{index}}" wx:for-item='i'>
+        <image src='{{hostUrl}}/newIndex/pingj_xinxin.png' wx:if="{{store.score >= index+1 }}"></image>
+        <image src='{{hostUrl}}/newIndex/pingj_xinxin_l.png' wx:elif="{{store.score >= index && (store.score*10)%10 !=0 }}"></image>
+        <image src='/assets/images/temp/pingj_xinxin_p.png' wx:else></image>
+      </view>
+      <view class="storeText">{{store.score}}分</view>
+    </view>
+  </view>
+  <image class="stroeImg" src="{{store.logoUrl}}"></image>
+</view>
+<view class="store-address">
+  <view class="store-location" catchtap="nav">
+    <view class="store-locations">{{store.addressDetail}}</view>
+    <image src='{{hostUrl}}/newIndex/takeout_location.png'></image>
+  </view>
+  <view class="phone" catchtap='freeTell'>
+    <view class="storeText">{{store.mobileNumber}}</view>
+    <view class="storePhone">
+      <image class="phone-img" src="{{hostUrl}}/newIndex/storePhone.png"></image>
+      <view class="phone-text">联系商家</view>
+    </view>
+  </view>
+</view>
+<view class="businessInfo-notice" wx:if="{{store.storeNoticeResponse.noticeImgList.length>0||store.storeNoticeResponse.notice}}">
+  <view class="notice-title">商家公告</view>
+  <view class="notice-content">
+    <block class="" wx:for="{{store.storeNoticeResponse.noticeImgList}}" wx:key="{{}}" wx:for-item="itemName" bindtap="imgYu" data-src="{{itemName}}">
+      <image class="notice-img" src="{{itemName}}"></image>
+    </block>
+    <view class="notice-text" wx:if="{{store.storeNoticeResponse.notice}}">{{store.storeNoticeResponse.notice}}</view>
+  </view>
+</view>
+<view class="store-message">
+  <view class="message">
+    <view class="store-name">商家名称</view>
+    <view class="store-msg">{{store.name}}</view>
+  </view>
+  <view class="message">
+    <view class="store-name">经营项目</view>
+    <view>{{store.businessName}}</view>
+  </view>
+  <view class="message">
+    <view class="store-name">成立时间</view>
+    <view>{{store.createTime}}</view>
+  </view>
+  <view class="message">
+    <view class="store-name">支持配送</view>
+    <view wx:if="{{store.useDelivery==1}}">{{store.deliveryType==1?'商家配送':'平台配送'}}</view>
+    <view wx:else>不支持配送</view>
+  </view>
+  <view class="message no-border" wx:if="{{store.days.length==0}}">
+    <view class="store-name">营业时间</view>
+    <view>无</view>
+  </view>
+  <view class="message no-border" wx:else>
+    <view class="store-name">营业时间</view>
+    <view>周{{store.days}}</view>
+  </view>
+</view>
+<view class="block"></view>

@@ -36,6 +36,7 @@ Page({
     orderType: null,
     message: '微信支付时，请在支付方式内选择信用卡支付，其他方式支付自动退款。',
     amount: null,
+    seedBtn:null,
     isShowBook: null,
     buyWay:null,//线下商店
     getMoneyOrder: null, //发布赚钱订单
@@ -74,11 +75,21 @@ Page({
                   wx.navigateBack({
                     delta: 1
                   })
-                } else if (that.data.amount3) {
-                  wx.setStorageSync('toWaitReentry', 1)
+                } else if (that.data.seedBtn) {
                   wx.navigateBack({
                     delta: 1
                   })
+                  app.globalData.seedText = '充值成功'
+                } else if (that.data.amount3) {
+                  wx.showToast({
+                    title:'支付成功，等待对方支付后将开始发货',
+                    icon:'none'
+                  })
+                  setTimeout(function(){
+                    wx.navigateTo({
+                      url: `/pages/myorder/myorder?status=${2}`,
+                    })
+                  },1000)
                 } else if (that.data.amount) {
                   wx.navigateBack({
                     delta: 1
@@ -127,9 +138,22 @@ Page({
                         url: `/pages/myorder/myorder?status=${0}`,
                       })
                     }  else {
-                      wx.navigateTo({
-                        url: `/pages/myorder/myorder?status=${2}`,
-                      })
+                      //预售订单卖家付尾款
+                      if(that.data.orderSell){
+                        wx.showToast({
+                          title:'支付成功，等待对方支付后将开始发货',
+                          icon:'none'
+                        })
+                        setTimeout(function(){
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${2}`,
+                          })
+                        },1000)
+                      }else{
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${2}`,
+                        })
+                      }
                     }
                     wx.removeStorageSync('myOrder')
                   } else if (that.data.getMoneyOrder) {
@@ -198,11 +222,21 @@ Page({
                 wx.navigateBack({
                   delta: 1
                 })
-              } else if (that.data.amount3) {
-                wx.setStorageSync('toWaitReentry', 1)
+              } else if (that.data.seedBtn) {
                 wx.navigateBack({
                   delta: 1
                 })
+                app.globalData.seedText = '充值成功'
+              }  else if (that.data.amount3) {
+                wx.showToast({
+                  title:'支付成功，等待对方支付后将开始发货',
+                  icon:'none'
+                })
+                setTimeout(function(){
+                  wx.navigateTo({
+                    url: `/pages/myorder/myorder?status=${2}`,
+                  })
+                },1000)
               }else if (that.data.helpMentionPeriod){
                 app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
                   id: res.data.content.balance.businessId
@@ -251,9 +285,22 @@ Page({
                       url: `/pages/myorder/myorder?status=${0}`,
                     })
                   }  else {
-                    wx.navigateTo({
-                      url: `/pages/myorder/myorder?status=${2}`,
-                    })
+                    //预售订单卖家付尾款
+                    if(that.data.orderSell){
+                      wx.showToast({
+                        title:'支付成功，等待对方支付后将开始发货',
+                        icon:'none'
+                      })
+                      setTimeout(function(){
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${2}`,
+                        })
+                      },1000)
+                    }else{
+                      wx.navigateTo({
+                        url: `/pages/myorder/myorder?status=${2}`,
+                      })
+                    }
                   }
                   wx.removeStorageSync('myOrder')
                 } else if (that.data.getMoneyOrder) {
@@ -314,7 +361,12 @@ Page({
                       wx.navigateBack({
                         delta: 1
                       })
-                    }else if (that.data.helpMentionPeriod) {
+                    } else if (that.data.seedBtn) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                      app.globalData.seedText = '充值成功'
+                    } else if (that.data.helpMentionPeriod) {
                       app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
                         id: res.data.content.businessId
                       }, 'GET').then((res) => { // 使用ajax函数
@@ -333,10 +385,15 @@ Page({
                         url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.businessId,
                       })
                     } else if (that.data.amount3) {
-                      wx.setStorageSync('toWaitReentry', 1)
-                      wx.navigateBack({
-                        delta: 1
+                      wx.showToast({
+                        title:'支付成功，等待对方支付后将开始发货',
+                        icon:'none'
                       })
+                      setTimeout(function(){
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${2}`,
+                        })
+                      },1000)
                     } else if (that.data.amount) {
                       wx.navigateBack({
                         delta: 1
@@ -368,9 +425,22 @@ Page({
                           })
     
                         }  else {
+                          //预售订单卖家付尾款
+                      if(that.data.orderSell){
+                        wx.showToast({
+                          title:'支付成功，等待对方支付后将开始发货',
+                          icon:'none'
+                        })
+                        setTimeout(function(){
                           wx.navigateTo({
                             url: `/pages/myorder/myorder?status=${2}`,
                           })
+                        },1000)
+                      }else{
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${2}`,
+                        })
+                      }
                         }
                         wx.removeStorageSync('myOrder')
                       } else if (that.data.getMoneyOrder) {
@@ -515,11 +585,21 @@ Page({
                     wx.navigateBack({
                       delta: 1
                     })
-                  } else if (that.data.amount3) {
-                    wx.setStorageSync('toWaitReentry', 1)
+                  } else if (that.data.seedBtn) {
                     wx.navigateBack({
                       delta: 1
                     })
+                    app.globalData.seedText = '充值成功'
+                  }  else if (that.data.amount3) {
+                    wx.showToast({
+                      title:'支付成功，等待对方支付后将开始发货',
+                      icon:'none'
+                    })
+                    setTimeout(function(){
+                      wx.navigateTo({
+                        url: `/pages/myorder/myorder?status=${2}`,
+                      })
+                    },1000)
                   }else if (that.data.helpMentionPeriod) {
                     app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
                       id: res.data.content.balance.businessId
@@ -574,9 +654,22 @@ Page({
                           })
     
                         } else {
+                          //预售订单卖家付尾款
+                      if(that.data.orderSell){
+                        wx.showToast({
+                          title:'支付成功，等待对方支付后将开始发货',
+                          icon:'none'
+                        })
+                        setTimeout(function(){
                           wx.navigateTo({
                             url: `/pages/myorder/myorder?status=${2}`,
                           })
+                        },1000)
+                      }else{
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${2}`,
+                        })
+                      }
                         }
                         wx.removeStorageSync('myOrder')
                       } else if (that.data.isShowBook) {
@@ -698,6 +791,7 @@ Page({
     }
     that.setData({
       options: options,
+      seedBtn: options.seedBtn ? options.seedBtn : null,
       buyType: options.buyType ? options.buyType:null,
       isShowBook: options.isShowBook ? options.isShowBook : null,
       goods: options.goods ? options.goods:null,
@@ -706,6 +800,7 @@ Page({
       amount2: options.amount2 ? options.amount2 : null,
       amount1: options.amount1 ? options.amount1 : null,
       amount3: options.amount3 ? options.amount3 : null,
+      orderSell: options.orderSell ? options.orderSell : null,
       buyWay: options.buyWay ? options.buyWay : null,
       getMoneyOrder: options.getMoneyOrder ? options.getMoneyOrder : null,
     })
@@ -790,7 +885,12 @@ Page({
                       wx.navigateBack({
                         delta: 1
                       })
-                    } else if (that.data.amount3) {
+                    } else if (that.data.seedBtn) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                      app.globalData.seedText = '充值成功'
+                    }  else if (that.data.amount3) {
                       wx.setStorageSync('toWaitReentry', 1)
                       wx.navigateBack({
                         delta: 1
@@ -876,7 +976,12 @@ Page({
                   wx.navigateBack({
                     delta: 1
                   })
-                } else if (that.data.amount3) {
+                } else if (that.data.seedBtn) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                  app.globalData.seedText = '充值成功'
+                }  else if (that.data.amount3) {
                   wx.setStorageSync('toWaitReentry', 1)
                   wx.navigateBack({
                     delta: 1
@@ -943,7 +1048,14 @@ Page({
     that.setData({
       showDialog: false
     });
-    // that.onLoad(that.data.options)
+    //账户资产数据
+    app.Util.ajax('mall/personal/assets', null, 'GET').then((res) => {
+      if (res.data.content) {
+        that.setData({
+          balance: (res.data.content.balance).toFixed(2),
+        })
+      }
+    })
   },
 
   /**

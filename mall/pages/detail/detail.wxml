@@ -166,7 +166,7 @@
   <view class="getMoney-wrap">
     <view class="getMoney-top">
       <view class="getMoney-left">
-        <view class="getGoods">卖商品赚钱</view>
+        <view class="getGoods">0成本卖商品赚钱</view>
         <image class="getGoods-img" src="{{hostUrl}}/yuSale.png" catchtap="getIntoMoney"></image>
       </view>
       <view class="getMoney-right" bindtap="getIntoGetMoney" wx:if="{{allPost.length>0}}">
@@ -214,8 +214,8 @@
     </view>
     <view class="notGetMoney" wx:if="{{allPost.length===0}}">
       <image class="notGetMoney-img" src="{{hostUrl}}/changeImg/notGetMoney.png"></image>
-      <view class="notGetMoney-text">来晚了，暂时没可以直接购买赚钱的订单了！</view>
-      <view class="notGetMoney-btn" catchtap="goShowOrder">发布赚钱订单</view>
+      <view class="notGetMoney-text">你可以不要商品，0成本购买商品并卖出赚钱</view>
+      <view class="notGetMoney-btn" catchtap="goShowOrder">发布商品卖帖</view>
     </view>
   </view>
   <view class="saveMoney-top">
@@ -331,7 +331,7 @@
     </button>
     <view class="cart" bindtap='toCart'>
       <image src="{{hostUrl}}/icon/xqing_downbar_gwc_n.png"></image>
-      <view class="cart-text">加入购物车</view>
+      <view class="cart-text">购物车</view>
     </view>
     <view class="buy" bindtap="clickme">普通购买</view>
     <form report-submit='true' bindsubmit='applyZero'>
@@ -457,15 +457,15 @@
         <view class="sponsor" bindtap="toSponsorDetail" data-sponsorid="{{stockDetail1.auspicesItem.applyId}}" wx:if="{{stockDetail1.auspicesItem.status=='PROCESS'&&buyType==1}}">赞助进行中</view>
         <view class="sponsor" bindtap="toSponsor" data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" data-supportCount="{{stockDetail1.supportCount}}" wx:if="{{stockDetail1.auspicesItem.status=='NO'&&buyType==1}}">拉赞助可少支付
           <text>￥</text>{{stockDetail1.auspicesItem.savedAmount}}</view>
-        <view class="application-zero" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}">0成本购「FreeBuy」</view>
+        <view class="application-zero" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}">下一步</view>
       </view>
-      <view class="application-zero2" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" wx:if="{{zero==true&&stockDetail1.supportCount==0}}">0成本购「FreeBuy」</view>
+      <view class="application-zero2" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" wx:if="{{zero==true&&stockDetail1.supportCount==0}}">下一步</view>
     </view>
     <view class="application-wrap" wx:if="{{commodity}}">
-      <view class="application-zero1" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" data-activityid="{{detail.activityItem.activityId}}" wx:if="{{zero==true}}">0成本购「FreeBuy」</view>
+      <view class="application-zero1" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" data-activityid="{{detail.activityItem.activityId}}" wx:if="{{zero==true}}">下一步</view>
     </view>
     <view class="application-wrap" wx:if="{{newPeopleActivity==2}}">
-      <view class="application-zero1" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" wx:if="{{zero==true}}">0成本购「FreeBuy」</view>
+      <view class="application-zero1" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" wx:if="{{zero==true}}">下一步</view>
     </view>
     <!-- 分期返现 -->
     <view class="return" wx:if="{{!stages &&stockDetail1.cashbackItems.length>0 && zero==false&&newPeopleActivity==1}}">
@@ -682,23 +682,23 @@
 
 <!-- 活动规则弹窗 -->
 <view class="get-zan-dialog__mask" wx:if="{{showRole}}">
-  <view class="zan-dialog__container" animation="{{animationData}}" wx:if="{{showRole}}">
+  <view class="zan-dialog__container" animation="{{animationData}}" wx:if="{{showRole}}" style="{{money==1?'height:978rpx;':'height:878rpx;'}}">
     <view class="height_text" wx:if="{{money==1}}">
       <view class="role_title">0成本购后卖出赚钱，怎么赚钱？</view>
-      <view class="height_text1">相当于您可以直接将改商品卖出，0成本购后，直接可以拿到您想卖出的价格！</view>
+      <view class="height_text1">相当于您可以直接将当前这个商品卖出，0成本购后，直接可以拿到您想卖出的价格！</view>
       <view class="role_title">怎么卖？</view>
-      <view class="height_text1">您先查看0成本购后卖出赚钱，下面的列表是否有可以直接购买赚钱的订单，您可点击查看全部，查看所有的可以直接购买赚钱的订单，若赚钱的金额您都不满意，您可点击发布赚钱订单，自由定义价格。此时为了不占用您的资金时间，您只需要支付违约金便可发出赚钱订单，并有权在交易前随时取消，违约金会立马退还到您的账户余额中。</view>
+      <view class="height_text1">您先查看0成本购后卖出赚钱，下面的列表是否有可以直接购买赚钱的帖子，您可点击查看全部，查看所有的可以直接购买可赚钱的帖子，若赚钱的金额您都不满意，您可点击发布商品卖贴，自由定义价格。此时为了不占用您的资金时间，您只需要支付违约金便可发出赚商品卖贴，并有权在交易前随时取消，违约金会立马退还到您的账户余额中。</view>
       <view class="role_title">违约金是什么？</view>
-      <view class="height_text1">违约金主要是为了保护购买者不受损失的一种手段，只要不是您在对方付款后取消了交易，其他任何情况下都将吧违约金全额退还。</view>
-      <view class="role_title">如果直接购买了赚钱订单多久可以收到钱？</view>
-      <view class="height_text1">您购买的订单，都是其他用户想要更低一些的价格购买商品发出的省钱订单，在您支付0成本购金额后，对方的出价会立刻进入您的余额中</view>
+      <view class="height_text1">违约金主要是为了保护购买者不受损失的一种手段，只要不是您在对方付款后取消了交易，其他任何情况下都将把违约金全额退还。</view>
+      <view class="role_title">购买可赚钱的帖子后多久可以收到钱？</view>
+      <view class="height_text1">您购买的订单，都是其他用户想要更低一些的价格购买商品发出的商品买贴，在您支付0成本购金额后，对方的出价会立刻进入您的余额中</view>
       <view style="height:70rpx"></view>
     </view>
     <view class="height_text" wx:if="{{money==2}}">
       <view class="role_title">捡漏购买省钱，怎么省钱？</view>
       <view class="height_text1">相当于有人将此商品通过本平台0成本购买后，将商品进行出售，出售的同时，他会降低售价，所以您可以省钱购买</view>
       <view class="role_title">怎么购买？</view>
-      <view class="height_text1">您可先查看捡漏购买-省钱下面的列表，是否有可以直接省钱购买的订单，您可点击查看全部，查看所有的省钱购买的订单，可以直接购买，若省下的金额您都不满意，您可点击发布省钱订单，自由购买定义价格。您只需要支付您的出价便可发出省钱订单，并有权在交易前随时取消，你支付的金额会立马退还到您的账户余额中</view>
+      <view class="height_text1">您可先查看捡漏购买-省钱下面的列表，是否有可以直接省钱购买的订单，您可点击查看全部，查看所有的省钱购买的订单，可以直接购买，若省下的金额您都不满意，您可点击发布商品买贴，自由购买定义价格。您只需要支付您的出价便可发出商品买贴，并有权在交易前随时取消，你支付的金额会立马退还到您的账户余额中</view>
       <view class="role_title">如果直接购买了多久可以收到货？</view>
       <view class="height_text1">在您和出售方交易完成后，立即发货。与正常下单一致！如果货物问题您也可以选择退款</view>
       <view style="height:70rpx"></view>
@@ -757,3 +757,17 @@
     data-iconUrl="{{iconUrl}}" data-name="{{detail.name}}" data-quantity1="{{stockDetail1.quantity}}" data-quantity="{{options.quantity}}" data-goodsid="{{options.id}}" data-stock="{{options.stockid}}" data-topicid="{{options.topicid}}" data-source="{{options.source}}">{{showText2}}</view>
   <view class="showOrderBlock"></view>
 </view>
+<!-- 0成本购引导 -->
+<!-- <view class="yindao_box" wx:if="{{yindao1}}" bindtap="closeyindao1">
+  <image src="/assets/images/temp/head_font.png" class="head_font" />
+  <image src="/assets/images/temp/close_yindao.png" class="close_yindao" catchtap="closeyindao"/>
+  <image src="/assets/images/temp/down.png" class="down" />
+    <image src="/assets/images/temp/the_botton.png" class="the_botton" />
+  <view class="yindao_botton">首先点击0成本购</view>
+</view> -->
+<!-- 0成本购引导 -->
+<!-- <view class="yindao_box" wx:if="{{yindao2}}" bindtap="closeyindao2">
+  <image src="/assets/images/temp/right.png" class="down2" />
+  <image src="/assets/images/temp/guige.png" class="guige" />
+  <view class="yindao_botton2">选择想要的规格，点击下一步</view>
+</view> -->
