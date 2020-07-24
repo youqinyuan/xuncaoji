@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showCashback:false,
     content: {}, //详情信息 
     orderId: 1, //订单id
     list: null, //物流信息
@@ -35,6 +36,7 @@ Page({
     seedDetailShow:false,
     newPeopleActivity:1, //新人专区跳转页面状态
     hostUrl: app.Util.getUrlImg().hostUrl,
+    seedToast:false
   },
   goIntoProblem: function (e) {
     wx.navigateTo({
@@ -65,6 +67,19 @@ Page({
         url: `/pages/logistics/logistics?logisticsId=${logisticsId}`,
       })
     }
+  },
+  // 详情查看
+  showDetails() {
+    let that = this
+    that.setData({
+      showDetails: true
+    })
+  },
+  cancelDetails() {
+    let that = this
+    that.setData({
+      showDetails: false
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -109,25 +124,35 @@ Page({
 
   //各种按钮
   //终止0元购按钮
+  //终止0元购按钮
   stopZero: function(e) {
     var that = this
-    app.Util.ajax('mall/order/queryStopApplyZeroPurchase', {
-      orderId: that.data.orderId
-    }, 'GET').then((res) => {
-      if(res.data.messageCode=="MSG_1001"){
-        that.setData({
-          refundAmount: res.data.content.refundAmount,
-        })
-        that.setData({
-          showDialog4: true
-        })
-      }else{
-        wx.showToast({
-          title:res.data.message,
-          icon:"none"
-        })
-      }
-    })
+    if(e.currentTarget.dataset.isstop==2){
+      console.log("已置灰")
+    }else{
+      app.Util.ajax('mall/order/queryStopApplyZeroPurchase', {
+        orderId: e.currentTarget.dataset.orderid
+      }, 'GET').then((res) => {
+        if(res.data.messageCode=="MSG_1001"){
+          that.setData({
+            refundAmount: res.data.content.refundAmount,
+            orderId: e.currentTarget.dataset.orderid,
+            seedAmountTotal:res.data.content.seedAmountTotal,
+            seedAmountConsume:res.data.content.seedAmountConsume,
+            seedStatus:res.data.content.status,
+            isStop:res.data.content.isStop
+          })
+          that.setData({
+            seedToast: true
+          })
+        }else{
+          wx.showToast({
+            title:res.data.message,
+            icon:"none"
+          })
+        }
+      })
+    }
   },
   wait: function(e) {
     var that = this
@@ -140,13 +165,19 @@ Page({
     if(newCount){
       newCount = false
       var latestStatus = e.currentTarget.dataset.lateststatus
+      let whetherAdvanceSale = e.currentTarget.dataset.whetheradvancesale
+      let isStop = that.data.isStop
+      console.log('whetherAdvanceSale:'+whetherAdvanceSale)
       app.Util.ajax('mall/order/queryOrder', {
         orderId: that.data.orderId
       }, 'GET').then((res) => {
-        if (res.data.content.orderGoodsDetail.length > 1) {
+        if (!isStop) {
           //订单内有多个商品，进入返现明细
           wx.navigateTo({
-            url: `/pages/cashBack/cashBack?orderId=${that.data.orderId}&latestStatus=${latestStatus}`
+            url: `/pages/cashBack/cashBack?orderId=${that.data.orderId}&latestStatus=${latestStatus}&whetherAdvanceSale=${whetherAdvanceSale}`
+          })
+          this.setData({
+            seedToast:false
           })
         } else {
           //订单内只有单个商品，直接终止
@@ -159,10 +190,12 @@ Page({
                 icon: "none",
                 during: 2000
               })
+              this.setData({
+                seedToast:false
+              })
               setTimeout(function() {
                 that.orderDetail();
               }, 2000) //延迟时间 这里是1秒
-  
             } else {
               wx.showToast({
                 title: '终止失败,请稍后再试',
@@ -404,7 +437,6 @@ Page({
       orderId: that.data.orderId
     }, 'GET').then((res) => {
       if (res.data.content) {
-        console.log("11"+res.data.content.orderGoodsDetail[0].cashBackType)
         if(res.data.content.orderGoodsDetail[0].cashBackType==2||res.data.content.orderGoodsDetail[0].cashBackType==1){
           that.setData({
             newPeopleActivity:2
@@ -438,13 +470,18 @@ Page({
             }
           }, 1000)
         }
-        var orderAmount=0;
+        res.data.content.orderGoodsDetail.forEach((v, i) => {
+          v.discountRatio = v.discountRatio / 10
+          if (v.purchaseTotalPrice && res.data.content.orderSource !== 2) {
+            v.payAmount1 = Number((v.payAmount + v.expressFee ).toFixed(2))
+            v.discountPrice = Number((v.purchaseTotalPrice - v.payAmount).toFixed(2))
+          } else {
+            v.payAmount1 = Number((res.data.content.expectAmount + v.expressFee).toFixed(2))
+          }
+        })
         for (var i = 0; i < res.data.content.orderTimeDetail.length; i++) {
-          res.data.content.orderTimeDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeDetail[i].statusTime, 'Y-M-D h:m:s');
-        
-        }
-        for (var i = 0; i < res.data.content.orderGoodsDetail.length; i++) {
-          orderAmount += res.data.content.expectAmount + res.data.content.orderGoodsDetail[i].expressFee
+          res.data.content.orderTimeDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeDetail[i].statusTime, 'Y-M-D h:m:s')
+      
         }
         if (res.data.content.orderTimeRefundDetail.length > 0) {
           for (var i = 0; i < res.data.content.orderTimeRefundDetail.length; i++) {
@@ -477,7 +514,6 @@ Page({
 
         that.setData({
           content: res.data.content,
-          orderAmount: orderAmount,
           orderTimeDetail: orderTimeDetail,
           orderTimeRefundDetail: (res.data.content.orderTimeRefundDetail).reverse(),
         })
@@ -518,7 +554,6 @@ Page({
       orderId: that.data.orderId
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
-        console.log("11"+res.data.content.orderGoodsDetail[0].cashBackType)
         if(res.data.content.orderGoodsDetail[0].cashBackType==2||res.data.content.orderGoodsDetail[0].cashBackType==1){
           that.setData({
             newPeopleActivity:2
@@ -542,10 +577,8 @@ Page({
                 waitPay: `${hourTime}:${minuteTime}:${secondTime}`
               })
             } else {
-              console.log(getCurrentPages())
               clearInterval(interval2)
               let pages = getCurrentPages()
-              console.log(pages[pages.length - 1].route)
               if (pages[pages.length - 1].route == 'pages/paymentorder/paymentorder' || pages[pages.length - 1].route == 'pages/orderDetail/orderDetail') {
                 wx.navigateTo({
                   url: `/pages/myorder/myorder?status=${1}`
@@ -559,13 +592,15 @@ Page({
         }
         res.data.content.orderGoodsDetail.forEach((v, i) => {
           v.discountRatio = v.discountRatio / 10
+          if (v.purchaseTotalPrice && res.data.content.orderSource !== 2) {
+            v.payAmount1 = Number((v.payAmount + v.expressFee).toFixed(2))
+            v.discountPrice = Number((v.purchaseTotalPrice - v.payAmount).toFixed(2))
+          } else {
+            v.payAmount1 = Number((res.data.content.expectAmount + v.expressFee).toFixed(2))
+          }
         })
-        var orderAmount = 0
         for (var i = 0; i < res.data.content.orderTimeDetail.length; i++) {
           res.data.content.orderTimeDetail[i].statusTime = time.formatTimeTwo(res.data.content.orderTimeDetail[i].statusTime, 'Y-M-D h :m :s');
-        }
-        for (var i = 0; i < res.data.content.orderGoodsDetail.length; i++) {
-          orderAmount += res.data.content.expectAmount + res.data.content.orderGoodsDetail[i].expressFee
         }
         if (res.data.content.orderTimeRefundDetail.length > 0) {
           for (var i = 0; i < res.data.content.orderTimeRefundDetail.length; i++) {
@@ -598,7 +633,6 @@ Page({
 
         that.setData({
           content: res.data.content,
-          orderAmount: orderAmount,
           orderTimeDetail: orderTimeDetail,
           orderTimeRefundDetail: (res.data.content.orderTimeRefundDetail).reverse(),
         })
@@ -657,7 +691,6 @@ Page({
     })
   },
   toReturnMoney:function(e){
-    console.log(e.currentTarget.dataset.index,e.currentTarget.dataset.goodsdetail)
     wx.setStorageSync("goodsList",e.currentTarget.dataset.goodsdetail)
     if(e.currentTarget.dataset.index==1){
         wx.navigateTo({
@@ -670,7 +703,6 @@ Page({
     }
   },
   seedDetail:function(){
-    console.log("种子抵扣明细")
     this.setData({
       seedDetailShow:true
     })
@@ -691,5 +723,18 @@ Page({
         url: "/pages/detail/detail?id=" + goodsId
       })
     }
-  }
+  },
+  cancle:function(){
+    this.setData({
+      seedToast:false
+    })
+  },
+  toSeed:function(){
+    wx.navigateTo({
+      url:"/packageA/pages/seed/seed"
+    })
+    this.setData({
+      seedToast:false
+    })
+  },
 })

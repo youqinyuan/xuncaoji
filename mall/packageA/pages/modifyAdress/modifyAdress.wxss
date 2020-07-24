@@ -34,7 +34,7 @@ page{
 .delete{
     width:330rpx;
     height:80rpx;
-    border:2rpx solid rgba(255,38,68,1);
+    border:1rpx solid rgba(255,38,68,1);
     border-radius:40rpx;
     font-size:32rpx;
     color:rgba(255,38,68,1);
@@ -100,7 +100,7 @@ page{
   .button_one{
     width:240rpx;
     height:76rpx;
-    border:2rpx solid rgba(255,38,68,1);
+    border:1rpx solid rgba(255,38,68,1);
     border-radius:38rpx;
     font-size:32rpx;
     color:rgba(255,38,68,1);

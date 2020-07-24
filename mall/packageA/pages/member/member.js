@@ -116,18 +116,20 @@ Page({
     })
   },
   // 分享朋友圈 生成海报
-  shareFriend: function() {
+  shareFriend: function () {
     var that = this
-    app.Util.ajax('mall/weChat/sharing/snapshot/target', {
+    app.Util.ajax('mall/weChat/sharing/target', {
       mode: 4,
     }, 'GET').then((res) => {
       if (res.data.messageCode = 'MSG_1001') {
+        wx.showLoading()
         var cashBack = res.data.content.cashBack
         var desc = res.data.content.desc
         var inviterCode = res.data.content.inviterCode
+        var appletQrCodeUrl = res.data.content.appletQrCodeUrl
         //邀请码转换为本地路径
         wx.getImageInfo({
-          src: res.data.content.appletQrCodeUrl,
+          src: appletQrCodeUrl,
           success(res) {
             var appletQrCodeUrl = res.path
             var width
@@ -147,7 +149,7 @@ Page({
             ctx.setFontSize(13);
             ctx.setFillStyle('#fff');
             ctx.setTextAlign("center")
-            ctx.fillText('"Free Buy"，自由买，免费拿', 0.5 * width * 0.88, 26);
+            ctx.fillText(that.data.shareList.title, 0.5 * width * 0.88, 26);
             ctx.stroke();
             //绘制矩形
             ctx.setFillStyle('#fff')
@@ -186,7 +188,7 @@ Page({
             // 绘制描述
             ctx.setFontSize(13);
             ctx.setFillStyle('#333');
-            var test = '我是合伙人，全品0元购，帮朋友省钱，也能赚钱！来加入吧。'
+            var test = that.data.shareList.imageDesc
             let chr = test.split('') // 分割为字符串数组
             let temp = ''
             let row = []
@@ -214,11 +216,11 @@ Page({
             ctx.setTextAlign("center")
             ctx.fillText('长按保存图片或识别二维码查看', 0.5 * width * 0.88, 0.58 * height + 0.3 * width + 20);
             ctx.stroke();
-            ctx.draw()
-            setTimeout(function() {
+            ctx.draw();
+            setTimeout(function () {
               wx.canvasToTempFilePath({
                 canvasId: 'mycanvas',
-                success: function(res) {
+                success: function (res) {
                   console.log('res', res)
                   that.data.haibaoImg = res.tempFilePath
                 }
@@ -228,6 +230,7 @@ Page({
               show: false,
               haibao: true
             })
+            wx.hideLoading()
           }
         })
       } else if (res.data.messageCode == 'MSG_4001') {
@@ -402,7 +405,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function(ops) {
+  onShareAppMessage: function (ops) {
     var that = this
     if (ops.from === 'button') {
       // 来自页面内转发按钮
@@ -419,16 +422,16 @@ Page({
               icon: 'none'
             })
           } else {
-            // wx.showToast({
-            //   title: res.data.message,
-            //   icon: 'none'
-            // })
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
           }
         })
         return {
-          title: '我是合伙人，全品0元购，帮朋友省钱，也能赚钱！来加入吧',
+          title: that.data.shareList.desc,
           path: that.data.shareList.link,
-          imageUrl: '/packageA/img/xuncaoji_cheats.png',
+          imageUrl: that.data.shareList.imageUrl,
           success: function (res) {
 
           },
@@ -450,16 +453,16 @@ Page({
               icon: 'none'
             })
           } else {
-            // wx.showToast({
-            //   title: res.data.message,
-            //   icon: 'none'
-            // })
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
           }
         })
         return {
-          title: '亲们，全品0元购，省钱有赚钱，想成为合伙人的群友，加入吧',
+          title: that.data.shareList.groupDesc,
           path: that.data.shareList.link,
-          imageUrl: '/packageA/img/xuncaoji_cheats.png',
+          imageUrl: that.data.shareList.imageUrl,
           success: function (res) {
 
           },
@@ -469,13 +472,13 @@ Page({
           }
         }
       }
-      
+
     } else {
       return {
-        title: '全品类均可申请0成本购，自由买，随时取。我已申请到',
+        title: that.data.shareList.desc,
         path: that.data.shareList.link,
-        imageUrl: '/packageA/img/xuncaoji_cheats.png',
+        imageUrl: that.data.shareList.imageUrl,
       }
     }
-  }
+  },
 })

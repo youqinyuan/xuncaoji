@@ -1,5 +1,5 @@
 <!--pages/detail/detail.wxml-->
-
+<import src='/template/goodsList/goodsList' />
 <!-- 商品实际支出保留两位小数 -->
 <wxs module="foo">
   module.exports = {
@@ -29,40 +29,34 @@
       <image src="{{labelImage}}"></image>
     </view>
     <view class="price-wrap">
-      <view class="price-list" wx:if="{{!stages&&!commodity}}">
-        <view class="new-price" wx:if="{{detail.cashbackPriceRange.minCashBackPrice !==detail.cashbackPriceRange.maxCashBackPrice}}">
-          <text class="price-cash">返后</text>
-          <text><text class="price-text">￥</text>{{detail.cashbackPriceRange.minCashBackPrice || 0}}</text>
-          <text><text class="price-text">-￥</text>{{detail.cashbackPriceRange.maxCashBackPrice || 0}}</text>
+      <view class="new-price1" wx:if="{{!stages&&!commodity}}">
+        <view class="quality-list-price1">
+          <view class="newprice1">
+            <text class="newtext1">{{newPeopleActivity==2?'新人价':'一折购'}}</text>
+            <text class="newtext2">￥</text>{{newPeopleActivity==2?detail.activityPrice:detail.discountPrice?detail.discountPrice:0}}
+            <text class="price-cash">起</text>
+          </view>
         </view>
-        <view class="new-price" wx:if="{{detail.cashbackPriceRange.minCashBackPrice ===detail.cashbackPriceRange.maxCashBackPrice}}">
-          <text class="price-cash">返后</text>
-          <text><text class="price-text">￥</text>{{detail.cashbackPriceRange.minCashBackPrice || 0}}</text>
-        </view>
-        <view class="old-price">￥{{detail.orgPrice || 0}}</view>
       </view>
-      <view class="price-list" wx:if="{{stages}}">
-        <view class="new-price" wx:if="{{installmentGoodsResponse.orgPriceMin!==installmentGoodsResponse.orgPriceMax}}">
-          <text><text class="price-text">￥</text>{{installmentGoodsResponse.orgPriceMin || 0}}</text>
-          <text><text class="price-text">-￥</text>{{installmentGoodsResponse.orgPriceMax || 0}}</text>
+      <view class="new-price1" wx:if="{{stages}}">
+        <view class="quality-list-price1">
+          <view class="newprice1">
+            <text class="newtext1">{{newPeopleActivity==2?'新人价':'一折购'}}</text>
+            <text class="newtext2">￥</text>{{newPeopleActivity==2?detail.activityPrice:detail.discountPrice?detail.discountPrice:0}}
+            <text class="price-cash">起</text>
+          </view>
         </view>
-        <view class="new-price" wx:if="{{installmentGoodsResponse.orgPriceMin ===installmentGoodsResponse.orgPriceMax}}">
-          <text><text class="price-text">￥</text>{{installmentGoodsResponse.orgPriceMin || 0}}</text>
-        </view>
-        <view class="old-price">￥{{detail.orgPrice || 0}}</view>
       </view>
-      <view class="price-list" wx:if="{{commodity}}">
-        <view class="new-price" wx:if="{{detail.cashbackPriceRange.minCashBackPrice !==detail.cashbackPriceRange.maxCashBackPrice}}">
-          <text class="price-cash">返后</text>
-          <text><text class="price-text">￥</text>{{detail.cashbackPriceRange.minCashBackPrice || 0}}</text>
-          <text><text class="price-text">-￥</text>{{detail.cashbackPriceRange.maxCashBackPrice || 0}}</text>
+      <view class="new-price1" wx:if="{{commodity}}">
+        <view class="quality-list-price1">
+          <view class="newprice1">
+            <text class="newtext1">{{newPeopleActivity==2?'新人价':'一折购'}}</text>
+            <text class="newtext2">￥</text>{{newPeopleActivity==2?detail.activityPrice:detail.discountPrice?detail.discountPrice:0}}
+            <text class="price-cash">起</text>
+          </view>
         </view>
-        <view class="new-price" wx:if="{{detail.cashbackPriceRange.minCashBackPrice ===detail.cashbackPriceRange.maxCashBackPrice}}">
-          <text class="price-cash">返后</text>
-          <text><text class="price-text">￥</text>{{detail.cashbackPriceRange.minCashBackPrice || 0}}</text>
-        </view>
-        <view class="old-price">￥{{detail.orgPrice || 0}}</view>
       </view>
+      <view class="old-price">原价 ￥{{detail.dctPrice || 0}}</view>
       <view class="rush">
         已抢{{detail.grabbed || 0}}件
       </view>
@@ -70,42 +64,47 @@
     <!--商品名称-->
     <view class="goods-title">
       <text class="goods-channel" wx:if="{{!stages&&!commodity&&detail.tags==1&&newPeopleActivity!==2}}">自营</text>
-      <text class="goods-zero" wx:if="{{!stages&&!commodity&&newPeopleActivity==1}}">支持0成本购</text>
       <text class="goods-zero" wx:if="{{commodity}}">{{detail.activityItem.labelName}}</text>
       <text class="goods-zero3" wx:if="{{newPeopleActivity==2}}">{{labelName}}</text>
-      <text class="goods-zero2" wx:if="{{!stages&&!commodity&&detail.sendSeed!==0&&newPeopleActivity==1}}">最高送{{detail.sendSeed}}颗种子</text>
+      <text class="goods-zero2" wx:if="{{!stages&&!commodity&&detail.sendSeed!==0&&newPeopleActivity==1}}">短期送{{detail.sendSeed}}颗种子</text>
       <text selectable='true' bindlongtap='copy'>{{detail.name}}</text>
     </view>
     <!--售后无忧-->
     <view class="platform-compare">
       <view class="platform-wrap">
         <view class="platform-img">
-          <image src="{{hostUrl}}/icon/xqing_protect_shouhou_icon.png"></image>
+          <image src="{{hostUrl}}/supplement/index_protect_shouhou_icon.png"></image>
         </view>
         <view class="platform-text">源头直采</view>
       </view>
       <view class="platform-wrap">
         <view class="platform-img">
-          <image src="{{hostUrl}}/icon/xqing_protect_renzheng_icon.png"></image>
+          <image src="{{hostUrl}}/supplement/zhengpin.png"></image>
+        </view>
+        <view class="platform-text">正品保证</view>
+      </view>
+      <view class="platform-wrap">
+        <view class="platform-img">
+          <image src="{{hostUrl}}/supplement/index_protect_renzheng_icon.png"></image>
         </view>
         <view class="platform-text">假一赔十</view>
       </view>
       <view class="platform-wrap">
         <view class="platform-img">
-          <image src="{{hostUrl}}/icon/xqing_protect_changj_icon.png"></image>
+          <image src="{{hostUrl}}/supplement/index_protect_changj_icon.png"></image>
         </view>
-        <view class="platform-text">全场支持0成本购</view>
+        <view class="platform-text">全场一折购</view>
       </view>
     </view>
     <view class="block1"></view>
     <view class="advanceSale">
       <view class="advanceSale-left">
         <image class="severice-img" src="{{hostUrl}}/yuService.png"></image>
-        <view class="yuSale">预售订单</view>
-        <image class="question-img" src="{{hostUrl}}/yuSale.png" catchtap="goIntoProblem"></image>
+        <view class="yuSale">先不付款,拿全网最低价,去试</view>
+        <image class="question-img" src="/assets/images/mine/yuSale.png" catchtap="goIntoProblem"></image>
       </view>
-      <view class="advanceSale-right">
-        <view class="experience" catchtap="experience">立即体验</view>
+      <view class="advanceSale-right" catchtap="experience">
+        <view class="experience">预售返现</view>
         <image class="right-img" src="{{hostUrl}}/sanDetail.png"></image>
       </view>
     </view>
@@ -161,88 +160,22 @@
         </view>
       </view>
     </view>
-  </view>
-  <!-- 赚钱购 -->
-  <view class="getMoney-wrap">
-    <view class="getMoney-top">
-      <view class="getMoney-left">
-        <view class="getGoods">0成本卖商品赚钱</view>
-        <image class="getGoods-img" src="{{hostUrl}}/yuSale.png" catchtap="getIntoMoney"></image>
+    <!--用户评价-->
+    <view class="evaluate" catchtap='jumpEvaluate' data-goodsid="{{detail.id}}" wx:if="{{comment.length>0}}">
+      <view class="stock-left">
+        <text>评论</text>
+        <text>{{goodInteractRate}}%的好评率</text>
       </view>
-      <view class="getMoney-right" bindtap="getIntoGetMoney" wx:if="{{allPost.length>0}}">
-        <view class="getMoney-right-text">查看全部</view>
-        <image class="getMoney-right-img" src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
-      </view>
-    </view>
-    <view class="getMoney-swiper" wx:if="{{allPost.length>0}}">
-      <swiper class="getMoney" vertical="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="5000">
-        <swiper-item>
-          <view class="getMoney-swiper_item" wx:for="{{allPost1}}" wx:key="{{item.id}}">
-            <image class="getMoneyPhoto" wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-            <image class="getMoneyPhoto" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
-            <view class="getMoney-middle">
-              <view class="getName">
-                <text>{{item.nickname}}</text>
-                <text>出价：{{item.expectAmount}}元</text>
-              </view>
-              <view class="getSpec">
-                <text>{{item.specDesc}}</text>
-                <text>原价：{{item.platformOrgAmount}}元</text>
-              </view>
-            </view>
-            <view class="getMoneyBtn" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">赚 {{item.expectAmount}}</view>
-          </view>
-        </swiper-item>
-        <swiper-item>
-          <view class="getMoney-swiper_item" wx:for="{{allPost.length>2?allPost2:allPost1}}" wx:key="{{item.id}}">
-            <image class="getMoneyPhoto" wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-            <image class="getMoneyPhoto" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
-            <view class="getMoney-middle">
-              <view class="getName">
-                <text>{{item.nickname}}</text>
-                <text>出价：{{item.expectAmount}}元</text>
-              </view>
-              <view class="getSpec">
-                <text>{{item.specDesc}}</text>
-                <text>原价：{{item.platformOrgAmount}}元</text>
-              </view>
-            </view>
-            <view class="getMoneyBtn" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">赚 {{item.expectAmount}}</view>
-          </view>
-        </swiper-item>
-      </swiper>
-    </view>
-    <view class="notGetMoney" wx:if="{{allPost.length===0}}">
-      <image class="notGetMoney-img" src="{{hostUrl}}/changeImg/notGetMoney.png"></image>
-      <view class="notGetMoney-text">你可以不要商品，0成本购买商品并卖出赚钱</view>
-      <view class="notGetMoney-btn" catchtap="goShowOrder">发布商品卖帖</view>
-    </view>
-  </view>
-  <view class="saveMoney-top">
-    <view class="saveMoney-left">
-      <image class="saveGoods-img1" src="{{hostUrl}}/changeImg/savePig.png"></image>
-      <image class="saveGoods-img2" src="{{hostUrl}}/changeImg/savePay.png"></image>
-      <image class="saveGoods-img" src="{{hostUrl}}/yuSale.png" catchtap="saveIntoMoney"></image>
-    </view>
-    <view class="saveMoney-right" bindtap="saveShowOrder">
-      <image class="saveMoney-right-img1" src="{{hostUrl}}/changeImg/saveMoney.png"></image>
-      <view class="saveMoney-right-text">点击进入</view>
-      <image class="saveMoney-right-img" src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
-    </view>
-  </view>
-  <!--用户评价-->
-  <view class="evaluate" catchtap='jumpEvaluate' data-goodsid="{{detail.id}}" wx:if="{{comment.length>0}}">
-    <view class="evaluate-left">用户评价</view>
-    <view class="evaluate-right">
-      <view class="evaluate-right-text">
-        <text class="percent">{{goodInteractRate}}%</text> 的人觉得好
-      </view>
-      <view class="evaluate-right-img">
-        <image src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
+      <view class="evaluate-right">
+        <view class="evaluate-right-text">
+          查看全部
+        </view>
+        <view class="evaluate-right-img">
+          <image src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
+        </view>
       </view>
     </view>
-  </view>
-  <view class="evaluate-content" wx:if="{{comment.length>0}}">
+    <!-- <view class="evaluate-content" wx:if="{{comment.length>0}}">
     <view class="evaluate-content-top">
       <view class="evaluate-content-img">
         <image wx:if="{{comment[0].avatarUrl}}" src="{{comment[0].avatarUrl}}"></image>
@@ -278,6 +211,75 @@
         <image src="{{itemName}}"></image>
       </view>
     </scroll-view>
+  </view> -->
+  </view>
+  <!-- 赚钱购 -->
+  <view class="getMoney-wrap">
+    <view class="getMoney-top">
+      <view class="getMoney-left">
+        <view class="getGoods">预售商品赚钱</view>
+        <image class="getGoods-img" src="/assets/images/mine/yuSale.png" catchtap="getIntoMoney"></image>
+      </view>
+      <view class="getMoney-right" bindtap="getIntoGetMoney" wx:if="{{allPost.length>0}}">
+        <view class="getMoney-right-text">查看全部</view>
+        <image class="getMoney-right-img" src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
+      </view>
+    </view>
+    <view class="getMoney-swiper" wx:if="{{allPost.length>0}}">
+      <swiper class="getMoney" vertical="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="5000">
+        <swiper-item>
+          <view class="getMoney-swiper_item" wx:for="{{allPost1}}" wx:key="{{item.id}}">
+            <image class="getMoneyPhoto" wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
+            <image class="getMoneyPhoto" wx:else src="/assets/images/mine/other_ren.png"></image>
+            <view class="getMoney-middle">
+              <view class="getName">
+                <text>{{item.nickname}}</text>
+                <text>出价：{{item.expectAmount}}元</text>
+              </view>
+              <view class="getSpec">
+                <text>{{item.specDesc}}</text>
+                <text>原价：{{item.platformOrgAmount}}元</text>
+              </view>
+            </view>
+            <view class="getMoneyBtn" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">赚 {{item.expectAmount}}</view>
+          </view>
+        </swiper-item>
+        <swiper-item>
+          <view class="getMoney-swiper_item" wx:for="{{allPost.length>2?allPost2:allPost1}}" wx:key="{{item.id}}">
+            <image class="getMoneyPhoto" wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
+            <image class="getMoneyPhoto" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+            <view class="getMoney-middle">
+              <view class="getName">
+                <text>{{item.nickname}}</text>
+                <text>出价：{{item.expectAmount}}元</text>
+              </view>
+              <view class="getSpec">
+                <text>{{item.specDesc}}</text>
+                <text>原价：{{item.platformOrgAmount}}元</text>
+              </view>
+            </view>
+            <view class="getMoneyBtn" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">赚 {{item.expectAmount}}</view>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+    <view class="notGetMoney" wx:if="{{allPost.length===0}}">
+      <image class="notGetMoney-img" src="{{hostUrl}}/changeImg/notGetMoney.png"></image>
+      <view class="notGetMoney-text">你可以不要商品，一折购买商品并卖出赚钱</view>
+      <view class="notGetMoney-btn" catchtap="goShowOrder">发布预售商品</view>
+    </view>
+  </view>
+  <view class="saveMoney-top">
+    <view class="saveMoney-left">
+      <image class="saveGoods-img1" src="{{hostUrl}}/changeImg/savePig.png"></image>
+      <image class="saveGoods-img2" src="{{hostUrl}}/changeImg/savePay.png"></image>
+      <image class="saveGoods-img" src="/assets/images/mine/yuSale.png" catchtap="saveIntoMoney"></image>
+    </view>
+    <view class="saveMoney-right" bindtap="saveShowOrder">
+      <image class="saveMoney-right-img1" src="{{hostUrl}}/changeImg/saveMoney.png"></image>
+      <view class="saveMoney-right-text">点击进入</view>
+      <image class="saveMoney-right-img" src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
+    </view>
   </view>
   <!--详情图-->
   <view class="shop-detail-wrap" wx:for="{{introductions}}" wx:key="">
@@ -293,32 +295,8 @@
       爆品推荐
     </view>
   </view>
-  <view class="recommend-list-wrapper" wx:if="{{recommend.length>0}}">
-    <view class="recommend-list" wx:for="{{recommend}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
-      <view class="recommend-list-img">
-        <image src="{{item.imageUrls[0]}}"></image>
-      </view>
-      <view class="recommend-list-text">
-        <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-        <text class="item2">支持0成本购</text>{{item.name}}</view>
-      <view class="recommend-list-price">
-        <view class="newprice">
-          <text>￥</text>{{item.truePrice}}</view>
-        <view class="oldprice">￥{{item.orgPrice}}</view>
-      </view>
-      <view class="return-wrap">
-        <view class="return-money">
-          <text>实付</text>
-          <text>￥</text>
-          <text>{{item.dctPrice}}</text>
-        </view>
-        <view class="pay-money">
-          <text>返现</text>
-          <text>￥</text>
-          <text>{{item.marketingCashBack.totalAmount}}</text>
-        </view>
-      </view>
-    </view>
+  <view class="recommend-list-wrapper" wx:if="{{list.length>0}}">
+    <template is='goodsList' data="{{list:list}}" />
   </view>
   <view class="detail-bottom">{{text}}</view>
   <view class="block"></view>
@@ -335,7 +313,7 @@
     </view>
     <view class="buy" bindtap="clickme">普通购买</view>
     <form report-submit='true' bindsubmit='applyZero'>
-      <button class="apply" form-type="submit">0成本购</button>
+      <button class="apply" form-type="submit">一折购</button>
     </form>
   </view>
   <view class="bottom" wx:if="{{stages}}">
@@ -354,7 +332,7 @@
     </button>
     <view class="buy1" bindtap="clickme">普通购买</view>
     <form report-submit='true' bindsubmit='applyZero'>
-      <button class="apply1" form-type="submit">0成本购</button>
+      <button class="apply1" form-type="submit">一折购</button>
     </form>
   </view>
   <view class="bottom" wx:if="{{newPeopleActivity==2}}">
@@ -364,14 +342,16 @@
       <view class="service-text">客服</view>
     </button>
     <form report-submit='true' bindsubmit='applyZero'>
-      <button class="apply1" form-type="submit">0成本购</button>
+      <button class="apply2" form-type="submit">一折购</button>
     </form>
-    <view class="buy1" bindtap="clickme1">{{buttonText}}</view>
+    <view class="buy2" bindtap="clickme1">{{buttonText}}</view>
   </view>
 </view>
 <view class="share" catchtap='share' data-goodsid="{{detail.id}}" data-profit="{{detail.sharingProfit}}" wx:if="{{imageUrls.length>0}}">
-  <view class="share-text">分享赚</view>
-  <view class="share-price" wx:if="{{detail.sharingProfit}}">￥{{detail.sharingProfit}}</view>
+  <view class="share-price" wx:if="{{detail.sharingProfit}}">
+    <view>{{detail.sharingProfit}}</view>
+    <view class="share-price1">元</view>
+  </view>
 </view>
 <!-- <view class="buy-model" wx:if="{{!stages&&newPeopleActivity==1&&!commodity&&imageUrls.length>0}}">
   <text class="save savemoney" wx:if="{{detail.cashBack.totalAmount>0}}">共节约￥{{saveMoney}}：</text>
@@ -394,9 +374,9 @@
     </view>
     <view class="commodity-top-right">
       <view class="commodity-top-right-item">
-        <view class="commodity-top-right-title" wx:if="{{!stages}}">返后价:
+        <view class="commodity-top-right-title" wx:if="{{!stages}}">{{buyMode==1?'原价':'一折购'}}:
           <view class="sign">￥</view>
-          <view class="price">{{stockDetail1.dctPrice?foo.toStr(stockDetail1.dctPrice-cashMoney):0}}</view>
+          <view class="price">{{buyMode==1?stockDetail1.dctPrice:stockDetail1.discountPrice}}</view>
         </view>
         <view class="commodity-top-right-title" wx:if="{{stages}}">
           <view class="sign">￥</view>
@@ -413,9 +393,9 @@
   <view class="content-cashBack" wx:if="{{!stages && stockDetail1.cashbackItems && zero==false&&newPeopleActivity==1}}">
     <image src="{{hostUrl}}/icon/youhui_bqian.png"></image>
     <view class="content-cashBack-text">
-      当前商品实付
-      <text>{{foo.toStr(stockDetail1.dctPrice)}}</text> 元，返现
-      <text>{{foo.toStr(cashMoney)}}</text>元
+      返现
+      <text>{{foo.toStr(cashMoney)}}</text> 元，返后价
+      <text>{{foo.toStr(stockDetail1.dctPrice-cashMoney)}}</text>元
     </view>
   </view>
   <view class="content-cashBack" wx:if="{{stages &&stockDetail1.installment && zero==false}}">
@@ -455,8 +435,9 @@
       <view class="application-zero_box" wx:if="{{zero==true&&stockDetail1.supportCount!==0}}">
         <view class="sponsor" bindtap="toSponsorDetail" data-sponsorid="{{stockDetail1.auspicesItem.applyId}}" wx:if="{{stockDetail1.auspicesItem.status=='COMPLETE'&&buyType==1}}">赞助已完成</view>
         <view class="sponsor" bindtap="toSponsorDetail" data-sponsorid="{{stockDetail1.auspicesItem.applyId}}" wx:if="{{stockDetail1.auspicesItem.status=='PROCESS'&&buyType==1}}">赞助进行中</view>
-        <view class="sponsor" bindtap="toSponsor" data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" data-supportCount="{{stockDetail1.supportCount}}" wx:if="{{stockDetail1.auspicesItem.status=='NO'&&buyType==1}}">拉赞助可少支付
-          <text>￥</text>{{stockDetail1.auspicesItem.savedAmount}}</view>
+        <view class="sponsor" bindtap="toSponsor" data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" data-supportCount="{{stockDetail1.supportCount}}" wx:if="{{stockDetail1.auspicesItem.status=='NO'&&buyType==1}}">好友赞助，减钱
+          <!-- <text>￥</text>{{stockDetail1.auspicesItem.savedAmount}}-->
+        </view>
         <view class="application-zero" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}">下一步</view>
       </view>
       <view class="application-zero2" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" wx:if="{{zero==true&&stockDetail1.supportCount==0}}">下一步</view>
@@ -469,7 +450,7 @@
     </view>
     <!-- 分期返现 -->
     <view class="return" wx:if="{{!stages &&stockDetail1.cashbackItems.length>0 && zero==false&&newPeopleActivity==1}}">
-      <view class="return-title">购物返现</view>
+      <view class="return-title">选择返现方式</view>
       <scroll-view scroll-x scroll-left='{{scrleft}}' class='orderTab'>
         <view class="orderTabItem" wx:for="{{stockDetail1.cashbackItems}}" wx:key="{{item.cashbackId}}">
           <view class="order-item {{activeIndex===index? 'active1' : ''}}" data-id="{{item.cashbackId}}" data-gindex="{{index}}" bindtap='clickCashback' data-total="{{item.totalAmount}}">
@@ -502,13 +483,12 @@
 <!-- 分享弹框 -->
 <!--屏幕背景变暗的背景  -->
 <view class="commodity_screen1" bindtap="hide" wx:if="{{showModalStatus1}}"></view>
-<!--弹出框 选择开始 -->
 <view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
   <view class="content-wrapper1">
     <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
     <view class="shareCommission" wx:if="{{sharingProfit=='' || shareList.role==1}}">你喜欢那就分享给你朋友吧</view>
     <view class="shareCommission" wx:if="{{sharingProfit && shareList.role!==1}}">分享商品后预计最多可赚佣金￥{{sharingProfit}}</view>
-    <view class="shareText" wx:if="{{sharingProfit && shareList.role!==1}}">朋友通过你分享的页面成功购买后，你将获得商品返利</view>
+    <view class="shareText" wx:if="{{sharingProfit && shareList.role!==1}}">合伙人以上级别，分享可获得佣金，去我的页面成为合伙人吧</view>
     <view class="share-wrap">
       <button class="share-button" id='btn' open-type="share">
         <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
@@ -543,7 +523,7 @@
 <!-- 使用canvas将分享图片和申请0元购图片合成一张图 -->
 <canvas canvas-id="canvas" style="width:400px;height:400px;position: absolute;left:-1000px;top:-1000px;"></canvas>
 <!-- 商品下架蒙版 -->
-<view class="dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{xiajia}}">
+<!-- <view class="dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{xiajia}}">
   <view class="dialog__container" wx:if="{{xiajia}}">
     <view class="title">提示</view>
     <view class="text">
@@ -555,16 +535,16 @@
       </view>
     </view>
   </view>
-</view>
+</view> -->
 <!-- 购物车 -->
-<view class="cart-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{isCart}}">
-  <view class="cart-dialog__container" wx:if="{{isCart}}">
+<view class="return-zan-dialog__mask" wx:if="{{isCart}}">
+  <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{isCart}}">
     <view class="cart-botton_box">
-      <view class="cart-newbotton_one" bindtap="applyZero">加入0成本购购物车</view>
+      <view class="cart-newbotton_one" bindtap="applyZero">加入一折购购物车</view>
       <view class="cart-newbotton_two" bindtap="clickme">加入普通购买购物车</view>
     </view>
   </view>
-  <image wx:if="{{isCart}}" class="cart-cancel-img" src="{{hostUrl}}/icon/tanc_closecutlineone_n.png" bindtap='cartCancle'></image>
+  <image wx:if="{{isCart}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cartCancle'></image>
 </view>
 <!-- 活动过期或未开始弹窗 -->
 <view class="dialog__mask2" catchtouchmove="preventTouchMove" wx:if="{{show2}}">
@@ -596,12 +576,12 @@
   </view>
   <view class="button_font" bindtap="toIndex2">去首页逛逛</view>
 </view>
-<!-- 预售订单引导页 -->
+<!-- 预售返现引导页 -->
 <view class="yudialog__mask" catchtouchmove="preventTouchMove" wx:if="{{yuShow}}">
   <view class="dialog__container" wx:if="{{yuShow}}">
     <view class="tishi">提示</view>
     <view class="order">
-      <view class="order_one">是否需要进入预售订单介绍页面了解如</view>
+      <view class="order_one">是否需要进入预售返现介绍页面了解如</view>
       <view class="order_two">何使用呢？</view>
       <view class="order_box">
         <view class="order_box1" catchtap="noNeed">不需要</view>
@@ -620,7 +600,7 @@
     </view>
     <view class="commodity-top-right">
       <view class="commodity-top-right-item">
-        <view class="commodity-top-right-title" wx:if="{{!stages}}">返后价:
+        <view class="commodity-top-right-title" wx:if="{{!stages}}">{{newPeopleActivity==2?'新人价':'一折购'}}:
           <view class="sign">￥</view>
           <view class="price">{{foo.toStr(activityStockDetail1.dctPrice)}}</view>
         </view>
@@ -639,9 +619,9 @@
   <view class="content-cashBack" wx:if="{{!stages && activityStockDetail1.cashbackItems && zero==false&&newPeopleActivity==1}}">
     <image src="{{hostUrl}}/icon/youhui_bqian.png"></image>
     <view class="content-cashBack-text">
-      当前商品实付
-      <text>{{foo.toStr(activityStockDetail1.dctPrice)}}</text> 元，返现
-      <text>{{foo.toStr(cashMoney)}}</text>元
+      返现
+      <text>{{foo.toStr(cashMoney)}}</text> 元，返后价
+      <text>{{foo.toStr(activityStockDetail1.dctPrice-cashMoney)}}</text>元
     </view>
   </view>
   <view class="content-zeroBack" wx:if="{{zero==true}}"></view>
@@ -669,7 +649,7 @@
     </view>
     <!-- 申请0元购 -->
     <!-- <view class="application-wrap" wx:if="{{newPeopleActivity==2}}">
-      <view class="application-zero1" bindtap='applyZeroBuy' data-quantity="{{num2}}" data-goodsid="{{detail.id}}" data-stockid="{{activityStockDetail1.stockId}}" data-price="{{detail.dctPrice}}" wx:if="{{zero==true}}">0成本购「FreeBuy」</view>
+      <view class="application-zero1" bindtap='applyZeroBuy' data-quantity="{{num2}}" data-goodsid="{{detail.id}}" data-stockid="{{activityStockDetail1.stockId}}" data-price="{{detail.dctPrice}}" wx:if="{{zero==true}}">一折购</view>
     </view> -->
   </view>
   <!--加入购物车、立即购买-->
@@ -684,19 +664,19 @@
 <view class="get-zan-dialog__mask" wx:if="{{showRole}}">
   <view class="zan-dialog__container" animation="{{animationData}}" wx:if="{{showRole}}" style="{{money==1?'height:978rpx;':'height:878rpx;'}}">
     <view class="height_text" wx:if="{{money==1}}">
-      <view class="role_title">0成本购后卖出赚钱，怎么赚钱？</view>
-      <view class="height_text1">相当于您可以直接将当前这个商品卖出，0成本购后，直接可以拿到您想卖出的价格！</view>
+      <view class="role_title">一折购后卖出赚钱，怎么赚钱？</view>
+      <view class="height_text1">相当于您可以直接将当前这个商品卖出，一折购后，直接可以拿到您想卖出的价格！</view>
       <view class="role_title">怎么卖？</view>
-      <view class="height_text1">您先查看0成本购后卖出赚钱，下面的列表是否有可以直接购买赚钱的帖子，您可点击查看全部，查看所有的可以直接购买可赚钱的帖子，若赚钱的金额您都不满意，您可点击发布商品卖贴，自由定义价格。此时为了不占用您的资金时间，您只需要支付违约金便可发出赚商品卖贴，并有权在交易前随时取消，违约金会立马退还到您的账户余额中。</view>
+      <view class="height_text1">您先查看一折购购后卖出赚钱，下面的列表是否有可以直接购买赚钱的帖子，您可点击查看全部，查看所有的可以直接购买可赚钱的帖子，若赚钱的金额您都不满意，您可点击发布商品卖贴，自由定义价格。此时为了不占用您的资金时间，您只需要支付违约金便可发出赚商品卖贴，并有权在交易前随时取消，违约金会立马退还到您的账户余额中。</view>
       <view class="role_title">违约金是什么？</view>
       <view class="height_text1">违约金主要是为了保护购买者不受损失的一种手段，只要不是您在对方付款后取消了交易，其他任何情况下都将把违约金全额退还。</view>
       <view class="role_title">购买可赚钱的帖子后多久可以收到钱？</view>
-      <view class="height_text1">您购买的订单，都是其他用户想要更低一些的价格购买商品发出的商品买贴，在您支付0成本购金额后，对方的出价会立刻进入您的余额中</view>
+      <view class="height_text1">您购买的订单，都是其他用户想要更低一些的价格购买商品发出的商品买贴，在您支付一折购金额后，对方的出价会立刻进入您的余额中</view>
       <view style="height:70rpx"></view>
     </view>
     <view class="height_text" wx:if="{{money==2}}">
       <view class="role_title">捡漏购买省钱，怎么省钱？</view>
-      <view class="height_text1">相当于有人将此商品通过本平台0成本购买后，将商品进行出售，出售的同时，他会降低售价，所以您可以省钱购买</view>
+      <view class="height_text1">相当于有人将此商品通过本平台一折购买后，将商品进行出售，出售的同时，他会降低售价，所以您可以省钱购买</view>
       <view class="role_title">怎么购买？</view>
       <view class="height_text1">您可先查看捡漏购买-省钱下面的列表，是否有可以直接省钱购买的订单，您可点击查看全部，查看所有的省钱购买的订单，可以直接购买，若省下的金额您都不满意，您可点击发布商品买贴，自由购买定义价格。您只需要支付您的出价便可发出商品买贴，并有权在交易前随时取消，你支付的金额会立马退还到您的账户余额中</view>
       <view class="role_title">如果直接购买了多久可以收到货？</view>
@@ -718,9 +698,9 @@
     </view>
     <view class="commodity-top-right">
       <view class="commodity-top-right-item">
-        <view class="commodity-top-right-title">返后价:
+        <view class="commodity-top-right-title">原价:
           <view class="sign">￥</view>
-          <view class="price">{{stockDetail1.dctPrice?foo.toStr(stockDetail1.dctPrice-cashMoney):0}}</view>
+          <view class="price">{{stockDetail1.dctPrice||0}}</view>
         </view>
         <view class="commodity-top-right-cancel" bindtap="hideShowOrder">
           <image src="{{hostUrl}}/icon/tanc_close_n.png"></image>
@@ -753,21 +733,11 @@
     </view> -->
   </view>
   <view class="showOrderText">{{showText1}}</view>
-  <view class="showOrderBtn" bindtap="getOrder" data-stockId="{{stockDetail1.stockId}}" data-dctPrice="{{stockDetail1.dctPrice?foo.toStr(stockDetail1.dctPrice-cashMoney):0}}" data-spec="{{selectName}}" data-num="{{num}}" data-expressFee="{{detail.expressFee}}"
-    data-iconUrl="{{iconUrl}}" data-name="{{detail.name}}" data-quantity1="{{stockDetail1.quantity}}" data-quantity="{{options.quantity}}" data-goodsid="{{options.id}}" data-stock="{{options.stockid}}" data-topicid="{{options.topicid}}" data-source="{{options.source}}">{{showText2}}</view>
+  <view class="showOrderBtn" bindtap="getOrder" data-stockId="{{stockDetail1.stockId}}" data-dctPrice="{{stockDetail1.dctPrice}}" data-spec="{{selectName}}" data-num="{{num}}" data-expressFee="{{detail.expressFee}}" data-iconUrl="{{iconUrl}}" data-name="{{detail.name}}"
+    data-quantity1="{{stockDetail1.quantity}}" data-quantity="{{options.quantity}}" data-goodsid="{{options.id}}" data-stock="{{options.stockid}}" data-topicid="{{options.topicid}}" data-source="{{options.source}}">{{showText2}}</view>
   <view class="showOrderBlock"></view>
 </view>
-<!-- 0成本购引导 -->
-<!-- <view class="yindao_box" wx:if="{{yindao1}}" bindtap="closeyindao1">
-  <image src="/assets/images/temp/head_font.png" class="head_font" />
-  <image src="/assets/images/temp/close_yindao.png" class="close_yindao" catchtap="closeyindao"/>
-  <image src="/assets/images/temp/down.png" class="down" />
-    <image src="/assets/images/temp/the_botton.png" class="the_botton" />
-  <view class="yindao_botton">首先点击0成本购</view>
-</view> -->
-<!-- 0成本购引导 -->
-<!-- <view class="yindao_box" wx:if="{{yindao2}}" bindtap="closeyindao2">
-  <image src="/assets/images/temp/right.png" class="down2" />
-  <image src="/assets/images/temp/guige.png" class="guige" />
-  <view class="yindao_botton2">选择想要的规格，点击下一步</view>
-</view> -->
+<view class="all10" bindtap="toIndex" wx:if="{{xiajia}}">
+<image src="/assets/images/mine/shixiao.png" class="shixiao10"></image>
+<view class="text10">商品已失效，轻触屏幕回到首页</view>
+</view>

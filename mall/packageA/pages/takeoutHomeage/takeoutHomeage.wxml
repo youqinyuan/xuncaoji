@@ -11,28 +11,28 @@
 <view class="haveStore" wx:if="{{store}}">
   <view class="store" wx:if="{{fixed==1&&store.channel==2}}" catchtap="businessInfo" data-id="{{store.id}}">
     <image class="storeImg" src="{{store.logoUrl}}" wx:if="{{store.logoUrl}}"></image>
-    <image class="storeImg" src="{{hostUrl}}/icon/zhanw_tb_n.png" wx:else></image>
+    <image class="storeImg" src="{{hostUrl}}/icon/xuncaoji_icon.png" wx:else></image>
     <view class="storeMiddle">
       <view class="stroeName">{{store.name}}</view>
       <view class="gradeWrap">
-        <view class="grade">
+        <!-- <view class="grade">
           <view class="storeText">店铺评分</view>
           <view class="storeGrade">{{store.score}}</view>
-        </view>
+        </view> -->
         <view class="gradeText" wx:if="{{store.deliveryType==1&&store.useDelivery==1}}">配送费：{{store.deliveryFee}}元</view>
       </view>
     </view>
-    <view class="{{store.isFollow==2?'storeRight':'storeRight1'}}" catchtap="follow">
+    <view class="{{store.isFollow==2?'storeRight':'storeRight1'}}" catchtap="follow" wx:if="{{store.type==1}}">
       <image class="storeXing" src="{{hostUrl}}/changeImg/wujiao.png"></image>
       {{showText}}
     </view>
   </view>
-  <view class="section-wrapper" style="{{fixed==1?'position:static;':'position:fixed;top:0'}}">
-    <view class="section" wx:if="{{fixed==1}}" catchtap="toSearch" data-id="{{store.id}}">
+  <view class="section-wrapper" style="{{fixed==1?'position:static;':'position:fixed;top:0;z-index:99;'}}">
+    <view class="section" wx:if="{{fixed==1&&store.type==1}}" catchtap="toSearch" data-id="{{store.id}}">
       <image src="{{hostUrl}}/changeImg/search.png" class="section-img"></image>
       <view class="section-text">搜索店内商品</view>
     </view>
-    <view class="wrapText" wx:if="{{fixed==2}}" catchtap="toSearch" data-id="{{store.id}}">
+    <view class="wrapText" wx:if="{{fixed==2&&store.type==1}}" catchtap="toSearch" data-id="{{store.id}}">
       <view class="section1">
         <image src="{{hostUrl}}/changeImg/search.png" class="section-img"></image>
         <view class="section-text">搜索店内商品</view>
@@ -43,7 +43,7 @@
       </view>
     </view>
 
-    <view class="content_top">
+    <view class="content_top" style="{{store.type==1?'margin-top: 12rpx;':'margin-top:0;'}}">
       <scroll-view scroll-x class="nav" scroll-left="{{navScrollLeft}}">
         <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
           <view class="nav-box">
@@ -61,27 +61,12 @@
         <image src="{{item.imageUrls[0]}}"></image>
       </view>
       <view class="quality-list-text">
-        <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-        <text class="item2">支持0成本购</text>{{item.name}}</view>
+        <text class="item1" wx:if="{{item.tags==1}}">自营</text>{{item.name}}</view>
       <view class="quality-list-price">
         <view class="newprice">
-          <text>￥</text>{{item.truePrice}}</view>
-        <view class="oldprice">￥{{item.orgPrice}}</view>
-      </view>
-      <view class="return-cart">
-        <view class="return-wrap wrapMoney">
-          <view class="return-money">
-            <text>实付</text>
-            <text>￥</text>
-            <text>{{item.dctPrice}}</text>
-          </view>
-          <view class="pay-money">
-            <text>返现</text>
-            <text>￥</text>
-            <text>{{item.marketingCashBack.totalAmount}}</text>
-          </view>
-        </view>
-        <image catchtap="showOrder" data-id="{{item.id}}" class="cart" src="{{hostUrl}}/changeImg/takeCart.png" wx:if="{{store.status==1}}"></image>
+          <text class="newtext">一折购:</text><text>￥</text>{{item.discountPrice}}</view>
+          <view class="circle1" catchtap="showOrder" wx:if="{{item.quantity>0}}">{{item.quantity> 99 ? '99' : item.quantity}}</view>
+        <image catchtap="showOrder" data-id="{{item.id}}" class="cart" src="{{hostUrl}}/supplement/addShopCart.png" wx:if="{{store.status==1}}"></image>
       </view>
     </view>
   </view>
@@ -91,21 +76,21 @@
     <view class="addCart_left" catchtap="toCart">
       <image class="addCart_img" src="{{hostUrl}}/changeImg/add_cart.png"></image>
     </view>
-    <view class="addCart_right">
+    <view class="addCart_right" catchtap="toCart">
       <view class="add_price" wx:if="{{shoppingCart}}">
         <view class="allSign">
-          <text>￥</text>
+          <text>一折购:￥</text>
           <text>{{shoppingCart.afterCashBackAmount}}</text>
         </view>
         <view class="allPrice">
-          <text>实付 ¥{{shoppingCart.goodsPriceAmount}} 返 ¥{{shoppingCart.cashBackAmount}}</text>
+          <text>支付 ¥{{shoppingCart.goodsPriceAmount}} 返现 ¥{{shoppingCart.cashBackAmount}}</text>
         </view>
       </view>
       <view class="btnWrap" catchtap="toPlaceorder" wx:if="{{shoppingCart}}">
-        <view class="btn" style="background:#FF2644;" catchtap="toPlaceorder">下单</view>
+        <view class="btn" style="background:#FF2644;" catchtap="toPlaceorder">详情信息</view>
       </view>
       <view class="add_text" wx:if="{{!shoppingCart}}">请选择商品</view>
-      <view class="btn" style="background:#AAAAAA;" wx:if="{{!shoppingCart}}">下单</view>
+      <view class="btn" style="background:#AAAAAA;" wx:if="{{!shoppingCart}}">详情信息</view>
     </view>
   </view>
   <view class="addCart-wrap1" wx:if="{{store.status==2}}">本店已打烊</view>
@@ -125,9 +110,9 @@
     </view>
     <view class="commodity-top-right">
       <view class="commodity-top-right-item">
-        <view class="commodity-top-right-title">返后价:
+        <view class="commodity-top-right-title">原价:
           <view class="sign">￥</view>
-          <view class="price">{{stockDetail1.dctPrice?foo.toStr(stockDetail1.dctPrice-cashMoney):0}}</view>
+          <view class="price">{{stockDetail1.dctPrice||0}}</view>
         </view>
         <view class="commodity-top-right-cancel" bindtap="hideShowOrder">
           <image src="{{hostUrl}}/icon/tanc_close_n.png"></image>
@@ -139,7 +124,7 @@
   </view>
   <view class="content-wrapper" style="{{stockDetail1.cashbackItems?'max-height: 585rpx;':'max-height: 630rpx;'}}">
     <!--选择规格-->
-    <block wx:for="{{spec}}" wx:key="{{item.id}}" wx:for-index="group_idx">
+    <block wx:for="{{spec}}" wx:key="{{item.id}}" wx:for-index="group_idx" wx:if="{{store.type==1}}">
       <view class="color-size" data-index="{{group_idx}}" bindtap='specIndex'>
         <view class="color-size-title">{{item.name}}</view>
         <view class="color-size-list">
@@ -158,10 +143,10 @@
       </view>
     </view>
   </view>
-  <view class="showOrderText" catchtap="jumpZero">什么是0成本购?</view>
+  <!-- <view class="showOrderText" catchtap="jumpZero">什么是一折购?</view> -->
   <view class="btn-wrap">
     <view class="showOrderBtn_a" bindtap="addTocart" data-cashbackid="{{stockDetail1.cashbackItems ? cashbackId:'' }}" data-quantity="{{num}}" data-goodsid="{{goodsId}}" data-stockid="{{stockDetail1.stockId}}">普通购买</view>
-    <view class="showOrderBtn" bindtap="getZeroCart" data-quantity="{{num}}" data-goodsid="{{goodsId}}" data-stockid="{{stockDetail1.stockId}}">0成本购</view>
+    <view class="showOrderBtn" bindtap="getZeroCart" data-quantity="{{num}}" data-goodsid="{{goodsId}}" data-stockid="{{stockDetail1.stockId}}">一折购</view>
   </view>
   <view class="showOrderBlock"></view>
 </view>
@@ -198,15 +183,17 @@
       </view>
       <view class="storeR">
         <view class="storeName">{{item.goodsName}}</view>
-        <view class="storeSpec">{{item.spcDesc}}</view>
+        <view class="storeSpec" wx:if="{{store.type==1}}">{{item.spcDesc}}</view>
         <view class="storeBottom">
-          <view class="storePrice">
-            <view class="storeT">返后</view>
+          <view class="storePrice" wx:if="{{item.buyMode==2}}">
+            <view class="storeT">一折购:</view>
+            <view class="storeSign">￥</view>
+            <view class="storeP">{{item.discountPrice}}</view>
+          </view>
+          <view class="storePrice" wx:if="{{item.buyMode==1}}">
+            <view class="storeT">返后价</view>
             <view class="storeSign">￥</view>
             <view class="storeP">{{item.afterCashBack}}</view>
-            <view class="storeT">实付</view>
-            <view class="storeSign">￥</view>
-            <view class="storeP">{{item.goodsPrice}}</view>
           </view>
           <view class="storeNum">
             <image class="storeReduce" catchtap="storeReduce" data-id="{{item.id}}" data-quantity="{{item.quantity}}" src="{{hostUrl}}/newIndex/reduce.png"></image>
@@ -217,24 +204,25 @@
       </view>
     </view>
   </view>
- <view class="addCart-wrap" wx:if="{{store.status==1}}">
-    <view class="circle" wx:if="{{shoppingCart}}">{{shoppingCart.goodsCount}}</view>
+  <view class="addCart-wrap" wx:if="{{store.status==1}}">
+    <view class="circle" wx:if="{{shoppingCart}}" catchtap="showCart">{{shoppingCart.goodsCount}}</view>
     <view class="addCart_left" catchtap="showCart">
       <image class="addCart_img" src="{{hostUrl}}/changeImg/add_cart.png"></image>
     </view>
-    <view class="addCart_right">
+    <view class="addCart_right" catchtap="showCart">
       <view class="add_price" wx:if="{{shoppingCart}}">
         <view class="allSign">
-          <text>￥</text>
+          <text>一折购:￥</text>
           <text>{{shoppingCart.afterCashBackAmount}}</text>
         </view>
         <view class="allPrice">
-          <text>实付 ¥{{shoppingCart.goodsPriceAmount}} 返 ¥{{shoppingCart.cashBackAmount}}</text>
+          <text>支付 ¥{{shoppingCart.goodsPriceAmount}} 返现 ¥{{shoppingCart.cashBackAmount}}</text>
         </view>
       </view>
       <view class="btnWrap" catchtap="toPlaceorder" wx:if="{{shoppingCart}}">
-        <view class="btn" style="background:#FF2644;" catchtap="toPlaceorder">下单</view>
+        <view class="btn" style="background:#FF2644;" catchtap="toPlaceorder">详情信息</view>
       </view>
     </view>
   </view>
 </view>
+ <view class="bottom_tishi">{{bottom_tishi}}</view>

@@ -183,9 +183,8 @@ Page({
     app.Util.ajax('mall/home/store/goods', data, 'GET').then((res) => {
       if (res.data.messageCode = 'MSG_1001') {
         if (res.data.content.items == '' && that.data.list !== '') {
-          wx.showToast({
-            title: '已经到底啦',
-            icon: 'none'
+          that.setData({
+            bottom_tishi:'已到底，去【寻商品】提交吧'
           })
         }
         let arr = that.data.list

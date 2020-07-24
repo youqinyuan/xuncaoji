@@ -14,6 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    buyMode:1,
     allPost: [], //省钱帖
     allPost1: [], //省钱帖
     allPost2: [],
@@ -34,7 +35,7 @@ Page({
     competitorPrices: [], //竞选天猫
     dctDetail: {}, //节省，返利
     introductions: [], //店铺详情介绍
-    recommend: [], //爆品推荐
+    list: [], //爆品推荐
     spec: [],
     showModalStatus: false, //商品规格弹框
     showModalStatus1: false, //分享弹框
@@ -68,7 +69,6 @@ Page({
     saveMoney: 0, //节约得钱
     options: {},
     activeIndex: '', //选中的index
-    showService: false, //客服弹框
     inviterCode: '', //邀请码
     current: 0, //轮播图当前索引
     cashMoney: '', //将返现金额
@@ -165,6 +165,7 @@ Page({
         that.setData({
           isCart: false,
           showModalStatus2: true,
+          buyMode:2,
           isOrder: true
         })
         app.globalData.isShowBook = 2
@@ -172,6 +173,7 @@ Page({
         that.setData({
           zero: true,
           showModalStatus: true,
+          buyMode: 2,
           isCart: false,
           isOrder: true
         })
@@ -239,7 +241,7 @@ Page({
   },
   //可申请0元购
   applyZero: function(e) {
-    var that = this
+    let that = this
     //0成本引导2
     if (wx.getStorageSync('token')) {
       if (e.detail.formId !== 'the formId is a mock one') {
@@ -250,11 +252,11 @@ Page({
         })
       } else {}
     }
-    var token = wx.getStorageSync('token')
-    if (token) {
+    if (wx.getStorageSync('token')) {
         that.setData({
           zero: true,
           showModalStatus: true,
+          buyMode:2,
           isCart: false
         })
     } else {
@@ -301,32 +303,32 @@ Page({
       if (this.data.buyType == 2) {
         if (activityId == '') {
           wx.navigateTo({
-            url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&buyType=2&freeBuyMode`,
+            url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&buyType=2&freeBuyMode`,
           })
         } else {
           wx.navigateTo({
-            url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}&buyType=2`,
+            url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}&buyType=2`,
           })
         }
       } else {
         if (app.globalData.isShowBook == 2) {
           if (activityId == '') {
             wx.navigateTo({
-              url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&isShowBook=2`,
+              url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&isShowBook=2`,
             })
           } else {
             wx.navigateTo({
-              url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}&isShowBook=2`,
+              url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}&isShowBook=2`,
             })
           }
         } else {
           if (activityId == '') {
             wx.navigateTo({
-              url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}`,
+              url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}`,
             })
           } else {
             wx.navigateTo({
-              url: `/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}`,
+              url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}`,
             })
           }
         }
@@ -369,16 +371,16 @@ Page({
     } else {
       if (that.data.buyType == 2) {
         wx.navigateTo({
-          url: `/pages/applyZero/applyZero?activityGoodsId=${activityGoodsId}&stockId=${stockId}&quantity=${quantity}&newPeopleActivity=2&buyType=2&newPeople=1`,
+          url: `/packageB/pages/applyZero/applyZero?activityGoodsId=${activityGoodsId}&stockId=${stockId}&quantity=${quantity}&newPeopleActivity=2&buyType=2&newPeople=1`,
         })
       } else {
         if (app.globalData.isShowBook == 2) {
           wx.navigateTo({
-            url: `/pages/applyZero/applyZero?activityGoodsId=${activityGoodsId}&stockId=${stockId}&newPeopleActivity=2&newPeople=1&quantity=${quantity}&isShowBook=2`,
+            url: `/packageB/pages/applyZero/applyZero?activityGoodsId=${activityGoodsId}&stockId=${stockId}&newPeopleActivity=2&newPeople=1&quantity=${quantity}&isShowBook=2`,
           })
         } else {
           wx.navigateTo({
-            url: `/pages/applyZero/applyZero?activityGoodsId=${activityGoodsId}&stockId=${stockId}&newPeopleActivity=2&newPeople=1&quantity=${quantity}`,
+            url: `/packageB/pages/applyZero/applyZero?activityGoodsId=${activityGoodsId}&stockId=${stockId}&newPeopleActivity=2&newPeople=1&quantity=${quantity}`,
           })
         }
       }
@@ -455,7 +457,7 @@ Page({
     })
   },
   //查询分享数据
-  chooseShare: function() {
+  chooseShare: function () {
     var that = this
     if (that.data.commodity || wx.getStorageSync("isCommodity")) {
       app.Util.ajax('mall/weChat/sharing/target', {
@@ -484,10 +486,10 @@ Page({
                 //绘制申请0元购logo
                 ctx.drawImage(path_logo, 240, 245, 130, 64);
                 ctx.draw()
-                setTimeout(function() {
+                setTimeout(function () {
                   wx.canvasToTempFilePath({
                     canvasId: 'canvas',
-                    success: function(res) {
+                    success: function (res) {
                       that.data.shareImg = res.tempFilePath
                     }
                   })
@@ -541,10 +543,10 @@ Page({
                 //绘制申请0元购logo
                 ctx.drawImage(path_logo, 240, 245, 130, 64);
                 ctx.draw()
-                setTimeout(function() {
+                setTimeout(function () {
                   wx.canvasToTempFilePath({
                     canvasId: 'canvas',
-                    success: function(res) {
+                    success: function (res) {
                       that.data.shareImg = res.tempFilePath
                     }
                   })
@@ -569,10 +571,10 @@ Page({
     }
   },
   // 获取分享数据
-  getShareData: function() {
+  getShareData: function () {
     var that = this
-    if (that.data.commodity) {
-      app.Util.ajax('mall/weChat/sharing/snapshot/target', {
+    if (that.data.commodity || wx.getStorageSync("isCommodity")) {
+      app.Util.ajax('mall/weChat/sharing/target', {
         mode: 15,
         targetId: that.data.goodsId,
         activityId: that.data.commodity,
@@ -603,12 +605,12 @@ Page({
       })
     } else {
       var mode;
-      if (that.data.newPeopleActivity == 2) {
+      if (that.data.newPeopleActivity == 2 || wx.getStorageSync("isNewPeopleActivity")) {
         mode = 14
       } else {
         mode = 1
       }
-      app.Util.ajax('mall/weChat/sharing/snapshot/target', {
+      app.Util.ajax('mall/weChat/sharing/target', {
         mode: mode,
         targetId: that.data.goodsId,
       }, 'GET').then((res) => {
@@ -654,7 +656,7 @@ Page({
     var path_bg2 = '/assets/images/icon/canvas_title.png';
     var path_logo = '/assets/images/icon/xuncaoji_icon.png'
     var path_partner = '/assets/images/icon/partner.png'
-    var title = '"Free Buy"，自由买，免费拿'
+    var title = that.data.shareList.title
     var inviterCode = that.data.shareData.inviterCode
     //绘制图片模板的背景图片
     ctx.drawImage(path_bg, 0, 0, 0.88 * width, 0.89 * height);
@@ -724,7 +726,7 @@ Page({
     ctx.closePath()
     // 绘制价格
     ctx.beginPath()
-    var price = `¥${that.data.shareData.price}`
+    var price = `一折购¥${that.data.shareData.price}`
     ctx.setFontSize(16);
     ctx.setFillStyle('#F85A53');
     ctx.setTextAlign("left")
@@ -758,7 +760,7 @@ Page({
     ctx.closePath()
     // 绘制广告语
     ctx.beginPath()
-    var adTips = '我是合伙人，上0元购，自由买免费拿，推荐此商品！'
+    var adTips = that.data.shareList.imageDesc
     ctx.setFontSize(14);
     ctx.setFillStyle('#333333');
     ctx.setTextAlign("left")
@@ -1203,14 +1205,16 @@ Page({
     if (token) {
       that.showModal();
       that.setData({
-        isCart: false
+        isCart: false,
+        buyMode:1
       })
     } else {
       wx.navigateTo({
         url: "/pages/invitationCode/invitationCode?inviterCode=" + that.data.inviterCode
       })
       that.setData({
-        num: 1
+        num: 1,
+        buyMode: 2
       })
     }
   },
@@ -1221,6 +1225,7 @@ Page({
     if (token) {
       that.setData({
         isCart: false,
+        buyMode: 2,
         showModalStatus2: true
       })
     } else {
@@ -1250,7 +1255,8 @@ Page({
     // 显示遮罩层
     var that = this
     that.setData({
-      showModalStatus: true
+      showModalStatus: true,
+      buyMode: 1,
     })
   },
   //隐藏规格对话框
@@ -1260,6 +1266,7 @@ Page({
     that.setData({
       showModalStatus: false,
       zero: false,
+      buyMode: 1,
       isOrder: false
     })
     app.globalData.isShowBook = 1
@@ -1270,7 +1277,8 @@ Page({
     that.setData({
       showModalStatus2: false,
       zero: false,
-      isOrder: false
+      isOrder: false,
+      buyMode: 1
     })
     app.globalData.isShowBook = 1
   },
@@ -1985,7 +1993,7 @@ Page({
           v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
         })
         that.setData({
-          recommend: res.data.content.items,
+          list: res.data.content.items,
         })
       }
     })
@@ -2003,18 +2011,18 @@ Page({
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode = 'MSG_1001') {
-        if (res.data.content.items == '' && that.data.recommend !== '') {
+        if (res.data.content.items == '' && that.data.list !== '') {
           that.setData({
-            text: '已经到底啦'
+            text: '已到底，去【寻商品】提交吧'
           })
         }
-        var arr = that.data.recommend
+        var arr = that.data.list
         res.data.content.items.forEach((v, i) => {
           v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
           arr.push(res.data.content.items[i])
         })
         that.setData({
-          recommend: arr,
+          list: arr,
           pageNumber: pageNumber
         })
       }
@@ -2158,7 +2166,7 @@ Page({
           } else {}
         })
         return {
-          title: '我是合伙人，上0元购，自由买免费拿，推荐此商品！',
+          title: that.data.shareList.desc,
           path: that.data.shareList.link,
           imageUrl: that.data.shareImg,
           success: function(res) {
@@ -2194,7 +2202,7 @@ Page({
           }
         })
         return {
-          title: '亲们，该品可申请0元购，给群做福利！我已申请到。',
+          title: that.data.shareList.groupDesc,
           path: that.data.shareList.link,
           imageUrl: that.data.shareImg,
         }
@@ -2245,8 +2253,7 @@ Page({
       // 如果大于1时，才可以减
       if (num > 1) {
         num--;
-      }
-      if (num <= 1) {
+      }else if (num <= 1) {
         wx.showToast({
           title: '不能再少了哟',
           icon: 'none'
@@ -2370,6 +2377,11 @@ Page({
   toReturn: function() {
     wx.navigateBack({})
   },
+  toIndex:function(){
+    wx.switchTab({
+      url: '/pages/newIndex/newIndex',
+    })
+  },
   toSponsor: function(e) {
     var that = this
     var token = wx.getStorageSync('token')
@@ -2389,7 +2401,7 @@ Page({
           })
         } else {
           wx.navigateTo({
-            url: '/pages/applyZero/applyZero?sponsor=1&&goodsId=' + goodsId + '&&stockId=' + stockId + '&&quantity=' + quantity + '&&supportCount=' + supportCount
+            url: '/packageB/pages/applyZero/applyZero?sponsor=1&&goodsId=' + goodsId + '&&stockId=' + stockId + '&&quantity=' + quantity + '&&supportCount=' + supportCount
           })
           that.setData({
             showModalStatus: false,
@@ -2398,7 +2410,7 @@ Page({
         }
       } else {
         wx.showToast({
-          title: '抱歉预售订单服务不支持赞助。',
+          title: '抱歉预售返现服务不支持赞助。',
           icon: 'none'
         })
       }
@@ -2482,7 +2494,7 @@ Page({
         }
         let getOrder = JSON.stringify(data)
         wx.navigateTo({
-          url: '/pages/applyZero/applyZero?getOrder=' + getOrder,
+          url: '/packageB/pages/applyZero/applyZero?getOrder=' + getOrder,
         })
       }
     }

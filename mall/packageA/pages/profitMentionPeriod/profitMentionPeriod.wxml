@@ -35,7 +35,7 @@
             <view class="sponsor_number"><text >￥</text>{{item.incomeAmount}}</view>
         </view>
         <view class="value">
-            <view class="sponsor">年化率</view>
+            <view class="sponsor">年收益率</view>
             <view class="sponsor_number">{{item.annualizedRate}}%</view>
         </view>
     </view>

@@ -1,0 +1,15 @@
+
+<!--components/seed_toast/seed_toast.wxml-->
+<view class="bg" wx:if="{{status}}">
+    <view class="content">
+        <view class="title">{{title}}</view>
+        <view class="text_one">{{list.seedAmountTotal}}</view>
+        <view class="text_two">{{text_two}}</view>
+        <view class="message">{{message}}</view>
+        <view class="button_box">
+            <view class="button_one" bindtap="toSeed">{{button_one_name}}</view>
+            <view class="button_two">{{button_two_name}}</view>
+        </view>
+    </view>
+    <image class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap="cancle"></image>
+</view>

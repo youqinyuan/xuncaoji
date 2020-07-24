@@ -1,0 +1,25 @@
+.pop_box{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+}
+.pop_img{
+    width: 600rpx;
+    height: 800rpx;
+    display: inline-block;
+    position: absolute;
+    top: 200rpx;
+    left: 75rpx;
+}
+.pop_cancle{
+    position: absolute;
+    top: 128rpx;
+    right: 100rpx;
+    width: 44rpx;
+    height: 74rpx;
+  }
+  

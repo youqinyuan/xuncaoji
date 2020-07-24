@@ -29,7 +29,7 @@ App({
     isShowBook:1,//是否显示立即体验
     isService:1,//是否显示引导弹框
     isOrder:1,
-    type:0,//4-跳转论坛预售 5-跳转论坛提期
+    type:0,//4-跳转论坛预售 5-跳转论坛提期 6-关注 7-返现交易 8-商品交易  9-普通帖 10-全部
     host: 'http://move.alijuly.cn/index.php?s=',
     tempMoveData: {},//临时搬家搬入搬出地址信息，当在含有腾讯地图的页面点击了【确定】之后，才将该对象的值赋值到moveData，moveData才是真正的提交数据
     moveData: {},//搬家搬入搬出地址信息；提交所需数据
@@ -40,6 +40,8 @@ App({
     location:0,//0-没点收货地址 1-点了收货地址
     addLocation: 0,//0-没点重新定位 1-点了重新定位 
     seedText:'',//种子充值
+    returnMentionPeriodStatus:1,
+    takeOut:1
     },
 
   //通用导航方法

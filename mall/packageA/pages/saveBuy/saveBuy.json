@@ -1,7 +1,7 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF2644",
-  "navigationBarTitleText": "买商品省钱",
-  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTitleText": "预定商品",
+  "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true
 }

@@ -11,7 +11,6 @@ Page({
     show2: false,
     show3:false,
     hostUrl: app.Util.getUrlImg().hostUrl,
-
   },
 
   /**

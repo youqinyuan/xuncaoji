@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF2644",
-  "navigationBarTitleText": "FreeBuy赞助",
-  "navigationBarTextStyle": "white"
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTitleText": "一折购赞助",
+  "navigationBarTextStyle": "black"
 }

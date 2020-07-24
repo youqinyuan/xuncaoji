@@ -7,7 +7,10 @@
     </view>
     <view class="bankCard-name">{{item.realName}}</view>
     <view class="bankCard-bottom">
-      <view class="bankCard-card">**** **** **** <text class="bankCard-num">{{item.bankCardNumber}}</text></view>
+      <view class="bankCard-card">
+        <view class="one">**** **** ****</view>
+        <view class="two">{{item.bankCardNumber}}</view>
+      </view>
       <view class="bankCard-btn">
         <view class="deleteBtn btn" catchtap="delBtn" data-id="{{item.id}}">删除</view>
         <view class="modifyBtn btn" catchtap="editCard" data-address="{{item.bankAddress}}" data-isdefault="{{item.isDefault}}" data-name="{{item.realName}}" data-bank="{{item.bankNumber}}" data-id="{{item.id}}">修改</view>

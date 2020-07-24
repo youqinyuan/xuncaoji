@@ -1,4 +1,18 @@
 /* pages/forum/forum.wxss */
+@import "/template/floatingwindow/floatingwindow";
+@import "/template/pop-upwindows/pop-upwindows";
+
+.comprehensive-not {
+  color: #333;
+  font-size: 28rpx;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.comprehensive-not image {
+  width: 380rpx;
+  height: 380rpx;
+}
 
 page {
   background: #f1f1f1;
@@ -22,6 +36,10 @@ page {
   position: absolute;
   top: 20rpx;
   border-radius: 8rpx;
+}
+
+.left20 {
+  margin-left: 20rpx;
 }
 
 .content_pulish_wrap {
@@ -135,9 +153,9 @@ page {
   width: 211rpx;
   height: 52rpx;
   background: rgba(255, 255, 255, 1);
-  border: 2rpx solid #999;
+  border: 1rpx solid #999;
   font-size: 28rpx;
-  border-radius: 26rpx;
+  border-radius: 36rpx;
   color: #333;
   line-height: 52rpx;
   text-align: center;
@@ -166,9 +184,9 @@ page {
   width: 180rpx;
   height: 52rpx;
   background: rgba(255, 255, 255, 1);
-  border: 2rpx solid #999;
+  border: 1rpx solid #999;
   font-size: 28rpx;
-  border-radius: 26rpx;
+  border-radius: 36rpx;
   color: #333;
   line-height: 52rpx;
   text-align: center;
@@ -757,7 +775,7 @@ page {
   height: 80rpx;
   line-height: 80rpx;
   border-radius: 40rpx;
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
   color: #ff2644;
 }
 
@@ -829,7 +847,7 @@ page {
   height: 80rpx;
   line-height: 80rpx;
   border-radius: 40rpx;
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
   color: #ff2644;
 }
 
@@ -867,7 +885,6 @@ page {
   z-index: 97;
   display: flex;
   justify-content: space-around;
-  /* align-items: center; */
 }
 
 .return-zan-dialog__mask .cancel-img {
@@ -979,9 +996,11 @@ page {
   margin: 0 auto;
   margin-top: 46rpx;
   margin-bottom: 30rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
   color: #222;
-  text-align: left;
+  text-align: center;
+  font-family: PingFang SC;
+  font-weight: bold;
 }
 
 .sure-one-dialog__mask .zan-dialog__container .sureOneText {
@@ -1008,7 +1027,7 @@ page {
 .but_box {
   display: flex;
   justify-content: space-between;
-  margin-top: 49rpx;
+  margin-top: 35rpx;
   font-size: 32rpx;
 }
 
@@ -1017,8 +1036,8 @@ page {
   height: 76rpx;
   line-height: 76rpx;
   text-align: center;
-  color: rgba(255, 100, 23, 1);
-  border: 2rpx solid rgba(255, 100, 23, 1);
+  color: #ff2644;
+  border: 1rpx solid #ff2644;
   border-radius: 38rpx;
 }
 
@@ -1027,7 +1046,7 @@ page {
   height: 76rpx;
   line-height: 76rpx;
   text-align: center;
-  background: rgba(255, 100, 23, 1);
+  background: #ff2644;
   border-radius: 38rpx;
   color: #fff;
 }
@@ -1068,9 +1087,11 @@ page {
   margin: 0 auto;
   margin-top: 46rpx;
   margin-bottom: 30rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
   color: #222;
-  text-align: left;
+  text-align: center;
 }
 
 .sure-two-dialog__mask .zan-dialog__container .sureText {
@@ -1095,8 +1116,8 @@ page {
   height: 76rpx;
   line-height: 76rpx;
   text-align: center;
-  color: rgba(255, 100, 23, 1);
-  border: 2rpx solid rgba(255, 100, 23, 1);
+  color: #ff2644;
+  border: 1rpx solid #ff2644;
   border-radius: 38rpx;
 }
 
@@ -1105,14 +1126,14 @@ page {
   height: 76rpx;
   line-height: 76rpx;
   text-align: center;
-  background: rgba(255, 100, 23, 1);
+  background: #ff2644;
   border-radius: 38rpx;
   color: #fff;
 }
 
 .sure_two_tishi {
   font-size: 24rpx;
-  color: rgba(255, 100, 23, 1);
+  color: #ff2c44;
   margin-top: 60rpx;
 }
 
@@ -1129,7 +1150,7 @@ page {
 }
 
 .zan-dialog__container1 {
-  top: 27%;
+  top: 22%;
   width: 630rpx;
   height: 281rpx;
   background: #fff;
@@ -1159,11 +1180,11 @@ page {
 }
 
 .pwd-img {
-  width: 30rpx;
-  height: 30rpx;
+  width: 44rpx;
+  height: 69rpx;
   position: absolute;
-  right: 55rpx;
-  top: 18%;
+  right: 80rpx;
+  top: 17%;
 }
 
 .iptbox-wrapper {
@@ -1205,14 +1226,14 @@ page {
 }
 
 .zan-dialog1__container {
-  width: 540rpx;
-  height: 282rpx;
+  width: 600rpx;
+  height: 320rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
   top: 300rpx;
-  left: 110rpx;
+  left: 75rpx;
   z-index: 9999;
 }
 
@@ -1241,27 +1262,28 @@ page {
 
 .content1-button {
   display: flex;
-  height: 66rpx;
-  border-top: 2rpx solid #eaeaea;
+  margin-left: 50rpx;
 }
 
 .cancel-password {
-  width: 270rpx;
-  height: 66rpx;
-  line-height: 66rpx;
-  font-size: 34rpx;
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
   text-align: center;
-  border-right: 2rpx solid #eaeaea;
-  color: rgba(51, 51, 51, 1);
+  border: 1rpx solid #ff2644;
+  border-radius: 38rpx;
+  color: #ff2644;
+  margin-right: 20rpx;
 }
 
 .sure-password {
-  width: 270rpx;
-  height: 66rpx;
-  line-height: 66rpx;
-  font-size: 34rpx;
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
   text-align: center;
-  color: #ff2644;
+  background: #ff2644;
+  border-radius: 38rpx;
+  color: #fff;
 }
 
 .sellPrice_box {
@@ -1416,7 +1438,7 @@ page {
   color: #fff;
   width: 500rpx;
   height: 76rpx;
-  border: 2rpx solid rgba(255, 100, 23, 1);
+  border: 1rpx solid rgba(255, 100, 23, 1);
   background-color: rgba(255, 100, 23, 1);
   border-radius: 38rpx;
   /* margin-left: 20rpx; */
@@ -1726,13 +1748,13 @@ page {
 .yue_zan-dialog__mask .zan-dialog__container {
   text-align: center;
   top: 27%;
-  width: 540rpx;
-  height: 309rpx;
+  width: 600rpx;
+  height: 350rpx;
   background: #fff;
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
-  left: 105rpx;
+  left: 75rpx;
   z-index: 9999;
 }
 
@@ -1756,26 +1778,28 @@ page {
 
 .yue_zan-dialog__mask .content-button {
   display: flex;
-  height: 66rpx;
-  border-top: 2rpx solid #eaeaea;
+  margin-left: 50rpx;
 }
 
 .yue_zan-dialog__mask .back {
-  border-right: 2rpx solid #eaeaea;
-  width: 270rpx;
-  height: 66rpx;
-  line-height: 66rpx;
-  font-size: 34rpx;
-  color: rgba(51, 51, 51, 1);
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  border: 1rpx solid #ff2644;
+  border-radius: 38rpx;
+  color: #ff2644;
+  margin-right: 20rpx;
 }
 
 .yue_zan-dialog__mask .continue {
-  height: 66rpx;
-  line-height: 66rpx;
-  font-size: 34rpx;
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
   text-align: center;
-  width: 270rpx;
-  color: #ff2644;
+  background: #ff2644;
+  border-radius: 38rpx;
+  color: #fff;
 }
 
 /* 提期 */
@@ -1819,16 +1843,16 @@ page {
 
 .sift_left {
   display: inline-block;
-  width: 380rpx;
-  height: 60rpx;
+  width: 144rpx;
+  height: 52rpx;
   background: rgba(255, 255, 255, 1);
   border: 1rpx solid rgba(231, 231, 231, 1);
   border-radius: 40rpx;
   font-size: 26rpx;
   color: rgba(51, 51, 51, 1);
-  line-height: 60rpx;
+  line-height: 52rpx;
   text-align: center;
-  margin-right: 60rpx;
+  /* margin-right: 60rpx; */
 }
 
 .sift_right {
@@ -1861,7 +1885,7 @@ page {
 }
 
 .color_red {
-  border: 2rpx solid rgba(255, 38, 68, 1);
+  border: 1rpx solid rgba(255, 38, 68, 1);
   color: rgba(255, 38, 68, 1);
 }
 
@@ -1915,6 +1939,7 @@ page {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin-left: 10rpx;
 }
 
 .shareImg {
@@ -1998,6 +2023,7 @@ page {
   height: 100rpx;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0rpx -2rpx 0rpx 0rpx rgba(231, 231, 231, 1);
+  display: flex;
 }
 
 .bottom_left {
@@ -2007,8 +2033,15 @@ page {
   height: 70rpx;
   font-size: 30rpx;
   color: rgba(51, 51, 51, 1);
-  border-right: 2rpx solid #e7e7e7;
+  /* border-right: 2rpx solid #e7e7e7; */
   position: relative;
+}
+
+.mention_jiange {
+  width: 1rpx;
+  height: 40rpx;
+  background-color: #e7e7e7;
+  margin-top: 31rpx;
 }
 
 .bottom_right {
@@ -2088,12 +2121,6 @@ page {
   text-align: center;
 }
 
-.notStore {
-  display: flex;
-  flex-direction: column;
-  font-size: 28rpx;
-}
-
 .share_box {
   display: inline-block;
   position: absolute;
@@ -2103,15 +2130,6 @@ page {
   height: 50rpx;
 }
 
-.notStore image {
-  width: 750rpx;
-  height: 320rpx;
-}
-
-.notStoreText {
-  text-align: center;
-  color: #999;
-}
 
 /*对话框 */
 
@@ -2195,4 +2213,48 @@ button::after {
   overflow: hidden;
   z-index: 9999;
   color: rgba(255, 255, 255, 1);
+}
+
+/* 海报弹框 */
+
+.mask_hb {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+}
+
+.canvas-box {
+  width: 0;
+  height: 0;
+  position: fixed;
+  top: 3.9%;
+  left: 6%;
+  z-index: 9999;
+}
+
+.canvas {
+  width: 88%;
+  height: 89%;
+  position: fixed;
+  top: 3.9%;
+  left: 6%;
+  z-index: 9999;
+}
+
+.close_hb {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: 2%;
+  z-index: 9999;
+}
+
+.close_hb image {
+  width: 50rpx;
+  height: 50rpx;
 }

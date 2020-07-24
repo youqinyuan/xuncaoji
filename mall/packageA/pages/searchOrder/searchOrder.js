@@ -37,11 +37,11 @@ Page({
     })
     if (options.status == 1) {
       wx.setNavigationBarTitle({
-        title: '发布商品卖帖'
+        title: '发布预售商品'
       });
     } else if (options.status == 2) {
       wx.setNavigationBarTitle({
-        title: '发布商品买帖'
+        title: '发布预定商品'
       });
     }
   },

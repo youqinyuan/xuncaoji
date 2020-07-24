@@ -1,10 +1,11 @@
+let app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    // hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**

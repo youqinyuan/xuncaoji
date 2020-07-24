@@ -23,7 +23,7 @@ Page({
    */
   onLoad: function(options) {
     var that = this
-    console.log(options)
+    console.log("options1:"+options)
     if (options.id) {
       that.setData({
         sponsorId: parseInt(options.id),
@@ -197,9 +197,8 @@ Page({
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         if (res.data.content.items == '' && that.data.list !== '') {
-          wx.showToast({
-            title: '已经到底啦~',
-            icon: 'none'
+          that.setData({
+            bottom_tishi:'已到底，去【寻商品】提交吧'
           })
         }
         var arr = that.data.list
@@ -288,7 +287,7 @@ Page({
       url: '/pages/index/index'
     })
   },
-  toGoodsDetail: function(e) {
+  toDetail: function(e) {
     var id = e.currentTarget.dataset.id
     console.log(id)
     wx.navigateTo({

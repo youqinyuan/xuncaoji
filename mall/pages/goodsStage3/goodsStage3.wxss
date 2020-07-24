@@ -49,7 +49,7 @@
   width: 280rpx;
   height: 68rpx;
   line-height: 68rpx;
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
   border-radius: 34rpx;
   color: #ff2644;
   margin: 0 auto;

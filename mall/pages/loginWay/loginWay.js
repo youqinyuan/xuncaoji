@@ -48,12 +48,12 @@ Page({
                 data: url + '?id=' + wx.getStorageSync('goods_id')
               })
             }            
-          } else if (url == 'packageA/pages/zeroPurchase/zeroPurchase') {
+          } else if (url == 'packageB/pages/zeroPurchase/zeroPurchase') {
             wx.setStorage({
               key: "url",
               data: url + '?id=' + wx.getStorageSync('zeroGoods_id') + '&&type=' + wx.getStorageSync('type') + '&&orgPrice=' + wx.getStorageSync('orgPrice')
             })
-          }else if (url == 'packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity') {
+          }else if (url == 'packageB/pages/zeroPurchaseActivity/zeroPurchaseActivity') {
             wx.setStorage({
               key: "url",
               data: url
@@ -63,7 +63,7 @@ Page({
               key: "url",
               data: url
             })
-          } else if (url == 'packageA/pages/zeroBuy/zeroBuy') {
+          } else if (url == 'packageB/pages/zeroBuy/zeroBuy') {
             wx.setStorage({
               key: "url",
               data: url
@@ -73,7 +73,7 @@ Page({
               key: "url",
               data: url
             })
-          } else if (url == 'packageA/pages/cooperate/cooperate') {
+          } else if (url == 'packageB/pages/cooperate/cooperate') {
             wx.setStorage({
               key: "url",
               data: url
@@ -88,7 +88,7 @@ Page({
               key: "url",
               data: url
             })
-          } else if (url == 'packageA/pages/freeBuy/freeBuy') {
+          } else if (url == 'packageB/pages/freeBuy/freeBuy') {
             wx.setStorage({
               key: "url",
               data: url

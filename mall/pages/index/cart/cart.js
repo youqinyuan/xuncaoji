@@ -6,12 +6,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    startX: 0, //开始坐标
+    startY: 0,
     hostUrl: app.Util.getUrlImg().hostUrl,
-    shops:[], //店铺以及商品
+    shops: [], //店铺以及商品
     pageNumber: 1,
     pageSize: 20,
     checkedAll: false, //全选
-    checkeedAll:false,//店铺选择
+    checkeedAll: false, //店铺选择
     showDialog: false,
     priceAll: 0, //选择的价格
     cardIds: [], //购物车id集合
@@ -20,6 +22,72 @@ Page({
     text: '',
     color: '#BDBDBD'
 
+  },
+  //手指触摸动作开始 记录起点X坐标
+  touchstart: function(e) {
+    let that = this
+    //开始触摸时 重置所有删除
+    for (let i = 0; i < that.data.shops.length; i++) {
+      that.data.shops[i].cartDetails.forEach(function(v, j) {
+        if (v.isTouchMove) //只操作为true
+          v.isTouchMove = false;
+      })
+    }
+    that.setData({
+      startX: e.changedTouches[0].clientX,
+      startY: e.changedTouches[0].clientY,
+      shops: that.data.shops
+    })
+  },
+  //滑动事件处理
+  touchmove: function(e) {
+    var that = this,
+      groupindex = e.currentTarget.dataset.groupindex,
+      index = e.currentTarget.dataset.index, //当前索引
+      startX = that.data.startX, //开始X坐标
+      startY = that.data.startY, //开始Y坐标
+      touchMoveX = e.changedTouches[0].clientX, //滑动变化坐标
+      touchMoveY = e.changedTouches[0].clientY, //滑动变化坐标
+      //获取滑动角
+      angle = that.angle({
+        X: startX,
+        Y: startY
+      }, {
+        X: touchMoveX,
+        Y: touchMoveY
+      });
+    for (let i = 0; i < that.data.shops.length; i++) {
+      for (let j = 0; j < that.data.shops[i].cartDetails.length; j++) {
+        that.data.shops[i].cartDetails[j].isTouchMove = false
+        if (Math.abs(angle) > 30) return;
+          if (touchMoveX > startX) //右滑
+            that.data.shops[i].cartDetails[j].isTouchMove = false
+          else //左滑
+            that.data.shops[groupindex].cartDetails[index].isTouchMove = true      
+      }
+    }
+
+    //更新数据
+    that.setData({
+      shops: that.data.shops
+    })
+  },
+
+  /**
+ 
+   * 计算滑动角度
+ 
+   * @param {Object} start 起点坐标
+ 
+   * @param {Object} end 终点坐标
+ 
+   */
+
+  angle: function(start, end) {
+    var _X = end.X - start.X,
+      _Y = end.Y - start.Y
+    //返回角度 /Math.atan()返回数字的反正切值
+    return 360 * Math.atan(_Y / _X) / (2 * Math.PI);
   },
   //单个店铺全选
   checkall: function(e) {
@@ -305,9 +373,8 @@ Page({
           icon: 'none'
         })
       } else {
-        app.Util.ajax('mall/order/checkCart',
-        {
-          cardIds:cardIds2
+        app.Util.ajax('mall/order/checkCart', {
+          cardIds: cardIds2
         }, 'POST').then((res) => {
           //  console.log('cardIds:'+cardIds)
           //  console.log('购物车结算：'+JSON.stringify(res.data))
@@ -491,7 +558,7 @@ Page({
   toApplyZero: function(e) {
     // console.log("查看零元购"+JSON.stringify(e.target.dataset))
     //零元购期数，预期钱，需要的钱，规格，数量
-    wx.setStorageSync("returnShopCart",1)
+    wx.setStorageSync("returnShopCart", 1)
     var arr = {}
     arr.cashbackperiods = e.target.dataset.cashbackperiods
     arr.expectedamount = e.target.dataset.expectedamount
@@ -500,11 +567,11 @@ Page({
     arr.stockid = e.target.dataset.stockid
     arr.goodsid = e.target.dataset.goodsid
     arr.shoppingcartgoodsid = e.target.dataset.shoppingcartgoodsid,
-    arr.cashbackperiods = e.target.dataset.cashbackperiods,
-    arr.expectedAmount = e.target.dataset.expectedamount
+      arr.cashbackperiods = e.target.dataset.cashbackperiods,
+      arr.expectedAmount = e.target.dataset.expectedamount
     var obj = JSON.stringify(arr)
     wx.navigateTo({
-      url: '/pages/applyZero/applyZero?arr=' + obj
+      url: '/packageB/pages/applyZero/applyZero?arr=' + obj
     })
   },
   /**
@@ -561,7 +628,7 @@ Page({
         }
       }
     }
-    if(wx.getStorageSync("returnShopCart")){
+    if (wx.getStorageSync("returnShopCart")) {
       that.onLoad()
       wx.removeStorageSync("returnShopCart")
     }
@@ -578,7 +645,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    
+
   },
 
   /**
@@ -622,7 +689,7 @@ Page({
     e.target.dataset.shoppingcartgoodsid
     var tempList = JSON.stringify(arr)
     wx.navigateTo({
-      url: '/pages/applyZero/applyZero?detailObj=' + tempList + '&&reviseStatus2=1' + '&&shoppingcartgoodsid=' + e.target.dataset.shoppingcartgoodsid
+      url: '/packageB/pages/applyZero/applyZero?detailObj=' + tempList + '&&reviseStatus2=1' + '&&shoppingcartgoodsid=' + e.target.dataset.shoppingcartgoodsid
     })
   }
 })

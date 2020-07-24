@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "go_home": "/components/go_home/go_home"
+  },
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTitleText": "新品体验",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": false
+}

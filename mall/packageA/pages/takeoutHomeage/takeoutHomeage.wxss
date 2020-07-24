@@ -1,20 +1,40 @@
 /* packageA/pages/takeoutHomeage/takeoutHomeage.wxss */
 @import "../ecommerceStore/ecommerceStore";
+@import "/template/goodsList/goodsList";
 
 .section-block {
   height: 80rpx;
   width: 750rpx;
 }
 
-.return-cart {
+.quality-list-price{
   display: flex;
+  margin-left: 16rpx;
   justify-content: space-between;
+  margin-bottom: 16rpx;
+  align-items: center;
+  position: relative;
 }
 
-.return-wrap.wrapMoney {
-  padding: 0 10rpx;
+.circle1 {
+  width: 26rpx;
+  height: 26rpx;
+  text-align: center;
+  line-height: 26rpx;
+  background: #ff2644;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20rpx;
+  position: absolute;
+  top: -10rpx;
+  right: 5rpx;
 }
-
+.bottom_tishi{
+  text-align: center;
+  color: #666;
+  font-size: 24rpx;
+  height: 200rpx;
+}
 .cart {
   margin-right: 20rpx;
   width: 40rpx;
@@ -36,8 +56,7 @@
 
 .gradeText {
   font-size: 24rpx;
-  color: #fff;
-  margin-left: 40rpx;
+  color: #fff;  
   margin-top: 13rpx;
 }
 
@@ -270,7 +289,6 @@
   overflow-y: scroll;
   overflow: -Scroll;
   overflow-x: hidden;
-  margin-bottom: 60rpx;
 }
 
 /*尺码*/
@@ -296,7 +314,7 @@
 }
 
 .color-size-list .active {
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
   color: #ff2644;
   background-color: rgba(255, 255, 255, 1) !important;
   z-index: 999;
@@ -308,7 +326,7 @@
   display: block;
   margin-right: 24rpx;
   background-color: rgba(244, 244, 244, 1);
-  border-radius: 30rpx;
+  border-radius: 40rpx;
 }
 
 /* 购买数量 */
@@ -331,7 +349,7 @@
   margin-top: 30rpx;
   display: flex;
   height: 58rpx;
-  border: 2rpx solid rgba(170, 170, 170, 1);
+  border: 1rpx solid rgba(170, 170, 170, 1);
   border-radius: 3px;
   margin-right: 40rpx;
 }
@@ -486,7 +504,7 @@
 .yudialog__mask .order_box1 {
   width: 240rpx;
   height: 76rpx;
-  border: 2rpx solid rgba(255, 38, 68, 1);
+  border: 1rpx solid rgba(255, 38, 68, 1);
   border-radius: 38rpx;
   text-align: center;
   font-size: 32rpx;
@@ -554,7 +572,7 @@
 
 .storeGoods {
   display: flex;
-  height: 180rpx;
+  /* height: 180rpx; */
   align-items: center;
 }
 
@@ -597,7 +615,7 @@
 
 .storePrice {
   display: flex;
-  align-items: center;  
+  align-items: center;
 }
 
 .storeT {

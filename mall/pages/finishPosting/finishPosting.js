@@ -433,20 +433,20 @@ Page({
     }
   },
   //第一次确认关闭右上角的按钮
-  sureOneClose: function () {
-    var that = this
-    that.setData({
-      sureOne: false
-    })
-  },
+  // sureOneClose: function () {
+  //   var that = this
+  //   that.setData({
+  //     sureOne: false
+  //   })
+  // },
   //第二次确认关闭右上角的按钮
-  sureTwoClose: function () {
-    var that = this
-    that.setData({
-      sureTwo: false,
-      sure_two_tishi: ""
-    })
-  },
+  // sureTwoClose: function () {
+  //   var that = this
+  //   that.setData({
+  //     sureTwo: false,
+  //     sure_two_tishi: ""
+  //   })
+  // },
   //取消交易确认弹窗
   cancle_one: function () {
     var that = this

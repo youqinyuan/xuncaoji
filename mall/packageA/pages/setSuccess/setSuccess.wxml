@@ -2,18 +2,37 @@
 <view class="img_box">
     <image src="{{hostUrl}}/changeImg/success.png" class="success_img" />
 </view>
-<view class="success_text">提期发布成功，快邀请好友帮你提期呗</view>
-<!-- <view class="button_box">
+<view class="success_text">提期发起成功，快邀请好友帮你提期呗</view>
+<view class="button_box">
     <view class="button_one" bindtap="fabu">发布帖子</view>
-</view> -->
-<view class="button_box1">
-    <view class="button_one" bindtap="toHelp">我自己提</view>
 </view>
-<view class="button_box1">
-    <button class="button_two" id='btnGroup' open-type="share">分享朋友</button>
+<view class="tishi">不发帖自己或朋友帮提：1元顶{{multiple}}元</view>
+<view class="button_box1 matop30">
+    <view class="button_two" bindtap="toHelp">我自己提</view>
 </view>
-
-<!-- <view class="interest-zan-dialog__mask" wx:if="{{shurePeriod}}">
+<view class="button_box1" bind:tap="shares">
+    <view class="button_two">朋友帮提</view>
+</view>
+<!-- 分享弹框 -->
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen1" bindtap="hide" wx:if="{{showModalStatus1}}"></view>
+<!--弹出框 选择开始 -->
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+    </view>
+  </view>
+</view>
+<view class="interest-zan-dialog__mask" wx:if="{{shurePeriod}}">
   <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{shurePeriod}}">
     <view class="title">提示</view>
     <view class="text">是否将您的帖子发布到市场？这样可提高曝光量</view>
@@ -22,4 +41,17 @@
         <view class="button_two2" bindtap="shure">确定</view>
     </view>
   </view>
-</view> -->
+</view>
+  <view class="bg10" wx:if="{{seedToast}}">
+    <view class="content10">
+        <view class="title10">温馨提示</view>
+        <view class="text_one10">本次发布提期贴需消耗{{seedText.seedAmountConsume}}颗种子</view>
+        <view class="text_two10">您的种子数量：{{seedText.seedAmountTotal}}颗</view>
+        <view class="message10" wx:if="{{seedText.status==2}}">种子不足，请先获得足够的种子</view>
+        <view class="button_box10">
+            <view class="button_one10" bindtap="toSeed">去获得种子</view>
+            <view class="button_two10" bindtap="shure">确定发布</view>
+        </view>
+    </view>
+    <image class="cancel-get10" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap="cancle"></image>
+</view>

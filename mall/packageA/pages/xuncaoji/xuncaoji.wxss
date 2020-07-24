@@ -235,7 +235,7 @@ button::after {
   z-index: 9999;
 }
 
-.wait_shure-one-dialog__mask .zan-dialog__container2 {
+.wait_shure-one-dialog__mask .zan-dialog__container1 {
   width: 630rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
@@ -247,24 +247,26 @@ button::after {
 }
 
 .wait_shure-one-dialog__mask .cancel-img {
-  width: 30rpx !important;
-  height: 30rpx !important;
+  width: 30rpx;
+  height: 30rpx;
   position: absolute;
   top: 50rpx;
   right: 50rpx;
 }
 
-.wait_shure-one-dialog__mask .zan-dialog__container2 .title1 {
+.wait_shure-one-dialog__mask .zan-dialog__container1 .title1 {
   width: 520rpx;
   margin: 0 auto;
   margin-top: 46rpx;
   margin-bottom: 60rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
   color: #222;
-  text-align: left;
+  text-align: center;
 }
 
-.wait_shure-one-dialog__mask .zan-dialog__container2 .text1 {
+.wait_shure-one-dialog__mask .zan-dialog__container1 .text1 {
   margin: 0 51rpx;
   font-size: 28rpx;
   font-family: PingFang SC;
@@ -272,51 +274,67 @@ button::after {
   color: #222;
   line-height: 40rpx;
 }
-.wait_shure-one-dialog__mask .zan-dialog__container2 .cause{
+
+.wait_shure-one-dialog__mask .zan-dialog__container1 .cause {
   letter-spacing: 3rpx;
   font-size: 28rpx;
-  color:#333;
+  color: #333;
   text-align: left !important;
 }
-.wait_shure-one-dialog__mask .zan-dialog__container2 .wait_name{
-  color: #666666 !important;
+
+.wait_shure-one-dialog__mask .zan-dialog__container1 .wait_name {
+  color: #666 !important;
   letter-spacing: 2rpx;
   position: absolute;
   left: 0;
 }
-.wait_shure-one-dialog__mask .zan-dialog__container2 .wait_value{
-  color: #666666 !important;
+
+.wait_shure-one-dialog__mask .zan-dialog__container1 .wait_value {
+  color: #666 !important;
   position: absolute;
   right: 40rpx;
 }
-.wait_shure-one-dialog__mask .zan-dialog__container2 .wait_box{
+
+.wait_shure-one-dialog__mask .zan-dialog__container1 .wait_box {
   position: relative;
-  font-size:24rpx;
-  font-family:PingFang SC;
-  font-weight:400;
-  color:rgba(102,102,102,1);
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(102, 102, 102, 1);
   height: 40rpx;
   line-height: 40rpx;
 }
-.wait_shure-one-dialog__mask .zan-dialog__container2 .know{
+
+.wait_shure-one-dialog__mask .zan-dialog__container1 .know {
   margin-top: 40rpx;
   line-height: 76rpx;
   text-align: center;
   display: inline-block;
   font-size: 32rpx;
   color: #fff;
-  width:500rpx;
-  height:76rpx;
-  border:2rpx solid rgba(255,100,23,1);
-  background-color: rgba(255,100,23,1);
-  border-radius:38rpx;
-  /* margin-left: 20rpx; */
+  width: 500rpx;
+  height: 76rpx;
+  background: linear-gradient(90deg, rgba(255, 106, 72, 1) 0%, rgba(255, 38, 68, 1) 100%);
+  border-radius: 38rpx;
 }
-.wait_shure-one-dialog__mask .zan-dialog__container2 .know_box{
+
+.wait_shure-one-dialog__mask .zan-dialog__container1 .know_box {
   height: 190rpx;
 }
-.wait_shure-one-dialog__mask .zan-dialog__container2 .cause_box{
+
+.wait_shure-one-dialog__mask .zan-dialog__container1 .cause_box {
   margin-bottom: 10rpx;
 }
 
+.return_money_img {
+  width: 119rpx;
+  height: 132rpx;
+}
+
+.return_money_box {
+  position: fixed;
+  right: 9rpx;
+  top: 513rpx;
+  z-index: 98;
+}
 

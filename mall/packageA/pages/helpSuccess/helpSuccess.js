@@ -87,7 +87,7 @@ Page({
   },
   toReturn:function(){
     wx.navigateTo({
-      url: `/pages/waitReentryDetail/waitReentryDetail`,
+      url: `/packageB/pages/waitReentryDetail/waitReentryDetail`,
     })
   }
 })

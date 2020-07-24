@@ -36,19 +36,19 @@ Page({
       }else{
         that.data.url = '/' + url + '?id=' + wx.getStorageSync('goods_id')
       }     
-    } else if (url == 'packageA/pages/zeroPurchase/zeroPurchase') {
+    } else if (url == 'packageB/pages/zeroPurchase/zeroPurchase') {
       that.data.url = '/' + url + '?id=' + wx.getStorageSync('zeroGoods_id') + '&&type=' + wx.getStorageSync('type') + '&&orgPrice=' + wx.getStorageSync('orgPrice')
-    } else if (url == 'packageA/pages/cooperate/cooperate') {
+    } else if (url == 'packageB/pages/cooperate/cooperate') {
       that.data.url = '/' + url
-    } else if (url == 'packageA/pages/zeroBuy/zeroBuy') {
+    } else if (url == 'packageB/pages/zeroBuy/zeroBuy') {
       that.data.url = '/' + url
     } else if (url == 'packageA/pages/seedMask/seedMask') {
       that.data.url = '/' + url
-    } else if (url == 'packageA/pages/zeroPurchaseActivity/zeroPurchaseActivity') {
+    } else if (url == 'packageB/pages/zeroPurchaseActivity/zeroPurchaseActivity') {
       that.data.url = '/' + url
     } else if (url == 'pages/wishpool/wishpool') {
       that.data.url = '/' + url
-    } else if (url == 'packageA/pages/freeBuy/freeBuy') {
+    } else if (url == 'packageB/pages/freeBuy/freeBuy') {
       that.data.url = '/' + url
     }else if (url == 'pages/lovingHeart/lovingHeart') {
       that.data.url = '/' + url
@@ -146,8 +146,12 @@ Page({
     var phoneNumber = String(that.data.phoneNumber)
     var currentTime = that.data.currentTime
     if (!(/^1[3456789]\d{9}$/.test(phoneNumber))) {
-      that.setData({
-        text: '请输入正确的手机号码'
+      // that.setData({
+      //   text: '请输入正确的手机号码'
+      // })
+      wx.showToast({
+        title:'请输入正确的手机号码',
+        icon:'none'
       })
       return;
     }
@@ -177,8 +181,12 @@ Page({
         }
       })
     } else {
-      that.setData({
-        text: '请输入手机号码'
+      // that.setData({
+      //   text: '请输入手机号码'
+      // })
+      wx.showToast({
+        title:'请输入手机号码',
+        icon:'none'
       })
     }
 
@@ -188,20 +196,36 @@ Page({
     var phone = that.data.phoneNumber
     var codeNumber = that.data.codeNumber
     if (phone == '') {
-      that.setData({
-        text: '请输入手机号码'
+      // that.setData({
+      //   text: '请输入手机号码'
+      // })
+      wx.showToast({
+        title:'请输入手机号码',
+        icon:'none'
       })
     } else if (!(/^1[3456789]\d{9}$/.test(phone))) {
-      that.setData({
-        text: '请输入正确的手机号码'
+      // that.setData({
+      //   text: '请输入正确的手机号码'
+      // })
+      wx.showToast({
+        title:'请输入正确的手机号码',
+        icon:'none'
       })
     } else if (codeNumber == '') {
-      that.setData({
-        text: '请输入验证码'
+      // that.setData({
+      //   text: '请输入验证码'
+      // })
+      wx.showToast({
+        title:'请输入验证码',
+        icon:'none'
       })
     } else if (!(/^[0-9]{6}$/.test(codeNumber))) {
-      that.setData({
-        text: '验证码输入错误'
+      // that.setData({
+      //   text: '验证码输入错误'
+      // })
+      wx.showToast({
+        title:'验证码输入错误',
+        icon:'none'
       })
     }
     if (phone !== '' && codeNumber !== '') {
@@ -229,6 +253,7 @@ Page({
             success: function(res) {
               if (res.data.messageCode === 'MSG_1001') {
                 console.log(that.data.url)
+                wx.removeStorageSync('token')
                 wx.setStorageSync('token', res.header.token)
                 wx.setStorageSync('inviterCode', res.data.content.inviterCode)
                 wx.setStorageSync('newUserCourtesyStatus', res.data.content.fresher)
@@ -266,8 +291,12 @@ Page({
                 //   url: '/pages/invitationCode/invitationCode?tips=' + '请填写正确的邀请码'
                 // })
               } else {
-                that.setData({
-                  text: res.data.message
+                // that.setData({
+                //   text: res.data.message
+                // })
+                wx.showToast({
+                  title:res.data.message,
+                  icon:'none'
                 })
               }
 

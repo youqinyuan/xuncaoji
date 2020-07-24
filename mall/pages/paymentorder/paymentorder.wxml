@@ -4,7 +4,7 @@
   <view class="payprice">
     <text>￥</text>
     <text class="payprice1">{{content.paymentAmount}}</text>
-    <image src="{{hostUrl}}/changeImg/payQuestion.png" class="payQuestion" bindtap="mentionPeriod" wx:if="{{isMentionPeriod}}"/>
+    <!-- <image src="{{hostUrl}}/changeImg/payQuestion.png" class="payQuestion" bindtap="mentionPeriod" wx:if="{{isMentionPeriod}}" /> -->
   </view>
   <!-- <view class="payprice" wx:if="{{flag===true}}">
     支付
@@ -28,14 +28,14 @@
         <view class="payway-title">余额支付</view>
         <view class="payway-price">余额:￥{{balance}}</view>
       </view>
-      <view class="payway-right-img" >
+      <view class="payway-right-img">
         <!-- <checkbox-group class="store-box">
           <label class="checkbox">
             <checkbox checked="{{payment_mode1}}" />
           </label>
         </checkbox-group> -->
-          <image src="{{hostUrl}}/changeImg/no_period_choose.png" class="chooseImg" wx:if="{{payment_mode2}}"/>
-          <image src="{{hostUrl}}/changeImg/pay_choose.png" class="chooseImg" wx:if="{{payment_mode1}}"/>
+        <image src="{{hostUrl}}/changeImg/no_period_choose.png" class="chooseImg" wx:if="{{payment_mode2}}" />
+        <image src="{{hostUrl}}/changeImg/pay_choose.png" class="chooseImg" wx:if="{{payment_mode1}}" />
       </view>
     </view>
     <view class="wx" wx:if="{{item.channel==2}}" catchtap="wx_pay">
@@ -43,9 +43,9 @@
         <image src="{{hostUrl}}/icon/order_weixin_icon.png"></image>
       </view>
       <view class="wx-text">微信支付</view>
-      <view class="wx-right-img" >
-          <image src="{{hostUrl}}/changeImg/no_period_choose.png" class="chooseImg" wx:if="{{payment_mode1}}"/>
-          <image src="{{hostUrl}}/changeImg/pay_choose.png" class="chooseImg" wx:if="{{payment_mode2}}"/>
+      <view class="wx-right-img">
+        <image src="{{hostUrl}}/changeImg/no_period_choose.png" class="chooseImg" wx:if="{{payment_mode1}}" />
+        <image src="{{hostUrl}}/changeImg/pay_choose.png" class="chooseImg" wx:if="{{payment_mode2}}" />
       </view>
     </view>
   </block>
@@ -53,8 +53,38 @@
 </view>
 <!--确认支付-->
 <view class="button" bindtap='pay'>确认支付</view>
-<view class="button2" bindtap='payValueShow' wx:if="{{options.buymode==2}}">终止FreeBuy</view>
-<view class="payValue" wx:if="{{options.buymode==2}}">我们是上市挂牌公司（代码837939）旗下电商平台，为消费者存有壹亿消费保障基金，请放心使用！</view>
+<view class="btn-order" wx:if="{{transOrder==2}}">
+  <view class="btn" bindtap="showShuoming" data-index="2">撤销一折购</view>
+  <view class="btn" bindtap="showShuoming" data-index="1">转卖订单</view>
+</view>
+<view class="notStep" wx:if="{{transOrder==2}}">
+  <view class="notStep-title">不想进行下一步：</view>
+  <view class="notStep-wrap">
+    <view class="notStep-text">
+      <view class="notStep-item">1、不先付款，想拿全网最低价去试：</view>
+      <view class="notStep-btn" bindtap="comeBack1">预售返现</view>
+    </view>
+    <view class="notStep-text">
+      <view class="notStep-item">2、期限太长，缩短返现时间/或试：</view>
+      <view class="notStep-btn" bindtap="showShuoming" data-index="0">提期</view>
+    </view>
+  </view>
+</view>
+<view class="notStep1" wx:if="{{transOrder==1}}">
+  <view class="notStep-title">不想预售：</view>
+  <view class="notStep-wrap">
+    <view class="notStep-text">
+      <view class="notStep-item">1、折扣太低，选择调整折扣，去试：</view>
+      <view class="notStep-btn" bindtap="comeBack3">一折购</view>
+    </view>
+    <view class="notStep-text">
+      <view class="notStep-item">2、期限太长，缩短返现时间/或试：</view>
+      <view class="notStep-btn" bindtap="showShuoming" data-index="0">提期</view>
+    </view>
+  </view>
+</view>
+<!-- <view class="button2" bindtap='payValueShow' wx:if="{{options.buymode==2}}">终止FreeBuy</view> -->
+<!-- <view class="payValue" wx:if="{{options.buymode==2}}">我们是上市挂牌公司（代码837939）旗下电商平台，为消费者存有壹亿消费保障基金，请放心使用！</view> -->
 <view class="stock" wx:if="{{orderType ==4}}">
   <view class="stock-img">
     <image src="{{hostUrl}}/icon/ic_hint.png"></image>
@@ -116,11 +146,33 @@
 <view class="interest-zan-dialog__mask" wx:if="{{shurePeriod}}">
   <view animation="{{animationData}}" class="zan-dialog__container2" wx:if="{{shurePeriod}}">
     <view class="title">提示</view>
-    <view class="text4">当前你已选择0.5期将您帮助金额返现给你，所以你需多支付1倍的帮助金额哦，年化收益率保持不变。</view>
+    <view class="text4">当前你已选择0.5期（月）将您帮助金额返现给你，所以你需多支付1倍的帮助金额哦，年化收益率保持不变。</view>
     <view class="button_box">
-        <view class="button_one" bindtap="clooseShurePeriod">取消</view>
-        <view class="button_two" bindtap="clooseShurePeriod">确定</view>
+      <view class="button_one" bindtap="clooseShurePeriod">取消</view>
+      <view class="button_two" bindtap="clooseShurePeriod">确定</view>
     </view>
   </view>
 </view>
-<view class="bottom_font">0元购就上寻草记</view>
+<!-- <view class="bottom_font">一折购就上寻草记</view> -->
+  <!-- 说明 -->
+<view class="shuoming__mask" catchtouchmove="preventTouchMove" wx:if="{{shuoming}}">
+  <view class="shuoming__container" wx:if="{{shuoming}}">
+    <view class="shuoming">说明</view>
+    <view class="shuoming_text" wx:if="{{textStatus==0}}">{{shuomingText1}}</view>
+    <view class="shuoming_text" wx:if="{{textStatus==1}}">{{shuomingText2}}</view>
+    <view class="shuoming_text" wx:if="{{textStatus==2}}">{{shuomingText3}}</view>
+  </view>
+  <image wx:if="{{shuoming}}" class="shuoming_img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelShuoming'></image>
+</view>
+  <!-- 说明 -->
+<view class="shuoming__mask" catchtouchmove="preventTouchMove" wx:if="{{paySuccess}}">
+  <view class="shuoming__container" wx:if="{{paySuccess}}">
+    <view class="shuoming">提示</view>
+    <view class="shuoming_text" style="">恭喜您支付成功！</view>
+    <view class="the_button_box">
+      <view class="the_button_one" bindtap="toPost">转卖订单</view>
+      <view class="the_button_one" bindtap="toMentionPeriod">提期</view>
+    </view>
+  </view>
+  <image wx:if="{{paySuccess}}" class="shuoming_img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelPaySuccess'></image>
+</view>

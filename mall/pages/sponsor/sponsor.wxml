@@ -65,7 +65,7 @@
             <view class="get_button_box" >
                 <view class="cancle" wx:if="{{item.sponsorCount==0}}" catchtap="showCancle" data-id="{{item.id}}">取消赞助</view>
                 <view class="to_invite" wx:if="{{item.sponsorCount==0}}">邀请好友赞助</view>
-                <view class="get_button"  wx:if="{{item.sponsorCount>0&&item.sponsorCount<item.requireSponsorCount}}">继续拉赞助</view>
+                <view class="get_button"  wx:if="{{item.sponsorCount>0&&item.sponsorCount<item.requireSponsorCount}}">邀请好友赞助</view>
                 <view class="get_button"  wx:if="{{item.sponsorCount>0&&item.sponsorCount==item.requireSponsorCount}}">去下单</view>
             </view>
     </view>
@@ -79,7 +79,7 @@
         <view class="nohappy_box">
             <image src="{{hostUrl}}/sponsor/happy.png" class="nohappy"/>
         </view>
-        <view class="nohappy_font" >恭喜您0成本拿到该商品</view>
+        <view class="nohappy_font" >恭喜您一折拿到该商品</view>
     </view>
 </view>
 <view class="goods_box">
@@ -88,14 +88,14 @@
             <image src="{{item.goodsImage}}" class="goods_img"/>
         </view>
         <view class="goods_name_box">
-            <text class="freebuy_sponsor">FreeBuy赞助</text>
+            <text class="freebuy_sponsor">一折购赞助</text>
             <text class="goods_box_name">{{item.goodsName}}</text>
         </view>
         <view class="sponsor_people">已有<text class="number">{{item.sendUserCount}}人</text>发起</view>
         <view class="sponsor_button" bindtap="setSponsor" data-id="{{item.id}}" data-goodsid="{{item.goodsId}}">好友赞助</view>
         <view class="bor"></view>
     </view>
-    <view class="buttom" wx:if="{{toBottom}}">好像没啦~</view>
+    <view class="buttom" wx:if="{{toBottom}}">已到底，去【寻商品】提交吧</view>
 </view>
 <view class="dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{show1}}">
   <view class="dialog__container" wx:if="{{show1}}">

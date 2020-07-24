@@ -28,7 +28,7 @@
         <view class="goodsName">{{item.goodsName}}</view>
         <view class="profit">
             <view class="profit_value">收益：<text >￥</text>{{item.profitAmount}}</view>
-            <view class="nianhua1">年化率：{{item.annualizedRate}}%</view>
+            <view class="nianhua1">年收益率：{{item.annualizedRate}}%</view>
         </view>
         <view class="time">{{item.createTime}}</view>
     </view>

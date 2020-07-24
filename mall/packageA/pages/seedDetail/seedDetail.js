@@ -32,6 +32,7 @@ Page({
       for (let i of res.data.content.items) {
         i.recordTime = time.formatTimeTwo(i.recordTime, 'Y-M-D h:m:s');
       }
+      that.data.content = []
       that.setData({
         content: res.data.content.items
       })

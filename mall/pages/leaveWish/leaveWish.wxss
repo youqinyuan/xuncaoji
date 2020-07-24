@@ -113,7 +113,7 @@ button::after {
   width: 330rpx;
   height: 80rpx;
   background: #fff;
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
   margin: 40rpx auto;
   border-radius: 40rpx;
   font-size: 32rpx;

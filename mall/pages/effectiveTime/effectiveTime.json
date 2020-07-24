@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarBackgroundColor": "#FFFFFF",
   "navigationBarTitleText": "有效期限",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "black"
 }

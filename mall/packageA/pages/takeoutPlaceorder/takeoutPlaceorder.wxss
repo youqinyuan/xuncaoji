@@ -31,7 +31,7 @@ page {
 
 .nav_take_imgs {
   position: absolute;
-  top:3rpx;
+  top: 3rpx;
   left: 0.5rpx;
   height: 87rpx;
   width: 380rpx;
@@ -39,7 +39,7 @@ page {
 
 .nav_take_img1 {
   position: absolute;
-  top:3rpx;
+  top: 3rpx;
   right: -2.8rpx;
   height: 87rpx;
   width: 380rpx;
@@ -76,7 +76,6 @@ page {
 .wrap_way1 {
   width: 690rpx;
   max-height: 378rpx;
-  min-height: 219rpx;
   background: #fff;
   border-radius: 24rpx 24rpx 24rpx 24rpx;
   margin: 0 auto;
@@ -230,7 +229,6 @@ page {
 /* 商品信息 */
 
 .goods_wrap {
-  margin-top: 20rpx;
   width: 690rpx;
   background: #fff;
   border-radius: 24rpx;
@@ -280,9 +278,20 @@ page {
 .goodsAllPrice {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 20rpx;
   font-size: 30rpx;
   color: #ff2644;
+}
+
+.goodsAll {
+  width: 190rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 
 .goodsAll text {
@@ -291,6 +300,7 @@ page {
 
 .goodsReturn {
   display: flex;
+  align-items: center;
 }
 
 .goodsReturn-way {
@@ -305,9 +315,9 @@ page {
   text-align: center;
   color: #ff9000;
   height: 32rpx;
-  border: 2rpx solid #ff9000;
+  border: 1rpx solid #ff9000;
   border-radius: 16rpx;
-  font-size: 24rpx;
+  font-size: 22rpx;
 }
 
 /* 优惠信息 */
@@ -351,6 +361,17 @@ page {
   height: 40rpx;
 }
 
+.takeout-btn {
+  width: 200rpx;
+  height: 60rpx;
+  background: #ff2644;
+  border-radius: 40rpx;
+  color: #fff;
+  font-size: 24rpx;
+  line-height: 60rpx;
+  text-align: center;
+}
+
 .takeout-block {
   height: 235rpx;
   width: 750rpx;
@@ -386,7 +407,7 @@ page {
 .takeOut_get_btn {
   width: 130rpx;
   height: 40rpx;
-  border: 2rpx solid #ff9000;
+  border: 1rpx solid #ff9000;
   border-radius: 20rpx;
   line-height: 40rpx;
   text-align: center;
@@ -581,7 +602,7 @@ page {
   line-height: 90rpx;
   margin: 0 auto;
   text-align: center;
-  border: 2rpx solid #aaa;
+  border: 1rpx solid #aaa;
   border-radius: 45rpx;
   margin-bottom: 30rpx;
   font-size: 28rpx;
@@ -589,7 +610,7 @@ page {
 
 .active {
   color: #ff2644;
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
 }
 
 /* 自定义分期数 */
@@ -807,7 +828,7 @@ page {
 .yudialog__mask .order_box1 {
   width: 240rpx;
   height: 76rpx;
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
   border-radius: 38rpx;
   text-align: center;
   font-size: 32rpx;

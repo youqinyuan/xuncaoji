@@ -1,0 +1,49 @@
+<!--packageA/pages/fastStoreInfo/fastStoreInfo.wxml-->
+<form report-submit='true' bindsubmit='next'>
+    <view class="content">
+        <!-- <view class="title border_bottom">
+            <view class="info">二、店铺信息</view>
+        </view>
+        <view class="title border_bottom" bindtap="upimg">
+            <view class="left">店铺LOGO</view>
+            <image src="{{moveData.logoUrl?moveData.logoUrl:adds.avatarKey}}" class="storeImg"/>
+            <image src="{{hostUrl}}/changeImg/tonewpage.png" class="tonewpage"/>
+        </view> -->
+        <view class="title border_bottom">
+            <view class="left">店铺名称</view>
+            <input placeholder="" class="name" maxlength="40" name="storeName" value="{{moveData.storeName?moveData.storeName:''}}" />
+        </view>
+        <view class="title border_bottom">
+            <view class="left">店主姓名</view>
+            <input placeholder="" class="name" maxlength="10" name="userName" value="{{options.name?options.name:moveData.name?moveData.name:''}}"/>
+        </view>
+        <view class="title border_bottom">
+            <view class="left">身份证号码</view>
+            <input placeholder="" class="name" maxlength="18" name="number" value="{{options.number?options.number:moveData.idNumber?moveData.idNumber:''}}"/>
+        </view>
+        <view class="title border_bottom" bindtap="toBusiness">
+            <view class="left">所属行业</view>
+            <view class="business">{{business?business:options.business?options.business:moveData.businessName?moveData.businessName:''}}</view>
+            <image src="{{hostUrl}}/changeImg/tonewpage.png" class="tonewpage"/>
+        </view>
+        <view class="title border_bottom">
+            <view class="left">邀请人手机号</view>
+            <input placeholder="" class="name" maxlength="11" name="referrerMobileNumber" type="number" value="{{moveData.referrerMobileNumber?moveData.referrerMobileNumber:''}}"/>
+        </view>
+        <view class="title border_bottom">
+            <view class="left">邀请人邀请码</view>
+            <input placeholder="" class="name" maxlength="11" name="inviterCode" type="number" value="{{moveData.refInviterCode?moveData.refInviterCode:''}}"/>
+        </view>
+        <view class="title border_bottom">
+            <view class="left">联系方式</view>
+            <input placeholder="" class="name wid220" maxlength="11" name="mobileNumber" bindinput="getPhone"  type="number" value="{{moveData.mobileNumber?moveData.mobileNumber:''}}"/>
+            <view class="getSecurityCode" bindtap="getCode">获取验证码</view>
+        </view>
+        <view class="title">
+            <view class="left">验证码</view>
+            <input placeholder="" class="name" maxlength="8" name="code"/>
+        </view>
+    </view>
+    <button form-type="submit" class="submitButton">快速入驻，免审核</button>
+</form>
+

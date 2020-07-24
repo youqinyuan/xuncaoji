@@ -12,7 +12,7 @@
   <view class="seedMask-wrap">
     <view class="seedMask-text">-今日签到-</view>
     <view class="seedMask-day">{{seedNumber?seedNumber:seedNum}}
-      <text class="day">颗</text>
+      <view class="day">颗</view>
     </view>
     <view class="seedMask-Item" catchtap="getSeed">立即签到</view>
     <image class="seedMask-btn" catchtap="getSeed" src="{{hostUrl}}/newIndex/seedBtn.png"></image>
@@ -58,3 +58,46 @@
     </view>
   </view>
 </view>
+
+<!-- 分享弹框 -->
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen1" bindtap="hide" wx:if="{{showModalStatus1}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare1'></image>
+    <view class="shareCommission">邀请好友下单，可获得种子哦</view>
+    <view class="share-wrap">
+      <button class="share-button" id='btn1' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup1' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
+    </view>
+  </view>
+</view>
+<!-- 一折购物 -->
+<view class="shuoming__mask" catchtouchmove="preventTouchMove" wx:if="{{oneShow}}">
+  <view class="shuoming__container" wx:if="{{oneShow}}">
+    <view class="shuoming">提示</view>
+    <view class="shuoming_text" style="">一折购，购买商品赠送种子，选择期数越短赠送种子越多哦</view>
+    <view class="the_button_box">我知道了</view>
+  </view>
+  <image wx:if="{{oneShow}}" class="shuoming_img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelOneShow'></image>
+</view>
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>
+<!-- 使用canvas将分享图片和申请0元购图片合成一张图 -->
+<canvas canvas-id="canvas" style="width:400px;height:400px;position: absolute;left:-1000px;top:-1000px;"></canvas>

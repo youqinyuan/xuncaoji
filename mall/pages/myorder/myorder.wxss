@@ -1,4 +1,5 @@
 /* pages/myorder/myorder.wxss */
+@import "/template/goodsList/goodsList";
 
 page {
   background: #f4f4f4;
@@ -30,7 +31,7 @@ page {
 }
 
 .nav-item.active {
-  color: #FF2644;
+  color: #ff2644;
 }
 
 .nav-item.active2 {
@@ -38,7 +39,7 @@ page {
   height: 6rpx;
   border-radius: 10rpx;
   margin: 0 auto;
-  background: #FF2644;
+  background: #ff2644;
 }
 
 /* 列表 */
@@ -114,6 +115,11 @@ page {
 .shops-wrap-bottom-img image {
   width: 120rpx;
   height: 120rpx;
+  border-radius: 8rpx;
+}
+
+.borderhui {
+  border: 0.5px solid rgba(153, 153, 153, 1) !important;
 }
 
 .shops-wrap-bottom-right {
@@ -176,7 +182,7 @@ page {
 }
 
 .all-wrap {
-  border-top: 2rpx solid #f4f4f4;
+  border-top: 0.5px solid #f4f4f4;
 }
 
 .all {
@@ -221,20 +227,19 @@ page {
   line-height: 56rpx;
   text-align: center;
   background: rgba(255, 255, 255, 1);
-  border-radius: 28rpx;
+  border-radius: 38rpx;
   font-size: 26rpx;
   padding: 0 15rpx;
 }
 
 .stopzero {
-  /* border: 2rpx solid rgba(153, 153, 153, 1); */
-  border: #ff2644 2rpx solid;
+  border: 0.5px #ff2644 solid;
   color: #ff2644;
-  width: 270rpx;
-  padding: 0 5rpx;
+  width: 172rpx;
+  padding: 0 !important;
   height: 60rpx;
   margin-right: 15rpx;
-  border-radius: 28rpx;
+  border-radius: 40rpx;
   line-height: 60rpx;
   font-size: 26rpx;
   background: #fff;
@@ -242,34 +247,35 @@ page {
 
 .stopzero[disabled] {
   color: #e9e6e6 !important;
-  border: 2rpx solid #e9e6e6 !important;
+  border: 0.5px solid #e9e6e6 !important;
   background: #fff !important;
 }
 
 .cancel {
-  border: 2rpx solid rgba(153, 153, 153, 1);
-  color: rgba(153, 153, 153, 1);
+  border: 0.5px solid #999;
+  color: #333;
 }
 
 .return {
-  border: 2rpx solid rgba(153, 153, 153, 1);
-  color: rgba(153, 153, 153, 1);
+  border: 0.5px solid #999;
+  color: #333;
 }
 
 .return-money {
-  border: 2rpx solid rgba(153, 153, 153, 1);
-  color: rgba(153, 153, 153, 1);
+  border: 0.5px solid #999;
+  color: #333;
+  width: 172rpx !important;
+  padding:0 !important;
 }
 
 .pay {
-  border: 2rpx solid #ff2644;
+  border: 0.5px solid #ff2644;
   color: #ff2644;
 }
 
 .myorder-bottom {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
-  font-weight: 400;
   color: rgba(153, 153, 153, 1);
   text-align: center;
   margin-top: 20rpx;
@@ -279,7 +285,6 @@ page {
 .myorder-bottom1 {
   font-size: 24rpx;
   font-family: PingFang-SC-Regular;
-  font-weight: 400;
   color: rgba(153, 153, 153, 1);
   text-align: center;
   margin-bottom: 20rpx;
@@ -384,6 +389,7 @@ page {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin-left: 30rpx;
   padding-bottom: 50rpx;
 }
 
@@ -450,7 +456,7 @@ page {
   font-family: PingFang-SC-Bold;
   font-weight: bold;
   font-size: 36rpx;
-  color: #ff2644;
+  color: rgba(255, 100, 23, 1);
 }
 
 .newprice text {
@@ -463,30 +469,6 @@ page {
   font-size: 24rpx;
   text-decoration: line-through;
   color: rgba(153, 153, 153, 1);
-}
-
-.return-wrap {
-  display: flex;
-  height: 40rpx;
-  margin-right: 16rpx;
-  line-height: 40rpx;
-  background: rgba(252, 243, 237, 1);
-  border-radius: 8rpx;
-  margin-left: 16rpx;
-  font-size: 22rpx;
-  color: #ff2644;
-  font-family: PingFang-SC-Bold;
-  font-weight: Bold;
-}
-
-.return-wrap .return-moneypay text:nth-child(1) {
-  color: #ff2644;
-  padding: 0 8rpx;
-}
-
-.return-wrap .pay-money text:nth-child(1) {
-  color: #ff2644;
-  padding: 0 8rpx;
 }
 
 /* 确认收货弹框 */
@@ -504,14 +486,14 @@ page {
 }
 
 .comfirm-zan-dialog__container {
-  width: 540rpx;
-  height: 282rpx;
+  width: 600rpx;
+  height: 300rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
   top: 300rpx;
-  left: 110rpx;
+  left: 75rpx;
   z-index: 9999;
 }
 
@@ -525,16 +507,14 @@ page {
 .comfirm-content-title {
   margin-top: 44rpx;
   margin-bottom: 10rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
   font-weight: bold;
   color: rgba(34, 34, 34, 1);
 }
 
 .comfirm-content-container {
-  width: 357rpx;
   height: 66rpx;
-  margin-left: 100rpx;
-  margin-bottom: 35rpx;
+  margin-bottom: 20rpx;
   font-size: 30rpx;
   text-align: center;
   color: rgba(51, 51, 51, 1);
@@ -542,27 +522,30 @@ page {
 
 .comfirm-content-button {
   display: flex;
-  height: 100rpx;
-  border-top: 2rpx solid #eaeaea;
+  margin-left: 50rpx;
 }
 
 .comfirm-reject {
-  border-right: 2rpx solid #eaeaea;
-  width: 270rpx;
-  height: 75rpx;
-  line-height: 75rpx;
-  font-size: 34rpx;
-  color: rgba(51, 51, 51, 1);
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  border: 1rpx solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: #ff2644;
+  text-align: center;
+  margin-right: 20rpx;
 }
 
 .comfirm-comfirm {
-  height: 66rpx;
-  line-height: 66rpx;
-  font-size: 34rpx;
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
   text-align: center;
-  width: 270rpx;
-  background: rgba(255, 255, 255, 1);
-  color: #ff2644;
+  background: #ff2644;
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: #fff;
 }
 
 .comfirm-comfirm::after {
@@ -584,14 +567,14 @@ page {
 }
 
 .cancelorder-zan-dialog__container {
-  width: 540rpx;
-  height: 282rpx;
+  width: 600rpx;
+  height: 300rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
   top: 300rpx;
-  left: 110rpx;
+  left: 75rpx;
   z-index: 9999;
 }
 
@@ -605,16 +588,14 @@ page {
 .cancelorder-content-title {
   margin-top: 44rpx;
   margin-bottom: 20rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
   font-weight: bold;
   color: rgba(34, 34, 34, 1);
 }
 
 .cancelorder-content-container {
-  width: 394rpx;
   height: 66rpx;
-  margin-left: 79rpx;
-  margin-bottom: 35rpx;
+  margin-bottom: 20rpx;
   font-size: 30rpx;
   text-align: center;
   color: rgba(51, 51, 51, 1);
@@ -622,27 +603,30 @@ page {
 
 .cancelorder-content-button {
   display: flex;
-  height: 66rpx;
-  border-top: 2rpx solid #eaeaea;
+  margin-left: 50rpx;
 }
 
 .cancelorder-reject {
-  border-right: 2rpx solid #eaeaea;
-  width: 270rpx;
-  height: 75rpx;
-  line-height: 75rpx;
-  font-size: 34rpx;
-  color: rgba(51, 51, 51, 1);
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  border: 1rpx solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: #ff2644;
+  text-align: center;
+  margin-right: 20rpx;
 }
 
 .cancelorder-comfirm {
-  height: 66rpx;
-  line-height: 66rpx;
-  font-size: 34rpx;
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
   text-align: center;
-  width: 270rpx;
-  background: rgba(255, 255, 255, 1);
-  color: #ff2644;
+  background: #ff2644;
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: #fff;
 }
 
 .cancelorder-comfirm::after {
@@ -667,13 +651,13 @@ page {
 .zan-dialog__container2 {
   transform: translateY(300%);
   transition: all 0.00001s ease;
-  width: 540rpx;
+  width: 600rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
   bottom: 530rpx;
-  left: 110rpx;
+  left: 75rpx;
   z-index: 9999;
 }
 
@@ -695,7 +679,7 @@ page {
   text-align: center;
   margin-top: 44rpx;
   margin-bottom: 30rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
   font-weight: bold;
   color: rgba(34, 34, 34, 1);
 }
@@ -711,44 +695,48 @@ page {
   width: 225rpx;
   height: 76rpx;
   line-height: 76rpx;
-  border: 2rpx solid rgba(170, 170, 170, 1);
-  border-radius: 25rpx;
+  border: 1rpx solid rgba(170, 170, 170, 1);
+  border-radius: 8rpx;
   font-size: 30rpx;
   color: rgba(51, 51, 51, 1);
   margin-bottom: 30rpx;
 }
 
 .contentainer2-text {
-  width: 466rpx;
+  width: 500rpx;
   margin-left: 37rpx;
   font-size: 26rpx;
-  color: rgba(153, 153, 153, 1);
+  color: #ff2644;
+  margin-bottom: 30rpx;
 }
 
 .contentainer2-button {
   display: flex;
-  height: 75rpx;
-  text-align: center;
-  border-top: 2rpx solid #eaeaea;
+  margin-left: 50rpx;
+  margin-bottom: 40rpx;
 }
 
 .reject {
-  border-right: 2rpx solid #eaeaea;
-  width: 270rpx;
-  height: 75rpx;
-  line-height: 75rpx;
-  font-size: 34rpx;
-  color: rgba(51, 51, 51, 1);
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  border: 1rpx solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: #ff2644;
+  text-align: center;
+  margin-right: 20rpx;
 }
 
 .comfirm {
-  height: 75rpx;
-  line-height: 75rpx;
-  font-size: 34rpx;
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
   text-align: center;
-  width: 270rpx;
-  background: rgba(255, 255, 255, 1);
-  color: #ff2644;
+  background: #ff2644;
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: #fff;
 }
 
 .comfirm::after {
@@ -836,6 +824,7 @@ page {
 .active1 {
   color: rgba(255, 38, 68, 1);
   background: rgba(255, 234, 237, 1);
+  border: none;
 }
 
 .contentainer3-button {
@@ -950,7 +939,7 @@ page {
   height: 90rpx;
   position: relative;
   font-size: 26rpx;
-  border-bottom: #e7e7e7 2rpx solid;
+  /* border-bottom: #e7e7e7 2rpx solid; */
 }
 
 .service_one {
@@ -1043,13 +1032,13 @@ page {
 }
 
 .sell-one-dialog__mask .sell-dialog__container .title {
-  width: 520rpx;
   margin: 0 auto;
   margin-top: 46rpx;
   margin-bottom: 40rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
   color: #222;
-  text-align: left;
+  text-align: center;
+  font-weight: bold;
 }
 
 .sell-one-dialog__mask .sell-dialog__container .text {
@@ -1077,7 +1066,7 @@ page {
   color: #ff2644;
   width: 240rpx;
   height: 76rpx;
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
   background-color: #fff;
   border-radius: 38rpx;
 }
@@ -1098,6 +1087,11 @@ page {
 
 .width172 {
   width: 168rpx !important;
+  padding: 0 !important;
+}
+
+.width210 {
+  width: 210rpx !important;
   padding: 0 !important;
 }
 
@@ -1307,3 +1301,98 @@ button::after {
   font-size: 32rpx;
   color: rgba(51, 51, 51, 1);
 } */
+
+/* 种子消耗弹窗 */
+
+.bg10 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.content10 {
+  position: absolute;
+  background: rgba(255, 255, 255, 1);
+  width: 600rpx;
+  border-radius: 24rpx;
+  top: 220rpx;
+  left: 75rpx;
+}
+
+.title10 {
+  height: 142rpx;
+  line-height: 142rpx;
+  text-align: center;
+  font-size: 34rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.text_one10 {
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+  line-height: 42rpx;
+  padding-left: 51rpx;
+  padding-right: 52rpx;
+}
+
+.text_two10 {
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+  line-height: 42rpx;
+  padding-left: 51rpx;
+  padding-right: 52rpx;
+  margin-top: 10rpx;
+}
+
+.message10 {
+  font-size: 24rpx;
+  color: #ff2644;
+  line-height: 42rpx;
+  padding-left: 51rpx;
+  padding-right: 51rpx;
+  margin-top: 50rpx;
+}
+
+.button_box10 {
+  display: flex;
+  justify-content: space-between;
+  height: 76rpx;
+  padding-left: 48rpx;
+  padding-right: 52rpx;
+  margin-top: 50rpx;
+  margin-bottom: 60rpx;
+}
+
+.button_one10 {
+  width: 240rpx;
+  height: 75rpx;
+  border: 0.5px solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: rgba(255, 38, 68, 1);
+  text-align: center;
+  line-height: 75rpx;
+}
+
+.button_two10 {
+  width: 240rpx;
+  height: 76rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  line-height: 76rpx;
+}
+
+.cancel-get10 {
+  position: absolute;
+  top: 146rpx;
+  right: 100rpx;
+  width: 44rpx;
+  height: 74rpx;
+}

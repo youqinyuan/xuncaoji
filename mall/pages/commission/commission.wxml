@@ -23,7 +23,7 @@
 <view class="member" wx:if="{{isMember==1}}">
   <view class="commission-balance-wrapper">
     <view class="commission-balance">
-      <image src="{{hostUrl}}/add/recharge_card.png" class="img"></image>
+      <image src="{{hostUrl}}/twoSix/recharge_card.png" class="img"></image>
       <image src="{{hostUrl}}/add/tab_role.png" class="img1" bindtap="showRole"></image>
       <view class="role" bindtap="showRole">佣金规则</view>
       <view class="balance">
@@ -41,7 +41,7 @@
             <text>{{content.balance||0}}</text>
           </view>
         </view>
-        <view class="allMoney">
+        <view class="allMoney1">
           <view class="allMoney-text">未到账金额</view>
           <view class="allMoney-num">
             <text class="sign">￥</text>
@@ -57,9 +57,6 @@
   </view>
   <view class="block"></view>
   <view class="commission1-details">
-    <view class="commission1-img">
-      <image src="{{hostUrl}}/icon/recharge_Detail.png"></image>
-    </view>
     <view class="commission1-title">佣金明细</view>
   </view>
   <view class="wrapper">
@@ -88,7 +85,7 @@
       </view>
       <view class="list" wx:if="{{item.tradeType!==33}}">
         <view class="listItem-photo">
-          <image src="{{item.avatarUrl?item.avatarUrl:hostUrl+'/add/head_img.png'}}"></image>
+          <image src="{{item.avatarUrl?item.avatarUrl:'/assets/images/mine/other_ren.png'}}"></image>
         </view>
         <view class="message">
           <view class="msgtext">
@@ -126,7 +123,7 @@
   <view class="modal-title1">提现</view>
   <view class="section1">
     <view class="input-price1">￥</view>
-    <input placeholder="请输入提现金额" auto-focus type="digit" value="{{inputValue1}}" placeholder-style="color:#AAAAAA" bindinput="btnSumbit" />
+    <input placeholder="请输入提现金额" auto-focus type="digit" value="{{inputValue1}}" placeholder-style="color:#AAAAAA" bindinput="btnSumbit" class="input-block" />
   </view>
   <view class="prompt1" wx:if="{{showMessage1}}">请输入提现金额</view>
   <view class="modal-footer1">
@@ -142,7 +139,7 @@
       <view wx:if="{{memberType===2}}">
         <view class="textRole">1、下级正常购买的商品返佣将在订单完成后 进入您的佣金余额</view>
         <view class="textRole">
-          2、下级通过freebuy下单返佣将在返现金额 到达下级的账户时同时到达您的佣金余额。 到达多少笔佣金，也是根据下级分期月数相 同
+          2、下级通过一折购下单返佣将在返现金额 到达下级的账户时同时到达您的佣金余额。 到达多少笔佣金，也是根据下级分期月数相 同
         </view>
         <view class="textRole">3、转让待返的佣金会在转让完成后即可到账</view>
         <view class="textRole">4、下级购买钻石合伙人佣金，会在下级购买 后即刻到账</view>
@@ -199,7 +196,6 @@
 <!-- 输入密码弹出框 -->
 <view class="modal-mask1" catchtouchmove="preventTouchMove" wx:if="{{showPsw}}">
   <view class="zan-dialog__container1" wx:if="{{showPsw}}">
-    <image wx:if="{{showPsw}}" class="pwd-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='cancelShow'></image>
     <view class="pwd-text">请输入支付密码</view>
     <view class="text">{{text}}</view>
     <view bindsubmit="formSubmit">
@@ -211,6 +207,7 @@
       <input name="password" value="{{Value}}" adjust-position="{{false}}" password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus" type="number"></input>
     </view>
   </view>
+  <image wx:if="{{showPsw}}" class="pwd-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelShow'></image>
 </view>
 <!--是否设置支付弹框-->
 <view class="zan-dialog1" catchtouchmove="preventTouchMove" wx:if="{{showPassword}}" bindtap='hidePassword'></view>

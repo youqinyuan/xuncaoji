@@ -1,7 +1,7 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarBackgroundColor": "#FFFFFF",
   "navigationBarTitleText": "订单交易",
-  "navigationBarTextStyle": "white",
+  "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true
 }

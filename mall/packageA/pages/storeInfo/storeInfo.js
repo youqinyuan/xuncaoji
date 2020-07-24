@@ -229,9 +229,6 @@ Page({
       mobileNumber:e.detail.value
     })
   },
-  next:function(e){
-    console.log(e.detail.value)
-  },
   upload: function() {
     var that = this
     var token = wx.getStorageSync('token')
@@ -293,9 +290,14 @@ Page({
         title:'请填写介绍人',
         icon:'none'
       })
+    }else if(e.detail.value.inviteCode==''){
+      wx.showToast({
+        title:'请填写介绍人邀请码',
+        icon:'none'
+      })
     }else if(e.detail.value.mobileNumber==''){
       wx.showToast({
-        title:'请填写联系人',
+        title:'请填写联系方式',
         icon:'none'
       })
     }else if(e.detail.value.code==''){
@@ -310,7 +312,8 @@ Page({
         code:e.detail.value.code,
         areaId:that.data.areaId?that.data.areaId:that.data.moveData.areaId,
         lng:that.data.centerData.longitude?that.data.centerData.longitude:that.data.moveData.lng,
-        lat:that.data.centerData.latitude?that.data.centerData.latitude:that.data.moveData.lat
+        lat:that.data.centerData.latitude?that.data.centerData.latitude:that.data.moveData.lat,
+        inviterCode:e.detail.value.inviterCode
       }, 'GET').then((res) => { // 使用ajax函数
         if (res.data.messageCode=="MSG_1001") {
           app.globalData.moveData.logoKey = that.data.logoKey?that.data.logoKey:that.data.moveData.logoKey //店铺logo
@@ -320,6 +323,7 @@ Page({
           app.globalData.moveData.lat = that.data.centerData.latitude?that.data.centerData.latitude:that.data.moveData.lat  //纬度
           app.globalData.moveData.mobile = e.detail.value.mobileNumber  //联系人电话
           app.globalData.moveData.code = e.detail.value.code      //验证码
+          app.globalData.moveData.inviterCode = e.detail.value.inviterCode  //邀请码
           app.globalData.moveData.referrerMobileNumber = e.detail.value.referrerMobileNumber  //邀请人
           app.globalData.moveData.areaId = that.data.areaId?that.data.areaId:that.data.moveData.areaId //区域id
           app.globalData.moveData.storeAddress = that.data.centerData.title?that.data.centerData.title:that.data.moveData.storeAddress //门店地址

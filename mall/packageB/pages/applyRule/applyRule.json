@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "selfVideo":"/components/video/video"
+  },
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTitleText": "一折购-使用须知",
+  "navigationBarTextStyle": "black"
+}

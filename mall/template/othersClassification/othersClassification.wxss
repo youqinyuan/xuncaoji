@@ -4,14 +4,56 @@
   background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  height: 320rpx;
-  margin-top: 160rpx;
+  height: 240rpx;
+  width: 690rpx;
+  border-radius: 10rpx;
 }
 
 .slide-image {
-  height: 320rpx;
+  height: 240rpx;
   background-size: cover;
   width: 100%;
+  border-radius: 10rpx;
+}
+
+.swiper-out {
+  width: 750rpx;
+  height: 660rpx;
+  margin-top: 60rpx;
+}
+
+.active-item .slide-image {
+  box-shadow: 0 5rpx 20rpx 3rpx rgba(0, 0, 0, 0.15);
+}
+
+.swp-item {
+  width: 400rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4rpx;
+  opacity: 0.6;
+}
+
+.active-item {
+  opacity: 1;
+}
+
+.swiper-container {
+  width: 690rpx;
+  position: absolute;
+  top: 170rpx;
+  left: 30rpx;
+  border-radius: 10rpx;
+}
+
+.swiper-container .swiper {
+  height: 300rpx;
+}
+
+.swiper-container .swiper .img {
+  width: 100%;
+  height: 100%;
 }
 
 /*二级分类*/
@@ -21,7 +63,7 @@
   padding-left: 10rpx;
   display: flex;
   flex-wrap: wrap;
-  background: rgba(255, 255, 255, 1);
+  margin-top: 30rpx;
 }
 
 .two-classification-list {
@@ -48,61 +90,36 @@
 /*综合、价格、上新*/
 
 .title {
-  height: 108rpx;
+  width: 690rpx;
+  height: 80rpx;
   display: flex;
-  justify-content: space-between;
-  background: rgba(255, 255, 255, 1);
-}
-
-.comprehensive {
-  font-size: 30rpx;
-  width: 136rpx;
-  line-height: 108rpx;
-  text-align: center;
-}
-
-.active {
-  color: #ff6417;
+  align-items: center;
+  justify-content: space-around;
+  background: #fff;
+  margin-left: 30rpx;
+  margin-top: 30rpx;
+  font-size: 26rpx;
+  border-radius: 10rpx;
 }
 
 .price {
-  font-size: 30rpx;
-  width: 136rpx;
-  line-height: 108rpx;
-  text-align: center;
   display: flex;
-  color: rgba(51, 51, 51, 1);
+  align-items: center;
+  color: #333;
 }
 
 .price-img {
-  margin-top: 10rpx;
-  width: 40rpx;
-  height: 40rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 15rpx;
+  margin-left: 8rpx;
 }
 
 .price-img image {
-  width: 40rpx;
-  height: 40rpx;
-}
-
-.new {
-  font-size: 30rpx;
-  width: 136rpx;
-  display: flex;
-  line-height: 108rpx;
-  text-align: center;
-  color: rgba(51, 51, 51, 1);
-}
-
-.new-img {
-  margin-top: 10rpx;
-  width: 40rpx;
-  height: 40rpx;
-}
-
-.new-img image {
-  width: 40rpx;
-  height: 40rpx;
+  margin-bottom: 8rpx;
+  width: 10rpx;
+  height: 8rpx;
 }
 
 /*列表*/
@@ -111,14 +128,14 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin-left: 30rpx;
 }
 
 .comprehensive-list {
   position: relative;
-  width: 348rpx;
-  padding-bottom: 20rpx;
+  width: 339rpx;
   margin-top: 20rpx;
-  margin-left: 18rpx;
+  margin-right: 11rpx;
   border-radius: 8rpx;
   background: rgba(255, 255, 255, 1);
 }
@@ -127,13 +144,13 @@
   background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  width: 348rpx;
-  height: 348rpx;
+  width: 339rpx;
+  height: 339rpx;
 }
 
 .comprehensive-list-img image {
-  width: 348rpx;
-  height: 348rpx;
+  width: 339rpx;
+  height: 339rpx;
   border-radius: 8rpx 8rpx 0px 0px;
 }
 
@@ -149,7 +166,7 @@
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  color: rgba(51, 51, 51, 1);
+  color: #333;
 }
 
 .comprehensive-list-text .item1 {
@@ -166,7 +183,7 @@
   margin-right: 13rpx;
   font-size: 20rpx;
   color: rgba(255, 100, 23, 1);
-  border: 2rpx solid rgba(255, 100, 23, 1);
+  border: 1rpx solid rgba(255, 100, 23, 1);
   border-radius: 14rpx;
 }
 
@@ -193,6 +210,19 @@
   font-size: 24rpx;
   text-decoration: line-through;
   color: rgba(153, 153, 153, 1);
+}
+
+.newprice {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  font-size: 36rpx;
+  color: #ff6417;
+}
+
+.newtext {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
 }
 
 .return-wrap {
@@ -226,4 +256,16 @@
   color: rgba(153, 153, 153, 1);
   text-align: center;
   margin-top: 20rpx;
+}
+
+.comprehensive-not {
+  color: #333;
+  font-size: 28rpx;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.comprehensive-not image {
+  width: 380rpx;
+  height: 380rpx;
 }

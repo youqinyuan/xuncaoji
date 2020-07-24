@@ -20,11 +20,9 @@
         <image src="{{hostUrl}}/icon/location_edit.png"></image>
       </view>
     </view>
-    <!--弹框-->
-
     <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
   </view>
-</view> 
+</view>
 <view class="zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>
 <view class="zan-dialog__container" wx:if="{{showDialog}}">
   <view class='content-mask'>

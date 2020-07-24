@@ -29,7 +29,7 @@
 .ckeck_again{
     width:280rpx;
     height:68rpx;
-    border:2rpx solid rgba(255,38,68,1);
+    border:1rpx solid rgba(255,38,68,1);
     border-radius:34rpx;
     font-size:28rpx;
     font-family:PingFang SC;
@@ -40,5 +40,26 @@
     margin-left: 235rpx;
 }
 .wid600{
-    width: 600rpx !important;
+    width: 750rpx !important;
+}
+.code{
+    width: 190rpx;
+    height: 190rpx;
+
+}
+.code_box{
+    text-align: center;
+    margin-top: 60rpx;
+}
+.save{
+    width:180rpx;
+    height:56rpx;
+    line-height: 56rpx;
+    border:0.5px solid rgba(255,38,68,1);
+    border-radius:28rpx;
+    font-size:28rpx;
+    color:rgba(255,38,68,1);
+    text-align: center;
+    margin-top: 34rpx;
+    margin-left: 285rpx;
 }

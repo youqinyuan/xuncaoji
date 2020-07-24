@@ -2,12 +2,11 @@
 <!--账户余额-->
 <view class="account-balance-wrapper">
   <view class="account-balance">
-    <image src="{{hostUrl}}/icon/recharge_card.png"></image>
     <view class="balance">
       <view class="balance-money">账户余额</view>
-      <view class="balance-num">￥ {{content.balance?content.balance:0}}</view>
-      <view class="balance-text" wx:if="{{content.noCashBackAmount}}">待返金额：{{content.noCashBackAmount}}元</view>
-      <view class="balance-text" wx:else>待返金额：0元</view>
+      <view class="balance-num"><text>￥</text>{{content.balance?content.balance:0}}</view>
+      <view class="balance-text" wx:if="{{content.noCashBackAmount}}">待返金额：￥{{content.noCashBackAmount}}</view>
+      <view class="balance-text" wx:else>待返金额：￥0</view>
        <view class="select" bindtap="toReentryDetail">查看</view>
     </view>
   </view>
@@ -15,7 +14,7 @@
 <!--充值、余额明细-->
 <view class="detail2 bord2">
   <view class="detail-list bord" bindtap="showRecharge">
-    <image class="detail-list-img" src="{{hostUrl}}/icon/recharge_money.png"></image>
+    <image class="detail-list-img" src="{{hostUrl}}/twoSix/recharge_money.png"></image>
     <view class="detail-list-text">充值</view>
   </view>
   <!--充值弹窗-->
@@ -24,7 +23,7 @@
     <view class="modal-title">充值</view>
     <view class="section">
       <view class="input-price">￥</view>
-      <input class="input-text" placeholder="请输入充值金额" focus="true" type="digit" value="{{inputValue}}" placeholder-style="color:#AAAAAA" bindinput="btnInput" />
+      <input class="input-text" style="text-align: left;" placeholder="请输入充值金额" focus="true" type="digit" value="{{inputValue}}" placeholder-style="color:#AAAAAA" bindinput="btnInput" />
     </view>
     <view class="prompt">{{showMessage}}</view>
     <view class="message">所充值的金额将进入您的账户余额</view>
@@ -33,17 +32,17 @@
     </view>
   </view>
   <view class="detail-list" bindtap="accountDetail">
-    <image class="detail-list-img" src="{{hostUrl}}/icon/recharge_Detail.png"></image>
+    <image class="detail-list-img" src="{{hostUrl}}/twoSix/recharge_Detail.png"></image>
     <view class="detail-list-text">余额明细</view>
   </view>
 </view>
 <view class="detail">
   <view class="detail-list bord" bindtap="refundDetail">
-    <image class="detail-list-img" src="{{hostUrl}}/icon/recharge_czhituik.png"></image>
+    <image class="detail-list-img" src="{{hostUrl}}/twoSix/recharge_czhituik.png"></image>
     <view class="detail-list-text">充值退款</view>
   </view>
   <view class="detail-list" bindtap="cancleDetail">
-    <image class="detail-list-img" src="{{hostUrl}}/icon/recharge_quxtxian.png"></image>
+    <image class="detail-list-img" src="{{hostUrl}}/twoSix/recharge_quxtxian.png"></image>
     <view class="detail-list-text">取消提现</view>
   </view>
 </view>

@@ -16,7 +16,7 @@
   </view>
 </view>
 <view class="classify" style="{{fixed==true?'position:sticky;top:0;z-index:99;':''}}">
-  <view class="classify_wrap" >
+  <view class="classify_wrap">
     <view class='classify_one' bindtap="toViewClick" data-hash="infoBox1">{{category[0]}}</view>
     <view class='{{nowstatus == "infoBox1" ? "category" : ""}}'></view>
   </view>
@@ -43,14 +43,13 @@
         <view class="goodsImg">
           <image src="{{item.imageUrls[0]}}">></image>
         </view>
-        <view class="reality">实付{{item.dctPrice}}返{{item.marketingCashBack.totalAmount}}</view>
         <view class="goodsText">{{item.name}}</view>
         <view class="goodsPrice">
           <view class="newPrice">
+            <text>一折购:</text>
             <text>￥</text>
-            <text>{{foo.toStr(item.dctPrice-item.marketingCashBack.totalAmount)}}</text>
+            <text>{{item.discountPrice}}</text>
           </view>
-          <view class="oldPrice">￥{{item.orgPrice}}</view>
         </view>
         <view class="tag">
           <view class="tagItem">{{listItem.activityAreaInfo[0].labelName}}</view>
@@ -67,14 +66,13 @@
         <view class="goodsImg">
           <image src="{{item.imageUrls[0]}}">></image>
         </view>
-        <view class="reality">实付{{item.dctPrice}}返{{item.marketingCashBack.totalAmount}}</view>
         <view class="goodsText">{{item.name}}</view>
         <view class="goodsPrice">
           <view class="newPrice">
+            <text>一折购:</text>
             <text>￥</text>
-            <text>{{foo.toStr(item.dctPrice-item.marketingCashBack.totalAmount)}}</text>
+            <text>{{item.discountPrice}}</text>
           </view>
-          <view class="oldPrice">￥{{item.orgPrice}}</view>
         </view>
         <view class="tag">
           <view class="tagItem">{{listItem.activityAreaInfo[1].labelName}}</view>
@@ -91,14 +89,13 @@
         <view class="goodsImg">
           <image src="{{item.imageUrls[0]}}">></image>
         </view>
-        <view class="reality">实付{{item.dctPrice}}返{{item.marketingCashBack.totalAmount}}</view>
         <view class="goodsText">{{item.name}}</view>
         <view class="goodsPrice">
           <view class="newPrice">
+            <text>一折购:</text>
             <text>￥</text>
-            <text>{{foo.toStr(item.dctPrice-item.marketingCashBack.totalAmount)}}</text>
+            <text>{{item.discountPrice}}</text>
           </view>
-          <view class="oldPrice">￥{{item.orgPrice}}</view>
         </view>
         <view class="tag">
           <view class="tagItem">{{listItem.activityAreaInfo[2].labelName}}</view>
@@ -115,14 +112,12 @@
         <view class="goodsImg">
           <image src="{{item.imageUrls[0]}}">></image>
         </view>
-        <view class="reality">实付{{item.dctPrice||0}}返{{item.marketingCashBack.totalAmount}}</view>
-        <view class="goodsText">{{item.name}}</view>
         <view class="goodsPrice">
           <view class="newPrice">
+            <text>一折购:</text>
             <text>￥</text>
-            <text>{{foo.toStr(item.dctPrice-item.marketingCashBack.totalAmount)}}</text>
+            <text>{{item.discountPrice}}</text>
           </view>
-          <view class="oldPrice">￥{{item.orgPrice}}</view>
         </view>
         <view class="tag">
           <view class="tagItem">{{listItem.activityAreaInfo[3].labelName}}</view>

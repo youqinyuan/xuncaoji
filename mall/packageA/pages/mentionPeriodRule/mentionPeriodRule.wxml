@@ -1,8 +1,8 @@
 <!--packageA/pages/mentionPeriodRule/mentionPeriodRule.wxml-->
-<view class="rule_title">一、FreeBuy提期玩法简介</view>
-<view class="rule_value">FreeBuy提期可以帮助原本返现时间过长的订单提到最短期返现，这样就实现了快速返现，并且帮助的人也可获得一定的预估年化收益。</view>
-<view class="rule_value">示例：小明有一条48期待返订单，小明嫌返现时间太长所以他就使用“FreeBuy提期”将原来48期返现提到最短期限返现，小明成功发布后只要有用户帮他支付提期金额小明就成功提到最短期限返现，同时帮提期的人也可以获得高额收益，具体提几期根据帮提期的用户支付金额决定的。</view>
-<view class="rule_title">二、FreeBuy提期常见问题</view>
+<view class="rule_title">一、一折购提期玩法简介</view>
+<view class="rule_value">一折购提期可以帮助原本返现时间过长的订单提到最短期返现，这样就实现了快速返现，并且帮助的人也可获得一定的预估年化收益。</view>
+<view class="rule_value">示例：小明有一条48期待返订单，小明嫌返现时间太长所以他就使用“一折购提期”将原来48期返现提到最短期限返现，小明成功发布后只要有用户帮他支付提期金额小明就成功提到最短期限返现，同时帮提期的人也可以获得高额收益，具体提几期根据帮提期的用户支付金额决定的。</view>
+<view class="rule_title">二、一折购提期常见问题</view>
 <view class="rule_question">预估年化收益率是最终年化收益率吗？</view>
 <view class="rule_answer">答：不是，预估年化收益率为“平台”和“需提期方”共同给予的年化收益率，实际年化收益率会随市场情况有所变动。如有疑问可咨询客服。</view>
 <view class="rule_question">我发起提期并已完成后是提至几期返现?</view>

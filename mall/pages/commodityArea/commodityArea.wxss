@@ -67,7 +67,6 @@ page {
   background: rgba(255, 38, 68, 1);
 }
 
-
 .infoBox_wrap .infoBox {
   padding-top: 30rpx;
 }
@@ -155,7 +154,11 @@ page {
   margin-right: 5rpx;
 }
 
-.newPrice text:nth-child(2) {
+.newPrice text:nth-child(1) {
+  font-weight: 400;
+}
+
+.newPrice text:nth-child(3) {
   font-size: 30rpx;
 }
 

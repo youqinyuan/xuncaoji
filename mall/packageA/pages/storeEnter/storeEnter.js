@@ -171,9 +171,30 @@ Page({
       })
     }
   },
+  getName:function(e){
+    this.setData({
+      name:e.detail.value
+    })
+    console.log(this.data.name)
+  },
+  getNumber:function(e){
+    this.setData({
+      number:e.detail.value
+    })
+  },
   toBusiness:function(){
     wx.navigateTo({
       url: '/packageA/pages/business/business'
+    })
+  },
+  toFastDetail:function(){
+    let that = this
+    let business = that.data.business?that.data.business:''
+    let businessId = that.data.businessId?that.data.businessId:''
+    let name = that.data.name?that.data.name:''
+    let number = that.data.number?that.data.number:''
+    wx.navigateTo({
+      url: '/packageA/pages/fastStoreInfo/fastStoreInfo?business='+business+'&&businessId='+businessId+'&&name='+name+'&&number='+number
     })
   }
 })

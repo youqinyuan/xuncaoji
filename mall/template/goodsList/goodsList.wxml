@@ -1,0 +1,15 @@
+<template name="goodsList">
+  <view class="quality-list" wx:for="{{list}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
+    <view class="quality-list-img">
+      <image src="{{item.imageUrls[0]}}"></image>
+    </view>
+    <view class="quality-list-text">
+      <text class="item1" wx:if="{{item.tags==1}}">自营</text> {{item.name}}
+    </view>
+    <view class="quality-list-price">
+      <view class="newprice">
+        <text class="newtext">一折购:</text>
+        <text>￥</text>{{item.discountPrice}}</view>
+    </view>
+  </view>
+</template>

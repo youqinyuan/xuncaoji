@@ -6,11 +6,11 @@
         </view>
         <view class="title border_bottom">
             <view class="left">店主姓名</view>
-            <input placeholder="" class="name" maxlength="10" name="name" value="{{content.name?content.name:''}}"/>
+            <input placeholder="" class="name" maxlength="10" name="name" value="{{content.name?content.name:''}}" bindblur="getName"/>
         </view>
         <view class="title border_bottom">
             <view class="left">身份证号码</view>
-            <input placeholder="" class="name" maxlength="18" type="idcard" name="idCard" value="{{content.idNumber?content.idNumber:''}}"/>
+            <input placeholder="" class="name" maxlength="18" type="idcard" name="idCard" value="{{content.idNumber?content.idNumber:''}}" bindblur="getNumber"/>
         </view>
         <view class="title" bindtap="toBusiness">
             <view class="left">所属行业</view>
@@ -20,5 +20,6 @@
     </view>
     <button form-type="submit" class="submitButton">下一步</button>
 </form>
+<view class="fast" bindtap="toFastDetail">快速入驻，免审核</view>
 
 

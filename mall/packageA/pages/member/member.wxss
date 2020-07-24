@@ -1,27 +1,16 @@
 /* pages/mine/member/member.wxss */
 
 page {
-  background: rgba(255, 236, 221, 1);
+  background: #f1f1f1;
 }
 
 /*会员到期日*/
 
-.top {
-  height: 233rpx;
-  position: relative;
-}
-
-.top-img image {
-  height: 233rpx;
-  width: 750rpx;
-}
-
 .expires {
   width: 708rpx;
   height: 261rpx;
-  position: absolute;
-  top: 48rpx;
-  left: 21rpx;
+  margin-top: 26rpx;
+  margin-left: 21rpx;
 }
 
 .expires image {
@@ -32,9 +21,9 @@ page {
 .expires-text {
   position: absolute;
   top: 68rpx;
-  left: 53rpx;
+  left: 84rpx;
   font-size: 36rpx;
-  color: rgba(255, 255, 255, 1);
+  color: #b7905b;
 }
 
 .expires-text1 {
@@ -56,7 +45,7 @@ page {
   width: 710rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 0rpx 0rpx 8rpx 8rpx;
-  margin: 90rpx auto;
+  margin: 0rpx auto;
   margin-bottom: 40rpx;
 }
 
@@ -64,7 +53,7 @@ page {
   width: 400rpx;
   margin: 59rpx auto;
   font-size: 32rpx;
-  color: #ff6417;
+  color: #333;
 }
 
 .active-text {
@@ -100,7 +89,7 @@ page {
 .active-item-text {
   margin-top: 19rpx;
   font-size: 24rpx;
-  color: #ff2644;
+  color: #b7905b;
 }
 
 .active-item-mission {
@@ -112,10 +101,10 @@ page {
   width: 120rpx;
   height: 48rpx;
   background: rgba(255, 255, 255, 1);
-  border: 2rpx solid #ff6417;
-  border-radius: 24rpx;
+  border: 1rpx solid #b7905b;
+  border-radius: 32rpx;
   font-size: 24rpx;
-  color: #ff6417;
+  color: #b7905b;
 }
 
 .active-bottom {
@@ -380,65 +369,45 @@ button::after {
 }
 
 .membership-box {
-  width: 540rpx;
-  height: 562rpx;
+  width: 600rpx;
+  height: 624rpx;
   position: fixed;
   top: 15.9%;
-  left: 107rpx;
-}
-
-.membership-box-bg {
-  width: 100%;
-  height: 100%；;
+  left: 75rpx;
+  background-image: url('https://xuncaoji.net/_download/img/icon/vip_fishied_bg.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  text-align: center;
 }
 
 .membership-box-img {
-  position: absolute;
-  top: 6.9%;
-  left: 190rpx;
+  margin: 80rpx 0;
+  margin-bottom: 25rpx;
   width: 169rpx;
   height: 198rpx;
 }
 
 .membership-box-text {
-  position: absolute;
-  top: 47.9%;
-  left: 86rpx;
   font-size: 32rpx;
   text-align: center;
-  color: rgba(255, 255, 255, 1);
+  color: #fff;
 }
 
 .membership-box-text1 {
-  position: absolute;
-  top: 56.9%;
-  left: 18rpx;
-  font-size: 32rpx;
+  font-size: 28rpx;
   text-align: center;
-  color: rgba(255, 255, 255, 1);
+  color: #fff;
 }
 
-.membership-box-text2{
-  position: absolute;
-  color: #FF2644;
-  top: 65.9%;
-  left: 167rpx;
+.membership-box-text2 {
+  color: #ff2644;
   font-size: 32rpx;
   text-align: center;
+  margin-top: 20rpx;
 }
+
 .membership-box-btn {
-  position: absolute;
-  top: 76.9%;
-  left: 86rpx;
-  width: 360rpx;
-  height: 76rpx;
-  line-height: 76rpx;
-  font-size: 32rpx;
-  color: #ff6417;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 38rpx;
-}
-
-.membership-box-btn::after {
-  border: none;
+  margin-top: 20rpx;
+  width: 459rpx;
+  height: 97rpx;
 }

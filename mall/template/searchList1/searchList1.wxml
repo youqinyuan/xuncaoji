@@ -17,24 +17,9 @@
           </view>
           <view class="goods-list-price">
             <view class="newprice-wrap">
-              <view class="pricesign">￥</view>
-              <view class="newprice">{{item.truePrice}}</view>
-            </view>
-            <view class="oldprice-wrap">
-              <view class="pricesign1">￥</view>
-              <view class="oldprice">{{item.orgPrice}}</view>
-            </view>
-          </view>
-          <view class="return-wrap">
-            <view class="return-money">
-              <text>实付</text>
-              <text>￥</text>
-              <text>{{item.dctPrice}}</text>
-            </view>
-            <view class="pay-money">
-              <text>返现</text>
-              <text>￥</text>
-              <text>{{item.marketingCashBack.totalAmount}}</text>
+              <view class="newprice">
+                <text class="newtext">一折购:</text>
+                <text>￥</text>{{item.discountPrice}}</view>
             </view>
           </view>
         </view>
@@ -43,7 +28,8 @@
     <view class="shops-bottom">{{textToast}}</view>
     <view class="empty-wrap" wx:if="{{goodsResult.length===0}}">
       <image class="empty-img" src="{{hostUrl}}/icon/nohave_n.png"></image>
-      <view class="empty-content">无搜索结果，换个词试试吧~</view>
+      <view class="empty-content">没找到商品，试试寻商品吧</view>
+      <view class="emptyBtn" catchtap="emptyBtn">寻商品</view>
     </view>
   </view>
 </template>

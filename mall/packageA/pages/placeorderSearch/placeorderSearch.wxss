@@ -8,17 +8,24 @@ page {
   background: #fff;
 }
 
-.return-cart {
+.newprice-wrap {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-.return-wrap {
-  margin-left: 0;
+.newprice {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  font-size: 36rpx;
+  color: #ff6417;
 }
 
-.return-wrap.wrapMoney {
-  padding: 0 10rpx;
+.newtext {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
 }
 
 .cart {
@@ -34,6 +41,6 @@ page {
   margin-right: 30rpx;
 }
 
-.content-wrapper{
+.content-wrapper {
   text-align: left;
 }

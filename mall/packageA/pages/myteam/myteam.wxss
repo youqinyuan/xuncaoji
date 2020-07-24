@@ -17,14 +17,29 @@ page {
 .contaniner-list {
   display: flex;
   width: 250rpx;
+  align-items: center;
+}
+
+.contaniner-list-item {
+  display: flex;
+  width: 250rpx;
   flex-direction: column;
   align-items: center;
+  height: 96rpx;
   border-right: 2rpx solid #eaeaea;
+}
+
+.contaniner-list-item1 {
+  display: flex;
+  width: 250rpx;
+  flex-direction: column;
+  align-items: center;
+  height: 96rpx;
+  border: none;
 }
 
 .contaniner-list-num {
   margin-bottom: 20rpx;
-  margin-top: 30rpx;
   font-size: 34rpx;
   color: rgba(51, 51, 51, 1);
 }
@@ -39,7 +54,7 @@ page {
 .recurit {
   width: 690rpx;
   height: 76rpx;
-  background: #ff6417;
+  background: linear-gradient(90deg, rgba(255, 106, 72, 1) 0%, rgba(255, 38, 68, 1) 100%);
   border-radius: 38px;
   margin-top: 60rpx;
   margin-left: 30rpx;
@@ -69,25 +84,17 @@ page {
   padding-right: 30rpx;
 }
 
-.recurit-img {
-  display: flex;
-  align-items: center;
-}
-
-.recurit-img image {
-  width: 36rpx;
-  height: 36rpx;
-  margin-right: 20rpx;
-}
-
 .recurit-wrap {
+  font-size: 28rpx;
   display: flex;
   align-items: center;
   color: #999;
 }
 
 .recurit-title {
-  font-size: 32rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -118,9 +125,9 @@ page {
   display: inline-block;
   height: 50rpx;
   line-height: 50rpx;
-  background: rgba(255, 224, 208, 1);
+  background: linear-gradient(90deg, rgba(239, 215, 187, 1) 0%, rgba(212, 172, 117, 1) 100%);
   border-radius: 4px;
-  color: #ff6417;
+  color: #fff;
   width: 120rpx;
   text-align: center;
 }
@@ -144,7 +151,7 @@ page {
   font-size: 32rpx;
   margin-right: 29rpx;
   margin-top: 40rpx;
-  color: rgba(227, 58, 89, 1);
+  color: #E33A59;
 }
 
 .list-right-item1 {
@@ -191,11 +198,13 @@ page {
 /* 弹框内容 */
 
 .content-top-img {
-  width: 506rpx;
-  height: 56rpx;
-  margin-top: 73rpx;
-  margin-left: 74rpx;
-  margin-bottom: 74rpx;
+  text-align: center;
+  margin-top: 82rpx;
+  margin-bottom: 59rpx;
+  font-size: 36rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #fff;
 }
 
 .content-top-img image {

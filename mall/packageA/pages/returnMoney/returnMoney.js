@@ -21,6 +21,8 @@ Page({
     shuoMing:'',
     expMoney:null,
     hostUrl: app.Util.getUrlImg().hostUrl,
+    seedToast:false,
+    seedShow:false
   },
 
   /**
@@ -45,7 +47,10 @@ Page({
       cargoStatus: 2
     }, 'GET').then((res) => {
       that.setData({
-        maxMoney: res.data.content
+        maxMoney: res.data.content,
+        seedAmountTotal:res.data.content.seedAmountTotal,
+        seedAmountConsume:res.data.content.seedAmountConsume,
+        seedStatus:res.data.content.status
       })
     })
   },
@@ -56,7 +61,10 @@ Page({
       cargoStatus: 1
     }, 'GET').then((res) => {
       that.setData({
-        maxMoney: res.data.content
+        maxMoney: res.data.content,
+        seedAmountTotal:res.data.content.seedAmountTotal,
+        seedAmountConsume:res.data.content.seedAmountConsume,
+        seedStatus:res.data.content.status
       })
     })
   },
@@ -281,44 +289,50 @@ Page({
     var that = this
     // console.log(that.data.goodsData.img_compress)
     // console.log(that.data.goodsDetail.id,)
-    if(that.data.goodsData.img_compress.length>0){
-      app.Util.ajax('mall/orderRefund/applyRefund', {
-        orderGoodsId: that.data.goodsDetail.id,
-        cargoStatus: that.data.index1,
-        desc:that.data.goodsValue1,
-        refundAmount:that.data.expMoney==null?that.data.maxMoney.refundQuota:that.data.expMoney,
-        remark:that.data.shuoMing,
-        imageFiles:that.data.goodsData.img_compress
-      }, 'POST').then((res) => {
-        if(res.data.messageCode=="MSG_1001"){
-          wx.redirectTo({
-            url: '/packageA/pages/dealWithReturn/dealWithReturn'
-          })
-        }else{
-          wx.showToast({
-            title:res.data.message,
-            icon:"none"
-          })
-        }
-      })
+    if(that.data.seedStatus==1){
+      if(that.data.goodsData.img_compress.length>0){
+        app.Util.ajax('mall/orderRefund/applyRefund', {
+          orderGoodsId: that.data.goodsDetail.id,
+          cargoStatus: that.data.index1,
+          desc:that.data.goodsValue1,
+          refundAmount:that.data.expMoney==null?that.data.maxMoney.refundQuota:that.data.expMoney,
+          remark:that.data.shuoMing,
+          imageFiles:that.data.goodsData.img_compress
+        }, 'POST').then((res) => {
+          if(res.data.messageCode=="MSG_1001"){
+            wx.redirectTo({
+              url: '/packageA/pages/dealWithReturn/dealWithReturn'
+            })
+          }else{
+            wx.showToast({
+              title:res.data.message,
+              icon:"none"
+            })
+          }
+        })
+      }else{
+        app.Util.ajax('mall/orderRefund/applyRefund', {
+          orderGoodsId: that.data.goodsDetail.id,
+          cargoStatus: that.data.index1,
+          desc:that.data.goodsValue1,
+          refundAmount:that.data.expMoney==null?that.data.maxMoney.refundQuota:that.data.expMoney,
+          remark:that.data.shuoMing
+        }, 'POST').then((res) => {
+          if(res.data.messageCode=="MSG_1001"){
+            wx.redirectTo({
+              url: '/packageA/pages/dealWithReturn/dealWithReturn'
+            })
+          }else{
+            wx.showToast({
+              title:res.data.message,
+              icon:"none"
+            })
+          }
+        })
+      }
     }else{
-      app.Util.ajax('mall/orderRefund/applyRefund', {
-        orderGoodsId: that.data.goodsDetail.id,
-        cargoStatus: that.data.index1,
-        desc:that.data.goodsValue1,
-        refundAmount:that.data.expMoney==null?that.data.maxMoney.refundQuota:that.data.expMoney,
-        remark:that.data.shuoMing
-      }, 'POST').then((res) => {
-        if(res.data.messageCode=="MSG_1001"){
-          wx.redirectTo({
-            url: '/packageA/pages/dealWithReturn/dealWithReturn'
-          })
-        }else{
-          wx.showToast({
-            title:res.data.message,
-            icon:"none"
-          })
-        }
+      that.setData({
+        seedShow:true
       })
     }
     
@@ -335,5 +349,18 @@ Page({
     this.setData({
       shuoMing: val
     })
-  }
+  },
+  cancle:function(){
+    this.setData({
+      seedShow:false
+    })
+  },
+  toSeed:function(){
+    wx.navigateTo({
+      url:"/packageA/pages/seed/seed"
+    })
+    this.setData({
+      seedShow:false
+    })
+  },
 })

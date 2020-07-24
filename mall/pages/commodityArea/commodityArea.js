@@ -19,7 +19,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this;
     if (options.id) {
       that.setData({
@@ -27,12 +27,16 @@ Page({
       })
     }
     that.initData() //初始化数据   
+    //带上邀请码去登陆
+    if (options.inviterCode) {
+      wx.setStorageSync("othersInviterCode", options.inviterCode)
+    }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
     var that = this
     wx.setNavigationBarTitle({
       title: that.data.titleName
@@ -42,7 +46,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     var that = this
 
   },
@@ -50,38 +54,38 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
     wx.removeStorageSync('labelImage')
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
-  initData: function() {
+  initData: function () {
     var that = this
     app.Util.ajax('mall/mdse/activity/activityDetail', {
       id: that.data.activityId
@@ -122,74 +126,74 @@ Page({
     })
   },
   //跳转到详情页
-  toDetail: function(e) {
+  toDetail: function (e) {
     var that = this
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '/pages/detail/detail?id=' + id + '&commodity=' + that.data.activityId,
     })
   },
-  getHeight1: function() {
+  getHeight1: function () {
     var that = this;
     setTimeout(() => {
-      wx.createSelectorQuery().selectAll('#infoBox1').boundingClientRect(function(rect) {
+      wx.createSelectorQuery().selectAll('#infoBox1').boundingClientRect(function (rect) {
         that.setData({
           heightView1: rect[0].top
         })
       }).exec();
     }, 300)
   },
-  getHeight2: function() {
+  getHeight2: function () {
     var that = this;
     setTimeout(() => {
-      wx.createSelectorQuery().selectAll('#infoBox2').boundingClientRect(function(rect) {
+      wx.createSelectorQuery().selectAll('#infoBox2').boundingClientRect(function (rect) {
         that.setData({
           heightView2: rect[0].top
         })
       }).exec();
     }, 300)
   },
-  getHeight3: function() {
+  getHeight3: function () {
     var that = this;
     setTimeout(() => {
-      wx.createSelectorQuery().selectAll('#infoBox3').boundingClientRect(function(rect) {
+      wx.createSelectorQuery().selectAll('#infoBox3').boundingClientRect(function (rect) {
         that.setData({
           heightView3: rect[0].top
         })
       }).exec();
     }, 300)
   },
-  getHeight4: function() {
+  getHeight4: function () {
     var that = this;
     setTimeout(() => {
-      wx.createSelectorQuery().selectAll('#infoBox4').boundingClientRect(function(rect) {
+      wx.createSelectorQuery().selectAll('#infoBox4').boundingClientRect(function (rect) {
         that.setData({
           heightView4: rect[0].top
         })
       }).exec();
     }, 300)
   },
-  getHeight5: function() {
+  getHeight5: function () {
     var that = this;
     setTimeout(() => {
-      wx.createSelectorQuery().selectAll('.classify').boundingClientRect(function(rect) {
+      wx.createSelectorQuery().selectAll('.classify').boundingClientRect(function (rect) {
         that.setData({
           heightView5: rect[0].height
         })
       }).exec();
     }, 300)
   },
-  getHeight6: function() {
+  getHeight6: function () {
     var that = this;
     setTimeout(() => {
-      wx.createSelectorQuery().selectAll('.classify').boundingClientRect(function(rect) {
+      wx.createSelectorQuery().selectAll('.classify').boundingClientRect(function (rect) {
         that.setData({
           heightView6: rect[0].top
         })
       }).exec();
     }, 300)
   },
-  onPageScroll: function(e) {
+  onPageScroll: function (e) {
     var that = this
     that.setData({
       scrollTop: e.scrollTop + (that.data.heightView5) * 2
@@ -207,7 +211,7 @@ Page({
         fixed: false
       })
     }
-    setTimeout(function() {
+    setTimeout(function () {
       if (that.data.scrollTop >= that.data.heightView1 && that.data.scrollTop < that.data.heightView2) {
         that.setData({
           nowstatus: 'infoBox1'
@@ -228,44 +232,44 @@ Page({
     }, 300)
   },
   //规则弹窗
-  showRole: function() {
+  showRole: function () {
     this.setData({
       showRole: true
     })
   },
-  closeShow: function() {
+  closeShow: function () {
     this.setData({
       showRole: false
     })
   },
-  toViewClick: function(e) {
+  toViewClick: function (e) {
     var that = this
     that.setData({
       nowstatus: e.target.dataset.hash
     })
     if (that.data.nowstatus == 'infoBox1') {
-      setTimeout(function() {
+      setTimeout(function () {
         wx.pageScrollTo({
           selector: '#infoBox1',
           duration: 300
         })
       }, 300)
     } else if (that.data.nowstatus == 'infoBox2') {
-      setTimeout(function() {
+      setTimeout(function () {
         wx.pageScrollTo({
           selector: '#infoBox2',
           duration: 300
         })
       }, 300)
     } else if (that.data.nowstatus == 'infoBox3') {
-      setTimeout(function() {
+      setTimeout(function () {
         wx.pageScrollTo({
           selector: '#infoBox3',
           duration: 300
         })
       }, 300)
     } else if (that.data.nowstatus == 'infoBox4') {
-      setTimeout(function() {
+      setTimeout(function () {
         wx.pageScrollTo({
           selector: '#infoBox4',
           duration: 300

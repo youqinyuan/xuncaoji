@@ -53,7 +53,7 @@ Page({
         status: '3'
       },
       {
-        img: app.Util.getUrlImg().hostUrl+'/diamondPartner/card_e.png',
+        img: app.Util.getUrlImg().hostUrl +'/supplement/card_e.png',
         status: '4'
       },
       {
@@ -71,6 +71,7 @@ Page({
     level: null,
     day: null, //剩余天数
     photoNickname: null, //头像和昵称
+    inviterCode:''
   },
 
   /**
@@ -79,8 +80,10 @@ Page({
   onLoad: function(options) {
     var that = this
     //下载线上图片到本地，用于绘制分享图片
-    that.getData();
-    that.initDiamond();
+    if(wx.getStorageSync('token')){
+      that.getData();
+      that.initDiamond();
+    }
     wx.downloadFile({
       url: app.Util.getUrlImg().hostUrl+'/shre_img.png',
       success: function(res) {
@@ -92,17 +95,23 @@ Page({
 
       }
     })
-    app.Util.ajax('mall/personal/followers', {
-      pageNumber: that.data.pageNumber,
-      pageSize: that.data.pageSize
-    }, 'GET').then((res) => {
-      if (res.data.messageCode = 'MSG_1001') {
-        that.data.collocation[1].level=res.data.content.level
-        that.setData({
-          collocation:that.data.collocation
-        })
-      }
+    that.setData({
+      options:options,
+      inviterCode: options.inviterCode?options.inviterCode : ''
     })
+    if(wx.getStorageSync('token')){
+      app.Util.ajax('mall/personal/followers', {
+        pageNumber: that.data.pageNumber,
+        pageSize: that.data.pageSize
+      }, 'GET').then((res) => {
+        if (res.data.messageCode = 'MSG_1001') {
+          that.data.collocation[1].level=res.data.content.level
+          that.setData({
+            collocation:that.data.collocation
+          })
+        }
+      })
+    }
   },
 
   /**
@@ -116,7 +125,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.onLoad()
+    let that = this
+    that.onLoad(that.data.options)
   },
 
   /**
@@ -153,7 +163,7 @@ Page({
   onShareAppMessage: function() {
     var that = this
     return {
-      title: '【钻石合伙人招募令】加入寻草记～共赢未来，带你提前实现财富自由！！！',
+      title: '客户省越多，我们价值越大；提供价值越大，获得回报越多',
       path: '/pages/diamondPartner/diamondPartner?inviterCode=' + wx.getStorageSync('inviterCode'),
       imageUrl: that.data.shareImg,
     }
@@ -342,46 +352,66 @@ Page({
   //开通钻石会员
   openDiamond: function() {
     var that = this
-    app.Util.ajax('mall/order/addDiamondPartnerOrder', {
-      amount: that.data.initialize.payMent
-    }, 'POST').then((res) => {
-      if (res.data.content) {
-        wx.navigateTo({
-          url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&amount1=${1}`,
-        })
-      } else {
-        wx.showToast({
-          title: res.data.message,
-          icon: 'none'
-        })
-      }
-    })
+    if (wx.getStorageSync('token')) {
+      app.Util.ajax('mall/order/addDiamondPartnerOrder', {
+        amount: that.data.initialize.payMent
+      }, 'POST').then((res) => {
+        if (res.data.content) {
+          wx.navigateTo({
+            url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&amount1=${1}`,
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+    }else{
+      wx.navigateTo({
+        url: `/pages/invitationCode/invitationCode?inviterCode=${that.data.inviterCode}`,
+      })
+    }   
   },
   //续费
   payDiamond: function() {
     var that = this
-    app.Util.ajax('mall/order/addDiamondPartnerOrder', {
-      amount: that.data.initialize.payMent
-    }, 'POST').then((res) => {
-      if (res.data.content) {
-        wx.navigateTo({
-          url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&amount1=${1}`,
-        })
-      } else {
-        wx.showToast({
-          title: res.data.message,
-          icon: 'none'
-        })
-      }
-    })
+    if (wx.getStorageSync('token')) {
+      app.Util.ajax('mall/order/addDiamondPartnerOrder', {
+        amount: that.data.initialize.payMent
+      }, 'POST').then((res) => {
+        if (res.data.content) {
+          wx.navigateTo({
+            url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&amount1=${1}`,
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: `/pages/invitationCode/invitationCode?inviterCode=${that.data.inviterCode}`,
+      })
+    }  
+   
   },
   //跳转至6大回报
   jumpDiamondPay: function(e) {
     var that = this
-    var initialize = JSON.stringify(that.data.initialize)
-    wx.navigateTo({
-      url: `/pages/diamondPay/diamondPay?status=${e.currentTarget.dataset.status}&payMent=${that.data.initialize.payMent}&subordiates=${that.data.initialize.subordiates}&diamond=${that.data.initialize.diamond}`,
-    })
+    if (wx.getStorageSync('token')) {
+      var initialize = JSON.stringify(that.data.initialize)
+      wx.navigateTo({
+        url: `/pages/diamondPay/diamondPay?status=${e.currentTarget.dataset.status}&payMent=${that.data.initialize.payMent}&subordiates=${that.data.initialize.subordiates}&diamond=${that.data.initialize.diamond}`,
+      })
+    } else {
+      wx.navigateTo({
+        url: `/pages/invitationCode/invitationCode?inviterCode=${that.data.inviterCode}`,
+      })
+    }  
+   
   },
   //跳转至申请合伙人
   jumpCityPartner: function() {

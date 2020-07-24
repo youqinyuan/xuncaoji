@@ -14,7 +14,7 @@
     <view class="content_box_photo">
       <view class="content_box_left">
         <image wx:if="{{content.avatarKey}}" src="{{content.avatarKey}}"></image>
-        <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+        <image wx:else src="/assets/images/mine/other_ren.png"></image>
         <view class="nickname">{{content.nickname}}</view>
       </view>
       <view class="content_box_right">
@@ -106,7 +106,7 @@
         </view>
       </view>
     </view>
-    <!-- 预售订单 -->
+    <!-- 预售返现 -->
     <view class="content_imgBuy" wx:if="{{content.type==4}}">
       <view class="modalStatus1" wx:if="{{content.status==3||content.status==6}}"></view>
       <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
@@ -164,7 +164,7 @@
       <image src="{{hostUrl}}/changeImg/getMoney.png" class="moneyImg" wx:if="{{content.type==6}}"></image>
       <image src="{{hostUrl}}/changeImg/save.png" class="moneyImg" wx:if="{{content.type==5}}"></image>
       <image src="{{hostUrl}}/changeImg/yi_buy.png" class="moneyImg1" wx:if="{{content.status==3}}"></image>
-      <image src="/assets/images/temp/ic_yud.png" class='moneyImg2' wx:if="{{content.status==6}}"></image>
+      <image src="{{hostUrl}}/supplement/ic_yud.png" class='moneyImg2' wx:if="{{content.status==6}}"></image>
       <view class="goods">
         <image wx:if="{{content.goodsImageUrl}}" class="goodsImg" src="{{content.goodsImageUrl}}"></image>
         <image wx:else class="goodsImg" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
@@ -281,7 +281,7 @@
 <!-- 一次确认弹窗 -->
 <view class="sure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sureOne}}">
   <view class="zan-dialog__container" wx:if="{{sureOne}}">
-    <image wx:if="{{sureOne}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sureOneClose'></image>
+    <!-- <image wx:if="{{sureOne}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sureOneClose'></image> -->
     <view class="sureOne">交易确认</view>
     <view class="sureOneText">
       <view class="head_box1">
@@ -315,7 +315,7 @@
 <!-- 二次确认弹窗 -->
 <view class="sure-two-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sureTwo}}">
   <view class="zan-dialog__container" wx:if="{{sureTwo}}">
-    <image wx:if="{{sureTwo}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sureTwoClose'></image>
+    <!-- <image wx:if="{{sureTwo}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sureTwoClose'></image> -->
     <view class="sureTitle">确认交易</view>
     <view class="sureText">
       <view class="sure_two_value">
@@ -334,7 +334,6 @@
 <!-- 输入密码弹出框 -->
 <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{show}}">
   <view class="zan-dialog__container1" wx:if="{{show}}">
-    <image wx:if="{{show}}" class="pwd-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='cancelShow'></image>
     <view class="pwd-text">请输入支付密码</view>
     <!-- <view class="text">{{passtext}}</view> -->
     <view bindsubmit="formSubmit">
@@ -346,6 +345,7 @@
       <input name="password" value="{{Value}}" adjust-position="{{false}}" password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus" type="number"></input>
     </view>
   </view>
+  <image wx:if="{{show}}" class="pwd-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelShow'></image>
 </view>
 <!--是否设置支付弹框-->
 <view class="zan-dialog1" catchtouchmove="preventTouchMove" wx:if="{{showPassword}}" bindtap='hidePassword'></view>

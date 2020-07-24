@@ -8,53 +8,56 @@
   }
 </wxs>
 <view class="content" wx:if="{{content.length>0}}">
-    <view class="periodList" wx:for="{{content}}" wx:key="{{content.id}}">
-        <view class="top" bindtap="toHelp" data-id="{{item.id}}">
-            <view class="return">
-                <view class="return_left top5">待返</view>
-                <view class="return_right top5">{{item.otherTransfer==1?'他人转让订单':item.goodsName}}</view>
-            </view>
-            <view class="return">
-                <view class="return_left">佣金</view>
-                <view class="return_right">共￥{{item.commissionAmount}}，已消耗￥{{foo.toStr(item.commissionAmount-item.surplusCommissionAmount)}}</view>
-            </view>
-            <view class="return">
-                <view class="return_left">期数</view>
-                <view class="return_right">有{{item.mentionPeriodList.length}}人已帮减{{item.estimatedPeriod}}期，剩余{{item.periodLeft-2}}期</view>
-            </view>
-            <view class="return">
-                <view class="return_left">有效期</view>
-                <view class="return_right" wx:if="{{timeList[index].status==1}}">{{timeList[index].day}}天{{timeList[index].hours}}时{{timeList[index].minutes}}分后失效</view>
-                <view class="return_right" wx:if="{{timeList[index].status==0}}">已失效</view>
-            </view>
-            <view class="return status">
-                <view class="return_left">状态</view>
-                <view class="return_right" wx:if="{{item.status==1||item.status==2}}">进行中</view>
-                <view class="return_right" wx:if="{{item.status==3}}">已完成</view>
-                <view class="return_right" wx:if="{{item.status==5}}">已失效</view>
-                <view class="return_right" wx:if="{{item.status==7}}">{{item.updateTime}} 已撤销</view>
-            </view>
-        </view>
-        <view class="bottom" bindtap="toHelp" data-id="{{item.id}}">
-            <image src="{{hostUrl}}/newIndex/to_share.png" class="to_share" catchtap="shares" data-id="{{item.id}}"/>
-            <view class="button two"  data-temp="{{index}}" catchtap="showPrompt" data-id="{{item.id}}">发布</view>
-            <view class="button two" wx:if="{{item.status==1||item.status==2}}" catchtap="toHelp" data-id="{{item.id}}">提期</view>
-            <view class="button two" catchtap="showPrompt" data-id="{{item.id}}" wx:if="{{item.status==1||item.status==2}}" data-index="1">撤销</view>
-            <view class="button two" catchtap="showPrompt" data-id="{{item.id}}" wx:if="{{item.status==3||item.status==5||item.status==7}}" data-index="2">删除</view>
-            <view class="button three" catchtap="showModal" data-temp="{{index}}">明细</view>
-            <!-- <view class="share" bindtap="showShare" data-index="{{index}}" wx:if="{{item.status==1||item.status==2}}">...</view> -->
-        </view>
-        <!-- <view class="set_share" wx:if="{{tempArr[index]}}">
+  <view class="periodList" wx:for="{{content}}" wx:key="{{content.id}}">
+    <view class="top" bindtap="toHelp" data-id="{{item.id}}">
+      <view class="return">
+        <view class="return_left top5">待返</view>
+        <view class="return_right top5">{{item.otherTransfer==1?'他人转让订单':item.goodsName}}</view>
+      </view>
+      <view class="return">
+        <view class="return_left">佣金</view>
+        <view class="return_right">共￥{{item.commissionAmount}}，已消耗￥{{foo.toStr(item.commissionAmount-item.surplusCommissionAmount)}}</view>
+      </view>
+      <view class="return">
+        <view class="return_left">期数</view>
+        <view class="return_right">有{{item.mentionPeriodList.length}}人已帮减{{item.estimatedPeriod}}期（月），剩余{{item.periodLeft-2}}期（月）</view>
+      </view>
+      <view class="return">
+        <view class="return_left">有效期</view>
+        <view class="return_right" wx:if="{{timeList[index].status==1}}">{{timeList[index].day}}天{{timeList[index].hours}}时{{timeList[index].minutes}}分后失效</view>
+        <view class="return_right" wx:if="{{timeList[index].status==0}}">已失效</view>
+      </view>
+      <view class="return status">
+        <view class="return_left">状态</view>
+        <view class="return_right" wx:if="{{item.status==1||item.status==2}}">进行中</view>
+        <view class="return_right" wx:if="{{item.status==3}}">已完成</view>
+        <view class="return_right" wx:if="{{item.status==5}}">已失效</view>
+        <view class="return_right" wx:if="{{item.status==7}}">{{item.updateTime}} 已撤销</view>
+      </view>
+    </view>
+    <view class="bottom" bindtap="toHelp" data-id="{{item.id}}">
+      <view class="to_shareWrap" catchtap="shares" data-id="{{item.id}}" wx:if="{{item.status==1||item.status==2}}">
+        <image src="{{hostUrl}}/newIndex/to_share.png" class="to_share" />
+        <view class="to_shareText">分享</view>
+      </view>
+      <view class="button two" data-temp="{{index}}" catchtap="showPrompt" data-id="{{item.id}}">发布</view>
+      <view class="button two" wx:if="{{item.status==1||item.status==2}}" catchtap="toHelp" data-id="{{item.id}}">提期</view>
+      <view class="button two" catchtap="showPrompt" data-id="{{item.id}}" wx:if="{{item.status==1||item.status==2}}" data-index="1">撤销</view>
+      <view class="button two" catchtap="showPrompt" data-id="{{item.id}}" wx:if="{{item.status==3||item.status==5||item.status==7}}" data-index="2">删除</view>
+      <view class="button three" catchtap="showModal" data-temp="{{index}}">明细</view>
+      <!-- <view class="share" bindtap="showShare" data-index="{{index}}" wx:if="{{item.status==1||item.status==2}}">...</view> -->
+    </view>
+    <!-- <view class="set_share" wx:if="{{tempArr[index]}}">
             <image  src="{{hostUrl}}/changeImg/set_share.png" class="setShare"/>
         </view>
         <view class="button_one" wx:if="{{tempArr[index]}}" bindtap="showPrompt" data-index="3" data-id="{{item.id}}" data-temp="{{index}}">发布帖子</view>
         <view class="button_two" wx:if="{{tempArr[index]}}" bindtap="shares" data-id="{{item.id}}">分享</view> -->
-    </view>
+  </view>
 </view>
 <!-- 页面暂无数据 -->
 <view class="nothing" wx:if="{{content.length==0}}">
-    <image src="{{hostUrl}}/changeImg/nothing.png" class="noThingImg"/>
-    <view class="bottom_font">这里什么都没有~</view>
+  <image src="{{hostUrl}}/changeImg/nothing.png" class="noThingImg" />
+  <view class="bottom_font">这里什么都没有~</view>
 </view>
 <view style="height:200rpx"></view>
 <!-- 弹窗 -->
@@ -65,8 +68,8 @@
     <view class="text" wx:if="{{promptvalue==2}}">是否删除当前记录</view>
     <view class="text height100" wx:if="{{promptvalue==3}}">是否将您的帖子发布到市场？这样可提高曝光量</view>
     <view class="button_box">
-        <view class="button_text" bindtap="closeDelete">取消</view>
-        <view class="button_text2" bindtap="shureDelete">确定</view>
+      <view class="button_text" bindtap="closeDelete">取消</view>
+      <view class="button_text2" bindtap="shureDelete">确定</view>
     </view>
   </view>
 </view>
@@ -78,18 +81,20 @@
       <view class="tr bg-w" catchtouchmove="preventTouchMove">
         <view class="th">帮助人</view>
         <view class="th">帮助金额</view>
-        <view class="th">帮助期数</view>
+        <view class="th">帮助期(月)数</view>
       </view>
       <view class="tr-height" wx:if="{{detail.length>0}}">
         <view class="tr bg-g" wx:for="{{detail}}" wx:key="">
           <view class="td">{{item.userName}}</view>
-          <view class="td"><text class="td_fuhao">￥</text>{{item.paymentAmount}}</view>
-          <view class="td"><text class="td_fuhao"></text>{{item.mentionPeriod}}</view>
+          <view class="td">
+            <text class="td_fuhao">￥</text>{{item.paymentAmount}}</view>
+          <view class="td">
+            <text class="td_fuhao"></text>{{item.mentionPeriod}}</view>
         </view>
       </view>
     </view>
     <view class="shure_detail_box">
-        <view class="shure_detail" bindtap="closeModal">确定</view>
+      <view class="shure_detail" bindtap="closeModal">确定</view>
     </view>
   </view>
 </view>
@@ -109,6 +114,33 @@
         <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
         <view class="wx">分享群</view>
       </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
     </view>
   </view>
 </view>
+<view class="bg10" wx:if="{{seedToast}}">
+  <view class="content10">
+    <view class="title10">温馨提示</view>
+    <view class="text_one10">本次发布提期贴需消耗{{seedText.seedAmountConsume}}颗种子</view>
+    <view class="text_two10">您的种子数量：{{seedText.seedAmountTotal}}颗</view>
+    <view class="message10" wx:if="{{seedText.status==2}}">种子不足，请先获得足够的种子</view>
+    <view class="button_box10">
+      <view class="button_one10" bindtap="toSeed">去获得种子</view>
+      <view class="button_two10" bindtap="fabu">确定发布</view>
+    </view>
+  </view>
+  <image class="cancel-get10" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap="cancle"></image>
+</view>
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>
+<!-- 使用canvas将分享图片和申请0元购图片合成一张图 -->
+<canvas canvas-id="canvas" style="width:400px;height:400px;position: absolute;left:-1000px;top:-1000px;"></canvas>

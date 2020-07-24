@@ -46,7 +46,7 @@
     width: 16rpx;
     height: 8rpx;
     position: absolute;
-    right: 106rpx;
+    right: 80rpx;
     top: 45rpx;
     z-index: 98;
 }
@@ -127,7 +127,7 @@
 }
 .nianhua_postion{
     margin-top: 45rpx;
-    margin-left: 58rpx;
+    margin-left: 64rpx;
 }
 .profit_postion{
     margin-top: 45rpx;
@@ -165,7 +165,8 @@
     color:rgba(51,51,51,1);
 }
 .nianhua_value view{
-    margin-left: 50rpx;
+    /* margin-left: 50rpx; */
+    text-align: end;
     height: 82rpx;
     line-height: 82rpx;
 }

@@ -1,0 +1,101 @@
+<!-- pages/freeBuy/freeBuy.wxml -->
+<view class="head">
+  <image src="{{hostUrl}}/freeBuy/ic_share.png" class="img3" bindtap="shares" />
+  <image src="{{hostUrl}}/update/freeBuyHead.png" class="img10" />
+</view>
+<view class="content">
+  <view>
+    <image src="{{hostUrl}}/freeBuy/start.png" class="img4" />
+  </view>
+  <view class="img5_Box">
+    <image src="{{hostUrl}}/freeBuy/paper_top.png" class="img5" />
+  </view>
+  <view class="acyivityRule">
+    <text>所支付金额均可全额返还，</text>
+    <text> 有权随时终止，</text>
+    <text>信用卡支付也可返现金。</text>
+  </view>
+  <view class="goodsBox">
+    <view class="section-swiper">
+      <swiper class="section-wrap" autoplay="{{false}}" circular="{{false}}" interval="5000" indicator-color="#FF93A8" indicator-active-color="#FF2644" indicator-dots="true">
+        <block wx:for="{{courseList.videoUrl}}" wx:for-index="idx" wx:key="">
+          <swiper-item>
+            <view class="section-video">
+              <video wx:if='{{idx==playIndex}}' id='video{{idx}}' autoplay="{{false}}" show-center-play-btn="{{false}}" objectFit="cover" src='{{item.videoUrl}}' enable-play-gesture="{{true}}" vslide-gesture-in-fullscreen="{{true}}" direction="90"></video>
+              <image class="play-img" wx:if='{{idx!=playIndex}}' src='{{item.iconUrl}}'></image>
+              <!-- <image class="play-img" wx:if='{{idx!=playIndex&&idx==1}}' mode='widthFix' src='{{courseList.coverUrlView}}'></image> -->
+              <image class="play" wx:if='{{idx!==playIndex}}' mode='widthFix' data-index='{{idx}}' bindtap='videoPlay' src='{{courseList.coverImg}}'></image>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="freeActivity">首次体验一折购，送好礼</view>
+
+    <view class="bannerBox" bindtap="toFreeBuy">
+      <image src="{{hostUrl}}/freeBuy/banner.png" class="banner" />
+    </view>
+    <view class="zhuangshiBox">
+      <text>全品类支持一折购买</text>
+      <image class="zhuangshi" src="{{hostUrl}}/freeBuy/zhuangshi.png" />
+    </view>
+    <view class="goodsList">
+      <block wx:for="{{goodsList}}" wx:key="{{item.id}}">
+        <view class="goodsValue">
+          <view>
+            <image src="{{item.imageUrls}}" />
+          </view>
+          <view>
+            <text class="goodsName">{{item.name}}</text>
+          </view>
+          <view>
+            <text class="goodsPrice">购买原价：￥{{item.dctPrice}}</text>
+          </view>
+          <view>
+            <view class="toGoodsDetail" bindtap="toGoodsDetail" data-goodsid="{{item.id}}">一折购买</view>
+          </view>
+        </view>
+      </block>
+      <view class="bottom"></view>
+    </view>
+    <view class="toIndex" wx:if="{{toIndex}}">
+      <view bindtap="toIndex">
+        查看更多一折拿商品
+        <image class="more" src="{{hostUrl}}/freeBuy/ic_more.png" />
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 分享弹框 -->
+<view class="commodity_screen1" wx:if="{{showModalStatus1}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="shareCommission">你喜欢那就分享给你朋友吧</view>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
+    </view>
+  </view>
+</view>
+<view>
+  <image src="{{hostUrl}}/freeBuy/bottom.png" class="bottom_img" />
+</view>
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>

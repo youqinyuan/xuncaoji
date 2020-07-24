@@ -29,7 +29,7 @@ Page({
         }, 'GET').then((res) => {
           if(res.data.messageCode == "MSG_1001"){
             that.setData({
-              seedGoodsContent: res.data.content.items
+              list: res.data.content.items
             })
           }
         })
@@ -44,26 +44,25 @@ Page({
       pageSize: that.data.pageSize
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
-        if (res.data.content.items == '' && that.data.seedGoodsContent !== '') {
-          wx.showToast({
-            title: '已经到底啦',
-            icon: 'none'
+        if (res.data.content.items == '' && that.data.list !== '') {
+          that.setData({
+            bottom_tishi:'已到底，去【寻商品】提交吧'
           })
         }
-        var arr = that.data.seedGoodsContent
+        var arr = that.data.list
         for (var i = 0; i < res.data.content.items.length; i++) {
           arr.push(res.data.content.items[i])
         }
         that.setData({
-          seedGoodsContent: arr,
+          list: arr,
           pageNumber: pageNumber
         })
       }
     })
   },
-  toGoodsDetail: function(e) {
+  toDetail: function(e) {
     wx.navigateTo({
-      url: '/pages/detail/detail?id=' + e.currentTarget.dataset.goodsid
+      url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id
     })
   },
   /**

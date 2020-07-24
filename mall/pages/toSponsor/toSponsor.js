@@ -14,7 +14,9 @@ Page({
     showModalStatus1: false,
     haibao: false,
     hostUrl: app.Util.getUrlImg().hostUrl,
-    sponsorCancle:false
+    sponsorCancle:false,
+    haibao:false,
+    path_img:''
   },
 
   /**
@@ -182,9 +184,8 @@ Page({
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.content) {
         if (res.data.content.items == '' && that.data.list !== '') {
-          wx.showToast({
-            title: '已经到底啦~',
-            icon: 'none'
+          that.setData({
+            bottom_tishi:'已到底，去【寻商品】提交吧'
           })
         }
         var arr = that.data.list
@@ -211,7 +212,7 @@ Page({
           showModalStatus1: false
         })
         return {
-          title: '是朋友帮我支付1元，我真的需要你的帮助，么么哒～',
+          title: that.data.shareList.desc,
           path: that.data.shareList.link,
           imageUrl: that.data.shareList.imageUrl,
           success: function(res) {
@@ -227,14 +228,14 @@ Page({
           showModalStatus1: false
         })
         return {
-          title: '我在0成本购买心仪商品，活动100%真实，麻烦你帮我赞助一下。',
+          title: that.data.shareList.groupDesc,
           path: that.data.shareList.link,
           imageUrl: that.data.shareList.imageUrl,
         }
       }
     } else {
       return {
-        title: '我在0成本购买心仪商品，活动100%真实，麻烦你帮我赞助一下。',
+        title: that.data.shareList.desc,
         path: that.data.shareList.link,
         imageUrl: that.data.shareList.imageUrl,
         success: function(res) {
@@ -273,20 +274,41 @@ Page({
   },
   //查询分享数据
   chooseShare: function() {
-    console.log(1111111)
     var that = this
     app.Util.ajax('mall/weChat/sharing/target', {
       mode: 13,
       targetId: that.data.content.id
     }, 'GET').then((res) => {
       if (res.data.messageCode == "MSG_1001") {
+        that.data.shareData = res.data.content
         var arr = res.data.content
-        var inviterCode = wx.getStorageSync('inviterCode')
+        var inviterCode = res.data.content.inviterCode
         if (inviterCode) {
           arr.link = arr.link.replace(/{inviterCode}/g, inviterCode)
         } else {
           arr.link = arr.link.replace(/{inviterCode}/g, '')
         }
+         // 产品图片路径转换为本地路径
+         var imageUrl = res.data.content.imageShareUrl
+         if (imageUrl) {
+           wx.getImageInfo({
+             src: imageUrl,
+             success(res) {
+               that.data.shareImg = res.path
+               that.data.path_img = res.path
+             }
+           })
+         }
+         // 产品图片路径转换为本地路径
+         var imageUrl2 = res.data.content.appletQrCodeUrl
+         if (imageUrl2) {
+           wx.getImageInfo({
+             src: imageUrl2,
+             success(res) {
+               that.data.appletQrCodeUrl = res.path
+             }
+           })
+         }
         that.setData({
           shareList: arr
         })
@@ -354,5 +376,252 @@ Page({
         })
       }
     })
-  }
+  },
+    // 分享到朋友圈
+    shareFriend: function() {
+      var that = this
+      var width
+      var height
+      wx.getSystemInfo({
+        success(res) {
+          width = res.screenWidth
+          height = res.screenHeight
+        }
+      })
+      var ctx = wx.createCanvasContext('mycanvas');
+      var path_bg = '/assets/images/icon/bg.png'; //背景图片
+      var path_bg2 = '/assets/images/icon/canvas_title.png';
+      var path_logo = '/assets/images/icon/xuncaoji_icon.png'
+      var path_partner = '/assets/images/icon/partner.png'
+      var title = that.data.shareList.title
+      var inviterCode = that.data.shareData.inviterCode
+      console.log(title,inviterCode)
+      //绘制图片模板的背景图片
+      ctx.drawImage(path_bg, 0, 0, 0.88 * width, 0.89 * height);
+      //绘制红色背景
+      ctx.drawImage(path_bg2, 0, 0, 0.885 * width, 0.224 * height);
+      // 绘制标题
+      ctx.setFontSize(13);
+      ctx.setFillStyle('#fff');
+      ctx.setTextAlign("center")
+      ctx.fillText(title, 0.442 * width, 25);
+      ctx.stroke();
+      // 绘制中间矩形
+      ctx.beginPath()
+      ctx.setFillStyle('#fff')
+      ctx.setShadow(0, 0, 2, '#eee')
+      ctx.fillRect(0.057 * width, 0.08 * height, 0.76 * width, 0.522 * height - 2)
+      ctx.closePath()
+      //绘制合伙人图标
+      ctx.beginPath()
+      ctx.drawImage(path_partner, 0.35 * width, 44, 64, 51);
+      ctx.closePath()
+      // 绘制邀请码
+      if (inviterCode) {
+        ctx.beginPath()
+        ctx.setFontSize(19);
+        ctx.setFillStyle('#F85A53');
+        ctx.fillText(`我的邀请码:${inviterCode}`, 0.442 * width, 120);
+        ctx.stroke();
+        ctx.closePath()
+      }
+      // 绘制最小矩形
+      ctx.beginPath()
+      ctx.setFillStyle('#fff')
+      ctx.setShadow(0, 0, 2, '#eee')
+      ctx.fillRect(0.1308 * width, 130, 0.617 * width, 0.3 * height)
+      ctx.closePath()
+      // 绘制商品图片
+      ctx.beginPath()
+      ctx.drawImage(that.data.path_img, 0.1308 * width + 7, 137, 0.617 * width - 14, 0.3 * height - 14);
+      ctx.closePath()
+                // 绘制已抢数量
+    ctx.beginPath()
+    var number = '赞助中'
+    var textWidth = inviterCode ? ctx.measureText(number).width : ctx.measureText(number).width + 50
+    ctx.setFillStyle('#F5BA2C');
+    ctx.moveTo(0.1308 * width, 174)
+    ctx.lineTo(0.1308 * width, 180)
+    ctx.lineTo(0.1308 * width - 10, 174)
+    ctx.lineTo(0.1308 * width - 10, 150)
+    ctx.lineTo(0.1308 * width + textWidth / 2 + 22, 150)
+    ctx.lineTo(0.1308 * width + textWidth / 2 + 22, 174)
+    ctx.lineTo(0.1308 * width - 10, 174)
+    ctx.arc(0.1308 * width + textWidth / 2 + 22, 162, 12, 1.5 * Math.PI, 0.5 * Math.PI, false)
+    ctx.closePath()
+    ctx.fill()
+    ctx.beginPath()
+    ctx.setFontSize(12);
+    ctx.setFillStyle('#fff');
+    ctx.setTextAlign("left")
+    ctx.fillText(number, 0.1308 * width, 167);
+    ctx.closePath()
+    ctx.stroke();
+      // 绘制广告语
+      ctx.beginPath()
+      var adTips = that.data.shareList.imageDesc
+      ctx.setFontSize(14);
+      ctx.setFillStyle('#333333');
+      ctx.setTextAlign("left")
+      let chr = adTips.split('') // 分割为字符串数组
+      let temp = ''
+      let row = []
+      for (let a = 0; a < chr.length; a++) {
+        if (ctx.measureText(temp).width < 0.65 * width) {
+          temp += chr[a]
+        } else {
+          a--
+          row.push(temp)
+          temp = ''
+        }
+      }
+      row.push(temp)
+      for (var b = 0; b < row.length; b++) {
+        ctx.fillText(row[b], 0.1308 * width - 6, 0.565 * height - 4 + b * 20);
+      }
+      ctx.stroke();
+      ctx.closePath()
+      // 绘制二维码
+      ctx.setShadow(0, 0, 0, '#fff')
+      ctx.beginPath()
+      ctx.drawImage(that.data.appletQrCodeUrl, 0.3 * width, 0.6075 * height - 2, 0.3 * width, 0.3 * width);
+      ctx.closePath()
+      // 绘制扫码提示
+      ctx.beginPath()
+      var codeTips = '长按图片识别二维码查看领取'
+      ctx.setFontSize(12);
+      ctx.setFillStyle('#999999');
+      ctx.setTextAlign("center")
+      ctx.fillText(codeTips, 0.44 * width, 0.787 * height - 2);
+      ctx.stroke();
+      ctx.closePath()
+      ctx.draw()
+      setTimeout(function() {
+        wx.canvasToTempFilePath({
+          canvasId: 'mycanvas',
+          success: function(res) {
+            that.data.haibaoImg = res.tempFilePath
+          }
+        })
+      }, 1000)
+      that.setData({
+        showModalStatus1: false,
+        haibao: true
+      })
+    },
+    // 长按保存到相册
+    handleLongPress: function() {
+      var that = this
+      var tempFilePath = that.data.haibaoImg
+      wx.getSetting({
+        success(res) {
+          if (!res.authSetting['scope.writePhotosAlbum']) {
+            wx.authorize({
+              scope: 'scope.writePhotosAlbum',
+              success() {
+                console.log('授权相册')
+                wx.saveImageToPhotosAlbum({
+                  filePath: tempFilePath,
+                  success(res) {
+                    wx.hideLoading()
+                    console.log('保存图片成功回调')
+                    wx.showToast({
+                      title: '保存成功',
+                      icon: 'none'
+                    });
+                    that.setData({
+                      haibao: false
+                    })
+                  },
+                  fail(res) {
+                    wx.hideLoading()
+                    console.log('保存图片失败回调')
+                    console.log(res);
+                  }
+                })
+              },
+              fail() {
+                wx.hideLoading();
+                wx.showModal({
+                  title: '温馨提示',
+                  content: '您已拒绝授权，是否去设置打开？',
+                  confirmText: "确认",
+                  cancelText: "取消",
+                  success: function(res) {
+                    console.log(res);
+                    if (res.confirm) {
+                      console.log('用户点击确认')
+                      wx.openSetting({
+                        success: (res) => {
+                          console.log(res)
+                          res.authSetting = {
+                            "scope.writePhotosAlbum": true,
+                          }
+                          console.log("openSetting: success");
+                          wx.saveImageToPhotosAlbum({
+                            filePath: tempFilePath,
+                            success(res) {
+                              wx.hideLoading()
+                              wx.showToast({
+                                title: '保存成功',
+                                icon: 'none'
+                              });
+                              that.setData({
+                                haibao: false
+                              })
+                            },
+                            fail(res) {
+                              wx.hideLoading()
+                              console.log(res);
+                            }
+                          })
+                        }
+                      });
+                    } else {
+                      console.log('用户点击取消')
+                    }
+                  }
+                });
+  
+              }
+            })
+          } else {
+            console.log('保存图片')
+            wx.saveImageToPhotosAlbum({
+              filePath: tempFilePath,
+              success(res) {
+                wx.hideLoading()
+                console.log('保存图片成功回调')
+                wx.showToast({
+                  title: '保存成功',
+                  icon: 'none'
+                });
+  
+                that.setData({
+                  haibao: false
+                })
+              },
+              fail(res) {
+                wx.hideLoading()
+                console.log('saveImageToPhotosAlbum 失败回调')
+                console.log(res);
+              }
+            })
+          }
+        },
+        fail(res) {
+          wx.hideLoading()
+          console.log('wx.getSetting 失败回调')
+          console.log(res);
+        }
+      })
+  
+    },
+      // 关闭海报分享页面
+      close_hb: function() {
+        var that = this
+        that.setData({
+          haibao: false
+        })
+      },
 })

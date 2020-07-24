@@ -45,6 +45,7 @@ Page({
     var that = this
     let inviterCode = ''
     wx.setStorageSync("freeBuyStatus",1)
+    console.log(options)
     wx.removeStorage({
       key: 'tips',
       success: function(res) {},

@@ -20,6 +20,12 @@ Page({
     getMore1: '',//查看更多
     hostUrl: app.Util.getUrlImg().hostUrl
   },
+  // 跳转到寻商品页面
+  emptyBtn(){
+    wx.switchTab({
+      url: '/pages/wishpool/wishpool',
+    })
+  },
   //跳转到详情页
   toDetail(e){
     const id = e.currentTarget.dataset.id
@@ -172,7 +178,7 @@ Page({
       if (res.messageCode = 'MSG_1001') {
         if (res.data.content.goodsResult.items == '' && that.data.goodsResult !== '') {
           that.setData({
-            textToast: '已经到底啦'
+            textToast: '已到底，去【寻商品】提交吧'
           })
         }
         var arr = that.data.goodsResult

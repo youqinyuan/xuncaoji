@@ -76,7 +76,7 @@
   height: 80rpx;
   line-height: 80rpx;
   text-align: center;
-  background: rgba(255, 38, 68, 1);
+  background: #FF2644;
   border-radius: 40rpx;
   color: #fff;
 }

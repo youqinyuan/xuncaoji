@@ -4,7 +4,7 @@
   <view class="store-title">
     <!--pages/cart/cart.wxml-->
     <view class="store-wrapper">
-     <!--商品列表-->
+      <!--商品列表-->
       <view class="store-container-wrapper" wx:if="{{shops.length >0 }}">
         <view class="shop-view" style="margin-bottom: 400rpx;">
           <view class="shop-view-wrapper" wx:for="{{shops}}" wx:key="{{index}}" wx:for-index="groupIndex">
@@ -16,41 +16,70 @@
               <text class="text">{{item.storeName}}</text>
               <text class="text1">自营</text>
             </view> -->
-            <checkbox-group data-groupIndex="{{groupIndex}}" wx:for="{{item.cartDetails}}" data-kc="{{item}}" wx:key="{{index}}" data-index="{{index}}" bindchange="Checks1" class="store-box1">
-              <view wx:if="{{item.applyStatus==0}}" class="applyStatus">
-                <view class="againCalculate-wrap">
-                  <view class="calculateInvalid">计算价格失效</view>
-                  <view class="againCalculate" catchtap="againCalculate" data-goodsid='{{item.goodsId}}' data-stockid='{{item.stockId}}' data-quantity="{{item.quantity}}" data-shoppingCartGoodsId='{{item.id}}'>重新计算</view>
+            <checkbox-group data-groupIndex="{{groupIndex}}" wx:for="{{item.cartDetails}}" data-kc="{{item}}" wx:key="{{index}}" data-index="{{index}}" bindchange="Checks1" class="touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="touchstart"
+              bindtouchmove="touchmove">
+              <view class="container_cart">
+                <view wx:if="{{item.applyStatus==0}}" class="applyStatus">
+                  <view class="againCalculate-wrap">
+                    <view class="calculateInvalid">计算价格失效</view>
+                    <view class="againCalculate" catchtap="againCalculate" data-goodsid='{{item.goodsId}}' data-stockid='{{item.stockId}}' data-quantity="{{item.quantity}}" data-shoppingCartGoodsId='{{item.id}}'>重新计算</view>
+                  </view>
+                </view>
+                <checkbox class="goods-view" checked="{{item.checked}}"></checkbox>
+                <image src="{{item.imageUrl}}" class="goods-view-img"></image>
+                <view class="goods-view-wrapper" data-id="{{item.goodsId}}" data-status="{{item.status}}" bindtap='toDetail'>
+                  <view class="goods-view-name">{{item.goodsName}}</view>
+                  <view class="goods-view-spcDesc">{{item.spcDesc}}</view>
+                  <view class="goods-view-bottom">
+                    <view class="goods-view-sign">¥
+                      <view class="goods-view-price">{{item.goodsPrice}}</view>
+                    </view>
+                    <view class="num-item" wx:if="{{item.status==1}}">
+                      <text catchtap="bindMinus" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}">-</text>
+                      <input type="number" disabled='disabled' value="{{item.quantity}}" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}" />
+                      <text catchtap="bindPlus" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}">+</text>
+                    </view>
+                    <view class="num-item1" wx:if="{{item.status==2}}">商品已下架 </view>
+                    <view class="num-item2" wx:if="{{item.status==3}}">商品已失效</view>
+                  </view>
+                  <view class="zero-wrap">
+                    <view class="zero-message" catchtap='toApplyZero' wx:if="{{item.expectedAmount!==null}}" data-stockid='{{item.stockId}}' data-quantity='{{item.quantity}}' data-expectedAmount='{{item.expectedAmount}}' data-cashBackPeriods='{{item.cashBackPeriods}}' data-needPaymentAmount='{{item.goodsPrice}}'
+                      data-goodsid='{{item.goodsId}}' data-shoppingCartGoodsId='{{item.id}}'>查看一折购信息</view>
+                    <!-- <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view> -->
+                  </view>
                 </view>
               </view>
-              <checkbox class="goods-view" checked="{{item.checked}}"></checkbox>
-              <image src="{{item.imageUrl}}" class="goods-view-img"></image>
-              <view class="goods-view-wrapper" data-id="{{item.goodsId}}" data-status="{{item.status}}" bindtap='toDetail'>
-                <view class="goods-view-name">{{item.goodsName}}</view>
-                <view class="goods-view-spcDesc">{{item.spcDesc}}</view>
-                <view class="goods-view-bottom">
-                  <view class="goods-view-sign">¥
-                    <view class="goods-view-price">{{item.goodsPrice}}</view>
-                  </view>
-                  <view class="num-item" wx:if="{{item.status==1}}">
-                    <text catchtap="bindMinus" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}">-</text>
-                    <input type="number" disabled='disabled' value="{{item.quantity}}" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}" />
-                    <text catchtap="bindPlus" data-index="{{index}}" data-groupIndex="{{groupIndex}}" data-id="{{item.id}}" data-num="{{item.quantity}}">+</text>
-                  </view>
-                  <view class="num-item1" wx:if="{{item.status==2}}">商品已下架 </view>
-                  <view class="num-item2" wx:if="{{item.status==3}}">商品已失效</view>
-                </view>
-                <view class="zero-wrap">
-                  <view class="zero-message" catchtap='toApplyZero' wx:if="{{item.expectedAmount!==null}}" data-stockid='{{item.stockId}}' data-quantity='{{item.quantity}}' data-expectedAmount='{{item.expectedAmount}}' data-cashBackPeriods='{{item.cashBackPeriods}}' data-needPaymentAmount='{{item.goodsPrice}}'
-                    data-goodsid='{{item.goodsId}}' data-shoppingCartGoodsId='{{item.id}}'>查看0元申请信息</view>
-                  <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
-                </view>
-              </view>
+              <view class="del" catchtap="del" data-id="{{item.id}}" data-index="{{index}}">删除</view>
             </checkbox-group>
           </view>
           <view class="detail-bottom">{{text}}</view>
           <!-- 全选ICON -->
-          <view class="store-total" wx:if="{{shops.length >0 }}">
+          <view class="addCart-wrap" wx:if="{{shops.length >0 }}">
+            <view class="addCart_left">
+              <image style=" width: 36rpx;height: 36rpx;" src="/assets/images/mine/shoppingcart_list_onchoose.png" data-index="{{index}}" bindtap="AllTap" wx:if="{{checkedAll==false}}"></image>
+              <view style=" width: 36rpx;height: 36rpx;background:#fff;border-radius:50%;" wx:if="{{checkedAll==true}}" bindtap="AllTap">
+                <image src="/assets/images/mine/order_choose_icon.png" data-index="{{index}}" class="store-box2"></image>
+              </view>
+              <!-- <checkbox-group bindchange="AllTap" data-index="{{index}}" class="store-box2">
+                <checkbox class="addCart_icon" checked='{{checkedAll}}'></checkbox>
+              </checkbox-group> -->
+              <view class="store-total-text">全选</view>
+            </view>
+            <view class="circle">{{orderContent.order.goodsCount}}</view>
+            <view class="addCart_right">
+              <view class="add_price">
+                <view class="allSign">
+                  <text>￥</text>
+                  <text>{{priceAll}}</text>
+                </view>
+                <view class="allPrice">
+                  <text>不含运费</text>
+                </view>
+              </view>
+              <view class="btn" style="background:{{color}};" catchtap="jumpPlaceOrder">去结算</view>
+            </view>
+          </view>
+          <!-- <view class="store-total" wx:if="{{shops.length >0 }}">
             <checkbox-group bindchange="AllTap" data-index="{{index}}" class="store-box2">
               <checkbox class="goods-view2" checked='{{checkedAll}}'></checkbox>
             </checkbox-group>
@@ -60,7 +89,7 @@
             <view class="store-total-num">
               <text class="store-total-num-text">￥</text>{{priceAll}}</view>
             <view class="store-total-btn" style="background:{{color}}" bindtap='jumpPlaceOrder'>结算</view>
-          </view>
+          </view> -->
         </view>
       </view>
       <view class="store-container" wx:else>
@@ -68,7 +97,7 @@
           <image src="{{hostUrl}}/icon/gouwuche_no_n.png" class="store-img"></image>
         </view>
         <view class="store-text">还没有商品呦</view>
-      </view>     
+      </view>
     </view>
   </view>
 </view>

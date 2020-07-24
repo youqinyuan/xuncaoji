@@ -3,14 +3,14 @@
 <view class="businessInfo">
   <view class="businessInfo-name">
     <view class="stroeName">{{store.name}}</view>
-    <view class="storeGrade">
+    <!-- <view class="storeGrade">
       <view class='stars' wx:for='{{[1,2,3,4,5]}}' wx:key="{{index}}" wx:for-item='i'>
         <image src='{{hostUrl}}/newIndex/pingj_xinxin.png' wx:if="{{store.score >= index+1 }}"></image>
         <image src='{{hostUrl}}/newIndex/pingj_xinxin_l.png' wx:elif="{{store.score >= index && (store.score*10)%10 !=0 }}"></image>
-        <image src='/assets/images/temp/pingj_xinxin_p.png' wx:else></image>
+        <image src='{{hostUrl}}/supplement/pingj_xinxin_p.png' wx:else></image>
       </view>
       <view class="storeText">{{store.score}}分</view>
-    </view>
+    </view> -->
   </view>
   <image class="stroeImg" src="{{store.logoUrl}}"></image>
 </view>
@@ -31,7 +31,7 @@
   <view class="notice-title">商家公告</view>
   <view class="notice-content">
     <block class="" wx:for="{{store.storeNoticeResponse.noticeImgList}}" wx:key="{{}}" wx:for-item="itemName" bindtap="imgYu" data-src="{{itemName}}">
-      <image class="notice-img" src="{{itemName}}"></image>
+      <image class="notice-img" src="{{itemName.imgUrl}}"></image>
     </block>
     <view class="notice-text" wx:if="{{store.storeNoticeResponse.notice}}">{{store.storeNoticeResponse.notice}}</view>
   </view>
@@ -60,7 +60,8 @@
   </view>
   <view class="message no-border" wx:else>
     <view class="store-name">营业时间</view>
-    <view>周{{store.days}}</view>
+    <view wx:if="{{start&&end}}">周{{start}}至周{{end}}</view>
+    <view wx:else>周{{store.days}}</view>
   </view>
 </view>
 <view class="block"></view>

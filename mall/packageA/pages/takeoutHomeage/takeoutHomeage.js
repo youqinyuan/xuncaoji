@@ -65,17 +65,16 @@ Page({
     if (!options.goodsId) {
       //取消缓存商品id对参数没有商品id时的影响
       wx.removeStorageSync('takeoutGoodsId')
-    }
+    }  
+    that.init();
+    that.initgetMore();
+    that.initStore();
     if (options.goodsId || wx.getStorageSync('takeoutGoodsId')) {
       that.setData({
         goodsId: options.goodsId || wx.getStorageSync('takeoutGoodsId')
       })
       that.showOrder2()
     }
-    that.init();
-    that.initgetMore();
-    that.initStore();
-
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -89,9 +88,13 @@ Page({
    */
   onShow: function() {
     let that = this
+    that.setData({
+      pageNumber:1
+    })
     //查询购物车
     if (wx.getStorageSync('token')) {
       that.queryCart()
+      that.initgetMore();
     }
 
   },
@@ -133,9 +136,12 @@ Page({
 
   },
   businessInfo(e){
-    wx.navigateTo({
-      url: '/packageA/pages/businessInfo/businessInfo?storeId=' + e.currentTarget.dataset.id,
-    })
+    let that = this
+    if(that.data.store.type==1){
+      wx.navigateTo({
+        url: '/packageA/pages/businessInfo/businessInfo?storeId=' + e.currentTarget.dataset.id,
+      })
+    }   
   },
   getHeight1() {
     let that = this;
@@ -206,7 +212,9 @@ Page({
         that.setData({
           store: res.data.content
         })
-        that.getHeight1();
+        if(that.data.store.type==1){
+          that.getHeight1();
+        }       
       }
     })
   },
@@ -221,7 +229,7 @@ Page({
       merchantCategoryId: that.data.merchantCategoryId
     }
     app.Util.ajax('mall/home/store/goods', data, 'GET').then((res) => {
-      if (res.data.messageCode = 'MSG_1001') {
+      if (res.data.messageCode === 'MSG_1001') {
         res.data.content.items.forEach((v, i) => {
           v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
         })
@@ -243,9 +251,8 @@ Page({
     app.Util.ajax('mall/home/store/goods', data, 'GET').then((res) => {
       if (res.data.messageCode = 'MSG_1001') {
         if (res.data.content.items == '' && that.data.list !== '') {
-          wx.showToast({
-            title: '已经到底啦',
-            icon: 'none'
+          that.setData({
+            bottom_tishi:'已到底，去【寻商品】提交吧'
           })
         }
         let arr = that.data.list
@@ -301,10 +308,12 @@ Page({
     let that = this
     app.Util.ajax('mall/bag/deleteBatch?storeId=' + that.data.storeId, null, 'DELETE').then((res) => {
       if (res.data.messageCode = 'MSG_1001') {
-        that.queryCart()
         that.setData({
-          showModal: false
+          showModal: false,
+          pageNumber: 1
         })
+        that.queryCart()
+        that.initgetMore()       
       }
     })
   },
@@ -436,9 +445,11 @@ Page({
         }
       }
     })
-    that.setData({
-      showOrder: true
-    })
+    if(that.data.store){
+      that.setData({
+        showOrder: true
+      })
+    }   
   },
   //选择规格index值
   specIndex(e) {
@@ -500,13 +511,13 @@ Page({
     let num = that.data.num;
     if (num > 1) {
       num--;
-    }
-    if (num <= 1) {
+    } else if(num <= 1) {
       wx.showToast({
         title: '不能再少了哟',
         icon: 'none'
       })
     }
+    
     let minusStatus = num <= 1 ? 'disabled' : 'normal';
     that.setData({
       num: num,
@@ -576,11 +587,15 @@ Page({
                 title: '添加商品成功',
                 icon: 'none'
               })
-              that.queryCart()
               that.setData({
                 showOrder: false,
-                num: 1
+                num: 1,
+                pageNumber: 1
               })
+              setTimeout(function(){
+                that.queryCart()
+                that.initgetMore()   
+              },500)          
             }
           } else {
             wx.showToast({
@@ -629,11 +644,15 @@ Page({
                 title: '添加商品成功',
                 icon: 'none'
               })
-              that.queryCart()
               that.setData({
                 showOrder: false,
-                num: 1
+                num: 1,
+                pageNumber: 1
               })
+              setTimeout(function () {
+                that.queryCart()
+                that.initgetMore()
+              }, 500)                
             }
           } else {
             wx.showToast({
@@ -662,7 +681,7 @@ Page({
   jumpZero(e) {
     let that = this
     wx.navigateTo({
-      url: '/pages/applyRule/applyRule',
+      url: '/packageB/pages/applyRule/applyRule',
     })
   },
   //跳转到下单
@@ -682,6 +701,7 @@ Page({
       storePickUp: that.data.store.storePickUp,
       takeAway: that.data.store.takeAway,
       useDelivery: that.data.store.useDelivery,
+      type: that.data.store.type,
     }
     let store = JSON.stringify(shop)
     if (that.data.shoppingCart) {
@@ -747,13 +767,16 @@ Page({
     let that = this
     let quantity = Number(e.currentTarget.dataset.quantity)
     if (quantity > 1) {
-      console.log(quantity)
       app.Util.ajax('mall/bag/updateShoppingCart', {
         id: e.currentTarget.dataset.id,
         quantity: quantity - 1
       }, 'POST').then((res) => {
         if (res.data.content) {
+          that.setData({
+            pageNumber: 1
+          })
           that.queryCart()
+          that.initgetMore()
         } else {
           wx.showToast({
             title: res.data.message,
@@ -762,10 +785,13 @@ Page({
         }
       })
     } else {
-      console.log(e)
       app.Util.ajax('mall/bag/deleteById?id=' + e.currentTarget.dataset.id, null, 'DELETE').then((res) => {
         if (res.data.messageCode = 'MSG_1001') {
+          that.setData({
+            pageNumber: 1
+          })
           that.queryCart()
+          that.initgetMore()
         }
       })
     }
@@ -778,7 +804,11 @@ Page({
       quantity: Number(e.currentTarget.dataset.quantity) + 1
     }, 'POST').then((res) => {
       if (res.data.content) {
+        that.setData({
+          pageNumber: 1
+        })
         that.queryCart()
+        that.initgetMore()
       } else {
         wx.showToast({
           title: res.data.message,

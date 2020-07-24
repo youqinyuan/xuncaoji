@@ -15,36 +15,36 @@ Page({
     shareImg: '', //分享图片
     list: [{
         title: '1元奖励金',
-        bannerUrl: app.Util.getUrlImg().hostUrl+"/partner_a.png",
+        bannerUrl: app.Util.getUrlImg().hostUrl+"/twoSix/partner_a.png",
         select: true,
         status: '1'
       },
       {
         title: '2元购物金',
         select: false,
-        bannerUrl: app.Util.getUrlImg().hostUrl+"/partner_e.png",
+        bannerUrl: app.Util.getUrlImg().hostUrl+"/twoSix/partner_e.png",
         status: '2'
       },
       {
         title: '坐享下级消费提成',
         select: false,
-        bannerUrl: app.Util.getUrlImg().hostUrl+"/partner_c.png",
+        bannerUrl: app.Util.getUrlImg().hostUrl+"/twoSix/partner_c.png",
         status: '3'
       },
       {
-        title: '享FreeBuy下单优惠',
+        title: '享一折购下单优惠',
         select: false,
-        bannerUrl: app.Util.getUrlImg().hostUrl+"/partner_d.png",
+        bannerUrl: app.Util.getUrlImg().hostUrl+"/twoSix/partner_d.png",
         status: '4'
       }, {
         title: '优先成为城市合伙人',
         select: false,
-        bannerUrl: app.Util.getUrlImg().hostUrl+"/partner_b.png",
+        bannerUrl: app.Util.getUrlImg().hostUrl+"/twoSix/partner_f.png",
         status: '5'
       }, {
         title: '待返转让分佣',
         select: false,
-        bannerUrl: app.Util.getUrlImg().hostUrl+"/partner_a.png",
+        bannerUrl: app.Util.getUrlImg().hostUrl+"/twoSix/partner_a.png",
         status: '6'
       },
     ],
@@ -124,7 +124,7 @@ Page({
   onShareAppMessage: function() {
     var that = this
     return {
-      title: '【钻石合伙人招募令】加入寻草记～共赢未来，带你提前实现财富自由！！！',
+      title: '客户省越多，我们价值越大；提供价值越大，获得回报越多',
       path: '/pages/diamondPartner/diamondPartner?inviterCode=' + wx.getStorageSync('inviterCode'),
       imageUrl: that.data.shareImg,
     }

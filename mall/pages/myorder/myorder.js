@@ -60,10 +60,10 @@ Page({
     cancelOrder: ['我不想买了', '写错重拍', '卖家缺货', '其他原因'], //取消订单
     showDialog3: false, //取消订单弹框
     reason1: '我不想买了', //取消订单理由
-    showDialog4: false, //终止0元购弹窗
     options: {},
     status: '',
-    orderId: 0
+    orderId: 0,
+    seedToast:false//预售种子消耗弹窗
   },
   // 跳转到订单详情
   jumpOrderDetail: function(e) {
@@ -98,6 +98,9 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    //控制页面跳转
+    app.globalData.returnMentionPeriodStatus==1
+    
     if(wx.getStorageSync("orderShowStatus")){
       for (var i in that.data.orderTabItem) {
         that.setData({
@@ -201,7 +204,7 @@ Page({
       if (res.data.content) {
         if (res.data.content.items == '' && that.data.list !== '') {
           that.setData({
-            text1: '已经到底啦'
+            text1: '已到底，去【寻商品】提交吧'
           })
         }
         var arr = that.data.list
@@ -251,7 +254,7 @@ Page({
       if (res.data.content) {
         if (res.data.content.items == '' && that.data.allOrder !== '') {
           that.setData({
-            text: '已经到底啦'
+            text: '已到底，去【寻商品】提交吧'
           })
         }
         var arr = that.data.allOrder
@@ -281,7 +284,7 @@ Page({
       if (res.data.content) {
         if (res.data.content.items == '' && that.data.returnOrder !== '') {
           that.setData({
-            text: '已经到底啦'
+            text: '已到底，去【寻商品】提交吧'
           })
         }
         var arr = that.data.returnOrder
@@ -298,26 +301,37 @@ Page({
   //终止0元购按钮
   stopZero: function(e) {
     var that = this
-    // console.log("终止零元购订单Id:"+e.currentTarget.dataset.orderid)
-    app.Util.ajax('mall/order/queryStopApplyZeroPurchase', {
-      orderId: e.currentTarget.dataset.orderid
-    }, 'GET').then((res) => {
-      // console.log("终止零元购剩余返现:"+JSON.stringify(res.data.content))
-      if(res.data.messageCode=="MSG_1001"){
-        that.setData({
-          refundAmount: res.data.content.refundAmount,
-          orderId: e.currentTarget.dataset.orderid
-        })
-        that.setData({
-          showDialog4: true
-        })
-      }else{
-        wx.showToast({
-          title:res.data.message,
-          icon:"none"
-        })
-      }
+    console.log(e)
+    that.setData({
+      whetherAdvanceSale:e.currentTarget.dataset.whetheradvancesale,
+      latestStatus:e.currentTarget.dataset.lateststatus
     })
+    if(e.currentTarget.dataset.isstop==2){
+      console.log("已置灰")
+    }else{
+      app.Util.ajax('mall/order/queryStopApplyZeroPurchase', {
+        orderId: e.currentTarget.dataset.orderid
+      }, 'GET').then((res) => {
+        if(res.data.messageCode=="MSG_1001"){
+          that.setData({
+            refundAmount: res.data.content.refundAmount,
+            orderId: e.currentTarget.dataset.orderid,
+            seedAmountTotal:res.data.content.seedAmountTotal,
+            seedAmountConsume:res.data.content.seedAmountConsume,
+            seedStatus:res.data.content.status,
+            isStop:res.data.content.isStop
+          })
+          that.setData({
+            seedToast: true
+          })
+        }else{
+          wx.showToast({
+            title:res.data.message,
+            icon:"none"
+          })
+        }
+      })
+    }
   },
   //去付款按钮
   toPay: function(e) {
@@ -332,7 +346,6 @@ Page({
       id:id,
       orderType:orderType
     })
-    console.log(advancesalestatus,defaultamountstatus)
     if(advancesalestatus==1&&defaultamountstatus==2){
       that.setData({
         payStatus:true
@@ -342,7 +355,7 @@ Page({
         url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}&buyWay=${1}`,
       })
     }else{
-      //预售订单卖方付尾款提示 orderSell
+      //预售返现卖方付尾款提示 orderSell
       wx.navigateTo({
         url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}&orderSell=1`,
       })
@@ -687,15 +700,20 @@ Page({
   },
   comfireCancel: function(e) {
     var that = this
-    var latestStatus = e.currentTarget.dataset.lateststatus
+    var latestStatus = that.data.latestStatus
+    var whetherAdvanceSale = that.data.whetherAdvanceSale
+    let isStop = that.data.isStop
+    console.log(latestStatus,whetherAdvanceSale)
     app.Util.ajax('mall/order/queryOrder', {
       orderId: that.data.orderId
     }, 'GET').then((res) => {
-      console.log('订单详情：' + JSON.stringify(res.data.content.orderGoodsDetail.length))
-      if (res.data.content.orderGoodsDetail.length > 1) {
+      if (!isStop) {
         //订单内有多个商品，进入返现明细
         wx.navigateTo({
-          url: `/pages/cashBack/cashBack?orderId=${that.data.orderId}&latestStatus=${latestStatus}`
+          url: `/pages/cashBack/cashBack?orderId=${that.data.orderId}&latestStatus=${latestStatus}&whetherAdvanceSale=${whetherAdvanceSale}`
+        })
+        this.setData({
+          seedToast:false
         })
       } else {
         //订单内只有单个商品，直接终止
@@ -715,7 +733,7 @@ Page({
               that.initgetMore1()
             }, 2000) //延迟时间 这里是1秒
             that.setData({
-              showDialog4: false
+              seedToast: false
             })
           } else {
             wx.showToast({
@@ -728,27 +746,10 @@ Page({
       }
     })
   },
-  wait: function() {
-    console.log("取消终止零元购")
-    this.setData({
-      showDialog4: false
-    })
-  },
   toDealWith:function(e){
-    console.log(e.currentTarget.dataset.id)
       wx.navigateTo({
         url:"/packageA/pages/dealWithReturn/dealWithReturn?goodsId="+e.currentTarget.dataset.id
       })
-  },
-  sellClose1:function(){
-    this.setData({
-      sellOneStatus:false
-    })
-  },
-  sellClose2:function(){
-    this.setData({
-      sellTwoStatus:false
-    })
   },
   cancelPreSell:function(e){
     var advanceSaleStatus = e.currentTarget.dataset.advancesalestatus
@@ -792,5 +793,18 @@ Page({
         })
       }
     })
-  }
+  },
+  cancle:function(){
+    this.setData({
+      seedToast:false
+    })
+  },
+  toSeed:function(){
+    wx.navigateTo({
+      url:"/packageA/pages/seed/seed"
+    })
+    this.setData({
+      seedToast:false
+    })
+  },
 })

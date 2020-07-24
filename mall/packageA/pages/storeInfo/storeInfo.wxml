@@ -38,6 +38,10 @@
             <input placeholder="" class="name" maxlength="11" name="referrerMobileNumber" value="{{moveData.referrerMobileNumber?moveData.referrerMobileNumber:''}}"type="number"/>
         </view>
         <view class="title border_bottom">
+            <view class="left">介绍人邀请码</view>
+            <input placeholder="" class="name" maxlength="11" name="inviterCode" value="{{moveData.refInviterCode?moveData.refInviterCode:''}}" type="number"/>
+        </view>
+        <view class="title border_bottom">
             <view class="left">联系方式</view>
             <input placeholder="" class="name wid220" maxlength="11" name="mobileNumber" bindinput="getPhone" value="{{moveData.mobileNumber?moveData.mobileNumber:''}}" type="number"/>
             <view class="getSecurityCode" bindtap="getCode">获取验证码</view>

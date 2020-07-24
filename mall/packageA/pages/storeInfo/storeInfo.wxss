@@ -21,6 +21,9 @@ page{
     height: 90rpx;
     line-height: 90rpx;
 }
+.wid200{
+    width: 220rpx;
+}
 .business{
     font-size:28rpx;
     color:#333;
@@ -85,7 +88,7 @@ page{
 .getSecurityCode{
     width:148rpx;
     height:48rpx;
-    border:2rpx solid rgba(255,38,68,1);
+    border:1rpx solid rgba(255,38,68,1);
     border-radius:8rpx;
     font-size:24rpx;
     color:rgba(255,38,68,1);

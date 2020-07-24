@@ -26,7 +26,7 @@
     </view>
   </view>
 
-  <textarea placeholder="快来说说宝贝它的优点和美中不足的地方吧(0/100)" maxlength="{{100}}" bindinput="getTextareaValue" data-index="{{index}}">
+  <textarea placeholder-style="color:#aaa;" placeholder="快来说说宝贝它的优点和美中不足的地方吧(0/100)" maxlength="{{100}}" bindinput="getTextareaValue" data-index="{{index}}">
   </textarea>
   <view class="img_wrap"  catchtap="getIndex" data-index="{{index}}">
     <view class="commentImg_wrap" wx:for="{{item.imgList}}" wx:key="items" wx:for-item="items">

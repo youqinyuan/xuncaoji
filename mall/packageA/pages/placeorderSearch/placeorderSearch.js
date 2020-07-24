@@ -443,7 +443,7 @@ Page({
   jumpZero(e) {
     let that = this
     wx.navigateTo({
-      url: '/pages/applyRule/applyRule',
+      url: '/packageB/pages/applyRule/applyRule',
     })
   },
   //跳转到下单

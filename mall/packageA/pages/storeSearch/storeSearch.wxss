@@ -75,7 +75,7 @@
 
 .takeout-sign {
   display: inline-block;
-  border: 2rpx solid #ff6417;
+  border: 1rpx solid #ff6417;
   border-radius: 6rpx;
   font-size: 20rpx;
   color: #ff6417;

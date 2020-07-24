@@ -9,6 +9,8 @@
   }
 </wxs>
 <wxs module="filters" src="filter.wxs"></wxs>
+<import src='/template/floatingwindow/floatingwindow' />
+<import src='/template/pop-upwindows/pop-upwindows' />
 <view class="content_pulish_wrap" wx:if="{{currentTab==1&&isPublish==true}}">
   <image src="/assets/images/icon/bg_pulish.png" class="content_pulish"></image>
   <view style="{{index==0?'border-left: none;':'border-left: 2rpx solid #E7E7E7;'}}" class="content_pulish_text" wx:for="{{list2}}" wx:key="{{item}}" data-index="{{index}}" catchtap="getPublish">{{item}}</view>
@@ -28,13 +30,13 @@
 </view>
 <view class="block"></view>
 <view class="getSaveMoney" wx:if="{{currentTab==3}}">
-  <view class="getMoney {{showClass==1?'selectClass':''}}" bindtap="getMoney">商品买帖</view>
-  <view class="getMoney {{showClass==2?'selectClass':''}}" bindtap="saveMoney">商品卖帖</view>
+  <view class="getMoney {{showClass==1?'selectClass':''}}" bindtap="getMoney">预定商品</view>
+  <view class="getMoney {{showClass==2?'selectClass':''}}" bindtap="saveMoney">预售商品</view>
 </view>
 <view class="orderGet" wx:if="{{currentTab==2}}">
-  <view class="yuOrder {{selectClass==2?'addClass':''}}" bindtap="buyOrder">订单卖帖</view>
-  <view class="yuOrder {{selectClass==4?'addClass':''}}" bindtap="yuOrder">预售订单</view>
-  <view class="yuOrder {{selectClass==3?'addClass':''}}" bindtap="saleOrder">订单买帖</view>
+  <view class="yuOrder {{selectClass==2?'addClass':''}}" bindtap="buyOrder">返现卖帖</view>
+  <view class="yuOrder {{selectClass==4?'addClass':''}}" bindtap="yuOrder">预售返现</view>
+  <view class="yuOrder {{selectClass==3?'addClass':''}}" bindtap="saleOrder">返现买帖</view>
 </view>
 <!-- 新消息 -->
 <view class="container-wrap" style="{{currentTab==2||currentTab==3?'margin-top:112rpx;':''}}">
@@ -46,7 +48,7 @@
       <view class="content_box_photo">
         <view class="content_box_left">
           <image wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-          <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+          <image wx:else src="/assets/images/mine/other_ren.png"></image>
           <view class="nickname">{{item.nickname}}</view>
         </view>
         <view class="content_box_right">
@@ -113,7 +115,7 @@
           data-mobileNumber="{{item.mobileNumber}}" data-returnType="{{item.returnType}}" data-id="{{item.id}}" data-type="{{item.type}}">立即购买</view>
         <view class="purchase" catchtap="addAppear" data-id="{{item.id}}" wx:if="{{item.status==2&&item.canRemove==1}}">增加曝光</view>
       </view>
-      <!-- 预售订单 -->
+      <!-- 预售返现 -->
       <view class="content_imgBuy" wx:if="{{item.type==4}}">
         <view class="modalStatus1" wx:if="{{item.status==3||item.status==6}}"></view>
         <image src="{{hostUrl}}/add/pic_buycard.png" class="img"></image>
@@ -204,7 +206,7 @@
         <image src="{{hostUrl}}/changeImg/getMoney.png" class="moneyImg" wx:if="{{item.type==6}}"></image>
         <image src="{{hostUrl}}/changeImg/save.png" class="moneyImg" wx:if="{{item.type==5}}"></image>
         <image src="{{hostUrl}}/changeImg/yi_buy.png" class="moneyImg1" wx:if="{{item.status==3}}"></image>
-        <image src="/assets/images/temp/ic_yud.png" class='moneyImg2' wx:if="{{item.status==6}}"></image>
+        <image src="{{hostUrl}}/supplement/ic_yud.png" class='moneyImg2' wx:if="{{item.status==6}}"></image>
         <view class="goods">
           <image wx:if="{{item.goodsImageUrl}}" class="goodsImg" src="{{item.goodsImageUrl}}"></image>
           <image wx:else class="goodsImg" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
@@ -272,34 +274,37 @@
     <view class="tab_bottom">
       <view class="bottom_left">
         <view class="bottom_left_font" bindtap="toMySet">我发起的提期</view>
-        <image src="{{hostUrl}}/changeImg/set_mention_period.png" class="bottomLeftImg" />
+        <image src="{{hostUrl}}/twoSix/set_mention_period.png" class="bottomLeftImg" />
       </view>
+      <view class="mention_jiange"></view>
       <view class="bottom_right">
         <view class="bottom_left_font" bindtap="toMyBuy">我帮助的提期</view>
-        <image src="{{hostUrl}}/changeImg/shop_cart1.png" class="bottomLeftImg" />
+        <image src="{{hostUrl}}/twoSix/shop_cart1.png" class="bottomLeftImg" />
       </view>
     </view>
     <view class="head_box">
-      <image src="{{hostUrl}}/changeImg/tiqi.png" class="mentionPeriodImg" />
+      <image src="{{hostUrl}}/twoSix/mention_bg.png" class="mentionPeriodImg" />
       <view class="mentionPeriodRlue" bindtap="toRule">规则</view>
     </view>
     <view class="siftThings">
       <view class="sift_wrap" wx:if="{{siftLeft||mentionPeriodContent.length>0}}">
-        <view class="sift_left {{siftLeft?'color_red':''}}" bindtap="selectSiftLeft">不看已失效/已完成/已撤销</view>
-        <view class="sift_right" bindtap="selectSiftShow">
+        <view class="sift_left {{siftLeft?'color_red':''}}" bindtap="selectSiftLeft">只看有效</view>
+        <view class="sift_left left20 {{siftRightIndex==1?'color_red':''}}" bindtap="selectSiftRight" data-index="1" wx:if="{{siftLeft||mentionPeriodContent.length>0}}">发布时间</view>
+        <view class="sift_left left20 {{siftRightIndex==2?'color_red':''}}" bindtap="selectSiftRight" data-index="2" wx:if="{{siftLeft||mentionPeriodContent.length>0}}">收益高低</view>
+        <!-- <view class="sift_right" bindtap="selectSiftShow">
           <view class="sift_right_name">{{tabName}}</view>
           <image src="{{hostUrl}}/changeImg/sift_right_img.png" class="siftRightImg" />
-        </view>
+        </view> -->
       </view>
-      <view class="sift_right_list" wx:if="{{siftRight}}">
+      <!-- <view class="sift_right_list" wx:if="{{siftRight}}">
         <view class="sift_right_one {{siftRightIndex==1?'color333':''}}" bindtap="selectSiftRight" data-index="1">发布时间新旧</view>
         <view class="sift_right_two {{siftRightIndex==2?'color333':''}}" bindtap="selectSiftRight" data-index="2">收益率高低</view>
-      </view>
+      </view> -->
       <view class="mentionPeriodContent" wx:if="{{mentionPeriodContent.length>0}}">
         <view class="mentionPeriodList">
           <view class="mentionPeriod" wx:for="{{mentionPeriodContent}}" wx:key="{{mentionPeriodContent.id}}">
             <view class="user_name_box" bindtap="toHelp" data-id="{{item.id}}">
-              <image src="{{item.avatarKey?item.avatarKey:hostUrl+'/icon/zhanw_tb_n.png'}}" class="userImg" />
+              <image src="{{item.avatarKey?item.avatarKey:'/assets/images/mine/other_ren.png'}}" class="userImg" />
               <view class="user_name">
                 <view class="name">{{item.nickname}}</view>
                 <image src="{{hostUrl}}/changeImg/huiyuan.png" class="huiyuanImg" wx:if="{{item.role==2}}" />
@@ -314,10 +319,10 @@
                 <view class="nianhua_font {{item.status==3||item.status==7||item.status==5?'color999':''}}">预估年化收益</view>
               </view>
               <view class="top_right">
-                <view class="mentionPeriod_number {{item.status==3||item.status==7||item.status==5?'color999':''}}">需要提{{item.periodLeft+item.estimatedPeriod-2}}期</view>
+                <view class="mentionPeriod_number {{item.status==3||item.status==7||item.status==5?'color999':''}}">需要提{{item.periodLeft+item.estimatedPeriod-2}}期（月）</view>
                 <view class="mentionPeriod_font">帮助金额越多，收益越高</view>
               </view>
-              <view class="button" wx:if="{{item.status==2}}">提期</view>
+              <view class="button" wx:if="{{item.status==2}}">详情</view>
               <view class="button bge7" wx:if="{{item.status==3}}">已完成</view>
               <view class="button bge7" wx:if="{{item.status==5}}">已失效</view>
               <view class="button bge7" wx:if="{{item.status==7}}">已撤销</view>
@@ -341,17 +346,25 @@
   </view>
 </view>
 <!-- 没有赚钱省钱订单 -->
-<view class="notStore" wx:if="{{currentTab==3&&allPost.length===0&&type==6}}">
+<view class="comprehensive-not" wx:if="{{currentTab==3&&allPost.length===0&&type==6}}">
   <image src="{{hostUrl}}/changeImg/picStore.png"></image>
-  <view class="notStoreText">暂时没有可以直接购买的赚钱商品</view>
-  <view class="notStoreText">试试自己挂商品买帖吧。</view>
+  <view class="notComprehensive">暂时没有可以直接购买的省钱商品，</view>
+  <view class="notComprehensive">试试自己预定商品吧。</view>
 </view>
-<view class="notStore" wx:if="{{currentTab==3&&allPost.length===0&&type==5}}">
+<view class="comprehensive-not" wx:if="{{currentTab==3&&allPost.length===0&&type==5}}">
   <image src="{{hostUrl}}/changeImg/picStore.png"></image>
-  <view class="notStoreText">暂时没有可以直接购买的省钱商品</view>
-  <view class="notStoreText">试试自己挂商品卖帖吧。</view>
+  <view class="notComprehensive">暂时没有可以直接购买的省钱商品</view>
+  <view class="notComprehensive">试试自己挂预售商品吧。</view>
 </view>
-<view class="recommend-title" wx:if="{{isRecommend==true}}">
+<view class="comprehensive-not" wx:if="{{currentTab!==3&&currentTab!==0&&allPost.length===0}}">
+  <image src="/assets/images/mine/noThing.png"></image>
+  <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
+</view>
+<view class="comprehensive-not" wx:if="{{currentTab==0&&allPost.length===0&&allPost1.length===0}}">
+  <image src="/assets/images/mine/noThing.png"></image>
+  <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
+</view>
+<view class="recommend-title" wx:if="{{isRecommend==true&&currentTab==0&&allPost1.length>0}}">
   <view class="recommend-left">
     <image src="{{hostUrl}}/icon/fiery_orange_n.png"></image>
   </view>
@@ -360,12 +373,12 @@
   </view>
 </view>
 <!-- 列表 -->
-<view class="container1" wx:if="{{isRecommend==true}}" wx:for="{{allPost1}}" wx:key="{{item.id}}" wx:for-index="index1" bindtap="jumpForumDetail" data-id="{{item.id}}">
+<view class="container1" wx:if="{{isRecommend==true&&currentTab==0}}" wx:for="{{allPost1}}" wx:key="{{item.id}}" wx:for-index="index1" bindtap="jumpForumDetail" data-id="{{item.id}}">
   <view class="content_box">
     <view class="content_box_photo">
       <view class="content_box_left">
         <image wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-        <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+        <image wx:else src="/assets/images/mine/other_ren.png"></image>
         <view class="nickname">{{item.nickname}}</view>
       </view>
       <view class="content_box_right">
@@ -571,7 +584,7 @@
 <!-- 一次确认弹窗 -->
 <view class="sure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sureOne}}">
   <view class="zan-dialog__container" wx:if="{{sureOne}}">
-    <image wx:if="{{sureOne}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sureOneClose'></image>
+    <!-- <image wx:if="{{sureOne}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sureOneClose'></image> -->
     <view class="sureOne">交易确认</view>
     <view class="sureOneText">
       <view class="head_box1">
@@ -605,7 +618,7 @@
 <!-- 二次确认弹窗 -->
 <view class="sure-two-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sureTwo}}">
   <view class="zan-dialog__container" wx:if="{{sureTwo}}">
-    <image wx:if="{{sureTwo}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sureTwoClose'></image>
+    <!-- <image wx:if="{{sureTwo}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sureTwoClose'></image> -->
     <view class="sureTitle">确认交易</view>
     <view class="sureText">
       <view class="sure_two_value">
@@ -624,7 +637,6 @@
 <!-- 输入密码弹出框 -->
 <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{show}}">
   <view class="zan-dialog__container1" wx:if="{{show}}">
-    <image wx:if="{{show}}" class="pwd-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='cancelShow'></image>
     <view class="pwd-text">请输入支付密码</view>
     <!-- <view class="text">{{passtext}}</view> -->
     <view bindsubmit="formSubmit">
@@ -636,6 +648,7 @@
       <input name="password" value="{{Value}}" adjust-position="{{false}}" password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus" type="number"></input>
     </view>
   </view>
+  <image wx:if="{{show}}" class="pwd-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelShow'></image>
 </view>
 <!--是否设置支付弹框-->
 <view class="zan-dialog1" catchtouchmove="preventTouchMove" wx:if="{{showPassword}}" bindtap='hidePassword'></view>
@@ -748,6 +761,22 @@
         <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
         <view class="wx">分享群</view>
       </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
     </view>
   </view>
 </view>
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>
+<!-- 使用canvas将分享图片和申请0元购图片合成一张图 -->
+<canvas canvas-id="canvas" style="width:400px;height:400px;position: absolute;left:-1000px;top:-1000px;"></canvas>
+<template is='floatingwindow' data="{{hostUrl:hostUrl,floatShow:floatShow,floatContent:floatContent}}" />
+<template is='pop-upwindows' data="{{hostUrl:hostUrl,popShow:popShow,popContent:popContent}}" />

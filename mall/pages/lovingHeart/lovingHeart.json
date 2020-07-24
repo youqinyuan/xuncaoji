@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarBackgroundColor": "#FFFFFF",
   "navigationBarTitleText":"爱心捐赠",
-  "navigationBarTextStyle":"white"
+  "navigationBarTextStyle":"black"
 }

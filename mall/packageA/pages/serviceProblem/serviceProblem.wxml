@@ -1,7 +1,7 @@
 <!--packageA/pages/serviceProblem/serviceProblem.wxml-->
 <view class="wrap">
   <image class="line" src="/packageA/img/line.png"></image>
-  <view class="useExample">4步使用【预售订单】服务</view>
+  <view class="useExample">4步使用【预售返现】服务</view>
   <view class="advanceSale">
     <image class="severice-img" src="/packageA/img/icon_a.png"></image>
     <view class="yuSale">1. 发布预售</view>
@@ -24,7 +24,7 @@
     <view class="example-title">使用范例</view>
   </view>
   <view class="useLi-content">点击立即体验，选择1个商品进入提交页，输入违约金并且支付违约金，买方看到并支付违约金，您需去支付尾款，订单交易完成。</view>
-  <view class="useExample1">【预售订单】常见问题</view>
+  <view class="useExample1">【预售返现】常见问题</view>
   <view class="container-block">
     <view class="container" wx:for="{{list}}" wx:key="{{item.title}}">
       <view class="container-title">

@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarBackgroundColor": "#FFFFFF",
   "navigationBarTitleText": "预计平均折扣",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "black"
 }

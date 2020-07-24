@@ -126,22 +126,29 @@ page{
     height: 40rpx;
     line-height: 40rpx;
     padding-left: 30rpx;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: flex;
+    align-items: center;
 }
 .red{
     color: #FF2644 !important;
     display: inline-block;
 }
 .help_name{
-    height: 50rpx;
-    line-height: 50rpx;
-    max-width: 200rpx;
-    display: inline-block;
+    /* height: 50rpx; */
+    /* line-height: 50rpx; */
+    max-width: 92rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* display: inline-block; */
 }
 .help_value{
     display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    width: 550rpx;
 }
 .fuhao{
     display: inline-block;
@@ -255,12 +262,13 @@ page{
     left: 80rpx;
 }
 .tishi{
-    margin-left: 30rpx;
-    padding-left: 30rpx;
+    /* margin-left: 30rpx;
+    padding-left: 30rpx; */
     margin-top: 24rpx;
-    font-size:24rpx;
+    font-size:28rpx;
     font-family:PingFang SC;
-    color:rgba(153,153,153,1);
+    text-align: center;
+    color:#666666;
 }
 .mag10{
     margin-top: 10rpx !important;
@@ -320,10 +328,11 @@ page{
   }
   
   .interest-zan-dialog__mask .zan-dialog__container .title {
-    width: 170rpx;
+    width: 300rpx;
     margin: 44rpx auto;
-    font-size: 34rpx;
+    font-size: 32rpx;
     font-family: PingFang-SC-Bold;
+    font-weight: bold;
     color: rgba(34, 34, 34, 1);
     text-align: center;
   }
@@ -331,7 +340,7 @@ page{
   .interest-zan-dialog__mask .table {
     width: 500rpx;
     margin: 0 auto;
-    border: 2rpx solid #dbdbdb;
+    border:1rpx solid #dbdbdb;
     border-bottom: none;
     border-right: none;
     /* margin-bottom: 20rpx; */
@@ -390,7 +399,7 @@ page{
   .shure_detail{
     width:440rpx;
     height:76rpx;
-    background:linear-gradient(90deg,rgba(255,38,68,1) 0%,rgba(255,106,72,1) 100%);
+    background:linear-gradient(90deg, rgba(255,106,72,1) 0%,rgba(255,38,68,1) 100%);
     border-radius:38rpx;
     text-align: center;
     line-height: 76rpx;

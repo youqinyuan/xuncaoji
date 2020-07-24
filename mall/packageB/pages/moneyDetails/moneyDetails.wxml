@@ -1,0 +1,82 @@
+<!--packageB/pages/moneyDetails/moneyDetails.wxml-->
+<!--金额明细表 -->
+<view class="zan-dialog-container">
+  <scroll-view scroll-x class="nav">
+    <view class="table">
+      <view class="tr">
+        <view class="th">序号</view>
+        <view class="th">商品名称</view>
+        <view class="th">消费类型</view>
+        <view class="th">单价(1)</view>
+        <view class="th">数量(2)</view>
+        <view class="th">
+          <view>原价合计(3)</view>
+          <view>(3)=(1)*(2)</view>
+        </view>
+        <view class="th">拿货折扣(4)</view>
+        <view class="th">
+          <view>拿货成本(5)</view>
+          <view>(5)=(3)*(4)</view>
+        </view>
+        <view class="th">
+          <view>最长期返现金额(6)</view>
+          <view>(6)=(3)-(5)</view>
+        </view>
+        <view class="th">
+          <view>缩短返现时间</view>
+          <view>倍数(7)</view>
+        </view>
+        <view class="th">
+          <view>实际返现(8)</view>
+          <view>(8)=(6)*(7)</view>
+        </view>
+        <view class="th">
+          <view>应支付金额(9)</view>
+          <view>(9)=(8)+(5)</view>
+        </view>
+        <view class="th discount">优惠金额(10)</view>
+        <view class="th">
+          <view>实际支付(11)</view>
+          <view>(11)=(9)-(10)</view>
+        </view>
+      </view>
+      <view class="tr" wx:for="{{listDetails}}" wx:key="{{}}">
+        <view class="td">{{index+1}}</view>
+        <view class="td">
+          <view class="goodsname">{{item.goodsName}}</view>
+        </view>
+        <view class="td">{{item.buyMode==1?'普通购买':'一折购'}}</view>
+        <view class="td">￥{{item.price||0}}</view>
+        <view class="td">{{item.quantity||0}}</view>
+        <view class="td">￥{{item.goodsTotalPrice||0}}</view>
+        <view class="td">{{item.discountNumber||0}}</view>
+        <view class="td">￥{{item.afterCashBackAmount||0}}</view>
+        <view class="td">￥{{item.maxCashBackAmount||0}}</view>
+        <view class="td">{{item.multiple||0}}</view>
+        <view class="td">￥{{item.cashBackAmount||0}}</view>
+        <view class="td">￥{{item.payAmount||0}}</view>
+        <view class="td discount">
+          <view>￥{{item.totalDiscount||0}}</view>
+          <view class="discount1" wx:if="{{item.totalDiscount!==0&&item.shoppingAmount&&useCoupon==1||item.discountRatio||item.discountAmount||useSeed==1&&item.deductionAmount}}">（包含{{item.shoppingAmount&&useCoupon==1?'购物金￥'+item.shoppingAmount+';':''}}{{item.discountRatio&&item.discountAmount?item.discountRatio+'折￥'+item.discountAmount+';':''}}{{item.deductionAmount&&useSeed==1?'种子抵扣¥'+item.deductionAmount:''}}）</view>
+        </view>
+        <view class="td">￥{{item.discountAfterAmount||0}}</view>
+      </view>
+      <view class="tr">
+        <view class="td">{{listDetails.length+1}}</view>
+        <view class="td">合计</view>
+        <view class="td">-</view>
+        <view class="td">-</view>
+        <view class="td">-</view>
+        <view class="td">-</view>
+        <view class="td">-</view>
+        <view class="td">-</view>
+        <view class="td">-</view>
+        <view class="td">-</view>
+        <view class="td">-</view>
+        <view class="td">-</view>
+        <view class="td discount">￥{{total}}</view>
+        <view class="td">￥{{totalPrice}}</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

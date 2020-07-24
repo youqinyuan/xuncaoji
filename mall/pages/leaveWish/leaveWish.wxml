@@ -1,6 +1,6 @@
 <!--pages/leaveWish/leaveWish.wxml-->
 <view class="explain-wrap">
-  <view class="explain">温馨提示：在商城内没有找到想要的商品，在这里发布想要商品的信息后，24小时内为您找到全网最低价！</view>
+  <view class="explain">温馨提示：您想要的商品寻草君会在24小时内在商城上架，请注意查收短信提示哦！</view>
   <!-- <view class="poke">戳我</view>
   <image src="{{hostUrl}}/add/poke.png" class="poke-img"></image> -->
 </view>
@@ -19,7 +19,7 @@
 </textarea>
 <view class="btn">
   <button class="btn1" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" open-type="contact" bindcontact="handleContact">咨询客服</button>
-  <view class="btn2" bindtap="submit">发布</view>
+  <view class="btn2" bindtap="submit">提交</view>
 </view>
 
 <!-- FreeBuy心愿池是什么？ -->
@@ -32,7 +32,7 @@
       <view class="smallTitle">心愿池是不是提交了就可以免费拿？</view>
       <view>不是的，您需要通过FreeBuy方式进行购买的，到了返现周期您等于是免费拿哦；</view>
       <view class="smallTitle">FreeBuy是什么意思？</view>
-      <view>FreeBuy是指用户自由消费，免去没钱的烦恼，寻草记一直再为帮助用户0成本购好物；</view>
+      <view>FreeBuy是指用户自由消费，免去没钱的烦恼，寻草记一直再为帮助用户一折购好物；</view>
       <view class="service">其他问题请咨询客服哦~</view>
     </view>
     <!-- <button bindtap="cancelGet">我知道了</button> -->

@@ -1,4 +1,5 @@
 <!--pages/index/twolist/twolist.wxml-->
+<import src='/template/goodsList/goodsList' />
 <!--综合、价格、上新-->
 <view class="title">
   <view class="comprehensive" style="color:{{color}};" data-id="{{item.id}}" bindtap='comprehensive'>综合</view>
@@ -6,41 +7,22 @@
     <view class="price-text">价格</view>
     <view class="price-img">
       <image src="{{pricePhoto}}"></image>
+      <image src="{{pricePhoto1}}"></image>
     </view>
   </view>
-  <view class="new" style="color:{{color2}};" bindtap='newGoods'>
-    <view class="new-text">上新</view>
-    <view class="new-img">
-      <image src="{{pricePhoto1}}"></image>
+  <view class="price" style="color:{{color2}};" bindtap='newGoods'>
+    <view class="price-text">上新</view>
+    <view class="price-img">
+      <image src="{{pricePhoto2}}"></image>
+      <image src="{{pricePhoto3}}"></image>
     </view>
   </view>
 </view>
 <view class="comprehensive-list-wrapper">
-  <view class="comprehensive-list" wx:for="{{category}}" wx:key="item.id" bindtap='toDetail' data-id="{{item.id}}">
-    <view class="comprehensive-list-img">
-      <image src="{{item.imageUrls[0]}}"></image>
-    </view>
-    <view class="comprehensive-list-text">
-      <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-      <text class="item2">支持0成本购</text>{{item.name}}
-    </view>
-    <view class="comprehensive-list-price">
-      <view class="newprice">
-        <text>￥</text>{{item.truePrice}}</view>
-      <view class="oldprice">￥{{item.orgPrice}}</view>
-    </view>
-    <view class="return-wrap">
-      <view class="return-money">
-        <text>实付</text>
-        <text>￥</text>
-        <text>{{item.dctPrice}}</text>
-      </view>
-      <view class="pay-money">
-        <text>返现</text>
-        <text>￥</text>
-        <text>{{item.marketingCashBack.totalAmount}}</text>
-      </view>
-    </view>
+  <template is='goodsList' data="{{list:list}}" wx:if="{{list.length>0}}" />
+  <view class="comprehensive-not" wx:if="{{list.length==0}}">
+    <image src="/assets/images/mine/noThing.png"></image>
+    <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
   </view>
 </view>
 <view class="page-bottom">{{textToast}}</view>

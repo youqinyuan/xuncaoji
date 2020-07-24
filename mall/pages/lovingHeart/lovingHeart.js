@@ -109,7 +109,7 @@ Page({
   },
   toOther:function(){
     wx.navigateTo({
-      url: '/packageA/pages/freeBuy/freeBuy',
+      url: '/packageB/pages/freeBuy/freeBuy',
     })
   }
 })

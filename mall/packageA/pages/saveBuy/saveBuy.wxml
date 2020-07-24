@@ -14,7 +14,7 @@
     <view class="content_box_photo">
       <view class="content_box_left">
         <image wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-        <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+        <image wx:else src="/assets/images/mine/other_ren.png"></image>
         <view class="nickname">{{item.nickname}}</view>
       </view>
       <view class="content_box_right">
@@ -28,7 +28,7 @@
       <image src="{{hostUrl}}/changeImg/getMoney.png" class="moneyImg" wx:if="{{item.type==6}}"></image>
       <image src="{{hostUrl}}/changeImg/save.png" class="moneyImg" wx:if="{{item.type==5}}"></image>
       <image src="{{hostUrl}}/changeImg/yi_buy.png" class="moneyImg1" wx:if="{{item.status==3}}"></image>
-      <image src="/assets/images/temp/ic_yud.png" class='moneyImg2' wx:if="{{item.status==6}}"></image>
+      <image src="{{hostUrl}}/supplement/ic_yud.png" class='moneyImg2' wx:if="{{item.status==6}}"></image>
       <view class="goods">
         <image wx:if="{{item.goodsImageUrl}}" class="goodsImg" src="{{item.goodsImageUrl}}"></image>
         <image wx:else class="goodsImg" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
@@ -76,7 +76,7 @@
         </view>
       </view>
     </view>
-    <view class="content_comment" catchtap="jumpComment" data-id="{{item.id}}">
+    <view class="content_comment" catchtap="jumpComment" data-id="{{item.id}}" wx:if="{{item.commentPageResponse.items.length>0}}">
       <view class="content_comment_wrap">
         <view class="content_comment_text" wx:for="{{item.commentPageResponse.items}}" wx:for-item="response" wx:key="{{response.id}}">
           <text>{{response.nickname}}</text>
@@ -92,8 +92,8 @@
 </view>
 <view class="notStore" wx:if="{{allPost.length===0}}">
   <image src="{{hostUrl}}/changeImg/picStore.png"></image>
-  <view class="notStoreText">暂时没有可以直接购买的省钱商品</view>
-  <view class="notStoreText">试试自己挂商品买帖吧。</view>
+  <view class="notStoreText">暂时没有可以直接购买的省钱商品，</view>
+  <view class="notStoreText">试试自己预定商品吧。</view>
 </view>
 <!-- 删除帖子弹框 -->
 <view class="del-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDel}}">

@@ -67,7 +67,7 @@ page {
   display: inline-block;
   width: 140rpx;
   height: 140rpx;
-  border: 2rpx solid #fff;
+  border: 1rpx solid #fff;
   margin-right: 15rpx;
 }
 
@@ -102,7 +102,7 @@ page {
   display: inline-block;
   width: 140rpx;
   height: 140rpx;
-  border: 2rpx solid #fff;
+  border: 1rpx solid #fff;
   margin-right: 15rpx;
 }
 

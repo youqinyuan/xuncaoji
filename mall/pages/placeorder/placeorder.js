@@ -50,6 +50,16 @@ Page({
     inputValue: null,
     getOrder: null, //购买省钱帖
     goods:null,//购买赚钱帖
+    shuoming:false,
+    shuomingText:'支付金额减去预售价，除以原价。',
+    shuomingText1:'支付后，可对此订单发起提期哦，提期可对返现时间缩短！',
+    shuomingText2:'年化收益率={商品原价*（1-折扣）}/{支付金额-折扣价}/返现周期*12个月。',
+    shuomingText3:'下单后商品自己用，给你的返现可卖给他人立即拿钱。',
+    shuomingText4:'下单后可随时撤销，退还您已支付金额。',
+    showDialog:false,
+    yushou:true,
+    yizhe:true,
+    seedToast:false//预售种子消耗弹窗
   },
   //跳转到服务问题页面
   goIntoProblem: function(e) {
@@ -57,17 +67,38 @@ Page({
       url: '/packageA/pages/serviceProblem/serviceProblem',
     })
   },
+    //返现明细弹框(出现)
+    returnDetail: function(e) {
+      var that = this;
+      let arr = that.data.placeOrder
+      console.log(arr[0].orderGoodsBo[e.currentTarget.dataset.index2].orderGoodsCashBackShowList)
+      console.log(e)
+        that.setData({
+          showDialog: true,
+          detailContent:arr[e.currentTarget.dataset.index1].orderGoodsBo[e.currentTarget.dataset.index2].orderGoodsCashBackShowList
+        })
+    },
+    //返现明细弹框(隐藏)
+    cancelDialog: function() {
+      var that = this;
+      that.setData({
+        showDialog: false
+      })
+    },
   //立即体验
   experience: function(e) {
+    console.log(11)
     var that = this
     //引导服务页面
     if (wx.getStorageSync('experienceStatus')) {
       that.setData({
-        isShowBook: 2
+        isShowBook: 2,
+        yushou:false,
+        yizhe:true
       })
     } else {
       that.setData({
-        yuShow: true
+        yuShow: true,
       })
       wx.setStorageSync('experienceStatus', 1)
     }
@@ -94,14 +125,15 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    console.log(options)
     that.setData({
       options: options,
     })
     var goodsId = parseInt(options.goodsId)
     var stockId = parseInt(options.stockId)
     var quantity = parseInt(options.quantity)
-    var cashBackId = parseInt(options.cashbackId)
-    var activityId = parseInt(options.activityId)
+    var cashBackId = parseInt(options.cashbackId?options.cashbackId:'')
+    var activityId = parseInt(options.activityId?options.activityId:'')
     var type = parseInt(options.type)
     var expectedAmount = parseInt(options.expectedAmount) //想花多少钱获得商品
     if (options.isShowBook == 2) {
@@ -124,6 +156,9 @@ Page({
       })
     }
     if (options.cardIds) {
+      that.setData({
+        cardIds: options.cardIds
+      })
       //购物车校验下单
       that.cardIdsPurchase();
     } else if (options.goodsType) {
@@ -159,7 +194,7 @@ Page({
           var arr1 = arr.concat(res.data.content)
           for (let i in arr1) {
             arr1[i].remark = '选填'
-            arr1[i].colors = '#ff6417'
+            arr1[i].colors = '#AAAAAA'
           }
           var tempRemark1 = []
           arr1.forEach((v, i) => {
@@ -209,7 +244,7 @@ Page({
           var arr1 = arr.concat(res.data.content)
           for (let i in arr1) {
             arr1[i].remark = '选填'
-            arr1[i].colors = '#ff6417'
+            arr1[i].colors = '#AAAAAA'
           }
           var tempRemark1 = []
           arr1.forEach((v, i) => {
@@ -259,7 +294,7 @@ Page({
           var arr1 = arr.concat(res.data.content)
           for (let i in arr1) {
             arr1[i].remark = '选填'
-            arr1[i].colors = '#ff6417'
+            arr1[i].colors = '#AAAAAA'
           }
           var tempRemark1 = []
           arr1.forEach((v, i) => {
@@ -310,7 +345,7 @@ Page({
           var arr1 = arr.concat(res.data.content)
           for (let i in arr1) {
             arr1[i].remark = '选填'
-            arr1[i].colors = '#ff6417'
+            arr1[i].colors = '#AAAAAA'
           }
 
           var tempRemark1 = []
@@ -446,6 +481,26 @@ Page({
    */
   onShow: function() {
     const that = this
+    console.log(that.data.isShowBook)
+    if(that.data.isShowBook==2){
+      that.data.options.isShowBook = 2
+      that.setData({
+        options:that.data.options,
+        yushou:false,
+        yizhe:true
+
+      })
+      that.onLoad(that.data.options)
+    }
+    if(that.data.isShowBook==1){
+      that.data.options.isShowBook = 1
+      that.setData({
+        options:that.data.options,
+        yizhe:false,
+        yushou:true,
+      })
+      that.onLoad(that.data.options)
+    }
     if (that.data.options.isShowBook == 2) {
       that.setData({
         isShowBook: 2
@@ -511,6 +566,16 @@ Page({
     if (that.data.isBack) {
       wx.navigateBack()
     }
+    //最低违约金
+    app.Util.ajax('mall/paramConfig/getParamConfigByKey',{
+      key:'ADVANCE_ORDER_LIQUIDATED_DAMAGE_MIN'
+    }, 'GET').then((res) => { // 使用ajax函数
+      if(res.data.messageCode == "MSG_1001"){
+        that.setData({
+          min_defalut:res.data.content.value
+        })
+      }
+    })
   },
 
   /**
@@ -558,6 +623,9 @@ Page({
       var goodsList = that.data.goodsList;
       var type = that.data.options.type;
       goodsList.remark = that.data.beizhuList1[0]
+      that.setData({
+        buymodetemp:e.currentTarget.dataset.buymode
+      })
       if (that.data.addressItems != '' || that.data.buyType == 2 || that.data.getOrder) {
         if (that.data.cardIds.length > 0) {
           var cardIds = that.data.cardIds
@@ -630,31 +698,43 @@ Page({
                 icon: 'none'
               })
             } else {
-              app.Util.ajax('mall/newPeople/addOrderByGoods', {
-                stockId: parseInt(that.data.options.stockId),
-                activityGoodsId: parseInt(that.data.options.activityGoodsId),
-                quantity: parseInt(that.data.options.quantity),
-                userAddressBookId: that.data.userAddressBookId,
-                isUnderLine: that.data.options.buyType == 1 ? 0 : 1,
-                remark: that.data.beizhuList1[0],
-                // 预售订单
-                defaultAmount: that.data.getMoney,
-                sellingPrice: that.data.inputValue,
-                content: that.data.saleText
+              app.Util.ajax('mall/forum/topic/checkSeed4AdvanceOrderTopic', {
+                expectAmount:that.data.inputValue,
+                periodLeft:that.data.placeOrder[0].orderAdvanceSale.periodLeft
               }, 'POST').then((res) => {
-                if (res.data.content) {
-                  wx.navigateTo({
-                    url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&isShowBook=${2}`,
-                  })
-                  wx.removeStorageSync('address')
-                  wx.removeStorageSync('goAddress')
-                } else {
-                  wx.showToast({
-                    title: res.data.message,
-                    icon: 'none'
-                  })
+                if(res.data.messageCode=="MSG_1001"){
+                    this.setData({
+                      seedText:res.data.content,
+                      seedToast:true
+                    })
                 }
               })
+              // app.Util.ajax('mall/newPeople/addOrderByGoods', {
+              //   stockId: parseInt(that.data.options.stockId),
+              //   activityGoodsId: parseInt(that.data.options.activityGoodsId),
+              //   quantity: parseInt(that.data.options.quantity),
+              //   userAddressBookId: that.data.userAddressBookId,
+              //   isUnderLine: that.data.options.buyType == 1 ? 0 : 1,
+              //   remark: that.data.beizhuList1[0],
+              //   // 预售返现
+              //   defaultAmount: that.data.getMoney,
+              //   sellingPrice: that.data.inputValue,
+              //   content: that.data.saleText,
+              //   discountNumber:Number((that.data.options.discountCompute*10).toFixed(2))
+              // }, 'POST').then((res) => {
+              //   if (res.data.content) {
+              //     wx.navigateTo({
+              //       url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&isShowBook=${2}`,
+              //     })
+              //     wx.removeStorageSync('address')
+              //     wx.removeStorageSync('goAddress')
+              //   } else {
+              //     wx.showToast({
+              //       title: res.data.message,
+              //       icon: 'none'
+              //     })
+              //   }
+              // })
             }
           } else {
             app.Util.ajax('mall/newPeople/addOrderByGoods', {
@@ -664,6 +744,7 @@ Page({
               userAddressBookId: that.data.userAddressBookId,
               isUnderLine: that.data.options.buyType == 1 ? 0 : 1,
               remark: that.data.beizhuList1[0],
+              discountNumber:Number((that.data.options.discountCompute*10).toFixed(2))
             }, 'POST').then((res) => {
               if (res.data.content) {
                 wx.navigateTo({
@@ -692,55 +773,68 @@ Page({
                 icon: 'none'
               })
             } else {
-              if (that.data.options.goodsType) {
-                goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
-                goodsList.useSeed = that.data.seedShow == true ? 1 : 0
-                goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
-                goodsList.orderType = 19
-                goodsList.activityId = that.data.options.activityId
-                // 预售订单
-                goodsList.defaultAmount = that.data.getMoney
-                goodsList.sellingPrice = that.data.inputValue
-                goodsList.content = that.data.saleText
-                app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
-                  if (res.data.content) {
-                    wx.navigateTo({
-                      url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&isShowBook=${2}`,
+              app.Util.ajax('mall/forum/topic/checkSeed4AdvanceOrderTopic', {
+                expectAmount:that.data.inputValue,
+                periodLeft:that.data.placeOrder[0].orderAdvanceSale.periodLeft
+              }, 'POST').then((res) => {
+                if(res.data.messageCode=="MSG_1001"){
+                    this.setData({
+                      seedText:res.data.content,
+                      seedToast:true
                     })
-                    wx.removeStorageSync('address')
-                    wx.removeStorageSync('goAddress')
-                  } else {
-                    wx.showToast({
-                      title: res.data.message,
-                      icon: 'none'
-                    })
-                  }
-                })
-              } else {
-                goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
-                goodsList.useSeed = that.data.seedShow == true ? 1 : 0
-                goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
-                goodsList.orderType = 17
-                goodsList.activityId = that.data.options.activityId
-                // 预售订单
-                goodsList.defaultAmount = that.data.getMoney
-                goodsList.sellingPrice = that.data.inputValue
-                goodsList.content = that.data.saleText
-                app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
-                  if (res.data.content) {
-                    wx.navigateTo({
-                      url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}`,
-                    })
-                    wx.removeStorageSync('address')
-                    wx.removeStorageSync('goAddress')
-                  } else {
-                    wx.showToast({
-                      title: res.data.message,
-                      icon: 'none'
-                    })
-                  }
-                })
-              }
+                }
+              })
+              // if (that.data.options.goodsType) {
+              //   goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
+              //   goodsList.useSeed = that.data.seedShow == true ? 1 : 0
+              //   goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
+              //   goodsList.orderType = 19
+              //   goodsList.activityId = that.data.options.activityId
+              //   // 预售返现
+              //   goodsList.defaultAmount = that.data.getMoney
+              //   goodsList.sellingPrice = that.data.inputValue
+              //   goodsList.content = that.data.saleText
+              //   goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
+              //   app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
+              //     if (res.data.content) {
+              //       wx.navigateTo({
+              //         url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&isShowBook=${2}`,
+              //       })
+              //       wx.removeStorageSync('address')
+              //       wx.removeStorageSync('goAddress')
+              //     } else {
+              //       wx.showToast({
+              //         title: res.data.message,
+              //         icon: 'none'
+              //       })
+              //     }
+              //   })
+              // } else {
+              //   goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
+              //   goodsList.useSeed = that.data.seedShow == true ? 1 : 0
+              //   goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
+              //   goodsList.orderType = 17
+              //   goodsList.activityId = that.data.options.activityId
+              //   // 预售返现
+              //   goodsList.defaultAmount = that.data.getMoney
+              //   goodsList.sellingPrice = that.data.inputValue
+              //   goodsList.content = that.data.saleText
+              //   goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
+              //   app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
+              //     if (res.data.content) {
+              //       wx.navigateTo({
+              //         url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}`,
+              //       })
+              //       wx.removeStorageSync('address')
+              //       wx.removeStorageSync('goAddress')
+              //     } else {
+              //       wx.showToast({
+              //         title: res.data.message,
+              //         icon: 'none'
+              //       })
+              //     }
+              //   })
+              // }
             }
           } else {
             if (that.data.options.goodsType) {
@@ -749,6 +843,7 @@ Page({
               goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
               goodsList.orderType = 19
               goodsList.activityId = that.data.options.activityId
+              goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
               app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
                 if (res.data.content) {
                   wx.navigateTo({
@@ -769,10 +864,11 @@ Page({
               goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
               goodsList.orderType = 17
               goodsList.activityId = that.data.options.activityId
-              // 预售订单
+              // 预售返现
               goodsList.defaultAmount = that.data.getMoney
               goodsList.sellingPrice = that.data.inputValue
               goodsList.content = that.data.saleText
+              goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
               app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
                 if (res.data.content) {
                   wx.navigateTo({
@@ -802,29 +898,41 @@ Page({
                 icon: 'none'
               })
             } else {
-              goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
-              goodsList.useSeed = that.data.seedShow == true ? 1 : 0
-              goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
-              goodsList.orderType = 14
-              goodsList.auspicesApplyId = that.data.options.sponsorId
-              // 预售订单
-              goodsList.defaultAmount = that.data.getMoney
-              goodsList.sellingPrice = that.data.inputValue
-              goodsList.content = that.data.saleText
-              app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
-                if (res.data.content) {
-                  wx.navigateTo({
-                    url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&isShowBook=${2}`,
-                  })
-                  wx.removeStorageSync('address')
-                  wx.removeStorageSync('goAddress')
-                } else {
-                  wx.showToast({
-                    title: res.data.message,
-                    icon: 'none'
-                  })
+              app.Util.ajax('mall/forum/topic/checkSeed4AdvanceOrderTopic', {
+                expectAmount:that.data.inputValue,
+                periodLeft:that.data.placeOrder[0].orderAdvanceSale.periodLeft
+              }, 'POST').then((res) => {
+                if(res.data.messageCode=="MSG_1001"){
+                    this.setData({
+                      seedText:res.data.content,
+                      seedToast:true
+                    })
                 }
               })
+              // goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
+              // goodsList.useSeed = that.data.seedShow == true ? 1 : 0
+              // goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
+              // goodsList.orderType = 14
+              // goodsList.auspicesApplyId = that.data.options.sponsorId
+              // // 预售返现
+              // goodsList.defaultAmount = that.data.getMoney
+              // goodsList.sellingPrice = that.data.inputValue
+              // goodsList.content = that.data.saleText
+              // // goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
+              // app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
+              //   if (res.data.content) {
+              //     wx.navigateTo({
+              //       url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&isShowBook=${2}`,
+              //     })
+              //     wx.removeStorageSync('address')
+              //     wx.removeStorageSync('goAddress')
+              //   } else {
+              //     wx.showToast({
+              //       title: res.data.message,
+              //       icon: 'none'
+              //     })
+              //   }
+              // })
             }
           } else {
             goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
@@ -832,6 +940,7 @@ Page({
             goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
             goodsList.orderType = 14
             goodsList.auspicesApplyId = that.data.options.sponsorId
+            // goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
             app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
               if (res.data.content) {
                 wx.navigateTo({
@@ -851,6 +960,7 @@ Page({
           that.data.goodsList1.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
           that.data.goodsList1.useSeed = that.data.seedShow == true ? 1 : 0
           that.data.goodsList1.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
+          that.data.goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
           app.Util.ajax('mall/order/addOrderByGoods', that.data.goodsList1, 'POST').then((res) => {
             if (res.data.content) {
               wx.navigateTo({
@@ -891,32 +1001,45 @@ Page({
                 icon: 'none'
               })
             } else {
-              goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
-              goodsList.useSeed = that.data.seedShow == true ? 1 : 0
-              goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
-              // 预售订单
-              goodsList.defaultAmount = that.data.getMoney
-              goodsList.sellingPrice = that.data.inputValue
-              goodsList.content = that.data.saleText
-              app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
-                if (res.data.content) {
-                  wx.navigateTo({
-                    url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&isShowBook=${2}`,
-                  })
-                  wx.removeStorageSync('address')
-                  wx.removeStorageSync('goAddress')
-                } else {
-                  wx.showToast({
-                    title: res.data.message,
-                    icon: 'none'
-                  })
+              app.Util.ajax('mall/forum/topic/checkSeed4AdvanceOrderTopic', {
+                expectAmount:that.data.inputValue,
+                periodLeft:that.data.placeOrder[0].orderAdvanceSale.periodLeft
+              }, 'POST').then((res) => {
+                if(res.data.messageCode=="MSG_1001"){
+                    this.setData({
+                      seedText:res.data.content,
+                      seedToast:true
+                    })
                 }
               })
+              // goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
+              // goodsList.useSeed = that.data.seedShow == true ? 1 : 0
+              // goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
+              // // 预售返现
+              // goodsList.defaultAmount = that.data.getMoney
+              // goodsList.sellingPrice = that.data.inputValue
+              // goodsList.content = that.data.saleText
+              // goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
+              // app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
+              //   if (res.data.content) {
+              //     wx.navigateTo({
+              //       url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&isShowBook=${2}`,
+              //     })
+              //     wx.removeStorageSync('address')
+              //     wx.removeStorageSync('goAddress')
+              //   } else {
+              //     wx.showToast({
+              //       title: res.data.message,
+              //       icon: 'none'
+              //     })
+              //   }
+              // })
             }
           } else {
             goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
             goodsList.useSeed = that.data.seedShow == true ? 1 : 0
             goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
+            goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
             app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
               if (res.data.content) {
                 wx.navigateTo({
@@ -1019,7 +1142,7 @@ Page({
       if (i == that.data.tempIndex) {
         if (that.data.beizhuList1[that.data.tempIndex] == '') {
           v.remark = '选填'
-          v.colors = '#ff6417'
+          v.colors = '#AAAAAA'
           that.setData({
             placeOrder: that.data.placeOrder,
             currentNoteLen: 0,
@@ -1044,7 +1167,7 @@ Page({
     let arr1 = arr.concat(that.data.goods)
     for (let i in arr1) {
       arr1[i].remark = '选填'
-      arr1[i].colors = '#ff6417'
+      arr1[i].colors = '#AAAAAA'
     }
     let tempRemark1 = []
     arr1.forEach((v, i) => {
@@ -1079,7 +1202,7 @@ Page({
         var arr1 = arr.concat(res.data.content)
         for (let i in arr1) {
           arr1[i].remark = '选填'
-          arr1[i].colors = '#ff6417'
+          arr1[i].colors = '#AAAAAA'
         }
         var tempRemark1 = []
         arr1.forEach((v, i) => {
@@ -1097,6 +1220,9 @@ Page({
           })
         })
         that.setData({
+          jianyiPrice:(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7)).toFixed(2),
+          nahuoPrice:(arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount,
+          nahuoDiscount:(((((arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)/arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice))*10).toFixed(1),
           placeOrder: arr1,
           beizhuList1: tempRemark1,
           seedContent: res.data.content.order,
@@ -1105,6 +1231,8 @@ Page({
           deductionSeed: res.data.content.order.deductionSeed,
           deductionAfterAmount: res.data.content.order.deductionAfterAmount.toFixed(2)
         })
+        //按建议售价计算年化
+        that.computeNianhua()
         var actualPrice = 0
         for (var i = 0; i < that.data.placeOrder.length; i++) {
           var orderGoods = that.data.placeOrder[i].orderGoodsBo
@@ -1140,7 +1268,7 @@ Page({
         var arr1 = arr.concat(res.data.content)
         for (let i in arr1) {
           arr1[i].remark = '选填'
-          arr1[i].colors = '#ff6417'
+          arr1[i].colors = '#AAAAAA'
         }
         var tempRemark1 = []
         arr1.forEach((v, i) => {
@@ -1197,7 +1325,8 @@ Page({
       expectedAmount: that.data.getOrder.expectedAmount,
       cashBackPeriods: that.data.getOrder.cashBackPeriods,
       topicId: parseInt(that.data.getOrder.topicId),
-      useSeed: that.data.seedShow == true ? 1 : 0
+      useSeed: that.data.seedShow == true ? 1 : 0,
+      discountNumber:Number((that.data.options.discountCompute*10).toFixed(2))
     }
     that.setData({
       goodsList1: data
@@ -1216,7 +1345,7 @@ Page({
         var totalDiscount = 0 //优惠总金额
         for (let i in arr1) {
           arr1[i].remark = '对方填写'
-          arr1[i].colors = '#ff6417'
+          arr1[i].colors = '#AAAAAA'
         }
         var tempRemark1 = []
         arr1.forEach((v, i) => {
@@ -1252,7 +1381,9 @@ Page({
           discountAmount: discountAmount.toFixed(2),
           shoppingAmount: shoppingAmount.toFixed(2),
           shoppingNum: shoppingNum,
-          totalDiscount: totalDiscount.toFixed(2)
+          totalDiscount: totalDiscount.toFixed(2),
+          isDiamondPartner:res.data.content.isDiamondPartner,
+          isMaxPeriod:res.data.content.isMaxPeriod
         })
         var actualPrice = 0
         for (var i = 0; i < that.data.placeOrder.length; i++) {
@@ -1280,17 +1411,18 @@ Page({
       goodsId: parseInt(that.data.options.goodsId),
       stockId: parseInt(that.data.options.stockId),
       quantity: parseInt(that.data.options.quantity),
-      cashBackId: parseInt(that.data.options.cashbackId),
+      cashBackId: parseInt(that.data.options.cashbackId?that.data.options.cashbackId:''),
       orderType: 17,
-      activityId: parseInt(that.data.options.activityId),
-      useSeed: that.data.seedShow == true ? 1 : 0
+      activityId: parseInt(that.data.options.activityId?that.data.options.activityId:''),
+      useSeed: that.data.seedShow == true ? 1 : 0,
+      discountNumber:Number((that.data.options.discountCompute*10).toFixed(2))
     }, 'POST').then((res) => {
       if (res.data.content) {
         var arr = []
         var arr1 = arr.concat(res.data.content)
         for (let i in arr1) {
           arr1[i].remark = '选填'
-          arr1[i].colors = '#ff6417'
+          arr1[i].colors = '#AAAAAA'
         }
         var tempRemark1 = []
         arr1.forEach((v, i) => {
@@ -1308,14 +1440,21 @@ Page({
           })
         })
         that.setData({
+          jianyiPrice:(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7)).toFixed(2),
+          nahuoPrice:(arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount,
+          nahuoDiscount:(((((arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)/arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice))*10).toFixed(1),
           placeOrder: arr1,
           beizhuList1: tempRemark1,
           seedContent: res.data.content.order,
           deductionAmount: res.data.content.order.deductionAmount.toFixed(2),
           buyMode: res.data.content.order.buyMode,
           deductionSeed: res.data.content.order.deductionSeed,
-          deductionAfterAmount: res.data.content.order.deductionAfterAmount.toFixed(2)
+          deductionAfterAmount: res.data.content.order.deductionAfterAmount.toFixed(2),
+          isDiamondPartner:res.data.content.isDiamondPartner,
+          isMaxPeriod:res.data.content.isMaxPeriod
         })
+        //按建议售价计算年化
+        that.computeNianhua()
         var actualPrice = 0
         for (var i = 0; i < that.data.placeOrder.length; i++) {
           var orderGoods = that.data.placeOrder[i].orderGoodsBo
@@ -1346,10 +1485,11 @@ Page({
       stockId: that.data.options.stockId,
       quantity: that.data.options.quantity,
       orderType: that.data.sponsorId ? 14 : 1,
-      expectedAmount: that.data.options.expectedAmount,
-      cashBackPeriods: that.data.options.cashBackPeriods,
+      // expectedAmount: that.data.options.expectedAmount,
+      cashBackPeriods: that.data.options.cashBackPeriods?that.data.options.cashBackPeriods:'',
       useSeed: that.data.seedShow == true ? 1 : 0,
-      useCoupon: that.data.shoppingAmountShow == true ? 1 : 0
+      useCoupon: that.data.shoppingAmountShow == true ? 1 : 0,
+      discountNumber:Number((that.data.options.discountCompute*10).toFixed(2))
     }, 'POST').then((res) => {
       if (res.data.content) {
         var arr = []
@@ -1365,7 +1505,7 @@ Page({
         var totalDiscount = 0 //优惠总金额
         for (let i in arr1) {
           arr1[i].remark = '选填'
-          arr1[i].colors = '#ff6417'
+          arr1[i].colors = '#AAAAAA'
         }
         var tempRemark1 = []
         arr1.forEach((v, i) => {
@@ -1390,6 +1530,9 @@ Page({
           })
         })
         that.setData({
+          jianyiPrice:(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7)).toFixed(2),
+          nahuoPrice:(arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount,
+          nahuoDiscount:(((((arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)/arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice))*10).toFixed(1),
           placeOrder: arr1,
           beizhuList1: tempRemark1,
           goodsType: goodsType, //类型为申请零元购
@@ -1403,8 +1546,12 @@ Page({
           discountAmount: discountAmount.toFixed(2),
           shoppingAmount: shoppingAmount.toFixed(2),
           shoppingNum: shoppingNum,
-          totalDiscount: totalDiscount.toFixed(2)
+          totalDiscount: totalDiscount.toFixed(2),
+          isDiamondPartner:res.data.content.isDiamondPartner,
+          isMaxPeriod:res.data.content.isMaxPeriod
         })
+        //按建议售价计算年化
+        that.computeNianhua()
         var actualPrice = 0
         for (var i = 0; i < that.data.placeOrder.length; i++) {
           var orderGoods = that.data.placeOrder[i].orderGoodsBo
@@ -1451,7 +1598,7 @@ Page({
         var totalDiscount = 0 //优惠总金额
         for (let i in arr1) {
           arr1[i].remark = '选填'
-          arr1[i].colors = '#ff6417'
+          arr1[i].colors = '#AAAAAA'
         }
         var tempRemark1 = []
         arr1.forEach((v, i) => {
@@ -1477,6 +1624,9 @@ Page({
           })
         })
         that.setData({
+          jianyiPrice:(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7)).toFixed(2),
+          nahuoPrice:(arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount,
+          nahuoDiscount:(((((arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)/arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice))*10).toFixed(1),
           placeOrder: arr1,
           beizhuList1: tempRemark1,
           goodsType: goodsType, //类型为申请零元购
@@ -1491,8 +1641,12 @@ Page({
           shoppingAmount: shoppingAmount.toFixed(2),
           shoppingNum: shoppingNum,
           totalDiscount: totalDiscount.toFixed(2),
-          sponsorAmount: sponsorAmount
+          sponsorAmount: sponsorAmount,
+          isDiamondPartner:res.data.content.isDiamondPartner,
+          isMaxPeriod:res.data.content.isMaxPeriod
         })
+        //按建议售价计算年化
+        that.computeNianhua()
         var actualPrice = 0
         for (var i = 0; i < that.data.placeOrder.length; i++) {
           var orderGoods = that.data.placeOrder[i].orderGoodsBo
@@ -1523,10 +1677,11 @@ Page({
       quantity: that.data.options.quantity,
       orderType: 19,
       activityId: that.data.options.activityId,
-      expectedAmount: that.data.options.expectedAmount,
+      // expectedAmount: that.data.options.expectedAmount,
       cashBackPeriods: that.data.options.cashBackPeriods,
       useSeed: that.data.seedShow == true ? 1 : 0,
-      useCoupon: that.data.shoppingAmountShow == true ? 1 : 0
+      useCoupon: that.data.shoppingAmountShow == true ? 1 : 0,
+      discountNumber:Number((that.data.options.discountCompute*10).toFixed(2))
     }, 'POST').then((res) => {
       if (res.data.content) {
         var arr = []
@@ -1542,7 +1697,7 @@ Page({
         var totalDiscount = 0 //优惠总金额
         for (let i in arr1) {
           arr1[i].remark = '选填'
-          arr1[i].colors = '#ff6417'
+          arr1[i].colors = '#AAAAAA'
         }
         var tempRemark1 = []
         arr1.forEach((v, i) => {
@@ -1567,6 +1722,9 @@ Page({
           })
         })
         that.setData({
+          jianyiPrice:(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7)).toFixed(2),
+          nahuoPrice:(arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount,
+          nahuoDiscount:(((((arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)/arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice))*10).toFixed(1),
           placeOrder: arr1,
           beizhuList1: tempRemark1,
           goodsType: goodsType, //类型为申请零元购
@@ -1580,8 +1738,12 @@ Page({
           discountAmount: discountAmount.toFixed(2),
           shoppingAmount: shoppingAmount.toFixed(2),
           shoppingNum: shoppingNum,
-          totalDiscount: totalDiscount.toFixed(2)
+          totalDiscount: totalDiscount.toFixed(2),
+          isDiamondPartner:res.data.content.isDiamondPartner,
+          isMaxPeriod:res.data.content.isMaxPeriod
         })
+        //按建议售价计算年化
+        that.computeNianhua()
         var actualPrice = 0
         for (var i = 0; i < that.data.placeOrder.length; i++) {
           var orderGoods = that.data.placeOrder[i].orderGoodsBo
@@ -1629,9 +1791,10 @@ Page({
         var totalDiscount = 0 //优惠总金额
         for (let i in arr1) {
           arr1[i].remark = '选填'
-          arr1[i].colors = '#ff6417'
+          arr1[i].colors = '#AAAAAA'
         }
         var tempRemark1 = []
+        let buyMode = 1
         arr1.forEach((v, i) => {
           if (v.remark == '选填') {
             tempRemark1.push('')
@@ -1648,11 +1811,20 @@ Page({
             v.orderGoods.payAmount = Number((v.orderGoods.payAmount + v.orderGoods.expressFee).toFixed(2))
             v.orderGoods.discountRatio = v.orderGoods.discountRatio / 10
           })
+          if(v.order.buyMode==2){
+            buyMode = 2
+          }
+          if(v.isDiamondPartner==1&&v.isMaxPeriod==1){
+            that.setData({
+              isDiamondPartner:1,
+              isMaxPeriod:1
+            })
+          }
         })
         that.setData({
           placeOrder: arr1,
           beizhuList1: tempRemark1,
-          buyMode: res.data.content[0].order.buyMode,
+          buyMode: buyMode,
           deductionAmount: deductionAmount.toFixed(2),
           deductionSeed: deductionSeed,
           deductionAfterAmount: deductionAfterAmount.toFixed(2),
@@ -1791,12 +1963,13 @@ Page({
     var that = this;
     var mesValue
     //正则验证，充值金额仅支持小数点前8位小数点后2位
-    if (e.detail.value > 0) {
-      if (/^\d{1,8}(\.\d{0,2})?$/.test(e.detail.value)) {
-        mesValue = e.detail.value;
+    let temp = e.detail.value
+    if (temp  > 0) {
+      if (/^\d{1,8}(\.\d{0,2})?$/.test(temp)) {
+        mesValue = temp;
 
       } else {
-        mesValue = e.detail.value.substring(0, e.detail.value.length - 1);
+        mesValue = temp.substring(0, temp.length - 1);
         wx.showToast({
           title: '售价仅支持小数点前8位,小数点后2位',
           icon: 'none'
@@ -1812,9 +1985,39 @@ Page({
       inputValue: mesValue
     })
   },
+  computeNianhua: function() {
+    let that = this
+    var amount  = that.data.jianyiPrice
+    if (that.data.jianyiPrice) {
+      if (amount > that.data.placeOrder[0].orderAdvanceSale.cashBackAmount) {
+        wx.showToast({
+          title: '不能大于共返金额哦！',
+          icon: 'none'
+        })
+        that.setData({
+          inputValue: null
+        })
+      } else {
+        app.Util.ajax('mall/forum/topic/calcuateAnnualizedRate', {
+          expectAmount: amount,
+          cashBackAmount: that.data.placeOrder[0].orderAdvanceSale.cashBackAmount,
+          perReturnAmount: that.data.placeOrder[0].orderAdvanceSale.perReturnAmount,
+          maxReturnTime: that.data.placeOrder[0].orderAdvanceSale.maxReturnTime,
+          periodLeft: that.data.placeOrder[0].orderAdvanceSale.periodLeft,
+        }, 'POST').then((res) => {
+          if (res.data.content) {
+            that.setData({
+              annualizedRate: res.data.content
+            })
+          }
+        })
+      }
+    }
+  },
   bindblur: function(e) {
     var that = this;
     var amount = Number(that.data.inputValue)
+    let arr1 = that.data.placeOrder
     if (that.data.inputValue) {
       if (amount > that.data.placeOrder[0].orderAdvanceSale.cashBackAmount) {
         wx.showToast({
@@ -1834,6 +2037,8 @@ Page({
         }, 'POST').then((res) => {
           if (res.data.content) {
             that.setData({
+              nahuoPrice:(arr1[0].orderGoodsBo[0].orderGoods.cashBack)-amount+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount,
+              nahuoDiscount:(((((arr1[0].orderGoodsBo[0].orderGoods.cashBack)-amount+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)/arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice))*10).toFixed(1),
               annualizedRate: res.data.content
             })
           }
@@ -1853,7 +2058,6 @@ Page({
       that.setData({
         saleText: null
       })
-      saleText: null
     } else {
       if (e.detail.value.length > 200) {
         wx.showToast({
@@ -1867,4 +2071,239 @@ Page({
       }
     }
   },
+  cancelShuoming:function(){
+    this.setData({
+      shuoming:false
+    })
+  },
+  showShuoming:function(e){
+    let index = e.currentTarget.dataset.index
+    if(index==0){
+      this.setData({
+        textStatus:0,
+        shuoming:true
+      })
+    }else if(index==2){
+      this.setData({
+        textStatus:1,
+        shuoming:true
+      })
+    }else if(index==3){
+      this.setData({
+        textStatus:2,
+        shuoming:true
+      })
+    }else if(index==4){
+      this.setData({
+        textStatus:3,
+        shuoming:true
+      })
+    }else if(index==5){
+      this.setData({
+        textStatus:4,
+        shuoming:true
+      })
+    }
+  },
+  comeBack:function(){
+    let that = this
+    if(that.data.options.isOrder){
+      wx.redirectTo({
+        url: `/packageB/pages/applyZero/applyZero?goodsId=${that.data.options.goodsId}&discountNumber=${that.data.options.discountCompute*10}&orderType=${that.data.options.orderType}&stockId=${that.data.options.stockId}&quantity=${that.data.options.quantity}&activityId=${that.data.options.activityId?that.data.options.activityId:''}`,
+      })
+    }else{
+      let pages = getCurrentPages();
+      let prevPage = pages[pages.length - 2]; 
+      prevPage.setData({
+        isShowBook:1
+      })
+      wx.navigateBack({
+        delta:1
+      })
+    }
+  },
+  tozuanshi:function(){
+    wx.navigateTo({
+      url: '/pages/diamondPartner/diamondPartner',
+    })
+  },
+  toseed:function(){
+    wx.navigateTo({
+      url: '/packageA/pages/seed/seed',
+    })
+  },
+  tosponsor:function(){
+    wx.navigateTo({
+      url: '/pages/sponsor/sponsor',
+    })
+  },
+  cancle:function(){
+    this.setData({
+      seedToast:false
+    })
+  },
+  toSeed:function(){
+    wx.navigateTo({
+      url:"/packageA/pages/seed/seed"
+    })
+    this.setData({
+      seedToast:false
+    })
+  },
+  payShure:function(){
+    let that = this
+    let goodsList = that.data.goodsList;
+    let buymode = that.data.buymodetemp
+    goodsList.remark = that.data.beizhuList1[0]
+    if (newCount) {
+      newCount = false
+      if (that.data.options.newPeopleActivity == 2) {
+        app.Util.ajax('mall/newPeople/addOrderByGoods', {
+        stockId: parseInt(that.data.options.stockId),
+        activityGoodsId: parseInt(that.data.options.activityGoodsId),
+        quantity: parseInt(that.data.options.quantity),
+        userAddressBookId: that.data.userAddressBookId,
+        isUnderLine: that.data.options.buyType == 1 ? 0 : 1,
+        remark: that.data.beizhuList1[0],
+        // 预售返现
+        defaultAmount: that.data.getMoney,
+        sellingPrice: that.data.inputValue,
+        content: that.data.saleText,
+        discountNumber:Number((that.data.options.discountCompute*10).toFixed(2))
+      }, 'POST').then((res) => {
+        if (res.data.content) {
+          this.setData({
+            seedToast:false
+          })
+          wx.navigateTo({
+            url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&isShowBook=${2}`,
+          })
+          wx.removeStorageSync('address')
+          wx.removeStorageSync('goAddress')
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+}else if(that.data.options.activityId){
+            if (that.data.options.goodsType) {
+        goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
+        goodsList.useSeed = that.data.seedShow == true ? 1 : 0
+        goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
+        goodsList.orderType = 19
+        goodsList.activityId = that.data.options.activityId
+        // 预售返现
+        goodsList.defaultAmount = that.data.getMoney
+        goodsList.sellingPrice = that.data.inputValue
+        goodsList.content = that.data.saleText
+        goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
+        app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
+          if (res.data.content) {
+            this.setData({
+              seedToast:false
+            })
+            wx.navigateTo({
+              url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&isShowBook=${2}`,
+            })
+            wx.removeStorageSync('address')
+            wx.removeStorageSync('goAddress')
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
+          }
+        })
+      } else {
+        goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
+        goodsList.useSeed = that.data.seedShow == true ? 1 : 0
+        goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
+        goodsList.orderType = 17
+        goodsList.activityId = that.data.options.activityId
+        // 预售返现
+        goodsList.defaultAmount = that.data.getMoney
+        goodsList.sellingPrice = that.data.inputValue
+        goodsList.content = that.data.saleText
+        goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
+        app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
+          if (res.data.content) {
+            this.setData({
+              seedToast:false
+            })
+            wx.navigateTo({
+              url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}`,
+            })
+            wx.removeStorageSync('address')
+            wx.removeStorageSync('goAddress')
+          } else {
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
+          }
+        })
+      }
+}else if(that.data.options.sponsorId){
+goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
+      goodsList.useSeed = that.data.seedShow == true ? 1 : 0
+      goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
+      goodsList.orderType = 14
+      goodsList.auspicesApplyId = that.data.options.sponsorId
+      // 预售返现
+      goodsList.defaultAmount = that.data.getMoney
+      goodsList.sellingPrice = that.data.inputValue
+      goodsList.content = that.data.saleText
+      // goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
+      app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
+        if (res.data.content) {
+          this.setData({
+            seedToast:false
+          })
+          wx.navigateTo({
+            url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&isShowBook=${2}`,
+          })
+          wx.removeStorageSync('address')
+          wx.removeStorageSync('goAddress')
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+}else{
+      goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
+      goodsList.useSeed = that.data.seedShow == true ? 1 : 0
+      goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
+      // 预售返现
+      goodsList.defaultAmount = that.data.getMoney
+      goodsList.sellingPrice = that.data.inputValue
+      goodsList.content = that.data.saleText
+      goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
+      app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
+        if (res.data.content) {
+          this.setData({
+            seedToast:false
+          })
+          wx.navigateTo({
+            url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&buymode=${buymode}&buyType=${that.data.buyType}&isShowBook=${2}`,
+          })
+          wx.removeStorageSync('address')
+          wx.removeStorageSync('goAddress')
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+}
+setTimeout(function() {
+  newCount = true
+}, 300)
+    }
+   
+  }
 })

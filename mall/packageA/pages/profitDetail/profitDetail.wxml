@@ -22,7 +22,7 @@
         <view class="right">
             <view class="right_one" style="margin-top:59rpx" >
                 <view class="icon col3"></view>
-                <view class="name">买待返订单</view>
+                <view class="name">买返现订单</view>
                 <view class="proportion">{{content.buyBackProportion?content.buyBackProportion:0}}%</view>
             </view>
             <view class="right_one">
@@ -32,12 +32,12 @@
             </view>
             <view class="right_one">
                 <view class="icon col1"></view>
-                <view class="name">卖商品收益</view>
+                <view class="name">预售商品</view>
                 <view class="proportion">{{content.sellingGoodsProportion?content.sellingGoodsProportion:0}}%</view>
             </view>
             <view class="right_one">
                 <view class="icon col4"></view>
-                <view class="name">商品收益</view>
+                <view class="name">一折购</view>
                 <view class="proportion">{{content.commodityProportion?content.commodityProportion:0}}%</view>
             </view>
              <view class="right_one">
@@ -47,7 +47,7 @@
             </view>
             <view class="right_one">
                 <view class="icon col6"></view>
-                <view class="name">预售订单</view>
+                <view class="name">预售待返</view>
                 <view class="proportion">{{content.preOrderProportion?content.preOrderProportion:0}}%</view>
             </view>
         </view>
@@ -57,7 +57,7 @@
     <view class="detail_one borright borbottom" bindtap="todetail" data-index="1">
         <view class="detail_number">{{content.totalBuyBackAnnualizedRate?content.totalBuyBackAnnualizedRate:0}}<text >%</text></view>
         <view class="detail_nianhua">年收益率</view>
-        <view class="detail_font">买待返订单</view>
+        <view class="detail_font">买返现订单</view>
         <view class="detail_value"><text >￥</text>{{content.totalBuyBackIncome?content.totalBuyBackIncome:0}}</view>
     </view>
     <view class="detail_one borbottom" bindtap="todetail" data-index="2">
@@ -69,13 +69,13 @@
     <view class="detail_one borright borbottom" bindtap="todetail" data-index="3">
         <view class="detail_number">{{content.totalSellingGoodsAnnualizedRate?content.totalSellingGoodsAnnualizedRate:0}}<text >%</text></view>
         <view class="detail_nianhua">年收益率</view>
-        <view class="detail_font">卖商品收益</view>
+        <view class="detail_font">预售商品</view>
         <view class="detail_value"><text >￥</text>{{content.totalSellingGoodsIncome?content.totalSellingGoodsIncome:0}}</view>
     </view>
     <view class="detail_one borbottom" bindtap="todetail" data-index="4">
         <view class="detail_number left42">{{content.totalCommodityAnnualizedRate?content.totalCommodityAnnualizedRate:0}}<text >%</text></view>
         <view class="detail_nianhua left42">年收益率</view>
-        <view class="detail_font">商品收益</view>
+        <view class="detail_font">一折购</view>
         <view class="detail_value"><text >￥</text>{{content.totalCommodityIncome?content.totalCommodityIncome:0}}</view>
     </view>
     <view class="detail_one borright">
@@ -87,7 +87,7 @@
     <view class="detail_one" bindtap="todetail" data-index="5">
         <view class="detail_number left42">{{content.totalPreOrderAnnualizedRate?content.totalPreOrderAnnualizedRate:0}}<text >%</text></view>
         <view class="detail_nianhua left42">年收益率</view>
-        <view class="detail_font">预售订单</view>
+        <view class="detail_font">预售待返</view>
         <view class="detail_value"><text >￥</text>{{content.totalPreOrderIncome?content.totalPreOrderIncome:0}}</view>
     </view>
 </view>

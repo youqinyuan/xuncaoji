@@ -1,7 +1,7 @@
 /* pages/evaluate/evaluate.wxss */
 
 page {
-  background: rgba(244, 244, 244, 1);
+  background: #f4f4f4;
 }
 
 /*用户评价*/
@@ -9,10 +9,10 @@ page {
 .evaluate {
   height: 90rpx;
   line-height: 90rpx;
-  background: rgba(255, 255, 255, 1);
-  border-bottom: 2rpx solid #f4f4f4;
+  background: #fff;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20rpx;
 }
 
 .evaluate-left {
@@ -50,6 +50,8 @@ page {
 
 .evaluate-content-top {
   display: flex;
+  position: relative;
+  margin-bottom: 30rpx;
 }
 
 .evaluate-right-img {
@@ -65,7 +67,7 @@ page {
 
 .evaluate-content {
   overflow: hidden;
-  padding-bottom: 40rpx;
+  padding-bottom: 30rpx;
   border-bottom: 2rpx solid #f4f4f4;
   background: rgba(255, 255, 255, 1);
 }
@@ -75,7 +77,6 @@ page {
   height: 100rpx;
   margin-top: 30rpx;
   margin-left: 30rpx;
-  margin-bottom: 20rpx;
 }
 
 .evaluate-content-img image {
@@ -92,20 +93,14 @@ page {
 
 .evaluate-content-title {
   font-size: 28rpx;
-  color: rgba(51, 51, 51, 1);
-}
-
-.evaluate-content-start {
-  position: absolute;
-  right: 30rpx;
-  display: flex;
-  justify-content: space-between;
+  color: #333;
+  margin-right: 47rpx;
 }
 
 .evaluate-content-start image {
-  width: 30rpx;
-  height: 30rpx;
-  margin-right: 7rpx;
+  width: 25rpx;
+  height: 25rpx;
+  margin-right: 5rpx;
 }
 
 .evaluate-content-right-bottom {
@@ -117,19 +112,15 @@ page {
 }
 
 .date-wrap {
-  margin-right: 50rpx;
-}
-
-.date {
-  margin-right: 15rpx;
+  position: absolute;
+  top:75rpx;
+  right: 30rpx;
 }
 
 .evaluate-content-bottom {
-  margin: 30rpx 30rpx;
-  margin-top: 0;
   font-size: 28rpx;
   margin-left: 31rpx;
-  word-break:break-all; 
+  word-break: break-all;
   color: rgba(51, 51, 51, 1);
   line-height: 36rpx;
 }
@@ -144,7 +135,7 @@ page {
   display: inline-block;
   width: 150rpx;
   height: 150rpx;
-  border: 2rpx solid #fff;
+  border: 1rpx solid #fff;
   margin-right: 20rpx;
 }
 

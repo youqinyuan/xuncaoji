@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#F12E45",
+  "navigationBarBackgroundColor": "#FFFFFF",
   "navigationBarTitleText": "新人专区",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "black"
 }

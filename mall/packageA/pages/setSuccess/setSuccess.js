@@ -10,6 +10,7 @@ Page({
     shareImg:'',
     shareList:{},
     hostUrl: app.Util.getUrlImg().hostUrl,
+    seedToast:false
   },
 
   /**
@@ -22,7 +23,13 @@ Page({
         id:options.id
       })
     }
+    if(options.multiple){
+      this.setData({
+        multiple:options.multiple
+      })
+    }
     that.getShare()
+    that.checkSeed(options.id)
   },
   //获取分享数据
   getShare:function(){
@@ -53,6 +60,18 @@ Page({
         })
       }
   })
+  },
+  checkSeed:function(id){
+    let that = this
+    app.Util.ajax('mall/forum/topic/checkSeed4MentionPeriodTopic', {
+      id:id
+    }, 'POST').then((res) => {
+      if(res.data.messageCode=="MSG_1001"){
+          that.setData({
+            seedText:res.data.content
+          })
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -91,7 +110,12 @@ Page({
       })
     }
   },
-
+  shares: function() {
+    var that = this
+      that.setData({
+        showModalStatus1: true
+      })
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
@@ -105,31 +129,75 @@ Page({
   onReachBottom: function () {
 
   },
-
+        // 取消分享
+        cancelShare: function () {
+          var that = this
+          that.setData({
+            showModalStatus1: false
+          })
+        },
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
     let that = this
-    console.log(that.data.shareImg)
     if (res.from == "button") {
+      if (res.target.id === 'btn') {
+        // 来自页面内转发按钮
+        that.setData({
+          showModalStatus1: false
+        })
+        wx.showTabBar()
+        app.Util.ajax('mall/weChat/sharing/onSuccess', {
+          mode: 16
+        }, 'POST').then((res) => {
+          if (res.data.content) {
+            wx.showToast({
+              title: '分享成功',
+              icon: 'none'
+            })
+          }
+        })
         return {
-          title: '请助我一臂之力帮我提期，您也可享受超高收益',
+          title: that.data.shareList.desc,
           path: that.data.shareList.link,
-          imageUrl: that.data.shareImg,
-          success: function(res) {
+          imageUrl: that.data.shareList.imageUrl,
+          success: function (res) {
 
           },
-          fail: function(res) {
+          fail: function (res) {
             // 转发失败
             console.log("转发失败:" + JSON.stringify(res));
           }
+        }
+      } else if (res.target.id === 'btnGroup') {
+        that.setData({
+          showModalStatus1: false
+        })
+        wx.showTabBar()
+        app.Util.ajax('mall/weChat/sharing/onSuccess', {
+          mode: 16
+        }, 'POST').then((res) => {
+          if (res.data.content) {
+            wx.showToast({
+              title: '分享成功',
+              icon: 'none'
+            })
+          } else {
+
+          }
+        })
+        return {
+          title: that.data.shareList.groupDesc,
+          path: that.data.shareList.link,
+          imageUrl: that.data.shareList.imageUrl,
+        }
+      }
     }
-  }
   },
   fabu:function(){
     this.setData({
-      shurePeriod:true
+      seedToast:true
     })
   },
   close:function(){
@@ -143,7 +211,7 @@ Page({
       id:that.data.id
     }, 'POST').then((res) => {
       that.setData({
-        shurePeriod:false
+        seedToast:false
       })
       if (res.data.messageCode == 'MSG_1001') {
         wx.showToast({
@@ -163,5 +231,18 @@ Page({
     wx.navigateTo({
       url: `/packageA/pages/helpMentionPeriod/helpMentionPeriod?id=`+that.data.id,
     })
-  }
+  },
+  cancle:function(){
+    this.setData({
+      seedToast:false
+    })
+  },
+  toSeed:function(){
+    wx.navigateTo({
+      url:"/packageA/pages/seed/seed"
+    })
+    this.setData({
+      seedToast:false
+    })
+  },
 })

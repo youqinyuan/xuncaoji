@@ -84,7 +84,7 @@ Page({
       select: true,
       sourceString: 41
     }, {
-      name: '下级0成本购买',
+      name: '下级一折购',
       select: true,
       sourceString: 42
     }, {
@@ -92,7 +92,7 @@ Page({
       select: true,
       sourceString: 43
     }, {
-      name: '第5级0成本购买',
+      name: '第5级一折购',
       select: true,
       sourceString: 44
     }, {
@@ -286,7 +286,7 @@ Page({
     }, 'GET').then((res) => {
       if (res.data.messageCode == 'MSG_1001') {
         that.data.arry2[2].name = `第${res.data.content.level}级普通购买`
-        that.data.arry2[3].name = `第${res.data.content.level}级0成本购买`
+        that.data.arry2[3].name = `第${res.data.content.level}级一折购`
         that.setData({
           arry2: that.data.arry2
         })

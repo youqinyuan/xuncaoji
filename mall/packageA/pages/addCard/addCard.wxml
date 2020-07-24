@@ -2,7 +2,7 @@
 <view class="wraper">
   <view class="listItems">
     <text class="listLeft">银行卡卡号: </text>
-    <input class="listRight" maxlength="18" placeholder="请输入银行卡卡号" type="number" value="{{card}}" bindinput='bindCard' />
+    <input class="listRight" maxlength="19" placeholder="请输入银行卡卡号" type="number" value="{{card}}" bindinput='bindCard' />
   </view>
   <view class="listItems">
     <text class="listLeft">开户行: </text>

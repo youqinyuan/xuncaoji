@@ -47,21 +47,18 @@ page {
 /* 信息 */
 
 .notStore {
-  display: flex;
-  flex-direction: column;
+ color: #333;
   font-size: 28rpx;
-  margin-top: 187rpx;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 160rpx;
 }
 
 .notStore image {
-  width: 750rpx;
-  height: 320rpx;
+  width: 380rpx;
+  height: 380rpx;
 }
 
-.notStoreText {
-  text-align: center;
-  color: #333;
-}
 
 .saveAndmake-wrap {
   margin-top: 110rpx;
@@ -223,7 +220,7 @@ page {
 
 .modifyMsg {
   border-radius: 40rpx;
-  border: 2rpx solid #999;
+  border: 1rpx solid #999;
   width: 210rpx;
   height: 60rpx;
   line-height: 60rpx;
@@ -232,7 +229,7 @@ page {
 
 .cancel {
   border-radius: 40rpx;
-  border: 2rpx solid #999;
+  border: 1rpx solid #999;
   width: 172rpx;
   height: 60rpx;
   line-height: 60rpx;
@@ -242,7 +239,7 @@ page {
 
 .editPrice {
   border-radius: 40rpx;
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
   color: #ff2644;
   width: 172rpx;
   height: 60rpx;
@@ -253,7 +250,7 @@ page {
 
 .editPrice1 {
   border-radius: 40rpx;
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
   color: #ff2644;
   width: 210rpx;
   height: 60rpx;
@@ -352,7 +349,7 @@ page {
 .yudialog__mask .order_box1 {
   width: 240rpx;
   height: 76rpx;
-  border: 2rpx solid rgba(255, 38, 68, 1);
+  border: 1rpx solid rgba(255, 38, 68, 1);
   border-radius: 38rpx;
   text-align: center;
   font-size: 32rpx;

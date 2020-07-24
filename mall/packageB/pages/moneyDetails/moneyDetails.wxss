@@ -1,0 +1,82 @@
+/* packageB/pages/moneyDetails/moneyDetails.wxss */
+
+/* 金额明细表 */
+
+.zan-dialog-container {
+  width: 100%;
+  display: flex;
+}
+
+.nav {
+  display: flex;
+  box-sizing: border-box;
+  font-size: calc(24vmin / 7.5);
+  white-space: nowrap;
+}
+
+.table {
+  width: calc(2870vmin / 7.5);
+  border: calc(1vmin / 7.5) solid #dbdbdb;
+  border-right: calc(1vmin / 7.5) solid #dbdbdb;
+  margin-bottom: calc(20vmin / 7.5);
+  border-bottom: calc(1vmin / 7.5) solid #dbdbdb;
+}
+
+.tr {
+  border-top: calc(1vmin / 7.5) solid #dbdbdb;
+  color: #333;
+  font-size: calc(24vmin / 7.5);
+  display: flex;
+  width: calc(2870vmin / 7.5);
+}
+
+.th {
+  font-size: calc(24vmin / 7.5);
+  width: calc(190vmin / 7.5);
+  color: #333;
+  background: #f4f4f4;
+  height: calc(68vmin / 7.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: calc(1vmin / 7.5) solid #dbdbdb;
+}
+
+.td {
+  width: calc(190vmin / 7.5);
+  height: calc(68vmin / 7.5);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  border-right: calc(1vmin / 7.5) solid #dbdbdb;
+}
+
+.goodsname {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  line-height: calc(68vmin / 7.5);
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  width: calc(160vmin / 7.5);
+}
+
+.discount {
+  text-align: center;
+  width: calc(400vmin / 7.5);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.discount1 {
+  text-align: center;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  width: calc(380vmin / 7.5);
+}

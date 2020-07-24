@@ -1,0 +1,117 @@
+<!--pages/zeroBuy/zeroBuy.wxml-->
+<view class="zero-purchase">
+  <view class="zero-container">
+    <view class="zero-container-title">新品免费体验</view>
+    <view class="zero-container-num">{{content.grabbedNumber}}人已抢到</view>
+    <view class="zero-container-list-item">
+      <view class="zero-container-item" wx:for='{{orderTabItem}}' data-current="{{idx}}" wx:key="{{item.title}}" bindtap='tabTop' data-index="{{index}}" data-type="{{item.type}}">
+        <view class="tabTitle {{item.select==true?'active':''}}">{{item.title}}</view>
+      </view>
+    </view>
+    <view class="zero-container-content">
+      <view class="zero-container-time" wx:if="{{type==1}}">
+        <text>每天</text>
+        <text wx:for="{{content.priceActivityTimeIntervalList}}" wx:key="">{{item.startTime}}~{{item.endTime}}</text>
+        <text>{{numCh}}场，每场2000份</text>
+      </view>
+      <view class="zero-container-time" wx:if="{{type==2}}"></view>
+      <view class="zero-container-time" wx:if="{{type==4}}"></view>
+      <view class="zero-container-bg">
+        <view class="zero-purchase-cm" wx:if="{{content.status==2&&content.remainingTime!==0}}">
+          <!-- <view class="zero-purchase-word">距本场结束 </view> -->
+          <!-- <view class="zero-purchase-number" wx:if="{{content.type==1}}">{{hours}}</view>
+          <view class="zero-purchase-number" wx:if="{{content.type==2}}">{{hours1}}</view> -->
+          <view class="zero-purchase-word">本活动正在进行中</view>
+        </view>
+        <view class="zero-purchase-time" wx:if="{{content.status==1 || content.status==3 || content.status==4 || content.remainingTime == 0}}">
+          <view class="zero-purchase-word">活动暂未开始，请等待哦 </view>
+        </view>
+        <view class="zero-purchase-wrap" wx:if="{{type==1}}">{{zeroText}}</view>
+        <view class="zero-purchase-wrap1" wx:if="{{type==2}}">{{zeroText}}</view>
+        <view class="zero-purchase-wrap2" wx:if="{{type==4}}">
+        </view>
+        <view class="wrap">
+          <view class="items" wx:for="{{content.goodsItems}}" wx:key="{{item.id}}" bindtap="jumpDetail" data-price="{{item.orgPrice}}" data-id="{{item.id}}" data-text="{{btnText}}">
+            <view class="img_wrap">
+              <image src="{{item.imageUrls[0]}}"></image>
+            </view>
+            <view class="goodsDetail">
+              <view class="goodsName"> {{item.name}}</view>
+              <view class="goodsPrice">原价：¥
+                <text>{{item.orgPrice}}</text>
+              </view>
+              <view class="btn" catchtap="showBtn" data-price="{{item.orgPrice}}" data-goodsid="{{item.id}}" data-text="{{btnText}}">{{btnText}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="moveMore" wx:if="{{content.goodsItems.length>3}}">滑动查询更多</view>{{content.goodsItem.length}}</view>
+    </view>
+  </view>
+</view>
+<!-- 提示关注公众号弹框 -->
+<view class="mask" wx:if="{{showMask}}" catchtouchmove="preventTouchMove">
+  <view class="content_wrap" bindlongpress="saveImg">
+    <image src="{{hostUrl}}/icon/bg_gzh.png"></image>
+    <view class="content">
+      <view class="title">添加寻草记小姐姐微信领取</view>
+      <view class="step">1、可微信搜索小姐姐微信号：
+        <text>jishi186</text>加好友。
+      </view>
+      <view class="step">2、长按即可保存二维码至相册，打开微信
+        <text>“扫一扫”</text>点击右上角“相册”，选择二维码图片。
+      </view>
+      <view class="code_wrap">
+        <image src="{{hostUrl}}/icon/code.png" class="code"></image>
+      </view>
+    </view>
+  </view>
+  <image src="{{hostUrl}}/icon/ic_cancel.png" class="close" bindtap="show"></image>
+</view>
+<!-- 返回首页组件 -->
+<go_home class="go_home"></go_home>
+
+<!-- 分享按钮 -->
+<image src="{{hostUrl}}/icon/ic_share.png" class="share_img" bindtap="shares"></image>
+<!-- 分享弹框 -->
+<view class="commodity_screen1" wx:if="{{showModalStatus1}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="shareCommission">你喜欢那就分享给你朋友吧</view>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
+    </view>
+  </view>
+</view>
+
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>
+
+<!-- 提示 -->
+<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showGet}}">
+  <view class="zan-dialog__container" wx:if="{{showGet}}">
+    <view class="title">提示</view>
+    <view class="text">
+      {{showText}}
+    </view>
+    <button bindtap="cancelGet">我知道了</button>
+  </view>
+  <image wx:if="{{showGet}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelGet'></image>
+</view>

@@ -1,0 +1,16 @@
+<!--packageA/pages/fastSuccess/fastSuccess.wxml-->
+<view class="content" >
+    <view class="check_success">
+        <image src="{{hostUrl}}/changeImg/success1.png" class="checkImg" />
+        <view class="check_info">入驻完成</view>
+        <view class="cause_box">
+            <view class="cause">您可以在微信搜索“寻草记商城”公众号</view>
+            <view class="cause">进行登录商家后台或者扫描以下二维码进行登录</view>
+            <view class="cause">（账户为您的手机号码）</view>
+        </view>
+    </view>
+    <view class="code_box">
+        <image src="{{DownloadImg}}" class="code" />
+    </view>
+    <view class="save" bindtap="saveQR">保存图片</view>
+</view>

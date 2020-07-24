@@ -15,7 +15,7 @@
 <view class="block" wx:if="{{initAddress.length>0}}"></view>
 <view class="location-bottom" wx:if="{{initAddress.length>0}}">
   <view class="current">
-    <image class="current-img" src="{{hostUrl}}/newIndex/address.png"></image>
+    <image class="current-img1" src="{{hostUrl}}/newIndex/address.png"></image>
     <view class="current-text">收货地址</view>
   </view>
   <view class="address-wrap" wx:for="{{initAddress}}" wx:key="{{item.id}}" catchtap="jumpLocation" data-lat="{{item.lat}}" data-lng="{{item.lng}}" data-detail="{{item.detailedAddress}}">

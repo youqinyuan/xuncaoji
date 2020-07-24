@@ -171,6 +171,7 @@ Page({
     if(storeEnterStatus==1){
       if(that.data.businessLicenses.length>0){
         let temp = app.globalData.moveData
+        temp.type = 1    //正式入驻
         temp.source = 2    //小程序渠道
         temp.businessLicenses = JSON.stringify(that.data.businessLicenses)  //营业执照
         wx.setStorageSync('registerInfo',temp)

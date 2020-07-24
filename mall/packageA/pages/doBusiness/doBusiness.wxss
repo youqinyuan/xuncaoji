@@ -18,7 +18,7 @@ page{
 .day{
     width:150rpx;
     height:60rpx;
-    border:2rpx solid rgba(255,38,68,1);
+    border:1rpx solid rgba(255,38,68,1);
     border-radius:30rpx;
     font-size:28rpx;
     color:rgba(255,38,68,1);
@@ -49,8 +49,7 @@ page{
 .start_time{
     height: 70rpx;
     width:248rpx;
-    height:70rpx;
-    border:2rpx solid rgba(170,170,170,1);
+    border:1rpx solid rgba(170,170,170,1);
     border-radius:10rpx;
     display: inline-block;
     position: absolute;
@@ -68,8 +67,7 @@ page{
 .end_time{
     height: 70rpx;
     width:248rpx;
-    height:70rpx;
-    border:2rpx solid rgba(170,170,170,1);
+    border:1rpx solid rgba(170,170,170,1);
     border-radius:10rpx;
     display: inline-block;
     position: absolute;

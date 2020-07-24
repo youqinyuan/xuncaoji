@@ -66,7 +66,7 @@
         <view class="modifyMsg" wx:if="{{item.status==2||item.status==6}}">修改购买信息</view>
       </view>
       <view class="cancel" data-type="{{item.type}}" data-id="{{item.id}}" data-status="{{item.status}}" data-liquidate="{{item.liquidateDamageAmountVendor}}" bindtap="exchangeClosed" wx:if="{{item.status==2||item.status==6}}">交易关闭</view>
-      <view class="editPrice1" bindtap="getOrder" wx:if="{{item.type==5&&item.status==6&&item.source==1}}" data-quantity="{{item.goodsQuantity}}" data-goodsid="{{item.goodsId}}" data-stock="{{item.stockId}}" data-topicid="{{item.id}}">0成本购支付</view>
+      <view class="editPrice1" bindtap="getOrder" wx:if="{{item.type==5&&item.status==6&&item.source==1}}" data-quantity="{{item.goodsQuantity}}" data-goodsid="{{item.goodsId}}" data-stock="{{item.stockId}}" data-topicid="{{item.id}}">一折购支付</view>
       <view class="cancelFinish" wx:if="{{item.status==3||item.status==7||item.status==8||item.status==9}}">交易关闭</view>
       <view wx:if="{{item.type==5&&currentTab==0}}">
         <view class="editPriceFinish" wx:if="{{item.status==3||item.status==7||item.status==8||item.status==9}}">改价</view>
@@ -79,7 +79,7 @@
   </view>
 </view>
 <view class="notStore" wx:if="{{myOrderList.length==0}}">
-  <image src="/assets/images/icon/pic.png"></image>
+  <image src="/assets/images/mine/orderNoThing.png"></image>
   <view class="notStoreText">您还没有任何订单哦</view>
 </view>
 <view class="yudialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}">

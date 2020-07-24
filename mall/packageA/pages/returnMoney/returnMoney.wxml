@@ -29,6 +29,15 @@
         <text class="max_money" wx:else>最多可退<text class="font20">￥</text>{{maxMoney.refundQuota}}</text>
     <text class=".max_money2" wx:if="{{index1==1}}">含运费<text >￥</text>{{goodsDetail.expressFee}}</text>
 </view>
+<view class="goodsStatus_box" wx:if="{{seedAmountConsume>0}}">
+    <text class="goodsStatus_one">退款扣除购买时赠送的种子</text>
+    <text class="goodsStatus_two left370">*</text>
+    <view class="goodsStatus_three1">{{seedAmountConsume}}颗</view>
+</view>
+<view class="goodsStatus_box">
+    <text class="goodsStatus_one">可用种子数量</text>
+    <view class="goodsStatus_three1">{{seedAmountTotal}}颗</view>
+</view>
 <view class="goodsStatus_box">
     <text class="goodsStatus_one">退款说明</text>
     <view class="goodsStatus_three1">
@@ -46,7 +55,10 @@
 </view>
     <text class="shuoming">最多三张图片</text>
 </view>
-<view class="shenqing" bindtap="toDealWith">提交申请</view>
+<view class="botton_box">
+  <view class="shenqing" bindtap="toDealWith">提交申请</view>
+</view>
+
   <!-- 是否收货弹窗  -->
 <view class="dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{show1}}">
   <view class="dialog__container" wx:if="{{show1}}">
@@ -89,3 +101,15 @@
 
 <!-- 压缩上传图片使用 -->
 <canvas canvas-id="canvas" style="width:200px;height:200px;position: absolute;left:-1000px;top:-1000px;"></canvas>
+<!-- 种子不足弹窗 -->
+<view class="interest-zan-dialog__mask" wx:if="{{seedShow}}">
+  <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{seedShow}}">
+    <view class="title">温馨提示</view>
+    <view class="text">您的种子数量不足，请先获得足够的种子，再来退款吧！</view>
+    <view class="button_box">
+        <view class="button_one" bindtap="cancle">取消</view>
+        <view class="button_two" bindtap="toSeed">去获得种子</view>
+    </view>
+  </view>
+</view>
+

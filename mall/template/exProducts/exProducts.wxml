@@ -1,101 +1,114 @@
+<import src='/template/goodsList/goodsList' />
 <template name="exProducts">
-  <view class="container-wrapper">
-    <!--轮播图-->
-    <swiper class="swiper-wrapper-item" indicator-color="rgba(255, 255, 255, 1)" indicator-active-color="#FF2644" indicator-dots="true" circular="{{circular}}" interval="{{interval}}" duration="{{duration}}">
-      <swiper-item wx:if="{{imgUrls.length>0}}" wx:for="{{imgUrls}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}" data-name="{{item.name}}">
+  <!--轮播图-->
+  <view class="swiper-container">
+    <swiper class="swiper-wrapper-item" bindchange="swiperChange">
+      <swiper-item wx:if="{{imgUrls.length>0}}" wx:for="{{imgUrls}}"  wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}" data-storeType="{{item.paramExt}}">
         <image wx:if="{{imgUrls.length===0}}" src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
-        <image wx:else src="{{item.imageUrl}}" class="slide-image" />
+        <image wx:else src="{{item.iconUrl}}" class="slide-image" />
       </swiper-item>
       <swiper-item wx:if="{{imgUrls.length===0}}">
         <image src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
       </swiper-item>
     </swiper>
-    <view class="platform">
-      <view class="platform-list">
-        <view class="platform-list-item">
-          <image class="platform-list-img" src="{{hostUrl}}/icon/index_protect_shouhou_icon.png"></image>
-          <text class="platform-text">源头直采</text>
-        </view>
-        <view class="platform-list-item">
-          <image class="platform-list-img" src="{{hostUrl}}/icon/index_protect_renzheng_icon.png"></image>
-          <text class="platform-text">假一赔十</text>
-        </view>
-        <view class="platform-list-item">
-          <image class="platform-list-img" src="{{hostUrl}}/icon/index_protect_changj_icon.png"></image>
-          <text class="platform-text">全场支持0成本购</text>
-        </view>
+    <view class="dots">
+      <block wx:for="{{imgUrls}}" wx:key="unique">
+        <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
+      </block>
+    </view>
+  </view>
+  <view class="platform">
+    <view class="platform-list">
+      <view class="platform-list-item">
+        <image class="platform-list-img" src="{{hostUrl}}/supplement/index_protect_shouhou_icon.png"></image>
+        <text class="platform-text">源头直采</text>
+      </view>
+      <view class="platform-list-item">
+        <image class="platform-list-img" src="{{hostUrl}}/supplement/zhengpin.png"></image>
+        <text class="platform-text">正品保证</text>
+      </view>
+      <view class="platform-list-item">
+        <image class="platform-list-img" src="{{hostUrl}}/supplement/index_protect_renzheng_icon.png"></image>
+        <text class="platform-text">假一赔十</text>
+      </view>
+      <view class="platform-list-item">
+        <image class="platform-list-img" src="{{hostUrl}}/supplement/index_protect_changj_icon.png"></image>
+        <text class="platform-text">全场一折购</text>
       </view>
     </view>
-    <!-- 类别 -->
-    <view class="section-swiper">
-      <swiper class="section-wrap" autoplay="{{false}}" circular="{{false}}" interval="5000" indicator-color="#CCCCCC" indicator-active-color="#FF6417" indicator-dots="{{indicatorDots}}" style="height:{{height}}rpx;padding-top:{{paddingTop}}rpx;">
-        <swiper-item class="section-classify">
-          <view class="section-list" wx:for="{{navigationList1}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}">
-            <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.category==1&&item.param===8}}">
-              <view class="section-list-img1">
-                <image src="{{item.iconUrl}}"></image>
-              </view>
-              <view class="section-list-text">{{item.title}}</view>
-            </button>
-            <view class="section-list_wrap" wx:else>
-              <view class="section-list-img">
-                <image src="{{item.iconUrl}}"></image>
-              </view>
-              <view class="section-list-text">{{item.title}}</view>
-            </view>
-          </view>
-        </swiper-item>
-        <swiper-item class="section-classify" wx:if="{{navigationList.length>10}}">
-          <view class="section-list" wx:for="{{navigationList2}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}">
+    <image src="{{hostUrl}}/twoSix/border.png" class="borderB" />
+  </view>
+  <!-- 类别 -->
+  <view class="section-swiper">
+    <swiper class="section-wrap" autoplay="{{false}}" circular="{{false}}" interval="5000" indicator-color="#CCCCCC" indicator-active-color="#FF6417" indicator-dots="{{indicatorDots}}" style="height:{{height}}rpx;padding-top:{{paddingTop}}rpx;">
+      <swiper-item class="section-classify">
+        <view class="section-list" wx:for="{{navigationList1}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}" data-storeType="{{item.paramExt}}">
           <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.category==1&&item.param===8}}">
-              <view class="section-list-img1">
-                <image src="{{item.iconUrl}}"></image>
-              </view>
-              <view class="section-list-text">{{item.title}}</view>
-            </button>
-            <view class="section-list_wrap" wx:else>
-              <view class="section-list-img">
-                <image src="{{item.iconUrl}}"></image>
-              </view>
-              <view class="section-list-text">{{item.title}}</view>
-            </view>            
+            <view class="section-list-img1">
+              <image src="{{item.iconUrl}}"></image>
+            </view>
+            <view class="section-list-text">{{item.title}}</view>
+          </button>
+          <view class="section-list_wrap" wx:else>
+            <view class="section-list-img">
+              <image src="{{item.iconUrl}}"></image>
+            </view>
+            <view class="section-list-text">{{item.title}}</view>
+          </view>
+        </view>
+      </swiper-item>
+      <swiper-item class="section-classify" wx:if="{{navigationList.length>10}}">
+        <view class="section-list" wx:for="{{navigationList2}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}" data-storeType="{{item.paramExt}}">
+          <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.category==1&&item.param===8}}">
+            <view class="section-list-img1">
+              <image src="{{item.iconUrl}}"></image>
+            </view>
+            <view class="section-list-text">{{item.title}}</view>
+          </button>
+          <view class="section-list_wrap" wx:else>
+            <view class="section-list-img">
+              <image src="{{item.iconUrl}}"></image>
+            </view>
+            <view class="section-list-text">{{item.title}}</view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+  <!-- 公告 -->
+  <view class="notice-swiper" wx:if="{{noticeList.length>0}}">
+    <image src="{{hostUrl}}/twoSix/notice.png" class="notice-image"></image>
+    <view class="borderA"></view>
+    <swiper class="notice" vertical="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="3000">
+      <block wx:for="{{noticeList}}" wx:key="{{item.id}}">
+        <swiper-item>
+          <view class="notice-swiper_item" bindtap="showNotice" data-id="{{item.id}}">
+            <text>{{item.title}}</text>
           </view>
         </swiper-item>
-      </swiper>
-    </view>
-    <!-- 公告 -->
-    <view class="notice-swiper" wx:if="{{noticeList.length>0}}">
-      <image src="{{hostUrl}}/add/ic_msg.png"></image>
-      <swiper class="notice" vertical="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="3000">
-        <block wx:for="{{noticeList}}" wx:key="{{item.id}}">
-          <swiper-item>
-            <view class="notice-swiper_item" bindtap="showNotice" data-id="{{item.id}}">
-              <text>{{item.title}}</text>
-            </view>
-          </swiper-item>
-        </block>
-        <block wx:for="{{noticeList}}" wx:key="{{item.id}}" wx:if="{{noticeList.length===1}}">
-          <swiper-item>
-            <view class="notice-swiper_item" bindtap="showNotice" data-id="{{item.id}}">
-              <text>{{item.title}}</text>
-            </view>
-          </swiper-item>
-        </block>
-      </swiper>
-    </view>
-    <!-- 活动导航 -->
-    <view class="activity_wrap" style="max-height:{{maxHeight}}rpx;{{activityList.length>0?'padding:30rpx 0;padding-left:26rpx;':'padding:0'}}" wx:if="{{activityList.length>0}}">
-      <view class="shape" wx:for="{{activityList}}" wx:key="{{item.id}}" catchtap="activityPage" data-id="{{item.id}}">
-        <view class="oblong" wx:if="{{item.showStyle==1}}">
-          <image class="activity-oblong" src="{{item.iconUrl}}"></image>
-        </view>
-        <view class="square" wx:if="{{item.showStyle==2}}">
-          <image class="activity-square" src="{{item.iconUrl}}"></image>
-        </view>
+      </block>
+      <block wx:for="{{noticeList}}" wx:key="{{item.id}}" wx:if="{{noticeList.length===1}}">
+        <swiper-item>
+          <view class="notice-swiper_item" bindtap="showNotice" data-id="{{item.id}}">
+            <text>{{item.title}}</text>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 活动导航 -->
+  <view class="activity_wrap" style="max-height:{{maxHeight}}rpx;{{activityList.length>0?'padding-left:26rpx;':'padding:0'}}" wx:if="{{activityList.length>0}}">
+    <view class="shape" wx:for="{{activityList}}" wx:key="{{item.id}}" catchtap="activityPage" data-id="{{item.id}}" data-storeType="{{item.paramExt}}">
+      <view class="oblong" wx:if="{{item.showStyle==1}}">
+        <image class="activity-oblong" src="{{item.iconUrl}}"></image>
+      </view>
+      <view class="square" wx:if="{{item.showStyle==2}}">
+        <image class="activity-square" src="{{item.iconUrl}}"></image>
       </view>
     </view>
-    <!--Go-->
-    <!-- <view class="activity">
+  </view>
+  <!--Go-->
+  <!-- <view class="activity">
       <view class="activity-list">
         <view class="activity-list-item1">
           <view class="activity-list-text">美食优选</view>
@@ -119,16 +132,16 @@
         </view>
       </view>
     </view> -->
-    <!--零元购-->
-    <!-- <view class="zerobuy" wx:if="{{bannerId !==''}}">
+  <!--零元购-->
+  <!-- <view class="zerobuy" wx:if="{{bannerId !==''}}">
       <form report-submit='true' bindsubmit='toZeroPurchase'>
         <button form-type="submit">
           <image class="zerobuy-item" src="{{bannerUrl}}"></image>
         </button>
       </form>
     </view> -->
-    <!--0元购好物-->
-    <!-- <view class="nationwideReturn">
+  <!--0元购好物-->
+  <!-- <view class="nationwideReturn">
       <view class="nationwideReturn-title">
         <image class="nationwideReturn-img" src="{{hostUrl}}/icon/quanmfan_icon.png"></image>
         <text class="nationwideReturn-text">0元购好物</text>
@@ -145,80 +158,70 @@
         </view>
       </view>
     </view> -->
-    <!-- 全网低价 -->
-    <view class="goodlist">
-      <view class="goodlist-title">
-        <image class="goodlist-img" src="{{hostUrl}}/icon/tuijian_haowu_icon.png"></image>
-        <text class="goodlist-text">全网低价</text>
-      </view>
-      <view class="goodlist-list">
-        <scroll-view class="goodlist-list-scroll" scroll-x="true">
-          <view class="goodlist-list-item" wx:for="{{goods}}" wx:key="{{item.id}}" bindtap='jumpDetail' data-id="{{item.id}}">
-            <view class="goodlist-list-img">
-              <image src="{{item.imageUrls[0]}}"></image>
-            </view>
-            <view class="goodlist-list-text">
-              <view class="text">低至</view>
-              <view class="price-sign">￥</view>
-              <view class="num">{{item.cashBackPrice}}</view>
-            </view>
-          </view>
-        </scroll-view>
-      </view>
+  <!-- 全网低价 -->
+  <!-- <view class="goodlist">
+    <view class="goodlist-title">
+      <image class="goodlist-img" src="{{hostUrl}}/icon/tuijian_haowu_icon.png"></image>
+      <text class="goodlist-text">全网低价</text>
     </view>
-    <view class="block"></view>
-    <!--口碑爆品榜-->
-    <view class="trend">
-      <view class="trend-title">
-        <image class="trend-img" src="{{hostUrl}}/icon/tuijian_qushi_icon.png"></image>
-        <text class="trend-text">口碑爆品榜</text>
-      </view>
-      <view class="trend-wrapper">
-        <view class="trend-list" wx:for="{{trend}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
-          <view class="trend-list-left">
-            <view class="top">{{item.name}}</view>
-            <view class="bottom">销量 {{item.sales}}</view>
-          </view>
-          <view class="trend-list-right">
+    <view class="goodlist-list">
+      <scroll-view class="goodlist-list-scroll" scroll-x="true">
+        <view class="goodlist-list-item" wx:for="{{goods}}" wx:key="{{item.id}}" bindtap='jumpDetail' data-id="{{item.id}}">
+          <view class="goodlist-list-img">
             <image src="{{item.imageUrls[0]}}"></image>
           </view>
+          <view class="goodlist-list-text">
+            <view class="text">低至</view>
+            <view class="price-sign">￥</view>
+            <view class="num">{{item.discountPrice}}</view>
+          </view>
         </view>
-        <view class="toto"></view>
+      </scroll-view>
+    </view>
+  </view> -->
+
+  <view class="block"></view>
+  <!-- 品牌专区 -->
+  <view class="brand-area">
+    <image src="{{hostUrl}}/twoSix/brand_bg.png" class="brand-image" />
+    <view style=" position: absolute;top: 0;">
+      <view class="brand-title">
+        <view class="brandBig">品牌专区</view>
+        <view class="brandSmall">星级大牌 让利折扣</view>
+      </view>
+      <view class="brand-list">
+        <view class='{{frameClass1}}' wx:for="{{content10}}" wx:key="" catchtap="jumpBrand" data-id="{{item.id}}" data-type="{{item.type}}" data-name="{{item.name}}" data-posterimage="{{item.posterImageUrl}}">
+          <image src="{{item.iconUrl}}" class="pinpaiImg" />
+        </view>
       </view>
     </view>
-    <!--销量排行榜-->
-    <view class="quality">
-      <view class="quality-title">
-        <image class="quality-img" src="{{hostUrl}}/icon/tuijian_pinzhi_icon.png"></image>
-        <text class="quality-text">销量排行榜</text>
-      </view>
-      <view class="quality-list-wrapper">
-        <view class="quality-list" wx:for="{{list}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
-          <view class="quality-list-img">
-            <image src="{{item.imageUrls[0]}}"></image>
-          </view>
-          <view class="quality-list-text">
-            <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-            <text class="item2">支持0成本购</text>{{item.name}}</view>
-          <view class="quality-list-price">
-            <view class="newprice">
-              <text>￥</text>{{item.truePrice}}</view>
-            <view class="oldprice">￥{{item.orgPrice}}</view>
-          </view>
-          <view class="return-wrap">
-            <view class="return-money">
-              <text>实付</text>
-              <text>￥</text>
-              <text>{{item.dctPrice}}</text>
-            </view>
-            <view class="pay-money">
-              <text>返现</text>
-              <text>￥</text>
-              <text>{{item.marketingCashBack.totalAmount}}</text>
-            </view>
-          </view>
+  </view>
+  <!--口碑爆品榜-->
+  <view class="trend">
+    <view class="trend-title">
+      <view class="trendBig">口碑爆品</view>
+      <view class="trendSmall">跟着大家买</view>
+    </view>
+    <view class="trend-wrapper">
+      <view class="trend-list" wx:for="{{trend}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
+        <view class="trend-list-left">
+          <image src="{{item.imageUrls[0]}}"></image>
+        </view>
+        <view class="trend-list-right">
+          <view class="top">{{item.name}}</view>
+          <view class="bottom">销量 {{item.sales}}</view>
         </view>
       </view>
+    </view>
+  </view>
+  <!--销量排行榜-->
+  <view class="quality">
+    <view class="quality-title">
+      <view class="qualityBig">销量排行榜</view>
+      <view class="qualitySmall">大家都在买</view>
+    </view>
+    <view class="quality-list-wrapper">
+      <template is='goodsList' data="{{list:list}}" wx:if="{{list.length>0}}" />
     </view>
   </view>
   <view class="exProducts-bottom">{{text}}</view>

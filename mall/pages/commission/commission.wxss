@@ -45,7 +45,7 @@ rich-text {
 .button {
   width: 690rpx;
   height: 76rpx;
-  background: #ff6417;
+  background: linear-gradient(90deg, rgba(255, 106, 72, 1) 0%, rgba(255, 38, 68, 1) 100%);
   border-radius: 38px;
   margin-top: 80rpx;
   margin-left: 30rpx;
@@ -104,7 +104,7 @@ rich-text {
   position: absolute;
   top: 50rpx;
   left: 43rpx;
-  color: rgba(255, 255, 255, 1);
+  color: #78582c;
 }
 
 .allMoney {
@@ -113,17 +113,23 @@ rich-text {
   margin-bottom: 25rpx;
 }
 
+.allMoney1 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25rpx;
+  color: #937852;
+}
+
 .allMoney-text {
   width: 170rpx;
   font-size: 26rpx;
-  color: #ffe7d9;
+  color: #937852;
 }
 
 .allMoney-num {
   font-size: 32rpx;
   font-family: PingFang SC;
   font-weight: 800;
-  text-shadow: 0rpx 1rpx 1rpx rgba(242, 82, 53, 1);
 }
 
 .allMoney-num .sign {
@@ -134,7 +140,6 @@ rich-text {
   margin-left: 22rpx;
   font-size: 26rpx;
   text-decoration: underline;
-  color: #b43b26;
 }
 
 .withdraw-wrap {
@@ -150,11 +155,11 @@ rich-text {
   height: 68rpx;
   text-align: center;
   line-height: 68rpx;
-  background: linear-gradient(0deg, rgba(255, 220, 199, 1) 0%, rgba(255, 243, 236, 1) 100%);
-  box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(236, 116, 66, 0.3);
+  background: linear-gradient(0deg, rgba(249, 232, 212, 1) 0%, rgba(255, 243, 236, 1) 100%);
+  box-shadow: 0px 2px 6px 0px rgba(190, 149, 95, 0.3);
   border-radius: 34rpx;
   font-size: 30rpx;
-  color: rgba(253, 105, 79, 1);
+  color: #be955f;
 }
 
 .block {
@@ -171,20 +176,8 @@ rich-text {
   display: flex;
 }
 
-.commission1-img {
-  width: 36rpx;
-  height: 36rpx;
-  margin-left: 30rpx;
-  margin-right: 15rpx;
-  margin-top: 5rpx;
-}
-
-.commission1-img image {
-  width: 36rpx;
-  height: 36rpx;
-}
-
 .commission1-title {
+  margin-left: 30rpx;
   font-size: 32rpx;
   color: rgba(51, 51, 51, 1);
 }
@@ -347,36 +340,41 @@ rich-text {
 }
 
 .modal-dialog1 {
-  width: 540rpx;
+  text-align: center;
+  width: 600rpx;
   height: 400rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
   top: 15%;
-  left: 125rpx;
+  left: 75rpx;
   z-index: 9999;
 }
 
 .modal-title1 {
-  position: absolute;
-  top: 54rpx;
-  left: 52rpx;
-  font-size: 34rpx;
-  color: rgba(51, 51, 51, 1);
+  height: 110rpx;
+  line-height: 110rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
 }
 
 .section1 {
   display: flex;
-  margin-top: 145rpx;
+  height: 60rpx;
   margin-left: 56rpx;
-  width: 440rpx;
-  border-bottom: 4rpx solid #ddd;
+  width: 470rpx;
+  border-bottom: 1rpx solid #ddd;
 }
 
 .input-price1 {
   font-size: 32rpx;
   color: rgba(51, 51, 51, 1);
+}
+
+.input-block {
+  text-align: left;
 }
 
 .message1 {
@@ -401,7 +399,7 @@ rich-text {
   position: absolute;
   width: 440rpx;
   height: 76rpx;
-  background: #ff6417;
+  background: linear-gradient(90deg, rgba(255, 106, 72, 1) 0%, rgba(255, 38, 68, 1) 100%);
   border-radius: 38rpx;
   line-height: 76rpx;
   text-align: center;
@@ -536,7 +534,7 @@ rich-text {
   text-align: center;
   width: 690rpx;
   height: 80rpx;
-  background: rgba(255, 38, 68, 1);
+  background:linear-gradient(90deg,rgba(255,106,72,1) 0%,rgba(255,38,68,1) 100%);
   border-radius: 40rpx;
   font-size: 32rpx;
   color: rgba(255, 255, 255, 1);
@@ -550,7 +548,7 @@ rich-text {
   display: inline-block;
   width: 335rpx;
   height: 80rpx;
-  background: #fc6f97;
+  background: #1A1A1A;
   border-radius: 38rpx;
   text-align: center;
   line-height: 80rpx;
@@ -631,11 +629,11 @@ rich-text {
 }
 
 .pwd-img {
-  width: 30rpx;
-  height: 30rpx;
+  width: 44rpx;
+  height: 69rpx;
   position: absolute;
-  right: 55rpx;
-  top: 18%;
+  right: 80rpx;
+  top: 22%;
 }
 
 .iptbox-wrapper {
@@ -677,14 +675,14 @@ rich-text {
 }
 
 .zan-dialog1__container {
-  width: 540rpx;
-  height: 282rpx;
+  width: 600rpx;
+  height: 320rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
   top: 300rpx;
-  left: 110rpx;
+  left: 75rpx;
   z-index: 9999;
 }
 
@@ -713,25 +711,26 @@ rich-text {
 
 .content1-button {
   display: flex;
-  height: 66rpx;
-  border-top: 2rpx solid #eaeaea;
+  margin-left: 50rpx;
 }
 
 .cancel-password {
-  width: 270rpx;
-  height: 66rpx;
-  line-height: 66rpx;
-  font-size: 34rpx;
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
   text-align: center;
-  border-right: 2rpx solid #eaeaea;
-  color: rgba(51, 51, 51, 1);
+  border: 1rpx solid #ff2644;
+  border-radius: 38rpx;
+  color: #ff2644;
+  margin-right: 20rpx;
 }
 
 .sure-password {
-  width: 270rpx;
-  height: 66rpx;
-  line-height: 66rpx;
-  font-size: 34rpx;
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
   text-align: center;
-  color: #ff2644;
+  background: #ff2644;
+  border-radius: 38rpx;
+  color: #fff;
 }

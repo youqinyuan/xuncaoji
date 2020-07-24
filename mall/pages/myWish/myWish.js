@@ -10,7 +10,7 @@ Page({
    */
   data: {
     hostUrl: app.Util.getUrlImg().hostUrl,
-    showDialog: false, //删除弹框
+    showDialog: true, //删除弹框
     wishpool: [],
     wishId: null,
     bgColor: '#f4f4f4',

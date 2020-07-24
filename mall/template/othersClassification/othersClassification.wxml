@@ -1,17 +1,40 @@
 <template name="othersClassification" wx:if="{{imageUrl.length>0}}">
   <view class="container-wrapper">
     <!--轮播图-->
-    <swiper class="swiper-wrapper-item" indicator-dots="{{false}}" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <swiper-item wx:if="{{imageUrl.length>0}}" wx:for="{{imageUrl}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}">
-        <image wx:if="{{imageUrl.length===0}}" src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
-        <image wx:else src="{{item.imageUrl}}" class="slide-image" />
-      </swiper-item>
-      <swiper-item wx:if="{{imageUrl.length===0}}">
-        <image src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
-      </swiper-item>
-    </swiper>
+    <view class="swiper-container">
+      <swiper class="swiper-wrapper-item" bindchange="swiperChange">
+        <swiper-item wx:if="{{imageUrl.length>0}}" wx:for="{{imageUrl}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}" data-name="{{item.name}}">
+          <image wx:if="{{imageUrl.length===0}}" src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
+          <image wx:else src="{{item.imageUrl}}" class="slide-image" />
+        </swiper-item>
+        <swiper-item wx:if="{{imageUrl.length===0}}">
+          <image src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
+        </swiper-item>
+      </swiper>
+    </view>
+    <view class="platform">
+      <view class="platform-list">
+        <view class="platform-list-item">
+          <image class="platform-list-img" src="{{hostUrl}}/supplement/index_protect_shouhou_icon.png"></image>
+          <text class="platform-text">源头直采</text>
+        </view>
+        <view class="platform-list-item">
+          <image class="platform-list-img" src="{{hostUrl}}/supplement/zhengpin.png"></image>
+          <text class="platform-text">正品保证</text>
+        </view>
+        <view class="platform-list-item">
+          <image class="platform-list-img" src="{{hostUrl}}/supplement/index_protect_renzheng_icon.png"></image>
+          <text class="platform-text">假一赔十</text>
+        </view>
+        <view class="platform-list-item">
+          <image class="platform-list-img" src="{{hostUrl}}/supplement/index_protect_changj_icon.png"></image>
+          <text class="platform-text">全场一折购</text>
+        </view>
+      </view>
+      <image src="{{hostUrl}}/twoSix/border.png" class="borderB" />
+    </view>
     <!--二级分类-->
-    <view class="two-classification-wrapper" style="padding-top:{{heightTop}}rpx;" wx:if="{{classfy.length>0}}">
+    <view class="two-classification-wrapper" wx:if="{{classfy.length>0}}">
       <view class="two-classification-list" wx:for="{{classfy}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="twoList">
         <image class="two-classification-img" mode="aspectFit" wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}"></image>
         <image class="two-classification-img" mode="aspectFit" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
@@ -25,40 +48,34 @@
         <view class="price-text">价格</view>
         <view class="price-img">
           <image src="{{pricePhoto}}"></image>
-        </view>
-      </view>
-      <view class="new" style="color:{{color2}};" bindtap='newGoods'>
-        <view class="new-text">上新</view>
-        <view class="new-img">
           <image src="{{pricePhoto1}}"></image>
         </view>
       </view>
+       <view class="price" style="color:{{color2}};" bindtap='newGoods'>
+        <view class="price-text">上新</view>
+        <view class="price-img">
+          <image src="{{pricePhoto2}}"></image>
+          <image src="{{pricePhoto3}}"></image>
+        </view>
+      </view>
+      <view class="comprehensive" style="color:{{color3}};" bindtap='brand'>品牌</view>
     </view>
     <view class="comprehensive-list-wrapper">
-      <view class="comprehensive-list" wx:for="{{comprehensive}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
+      <view class="comprehensive-list" wx:if="{{comprehensive.length>0}}" wx:for="{{comprehensive}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
         <view class="comprehensive-list-img">
           <image src="{{item.imageUrls[0]}}"></image>
         </view>
         <view class="comprehensive-list-text">
-          <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-          <text class="item2">支持0成本购</text>{{item.name}}</view>
+          <text class="item1" wx:if="{{item.tags==1}}">自营</text>{{item.name}}</view>
         <view class="comprehensive-list-price">
           <view class="newprice">
-            <text>￥</text>{{item.truePrice}}</view>
-          <view class="oldprice">￥{{item.orgPrice}}</view>
+            <text class="newtext">一折购:</text>
+            <text>￥</text>{{item.discountPrice}}</view>
         </view>
-        <view class="return-wrap">
-          <view class="return-money">
-            <text>实付</text>
-            <text>￥</text>
-            <text>{{item.dctPrice}}</text>
-          </view>
-          <view class="pay-money">
-            <text>返现</text>
-            <text>￥</text>
-            <text>{{item.marketingCashBack.totalAmount}}</text>
-          </view>
-        </view>
+      </view>
+       <view class="comprehensive-not" wx:if="{{comprehensive.length==0}}">
+        <image src="/assets/images/mine/noThing.png"></image>
+        <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
       </view>
     </view>
   </view>

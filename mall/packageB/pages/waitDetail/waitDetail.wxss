@@ -1,0 +1,158 @@
+/* packageB/pages/waitDetail/waitDetail.wxss */
+@import "../waitReentryDetail/waitReentryDetail.wxss";
+.zz{
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.postingCard{
+    right: 57rpx !important;
+}
+.the_left{
+    font-size:32rpx;
+    color:rgba(242,109,114,1);
+    height: 80rpx;
+    line-height: 80rpx;
+    margin-left: 20rpx;
+    display: flex;
+}
+.cash{
+    width:200rpx;
+    height:54rpx;
+    text-align: center;
+    line-height: 54rpx;
+    background:rgba(242,109,114,1);
+    border-radius:27rpx;
+    font-size:28rpx;
+    color:rgba(255,255,255,1);
+    margin-right: 20rpx;
+}
+.font24{
+    font-size: 24rpx !important;
+    line-height: 10rpx;
+}
+.reentryMoney{
+    display: flex;
+}
+.line{
+    line-height: 45rpx;
+}
+.line81{
+    line-height: 81rpx;
+}
+.Reentry_money text{
+    display: flex;
+}
+.xx{
+    top: 10rpx !important;
+}
+.zhihui{
+    background-color: #E7E7E7 !important;
+}
+.cashBackBox-text {
+    height: 80rpx;
+    line-height: 80rpx;
+    background:  #F4F4F4;
+    font-size: 24rpx;
+    font-family: PingFang-SC-Regular;
+    font-weight: 400;
+    color: rgba(153, 153, 153, 1);
+    text-align: center;
+  }
+  /* 种子消耗弹窗 */
+.bg10{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+  }
+  .content10{
+    position: absolute;
+    background:rgba(255,255,255,1);
+    width: 600rpx;
+    border-radius:24rpx;
+    top: 220rpx;
+    left: 75rpx;
+  }
+  .title10{
+    height: 142rpx;
+    line-height: 142rpx;
+    text-align: center;
+    font-size:34rpx;
+    color:rgba(51,51,51,1);
+  }
+  .text_one10{
+    font-size:28rpx;
+    color:rgba(51,51,51,1);
+    line-height:42rpx;
+    padding-left: 51rpx;
+    padding-right: 52rpx;
+  }
+  .text_two10{
+    font-size:28rpx;
+    color:rgba(51,51,51,1);
+    line-height:42rpx;
+    padding-left: 51rpx;
+    padding-right: 52rpx;
+    margin-top: 10rpx;
+  }
+  .message10{
+    font-size:24rpx;
+    color:#FF2644;
+    line-height:42rpx;
+    padding-left: 51rpx;
+    padding-right: 51rpx;
+    margin-top: 50rpx;
+  }
+  .button_box10{
+    display: flex;
+    justify-content: space-between;
+    height: 76rpx;
+    padding-left: 48rpx;
+    padding-right: 52rpx;
+    margin-top: 50rpx;
+    margin-bottom: 60rpx;
+  }
+  .button_one10{
+    width:240rpx;
+    height:75rpx;
+    border:0.5px solid rgba(255,38,68,1);
+    border-radius:38rpx;
+    font-size:32rpx;
+    color:rgba(255,38,68,1);
+    text-align: center;
+    line-height: 75rpx;
+  }
+  .button_two10{
+    width:240rpx;
+    height:76rpx;
+    background:rgba(255,38,68,1);
+    border-radius:38rpx;
+    font-size:32rpx;
+    color:rgba(255,255,255,1);
+    text-align: center;
+    line-height: 76rpx;
+  }
+  .cancel-get10{
+    position: absolute;
+    top: 146rpx;
+    right: 100rpx;
+    width: 44rpx;
+    height: 74rpx;
+  }
+  .picStore{
+    width: 380rpx;
+    height: 380rpx;
+    margin-left: 185rpx;
+    margin-top: 187rpx;
+  }
+  .noThing{
+    font-size:28rpx;
+    color:rgba(51,51,51,1);
+    text-align: center;
+  }
+  

@@ -1,5 +1,5 @@
 /* packageA/pages/ecommerceStore/ecommerceStore.wxss */
-
+@import "/template/goodsList/goodsList";
 page {
   background: #f1f1f1;
 }
@@ -22,7 +22,13 @@ page {
   font-size: 32rpx;
   color: #fff;
 }
-
+.bottom_tishi{
+  text-align: center;
+  color: #666;
+  font-size: 24rpx;
+  line-height: 100rpx;
+  height: 100rpx;
+}
 .stroeName {
   width: 360rpx;
   display: -webkit-box;
@@ -52,7 +58,7 @@ page {
   justify-content: center;
   width: 148rpx;
   height: 50rpx;
-  border: 2rpx solid #fff;
+  border: 1rpx solid #fff;
   border-radius: 25rpx;
   font-size: 26rpx;
   color: #fff;
@@ -69,6 +75,7 @@ page {
   display: flex;
   font-size: 22rpx;
   margin-top: 15rpx;
+  margin-right: 40rpx;
 }
 
 .storeText {
@@ -204,10 +211,8 @@ page {
 }
 
 .quality-list {
-  width: 348rpx;
+  width: 339rpx;
   padding-bottom: 20rpx;
-  margin-top: 20rpx;
-  margin-left: 18rpx;
   border-radius: 8rpx;
   background: rgba(255, 255, 255, 1);
 }
@@ -216,13 +221,13 @@ page {
   background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  width: 348rpx;
-  height: 348rpx;
+  width: 339rpx;
+  height: 339rpx;
 }
 
 .quality-list-img image {
-  width: 348rpx;
-  height: 348rpx;
+  width: 339rpx;
+  height: 339rpx;
   border-radius: 8rpx 8rpx 0px 0px;
 }
 
@@ -255,7 +260,7 @@ page {
   margin-right: 13rpx;
   font-size: 20rpx;
   color: rgba(255, 100, 23, 1);
-  border: 2rpx solid rgba(255, 100, 23, 1);
+  border: 1rpx solid rgba(255, 100, 23, 1);
   border-radius: 14rpx;
 }
 
@@ -282,28 +287,4 @@ page {
   font-size: 24rpx;
   text-decoration: line-through;
   color: rgba(153, 153, 153, 1);
-}
-
-.return-wrap {
-  display: flex;
-  height: 40rpx;
-  margin-right: 16rpx;
-  line-height: 40rpx;
-  background: rgba(252, 243, 237, 1);
-  border-radius: 8rpx;
-  margin-left: 16rpx;
-  font-size: 22rpx;
-  color: #ff2644;
-  font-family: PingFang-SC-Bold;
-  font-weight: Bold;
-}
-
-.return-wrap .return-money text:nth-child(1) {
-  color: #ff6417;
-  padding: 0 8rpx;
-}
-
-.return-wrap .pay-money text:nth-child(1) {
-  color: #ff6417;
-  padding: 0 8rpx;
 }

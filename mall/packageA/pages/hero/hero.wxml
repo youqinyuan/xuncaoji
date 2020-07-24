@@ -3,7 +3,7 @@
     <image src="{{hostUrl}}/newIndex/hero_head.png" class="hero_head"/>
     <view class="my_ranking">
         <view class="ranking_number_box">
-            <view class="ranking_number">我的排名：{{content.rank?content.rank>500?'500+':content.rank:'-'}}</view>
+            <view class="ranking_number">我的排名：{{content.rank?content.rank>100?'未上榜':content.rank:'-'}}</view>
         </view>
         <view class="nianhua_shaixuan_box">
             <view class="nianhua_shaixuan" bindtap="show">{{shaixuanText}}</view>
@@ -13,7 +13,7 @@
 </view>
     <image src="{{hostUrl}}/newIndex/hero_xiala.png" class="hero_xiala" wx:if="{{shaixuan}}"/>
     <view class="xiala_font" wx:if="{{shaixuan}}">
-        <view class="font_one mag" bindtap="shaixuan" data-index="1">年化率排名</view>
+        <view class="font_one mag" bindtap="shaixuan" data-index="1">年收益率排名</view>
         <view class="font_one" bindtap="shaixuan" data-index="2">收益排名</view>
     </view>
 <view class="value_box">
@@ -25,7 +25,7 @@
            <view class="user_postion">用户</view> 
         </view>
         <view class="nianhua">
-            <view class="nianhua_postion">年化率(%)</view>
+            <view class="nianhua_postion">年收益率(%)</view>
         </view>
         <view class="profit">
             <view class="profit_postion">收益(￥)</view>
@@ -40,7 +40,7 @@
             </view>
             <view class="ranking_value" wx:else>{{item.rank}}</view>
             <view class="user_value">
-                <image src="{{item.avatarUrl?item.avatarUrl:hostUrl+'/icon/zhanw_tb_n.png'}}" class="head_img"/>
+                <image src="{{item.avatarUrl?item.avatarUrl:'/assets/images/mine/other_ren.png'}}" class="head_img"/>
                 <view class="name">{{item.userName?item.userName:''}}</view>
             </view>
             <view class="nianhua_value">

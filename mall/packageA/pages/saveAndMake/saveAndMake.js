@@ -217,7 +217,7 @@ Page({
   },
   goToApply: function(e) {
     wx.navigateTo({
-      url: '/pages/applyZero/applyZero',
+      url: '/packageB/pages/applyZero/applyZero',
     })
   },
   //交易关闭
@@ -283,7 +283,7 @@ Page({
     }
     let getOrder = JSON.stringify(data)
     wx.navigateTo({
-      url: '/pages/applyZero/applyZero?getOrder=' + getOrder,
+      url: '/packageB/pages/applyZero/applyZero?getOrder=' + getOrder,
     })
   },
   // 改价

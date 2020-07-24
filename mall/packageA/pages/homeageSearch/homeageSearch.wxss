@@ -5,6 +5,3 @@
 page {
   background: #fff;
 }
-.return-wrap {
-  margin-left: 0;
-}

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTitleText": "金额明细",
+  "navigationBarTextStyle": "black",
+  "pageOrientation": "landscape"
+}

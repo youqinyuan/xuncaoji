@@ -7,11 +7,11 @@ Page({
    */
   data: {
     shaixuan:false,
-    shaixuanText:'年化率排名',
+    shaixuanText:'收益排名',
     hostUrl: app.Util.getUrlImg().hostUrl,
     pageNumber:1,
     pageSize:20,
-    status:2
+    status:1
   },
 
   /**
@@ -29,6 +29,22 @@ Page({
     }, 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode=="MSG_1001"){
         let arr = res.data.content.list.items
+        let temp = ''
+        let tempList = []
+        arr.forEach((v,i)=>{
+          temp = (Number(v.profitAmount).toLocaleString('en-US')).toString()
+          tempList = temp.split(".");
+          if(tempList[1]){
+            if(tempList[1].length==2){
+              v.profitAmount = temp
+            }else if(tempList[1].length==1){
+              v.profitAmount = temp+'0'
+            }
+          }else{
+            v.profitAmount = temp+'.00'
+          }
+          v.annualizedRate = (v.annualizedRate).toFixed(2)
+        })
         that.setData({
           content:res.data.content,
           arr:arr
@@ -57,7 +73,21 @@ Page({
           })
         }
         var arr = that.data.arr
+        let temp = ''
+        let tempList = []
         for (var i = 0; i < res.data.content.list.items.length; i++) {
+          res.data.content.list.items[i].annualizedRate = (res.data.content.list.items[i].annualizedRate).toFixed(2)
+          temp = (Number(res.data.content.list.items[i].profitAmount).toLocaleString('en-US')).toString()
+          tempList = temp.split(".");
+          if(tempList[1]){
+            if(tempList[1].length==2){
+              res.data.content.list.items[i].profitAmount = temp
+            }else if(tempList[1].length==1){
+              res.data.content.list.items[i].profitAmount = temp+'0'
+            }
+          }else{
+            res.data.content.list.items[i].profitAmount = temp+'.00'
+          }
           arr.push(res.data.content.list.items[i])
         }
         that.setData({
@@ -133,7 +163,7 @@ Page({
     let index = e.currentTarget.dataset.index
     if(index==1){
       that.setData({
-        shaixuanText:'年化率排名',
+        shaixuanText:'年收益率排名',
         status:2,
         pageNumber:1
       })

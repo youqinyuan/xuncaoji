@@ -124,4 +124,16 @@ page{
     height: 120rpx;
     line-height: 120rpx;
 }
+.picStore{
+  width: 380rpx;
+  height: 380rpx;
+  margin-left: 185rpx;
+  margin-top: 187rpx;
+}
+.noThing{
+  font-size:28rpx;
+  color:rgba(51,51,51,1);
+  text-align: center;
+}
+
   

@@ -8,29 +8,25 @@ page {
 
 .account-balance-wrapper {
   background: rgba(255, 255, 255, 1);
-  height: 328rpx;
+  height: 374rpx;
   overflow: hidden;
   margin-bottom: 20rpx;
 }
 
 .account-balance {
-  width: 708rpx;
-  height: 261rpx;
-  margin-left: 31rpx;
-  margin-top: 46rpx;
-  position: relative;
-}
-
-.account-balance image {
-  width: 708rpx;
-  height: 261rpx;
+  width: 690rpx;
+  height: 304rpx;
+  background: linear-gradient(268deg, rgba(26, 26, 26, 1) 0%, rgba(66, 60, 55, 1) 100%);
+  border-radius: 10rpx;
+  margin-top: 20rpx;
+  margin-left: 30rpx;
+  overflow: hidden;
 }
 
 .balance {
-  position: absolute;
-  top: 40rpx;
-  left: 54rpx;
-  color: rgba(255, 255, 255, 1);
+  margin-top: 59rpx;
+  margin-left: 61rpx;
+  color: #b7905b;
 }
 
 .balance-money {
@@ -39,13 +35,17 @@ page {
 
 .balance-num {
   font-size: 50rpx;
-  margin-top: 15rpx;
+}
+
+.balance-num text {
+  font-size: 40rpx;
 }
 
 .balance-text {
   font-size: 24rpx;
-  color: rgba(255, 255, 255, 1);
+  color: #b7905b;
   display: inline-block;
+  margin-top: 53rpx;
 }
 
 /*提现、充值、余额明细*/
@@ -58,7 +58,8 @@ page {
   text-align: center;
   background: rgba(255, 255, 255, 1);
 }
-.detail2{
+
+.detail2 {
   height: 126rpx;
   display: flex;
   line-height: 126rpx;
@@ -82,7 +83,7 @@ page {
 
 .detail-list-text {
   font-size: 28rpx;
-  color: rgba(85, 85, 85, 1);
+  color: #555;
 }
 
 /*弹窗*/
@@ -110,19 +111,20 @@ page {
 }
 
 .modal-title {
-  position: absolute;
+  font-weight: bold;
+  height: 110rpx;
+  line-height: 110rpx;
   left: 52rpx;
-  font-size: 34rpx;
+  font-size: 32rpx;
   color: rgba(51, 51, 51, 1);
 }
 
 .section {
   display: flex;
-  margin-top: 80rpx;
   margin-left: 50rpx;
   width: 440rpx;
   height: 100rpx;
-  border-bottom: 4rpx solid #ddd;
+  border-bottom: 1rpx solid #ddd;
 }
 
 .input-price {
@@ -161,7 +163,7 @@ page {
   position: absolute;
   width: 440rpx;
   height: 76rpx;
-  background: #ff6417;
+  background: linear-gradient(90deg, rgba(255, 106, 72, 1) 0%, rgba(255, 38, 68, 1) 100%);
   border-radius: 38rpx;
   line-height: 76rpx;
   font-size: 32rpx;
@@ -175,15 +177,16 @@ page {
 .button {
   width: 690rpx;
   height: 76rpx;
-  background: #ff6417;
+  background: #b7905b;
   border-radius: 38px;
-  margin-top: 60rpx;
-  margin-left: 30rpx;
-  margin-bottom: 40rpx;
+  position: absolute;
+  bottom: 60rpx;
+  left: 30rpx;
   text-align: center;
   line-height: 76rpx;
   font-size: 32rpx;
-  color: rgba(255, 255, 255, 1);
+  color: #fff;
+  z-index: -1;
 }
 
 /* 提现弹框 */
@@ -214,22 +217,25 @@ page {
   display: flex;
   justify-content: center;
 }
-.modal-cancel{
+
+.modal-cancel {
   width: 44rpx;
   height: 44rpx;
   position: absolute;
   right: 50rpx;
-  top:40rpx;
+  top: 40rpx;
 }
+
 .select {
+  background: rgba(255, 243, 236, 1);
+  box-shadow: 0px 1px 2px 0px rgba(153, 105, 46, 0.71);
   font-size: 24rpx;
   font-family: PingFang-SC-Medium;
-  color: rgba(255, 255, 255, 1);
+  color: #99692e;
   display: inline-block;
-  margin-left: 34rpx;
+  margin-left: 30rpx;
   width: 80rpx;
   height: 44rpx;
-  background-color: #ff6417;
   border-radius: 10rpx;
   text-align: center;
   line-height: 44rpx;
@@ -238,6 +244,7 @@ page {
 .bord {
   border-right: #e7e7e7 1rpx solid;
 }
+
 .bord2 {
   border-bottom: #e7e7e7 1rpx solid;
 }

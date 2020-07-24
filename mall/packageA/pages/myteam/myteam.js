@@ -7,15 +7,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabName:'全部',
-    aa:0,
-    index:0,
-    choose:false,
+    tabName: '全部',
+    aa: 0,
+    index: 0,
+    choose: false,
     show: false,
     pageNumber: 1,
     pageSize: 20,
     content: {},
-    followers: [],//团队成员
+    followers: [], //团队成员
     shareList: {},
     inviterCode: '',
     text: '',
@@ -23,10 +23,10 @@ Page({
     haibaoImg: '',
     top: '',
     hostUrl: app.Util.getUrlImg().hostUrl,
-    arry:['全部','普通用户','合伙人','钻石合伙人',]
+    arry: ['全部', '普通用户', '合伙人', '钻石合伙人', ]
   },
   //多项选择
-  bindPickerChange: function (e) {
+  bindPickerChange: function(e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       index: e.detail.value
@@ -82,9 +82,9 @@ Page({
     that.chooseShare();
     that.init();
   },
-  init: function () {
+  init: function() {
     var that = this
-    if(that.data.aa==0){
+    if (that.data.aa == 0) {
       //查询所有
       app.Util.ajax('mall/personal/followers', {
         pageNumber: that.data.pageNumber,
@@ -103,12 +103,12 @@ Page({
           })
         }
       })
-    }else if(that.data.aa==1){
+    } else if (that.data.aa == 1) {
       //普通用户
       app.Util.ajax('mall/personal/followers', {
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize,
-        role:2
+        role: 2
       }, 'GET').then((res) => {
         if (res.data.messageCode = 'MSG_1001') {
           var inviterCode = wx.getStorageSync('inviterCode')
@@ -123,12 +123,12 @@ Page({
           })
         }
       })
-    }else if(that.data.aa==2){
+    } else if (that.data.aa == 2) {
       //合伙人
       app.Util.ajax('mall/personal/followers', {
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize,
-        role:3
+        role: 3
       }, 'GET').then((res) => {
         if (res.data.messageCode = 'MSG_1001') {
           var inviterCode = wx.getStorageSync('inviterCode')
@@ -143,12 +143,12 @@ Page({
           })
         }
       })
-    }else{
+    } else {
       //钻石合伙人
       app.Util.ajax('mall/personal/followers', {
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize,
-        role:6
+        role: 6
       }, 'GET').then((res) => {
         if (res.data.messageCode = 'MSG_1001') {
           var inviterCode = wx.getStorageSync('inviterCode')
@@ -164,12 +164,12 @@ Page({
         }
       })
     }
-    
+
   },
-  getMore: function () {
+  getMore: function() {
     var that = this
     var pageNumber = that.data.pageNumber + 1
-    if(that.data.aa==0){
+    if (that.data.aa == 0) {
       app.Util.ajax('mall/personal/followers', {
         pageNumber: pageNumber,
         pageSize: that.data.pageSize
@@ -194,11 +194,11 @@ Page({
           })
         }
       })
-    }else if(that.data.aa==1){
+    } else if (that.data.aa == 1) {
       app.Util.ajax('mall/personal/followers', {
         pageNumber: pageNumber,
         pageSize: that.data.pageSize,
-        role:2
+        role: 2
       }, 'GET').then((res) => {
         if (res.data.messageCode = 'MSG_1001') {
           var inviterCode = wx.getStorageSync('inviterCode')
@@ -220,11 +220,11 @@ Page({
           })
         }
       })
-    }else if(that.data.aa==2){
+    } else if (that.data.aa == 2) {
       app.Util.ajax('mall/personal/followers', {
         pageNumber: pageNumber,
         pageSize: that.data.pageSize,
-        role:3
+        role: 3
       }, 'GET').then((res) => {
         if (res.data.messageCode = 'MSG_1001') {
           var inviterCode = wx.getStorageSync('inviterCode')
@@ -246,11 +246,11 @@ Page({
           })
         }
       })
-    }else{
+    } else {
       app.Util.ajax('mall/personal/followers', {
         pageNumber: pageNumber,
         pageSize: that.data.pageSize,
-        role:6
+        role: 6
       }, 'GET').then((res) => {
         if (res.data.messageCode = 'MSG_1001') {
           var inviterCode = wx.getStorageSync('inviterCode')
@@ -277,7 +277,7 @@ Page({
   // 分享朋友圈 生成海报
   shareFriend: function() {
     var that = this
-    app.Util.ajax('mall/weChat/sharing/snapshot/target', {
+    app.Util.ajax('mall/weChat/sharing/target', {
       mode: 4,
     }, 'GET').then((res) => {
       if (res.data.messageCode = 'MSG_1001') {
@@ -308,7 +308,7 @@ Page({
             ctx.setFontSize(13);
             ctx.setFillStyle('#fff');
             ctx.setTextAlign("center")
-            ctx.fillText('"Free Buy"，自由买，免费拿', 0.5 * width * 0.88, 26);
+            ctx.fillText(that.data.shareList.title, 0.5 * width * 0.88, 26);
             ctx.stroke();
             //绘制矩形
             ctx.setFillStyle('#fff')
@@ -347,7 +347,7 @@ Page({
             // 绘制描述
             ctx.setFontSize(13);
             ctx.setFillStyle('#333');
-            var test = '寻草记商城所有商品均支持0元购买，自由买免费拿随时购随时取。'
+            var test = that.data.shareList.imageDesc
             let chr = test.split('') // 分割为字符串数组
             let temp = ''
             let row = []
@@ -439,7 +439,7 @@ Page({
                 content: '您已拒绝授权，是否去设置打开？',
                 confirmText: "确认",
                 cancelText: "取消",
-                success: function (res) {
+                success: function(res) {
                   console.log(res);
                   if (res.confirm) {
                     console.log('用户点击确认')
@@ -559,13 +559,13 @@ Page({
    */
   onReachBottom: function() {
     var that = this;
-    that.getMore(); 
+    that.getMore();
   },
 
   /**
    * 用户点击右上角分享
    */
- onShareAppMessage: function(ops) {
+  onShareAppMessage: function(ops) {
     var that = this
     if (ops.from === 'button') {
       // 来自页面内转发按钮
@@ -573,8 +573,6 @@ Page({
         that.setData({
           show: false
         })
-        //显示tabbar
-        wx.showTabBar()
         app.Util.ajax('mall/weChat/sharing/onSuccess', {
           mode: 4
         }, 'POST').then((res) => {
@@ -591,13 +589,13 @@ Page({
           }
         })
         return {
-          title: '我是合伙人，全品0元购，帮朋友省钱，也能赚钱！来加入吧',
+          title: that.data.shareList.desc,
           path: that.data.shareList.link,
-          imageUrl: app.Util.getUrlImg().hostUrl+'/icon/xuncaoji_cheats.png',
-          success: function (res) {
+          imageUrl: that.data.shareList.imageUrl,
+          success: function(res) {
 
           },
-          fail: function (res) {
+          fail: function(res) {
             // 转发失败
             console.log("转发失败:" + JSON.stringify(res));
           }
@@ -606,8 +604,6 @@ Page({
         that.setData({
           show: false
         })
-        //显示tabbar
-        wx.showTabBar()
         app.Util.ajax('mall/weChat/sharing/onSuccess', {
           mode: 4
         }, 'POST').then((res) => {
@@ -624,82 +620,82 @@ Page({
           }
         })
         return {
-          title: '亲们，全品0元购，省钱有赚钱，想成为合伙人的群友，加入吧',
+          title: that.data.shareList.groupDesc,
           path: that.data.shareList.link,
-          imageUrl: app.Util.getUrlImg().hostUrl + '/icon/xuncaoji_cheats.png',
-          success: function (res) {
+          imageUrl: that.data.shareList.imageUrl,
+          success: function(res) {
 
           },
-          fail: function (res) {
+          fail: function(res) {
             // 转发失败
             console.log("转发失败:" + JSON.stringify(res));
           }
         }
       }
-      
+
     } else {
       return {
-        title: '我是合伙人，全品0元购，帮朋友省钱，也能赚钱！来加入吧',
+        title: that.data.shareList.desc,
         path: that.data.shareList.link,
-        imageUrl: app.Util.getUrlImg().hostUrl + '/icon/xuncaoji_cheats.png',
+        imageUrl: that.data.shareList.imageUrl,
       }
     }
   },
-  showChoose:function(){
+  showChoose: function() {
     var that = this
-    if(that.data.choose){
+    if (that.data.choose) {
       that.setData({
-        choose:false
+        choose: false
       })
-    }else{
+    } else {
       that.setData({
-        choose:true
+        choose: true
       })
     }
-    
+
   },
-  tap:function(e){
-    var that =this
+  tap: function(e) {
+    var that = this
     // console.log(e.currentTarget.dataset.index)
-    if(e.currentTarget.dataset.index==0){
+    if (e.currentTarget.dataset.index == 0) {
       that.setData({
-        aa:0,
-        tabName:'全部',
+        aa: 0,
+        tabName: '全部',
         pageNumber: 1,
         pageSize: 20,
         text: ''
       })
-    }else if(e.currentTarget.dataset.index==1){
+    } else if (e.currentTarget.dataset.index == 1) {
       that.setData({
-        aa:1,
-        tabName:'普通会员',
+        aa: 1,
+        tabName: '普通会员',
         pageNumber: 1,
         pageSize: 20,
         text: ''
       })
-    }else if(e.currentTarget.dataset.index==2){
+    } else if (e.currentTarget.dataset.index == 2) {
       that.setData({
-        aa:2,
-        tabName:'合伙人',
+        aa: 2,
+        tabName: '合伙人',
         pageNumber: 1,
         pageSize: 20,
         text: ''
       })
-    }else if(e.currentTarget.dataset.index==3){
+    } else if (e.currentTarget.dataset.index == 3) {
       that.setData({
-        aa:3,
-        tabName:'钻石合伙人',
+        aa: 3,
+        tabName: '钻石合伙人',
         pageNumber: 1,
         pageSize: 20,
         text: ''
       })
     }
-    setTimeout(function(){
+    setTimeout(function() {
       that.init()
-    },300)
+    }, 300)
     //关闭下拉列表
-    setTimeout(function(){
+    setTimeout(function() {
       that.showChoose()
-    },300)
+    }, 300)
   }
 })

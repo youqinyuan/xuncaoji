@@ -1,16 +1,18 @@
 <!-- pages/wishpool/wishpool.wxml -->
-<image class="star_bg" src="{{hostUrl}}/newIndex/wishBgtop.png" bindtap="leaveWish"></image>
+<import src='/template/floatingwindow/floatingwindow' />
+<import src='/template/pop-upwindows/pop-upwindows' />
+<image class="star_bg" src="{{hostUrl}}/twoSix/wishBgtop.png" bindtap="leaveWish"></image>
 <!-- <view catchtap="jumpMyWish">
   <image class="activity_11" src="{{hostUrl}}/add/ic_wish.png"></image>
 </view> -->
 <view bindtap="leaveWish">
-  <image class="star_pool" src="{{hostUrl}}/newIndex/wishPools.png"></image>
-  <view class="leave_wish">点我提交商品</view>
+  <image class="star_pool" src="{{hostUrl}}/twoSix/wishPools.png"></image>
+  <view class="leave_wish">提交商品</view>
 </view>
-<view class="what_wish">在商城内没有找到想要的商品，在这里发布想要商品的 信息，24小时内为您找到全网最低价！
+<view class="what_wish"><view >点我提交商品 ：1、可直接一折购购买</view><view >2、可以预售返现，不先付钱，拿最低折扣</view>
 </view>
-<image class="star_lang1" wx:if="{{wishpool.length>0}}" src="{{hostUrl}}/newIndex/wishLeft.png"></image>
-<image class="star_lang2" wx:if="{{wishpool.length>0}}" src="{{hostUrl}}/newIndex/wishRight.png"></image>
+<image class="star_lang1" wx:if="{{wishpool.length>0}}" src="{{hostUrl}}/twoSix/wishLeft.png"></image>
+<image class="star_lang2" wx:if="{{wishpool.length>0}}" src="{{hostUrl}}/twoSix/wishRight.png"></image>
 <view class="wish_pool" wx:if="{{wishpool.length>0}}">我寻找的商品</view>
 <view class="wish-wrap" wx:if="{{wishpool.length>0}}">
   <view class="list" bindlongpress="deleteList" data-id="{{wishpool.id}}" wx:for-index="index1" wx:for="{{wishpool}}" wx:for-item="wishpool" wx:key="{{wishpool.id}}">
@@ -19,7 +21,6 @@
     <view class="content_img">
       <image wx:for="{{wishpool.imageList}}" wx:for-item="contentImg" wx:key="" src="{{contentImg.imageUrl}}" catchtap='imgYu' data-index='{{index}}' data-idx="{{index1}}"></image>
     </view>
-    <!-- <view class="getwish" wx:if="{{wishpool.progressBar<=8}}">正在加急满足心愿哦，还有{{wishpool.hours}}小时{{wishpool.minutes}}分您的心愿就满足啦</view> -->
     <view class="getwish" wx:if="{{wishpool.progressBar<24}}">正在加急寻找哦，预计{{wishpool.hours}}小时{{wishpool.minutes}}分内找到</view>
     <view class="getwish" wx:if="{{wishpool.progressBar==24&&wishpool.status==2}}">商品已经找到了，快去购买吧</view>
     <view class="getwish" wx:if="{{wishpool.progressBar==24&&wishpool.status==3}}">您寻找的商品暂无库存，找点其他的吧</view>
@@ -49,11 +50,11 @@
   </view>
 </view>
 <!-- 列表页 -->
-<view style="{{wishpool.length==0?'position:absolute;top:590rpx;':''}}">
+<view style="{{wishpool.length===0?'position:absolute;top:580rpx;':''}}">
   <view class="star_wrap" wx:if="{{recommend.length>0}}">
-    <image class="star_lang3" src="{{hostUrl}}/newIndex/wishLeft.png"></image>
+    <image class="star_lang3" src="{{hostUrl}}/twoSix/wishRight.png"></image>
     <view class="wish_pool1">他们都在寻找</view>
-    <image class="star_lang4" src="{{hostUrl}}/newIndex/wishRight.png"></image>
+    <image class="star_lang4" src="{{hostUrl}}/twoSix/wishLeft.png"></image>
   </view>
   <view class="wrap">
     <view class="items" wx:for="{{recommend}}" wx:for-item="recommend" wx:key="{{recommend.id}}">
@@ -69,11 +70,12 @@
         </view>
         <view class="goodsWish">
           <view class="goodsText">{{recommend.wishCount}}人都在寻找</view>
-          <view class="btn-wrap" catchtap="jumpToDetail" data-id="{{recommend.id}}">我也想要</view>
+          <view class="btn-wrap" catchtap="jumpToDetail" data-id="{{recommend.id}}">去购买</view>
         </view>
       </view>
     </view>
   </view>
+  <view class="bottom_tishi">{{bottom_tishi}}</view>
 </view>
 <!-- FreeBuy心愿池是什么？ -->
 <view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showGet}}">
@@ -85,7 +87,7 @@
       <view class="smallTitle">心愿池是不是提交了就可以免费拿？</view>
       <view>不是的，您需要通过FreeBuy方式进行购买的，到了返现周期您等于是免费拿哦；</view>
       <view class="smallTitle">FreeBuy是什么意思？</view>
-      <view>FreeBuy是指用户自由消费，免去没钱的烦恼，寻草记一直再为帮助用户0成本购好物；</view>
+      <view>FreeBuy是指用户自由消费，免去没钱的烦恼，寻草记一直再为帮助用户一折购好物；</view>
       <view class="service">其他问题请咨询客服哦~</view>
     </view>
     <!-- <button bindtap="cancelGet">我知道了</button> -->
@@ -107,7 +109,6 @@
 <!-- 待返转让弹窗 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry}}">
   <view class="zan-dialog__container2" wx:if="{{waitReentry}}">
-    <image wx:if="{{waitReentry}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose'></image>
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -127,7 +128,6 @@
 <!-- 待返转让弹窗2 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry2}}">
   <view class="zan-dialog__container2" wx:if="{{waitReentry2}}">
-    <image wx:if="{{waitReentry2}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose2'></image>
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -176,3 +176,7 @@
     <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
   </view>
 </view>
+    <template  is='floatingwindow' data="{{hostUrl:hostUrl,floatShow:floatShow,floatContent:floatContent}}"
+  />
+    <template  is='pop-upwindows' data="{{hostUrl:hostUrl,popShow:popShow,popContent:popContent}}"
+  />

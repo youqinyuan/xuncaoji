@@ -14,7 +14,7 @@
   </view>
   <view class="evaluate-right">
     <view class="evaluate-right-text">
-      <text class="percent">{{goodInteractRate}}%</text> 的人觉得好
+      好评率<text class="percent">{{goodInteractRate}}%</text>
     </view>
   </view>
 </view>
@@ -23,7 +23,7 @@
     <view class="evaluate-content-top">
       <view class="evaluate-content-img">
         <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}"></image>
-        <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+        <image wx:else src="/assets/images/mine/other_ren.png"></image>
       </view>
       <view class="evaluate-content-right">
         <view class="evaluate-content-right-top">

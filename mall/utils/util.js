@@ -24,7 +24,6 @@ function formatNumber(n) {
 function formatTimeTwo(number, format) {
   var formateArr = ['Y', 'M', 'D', 'h', 'm', 's'];
   var returnArr = [];
-
   var date = new Date(number);
   returnArr.push(date.getFullYear());
   returnArr.push(formatNumber(date.getMonth() + 1));
@@ -46,8 +45,8 @@ const ajax = (url, data, method, config = {}) => {
     authLoginStatus = authLoginStatus2
   }
   let token = wx.getStorageSync('token')
-  let baseUrl = "https://dev.xuncaoji.net/v2.5/"; //测试环境
-  // let baseUrl = 'https://xuncaoji.net/v2.4/'; //正式环境
+  let baseUrl = "https://dev.xuncaoji.net/v2.6/"; //测试环境
+  // let baseUrl = 'https://xuncaoji.net/v2.5/'; //正式环境
   let headerConfig = { // 默认header ticket、token、params参数是每次请求需要携带的认证信息
     ticket: '...',
     token: '' || token,
@@ -74,7 +73,7 @@ const ajax = (url, data, method, config = {}) => {
           } else if (res.data.messageCode == 'MSG_2001') {
             console.log(res.data.messageCode)
             wx.removeStorageSync('token')
-            if (pages[pages.length - 1].route == "pages/index/index" || pages[pages.length - 1].route == "pages/wishpool/wishpool" || pages[pages.length - 1].route == "packageA/pages/xuncaoji/xuncaoji" || pages[pages.length - 1].route == "pages/mine/mine" || pages[pages.length - 1].route == "packageA/pages/freeBuy/freeBuy") {
+            if (pages[pages.length - 1].route == "pages/index/index" || pages[pages.length - 1].route == "pages/wishpool/wishpool" || pages[pages.length - 1].route == "packageA/pages/xuncaoji/xuncaoji" || pages[pages.length - 1].route == "pages/mine/mine" || pages[pages.length - 1].route == "packageB/pages/freeBuy/freeBuy") {
               return;
             } else {
               wx.navigateTo({
@@ -110,8 +109,8 @@ function getUrlImg() {
   var hostUrl = 'https://xuncaoji.net/_download/img';
   var hostVideo = 'https://xuncaoji.net/_download/';
   var host = 'https://xuncaoji.net/'
-  var publicUrl = "https://dev.xuncaoji.net/v2.5/"; //测试环境
-  // var publicUrl = 'https://xuncaoji.net/v2.4/'; //正式环境
+  var publicUrl = "https://dev.xuncaoji.net/v2.6/"; //测试环境
+  // var publicUrl = 'https://xuncaoji.net/v2.5/'; //正式环境
   return {
     hostUrl,
     publicUrl,

@@ -1,0 +1,6 @@
+<template name="pop-upwindows">
+    <view class="pop_box" wx:if="{{popShow}}">
+        <image  class="pop_img" src="{{popContent.iconUrl}}" bindtap="toPages" data-navType="{{popContent.navType}}"/>
+        <image class="pop_cancle" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap="closePop"></image>
+    </view>
+</template>

@@ -30,7 +30,7 @@
     </view>
     <view class="goodsDetail">
       <view class="goodsName">{{item.name}}</view>
-      <view class="takeout-sign">{{item.goodsCount==0?'可到店':'0成本购'}}</view>
+      <view class="takeout-sign">{{item.goodsCount==0?'可到店':'一折购'}}</view>
       <view class="takeoutT">月销量：{{item.sales}}</view>
     </view>
   </view>

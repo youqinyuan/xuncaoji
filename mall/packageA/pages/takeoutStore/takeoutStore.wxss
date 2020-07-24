@@ -169,12 +169,13 @@ page {
 
 .takeout-sign {
   display: inline-block;
-  border: 2rpx solid #ff6417;
+  border: 1rpx solid #ff6417;
   border-radius: 6rpx;
   font-size: 20rpx;
   color: #ff6417;
   padding: 0 10rpx;
   margin-bottom: 25rpx;
+  background-color: #FEF2EC;
 }
 
 .takeoutT {

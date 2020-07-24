@@ -154,7 +154,7 @@ page{
     margin-bottom: 55rpx;
 }
 .height296{
-    height: 296rpx !important;
+    height: 247rpx !important;
 }
 .nianhua_box{
     position: relative;
@@ -178,11 +178,4 @@ page{
     top: 142rpx;
     color: #999999 !important;
     font-size: 24rpx !important;
-}
-.chooseImg{
-    width: 30rpx;
-    height: 30rpx;
-    position: absolute;
-    left: 38rpx;
-    top: 146rpx;
 }

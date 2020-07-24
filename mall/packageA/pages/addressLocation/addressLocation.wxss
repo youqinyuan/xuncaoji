@@ -27,6 +27,11 @@
   height: 28rpx;
   margin-right: 20rpx;
 }
+.current-img1 {
+  width: 23rpx;
+  height: 22rpx;
+  margin-right: 20rpx;
+}
 
 .location {
   display: flex;

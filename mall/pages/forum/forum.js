@@ -23,7 +23,7 @@ Page({
       text: '全部'
     }, {
       type: 2,
-      text: '订单交易'
+      text: '返现交易'
     }, {
       type: 6,
       text: '商品交易'
@@ -38,7 +38,8 @@ Page({
     selectClass: 2, //订单交易
     type: 8,
     tempStatus: null,
-    allPost: null, //帖子列表
+    allPost: {}, //帖子列表
+    allPost1: {}, //帖子列表
     emptyText: '', //空数据的时候
     showDel: false, //删除帖子弹框
     delId: null,
@@ -52,27 +53,26 @@ Page({
     followIndex1: null,
     messageNum: null,
     showClassify: false, //帖子类型弹框
-    list: [{
+    list: [
+      {
+        img: app.Util.getUrlImg().hostUrl + '/changeImg/ic_sale1.png',
+        remark: '发布返现卖帖',
+        status: 3
+      },{
       img: app.Util.getUrlImg().hostUrl + '/changeImg/ic_buy1.png',
-      // text: '我要买订单',
-      remark: '发布订单买帖',
+      remark: '发布返现买帖',
       status: 2
-    }, {
-      img: app.Util.getUrlImg().hostUrl + '/changeImg/ic_sale1.png',
-      // text: '卖帖',
-      remark: '发布订单卖帖',
-      status: 3
     }],
     list1: [{
-      img: '/assets/images/temp/ic_earn.png',
-      remark: '发布商品卖帖',
-      status: 1
-    }, {
-        img: '/assets/images/temp/ic_save.png',
-      remark: '发布商品买帖',
+      img: app.Util.getUrlImg().hostUrl + '/supplement/ic_save.png',
+      remark: '发布预定商品',
       status: 2
+    },{
+      img: app.Util.getUrlImg().hostUrl + '/supplement/ic_earn.png',
+      remark: '发布预售商品',
+      status: 1
     }],
-    list2: ['普通贴', '订单卖帖', '订单买帖', '商品买帖', '商品卖帖'],
+    list2: ['普通贴', '返现卖帖', '返现买帖', '预定商品', '预售商品'],
     weihu: false,
     showPassword: false,
     isFocus: false, //聚焦 
@@ -89,7 +89,6 @@ Page({
     returnCanclePeople: false,
     showDialog: false,
     typeStatus: null,
-    shareImg: '', //提期分享图片
     siftLeft: false, //提期
     siftRight: false, //提期
     siftRightIndex: 1, //提期
@@ -101,6 +100,10 @@ Page({
     isPublish: false, //变换按钮
     imgPublish: app.Util.getUrlImg().hostUrl + '/changeImg/btn_publish.png',
     attr: 1,
+    haibao:false,
+    path_img:'',
+    popShow:false,
+    floatShow:false
   },
 
   /**
@@ -148,16 +151,56 @@ Page({
   },
   onLoad: function(options) {
     var that = this
-    if (that.data.currentTab == 1) {
-      that.allOrder()
-    } else if (that.data.currentTab == 3) {
-      that.allPost()
-    } else if (that.data.currentTab == 2 || that.data.currentTab == 5) {
-      that.ordinaryPost()
-    } else if (that.data.currentTab == 0) {
-      that.followPost()
-    } else if (that.data.currentTab == 4) {
-      that.mentionPeriodInit()
+    if(app.globalData.type!=0&&app.globalData.type!=4){
+      if (app.globalData.type == 5) {
+        that.setData({
+          type: 8,
+          currentTab: 4
+        })
+        that.mentionPeriodInit()
+      }else if (app.globalData.type == 10) {
+        that.setData({
+          type: 9,
+          currentTab: 1
+        })
+        that.allOrder()
+      }else if (app.globalData.type == 6) {
+        that.setData({
+          type: 7,
+          currentTab: 0
+        })
+        that.followPost()
+      }else if (app.globalData.type == 7) {
+        that.setData({
+          type: 2,
+          currentTab: 2
+        })
+        that.ordinaryPost()
+      }else if (app.globalData.type == 8) {
+        that.setData({
+          type: 6,
+          currentTab: 3
+        })
+        that.allPost()
+      }else if (app.globalData.type == 9) {
+        that.setData({
+          type: 1,
+          currentTab: 5
+        })
+        that.ordinaryPost()
+      }
+    }else{
+      if (that.data.currentTab == 1) {
+        that.allOrder()
+      } else if (that.data.currentTab == 3) {
+        that.allPost()
+      } else if (that.data.currentTab == 2 || that.data.currentTab == 5) {
+        that.ordinaryPost()
+      } else if (that.data.currentTab == 0) {
+        that.followPost()
+      } else if (that.data.currentTab == 4) {
+        that.mentionPeriodInit()
+      }
     }
     // //新消息总数
     // if (wx.getStorageSync('token')) {
@@ -196,7 +239,6 @@ Page({
    */
   onShow: function() {
     var that = this
-
     if (wx.getStorageSync('recharge') || wx.getStorageSync('password')) {
       that.setData({
         sureOne: false,
@@ -238,7 +280,8 @@ Page({
     } else if (app.globalData.type == 4) {
       that.setData({
         type: 4,
-        currentTab: 2
+        currentTab: 2,
+        selectClass: 4
       })
       that.ordinaryPost()
     } else if (app.globalData.type == 5) {
@@ -247,10 +290,73 @@ Page({
         currentTab: 4
       })
       that.mentionPeriodInit()
+    }else if (app.globalData.type == 10) {
+      that.setData({
+        type: 9,
+        currentTab: 1
+      })
+      that.allOrder()
+    }else if (app.globalData.type == 6) {
+      that.setData({
+        type: 7,
+        currentTab: 0
+      })
+      that.followPost()
+    }else if (app.globalData.type == 7) {
+      that.setData({
+        type: 2,
+        currentTab: 2
+      })
+      that.ordinaryPost()
+    }else if (app.globalData.type == 8) {
+      that.setData({
+        type: 6,
+        currentTab: 3
+      })
+      that.allPost()
+    }else if (app.globalData.type == 9) {
+      that.setData({
+        type: 1,
+        currentTab: 5
+      })
+      that.ordinaryPost()
     } else {
       that.onPullDownRefresh()
     }
-
+      //弹窗浮窗
+      if (wx.getStorageSync('token')) {
+        that.floatAndPop()
+      }
+  },
+  floatAndPop:function(){
+    var that = this
+    app.Util.ajax('mall/floatingWindow/navigation/queryNavigation', {
+      pageNumber:4 //订单交易
+    }, 'GET').then((res) => {
+      if (res.data.content) {
+        let arr = res.data.content
+        if(arr.length>0){
+          for (let i = 0; i < arr.length; i++) {
+            if (arr[i].navType == 1) {
+              that.setData({
+                popContent: arr[i],
+                popShow: true
+              })
+            } else if (arr[i].navType == 2) {
+              that.setData({
+                floatContent: arr[i],
+                floatShow: true
+              })
+            }
+          }
+        }else{
+          that.setData({
+            popShow: false,
+            floatShow: false
+          })
+        }
+      }
+    })
   },
 
   /**
@@ -378,9 +484,9 @@ Page({
           }
         })
         return {
-          title: '请助我一臂之力帮我提期，您也可享受超高收益',
+          title: that.data.shareList.desc,
           path: that.data.shareList.link,
-          imageUrl: that.data.shareImg,
+          imageUrl: that.data.shareList.imageUrl,
           success: function(res) {
 
           },
@@ -407,9 +513,9 @@ Page({
           }
         })
         return {
-          title: '请助我一臂之力帮我提期，您也可享受超高收益',
+          title: that.data.shareList.groupDesc,
           path: that.data.shareList.link,
-          imageUrl: that.data.shareImg,
+          imageUrl: that.data.shareList.imageUrl,
         }
       }
     }
@@ -707,7 +813,7 @@ Page({
       }
     })
   },
-  //普通帖,卖帖，买帖,预售订单
+  //普通帖,卖帖，买帖,预售返现
   ordinaryPost: function() {
     var that = this
     app.Util.ajax('mall/forum/topic/findPageList', {
@@ -831,7 +937,7 @@ Page({
       pageNumber: 1,
       pageNum: 1,
       mentionPeriodPageNum: 1,
-      allPost: [],
+      allPost: {},
       emptyText: '',
       currentTab: cur
     })
@@ -1542,20 +1648,20 @@ Page({
     }
   },
   //第一次确认关闭右上角的按钮
-  sureOneClose: function() {
-    var that = this
-    that.setData({
-      sureOne: false
-    })
-  },
+  // sureOneClose: function() {
+  //   var that = this
+  //   that.setData({
+  //     sureOne: false
+  //   })
+  // },
   //第二次确认关闭右上角的按钮
-  sureTwoClose: function() {
-    var that = this
-    that.setData({
-      sureTwo: false,
-      sure_two_tishi: ""
-    })
-  },
+  // sureTwoClose: function() {
+  //   var that = this
+  //   that.setData({
+  //     sureTwo: false,
+  //     sure_two_tishi: ""
+  //   })
+  // },
   //取消交易确认弹窗
   cancle_one: function() {
     var that = this
@@ -1656,7 +1762,7 @@ Page({
           }, 'POST').then((res) => {
             if (res.data.messageCode == 'MSG_1001') {
               wx.navigateTo({
-                url: '/pages/waitReentryDetail/waitReentryDetail',
+                url: '/packageB/pages/waitReentryDetail/waitReentryDetail',
               })
               that.setData({
                 show: false,
@@ -1796,7 +1902,7 @@ Page({
       waitReentry3: false
     })
     wx.navigateTo({
-      url: "/pages/waitReentryDetail/waitReentryDetail"
+      url: "/packageB/pages/waitReentryDetail/waitReentryDetail"
     })
   },
   //转让信息弹窗查询
@@ -2006,13 +2112,11 @@ Page({
     if (index == 1) {
       that.setData({
         siftRightIndex: index,
-        tabName: '发布时间新旧',
         sort: index
       })
     } else {
       that.setData({
         siftRightIndex: index,
-        tabName: '收益率高低',
         sort: index
       })
     }
@@ -2098,6 +2202,7 @@ Page({
       targetId: id
     }, 'GET').then((res) => {
       if (res.data.messageCode == "MSG_1001") {
+        that.data.shareData = res.data.content
         var inviterCode = wx.getStorageSync('inviterCode')
         if (inviterCode) {
           res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, inviterCode)
@@ -2105,12 +2210,23 @@ Page({
           res.data.content.link = res.data.content.link.replace(/{inviterCode}/g, '')
         }
         // 产品图片路径转换为本地路径
-        var imageUrl = res.data.content.imageUrl
+        var imageUrl = res.data.content.imageShareUrl
         if (imageUrl) {
           wx.getImageInfo({
             src: imageUrl,
             success(res) {
               that.data.shareImg = res.path
+              that.data.path_img = res.path
+            }
+          })
+        }
+        // 产品图片路径转换为本地路径
+        var imageUrl2 = res.data.content.appletQrCodeUrl
+        if (imageUrl2) {
+          wx.getImageInfo({
+            src: imageUrl2,
+            success(res) {
+              that.data.appletQrCodeUrl = res.path
             }
           })
         }
@@ -2132,5 +2248,478 @@ Page({
     wx.navigateTo({
       url: '/packageA/pages/addAppear/addAppear?topicid=' + e.currentTarget.dataset.id,
     })
-  }
+  },
+  // 分享到朋友圈
+  shareFriend: function() {
+    var that = this
+    var width
+    var height
+    wx.getSystemInfo({
+      success(res) {
+        width = res.screenWidth
+        height = res.screenHeight
+      }
+    })
+    var ctx = wx.createCanvasContext('mycanvas');
+    var path_bg = '/assets/images/icon/bg.png'; //背景图片
+    var path_bg2 = '/assets/images/icon/canvas_title.png';
+    var path_logo = '/assets/images/icon/xuncaoji_icon.png'
+    var path_partner = '/assets/images/icon/partner.png'
+    var title = that.data.shareList.title
+    var inviterCode = that.data.shareData.inviterCode
+    console.log(title,inviterCode)
+    //绘制图片模板的背景图片
+    ctx.drawImage(path_bg, 0, 0, 0.88 * width, 0.89 * height);
+    //绘制红色背景
+    ctx.drawImage(path_bg2, 0, 0, 0.885 * width, 0.224 * height);
+    // 绘制标题
+    ctx.setFontSize(13);
+    ctx.setFillStyle('#fff');
+    ctx.setTextAlign("center")
+    ctx.fillText(title, 0.442 * width, 25);
+    ctx.stroke();
+    // 绘制中间矩形
+    ctx.beginPath()
+    ctx.setFillStyle('#fff')
+    ctx.setShadow(0, 0, 2, '#eee')
+    ctx.fillRect(0.057 * width, 0.08 * height, 0.76 * width, 0.522 * height - 2)
+    ctx.closePath()
+    //绘制合伙人图标
+    ctx.beginPath()
+    ctx.drawImage(path_partner, 0.35 * width, 44, 64, 51);
+    ctx.closePath()
+    // 绘制邀请码
+    if (inviterCode) {
+      ctx.beginPath()
+      ctx.setFontSize(19);
+      ctx.setFillStyle('#F85A53');
+      ctx.fillText(`我的邀请码:${inviterCode}`, 0.442 * width, 120);
+      ctx.stroke();
+      ctx.closePath()
+    }
+    // 绘制最小矩形
+    ctx.beginPath()
+    ctx.setFillStyle('#fff')
+    ctx.setShadow(0, 0, 2, '#eee')
+    ctx.fillRect(0.1308 * width, 130, 0.617 * width, 0.3 * height)
+    ctx.closePath()
+    // 绘制商品图片
+    ctx.beginPath()
+    ctx.drawImage(that.data.path_img, 0.1308 * width + 7, 137, 0.617 * width - 14, 0.3 * height - 14);
+    ctx.closePath()
+    // 绘制广告语
+    ctx.beginPath()
+    var adTips = that.data.shareList.imageDesc
+    ctx.setFontSize(14);
+    ctx.setFillStyle('#333333');
+    ctx.setTextAlign("left")
+    let chr = adTips.split('') // 分割为字符串数组
+    let temp = ''
+    let row = []
+    for (let a = 0; a < chr.length; a++) {
+      if (ctx.measureText(temp).width < 0.65 * width) {
+        temp += chr[a]
+      } else {
+        a--
+        row.push(temp)
+        temp = ''
+      }
+    }
+    row.push(temp)
+    for (var b = 0; b < row.length; b++) {
+      ctx.fillText(row[b], 0.1308 * width - 6, 0.565 * height - 4 + b * 20);
+    }
+    ctx.stroke();
+    ctx.closePath()
+    // 绘制二维码
+    ctx.setShadow(0, 0, 0, '#fff')
+    ctx.beginPath()
+    ctx.drawImage(that.data.appletQrCodeUrl, 0.3 * width, 0.6075 * height - 2, 0.3 * width, 0.3 * width);
+    ctx.closePath()
+    console.log(that.data.appletQrCodeUrl)
+    // 绘制扫码提示
+    ctx.beginPath()
+    var codeTips = '长按图片识别二维码查看领取'
+    ctx.setFontSize(12);
+    ctx.setFillStyle('#999999');
+    ctx.setTextAlign("center")
+    ctx.fillText(codeTips, 0.44 * width, 0.787 * height - 2);
+    ctx.stroke();
+    ctx.closePath()
+    ctx.draw()
+    setTimeout(function() {
+      wx.canvasToTempFilePath({
+        canvasId: 'mycanvas',
+        success: function(res) {
+          that.data.haibaoImg = res.tempFilePath
+        }
+      })
+    }, 1000)
+    that.setData({
+      showModalStatus1: false,
+      haibao: true
+    })
+  },
+  // 长按保存到相册
+  handleLongPress: function() {
+    var that = this
+    var tempFilePath = that.data.haibaoImg
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success() {
+              console.log('授权相册')
+              wx.saveImageToPhotosAlbum({
+                filePath: tempFilePath,
+                success(res) {
+                  wx.hideLoading()
+                  console.log('保存图片成功回调')
+                  wx.showToast({
+                    title: '保存成功',
+                    icon: 'none'
+                  });
+                  that.setData({
+                    haibao: false
+                  })
+                },
+                fail(res) {
+                  wx.hideLoading()
+                  console.log('保存图片失败回调')
+                  console.log(res);
+                }
+              })
+            },
+            fail() {
+              wx.hideLoading();
+              wx.showModal({
+                title: '温馨提示',
+                content: '您已拒绝授权，是否去设置打开？',
+                confirmText: "确认",
+                cancelText: "取消",
+                success: function(res) {
+                  console.log(res);
+                  if (res.confirm) {
+                    console.log('用户点击确认')
+                    wx.openSetting({
+                      success: (res) => {
+                        console.log(res)
+                        res.authSetting = {
+                          "scope.writePhotosAlbum": true,
+                        }
+                        console.log("openSetting: success");
+                        wx.saveImageToPhotosAlbum({
+                          filePath: tempFilePath,
+                          success(res) {
+                            wx.hideLoading()
+                            wx.showToast({
+                              title: '保存成功',
+                              icon: 'none'
+                            });
+                            that.setData({
+                              haibao: false
+                            })
+                          },
+                          fail(res) {
+                            wx.hideLoading()
+                            console.log(res);
+                          }
+                        })
+                      }
+                    });
+                  } else {
+                    console.log('用户点击取消')
+                  }
+                }
+              });
+
+            }
+          })
+        } else {
+          console.log('保存图片')
+          wx.saveImageToPhotosAlbum({
+            filePath: tempFilePath,
+            success(res) {
+              wx.hideLoading()
+              console.log('保存图片成功回调')
+              wx.showToast({
+                title: '保存成功',
+                icon: 'none'
+              });
+
+              that.setData({
+                haibao: false
+              })
+            },
+            fail(res) {
+              wx.hideLoading()
+              console.log('saveImageToPhotosAlbum 失败回调')
+              console.log(res);
+            }
+          })
+        }
+      },
+      fail(res) {
+        wx.hideLoading()
+        console.log('wx.getSetting 失败回调')
+        console.log(res);
+      }
+    })
+
+  },
+    // 关闭海报分享页面
+    close_hb: function() {
+      var that = this
+      wx.showTabBar()
+      that.setData({
+        haibao: false
+      })
+    },
+    closePop:function(){
+      let that = this
+      app.Util.ajax('mall/floatingWindow/navigation/userClick', {
+        type:1, //关闭
+        id:that.data.popContent.id
+      }, 'POST').then((res) => {
+        if (res.data.messageCode=="MSG_1001") {
+          that.setData({
+            popShow:false
+          })
+        }
+      })
+    },
+    closeFloat:function(){
+      let that = this
+      app.Util.ajax('mall/floatingWindow/navigation/userClick', {
+        type:1, //关闭
+        id:that.data.floatContent.id
+      }, 'POST').then((res) => {
+        if (res.data.messageCode=="MSG_1001") {
+          that.setData({
+            floatShow:false
+          })
+        }
+      })
+    },
+    toPages:function(e){
+      let that = this
+      let tempContent = e.currentTarget.dataset.navtype==1?that.data.popContent:that.data.floatContent
+      let navtype = e.currentTarget.dataset.navtype
+      app.Util.ajax('mall/floatingWindow/navigation/userClick', {
+        type:2, //跳转
+        id:tempContent.id
+      }, 'POST').then((res) => {
+        if (res.data.messageCode=="MSG_1001") {
+          if(navtype==1){
+            that.setData({
+              popShow:false
+            })
+          }else{
+            that.setData({
+              floatShow:false
+            })
+          }
+        }
+      })
+      if (tempContent.category == 1) {
+        if (tempContent.param == 1) {
+          wx.navigateTo({
+            url: '/packageA/pages/xuncaoji/xuncaoji',
+          })
+        } else if (tempContent.param == 2) {
+          wx.navigateTo({
+            url: '/pages/commission/commission',
+          })
+        } else if (tempContent.param == 3) {
+          wx.navigateTo({
+            url: '/packageB/pages/waitReentryDetail/waitReentryDetail',
+          })
+        } else if (tempContent.param == 4) {
+          wx.navigateTo({
+            url: '/pages/mine/personal/personal',
+          })
+        } else if (tempContent.param == 5) {
+          wx.setStorageSync('params', 1)
+          wx.navigateTo({
+            url: '/pages/myorder/myorder?status=' + 0,
+          })
+        } else if (tempContent.param == 6) {
+          wx.navigateTo({
+            url: '/packageA/pages/myteam/myteam',
+          })
+        } else if (tempContent.param == 7) {
+          wx.navigateTo({
+            url: '/pages/index/cart/cart',
+          })
+        } else if (tempContent.param == 8) {
+  
+        } else if (tempContent.param == 9) {
+          wx.navigateTo({
+            url: '/pages/diamondPartner/diamondPartner',
+          })
+        } else if (tempContent.param == 10) {
+          wx.navigateTo({
+            url: '/packageA/pages/seed/seed',
+          })
+        } else if (tempContent.param == 11) {
+          wx.navigateTo({
+            url: '/packageB/pages/zeroBuy/zeroBuy?type=' + 2,
+          })
+        } else if (tempContent.param == 12) {
+          wx.navigateTo({
+            url: '/packageB/pages/zeroBuy/zeroBuy?type=' + 1,
+          })
+        } else if (tempContent.param == 13) {
+          wx.navigateTo({
+            url: '/packageB/pages/zeroBuy/zeroBuy?type=' + 4,
+          })
+        } else if (tempContent.param == 14) {
+          wx.navigateTo({
+            url: '/packageB/pages/freeBuy/freeBuy',
+          })
+        } else if (tempContent.param == 15) {
+          wx.switchTab({
+            url: '/pages/wishpool/wishpool',
+          })
+        } else if (tempContent.param == 16) {
+          wx.navigateTo({
+            url: '/pages/cityPartner/cityPartner',
+          })
+        } else if (tempContent.param == 17) {
+          wx.navigateTo({
+            url: '/pages/byStages/byStages',
+          })
+        } else if (tempContent.param == 18) {
+          wx.navigateTo({
+            url: '/pages/sponsor/sponsor',
+          })
+        } else if (tempContent.param == 19) {
+          wx.navigateTo({
+            url: '/packageA/pages/mentionPeriodIndex/mentionPeriodIndex',
+          })
+        } else if (tempContent.param == 20) {
+          wx.navigateTo({
+            url: '/packageA/pages/allStore/allStore',
+          })
+        } else if (tempContent.param == 21) {
+          wx.navigateTo({
+            url: '/packageA/pages/guidePage/guidePage',
+          })
+        } else if (tempContent.param == 22) {
+          let token = wx.getStorageSync('token')
+          if (token) {
+            wx.navigateTo({
+              url: '/packageA/pages/hero/hero',
+            })
+          } else {
+            wx.navigateTo({
+              url: "/pages/invitationCode/invitationCode"
+            })
+          }
+        } else if (tempContent.param == 23) {
+          wx.navigateTo({
+            url: '/packageA/pages/profitDetail/profitDetail',
+          })
+        } else if (tempContent.param == 24) {
+          wx.switchTab({
+            url: '/pages/index/index',
+          })
+        } else if (tempContent.param == 25) {
+          wx.navigateTo({
+            url: '/packageA/pages/payAttention/payAttention',
+          })
+        } else if (tempContent.param == 26) {
+          //订单交易-全部
+          wx.switchTab({
+            url: '/pages/forum/forum',
+          })
+          app.globalData.type = 10
+        } else if (tempContent.param == 27) {
+          //订单交易-关注
+          if (wx.getStorageSync('token')) {
+            wx.switchTab({
+              url: '/pages/forum/forum',
+            })
+            app.globalData.type = 6
+          } else {
+            wx.navigateTo({
+              url: `/pages/invitationCode/invitationCode?inviterCode=${that.data.inviterCode}`,
+            })
+          }
+        } else if (tempContent.param == 28) {
+          //订单交易-返现交易
+          wx.switchTab({
+            url: '/pages/forum/forum',
+          })
+          app.globalData.type = 7
+        } else if (tempContent.param == 29) {
+          //订单交易-商品交易
+          wx.switchTab({
+            url: '/pages/forum/forum',
+          })
+          app.globalData.type = 8
+        } else if (tempContent.param == 30) {
+          //订单交易-提期
+          wx.switchTab({
+            url: '/pages/forum/forum',
+          })
+          app.globalData.type = 5
+        } else if (tempContent.param == 31) {
+          //订单交易-普通贴
+          wx.switchTab({
+            url: '/pages/forum/forum',
+          })
+          app.globalData.type = 9
+        } else if (tempContent.param == 32) {
+          wx.navigateTo({
+            url: '/packageA/pages/seed/seed?status=1',
+          })
+        } else if (tempContent.param == 33) {
+          wx.navigateTo({
+            url: '/packageA/pages/seedRecharge/seedRecharge',
+          })
+        }
+      } else if (tempContent.category == 2) {
+        wx.navigateTo({
+          url: '/pages/detail/detail?id=' + tempContent.param + '&&status=' + tempContent.status,
+        })
+      } else if (tempContent.category == 3) {
+        if (tempContent.paramExt == 1) {
+          wx.navigateTo({
+            url: `/pages/oneList/oneList?id=${tempContent.param}&name=${tempContent.pageName}`,
+          })
+        } else if (tempContent.paramExt == 2) {
+          wx.navigateTo({
+            url: `/pages/index/twolist/twolist?id=${tempContent.param}&name=${tempContent.pageName}`,
+          })
+        }
+      } else if (tempContent.category == 4) {
+        wx.navigateTo({
+          url: `/pages/longActivity/longActivity?id=${tempContent.param}`,
+        })
+      } else if (tempContent.category == 5) {
+        wx.navigateTo({
+          url: `/pages/commodityArea/commodityArea?id=${tempContent.param}`,
+        })
+      } else if (tempContent.category == 6) {
+        wx.navigateTo({
+          url: `/pages/h5Page/h5Page?srcItem=${tempContent.paramExt}`,
+        })
+      } else if (tempContent.category == 7) {
+        if (e.currentTarget.dataset.storetype == 1) {
+          wx.navigateTo({
+            url: `/packageA/pages/ecommerceStore/ecommerceStore?id=${tempContent.param}`,
+          })
+        } else {
+          wx.navigateTo({
+            url: `/packageA/pages/takeoutHomeage/takeoutHomeage?storeId=${tempContent.param}`,
+          })
+        }
+      } else if (tempContent.category == 8) {
+        wx.navigateTo({
+          url: `/packageA/pages/takeoutStore/takeoutStore?id=${tempContent.param}`,
+        })
+      }
+    }
 })

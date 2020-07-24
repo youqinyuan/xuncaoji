@@ -58,7 +58,7 @@
     </view>
     <view class="saleLeave" wx:if="{{waitReentry.returnTypeCash==3}}">剩余{{waitReentry.periodLeft}}天，截止{{waitReentry.maxReturnTime}}，每天返还￥{{waitReentry.perReturnAmount}}</view>
      <view class="saleLeave" wx:if="{{waitReentry.returnTypeCash==4}}">剩余{{waitReentry.periodLeft}}期，截止{{waitReentry.maxReturnTime}}，返还￥{{waitReentry.perReturnAmount}}</view>
-    <view class="saleLeave" wx:if="{{waitReentry.returnTypeCash==1||waitReentry.returnTypeCash==2}}">剩余{{waitReentry.periodLeft}}期，截止{{waitReentry.maxReturnTime}}，每月{{waitReentry.perReturnDay}}号，每期返还￥{{waitReentry.perReturnAmount}}{{waitReentry.lastReturnAmount?'，最后一期返还￥'+waitReentry.lastReturnAmount:''}}</view>
+    <view class="saleLeave" wx:if="{{waitReentry.returnTypeCash==1||waitReentry.returnTypeCash==2}}">剩余{{waitReentry.periodLeft}}期，截止{{waitReentry.maxReturnTime}}，每月{{waitReentry.perReturnDay}}号，每期返还￥{{waitReentry.perReturnAmount}}{{waitReentry.lastReturnAmount?waitReentry.periodLeft>1?'，最后一期返还￥'+waitReentry.lastReturnAmount:'':''}}</view>
     <view class="saleYear" wx:if="{{annualizedRate}}">年收益率：<text>{{annualizedRate}}%</text></view>
     <view class="saleText">年收益率会随剩余时间的变化不断降低。</view>
     <view class="replyChoose" bindtap="jumpWaitReentry">重选</view>
@@ -69,20 +69,19 @@
 <!-- <image src="{{hostUrl}}/add/btn_ordinary.png" class="ordinaryPosting" wx:if="{{postingStatus===1}}"></image>
 <image src="{{hostUrl}}/add/buyPosting.png" class="buyPosting" wx:if="{{postingStatus===2}}"></image>
 <image src="{{hostUrl}}/add/salePosting.png" class="salePosting" wx:if="{{postingStatus===3}}"></image> -->
+<view class="mention_box" wx:if="{{isShow==true}}">
+  <view class="mention_text">剩余期限越短，越容易售出！</view>
+  <view class="mention_button" bindtap="toMentionPeriod">试试提期</view>
+</view>
 <view class="btn">
   <view class="btn2" bindtap="submit">发布</view>
 </view>
-
-
 <!-- 压缩上传图片使用 -->
 <canvas canvas-id="canvas" style="width:200px;height:200px;position: absolute;left:-1000px;top:-1000px;"></canvas>
 <!-- 期望弹窗 -->
 <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
 <view class="modal-dialog" wx:if="{{showModal}}">
   <view class="modal-title">售价</view>
-  <view class="modal-img" bindtap="hideModal">
-    <image class="modal-imgs" src="{{hostUrl}}/add/withdraw_close.png"></image>
-  </view>
   <view class="section">
     <view class="input-price">￥</view>
     <input class="input-text" placeholder="请输入售价" focus="true" type="digit" value="{{inputValue}}" placeholder-style="color:#AAAAAA" bindinput="btnInput" />
@@ -92,4 +91,17 @@
     <view class="btn-cancel" bindtap="onCancel">取消</view>
     <view class="btn-confirm" bindtap="onConfirm">确认</view>
   </view>
+</view>
+  <view class="bg10" wx:if="{{seedToast}}">
+    <view class="content10">
+        <view class="title10">温馨提示</view>
+        <view class="text_one10">本次发布需消耗{{seedText.seedAmountConsume}}颗种子</view>
+        <view class="text_two10">您的种子数量：{{seedText.seedAmountTotal}}颗</view>
+        <view class="message10" wx:if="{{seedText.status==2}}">种子不足，请先获得足够的种子</view>
+        <view class="button_box10">
+            <view class="button_one10" bindtap="toSeed">去获得种子</view>
+            <view class="button_two10" bindtap="payShure">确定发布</view>
+        </view>
+    </view>
+    <image class="cancel-get10" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap="cancle"></image>
 </view>

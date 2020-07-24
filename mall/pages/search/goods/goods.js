@@ -63,7 +63,7 @@ Page({
         if (res.messageCode = 'MSG_1001') {
           if (res.data.content.goodsResult.items == '' && that.data.goodsResult !== '') {
             that.setData({
-              text: '已经到底啦'
+              text: '已到底，去【寻商品】提交吧'
             })
           }
           var arr = that.data.goodsResult

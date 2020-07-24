@@ -1,4 +1,5 @@
 <!--pages/toSponsor/toSponsor.wxml-->
+<import src='/template/goodsList/goodsList' />
 <!-- 赞助规则弹窗 -->
 <wxs module="foo">
   module.exports = {
@@ -6,9 +7,9 @@
       n = n.toFixed(2)
       return n
     },
-    toInt:function(s){
-        s = parseInt(s)
-        return s
+    toInt: function(s) {
+      s = parseInt(s)
+      return s
     }
   }
 </wxs>
@@ -16,20 +17,20 @@
   <view class="dialog__container" wx:if="{{show1}}">
     <view class="title">规则说明</view>
     <view class="text">
-        <block wx:for="{{configList}}" wx:key="">
-            <view class="rule_value" wx:if="{{item.name=='AUSPICES_TIMES_USER_PER_DAY'}}">1、每人一天最多可以发起赞助{{item.value}}个商品</view>
-        </block>
-        <view class="rule_value">2、赞助必须超过1次后可进行直接购买</view>
-        <block wx:for="{{configList}}" wx:key="">
-            <view class="rule_value" wx:if="{{item.name=='AUSPICES_EXPIRE_HOURS'}}">3、赞助发起后持续{{item.value}}小时</view>
-        </block>
-        <view class="rule_value">4、每个用户可为发起赞助的人赞助1元</view>
-        <block wx:for="{{configList}}" wx:key="">
-            <view class="rule_value" wx:if="{{item.name=='AUSPICES_TIMES_OTHERS_USER_PER_DAY'}}">5、每个用户每天只可以赞助{{item.value}}次</view>
-        </block>
-        <view class="rule_value">6、赞助人的赞助金1元将立刻返还到账户余额</view>
-        <view class="rule_value">7、赞助成功后必须在7天内下单</view>
-        <view class="rule_value">8、活动最终解释权归寻草记所有</view>
+      <block wx:for="{{configList}}" wx:key="">
+        <view class="rule_value" wx:if="{{item.name=='AUSPICES_TIMES_USER_PER_DAY'}}">1、每人一天最多可以发起赞助{{item.value}}个商品</view>
+      </block>
+      <view class="rule_value">2、赞助必须超过1次后可进行直接购买</view>
+      <block wx:for="{{configList}}" wx:key="">
+        <view class="rule_value" wx:if="{{item.name=='AUSPICES_EXPIRE_HOURS'}}">3、赞助发起后持续{{item.value}}小时</view>
+      </block>
+      <view class="rule_value">4、每个用户可为发起赞助的人赞助1元</view>
+      <block wx:for="{{configList}}" wx:key="">
+        <view class="rule_value" wx:if="{{item.name=='AUSPICES_TIMES_OTHERS_USER_PER_DAY'}}">5、每个用户每天只可以赞助{{item.value}}次</view>
+      </block>
+      <view class="rule_value">6、赞助人的赞助金1元将立刻返还到账户余额</view>
+      <view class="rule_value">7、赞助成功后必须在7天内下单</view>
+      <view class="rule_value">8、活动最终解释权归寻草记所有</view>
     </view>
   </view>
   <image wx:if="{{show1}}" class="cancel-get2" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow1'></image>
@@ -43,108 +44,107 @@
     </view>
 </view> -->
 <view class="sponsor_box">
-    <view class="sponsor_goods">
-        <view class="sponsor_goods_img_box">
-            <image src="{{content.goodsImage}}" class="sponsor_goods_img"/>
-        </view>
-        <view class="sponsor_goods_name">{{content.goodsName}}</view>
-        <view class="sponsor_time">
-            <text class="hour">{{hours}}</text>:<text class="min">{{minutes}}</text>:<text class="sec">{{seconds}}</text><text class="font26">后赞助过期</text>
-        </view>
-        <view class="sponsor_price">
-             现在购买支付金额:<text class="price">￥{{content.needPaymentAmount}}</text>        
-        </view>
+  <view class="sponsor_goods">
+    <view class="sponsor_goods_img_box">
+      <image src="{{content.goodsImage}}" class="sponsor_goods_img" />
     </view>
-    <view class="new_text">邀请好友赞助1元，1元将立即返回到好友账户</view>
-    <view class="sponsor_production_box" wx:if="{{content.sponsorCount!==content.requireSponsorCount}}">
-        <view class="sponsor_times_box">
-            <view class="sponsor_times_left" wx:if="{{content.sponsorCount==0}}">可被赞助<text class="red">{{content.requireSponsorCount}}</text>次,共计可减少支付<text class="red">{{content.savedAmount}}元</text></view>
-            <view class="sponsor_times_left" wx:if="{{content.sponsorCount!==0}}">已赞助<text class="red">{{content.sponsorCount}}</text>次,可少支付<text class="red">{{content.sponsorSavedAmount}}元</text></view>
-            <view class="sponsor_times_right" wx:if="{{content.sponsorCount!==0}}">还差{{foo.toInt(content.requireSponsorCount-content.sponsorCount)}}次赞助</view>
-        </view>
-        <!-- <view class="sponsor_times_box">
+    <view class="sponsor_goods_name">{{content.goodsName}}</view>
+    <view class="sponsor_time">
+      <text class="hour">{{hours}}</text>:
+      <text class="min">{{minutes}}</text>:
+      <text class="sec">{{seconds}}</text>
+      <text class="font26">后赞助过期</text>
+    </view>
+    <view class="sponsor_price">
+      现在购买支付金额:
+      <text class="price">￥{{content.needPaymentAmount}}</text>
+    </view>
+  </view>
+  <view class="new_text">邀请好友赞助1元，1元将立即返回到好友账户</view>
+  <view class="sponsor_production_box" wx:if="{{content.sponsorCount!==content.requireSponsorCount}}">
+    <view class="sponsor_times_box">
+      <view class="sponsor_times_left" wx:if="{{content.sponsorCount==0}}">可被赞助
+        <text class="red">{{content.requireSponsorCount}}</text>次,共计可减少支付
+        <text class="red">{{content.savedAmount}}元</text>
+      </view>
+      <view class="sponsor_times_left" wx:if="{{content.sponsorCount!==0}}">已赞助
+        <text class="red">{{content.sponsorCount}}</text>次,可少支付
+        <text class="red">{{content.sponsorSavedAmount}}元</text>
+      </view>
+      <view class="sponsor_times_right" wx:if="{{content.sponsorCount!==0}}">还差{{foo.toInt(content.requireSponsorCount-content.sponsorCount)}}次赞助</view>
+    </view>
+    <!-- <view class="sponsor_times_box">
             <view class="sponsor_times_left" wx:if="{{content.sponsorCount!==0&&content.status=='PROGRESS'}}">已赞助<text class="red">{{content.sponsorCount}}</text>次,共计可少支付<text class="red">300元</text></view>
         </view> -->
+  </view>
+  <view class="production_box" wx:if="{{content.sponsorCount!==content.requireSponsorCount}}">
+    <view class="wai">
+      <view class="nei2" style="width:{{foo.toStr(679*content.sponsorCount/content.requireSponsorCount)}}rpx">
+        <view class="dian2"></view>
+      </view>
     </view>
-    <view class="production_box" wx:if="{{content.sponsorCount!==content.requireSponsorCount}}">
-        <view class="wai">
-            <view class="nei2" style="width:{{foo.toStr(679*content.sponsorCount/content.requireSponsorCount)}}rpx">
-                <view class="dian2"></view>
-            </view>
-        </view>
+  </view>
+  <view class="production_end" wx:if="{{content.sponsorCount==content.requireSponsorCount}}">“已完成赞助，少支付{{content.sponsorSavedAmount}}元”</view>
+  <view class="get_button_box" wx:if="{{content.sponsorCount==0}}">
+    <view class="cancle_button" catchtap="showCancle" data-id="{{content.id}}">取消赞助</view>
+    <view class="get_button" catchtap="share">邀请好友赞助</view>
+  </view>
+  <view class="get_button_box" wx:if="{{content.sponsorCount!==0&&content.sponsorCount!==content.requireSponsorCount}}">
+    <view class="buy_button" bindtap="toPlaceOrder">
+      <text>一折购买￥{{content.needPaymentAmount}}</text>
     </view>
-    <view class="production_end" wx:if="{{content.sponsorCount==content.requireSponsorCount}}">“已完成赞助，少支付{{content.sponsorSavedAmount}}元”</view>
-    <view class="get_button_box" wx:if="{{content.sponsorCount==0}}">
-        <view class="cancle_button" catchtap="showCancle" data-id="{{content.id}}">取消赞助</view>
-        <view class="get_button" catchtap="share">邀请好友赞助</view>
+    <view class="get_button1" catchtap="share">邀请好友赞助</view>
+  </view>
+  <view class="get_button_box" wx:if="{{content.sponsorCount==content.requireSponsorCount}}">
+    <view class="get_button2" bindtap="toPlaceOrder">一折购买￥{{content.needPaymentAmount}}</view>
+  </view>
+  <view class="mengceng" wx:if="{{content.status=='INVALID'||content.status==='NO_ORDER'}}">
+    <view class="nohappy_box">
+      <image src="{{hostUrl}}/sponsor/nohappy.png" class="nohappy" />
     </view>
-    <view class="get_button_box" wx:if="{{content.sponsorCount!==0&&content.sponsorCount!==content.requireSponsorCount}}">
-        <view class="buy_button" bindtap="toPlaceOrder"><text >0成本购买￥{{content.needPaymentAmount}}</text></view>
-        <view class="get_button1" catchtap="share">邀请好友赞助</view>
-    </view>
-    <view class="get_button_box" wx:if="{{content.sponsorCount==content.requireSponsorCount}}">
-        <view class="get_button2" bindtap="toPlaceOrder">0成本购买￥{{content.needPaymentAmount}}</view>
-    </view>
-    <view class="mengceng" wx:if="{{content.status=='INVALID'||content.status==='NO_ORDER'}}">
-        <view class="nohappy_box">
-            <image src="{{hostUrl}}/sponsor/nohappy.png" class="nohappy"/>
-        </view>
-        <view class="nohappy_font">很遗憾，赞助失效了，再次去发起赞助吧！</view>
-    </view>
+    <view class="nohappy_font">很遗憾，赞助失效了，再次去发起赞助吧！</view>
+  </view>
 </view>
 <view class="sponsor_list_box">
-    <view class="sponsor_list_title">
-        <image src="{{hostUrl}}/sponsor/shape4.png" class="head_left_img" />
-        <view class="sponsor_list_name">赞助列表</view>
-        <image src="{{hostUrl}}/sponsor/shape3.png" class="head_right_img" />
-    </view>
-    <view class="sponsor_people_box">
-        <view class="no_people" wx:if="{{sponsorItems.length==0}}">好友都还没来，快去邀请</view>
-        <block wx:if="{{sponsorItems.length>0}}">
-            <view class="sponsor_people" wx:for="{{sponsorItems}}" wx:key="">
-                <image src="{{item.avatarUrl?item.avatarUrl:'{{hostUrl}}/icon/zhanw_tb_n.png'}}" class="head_img"/>
-                <view class="people_name">{{item.nickname}}</view>
-                <view class="people_value">赞助了您1元</view>
-                <view class="bor"></view>
-                <image src="{{hostUrl}}/sponsor/kanjia.png" class="kanjia"/>
-                <view class="kanjia_money">为您节省{{content.savedAmountPerSponsor}}元的支出</view>
-            </view>
-        </block>
-    </view>
+  <view class="sponsor_list_title">
+    <image src="{{hostUrl}}/sponsor/shape4.png" class="head_left_img" />
+    <view class="sponsor_list_name">赞助列表</view>
+    <image src="{{hostUrl}}/sponsor/shape3.png" class="head_right_img" />
+  </view>
+  <view class="sponsor_people_box">
+    <view class="no_people" wx:if="{{sponsorItems.length==0}}">好友都还没来，快去邀请</view>
+    <block wx:if="{{sponsorItems.length>0}}">
+      <view class="sponsor_people" wx:for="{{sponsorItems}}" wx:key="">
+        <image src="{{item.avatarUrl?item.avatarUrl:'/assets/images/mine/other_ren.png'}}" class="head_img" />
+        <view class="people_name">{{item.nickname}}</view>
+        <view class="people_value">赞助了您1元</view>
+        <view class="bor"></view>
+        <image src="{{hostUrl}}/sponsor/kanjia.png" class="kanjia" />
+        <view class="kanjia_money">为您节省{{content.savedAmountPerSponsor}}元的支出</view>
+      </view>
+    </block>
+  </view>
 </view>
 <view class="recommend_goods_box">
-    <view class="recommend_goods_title">
-        <image src="{{hostUrl}}/sponsor/shape2.png" class="head_left_img2" />
-        <view class="head_name">新品推荐</view>
-        <image src="{{hostUrl}}/sponsor/shape.png" class="head_right_img2" />
-    </view>
-    <view class="recommend_goods_list">
-        <view class="recommend_goods" wx:for="{{list}}" wx:key="">
-            <view bindtap="toGoodsDetail" data-id="{{item.id}}">
-                <view class="recommend_goods_img">
-                <image src="{{item.imageUrls[0]}}" />
-            </view>
-            <view class="recommend_goods_name_box">
-                <text class="recommend_goods_tag">支持0成本购</text>
-                <text class="recommend_goods_name">{{item.name}}</text>
-            </view>
-            <view class="price_box">
-                <view class="price1">￥<text >{{item.dctPrice}}</text></view>
-                <view class="price2">￥{{item.orgPrice}}</view>
-            </view>
-            <view class="youhui">实付<text>￥{{item.dctPrice}}</text>返<text>￥{{item.marketingCashBack.totalAmount}}</text></view>
-            </view>
-        </view>      
-    </view>
+  <view class="recommend_goods_title">
+    <image src="{{hostUrl}}/sponsor/shape2.png" class="head_left_img2" />
+    <view class="head_name">新品推荐</view>
+    <image src="{{hostUrl}}/sponsor/shape.png" class="head_right_img2" />
+  </view>
+  <view class="recommend-list-wrapper">
+    <template is='goodsList' data="{{list:list}}" />
+  </view>
 </view>
+  <view class="bottom_tishi">{{bottom_tishi}}</view>
 <view class="height80"></view>
 <!-- 分享弹框 -->
 <!--屏幕背景变暗的背景  -->
 <view class="commodity_screen1" bindtap="hide" wx:if="{{showModalStatus1}}"></view>
 <!--弹出框 选择开始 -->
 <view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+  <view class="frientText">邀请好友赞助</view>
   <view class="content-wrapper1">
-    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
     <view class="shareCommission" wx:if="{{sharingProfit=='' || shareList.isPlusMember===2}}">你喜欢那就分享给你朋友吧</view>
     <view class="shareCommission" wx:if="{{sharingProfit && shareList.isPlusMember===1}}">分享商品后预计最多可赚佣金￥{{sharingProfit}}</view>
     <view class="shareText" wx:if="{{sharingProfit && shareList.isPlusMember===1}}">朋友通过你分享的页面成功购买后，你将获得商品返利</view>
@@ -157,10 +157,10 @@
         <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
         <view class="wx">分享群</view>
       </button>
-      <!-- <button class="share-button" bindtap='shareFriend'>
+      <button class="share-button" bindtap='shareFriend'>
         <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
         <view class="wx">分享图片</view>
-      </button> -->
+      </button>
     </view>
   </view>
 </view>
@@ -177,9 +177,8 @@
     <view class="title1">提示</view>
     <view class="text1">取消赞助后也会减少当日，发起赞助的次数哦</view>
     <view class="button_box">
-        <view class="button_one" bindtap="closeShow">取消</view>
-        <view class="button_two" bindtap="shure">确定</view>
+      <view class="button_one" bindtap="closeShow">取消</view>
+      <view class="button_two" bindtap="shure">确定</view>
     </view>
   </view>
 </view>
-

@@ -29,8 +29,9 @@ Page({
     periodLeftEnd: '',
     annualizedRateBegin: '',
     annualizedRateEnd: '',
-    msgText:'',
+    msgText: '',
     hostUrl: app.Util.getUrlImg().hostUrl,
+    seedToast: false //预售种子消耗弹窗
   },
 
   /**
@@ -42,6 +43,11 @@ Page({
       postingStatus: parseInt(options.status)
       // postingStatus: 2
     })
+    if (options.returnStatus) {
+      this.setData({
+        returnStatus: options.returnStatus
+      })
+    }
     that.getData();
   },
 
@@ -81,6 +87,11 @@ Page({
   onUnload: function() {
     wx.removeStorageSync('goWaitReentry')
     wx.removeStorageSync('waitReentry')
+    if (this.data.returnStatus) {
+      wx.navigateTo({
+        url: `/pages/myorder/myorder?status=${2}`,
+      })
+    }
   },
 
   /**
@@ -116,11 +127,11 @@ Page({
   getTextareaValue: function(e) {
     var that = this
     if (e.detail.value.length == 0) {
-      that.data.goodsData.goodsComment=''
+      that.data.goodsData.goodsComment = ''
     } else {
       if (e.detail.value.length > 200) {
         that.setData({
-          msgText:'您已经输入超出最大限度!'
+          msgText: '您已经输入超出最大限度!'
         })
       } else {
         that.data.goodsData.goodsComment = e.detail.value
@@ -129,14 +140,15 @@ Page({
           msgText: ''
         })
       }
-    }    
+    }
   },
   //卖帖
   getSaleTextarea: function(e) {
     var that = this
     if (e.detail.value.length == 0) {
       saleText: null
-    } else {
+    }
+    else {
       if (e.detail.value.length > 200) {
         that.setData({
           msgText: '您已经输入超出最大限度!'
@@ -154,17 +166,18 @@ Page({
     var that = this
     if (e.detail.value.length == 0) {
       buyText: null
-    }else {
-      if (e.detail.value.length>200){
+    }
+    else {
+      if (e.detail.value.length > 200) {
         that.setData({
           msgText: '您已经输入超出最大限度!'
         })
-      }else{
+      } else {
         that.setData({
           buyText: e.detail.value,
           msgText: ''
         })
-      }     
+      }
     }
   },
   cashBackAmount: function(e) {
@@ -184,7 +197,7 @@ Page({
     that.setData({
       periodLeft: e.detail.value
     })
-    
+
   },
   periodLeftEnd: function(e) {
     var that = this
@@ -206,7 +219,7 @@ Page({
   },
   //发布
   submit: function() {
-    if(newCount==true){
+    if (newCount == true) {
       newCount = false
       var that = this
       if (that.data.postingStatus == 1) {
@@ -227,7 +240,6 @@ Page({
               })
               wx.setStorageSync('posting', 1)
             } else {
-              console.log(res.data.message)
               wx.showToast({
                 title: res.data.message,
                 icon: 'none',
@@ -236,7 +248,7 @@ Page({
             }
           })
         }
-  
+
       } else if (that.data.postingStatus == 2) {
         if (that.data.buyText) {
           if (that.data.cashBackAmount !== '' && that.data.cashBackAmountEnd !== '' && that.data.periodLeft !== '' && that.data.periodLeftEnd !== '' && that.data.annualizedRateBegin !== '' && that.data.annualizedRateEnd !== '') {
@@ -334,7 +346,6 @@ Page({
         }
       } else if (that.data.postingStatus == 3) {
         var waitReentry = wx.getStorageSync('waitReentry')
-        console.log(that.data.waitReentry)
         if (!waitReentry) {
           wx.showToast({
             title: '请选择待返订单',
@@ -347,7 +358,7 @@ Page({
               icon: 'none'
             })
           } else {
-            let data = {
+            app.Util.ajax('mall/forum/topic/checkSeed4AddSaleTopic', {
               content: that.data.saleText,
               orderId: that.data.waitReentry.orderId,
               orderGoodsId: that.data.waitReentry.orderGoodsId,
@@ -355,125 +366,212 @@ Page({
               cashBackAmount: that.data.waitReentry.cashBackAmount,
               perReturnAmount: that.data.waitReentry.perReturnAmount,
               maxReturnTime: waitReentry.maxReturnTime,
+              transferId: that.data.waitReentry.transferId,
               periodLeft: that.data.waitReentry.periodLeft,
               code: that.data.waitReentry.code,
-              lastReturnAmount:that.data.waitReentry.lastReturnAmount?that.data.waitReentry.lastReturnAmount:''
-            }
-            let data1 = {
-              content: that.data.saleText,
-              orderId: that.data.waitReentry.orderId,
-              orderGoodsId: that.data.waitReentry.orderGoodsId,
-              expectAmount: that.data.expectAmount,
-              cashBackAmount: that.data.waitReentry.cashBackAmount,
-              perReturnAmount: that.data.waitReentry.perReturnAmount,
-              transferId: waitReentry.transferId,
-              maxReturnTime: waitReentry.maxReturnTime,
-              periodLeft: that.data.waitReentry.periodLeft,
-              code: that.data.waitReentry.code,
-              lastReturnAmount:that.data.waitReentry.lastReturnAmount?that.data.waitReentry.lastReturnAmount:''
-            }
-            if (that.data.saleText) {
-              if (!waitReentry.transferId) {
-                app.Util.ajax('mall/forum/topic/addSaleTopic',data, 'POST').then((res) => {
-                  if (res.data.content) {
-                    wx.navigateTo({
-                      url: '/pages/finishPosting/finishPosting?seedIncreased=' + res.data.content.seedIncreased + '&postingStatus=' + that.data.postingStatus + '&id=' + res.data.content.id,
-                    })
-                    wx.setStorageSync('posting', 1)
-                    wx.removeStorageSync('goWaitReentry')
-                    wx.removeStorageSync('waitReentry')
-                  } else {
-                    wx.showToast({
-                      title: res.data.message,
-                      icon: 'none',
-                      duration: 1000
-                    })
-                  }
+              lastReturnAmount: that.data.waitReentry.lastReturnAmount ? that.data.waitReentry.lastReturnAmount : ''
+            }, 'POST').then((res) => {
+              if (res.data.messageCode == "MSG_1001") {
+                this.setData({
+                  seedText: res.data.content,
+                  seedToast: true,
+                  isdisabled: false
                 })
-              } else {
-                app.Util.ajax('mall/forum/topic/addSaleTopic', data1, 'POST').then((res) => {
-                  if (res.data.content) {
-                    wx.navigateTo({
-                      url: '/pages/finishPosting/finishPosting?seedIncreased=' + res.data.content.seedIncreased + '&postingStatus=' + that.data.postingStatus + '&id=' + res.data.content.id,
-                    })
-                    wx.setStorageSync('posting', 1)
-                    wx.removeStorageSync('goWaitReentry')
-                    wx.removeStorageSync('waitReentry')
-                  } else {
-                    wx.showToast({
-                      title: res.data.message,
-                      icon: 'none',
-                      duration: 1000
-                    })
-                  }
+              }else{
+                wx.showToast({
+                  title: res.data.message,
+                  icon:'none'
                 })
               }
-            } else {
-              if (!waitReentry.transferId) {
-                app.Util.ajax('mall/forum/topic/addSaleTopic', {
-                  orderId: that.data.waitReentry.orderId,
-                  orderGoodsId: that.data.waitReentry.orderGoodsId,
-                  expectAmount: that.data.expectAmount,
-                  cashBackAmount: that.data.waitReentry.cashBackAmount,
-                  perReturnAmount: that.data.waitReentry.perReturnAmount,
-                  maxReturnTime: waitReentry.maxReturnTime,
-                  periodLeft: that.data.waitReentry.periodLeft,
-                  code: that.data.waitReentry.code,
-                  lastReturnAmount:that.data.waitReentry.lastReturnAmount?that.data.waitReentry.lastReturnAmount:''
-                }, 'POST').then((res) => {
-                  if (res.data.content) {
-                    wx.navigateTo({
-                      url: '/pages/finishPosting/finishPosting?seedIncreased=' + res.data.content.seedIncreased + '&postingStatus=' + that.data.postingStatus + '&id=' + res.data.content.id,
-                    })
-                    wx.setStorageSync('posting', 1)
-                    wx.removeStorageSync('goWaitReentry')
-                    wx.removeStorageSync('waitReentry')
-                  } else {
-                    wx.showToast({
-                      title: res.data.message,
-                      icon: 'none',
-                      duration: 1000
-                    })
-                  }
-                })
-              } else {
-                app.Util.ajax('mall/forum/topic/addSaleTopic', {
-                  orderId: that.data.waitReentry.orderId,
-                  orderGoodsId: that.data.waitReentry.orderGoodsId,
-                  expectAmount: that.data.expectAmount,
-                  cashBackAmount: that.data.waitReentry.cashBackAmount,
-                  perReturnAmount: that.data.waitReentry.perReturnAmount,
-                  transferId: waitReentry.transferId,
-                  maxReturnTime: waitReentry.maxReturnTime,
-                  periodLeft: that.data.waitReentry.periodLeft,
-                  code: that.data.waitReentry.code,
-                  lastReturnAmount:that.data.waitReentry.lastReturnAmount?that.data.waitReentry.lastReturnAmount:''
-                }, 'POST').then((res) => {
-                  if (res.data.content) {
-                    wx.navigateTo({
-                      url: '/pages/finishPosting/finishPosting?seedIncreased=' + res.data.content.seedIncreased + '&postingStatus=' + that.data.postingStatus + '&id=' + res.data.content.id,
-                    })
-                    wx.setStorageSync('posting', 1)
-                    wx.removeStorageSync('goWaitReentry')
-                    wx.removeStorageSync('waitReentry')
-                  } else {
-                    wx.showToast({
-                      title: res.data.message,
-                      icon: 'none',
-                      duration: 1000
-                    })
-                  }
-                })
-              }
-            }
+            })
+            // let data = {
+            //   content: that.data.saleText,
+            //   orderId: that.data.waitReentry.orderId,
+            //   orderGoodsId: that.data.waitReentry.orderGoodsId,
+            //   expectAmount: that.data.expectAmount,
+            //   cashBackAmount: that.data.waitReentry.cashBackAmount,
+            //   perReturnAmount: that.data.waitReentry.perReturnAmount,
+            //   maxReturnTime: waitReentry.maxReturnTime,
+            //   periodLeft: that.data.waitReentry.periodLeft,
+            //   code: that.data.waitReentry.code,
+            //   lastReturnAmount:that.data.waitReentry.lastReturnAmount?that.data.waitReentry.lastReturnAmount:''
+            // }
+            // let data1 = {
+            //   content: that.data.saleText,
+            //   orderId: that.data.waitReentry.orderId,
+            //   orderGoodsId: that.data.waitReentry.orderGoodsId,
+            //   expectAmount: that.data.expectAmount,
+            //   cashBackAmount: that.data.waitReentry.cashBackAmount,
+            //   perReturnAmount: that.data.waitReentry.perReturnAmount,
+            //   transferId: waitReentry.transferId,
+            //   maxReturnTime: waitReentry.maxReturnTime,
+            //   periodLeft: that.data.waitReentry.periodLeft,
+            //   code: that.data.waitReentry.code,
+            //   lastReturnAmount:that.data.waitReentry.lastReturnAmount?that.data.waitReentry.lastReturnAmount:''
+            // }
+            // if (that.data.saleText) {
+            //   if (!waitReentry.transferId) {
+            //     app.Util.ajax('mall/forum/topic/addSaleTopic',data, 'POST').then((res) => {
+            //       if (res.data.content) {
+            //         wx.navigateTo({
+            //           url: '/pages/finishPosting/finishPosting?seedIncreased=' + res.data.content.seedIncreased + '&postingStatus=' + that.data.postingStatus + '&id=' + res.data.content.id,
+            //         })
+            //         wx.setStorageSync('posting', 1)
+            //         wx.removeStorageSync('goWaitReentry')
+            //         wx.removeStorageSync('waitReentry')
+            //       } else {
+            //         wx.showToast({
+            //           title: res.data.message,
+            //           icon: 'none',
+            //           duration: 1000
+            //         })
+            //       }
+            //     })
+            //   } else {
+            //     app.Util.ajax('mall/forum/topic/addSaleTopic', data1, 'POST').then((res) => {
+            //       if (res.data.content) {
+            //         wx.navigateTo({
+            //           url: '/pages/finishPosting/finishPosting?seedIncreased=' + res.data.content.seedIncreased + '&postingStatus=' + that.data.postingStatus + '&id=' + res.data.content.id,
+            //         })
+            //         wx.setStorageSync('posting', 1)
+            //         wx.removeStorageSync('goWaitReentry')
+            //         wx.removeStorageSync('waitReentry')
+            //       } else {
+            //         wx.showToast({
+            //           title: res.data.message,
+            //           icon: 'none',
+            //           duration: 1000
+            //         })
+            //       }
+            //     })
+            //   }
+            // } else {
+            //   if (!waitReentry.transferId) {
+            //     app.Util.ajax('mall/forum/topic/addSaleTopic', {
+            //       orderId: that.data.waitReentry.orderId,
+            //       orderGoodsId: that.data.waitReentry.orderGoodsId,
+            //       expectAmount: that.data.expectAmount,
+            //       cashBackAmount: that.data.waitReentry.cashBackAmount,
+            //       perReturnAmount: that.data.waitReentry.perReturnAmount,
+            //       maxReturnTime: waitReentry.maxReturnTime,
+            //       periodLeft: that.data.waitReentry.periodLeft,
+            //       code: that.data.waitReentry.code,
+            //       lastReturnAmount:that.data.waitReentry.lastReturnAmount?that.data.waitReentry.lastReturnAmount:''
+            //     }, 'POST').then((res) => {
+            //       if (res.data.content) {
+            //         wx.navigateTo({
+            //           url: '/pages/finishPosting/finishPosting?seedIncreased=' + res.data.content.seedIncreased + '&postingStatus=' + that.data.postingStatus + '&id=' + res.data.content.id,
+            //         })
+            //         wx.setStorageSync('posting', 1)
+            //         wx.removeStorageSync('goWaitReentry')
+            //         wx.removeStorageSync('waitReentry')
+            //       } else {
+            //         wx.showToast({
+            //           title: res.data.message,
+            //           icon: 'none',
+            //           duration: 1000
+            //         })
+            //       }
+            //     })
+            //   } else {
+            //     app.Util.ajax('mall/forum/topic/addSaleTopic', {
+            //       orderId: that.data.waitReentry.orderId,
+            //       orderGoodsId: that.data.waitReentry.orderGoodsId,
+            //       expectAmount: that.data.expectAmount,
+            //       cashBackAmount: that.data.waitReentry.cashBackAmount,
+            //       perReturnAmount: that.data.waitReentry.perReturnAmount,
+            //       transferId: waitReentry.transferId,
+            //       maxReturnTime: waitReentry.maxReturnTime,
+            //       periodLeft: that.data.waitReentry.periodLeft,
+            //       code: that.data.waitReentry.code,
+            //       lastReturnAmount:that.data.waitReentry.lastReturnAmount?that.data.waitReentry.lastReturnAmount:''
+            //     }, 'POST').then((res) => {
+            //       if (res.data.content) {
+            //         wx.navigateTo({
+            //           url: '/pages/finishPosting/finishPosting?seedIncreased=' + res.data.content.seedIncreased + '&postingStatus=' + that.data.postingStatus + '&id=' + res.data.content.id,
+            //         })
+            //         wx.setStorageSync('posting', 1)
+            //         wx.removeStorageSync('goWaitReentry')
+            //         wx.removeStorageSync('waitReentry')
+            //       } else {
+            //         wx.showToast({
+            //           title: res.data.message,
+            //           icon: 'none',
+            //           duration: 1000
+            //         })
+            //       }
+            //     })
+            //   }
+            // }
           }
         }
       }
     }
-    setTimeout(function(){
-      newCount=true
-    },1000)
-   
+    setTimeout(function() {
+      newCount = true
+    }, 1000)
+  },
+  payShure: function() {
+    let that = this
+    let waitReentry = wx.getStorageSync('waitReentry')
+    let data = {
+      content: that.data.saleText,
+      orderId: that.data.waitReentry.orderId,
+      orderGoodsId: that.data.waitReentry.orderGoodsId,
+      expectAmount: that.data.expectAmount,
+      cashBackAmount: that.data.waitReentry.cashBackAmount,
+      perReturnAmount: that.data.waitReentry.perReturnAmount,
+      transferId: waitReentry.transferId,
+      maxReturnTime: waitReentry.maxReturnTime,
+      periodLeft: that.data.waitReentry.periodLeft,
+      code: that.data.waitReentry.code,
+      lastReturnAmount: that.data.waitReentry.lastReturnAmount ? that.data.waitReentry.lastReturnAmount : ''
+    }
+    let data1 = {
+      orderId: that.data.waitReentry.orderId,
+      orderGoodsId: that.data.waitReentry.orderGoodsId,
+      expectAmount: that.data.expectAmount,
+      cashBackAmount: that.data.waitReentry.cashBackAmount,
+      perReturnAmount: that.data.waitReentry.perReturnAmount,
+      transferId: waitReentry.transferId,
+      maxReturnTime: waitReentry.maxReturnTime,
+      periodLeft: that.data.waitReentry.periodLeft,
+      code: that.data.waitReentry.code,
+      lastReturnAmount: that.data.waitReentry.lastReturnAmount ? that.data.waitReentry.lastReturnAmount : ''
+    }
+    if (that.data.saleText) {
+      app.Util.ajax('mall/forum/topic/addSaleTopic', data, 'POST').then((res) => {
+        if (res.data.content) {
+          wx.navigateTo({
+            url: '/pages/finishPosting/finishPosting?seedIncreased=' + res.data.content.seedIncreased + '&postingStatus=' + that.data.postingStatus + '&id=' + res.data.content.id,
+          })
+          wx.setStorageSync('posting', 1)
+          wx.removeStorageSync('goWaitReentry')
+          wx.removeStorageSync('waitReentry')
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+    } else {
+      app.Util.ajax('mall/forum/topic/addSaleTopic',data1, 'POST').then((res) => {
+        if (res.data.content) {
+          wx.navigateTo({
+            url: '/pages/finishPosting/finishPosting?seedIncreased=' + res.data.content.seedIncreased + '&postingStatus=' + that.data.postingStatus + '&id=' + res.data.content.id,
+          })
+          wx.setStorageSync('posting', 1)
+          wx.removeStorageSync('goWaitReentry')
+          wx.removeStorageSync('waitReentry')
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+    }
   },
   // 删除用户上传的图片评论
   deleteImg: function(e) {
@@ -541,7 +639,6 @@ Page({
               filePath: res.tempFilePath,
               encoding: "base64",
               success: function(res) {
-                // console.log(res.data)
                 that.data.goodsData.img_compress.push(res.data)
                 that.getCanvasImg(index, failNum, tempFilePaths);
               }
@@ -561,10 +658,10 @@ Page({
     that.setData({
       expectAmount: '请输入售价',
       annualizedRate: null,
-      saleText:null
+      saleText: null
     })
     wx.navigateTo({
-      url: '/pages/waitReentryDetail/waitReentryDetail',
+      url: '/packageB/pages/waitReentryDetail/waitReentryDetail',
     })
     wx.setStorage({
       key: "goWaitReentry",
@@ -618,7 +715,7 @@ Page({
             })
           }
         })
-      } 
+      }
     } else {
       that.setData({
         showMessage: '请输入售价'
@@ -638,7 +735,7 @@ Page({
     var that = this;
     var mesValue
     //正则验证，充值金额仅支持小数点前8位小数点后2位
-    if (e.detail.value > 0){
+    if (e.detail.value > 0) {
       if (/^\d{1,8}(\.\d{0,2})?$/.test(e.detail.value)) {
         mesValue = e.detail.value;
         that.setData({
@@ -650,13 +747,33 @@ Page({
           showMessage: '售价仅支持小数点前8位,小数点后2位'
         })
       }
-    }else{
+    } else {
       that.setData({
         showMessage: '请输入大于0的售价'
       })
-    }    
+    }
     that.setData({
       inputValue: mesValue
     })
   },
+  cancle: function() {
+    this.setData({
+      seedToast: false,
+      isdisabled: true
+    })
+  },
+  toSeed: function() {
+    wx.navigateTo({
+      url: "/packageA/pages/seed/seed"
+    })
+    this.setData({
+      seedToast: false,
+      isdisabled: true
+    })
+  },
+  toMentionPeriod: function() {
+    wx.navigateTo({
+      url: "/packageA/pages/mentionPeriod/mentionPeriod?status=1"
+    })
+  }
 })

@@ -1,0 +1,6 @@
+<template name="floatingwindow">
+<view class="float_box" wx:if="{{floatShow}}">
+    <image  class="float_img" src="{{floatContent.iconUrl}}" bindtap="toPages" data-navType="{{floatContent.navType}}"/>
+    <image class="float_cancle" src="/assets/images/mine/floatClose.png" bindtap="closeFloat" wx:if="{{floatContent.showStyle!==2}}"></image>
+</view>
+</template>

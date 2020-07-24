@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF2644",
-  "navigationBarTitleText": "发布寻找的商品",
-  "navigationBarTextStyle": "white"
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTitleText": "提交寻找的商品",
+  "navigationBarTextStyle": "black"
 }

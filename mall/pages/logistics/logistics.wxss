@@ -34,7 +34,7 @@
 }
 
 .logistics-item1 text:nth-child(3) {
-  border: 2rpx solid #999;
+  border: 1rpx solid #999;
   border-radius:16rpx;
   font-size: 22rpx;
   color:#999;

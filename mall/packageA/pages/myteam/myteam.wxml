@@ -2,16 +2,22 @@
 <!-- 团队人数 -->
 <view class="contaniner">
   <view class="contaniner-list">
-    <view class="contaniner-list-num">{{content.total?content.total:0}}</view>
-    <view class="contaniner-list-text">团队人数</view>
+    <view class="contaniner-list-item">
+      <view class="contaniner-list-num">{{content.total?content.total:0}}</view>
+      <view class="contaniner-list-text">团队人数</view>
+    </view>
   </view>
   <view class="contaniner-list">
-    <view class="contaniner-list-num">{{content.nextNumbers?content.nextNumbers:0}}</view>
-    <view class="contaniner-list-text">第1级人数</view>
+    <view class="contaniner-list-item">
+      <view class="contaniner-list-num">{{content.nextNumbers?content.nextNumbers:0}}</view>
+      <view class="contaniner-list-text">第1级人数</view>
+    </view>
   </view>
   <view class="contaniner-list">
-    <view class="contaniner-list-num">{{content.levelNumbers?content.levelNumbers:0}}</view>
-    <view class="contaniner-list-text">第{{content.level}}级人数</view>
+    <view class="contaniner-list-item1">
+      <view class="contaniner-list-num">{{content.levelNumbers?content.levelNumbers:0}}</view>
+      <view class="contaniner-list-text">第{{content.level}}级人数</view>
+    </view>
   </view>
 </view>
 <!-- 团队招募 -->
@@ -19,9 +25,8 @@
 <!-- 我的团队 -->
 <view class="recurit-details">
   <view class="recurit-img">
-    <image src="{{hostUrl}}/icon/team_myteaml.png"></image>
     <view class="recurit-title">我的团队</view>
-  </view>  
+  </view>
   <view class="recurit-wrap">
     <view class="all" bindtap="showChoose">{{tabName}}</view>
     <image src="{{hostUrl}}/mine/ic_more.png" class="more" bindtap="showChoose" />
@@ -63,14 +68,12 @@
 <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
 <view class="modal-dialog" wx:if="{{show}}" style='top:{{top}}px;'>
   <view class='content'>
-    <view class="content-top-img">
-      <image src="{{hostUrl}}/icon/team_pop_title.png"></image>
-    </view>
+    <view class="content-top-img">为好友省钱，就是我们的价值</view>
     <view class="content-middle-img">
       <image src="{{hostUrl}}/pop_element.png"></image>
     </view>
     <view class="content-wrapper1">
-      <view class="share-text">我已经买了很多优惠商品了，赶快和我一起组团剁手吧!</view>
+      <view class="share-text">全场一折购，好友节省越多，你提供的价值越多，获得的奖励就越多。</view>
       <view class="share-wrap">
         <button class="share-button" id='btn' open-type="share">
           <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>

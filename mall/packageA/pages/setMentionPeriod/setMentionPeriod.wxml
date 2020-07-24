@@ -8,7 +8,7 @@
                 <view class="nianhua_font">预估年化收益</view>
             </view>
             <view class="top_right">
-                <view class="mentionPeriod_number">帮付<text class="fuhao">￥</text>{{item.paymentAmount}} <text class="mentionPeriod_period">提前了{{item.mentionPeriod}} 期</text></view>
+                <view class="mentionPeriod_number">帮付<text class="fuhao">￥</text>{{item.paymentAmount}} <text class="mentionPeriod_period">提前了{{item.mentionPeriod}} 期（月）</text></view>
                 <view class="mentionPeriod_font">帮助金额越多，收益越高</view>
             </view>
         </view>
@@ -61,7 +61,7 @@
       <view class="tr bg-w" catchtouchmove="preventTouchMove">
         <view class="th">购买时间</view>
         <view class="th">共返现金额（包括利息）</view>
-        <view class="th">期数</view>
+        <view class="th">期（月）数</view>
       </view>
       <view class="tr-height">
         <view class="tr bg-g">

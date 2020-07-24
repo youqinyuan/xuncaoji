@@ -40,7 +40,7 @@
   overflow: hidden;
 }
 .search-box1 {
-  border: 1px solid #ccc;
+  border: 1rpx solid #ccc;
   border-radius: 10rpx;
   background: #eee;
 }
@@ -100,7 +100,7 @@
   line-height: 40rpx;
   padding: 30rpx 50rpx;
   text-align: left;
-  border-top: 1px solid #eee;
+  border-top: 1rpx solid #eee;
 }
 .add-item .title {
   color: #282828;
@@ -133,7 +133,7 @@
   line-height: 40rpx;
   padding: 30rpx 50rpx 30rpx 90rpx;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1rpx solid #eee;
   position: relative;
 }
 .current-site {

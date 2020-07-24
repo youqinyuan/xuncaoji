@@ -22,39 +22,23 @@
 </view>
 <view class="searchList1-wrap" wx:if="{{goodsResult.length>0}}">
   <view class="goods-list-wrap">
-    <view class="goods-list" wx:for="{{goodsResult}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
-      <view class="goods-list-img">
-        <image wx:if="{{item.imageUrls[0]}}" src="{{item.imageUrls[0]}}"></image>
-        <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
-      </view>
-      <view class="goods-list-item">
-        <view class="goods-list-text">
-          <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}
+      <view class="goods-list" wx:for="{{goodsResult}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
+        <view class="goods-list-img">
+          <image src="{{item.imageUrls[0]}}"></image>
         </view>
-        <view class="goods-list-price">
-          <view class="newprice-wrap">
-            <view class="pricesign">￥</view>
-            <view class="newprice">{{item.truePrice}}</view>
+        <view class="goods-list-item">
+          <view class="goods-list-text">
+            <text wx:if="{{item.tags==1}}">自营</text>{{item.name}}
           </view>
-          <view class="oldprice-wrap">
-            <view class="pricesign1">￥</view>
-            <view class="oldprice">{{item.orgPrice}}</view>
-          </view>
-        </view>
-        <view class="return-wrap wrapMoney">
-          <view class="return-money">
-            <text>实付</text>
-            <text>￥</text>
-            <text>{{item.dctPrice}}</text>
-          </view>
-          <view class="pay-money">
-            <text>返现</text>
-            <text>￥</text>
-            <text>{{item.marketingCashBack.totalAmount}}</text>
+          <view class="goods-list-price">
+            <view class="newprice-wrap">
+              <view class="newprice">
+                <text class="newtext">一折购:</text>
+                <text>￥</text>{{item.discountPrice}}</view>
+            </view>
           </view>
         </view>
       </view>
     </view>
-  </view>
   <view class="shops-bottom">{{textToast}}</view>
 </view>

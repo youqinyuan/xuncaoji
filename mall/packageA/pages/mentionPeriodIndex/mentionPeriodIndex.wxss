@@ -4,28 +4,28 @@ page{
     background:rgba(244,244,244,1);
 }
 .head_box{
-    height: 610rpx;
+    height: 487rpx;
     position: relative;
 }
 .mentionPeriodImg{
     display: inline-block;
     width: 750rpx;
-    height: 610rpx;
+    height: 400rpx;
 }
 .setMentionPeriod2{
     display: inline-block;
     width: 214rpx;
     height: 76rpx;
     position: absolute;
-    left: 250rpx;
-    top: 144rpx;
-    animation: pulse 0.8s infinite;
+    left: 50rpx;
+    top: 240rpx;
+    /* animation: pulse 0.8s infinite; */
 }
 .mentionPeriodRlue{
     display: inline-block;
     position: absolute;
     right: 0;
-    top: 146rpx;
+    top: 50rpx;
     width:110rpx;
     height:50rpx;
     background:rgba(0,0,0,0.6);
@@ -37,8 +37,8 @@ page{
 }
 .sift_left{
     display: inline-block;
-    width:380rpx;
-    height:60rpx;
+    width:144rpx;
+    height:52rpx;
     background:rgba(255,255,255,1);
     border:1rpx solid rgba(231,231,231,1);
     border-radius:40rpx;
@@ -46,8 +46,8 @@ page{
     color:rgba(51,51,51,1);
     position: absolute;
     left: 30rpx;
-    bottom: 10rpx;
-    line-height: 60rpx;
+    bottom: 0;
+    line-height: 52rpx;
     text-align: center;
 }
 .sift_right{
@@ -70,6 +70,12 @@ page{
     background:rgba(244,244,244,1);
     padding: 30rpx 30rpx;
 }
+.left194{
+  left: 194rpx !important;
+}
+.left358{
+  left: 358rpx !important;
+}
 .siftRightImg{
     display: inline-block;
     width: 12rpx;
@@ -80,7 +86,7 @@ page{
     z-index: 10;
 }
 .color_red{
-    border:2rpx solid rgba(255,38,68,1);
+    border:1rpx solid rgba(255,38,68,1);
     color: rgba(255,38,68,1);
 }
 .mentionPeriodList{
@@ -89,7 +95,7 @@ page{
 }
 .mentionPeriod{
     height: 257rpx;
-    border-bottom: 2rpx solid #F4F4F4;
+    border-bottom: 1rpx solid #F4F4F4;
 }
 .user_name_box{
     height: 100rpx;
@@ -209,6 +215,13 @@ page{
     bottom: 0rpx;
     background:rgba(255,255,255,1);
     box-shadow:0rpx -2rpx 0rpx 0rpx rgba(231,231,231,1);
+    display: flex;
+}
+.mention_jiange{
+  width: 1rpx;
+  height: 40rpx;
+  background-color: #E7E7E7;
+  margin-top: 31rpx;
 }
 .bottom_left{
     display: inline-block;
@@ -217,7 +230,7 @@ page{
     height:70rpx;
     font-size:30rpx;
     color:rgba(51,51,51,1);
-    border-right:2rpx solid #E7E7E7;
+    /* border-right:1rpx solid #E7E7E7; */
     position: relative;
 }
 .bottom_right{

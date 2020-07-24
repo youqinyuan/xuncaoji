@@ -15,10 +15,11 @@ Page({
     content: {},
     latestStatus: 1,
     options: {},
-    showDialog4: false,
     orderId: 1,
     orderGoodsId: 0,
     newPeopleActivity:1,//新人专区跳转页面状态
+    seedToast:false,
+    hostUrl: app.Util.getUrlImg().hostUrl,
   },
 
   /**
@@ -172,36 +173,33 @@ Page({
   onShareAppMessage: function () {
 
   },
-  stopZero: function (e) {
+  stopZero: function(e) {
     var that = this
-    app.Util.ajax('mall/order/queryStopApplyZeroPurchase', {
-      orderId: that.data.orderId,
-      orderGoodsId: e.currentTarget.dataset.ordergoodsid
-    }, 'GET').then((res) => {
-      if(res.data.messageCode=="MSG_1001"){
-        console.log(111111)
-        that.setData({
-          refundAmount: res.data.content.refundAmount,
-          orderId: that.data.orderId,
-          orderGoodsId: e.currentTarget.dataset.ordergoodsid
-        })
-        that.setData({
-          showDialog4: true
-        })
-      }else{
-        wx.showToast({
-          title:res.data.message,
-          icon:"none"
-        })
-      }
-
-    })
-  },
-  wait: function (e) {
-    var that = this
-    that.setData({
-      showDialog4: false
-    })
+    if(e.currentTarget.dataset.isstop==1){
+      console.log("已置灰")
+    }else{
+      app.Util.ajax('mall/order/queryStopApplyZeroPurchase', {
+        orderId: that.data.orderId,
+        orderGoodsId: e.currentTarget.dataset.ordergoodsid
+      }, 'GET').then((res) => {
+        if(res.data.messageCode=="MSG_1001"){
+          that.setData({
+            refundAmount: res.data.content.refundAmount,
+            seedAmountTotal:res.data.content.seedAmountTotal,
+            seedAmountConsume:res.data.content.seedAmountConsume,
+            seedStatus:res.data.content.status
+          })
+          that.setData({
+            seedToast: true
+          })
+        }else{
+          wx.showToast({
+            title:res.data.message,
+            icon:"none"
+          })
+        }
+      })
+    }
   },
   comfireCancel: function (e) {
     var that = this
@@ -229,11 +227,24 @@ Page({
         }
       })
       that.setData({
-        showDialog4: false
+        seedToast: false
       })
     }
     setTimeout(function(){
       newCount=true
     },2000)
+  },
+  cancle:function(){
+    this.setData({
+      seedToast:false
+    })
+  },
+  toSeed:function(){
+    wx.navigateTo({
+      url:"/packageA/pages/seed/seed"
+    })
+    this.setData({
+      seedToast:false
+    })
   },
 })

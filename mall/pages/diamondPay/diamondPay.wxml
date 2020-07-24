@@ -34,7 +34,7 @@
       <view class="wrap">
         <view>您购买的{{initialize.diamond||300}}元购物金</view>
         <view>分{{initialize.frequency||10}}次使用，</view>
-        <view>仅用于FreeBuy方式购买，</view>
+        <view>仅用于一折购方式购买，</view>
         <view>可用于购买寻草记商城</view>
         <view>任何商品，</view>
         <view>有效期为成为钻石合伙人起</view>
@@ -57,9 +57,9 @@
       </view>
     </view>
     <view wx:if="{{item.status==4}}" class="slide-image {{currentTab === index ?'active-item': ''}}" style="background: url({{item.bannerUrl}}) no-repeat center center;background-size: 100% 100%;">
-    <view class="title title5">享FreeBuy下单优惠</view>
+    <view class="title title5">享一折购下单优惠</view>
       <view class="wrap">
-        <view>您的所有FreeBuy订单</view>
+        <view>您的所有一折购订单</view>
         <view>均享受{{initialize.discount||9.5}}折优惠，</view>
         <view>有效期为成为钻石合伙人起</view>
         <view>一年内。</view>

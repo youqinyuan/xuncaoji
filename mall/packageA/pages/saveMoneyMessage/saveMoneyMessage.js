@@ -7,7 +7,7 @@ Page({
    */
   data: {
     hostUrl: app.Util.getUrlImg().hostUrl,
-    placeholder1: `请输入您想要购买该商品的价格-建议出价:￥1900`,
+    placeholder1: `请输入预订商品购买金额-建议出价:￥1900`,
     showSuccess: false,
     name: '', //姓名
     phoneNumber: '', //电话号码
@@ -40,7 +40,7 @@ Page({
       that.setData({
         options: options,
         getOrder: getOrder,
-        placeholder1: `请输入您想要出售该商品的价格-建议出价:￥${price}`
+        placeholder1: `请输入预订商品购买金额-建议出价:￥${price}`
       })
     }
   },

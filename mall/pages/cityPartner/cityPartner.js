@@ -102,7 +102,7 @@ Page({
   onShareAppMessage: function() {
     var that = this
     return {
-      title: '【钻石合伙人招募令】加入寻草记～共赢未来，带你提前实现财富自由！！！',
+      title: '客户省越多，我们价值越大；提供价值越大，获得回报越多',
       path: '/pages/diamondPartner/diamondPartner?inviterCode=' + wx.getStorageSync('inviterCode'),
       imageUrl: that.data.shareImg,
     }

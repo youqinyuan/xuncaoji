@@ -38,8 +38,6 @@
     "pages/averageDiscount/averageDiscount",
     "pages/nationwideReturn/nationwideReturn",
     "pages/orderDetail/orderDetail",
-    "pages/applyRule/applyRule",
-    "pages/applyZero/applyZero",
     "pages/cashBack/cashBack",
     "pages/logistics/logistics",
     "pages/logisticsDetail/logisticsDetail",
@@ -50,7 +48,6 @@
     "pages/goodsStage2/goodsStage2",
     "pages/goodsStage3/goodsStage3",
     "pages/myPeriod/myPeriod",
-    "pages/waitReentryDetail/waitReentryDetail",
     "pages/refundDetail/refundDetail",
     "pages/cancleDetail/cancleDetail",
     "pages/effectiveTime/effectiveTime",
@@ -80,13 +77,7 @@
         "pages/returnMoney/returnMoney",
         "pages/dealWithReturn/dealWithReturn",
         "pages/myteam/myteam",
-        "pages/cooperate/cooperate",
-        "pages/zeroPurchase/zeroPurchase",
-        "pages/zeroPurchaseActivity/zeroPurchaseActivity",
-        "pages/zeroBuy/zeroBuy",
-        "pages/xuncaoji/xuncaoji",
         "pages/seed/seed",
-        "pages/freeBuy/freeBuy",
         "pages/seedDetail/seedDetail",
         "pages/serviceProblem/serviceProblem",
         "pages/mentionPeriodRule/mentionPeriodRule",
@@ -140,8 +131,26 @@
         "pages/profitGoodsBuy/profitGoodsBuy",
         "pages/profitMentionPeriod/profitMentionPeriod",
         "pages/hero/hero",
+        "pages/xuncaoji/xuncaoji",
         "pages/profitBook/profitBook",
-        "pages/guidePage/guidePage"
+        "pages/guidePage/guidePage",
+        "pages/fastStoreInfo/fastStoreInfo",
+        "pages/fastSuccess/fastSuccess"
+      ]
+    },
+    {
+      "root": "packageB",
+      "pages": [
+        "pages/applyRule/applyRule",
+        "pages/applyZero/applyZero",
+        "pages/freeBuy/freeBuy",
+        "pages/cooperate/cooperate",
+        "pages/zeroPurchase/zeroPurchase",
+        "pages/zeroPurchaseActivity/zeroPurchaseActivity",
+        "pages/zeroBuy/zeroBuy",
+        "pages/waitReentryDetail/waitReentryDetail",
+        "pages/moneyDetails/moneyDetails",
+        "pages/waitDetail/waitDetail"
       ]
     }
   ],
@@ -157,32 +166,32 @@
       {
         "pagePath": "pages/newIndex/newIndex",
         "text": "首页",
-        "iconPath": "assets/images/icon/ic_home_n@2x.png",
-        "selectedIconPath": "assets/images/icon/ic_home_s@2x.png"
+        "iconPath": "assets/images/icon/ic_home_n.png",
+        "selectedIconPath": "assets/images/icon/ic_home_s.png"
       },
       {
         "pagePath": "pages/index/index",
         "text": "商城",
-        "iconPath": "assets/images/icon/ic_goods_n@2x.png",
-        "selectedIconPath": "assets/images/icon/ic_goods_s@2x.png"
+        "iconPath": "assets/images/icon/ic_goods_n.png",
+        "selectedIconPath": "assets/images/icon/ic_goods_s.png"
       },
       {
         "pagePath": "pages/wishpool/wishpool",
         "text": "寻商品",
-        "iconPath": "assets/images/icon/ic_goods_n.png",
-        "selectedIconPath": "assets/images/icon/ic_goods_s@2x(1).png"
+        "iconPath": "assets/images/icon/ic_goods_t.png",
+        "selectedIconPath": "assets/images/icon/ic_goods_h.png"
       },
       {
         "pagePath": "pages/forum/forum",
         "text": "订单交易",
-        "iconPath": "assets/images/icon/ic_trade_n@2x.png",
-        "selectedIconPath": "assets/images/icon/ic_trade_s@2x.png"
+        "iconPath": "assets/images/icon/ic_trade_n.png",
+        "selectedIconPath": "assets/images/icon/ic_trade_s.png"
       },
       {
         "pagePath": "pages/mine/mine",
         "text": "我的",
-        "iconPath": "assets/images/icon/ic_my_n@2x.png",
-        "selectedIconPath": "assets/images/icon/ic_my_s@2x.png"
+        "iconPath": "assets/images/icon/ic_my_n.png",
+        "selectedIconPath": "assets/images/icon/ic_my_s.png"
       }
     ]
   },

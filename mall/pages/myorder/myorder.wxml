@@ -1,4 +1,13 @@
 <!--pages/myorder/myorder.wxml-->
+<wxs module="foo">
+  module.exports = {
+    toStr: function(n) {
+      n = n.toFixed(2)
+      return n
+    }
+  }
+</wxs>
+<import src='/template/goodsList/goodsList' />
 <view class="orderTab-wrap">
   <scroll-view scroll-x class="nav" scroll-left="{{navScrollLeft}}">
     <block wx:for='{{orderTabItem}}' wx:for-index="idx" wx:key="idx">
@@ -58,10 +67,9 @@
           <view class="content-cashBack">
             <image src="{{hostUrl}}/icon/youhui_bqian.png"></image>
             <view class="content-cashBack-text">
-              当前商品实付
-              <text>￥{{item.goodsTotalPrice}}</text>，返现
-              <text wx:if="{{item.cashBack}}">￥{{item.cashBack}}</text>
-              <text wx:else>￥0</text>
+              返现
+              <text>￥{{item.cashBack||0}}</text>，返后价
+              <text>￥{{foo.toStr(item.goodsTotalPrice-item.cashBack)}}</text>              
             </view>
           </view>
         </view>
@@ -69,7 +77,7 @@
       <!-- 预售 -->
       <view class="service" wx:if="{{itemName.whetherAdvanceSale==1}}">
         <view class="service_one">服务</view>
-        <view class="service_two">预售订单</view>
+        <view class="service_two">预售返现</view>
         <view class="service_three" bindtap="cancelPreSell" data-advanceSaleStatus="{{itemName.advanceSaleStatus}}" data-orderId="{{itemName.id}}" wx:if="{{itemName.whetherAdvanceSale==1&&itemName.latestStatus!==12&&itemName.defaultAmountStatus==2?itemName.advanceSaleStatus==2||itemName.advanceSaleStatus==1:false}}">撤销预售</view>
         <view class="service_four" wx:if="{{itemName.advanceSaleStatus==2}}">买方已预订</view>
         <view class="service_four" wx:if="{{itemName.advanceSaleStatus==1}}">未被预订</view>
@@ -92,19 +100,19 @@
     </view>
     <!-- 底部按钮 -->
     <view class="button">
-      <button class="stopzero" catchtap="stopZero" wx:if="{{itemName.isStop==1&&itemName.latestStatus!==1&&itemName.latestStatus!==9&&itemName.latestStatus!==12&&itemName.latestStatus!==7&&itemName.latestStatus!==10&&itemName.orderSource!==2}}" data-orderid="{{itemName.id}}"
-        disabled="{{itemName.isStop==2?true:false}}">终止FreeBuy转购买</button>
+      <text class="stopzero {{itemName.isStop==2?'borderhui':''}}" data-whetherAdvanceSale="{{itemName.whetherAdvanceSale}}" data-latestStatus="{{itemName.latestStatus}}" data-isStop="{{itemName.isStop}}" catchtap="stopZero" wx:if="{{itemName.isStop==1&&itemName.latestStatus!==1&&itemName.latestStatus!==9&&itemName.latestStatus!==12&&itemName.latestStatus!==7&&itemName.latestStatus!==10&&itemName.orderSource!==2}}" data-orderid="{{itemName.id}}"
+        disabled="{{itemName.isStop==2?true:false}}">撤销一折购</text>
       <text class="cancel width172" wx:if="{{itemName.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{itemName.id}}" data-whetherAdvanceSale="{{itemName.whetherAdvanceSale}}" data-defaultAmountStatus="{{itemName.defaultAmountStatus}}" data-defaultAmount="{{itemName.defaultAmount}}"
         data-advanceSaleStatus="{{itemName.advanceSaleStatus}}">取消订单</text>
-      <text class="cancel" wx:if="{{itemName.latestStatus==2}}" catchtap='getMessage' data-orderid="{{itemName.id}}">提醒卖家发货</text>
+      <text class="cancel width210" wx:if="{{itemName.latestStatus==2}}" catchtap='getMessage' data-orderid="{{itemName.id}}">提醒卖家发货</text>
       <text class="return-money width172" wx:if="{{itemName.isCashBack==true&&itemName.orderSource!==2}}" catchtap='periodCash' data-lateststatus="{{itemName.latestStatus}}" data-orderid="{{itemName.id}}" data-whetherAdvanceSale="{{itemName.whetherAdvanceSale}}"
-        data-defaultAmountStatus="{{itemName.defaultAmountStatus}}">分期返现</text>
+        data-defaultAmountStatus="{{itemName.defaultAmountStatus}}">返现明细</text>
       <!-- <text class="return" catchtap='refund' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==2 || itemName.latestStatus==5 || itemName.latestStatus==11}}">退款</text> -->
       <!-- <text class="return" catchtap='cancelRefund' wx:if="{{itemName.latestStatus==7 || itemName.latestStatus==8}}" data-orderid="{{itemName.id}}">取消退款</text> -->
       <text class="pay width172" wx:if="{{itemName.latestStatus==1}}" catchtap='toPay' data-id="{{itemName.transStatementDetail.transId}}" data-orderid="{{itemName.id}}" data-ordertype="{{itemName.orderType}}" data-advanceSaleStatus="{{itemName.advanceSaleStatus}}"
         data-defaultAmountStatus="{{itemName.defaultAmountStatus}}">付款</text>
-      <text class="pay" catchtap='toEvaluate' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==5&&itemName.orderSource!==1}}">去评价</text>
-      <text class="pay" catchtap='confirmReceipt' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==4&&itemName.orderSource!==1}}">确认收货</text>
+      <text class="pay width172" catchtap='toEvaluate' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==5&&itemName.orderSource!==1}}">去评价</text>
+      <text class="pay width172" catchtap='confirmReceipt' data-orderid="{{itemName.id}}" wx:if="{{itemName.latestStatus==4&&itemName.orderSource!==1}}">确认收货</text>
     </view>
   </view>
   <!-- 否则 -->
@@ -128,31 +136,7 @@
       </view>
     </view>
     <view class="recommend-list-wrapper">
-      <view class="recommend-list" wx:for="{{list}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
-        <view class="recommend-list-img">
-          <image src="{{item.imageUrls[0]}}"></image>
-        </view>
-        <view class="recommend-list-text">
-          <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-          <text class="item2">支持0成本购</text>{{item.name}}</view>
-        <view class="recommend-list-price">
-          <view class="newprice">
-            <text>￥</text>{{item.truePrice}}</view>
-          <view class="oldprice">￥{{item.orgPrice}}</view>
-        </view>
-        <view class="return-wrap">
-          <view class="return-moneypay">
-            <text>实付</text>
-            <text>￥</text>
-            <text>{{item.dctPrice}}</text>
-          </view>
-          <view class="pay-money">
-            <text>返现</text>
-            <text>￥</text>
-            <text>{{item.marketingCashBack.totalAmount}}</text>
-          </view>
-        </view>
-      </view>
+      <template is='goodsList' data="{{list:list}}" />
     </view>
   </view>
   <view class="myorder-bottom" wx:if="{{allOrder.length>2}}">{{text}}</view>
@@ -220,7 +204,6 @@
 <!-- 取消订单 -->
 <view class="sell-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog3}}">
   <view class="sell-dialog__container heigh563" wx:if="{{showDialog3}}">
-    <image wx:if="{{showDialog3}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='cancelorder'></image>
     <view class="title">取消订单</view>
     <view class="text text2">
       <view class="contentainer3-content-text {{current == index ?'active1':''}}" bindtap="getText1" wx:for="{{cancelOrder}}" wx:for-item="reasons1" wx:key="{{reasons1}}" data-current="{{index}}" data-text="{{reasons1}}">{{reasons1}}</view>
@@ -229,21 +212,6 @@
     <view class="but_box1">
       <button class="shure_one1" bindtap='cancelorder'>取消</button>
       <button class="shure_one2" bindtap="sureorder">确认</button>
-    </view>
-  </view>
-</view>
-<!-- 终止0元购弹窗 -->
-<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog4}}"></view>
-<view class="stop-zan-dialog__container" wx:if="{{showDialog4}}">
-  <view class='stop-content'>
-    <view class="stop-content-title">提示</view>
-    <view class="stop-content-container">
-      <view>确定终止0元购吗？</view>
-      <view>此刻取消将退您：{{refundAmount}}元</view>
-    </view>
-    <view class="stop-content-button">
-      <view class="stop-reject" catchtap='wait'>再想想</view>
-      <button class="stop-comfirm" bindtap="comfireCancel" data-order="{{allOrder}}" data-latestStatus="{{allOrder.latestStatus}}">确定取消</button>
     </view>
   </view>
 </view>
@@ -323,7 +291,7 @@
     </view>
     <!-- 底部按钮 -->
     <view class="button">
-      <text class="return-money" wx:if="{{itemName.period&&itemName.period>0&&itemName.orderSource!==2}}" catchtap='periodCash' data-orderid="{{itemName.orderId}}">分期返现</text>
+      <text class="return-money" wx:if="{{itemName.period&&itemName.period>0&&itemName.orderSource!==2}}" catchtap='periodCash' data-orderid="{{itemName.orderId}}">返现明细</text>
     </view>
   </view>
   <!-- 否则 -->
@@ -347,31 +315,7 @@
       </view>
     </view>
     <view class="recommend-list-wrapper">
-      <view class="recommend-list" wx:for="{{list}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='toDetail'>
-        <view class="recommend-list-img">
-          <image src="{{item.imageUrls[0]}}"></image>
-        </view>
-        <view class="recommend-list-text">
-          <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-          <text class="item2">支持0成本购</text>{{item.name}}</view>
-        <view class="recommend-list-price">
-          <view class="newprice">
-            <text>￥</text>{{item.truePrice}}</view>
-          <view class="oldprice">￥{{item.orgPrice}}</view>
-        </view>
-        <view class="return-wrap">
-          <view class="return-moneypay">
-            <text>实付</text>
-            <text>￥</text>
-            <text>{{item.dctPrice}}</text>
-          </view>
-          <view class="pay-money">
-            <text>返现</text>
-            <text>￥</text>
-            <text>{{item.marketingCashBack.totalAmount}}</text>
-          </view>
-        </view>
-      </view>
+      <template is='goodsList' data="{{list:list}}" />
     </view>
   </view>
   <view class="myorder-bottom" wx:if="{{returnOrder.length>2}}">{{text}}</view>
@@ -380,10 +324,9 @@
 <!-- 撤销预售1 -->
 <view class="sell-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sellOneStatus}}">
   <view class="sell-dialog__container" wx:if="{{sellOneStatus}}">
-    <image wx:if="{{sellOneStatus}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sellClose1'></image>
     <view class="title">撤销预售</view>
     <view class="text">
-      <view>此预售订单无人预订，撤销后将返还您所支付的违约金，是否撤销？</view>
+      <view>此预售返现无人预订，撤销后将返还您所支付的违约金，是否撤销？</view>
     </view>
     <view class="but_box1">
       <button class="shure_one1" bindtap='sellClose1'>取消</button>
@@ -394,11 +337,10 @@
 <!-- 撤销预售2 -->
 <view class="sell-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{sellTwoStatus}}">
   <view class="sell-dialog__container heigh480" wx:if="{{sellTwoStatus}}">
-    <image wx:if="{{sellTwoStatus}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='sellClose2'></image>
     <view class="title">撤销预售</view>
     <view class="text">
       <view>
-        您的预售订单已被买方预订，如果现在撤销预售订单系统将扣除您的违约金，并删除订单交易中的卖贴信息。是否撤销？</view>
+        您的预售返现已被买方预订，如果现在撤销预售返现系统将扣除您的违约金，并删除订单交易中的卖贴信息。是否撤销？</view>
     </view>
     <view class="but_box1">
       <button class="shure_one1" bindtap='sellClose2'>取消</button>
@@ -409,11 +351,10 @@
 <!-- 付款提示 -->
 <view class="sell-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{payStatus}}">
   <view class="sell-dialog__container heigh440" wx:if="{{payStatus}}">
-    <image wx:if="{{payStatus}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='closePay'></image>
     <view class="title">付款提示</view>
     <view class="text">
       <view>
-        此预售订单无人预订，如果您现在付款系统将视你自动放弃预售，并删除订单交易中的卖贴信息，是否付款？</view>
+        此预售返现无人预订，如果您现在付款系统将视你自动放弃预售，并删除订单交易中的卖贴信息，是否付款？</view>
     </view>
     <view class="but_box1">
       <button class="shure_one1" bindtap='closePay'>取消</button>
@@ -421,3 +362,17 @@
     </view>
   </view>
 </view>
+  <view class="bg10" wx:if="{{seedToast}}">
+    <view class="content10">
+        <view class="title10">确定撤销一折购吗</view>
+        <view class="text_one10">撤销后将退您：{{refundAmount}}元，并将扣除您{{seedAmountConsume}}颗种子！</view>
+        <view class="text_two10">您的种子数量：{{seedAmountTotal}}颗</view>
+        <view class="message10" wx:if="{{seedStatus==2}}">您的种子不足，请先获得足够的种子再进行终止！</view>
+        <view class="button_box10">
+            <view class="button_one10" bindtap="toSeed">去获得种子</view>
+            <view class="button_two10" bindtap="comfireCancel" data-order="{{allOrder}}">确定撤销</view>
+        </view>
+    </view>
+    <image class="cancel-get10" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap="cancle"></image>
+</view>
+

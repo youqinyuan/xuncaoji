@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarBackgroundColor": "#FFFFFF",
   "navigationBarTitleText": "种子明细",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "black"
 }

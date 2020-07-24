@@ -1,0 +1,46 @@
+<!--packageB/pages/waitDetail/waitDetail.wxml-->
+<view class="box" wx:for="{{content}}" wx:if="{{content.length>0}}" wx:key="">
+  <image src="{{hostUrl}}/twoSix/bg3.png" class="img_bg"  />
+  <view class="Reentry_title">
+    <text>{{item.remark}}</text>
+  </view>
+  <view class="Reentry_time right51">
+    <text>{{item.createTime}}</text>
+  </view>
+  <view class="Reentry_money">
+    <view class="day_return_box">
+        <view class="reentryMoney">待返：<view class="font24 line">￥</view>{{item.toReturnAmount}}</view>
+    </view>
+    <view class="day_return_box">
+        <view class="reentryMoney xx">已返：<view class="font24 line">￥</view>{{item.returnAmount}}</view>
+    </view>
+  </view>
+  <view class="button_new_box">
+    <view class="zz">
+        <view class="the_left">本次返现：<view class="font24 line81">￥</view>{{item.amount}}</view>
+        <view class="cash" wx:if="{{item.status==1}}" bindtap="mention" data-seedNumber="{{item.seedNumber}}" data-id="{{item.id}}">提现到余额</view>
+        <view class="cash zhihui" wx:else>已提现</view>
+    </view>
+  </view>
+</view>
+<view wx:if="{{content.length==0}}">
+  <image src="/assets/images/mine/noThing.png" class="picStore"/>
+  <view class="noThing">这里什么都没有，去别的地方逛逛吧</view>
+</view>
+<view class="cashBackBox-text" wx:if="{{text !==''}}">{{text}}</view>
+  <view class="bg10" wx:if="{{seedToast}}">
+    <view class="content10">
+        <view class="title10">温馨提示</view>
+        <view class="text_one10">本次提现需消耗{{seedNumber}}颗种子</view>
+        <view class="text_two10">您的种子数量：{{seedAmount}}颗</view>
+        <view class="message10" wx:if="{{seedAmount-seedNumber<0}}">种子不足，请先获得足够的种子</view>
+        <view class="button_box10">
+            <view class="button_one10" bindtap="toSeed">去获得种子</view>
+            <view class="button_two10" bindtap="payShure">提现</view>
+        </view>
+    </view>
+    <image class="cancel-get10" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap="cancle"></image>
+</view>
+
+
+

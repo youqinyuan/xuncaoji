@@ -1,141 +1,143 @@
 <!--pages/dealWithReturn/dealWithReturn.wxml-->
-<view class="dealWith_box">
-    <view class="dealWith_inbox" wx:if="{{orderGoodsApplyRefund.status==6}}">
-        <view class="sj">您已取消退款</view>
-        <view class="time">若要继续退款请重新申请</view>
-    </view>
-    <view class="dealWith_inbox" wx:if="{{orderGoodsApplyRefund.status==1}}">
-        <view class="sj">等待商家处理中</view>
-        <view class="time">{{day}}天{{hours1==0?"1":hours1}}时后系统将默认退款给您</view>
-    </view>
-    <view class="dealWith_inbox" wx:if="{{orderGoodsApplyRefund.status==5}}">
-        <view class="sj">商家已同意您的退款</view>
-        <view class="time">退款金额将原路退还，请注意查收</view>
-    </view>
-    <view class="dealWith_inbox" wx:if="{{orderGoodsApplyRefund.status==3}}">
-        <view class="sj">已发货，等待商家收货处理</view>
-        <view class="time">{{day}}天{{hours1==0?"1":hours1}}时后系统将默认退款给您</view>
-    </view>
-    <view class="dealWith_inbox" wx:if="{{orderGoodsApplyRefund.status==2}}">
-        <view class="sj">商家已同意您的退款</view>
-        <view class="time">请联系商家退货,{{day}}天{{hours1==0?"1":hours1}}时未处理系统将自动取消退款</view>
-    </view>
-    <view class="dealWith_inbox" wx:if="{{orderGoodsApplyRefund.status==4}}">
-        <view class="sj">商家已拒绝您的退款</view>
-        <view class="time">{{day}}天{{hours1==0?"1":hours1}}时后系统将默认您取消退款</view>
-    </view>
+<view class="dealWith_Box">
+  <view class="dealWith_inbox" wx:if="{{orderGoodsApplyRefund.status==6}}">
+    <view class="sj">您已取消退款</view>
+    <view class="time">若要继续退款请重新申请</view>
+  </view>
+  <view class="dealWith_inbox" wx:if="{{orderGoodsApplyRefund.status==1}}">
+    <view class="sj">等待商家处理中</view>
+    <view class="time">{{day}}天{{hours1==0?"1":hours1}}时后系统将默认退款给您</view>
+  </view>
+  <view class="dealWith_inbox" wx:if="{{orderGoodsApplyRefund.status==5}}">
+    <view class="sj">商家已同意您的退款</view>
+    <view class="time">退款金额将原路退还，请注意查收</view>
+  </view>
+  <view class="dealWith_inbox" wx:if="{{orderGoodsApplyRefund.status==3}}">
+    <view class="sj">已发货，等待商家收货处理</view>
+    <view class="time">{{day}}天{{hours1==0?"1":hours1}}时后系统将默认退款给您</view>
+  </view>
+  <view class="dealWith_inbox" wx:if="{{orderGoodsApplyRefund.status==2}}">
+    <view class="sj">商家已同意您的退款</view>
+    <view class="time">请联系商家退货,{{day}}天{{hours1==0?"1":hours1}}时未处理系统将自动取消退款</view>
+  </view>
+  <view class="dealWith_inbox" wx:if="{{orderGoodsApplyRefund.status==4}}">
+    <view class="sj">商家已拒绝您的退款</view>
+    <view class="time">{{day}}天{{hours1==0?"1":hours1}}时后系统将默认您取消退款</view>
+  </view>
 </view>
-<view class="goods">
-    <image src="{{allContent.imageUrl}}" class="goods_img"/>
+<view class="goodsWrap">
+  <view class="goods">
+    <image src="{{allContent.imageUrl}}" class="goods_img" />
     <text class="goods_name">{{allContent.goodsName}}</text>
     <text class="goods_price"><text class="sz24">￥</text>{{allContent.price}}</text>
     <text class="goods_specifications">{{allContent.specDesc}}</text>
     <text class="goods_number">x{{allContent.quantity}}</text>
+  </view>
 </view>
 <view class="cause_box" wx:if="{{orderGoodsApplyRefund.refusalCause!==null&&orderGoodsApplyRefund.status==4}}">
-        <view class="return_shuoming2" >
-        <view class="title">拒绝原因</view>
-        <view class="return_shuoming_value">
-            {{orderGoodsApplyRefund.refusalCause}}</view>
-    </view>
+  <view class="return_shuoming2">
+    <view class="title">拒绝原因</view>
+    <view class="return_shuoming_value">
+      {{orderGoodsApplyRefund.refusalCause}}</view>
+  </view>
 </view>
 <view class="return_box">
-    <view class="return_info_box">
-        <view class="title">退款信息</view>
-        <view class="return_info_one">
-            <text class="name">退款编号</text>
-            <text class="value">{{orderGoodsApplyRefund.refundNumber}}</text>
-        </view>
-        <view class="return_info_one">
-            <text class="name">申请时间</text>
-            <text class="value">{{orderGoodsApplyRefund.createTime}}</text>
-        </view>
-        <view class="return_info_one">
-            <text class="name">货物状态</text>
-            <text class="value">{{orderGoodsApplyRefund.cargoStatus==1?"未收到货":"已收到货"}}</text>
-        </view>
-        <view class="return_info_one">
-            <text class="name">退款金额</text>
-            <text class="value">￥{{orderGoodsApplyRefund.refundAmount}}</text>
-        </view>
-        <view class="return_info_one">
-            <text class="name">退款理由</text>
-            <text class="value">{{orderGoodsApplyRefund.desc}}</text>
-        </view>
-        <view class="return_info_one" wx:if="{{orderGoodsApplyRefund.status!==1}}">
-            <text class="name">处理时间</text>
-            <text class="value">{{orderGoodsApplyRefund.operateTime}}</text>
-        </view>
+  <view class="return_info_box">
+    <view class="title">退款信息</view>
+    <view class="return_info_one">
+      <text class="name">退款编号</text>
+      <text class="value">{{orderGoodsApplyRefund.refundNumber}}</text>
     </view>
-    <view class="return_shuoming">
-        <view class="title">退款说明</view>
-        <view class="return_shuoming_value">
-            {{orderGoodsApplyRefund.remark}}</view>
+    <view class="return_info_one">
+      <text class="name">申请时间</text>
+      <text class="value">{{orderGoodsApplyRefund.createTime}}</text>
     </view>
-    <view class="bgwit">
-        <view class="return_img_box">
-            <view class="title1">退款凭证</view>
-            <view class="img_box" wx:for="{{orderGoodsApplyRefund.orderGoodsApplyRefundImageList}}" wx:key="">
-                <image src="{{item.imageUrl}}" class="return_img"/>
-            </view>
+    <view class="return_info_one">
+      <text class="name">货物状态</text>
+      <text class="value">{{orderGoodsApplyRefund.cargoStatus==1?"未收到货":"已收到货"}}</text>
     </view>
+    <view class="return_info_one">
+      <text class="name">退款金额</text>
+      <text class="value">￥{{orderGoodsApplyRefund.refundAmount}}</text>
     </view>
+    <view class="return_info_one">
+      <text class="name">退款理由</text>
+      <text class="value">{{orderGoodsApplyRefund.desc}}</text>
+    </view>
+    <view class="return_info_one" wx:if="{{orderGoodsApplyRefund.status!==1}}">
+      <text class="name">处理时间</text>
+      <text class="value">{{orderGoodsApplyRefund.operateTime}}</text>
+    </view>
+  </view>
 </view>
+<view class="return_shuoming" wx:if="{{orderGoodsApplyRefund.remark}}">
+  <view class="title">退款说明</view>
+  <view class="return_shuoming_value">
+    {{orderGoodsApplyRefund.remark}}</view>
+</view>
+<view class="bgwit" wx:if="{{orderGoodsApplyRefund.orderGoodsApplyRefundImageList.length>0}}">
+  <view class="return_img_box">
+    <view class="title">退款凭证</view>
+    <view class="img_box" wx:for="{{orderGoodsApplyRefund.orderGoodsApplyRefundImageList}}" wx:key="">
+      <image src="{{item.imageUrl}}" class="return_img" />
+    </view>
+  </view>
+</view>
+
 <view class="het200"></view>
 <view class="botton_box" wx:if="{{orderGoodsApplyRefund.status==1}}">
-    <view class="quxiao" bindtap="cancle">取消退款</view>
+  <view class="quxiao" bindtap="cancle">取消退款</view>
 </view>
 <view class="botton_box" wx:if="{{orderGoodsApplyRefund.status==6}}">
-    <view class="quxiao" bindtap="shenqingAgain">重新申请</view>
+  <view class="quxiao" bindtap="shenqingAgain">重新申请</view>
 </view>
 <view class="botton_box" wx:if="{{orderGoodsApplyRefund.status==4}}">
-    <view class="quxiao1" bindtap="cancle">取消退款</view>
-    <view class="quxiao2" bindtap="shenqingAgain">重新申请</view>
+  <view class="quxiao1" bindtap="cancle">取消退款</view>
+  <view class="quxiao2" bindtap="shenqingAgain">重新申请</view>
 </view>
 <view class="botton_box" wx:if="{{orderGoodsApplyRefund.status==2}}">
-    <view class="quxiao1" bindtap="cancle">取消退款</view>
-    <view class="quxiao2" bindtap="write">填写快递信息</view>
+  <view class="quxiao1" bindtap="cancle">取消退款</view>
+  <view class="quxiao2" bindtap="write">填写快递信息</view>
 </view>
 <view class="botton_box" wx:if="{{orderGoodsApplyRefund.status==5&&orderGoodsApplyRefund.trackingNumber!==null}}">
-    <view class="quxiao" bindtap="show1">查看快递信息</view>
+  <view class="quxiao" bindtap="show1">查看快递信息</view>
 </view>
 <view class="botton_box" wx:if="{{orderGoodsApplyRefund.status==3}}">
-    <view class="quxiao1" bindtap="cancle">取消退款</view>
-    <view class="quxiao2" bindtap="show2">修改快递信息</view>
+  <view class="quxiao1" bindtap="cancle">取消退款</view>
+  <view class="quxiao2" bindtap="show2">修改快递信息</view>
 </view>
- <!-- 收货地址查看弹窗  -->
+<!-- 收货地址查看弹窗  -->
 <view class="dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{show1}}">
   <view class="dialog__container" wx:if="{{show1}}">
     <view class="title">查看物流信息</view>
     <view class="text">
-        <view class="kuaidi_name">快递名称：{{companyName}}</view>
-        <view class="kuaidi_value">快递单号：{{orderGoodsApplyRefund.trackingNumber}}</view>
+      <view class="kuaidi_name">快递名称：{{companyName}}</view>
+      <view class="kuaidi_value">快递单号：{{orderGoodsApplyRefund.trackingNumber}}</view>
     </view>
     <view class="know" bindtap="cancle1">我知道了</view>
   </view>
 </view>
- <!-- 收货地址填写弹窗  -->
-<view class="dialog__mask2"  wx:if="{{show2}}">
+<!-- 收货地址填写弹窗  -->
+<view class="dialog__mask2" wx:if="{{show2}}">
   <view class="dialog__container2" wx:if="{{show2}}">
     <view class="title2">填写物流信息</view>
     <view class="text2">
-        <view bindtap="show3">
-            <input placeholder="请填写快递名称" class="kd_name" disabled="true" value="{{companyName}}"/>
-        </view>
-        <view >
-            <input placeholder="请填写快递单号" class="kd_value" bindinput="setSetLogisticsNumber" value="{{orderGoodsApplyRefund.trackingNumber?orderGoodsApplyRefund.trackingNumber:''}}"/>
-        </view>
+      <view bindtap="show3">
+        <input placeholder="请填写快递名称" class="kd_name" disabled="true" value="{{companyName}}" />
+      </view>
+      <view>
+        <input placeholder="请填写快递单号" class="kd_value" bindinput="setSetLogisticsNumber" value="{{orderGoodsApplyRefund.trackingNumber?orderGoodsApplyRefund.trackingNumber:''}}" />
+      </view>
     </view>
     <view class="know2">
-        <view class="know_one" bindtap="cancle2">取消</view>
-        <view class="know_two" bindtap="setLogistics">提交</view>
+      <view class="know_one" bindtap="cancle2">取消</view>
+      <view class="know_two" bindtap="setLogistics">提交</view>
     </view>
-    <view class="Logistics"  wx:if="{{show3}}" animation="{{animationData}}">
-        <block wx:for="{{LogisticsCompanyList}}" wx:key="{{item.id}}">
-            <view class="LogisticsList" bindtap="chooseLogistics" data-id="{{item.id}}" data-name="{{item.companyName}}">{{item.companyName}}</view>
-        </block>
+    <view class="Logistics" wx:if="{{show3}}" animation="{{animationData}}">
+      <block wx:for="{{LogisticsCompanyList}}" wx:key="{{item.id}}">
+        <view class="LogisticsList" bindtap="chooseLogistics" data-id="{{item.id}}" data-name="{{item.companyName}}">{{item.companyName}}</view>
+      </block>
     </view>
     <image src="{{hostUrl}}/mine/ic_more.png" class="jiantou" />
   </view>
 </view>
-

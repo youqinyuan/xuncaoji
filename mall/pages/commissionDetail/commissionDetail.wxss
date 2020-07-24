@@ -210,7 +210,7 @@
   text-align: center;
   width: 690rpx;
   height: 80rpx;
-  background: rgba(255, 38, 68, 1);
+  background:linear-gradient(90deg,rgba(255,106,72,1) 0%,rgba(255,38,68,1) 100%);
   border-radius: 40rpx;
   font-size: 32rpx;
   color: rgba(255, 255, 255, 1);
@@ -224,7 +224,7 @@
   display: inline-block;
   width: 335rpx;
   height: 80rpx;
-  background: #fc6f97;
+  background: #1A1A1A;
   border-radius: 38rpx;
   text-align: center;
   line-height: 80rpx;

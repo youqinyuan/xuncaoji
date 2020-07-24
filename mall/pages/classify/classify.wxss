@@ -1,76 +1,105 @@
 /* pages/classify/classify.wxss */
 
-.wrap {
-  display: flex;
+page {
+  background: #f4f4f4;
 }
 
 .nav {
   position: fixed;
   box-sizing: border-box;
-  font-size: 30rpx;
+  font-size: 26rpx;
+  height: 100%;
+  width: 170rpx;
   background: #fff;
-  width: 178rpx;
-  max-height: 1113rpx;
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.08);
-  border-bottom: 2rpx solid #f4f4f4;
   z-index: 99;
+  top: 0;
 }
 
 .nav-box {
-  width: 178rpx;
+  width: 170rpx;
   margin: 0 auto;
-  height: 120rpx;
-  line-height: 120rpx;
+  height: 96rpx;
+  line-height: 96rpx;
   position: relative;
 }
 
 .nav-item {
+  width: 170rpx;
   text-align: center;
-  color: #555;
+  color: #666;
 }
 
 .nav-item.active {
-  color: #ff6417;
+  background: #f4f4f4;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+  font-size: 28rpx;
 }
 
 .nav-item.active1 {
-  width: 60rpx;
-  height: 6rpx;
-  background: #ff6417;
+  width: 8rpx;
+  height: 30rpx;
+  background: linear-gradient(0deg, rgba(255, 106, 72, 1) 0%, rgba(255, 38, 68, 1) 100%);
+  border-radius: 4rpx;
   position: absolute;
-  left: 60rpx;
-  bottom: 20rpx;
+  left: 0rpx;
+  bottom: 32rpx;
 }
 
 /*二级分类*/
-
+.wrap{
+  margin-top: 20rpx;
+}
 .two-classification {
+  margin-left: 190rpx;
+  width: 540rpx;
   height: auto;
   margin-bottom: 20rpx;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 1);
+  /* overflow: hidden; */
+  /* margin-top: 20rpx; */
+  border-radius: 8rpx;
 }
 
 .two-classification-wrapper {
-  height: auto;  
-  margin-left:212rpx;
+  width: 540rpx;
+  height: auto;
   display: flex;
   flex-wrap: wrap;
 }
 
+.two-title {
+  padding: 0 20rpx;
+  height: 85rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+}
+
+.twoRight {
+  font-size: 22rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #999;
+}
+
 .two-classification-list {
-  width: 120rpx;
-  margin-right: 58rpx;
-  margin-top: 51rpx;
+  width: 180rpx;
+  height: 180rpx;
+  margin-bottom: 20rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .two-classification-img {
-  width: 120rpx;
-  height: 120rpx;
+  width: 112rpx;
+  height: 112rpx;
 }
 
 .two-classification-text {
@@ -81,11 +110,16 @@
   color: rgba(102, 102, 102, 1);
 }
 
-.two-classification-not{
-  width: 200rpx;
-  margin-left: 378rpx;
-  height: 90rpx;
-  line-height: 90rpx;
-  color: rgb(114, 113, 113);
-  font-size: 28rpx;
+.two-classification-not {
+  color: #333333;
+  font-size: 24rpx;
+  background: #fff;
+  text-align: center;
+  height: 1180rpx;
+}
+
+.two-classification-not image{
+  margin-top: 184rpx;
+  width: 539rpx;
+  height: 230rpx;
 }

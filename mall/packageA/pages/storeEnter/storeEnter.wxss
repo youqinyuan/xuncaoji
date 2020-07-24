@@ -67,3 +67,16 @@ page{
     top: 26rpx;
     display: inline-block;
 }
+.fast{
+    width:690rpx;
+    height:80rpx;
+    line-height: 80rpx;
+    border:0.5px solid rgba(255,38,68,1);
+    border-radius:40rpx;
+    font-size:32rpx;
+    font-family:PingFang SC;
+    color:rgba(255,38,68,1);
+    margin-top: 60rpx;
+    margin-left: 30rpx;
+    text-align: center;
+}

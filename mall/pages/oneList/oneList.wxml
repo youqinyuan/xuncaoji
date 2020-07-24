@@ -1,5 +1,6 @@
 <!--pages/oneList/oneList.wxml-->
-<swiper class="swiper-wrapper-item" indicator-dots="{{false}}" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+<import src='/template/goodsList/goodsList' />
+<swiper class="swiper-wrapper-item" indicator-dots="{{false}}" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" wx:if="{{type!==2}}">
   <swiper-item wx:if="{{imageUrl.length>0}}" wx:for="{{imageUrl}}" wx:key="{{item.forwardDest}}" bindtap="jumpping" data-id="{{item.forwardParam}}" data-forwardDest="{{item.forwardDest}}">
     <image wx:if="{{imageUrl.length===0}}" src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
     <image wx:else src="{{item.imageUrl}}" class="slide-image" />
@@ -8,6 +9,7 @@
     <image src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
   </swiper-item>
 </swiper>
+<image class="swiper-wrapper-item1" src="{{iconurl}}" wx:else></image>
 <!--二级分类-->
 <view class="two-classification-wrapper" style="padding-top:{{heightTop}}rpx;" wx:if="{{classfy.length>0}}">
   <view class="two-classification-list" wx:for="{{classfy}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="twoList">
@@ -17,47 +19,65 @@
   </view>
 </view>
 <!--综合、价格、上新-->
-<view class="title">
-  <view class="comprehensive" style="color:{{color}};" data-id="{{item.id}}" bindtap='comprehensive'>综合</view>
-  <view class="price" style="color:{{color1}};" bindtap="toPrice">
-    <view class="price-text">价格</view>
-    <view class="price-img">
-      <image src="{{pricePhoto}}"></image>
+<view style="{{fixed==1?'position:static;':'position:fixed;top:0;z-index:99;'}}">
+  <view class="brandtitle" wx:if="{{fixed==1}}">
+    <view class="comprehensive" style="color:{{color}};" data-id="{{item.id}}" bindtap='comprehensive'>综合</view>
+    <view class="price" style="color:{{color1}};" bindtap="toPrice">
+      <view class="price-text">价格</view>
+      <view class="price-img">
+        <image src="{{pricePhoto}}"></image>
+        <image src="{{pricePhoto1}}"></image>
+      </view>
     </view>
+    <view class="price" style="color:{{color2}};" bindtap='newGoods'>
+      <view class="price-text">上新</view>
+      <view class="price-img">
+        <image src="{{pricePhoto2}}"></image>
+        <image src="{{pricePhoto3}}"></image>
+      </view>
+    </view>
+    <view class="comprehensive" style="color:{{color3}};" bindtap='brand' wx:if="{{type!==2}}">品牌</view>
   </view>
-  <view class="new" style="color:{{color2}};" bindtap='newGoods'>
-    <view class="new-text">上新</view>
-    <view class="new-img">
-      <image src="{{pricePhoto1}}"></image>
+  <view class="brandtitle1" wx:if="{{fixed==2}}">
+    <view class="comprehensive" style="color:{{color}};" data-id="{{item.id}}" bindtap='comprehensive'>综合</view>
+    <view class="price" style="color:{{color1}};" bindtap="toPrice">
+      <view class="price-text">价格</view>
+      <view class="price-img">
+        <image src="{{pricePhoto}}"></image>
+        <image src="{{pricePhoto1}}"></image>
+      </view>
     </view>
+    <view class="price" style="color:{{color2}};" bindtap='newGoods'>
+      <view class="price-text">上新</view>
+      <view class="price-img">
+        <image src="{{pricePhoto2}}"></image>
+        <image src="{{pricePhoto3}}"></image>
+      </view>
+    </view>
+    <view class="comprehensive" style="color:{{color3}};" bindtap='brand' wx:if="{{type!==2}}">品牌</view>
   </view>
 </view>
 <view class="comprehensive-list-wrapper">
-  <view class="comprehensive-list" wx:for="{{category}}" wx:key="item.id" bindtap='toDetail' data-id="{{item.id}}">
-    <view class="comprehensive-list-img">
-      <image src="{{item.imageUrls[0]}}"></image>
-    </view>
-    <view class="comprehensive-list-text">
-      <text class="item1" wx:if="{{item.tags==1}}">自营</text>
-      <text class="item2">支持0成本购</text>{{item.name}}
-    </view>
-    <view class="comprehensive-list-price">
-      <view class="newprice">
-        <text>￥</text>{{item.truePrice}}</view>
-      <view class="oldprice">￥{{item.orgPrice}}</view>
-    </view>
-    <view class="return-wrap">
-      <view class="return-money">
-        <text>实付</text>
-        <text>￥</text>
-        <text>{{item.dctPrice}}</text>
-      </view>
-      <view class="pay-money">
-        <text>返现</text>
-        <text>￥</text>
-        <text>{{item.marketingCashBack.totalAmount}}</text>
-      </view>
-    </view>
+  <template is='goodsList' data="{{list:list}}" wx:if="{{list.length>0}}" />
+  <view class="comprehensive-not" wx:if="{{list.length==0}}">
+    <image src="/assets/images/mine/noThing.png"></image>
+    <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
   </view>
 </view>
 <view class="page-bottom">{{textToast}}</view>
+
+<!-- 品牌筛选弹窗 -->
+<view class="get-zan-dialog__mask2" wx:if="{{brandShow}}" catchtap="cancelBrand"></view>
+<view class="zan-dialog__container2" animation="{{animationData}}" wx:if="{{brandShow}}">
+  <view class="brandTitle">品牌筛选</view>
+  <view class="brandChoose">
+    <view class="brandChooseItem" wx:for="{{content10}}" wx:key="{{item.id}}" catchtap="chooseBrand" data-id="{{item.id}}" data-type="{{item.type}}" data-index="{{index}}" style="border:{{item.border1}};"> 
+      {{item.name}}
+      <image class="brandChooseImg" src="{{hostUrl}}/twoSix/activeImg.png" wx:if="{{item.brandChoose==true}}"></image>
+    </view> 
+  </view>
+  <view class="brandBtn">
+    <view class="brandButton brandBtnItem1" catchtap="resetBrand">重置</view>
+    <view class="brandButton brandBtnItem2" catchtap="sureBrand">确定</view>
+  </view>
+</view>

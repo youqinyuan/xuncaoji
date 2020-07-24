@@ -38,11 +38,16 @@ Page({
     amount: null,
     seedBtn:null,
     isShowBook: null,
-    buyWay:null,//线下商店
+    buyWay:null,//orderType=23、24
+    takeType:null,//线下商店
     getMoneyOrder: null, //发布赚钱订单
     hostUrl: app.Util.getUrlImg().hostUrl,
     shurePeriod:false, 
-    isMentionPeriod:false  //提期0.5期支付问号
+    isMentionPeriod:false,  //提期0.5期支付问号
+    shuomingText1:'支付后，可对此订单发起提期哦，提期可对返现时间缩短！',
+    shuomingText2:'下单后商品自己用，给你的返现可卖给他人立即拿钱。',
+    shuomingText3:'下单后可随时撤销，退还您已支付金额。',
+    paySuccess:false
   },
   //支付
   pay: function(e) {
@@ -66,96 +71,65 @@ Page({
           }, 'POST').then((res) => { // 使用ajax函数
             if (res.data.content) {
               if (res.data.content.balance.success == 1) {
-                if (that.data.amount2) {
-                  wx.navigateBack({
-                    delta: 1
+                if(that.data.transOrder==2){
+                  that.setData({
+                    paySuccess:true,
+                    businessId:res.data.content.balance.businessId
                   })
-                  wx.setStorageSync('loving', 1)
-                } else if (that.data.amount1) {
-                  wx.navigateBack({
-                    delta: 1
-                  })
-                } else if (that.data.seedBtn) {
-                  wx.navigateBack({
-                    delta: 1
-                  })
-                  app.globalData.seedText = '充值成功'
-                } else if (that.data.amount3) {
-                  wx.showToast({
-                    title:'支付成功，等待对方支付后将开始发货',
-                    icon:'none'
-                  })
-                  setTimeout(function(){
-                    wx.navigateTo({
-                      url: `/pages/myorder/myorder?status=${2}`,
+                }else{
+                  if (that.data.amount2) {
+                    wx.navigateBack({
+                      delta: 1
                     })
-                  },1000)
-                } else if (that.data.amount) {
-                  wx.navigateBack({
-                    delta: 1
-                  })
-                  wx.setStorageSync('sponsorStatus', 1)
-                } else if (that.data.mentionPeriod) {
-                  wx.navigateTo({
-                    url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.balance.businessId,
-                  })
-                }else if (that.data.helpMentionPeriod) {
-                  app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
-                    id: res.data.content.balance.businessId
-                  }, 'GET').then((res) => { // 使用ajax函数
-                    if (res.data.content.status!==1) {
+                    wx.setStorageSync('loving', 1)
+                  } else if (that.data.amount1) {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  } else if (that.data.seedBtn) {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                    app.globalData.seedText = '充值成功'
+                  } else if (that.data.amount3) {
+                    wx.showToast({
+                      title:'支付成功，等待对方支付后将开始发货',
+                      icon:'none'
+                    })
+                    setTimeout(function(){
                       wx.navigateTo({
-                        url: `/packageA/pages/helpSuccess/helpSuccess?period=`+res.data.content.mentionPeriod,
+                        url: `/pages/myorder/myorder?status=${2}`,
                       })
-                    }else{
-                      wx.navigateTo({
-                        url: `/packageA/pages/helpFail/helpFail`,
-                      })
-                    }
-                  })
-                } else if (that.data.getMoneyOrder) {
-                  wx.navigateBack({
-                    delta: 1
-                  })
-                  wx.setStorageSync('getMoneyOrder', 1)
-                } else if (that.data.isShowBook) {
-                  wx.switchTab({
-                    url: '/pages/forum/forum',
-                  })
-                  app.globalData.type = 4
-                } else if (that.data.goods) {
-                  wx.navigateBack({
-                    delta: 1
-                  })
-                } else {
-                  if (res.data.content.balance.type == 1) {
-                    if (that.data.buyType == 2) {
-                      wx.navigateTo({
-                        url: `/pages/myorder/myorder?status=${5}`,
-                      })
-                    } else if (that.data.buyWay) {
-                      wx.navigateTo({
-                        url: `/pages/myorder/myorder?status=${0}`,
-                      })
-                    }  else {
-                      //预售订单卖家付尾款
-                      if(that.data.orderSell){
-                        wx.showToast({
-                          title:'支付成功，等待对方支付后将开始发货',
-                          icon:'none'
+                    },1000)
+                  } else if (that.data.amount) {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                    wx.setStorageSync('sponsorStatus', 1)
+                  } else if (that.data.mentionPeriod) {
+                    wx.navigateTo({
+                      url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.balance.businessId+'&&multiple='+res.data.content.balance.multiple,
+                    })
+                  }else if (that.data.helpMentionPeriod) {
+                    app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
+                      id: res.data.content.balance.businessId
+                    }, 'GET').then((res) => { // 使用ajax函数
+                      if(app.globalData.returnMentionPeriodStatus==2){
+                        wx.navigateBack({
+                          delta:1
                         })
-                        setTimeout(function(){
-                          wx.navigateTo({
-                            url: `/pages/myorder/myorder?status=${2}`,
-                          })
-                        },1000)
                       }else{
-                        wx.navigateTo({
-                          url: `/pages/myorder/myorder?status=${2}`,
-                        })
+                        if (res.data.content.status!==1) {
+                          wx.navigateTo({
+                            url: `/packageA/pages/helpSuccess/helpSuccess?period=`+res.data.content.mentionPeriod,
+                          })
+                        }else{
+                          wx.navigateTo({
+                            url: `/packageA/pages/helpFail/helpFail`,
+                          })
+                        }
                       }
-                    }
-                    wx.removeStorageSync('myOrder')
+                    })
                   } else if (that.data.getMoneyOrder) {
                     wx.navigateBack({
                       delta: 1
@@ -170,7 +144,62 @@ Page({
                     wx.navigateBack({
                       delta: 1
                     })
-                  } 
+                  } else {
+                    if (res.data.content.balance.type == 1) {
+                      if (that.data.buyType == 2) {
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${5}`,
+                        })
+                      } else if (that.data.buyWay) {
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${0}`,
+                        })
+                      } else if (that.data.takeType) {
+                        // 线下商店
+                        if (that.data.takeType == 1) {
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${0}`,
+                          })
+                        } else {
+                          wx.navigateTo({
+                            url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
+                          })
+                        }
+                      }   else {
+                        //预售返现卖家付尾款
+                        if(that.data.orderSell){
+                          wx.showToast({
+                            title:'支付成功，等待对方支付后将开始发货',
+                            icon:'none'
+                          })
+                          setTimeout(function(){
+                            wx.navigateTo({
+                              url: `/pages/myorder/myorder?status=${2}`,
+                            })
+                          },1000)
+                        }else{
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${2}`,
+                          })
+                        }
+                      }
+                      wx.removeStorageSync('myOrder')
+                    } else if (that.data.getMoneyOrder) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                      wx.setStorageSync('getMoneyOrder', 1)
+                    } else if (that.data.isShowBook) {
+                      wx.switchTab({
+                        url: '/pages/forum/forum',
+                      })
+                      app.globalData.type = 4
+                    } else if (that.data.goods) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    } 
+                  }
                 }
               }
             }
@@ -213,102 +242,71 @@ Page({
         }, 'POST').then((res) => { // 使用ajax函数
           if (res.data.content) {
             if (res.data.content.balance.success == 1) {
-              if (that.data.amount2) {
-                wx.navigateBack({
-                  delta: 1
+              if(that.data.transOrder==2){
+                that.setData({
+                  paySuccess:true,
+                  businessId:res.data.content.balance.businessId
                 })
-                wx.setStorageSync('loving', 1)
-              } else if (that.data.amount1) {
-                wx.navigateBack({
-                  delta: 1
-                })
-              } else if (that.data.seedBtn) {
-                wx.navigateBack({
-                  delta: 1
-                })
-                app.globalData.seedText = '充值成功'
-              }  else if (that.data.amount3) {
-                wx.showToast({
-                  title:'支付成功，等待对方支付后将开始发货',
-                  icon:'none'
-                })
-                setTimeout(function(){
-                  wx.navigateTo({
-                    url: `/pages/myorder/myorder?status=${2}`,
+              }else{
+                if (that.data.amount2) {
+                  wx.navigateBack({
+                    delta: 1
                   })
-                },1000)
-              }else if (that.data.helpMentionPeriod){
-                app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
-                  id: res.data.content.balance.businessId
-                }, 'GET').then((res) => { // 使用ajax函数
-                  if (res.data.content.status!==1) {
+                  wx.setStorageSync('loving', 1)
+                } else if (that.data.amount1) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                } else if (that.data.seedBtn) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                  app.globalData.seedText = '充值成功'
+                }  else if (that.data.amount3) {
+                  wx.showToast({
+                    title:'支付成功，等待对方支付后将开始发货',
+                    icon:'none'
+                  })
+                  setTimeout(function(){
                     wx.navigateTo({
-                      url: `/packageA/pages/helpSuccess/helpSuccess?period=`+res.data.content.mentionPeriod,
+                      url: `/pages/myorder/myorder?status=${2}`,
                     })
-                  }else{
-                    wx.navigateTo({
-                      url: `/packageA/pages/helpFail/helpFail`,
-                    })
-                  }
-                })
-              } else if (that.data.mentionPeriod) {
-                wx.navigateTo({
-                  url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.balance.businessId,
-                })
-              } else if (that.data.amount) {
-                wx.navigateBack({
-                  delta: 1
-                })
-                wx.setStorageSync('sponsorStatus', 1)
-              } else if (that.data.getMoneyOrder) {
-                wx.navigateBack({
-                  delta: 1
-                })
-                wx.setStorageSync('getMoneyOrder', 1)
-              } else if (that.data.isShowBook) {
-                wx.switchTab({
-                  url: '/pages/forum/forum',
-                })
-                app.globalData.type = 4
-              } else if (that.data.goods) {
-                wx.navigateBack({
-                  delta: 1
-                })
-              }  else {
-                if (res.data.content.balance.type == 1) {
-                  if (that.data.buyType == 2) {
-                    wx.navigateTo({
-                      url: `/pages/myorder/myorder?status=${5}`,
-                    })
-                  } else if (that.data.buyWay) {
-                    wx.navigateTo({
-                      url: `/pages/myorder/myorder?status=${0}`,
-                    })
-                  }  else {
-                    //预售订单卖家付尾款
-                    if(that.data.orderSell){
-                      wx.showToast({
-                        title:'支付成功，等待对方支付后将开始发货',
-                        icon:'none'
+                  },1000)
+                }else if (that.data.helpMentionPeriod){
+                  app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
+                    id: res.data.content.balance.businessId
+                  }, 'GET').then((res) => { // 使用ajax函数
+                    if(app.globalData.returnMentionPeriodStatus==2){
+                      wx.navigateBack({
+                        delta:1
                       })
-                      setTimeout(function(){
-                        wx.navigateTo({
-                          url: `/pages/myorder/myorder?status=${2}`,
-                        })
-                      },1000)
                     }else{
-                      wx.navigateTo({
-                        url: `/pages/myorder/myorder?status=${2}`,
-                      })
+                      if (res.data.content.status!==1) {
+                        wx.navigateTo({
+                          url: `/packageA/pages/helpSuccess/helpSuccess?period=`+res.data.content.mentionPeriod,
+                        })
+                      }else{
+                        wx.navigateTo({
+                          url: `/packageA/pages/helpFail/helpFail`,
+                        })
+                      }
                     }
-                  }
-                  wx.removeStorageSync('myOrder')
+                  })
+                } else if (that.data.mentionPeriod) {
+                  wx.navigateTo({
+                    url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.balance.businessId+'&&multiple='+res.data.content.balance.multiple,
+                  })
+                } else if (that.data.amount) {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                  wx.setStorageSync('sponsorStatus', 1)
                 } else if (that.data.getMoneyOrder) {
                   wx.navigateBack({
                     delta: 1
                   })
                   wx.setStorageSync('getMoneyOrder', 1)
-                } else if (that.data.isShowBook){
+                } else if (that.data.isShowBook) {
                   wx.switchTab({
                     url: '/pages/forum/forum',
                   })
@@ -317,8 +315,64 @@ Page({
                   wx.navigateBack({
                     delta: 1
                   })
-                } 
+                }  else {
+                  if (res.data.content.balance.type == 1) {
+                    if (that.data.buyType == 2) {
+                      wx.navigateTo({
+                        url: `/pages/myorder/myorder?status=${5}`,
+                      })
+                    } else if (that.data.buyWay) {
+                      wx.navigateTo({
+                        url: `/pages/myorder/myorder?status=${0}`,
+                      })
+                    } else if (that.data.takeType) {
+                      // 线下商店
+                      if (that.data.takeType == 1) {
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${0}`,
+                        })
+                      } else {
+                        wx.navigateTo({
+                          url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
+                        })
+                      }
+                    }   else {
+                      //预售返现卖家付尾款
+                      if(that.data.orderSell){
+                        wx.showToast({
+                          title:'支付成功，等待对方支付后将开始发货',
+                          icon:'none'
+                        })
+                        setTimeout(function(){
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${2}`,
+                          })
+                        },1000)
+                      }else{
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${2}`,
+                        })
+                      }
+                    }
+                    wx.removeStorageSync('myOrder')
+                  } else if (that.data.getMoneyOrder) {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                    wx.setStorageSync('getMoneyOrder', 1)
+                  } else if (that.data.isShowBook){
+                    wx.switchTab({
+                      url: '/pages/forum/forum',
+                    })
+                    app.globalData.type = 4
+                  } else if (that.data.goods) {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  } 
+                }
               }
+              
             }
           }
         })
@@ -347,86 +401,56 @@ Page({
               }, 'GET').then((res) => {
                 if (res.data.content) {
                   if (res.data.content.status === 'SUCCESS') {
-                    if (res.data.content.bankCardType == 2 && that.data.options.type == 2) {
-                      //信用卡用户
-                      // console.log("支付卡类型:" + res.data.content.bankCardType)
-                      app.globalData.creditCard = 1
-                    }
-                    if (that.data.amount2) {
-                      wx.navigateBack({
-                        delta: 1
+                    if(that.data.transOrder==2){
+                      that.setData({
+                        paySuccess:true,
+                        businessId:res.data.content.businessId
                       })
-                      wx.setStorageSync('loving', 1)
-                    } else if (that.data.amount1) {
-                      wx.navigateBack({
-                        delta: 1
-                      })
-                    } else if (that.data.seedBtn) {
-                      wx.navigateBack({
-                        delta: 1
-                      })
-                      app.globalData.seedText = '充值成功'
-                    } else if (that.data.helpMentionPeriod) {
-                      app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
-                        id: res.data.content.businessId
-                      }, 'GET').then((res) => { // 使用ajax函数
-                        if (res.data.content.status!==1) {
-                          wx.navigateTo({
-                            url: `/packageA/pages/helpSuccess/helpSuccess?period=`+res.data.content.mentionPeriod,
-                          })
-                        }else{
-                          wx.navigateTo({
-                            url: `/packageA/pages/helpFail/helpFail`,
-                          })
-                        }
-                      })
-                    } else if (that.data.mentionPeriod) {
-                      wx.navigateTo({
-                        url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.businessId,
-                      })
-                    } else if (that.data.amount3) {
-                      wx.showToast({
-                        title:'支付成功，等待对方支付后将开始发货',
-                        icon:'none'
-                      })
-                      setTimeout(function(){
-                        wx.navigateTo({
-                          url: `/pages/myorder/myorder?status=${2}`,
+                    }else{
+                      if (res.data.content.bankCardType == 2 && that.data.options.type == 2) {
+                        //信用卡用户
+                        // console.log("支付卡类型:" + res.data.content.bankCardType)
+                        app.globalData.creditCard = 1
+                      }
+                      if (that.data.amount2) {
+                        wx.navigateBack({
+                          delta: 1
                         })
-                      },1000)
-                    } else if (that.data.amount) {
-                      wx.navigateBack({
-                        delta: 1
-                      })
-                      wx.setStorageSync('sponsorStatus', 1)
-                    } else if (that.data.getMoneyOrder) {
-                      wx.navigateBack({
-                        delta: 1
-                      })
-                      wx.setStorageSync('getMoneyOrder', 1)
-                    }  else if (that.data.isShowBook) {
-                      wx.switchTab({
-                        url: '/pages/forum/forum',
-                      })
-                      app.globalData.type = 4
-                    } else if (that.data.goods) {
-                      wx.navigateBack({
-                        delta: 1
-                      })
-                    }  else {
-                      if (res.data.content.type == 1) {
-                        if (that.data.buyType == 2) {
-                          wx.navigateTo({
-                            url: `/pages/myorder/myorder?status=${5}`,
-                          })
-                        } else if (that.data.buyWay) {
-                          wx.navigateTo({
-                            url: `/pages/myorder/myorder?status=${0}`,
-                          })
-    
-                        }  else {
-                          //预售订单卖家付尾款
-                      if(that.data.orderSell){
+                        wx.setStorageSync('loving', 1)
+                      } else if (that.data.amount1) {
+                        wx.navigateBack({
+                          delta: 1
+                        })
+                      } else if (that.data.seedBtn) {
+                        wx.navigateBack({
+                          delta: 1
+                        })
+                        app.globalData.seedText = '充值成功'
+                      } else if (that.data.helpMentionPeriod) {
+                        app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
+                          id: res.data.content.businessId
+                        }, 'GET').then((res) => { // 使用ajax函数
+                          if(app.globalData.returnMentionPeriodStatus==2){
+                            wx.navigateBack({
+                              delta:1
+                            })
+                          }else{
+                            if (res.data.content.status!==1) {
+                              wx.navigateTo({
+                                url: `/packageA/pages/helpSuccess/helpSuccess?period=`+res.data.content.mentionPeriod,
+                              })
+                            }else{
+                              wx.navigateTo({
+                                url: `/packageA/pages/helpFail/helpFail`,
+                              })
+                            }
+                          }
+                        })
+                      } else if (that.data.mentionPeriod) {
+                        wx.navigateTo({
+                          url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.businessId+'&&multiple='+res.data.content.multiple,
+                        })
+                      } else if (that.data.amount3) {
                         wx.showToast({
                           title:'支付成功，等待对方支付后将开始发货',
                           icon:'none'
@@ -436,13 +460,11 @@ Page({
                             url: `/pages/myorder/myorder?status=${2}`,
                           })
                         },1000)
-                      }else{
-                        wx.navigateTo({
-                          url: `/pages/myorder/myorder?status=${2}`,
+                      } else if (that.data.amount) {
+                        wx.navigateBack({
+                          delta: 1
                         })
-                      }
-                        }
-                        wx.removeStorageSync('myOrder')
+                        wx.setStorageSync('sponsorStatus', 1)
                       } else if (that.data.getMoneyOrder) {
                         wx.navigateBack({
                           delta: 1
@@ -457,7 +479,63 @@ Page({
                         wx.navigateBack({
                           delta: 1
                         })
-                      } 
+                      }  else {
+                        if (res.data.content.type == 1) {
+                          if (that.data.buyType == 2) {
+                            wx.navigateTo({
+                              url: `/pages/myorder/myorder?status=${5}`,
+                            })
+                          } else if (that.data.buyWay) {
+                            wx.navigateTo({
+                              url: `/pages/myorder/myorder?status=${0}`,
+                            })
+      
+                          } else if (that.data.takeType) {
+                            // 线下商店
+                            if (that.data.takeType == 1) {
+                              wx.navigateTo({
+                                url: `/pages/myorder/myorder?status=${0}`,
+                              })
+                            } else {
+                              wx.navigateTo({
+                                url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
+                              })
+                            }
+                          }   else {
+                            //预售返现卖家付尾款
+                        if(that.data.orderSell){
+                          wx.showToast({
+                            title:'支付成功，等待对方支付后将开始发货',
+                            icon:'none'
+                          })
+                          setTimeout(function(){
+                            wx.navigateTo({
+                              url: `/pages/myorder/myorder?status=${2}`,
+                            })
+                          },1000)
+                        }else{
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${2}`,
+                          })
+                        }
+                          }
+                          wx.removeStorageSync('myOrder')
+                        } else if (that.data.getMoneyOrder) {
+                          wx.navigateBack({
+                            delta: 1
+                          })
+                          wx.setStorageSync('getMoneyOrder', 1)
+                        }  else if (that.data.isShowBook) {
+                          wx.switchTab({
+                            url: '/pages/forum/forum',
+                          })
+                          app.globalData.type = 4
+                        } else if (that.data.goods) {
+                          wx.navigateBack({
+                            delta: 1
+                          })
+                        } 
+                      }
                     }
                   } else if (res.data.content.status === 'REFUND') {
                     wx.showToast({
@@ -511,7 +589,6 @@ Page({
   },
   //转换为余额支付
   wallet_pay() {
-    console.log(1)
     var that = this
     that.setData({
       payment_mode2: false,
@@ -521,7 +598,6 @@ Page({
   },
   //转换为微信支付
   wx_pay() {
-    console.log(2)
     var that = this
     that.setData({
       payment_mode1: false,
@@ -576,118 +652,142 @@ Page({
             }, 'POST').then((res) => { // 使用ajax函数
               if (res.data.content) {
                 if (res.data.content.balance.success == 1) {
-                  if (that.data.amount2) {
-                    wx.navigateBack({
-                      delta: 1
+                  if(that.data.transOrder==2){
+                    that.setData({
+                      paySuccess:true,
+                      businessId:res.data.content.balance.businessId
                     })
-                    wx.setStorageSync('loving', 1)
-                  } else if (that.data.amount1) {
-                    wx.navigateBack({
-                      delta: 1
-                    })
-                  } else if (that.data.seedBtn) {
-                    wx.navigateBack({
-                      delta: 1
-                    })
-                    app.globalData.seedText = '充值成功'
-                  }  else if (that.data.amount3) {
-                    wx.showToast({
-                      title:'支付成功，等待对方支付后将开始发货',
-                      icon:'none'
-                    })
-                    setTimeout(function(){
-                      wx.navigateTo({
-                        url: `/pages/myorder/myorder?status=${2}`,
-                      })
-                    },1000)
-                  }else if (that.data.helpMentionPeriod) {
-                    app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
-                      id: res.data.content.balance.businessId
-                    }, 'GET').then((res) => { // 使用ajax函数
-                      if (res.data.content.status!==1) {
-                        wx.navigateTo({
-                          url: `/packageA/pages/helpSuccess/helpSuccess?period=`+res.data.content.mentionPeriod,
-                        })
-                      }else{
-                        wx.navigateTo({
-                          url: `/packageA/pages/helpFail/helpFail`,
-                        })
-                      }
-                    })
-                  } else if (that.data.mentionPeriod) {
-                    wx.navigateTo({
-                      url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.balance.businessId,
-                    })
-                  } else if (that.data.amount) {
-                    wx.navigateBack({
-                      delta: 1
-                    })
-                    wx.setStorageSync('sponsorStatus', 1)
-                  } else if (that.data.getMoneyOrder) {
-                    wx.navigateBack({
-                      delta: 1
-                    })
-                    wx.setStorageSync('getMoneyOrder', 1)
-                  }  else if (that.data.isShowBook) {
-                    wx.switchTab({
-                      url: '/pages/forum/forum',
-                    })
-                    app.globalData.type = 4
-                  } else if (that.data.goods) {
-                    wx.navigateBack({
-                      delta: 1
-                    })
-                  }  else {
-                    if (that.data.amount) {
+                  }else{
+                    if (that.data.amount2) {
                       wx.navigateBack({
                         delta: 1
                       })
-                    } else {
-                      if (res.data.content.balance.type == 1) {
-                        if (that.data.buyType == 2) {
-                          wx.navigateTo({
-                            url: `/pages/myorder/myorder?status=${5}`,
-                          })
-                        }else if (that.data.buyWay) {
-                          wx.navigateTo({
-                            url: `/pages/myorder/myorder?status=${0}`,
-                          })
-    
-                        } else {
-                          //预售订单卖家付尾款
-                      if(that.data.orderSell){
-                        wx.showToast({
-                          title:'支付成功，等待对方支付后将开始发货',
-                          icon:'none'
-                        })
-                        setTimeout(function(){
-                          wx.navigateTo({
-                            url: `/pages/myorder/myorder?status=${2}`,
-                          })
-                        },1000)
-                      }else{
+                      wx.setStorageSync('loving', 1)
+                    } else if (that.data.amount1) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    } else if (that.data.seedBtn) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                      app.globalData.seedText = '充值成功'
+                    }  else if (that.data.amount3) {
+                      wx.showToast({
+                        title:'支付成功，等待对方支付后将开始发货',
+                        icon:'none'
+                      })
+                      setTimeout(function(){
                         wx.navigateTo({
                           url: `/pages/myorder/myorder?status=${2}`,
                         })
-                      }
+                      },1000)
+                    }else if (that.data.helpMentionPeriod) {
+                      app.Util.ajax('mall/forum/MentionPeriod/queryMentionPeriod', {
+                        id: res.data.content.balance.businessId
+                      }, 'GET').then((res) => { // 使用ajax函数
+                        if(app.globalData.returnMentionPeriodStatus==2){
+                          wx.navigateBack({
+                            delta:1
+                          })
+                        }else{
+                          if (res.data.content.status!==1) {
+                            wx.navigateTo({
+                              url: `/packageA/pages/helpSuccess/helpSuccess?period=`+res.data.content.mentionPeriod,
+                            })
+                          }else{
+                            wx.navigateTo({
+                              url: `/packageA/pages/helpFail/helpFail`,
+                            })
+                          }
                         }
-                        wx.removeStorageSync('myOrder')
-                      } else if (that.data.isShowBook) {
-                        wx.switchTab({
-                          url: '/pages/forum/forum',
-                        })
-                        app.globalData.type = 4
-                      } else if (that.data.goods) {
+                      })
+                    } else if (that.data.mentionPeriod) {
+                      wx.navigateTo({
+                        url: `/packageA/pages/setSuccess/setSuccess?id=`+res.data.content.balance.businessId+'&&multiple='+res.data.content.balance.multiple,
+                      })
+                    } else if (that.data.amount) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                      wx.setStorageSync('sponsorStatus', 1)
+                    } else if (that.data.getMoneyOrder) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                      wx.setStorageSync('getMoneyOrder', 1)
+                    }  else if (that.data.isShowBook) {
+                      wx.switchTab({
+                        url: '/pages/forum/forum',
+                      })
+                      app.globalData.type = 4
+                    } else if (that.data.goods) {
+                      wx.navigateBack({
+                        delta: 1
+                      })
+                    }  else {
+                      if (that.data.amount) {
                         wx.navigateBack({
                           delta: 1
                         })
-                      } 
+                      } else {
+                        if (res.data.content.balance.type == 1) {
+                          if (that.data.buyType == 2) {
+                            wx.navigateTo({
+                              url: `/pages/myorder/myorder?status=${5}`,
+                            })
+                          }else if (that.data.buyWay) {
+                            wx.navigateTo({
+                              url: `/pages/myorder/myorder?status=${0}`,
+                            })
+      
+                          } else if (that.data.takeType) {
+                            // 线下商店
+                            if (that.data.takeType == 1) {
+                              wx.navigateTo({
+                                url: `/pages/myorder/myorder?status=${0}`,
+                              })
+                            } else {
+                              wx.navigateTo({
+                                url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
+                              })
+                            }
+                          }  else {
+                            //预售返现卖家付尾款
+                        if(that.data.orderSell){
+                          wx.showToast({
+                            title:'支付成功，等待对方支付后将开始发货',
+                            icon:'none'
+                          })
+                          setTimeout(function(){
+                            wx.navigateTo({
+                              url: `/pages/myorder/myorder?status=${2}`,
+                            })
+                          },1000)
+                        }else{
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${2}`,
+                          })
+                        }
+                          }
+                          wx.removeStorageSync('myOrder')
+                        } else if (that.data.isShowBook) {
+                          wx.switchTab({
+                            url: '/pages/forum/forum',
+                          })
+                          app.globalData.type = 4
+                        } else if (that.data.goods) {
+                          wx.navigateBack({
+                            delta: 1
+                          })
+                        } 
+                      }
                     }
+                    that.setData({
+                      show: false,
+                      isFocus: false
+                    })
                   }
-                  that.setData({
-                    show: false,
-                    isFocus: false
-                  })
                 } else {
                   if (res.data.content.balance.remainingCount > 0) {
                     that.setData({
@@ -802,6 +902,7 @@ Page({
       amount3: options.amount3 ? options.amount3 : null,
       orderSell: options.orderSell ? options.orderSell : null,
       buyWay: options.buyWay ? options.buyWay : null,
+      takeType: options.takeType ? options.takeType : null,
       getMoneyOrder: options.getMoneyOrder ? options.getMoneyOrder : null,
     })
     if (that.data.orderType === 4) {
@@ -856,6 +957,9 @@ Page({
             transStatementId: res.data.content.id
           }, 'GET').then((res) => { // 使用ajax函数
             if (res.data.content) {
+              that.setData({
+                transOrder:res.data.content.transOrder
+              })
               let lastTime = res.data.content.remainingTime / 1000
               let hourTime = parseInt(lastTime / 3600) < 10 ? '0' + parseInt(lastTime / 3600) : parseInt(lastTime / 3600)
               let minuteTime = parseInt((lastTime % 3600) / 60) < 10 ? '0' + parseInt((lastTime % 3600) / 60) : parseInt((lastTime % 3600) / 60)
@@ -925,9 +1029,19 @@ Page({
                       } else if (that.data.buyWay) {
                         wx.navigateTo({
                           url: `/pages/myorder/myorder?status=${0}`,
-                        })
-  
-                      }  else {
+                        }) 
+                      } else if (that.data.takeType) {
+                        // 线下商店
+                        if (that.data.takeType==1){
+                          wx.navigateTo({
+                            url: `/pages/myorder/myorder?status=${0}`,
+                          })
+                        }else{
+                          wx.navigateTo({
+                            url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
+                          })
+                        }
+                      }else {
                         wx.navigateTo({
                           url: `/pages/myorder/myorder?status=${2}`,
                         })
@@ -951,6 +1065,9 @@ Page({
         transStatementId: transStatementId
       }, 'GET').then((res) => { // 使用ajax函数
         if (res.data.content) {
+          that.setData({
+            transOrder:res.data.content.transOrder
+          })
           let lastTime = res.data.content.remainingTime / 1000
           clearInterval(interval2)
           interval2 = setInterval(() => {
@@ -1013,7 +1130,18 @@ Page({
                     wx.navigateTo({
                       url: `/pages/myorder/myorder?status=${0}`,
                     })
-                  }  else {
+                  } else if (that.data.takeType) {
+                    // 线下商店
+                    if (that.data.takeType == 1) {
+                      wx.navigateTo({
+                        url: `/pages/myorder/myorder?status=${0}`,
+                      })
+                    } else {
+                      wx.navigateTo({
+                        url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
+                      })
+                    }
+                  } else {
                     wx.navigateTo({
                       url: `/pages/myorder/myorder?status=${2}`,
                     })
@@ -1071,22 +1199,92 @@ Page({
   onUnload: function() {
     var that = this
     //判断页面栈里面的页面数是否大于2
-    if (getCurrentPages().length > 2) {
-      //获取页面栈
-      let pages = getCurrentPages()
-      //给上一个页面设置状态
-      let curPage = pages[pages.length - 2];
-      let data = curPage.data;
-      curPage.setData({
-        'isBack': true
-      });
-      clearInterval(interval2)
-      clearInterval(interval)
+    if(that.data.comeBackStatus){
+
+    }else{
+      if (getCurrentPages().length > 2) {
+        //获取页面栈
+        let pages = getCurrentPages()
+        //给上一个页面设置状态
+        let curPage = pages[pages.length - 2];
+        let data = curPage.data;
+        curPage.setData({
+          'isBack': true
+        });
+        clearInterval(interval2)
+        clearInterval(interval)
+      }
     }
     clearInterval(interval2)
     clearInterval(interval)
   },
-
+  comeBack2:function(){
+    wx.navigateBack({
+      delta:1
+    })
+  },
+  comeBack1:function(){
+    let that = this
+    if(that.data.options.orderId){
+      app.Util.ajax('mall/order/transAdvance', {
+        transStatementId:that.data.transStatementId
+      }, 'POST').then((res) => {
+        let arr = res.data.content
+        let activityId = arr.order.activityId?arr.order.activityId:''
+        let goodsType = 1 //freeBuy单个商品
+        if(arr.order.orderType==14){
+          wx.navigateTo({
+            url: "/pages/placeorder/placeorder?sponsorId=" + activityId + "&&goodsType=" + goodsType
+          })
+        }else{
+          wx.redirectTo({
+            url: '/pages/placeorder/placeorder?goodsId=' + arr.orderGoodsBo[0].orderGoods.goodsId + '&&activityId=' + activityId + '&&stockId=' + arr.orderGoodsBo[0].orderGoods.stockId + '&&quantity=' + arr.orderGoodsBo[0].orderGoods.quantity + '&&goodsType=applyZero' + '&&needPaymentAmount=' + arr.orderGoodsBo[0].orderGoods.needPaymentAmount + '&&cashBackPeriods=' + arr.orderGoodsBo[0].orderGoods.period+ '&&expectedAmount=' + arr.orderGoodsBo[0].orderGoods.expectedAmount + '&&buyType=' + arr.orderGoodsBo[0].orderGoods.buyType + '&&isShowBook=2&&isOrder=1'+'&&discountCompute='+arr.orderGoodsBo[0].orderGoods.discountNumber/10+'&orderType='+arr.order.orderType
+          })
+        }
+      })
+    }else{
+      let pages = getCurrentPages();
+      let prevPage = pages[pages.length - 2]; 
+      prevPage.setData({
+        isShowBook:2
+      })
+      app.Util.ajax('mall/order/transAdvance', {
+        transStatementId:that.data.transStatementId
+      }, 'POST').then((res) => {
+      })
+      this.setData({
+        comeBackStatus:1
+      })
+      wx.navigateBack({
+        delta:1
+      })
+    }
+  },
+  comeBack3:function(){
+    let that = this
+    if(that.data.options.orderId){
+      app.Util.ajax('mall/order/transFreeBuy', {
+        transStatementId:that.data.transStatementId
+      }, 'GET').then((res) => {
+        wx.redirectTo({
+          url: `/packageB/pages/applyZero/applyZero?goodsId=${res.data.content.goodsId}&discountNumber=${res.data.content.discountNumber}&orderType=${res.data.content.orderType}&stockId=${res.data.content.stockId}&quantity=${res.data.content.quantity}&activityId=${res.data.content.activityId?res.data.content.activityId:''}`,
+        })
+      })
+    }else{
+      app.Util.ajax('mall/order/transFreeBuy', {
+        transStatementId:that.data.transStatementId
+      }, 'GET').then((res) => {
+        let pages = getCurrentPages();
+        let prevPage = pages[pages.length - 2]; 
+        prevPage.setData({
+          orderType:res.data.content.orderType
+        })
+        wx.navigateBack({
+          delta:1
+        })
+      })
+    }
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
@@ -1131,6 +1329,56 @@ Page({
   mentionPeriod:function(){
     this.setData({
       shurePeriod:true
+    })
+  },
+  cancelShuoming:function(){
+    this.setData({
+      shuoming:false
+    })
+  },
+  showShuoming:function(e){
+    let index = e.currentTarget.dataset.index
+    if(index==0){
+      this.setData({
+        textStatus:0,
+        shuoming:true
+      })
+    }else if(index==1){
+      this.setData({
+        textStatus:1,
+        shuoming:true
+      })
+    }else if(index==2){
+      this.setData({
+        textStatus:2,
+        shuoming:true
+      })
+    }
+  },
+  cancelPaySuccess:function(){
+    this.setData({
+      paySuccess:false
+    })
+    wx.navigateTo({
+      url: `/pages/myorder/myorder?status=${2}`,
+    })
+  },
+  toMentionPeriod:function(){
+    //跳转控制
+    app.globalData.returnMentionPeriodStatus = 2
+    this.setData({
+      paySuccess:false
+    })
+    wx.navigateTo({
+      url: `/packageA/pages/mentionPeriod/mentionPeriod?returnStatus=1`,
+    })
+  },
+  toPost:function(){
+    this.setData({
+      paySuccess:false
+    })
+    wx.navigateTo({
+      url: `/pages/posting/posting?returnStatus=1&&status=3`,
     })
   }
 })

@@ -1,7 +1,9 @@
 {
-  "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF2644",
+  "usingComponents": {
+    "seed_toast":"/components/seed_toast/seed_toast"
+  },
+  "navigationBarBackgroundColor": "#FFFFFF",
   "navigationBarTitleText": "我的订单",
-  "navigationBarTextStyle": "white",
+  "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true
 }

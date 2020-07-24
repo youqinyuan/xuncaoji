@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarBackgroundColor": "#FFFFFF",
   "navigationBarTitleText": "未到账佣金明细",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "black"
 }

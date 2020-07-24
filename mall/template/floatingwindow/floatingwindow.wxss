@@ -1,0 +1,21 @@
+.float_box{
+    position: fixed;
+    right: 30rpx;
+    top: 720rpx;
+    width: 110rpx;
+    height: 110rpx;
+    z-index: 98;
+}
+.float_img{
+    width: 110rpx;
+    height: 110rpx;
+    display: inline-block;
+}
+.float_cancle{
+    position: absolute;
+    top: -36rpx;
+    right: -18rpx;
+    width: 28rpx;
+    height: 28rpx;
+  }
+  

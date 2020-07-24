@@ -3,7 +3,7 @@
     "swiper-show":"/components/swiper-show/swiper-show",
     "go_home":"/components/go_home/go_home"
   },
-  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarBackgroundColor": "#FFFFFF",
   "navigationBarTitleText": "商品详情",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "black"
 }

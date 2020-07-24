@@ -113,7 +113,7 @@ Page({
   // 分享朋友圈 生成海报
   shareFriend: function() {
     var that = this
-    app.Util.ajax('mall/weChat/sharing/snapshot/target', {
+    app.Util.ajax('mall/weChat/sharing/target', {
       mode: 5,
     }, 'GET').then((res) => {
       if (res.data.messageCode = 'MSG_1001') {
@@ -142,7 +142,7 @@ Page({
             ctx.setFontSize(13);
             ctx.setFillStyle('#fff');
             ctx.setTextAlign("center")
-            ctx.fillText('"Free Buy"，自由买，免费拿', 0.5 * width * 0.88, 26);
+            ctx.fillText(that.data.shareList.title, 0.5 * width * 0.88, 26);
             ctx.stroke();
             //绘制矩形
             ctx.setFillStyle('#fff')
@@ -181,7 +181,7 @@ Page({
             // 绘制描述
             ctx.setFontSize(13);
             ctx.setFillStyle('#333');
-            var test = '全品类均可申请0成本购，自由买，随时取。我已申请到。'
+            var test = that.data.shareList.imageDesc
             let chr = test.split('') // 分割为字符串数组
             let temp = ''
             let row = []
@@ -370,6 +370,7 @@ Page({
   onLoad: function(options) {
     var that = this
     that.init()
+    that.chooseShare()
   },
 
   /**
@@ -451,7 +452,7 @@ Page({
           }
         })
         return {
-          title: '全品类均可申请0成本购，自由买，随时取。我已申请到。',
+          title: that.data.shareList.desc,
           path: that.data.shareList.link,
           imageUrl: '/packageA/img/xuncaoji_cheats.png',
           success: function(res) {
@@ -482,7 +483,7 @@ Page({
           }
         })
         return {
-          title: '亲们，全品类均可申请0成本购，为群做福利！我已申请到。',
+          title: that.data.shareList.groupDesc,
           path: that.data.shareList.link,
           imageUrl: '/packageA/img/xuncaoji_cheats.png',
           success: function(res) {
@@ -497,7 +498,7 @@ Page({
 
     } else {
       return {
-        title: '全品类均可申请0成本购，自由买，随时取。我已申请到。',
+        title: that.data.shareList.desc,
         path: that.data.shareList.link,
         imageUrl: '/packageA/img/xuncaoji_cheats.png',
       }
@@ -521,7 +522,7 @@ Page({
       waitReentry3:false
     })
     wx.navigateTo({
-      url:"/pages/waitReentryDetail/waitReentryDetail"
+      url:"/packageB/pages/waitReentryDetail/waitReentryDetail"
     })
   },
   //转让信息弹窗查询

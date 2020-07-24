@@ -1,6 +1,6 @@
 <!--packageA/pages/helpMentionPeriod/helpMentionPeriod.wxml-->
 <view class="head">
-    <image class="headImg" src="{{content.avatarKey?content.avatarKey:hostUrl+'/icon/zhanw_tb_n.png'}}"/>
+    <image class="headImg" src="{{content.avatarKey?content.avatarKey:'/assets/images/mine/other_ren.png'}}"/>
     <view class="user_box">
         <view class="user_name">{{content.nickname}}</view>
         <image src="{{hostUrl}}/changeImg/huiyuan.png" class="huiyuan" wx:if="{{content.role==2}}"/>
@@ -12,19 +12,19 @@
         <view class="nianhua_font">预估年化收益</view>
     </view>
     <view class="top_right">
-        <view class="mentionPeriod_number">需要提{{content.periodLeft+content.estimatedPeriod-2}}期</view>
+        <view class="mentionPeriod_number">需要提{{content.periodLeft+content.estimatedPeriod-2}}期(月)</view>
         <view class="mentionPeriod_font">帮助金额越多，收益越高</view>
     </view>
     <view class="detail_button" bindtap="showModal" wx:if="{{content.status==1||content.status==2}}">明细</view>
 </view>
 <view class="help_info" wx:if="{{mentionPeriodList.length>0}}">
-    <view class="info_title">大家已帮助他提了<view class="red">{{content.estimatedPeriod}}</view>期，剩余<view class="red">{{content.periodLeft-2}}</view>期可提</view>
+    <view class="info_title">已帮提了<view class="red">{{content.estimatedPeriod}}</view>期(月),剩余<view class="red">{{content.periodLeft-2}}</view>期(月)可提</view>
     <swiper vertical="true"autoplay="true" circular="true" interval="3000" display-multiple-items="5" wx:if="{{mentionPeriodList.length>5}}">
         <block wx:for="{{mentionPeriodList}}" wx:key="{{mentionPeriodList.id}}">
             <swiper-item>
                 <view class="info_list">
                     <view class="help_name">{{item.userName}}</view> 
-                    <view class="help_value">帮付<view class="fuhao">￥</view><view class="red">{{item.paymentAmount}}</view>提了{{item.mentionPeriod}}期，剩余{{item.periodLeft}}期可提</view>
+                    <view class="help_value">帮付<view class="fuhao">￥</view><view class="red">{{item.paymentAmount}}</view>提了{{item.mentionPeriod}}期(月),剩余{{item.periodLeft}}期（月）可提</view>
                  </view>
             </swiper-item>
         </block>
@@ -32,12 +32,12 @@
     <view class="info-list" wx:else>
         <view class="info_list" wx:for="{{mentionPeriodList}}" wx:key="{{mentionPeriodList.id}}">
             <view class="help_name">{{item.userName}}</view> 
-            <view class="help_value">帮付<view class="fuhao">￥</view><view class="red">{{item.paymentAmount}}</view>提了{{item.mentionPeriod}}期，剩余{{item.periodLeft}}期可提</view>
+            <view class="help_value">帮付<view class="fuhao">￥</view><view class="red">{{item.paymentAmount}}</view>提了{{item.mentionPeriod}}期(月),剩余{{item.periodLeft}}期(月)可提</view>
         </view>
     </view>
 </view>
 <view class="help_info" wx:else>
-    <view class="info_title">大家已帮助他提了<view class="red">0</view>期，剩余<view class="red">{{content.periodLeft-2}}</view>期可提</view>
+    <view class="info_title">已帮提了<view class="red">0</view>期(月)，剩余<view class="red">{{content.periodLeft-2}}</view>期(月)可提</view>
     <view class="nothing">
         <image src="{{hostUrl}}/changeImg/cry.png" class="cryImg"/>
         <view class="nothineFont">还没有一个人帮他提期！</view>
@@ -51,23 +51,23 @@
     <view class="input_box">
         <view class="input_left">￥</view>
         <input class="money" placeholder="请输入帮助金额(最低￥1)" bindinput='bindMoney' type="digit" placeholder-class="color:#999"/>
-        <view class="input_right" wx:if="{{choose}}">x2</view>
+        <!-- <view class="input_right" wx:if="{{choose}}">x2</view> -->
     </view>
-    <view class="period_number" wx:if="{{paymentAmountValue}}">您一共可帮他提<view class="red">{{tempPeriod}}</view>期 </view>
+    <view class="period_number" wx:if="{{paymentAmountValue}}">您一共可帮他提<view class="red">{{tempPeriod}}</view>期（月） </view>
     <view class="period_box">
         <view class="period_left">
             <view class="theChoose" bindtap="toChoose" data-index="1">
                 <image src="{{hostUrl}}/changeImg/no_period_choose.png" class="chooseImg" wx:if="{{choose}}"/>
                 <image src="{{hostUrl}}/changeImg/period_choose.png" class="chooseImg" wx:if="{{!choose}}"/>
             </view>
-            <view class="theFont">1期把钱返给我</view>
+            <view class="theFont">1期(月)把钱返给我</view>
         </view>
         <view class="period_right">
             <view class="theChoose" bindtap="toChoose" data-index="2">
                 <image src="{{hostUrl}}/changeImg/no_period_choose.png" class="chooseImg" wx:if="{{!choose}}"/>
                 <image src="{{hostUrl}}/changeImg/period_choose.png" class="chooseImg" wx:if="{{choose}}"/>
             </view>
-            <view class="theFont">0.5期把钱返给我</view>
+            <view class="theFont">0.5期(月)把钱返给我</view>
         </view>
     </view>
 </view>
@@ -75,18 +75,18 @@
     <image src="{{hostUrl}}/changeImg/fail.png" class="failImg"/>
     <view class="shixiaoFont">提期已完成或已撤销或已失效了！</view>
 </view>
-<view class="tishi" wx:if="{{choose}}">提示：当前您已选择0.5期将帮助金额返现给你，所以您需多</view>
-<view class="tishi mag10" wx:if="{{choose}}">支付1倍的帮助金额哦，年化收益率保持不变。</view>
+<view class="tishi" >给自己提期，帮助金额自动翻{{content.multiple}}倍</view>
+<view class="tishi mag10" >例如：帮付100，算作帮付{{content.multiple*100}}</view>
 <view class="bottom"></view>
-<view class="shure_box" wx:if="{{content.status==1||content.status==2}}"> <view class="shure" bindtap="shure" data-id="{{content.id}}">确定</view></view>
+<view class="shure_box" wx:if="{{content.status==1||content.status==2}}"> <view class="shure" bindtap="shure" data-id="{{content.id}}">提期</view></view>
 <!-- 提期明细表 -->
 <view class="interest-zan-dialog__mask" wx:if="{{showModal}}">
   <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{showModal}}">
-    <view class="title">提期明细表</view>
+    <view class="title">提期(月)明细表</view>
     <view class="table">
       <view class="tr bg-w" catchtouchmove="preventTouchMove">
-        <view class="th">提至期数</view>
-        <view class="th">提期需要金额</view>
+        <view class="th">提至期(月)数</view>
+        <view class="th">提期(月)需要金额</view>
       </view>
       <view class="tr-height">
         <view class="tr bg-g" wx:for="{{detail.mentionPeriodDetailList}}" wx:key="">
@@ -95,7 +95,7 @@
         </view>
       </view>
     </view>
-    <view class="pay_info">还需支付{{detail.amount?detail.amount:0}}元即可帮助他完成提期</view>
+    <view class="pay_info">还需支付{{detail.amount?detail.amount:0}}元即可帮助他完成提期(月)</view>
     <view class="shure_detail_box">
         <view class="shure_detail" bindtap="closeModal">确定</view>
     </view>
@@ -105,7 +105,7 @@
 <view class="interest-zan-dialog__mask" wx:if="{{shurePeriod}}">
   <view animation="{{animationData}}" class="zan-dialog__container" wx:if="{{shurePeriod}}">
     <view class="title">提示</view>
-    <view class="text">当前你已选择0.5期将您帮助金额返现给你，所以你需多支付1倍的帮助金额哦，年化收益率保持不变。</view>
+    <view class="text">当前你已选择0.5期(月)将您帮助金额返现给你，所以你需多支付1倍的帮助金额哦，年化收益率保持不变。</view>
     <view class="button_box">
         <view class="button_one" bindtap="clooseShurePeriod">取消</view>
         <view class="button_two" bindtap="shure">确定</view>

@@ -71,7 +71,8 @@ page {
   font-size: 24rpx;
   color: #FF6417;
   background: rgba(255, 246, 237, 1);
-  border: 2rpx solid #FF6417;
+  border: 1rpx solid #FF6417;
+  border-radius: 6rpx;
 }
 
 .content-address {
@@ -112,7 +113,7 @@ page {
   transition: all 0.4s;
 }
 
-.touch-move-active .content, .touch-move-active .del {
+.touch-move-active .store-box1, .touch-move-active .del {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
@@ -130,14 +131,14 @@ page {
 }
 
 .zan-dialog__container {
-  width: 540rpx;
-  height: 282rpx;
+  width: 600rpx;
+  height: 300rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
   top: 300rpx;
-  left: 110rpx;
+  left: 75rpx;
   z-index: 9999;
 }
 
@@ -157,10 +158,8 @@ page {
 }
 
 .content-container {
-  width: 372rpx;
   height: 66rpx;
-  margin-left: 100rpx;
-  margin-bottom: 35rpx;
+  margin-bottom: 25rpx;
   font-size: 30rpx;
   text-align: center;
   color: rgba(51, 51, 51, 1);
@@ -168,43 +167,46 @@ page {
 
 .content-button {
   display: flex;
-  height: 66rpx;
-  border-top: 2rpx solid #eaeaea;
+  margin-left: 50rpx;
 }
 
 .reject {
-  border-right: 2rpx solid #eaeaea;
-  width: 270rpx;
-  height: 75rpx;
-  line-height: 75rpx;
-  font-size: 34rpx;
-  color: rgba(51, 51, 51, 1);
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  border: 1rpx solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: #ff2644;
+  text-align: center;
+  margin-right: 20rpx;
 }
 
 .comfirm {
-  height: 66rpx;
-  line-height: 66rpx;
-  font-size: 34rpx;
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
   text-align: center;
-  width: 270rpx;
-  background: rgba(255, 255, 255, 1);
-  color: #ff2644;
+  background: #FF2644;
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: #fff;
 }
 
 .comfirm::after {
   border: none;
 }
-
 .addaddress {
   width: 690rpx;
-  height: 76rpx;
-  background: #FF6417;
-  border-radius: 38px;
+  height: 80rpx;
+  background:linear-gradient(90deg,rgba(255,106,72,1) 0%,rgba(255,38,68,1) 100%);
+  box-shadow:0px 1rpx 10rpx 0px rgba(255,38,68,0.5);
+  border-radius: 40rpx;
   margin-top: 60rpx;
   margin-left: 30rpx;
   margin-bottom: 60rpx;
   text-align: center;
-  line-height: 76rpx;
+  line-height: 80rpx;
   font-size: 32rpx;
   color: rgba(255, 255, 255, 1);
 }

@@ -1,16 +1,18 @@
 <!--pages/login/login.wxml-->
 <!--请输入手机号-->
+<view class="title">登录</view>
+<view class="font">未注册过的手机号将自动创建账号</view>
 <view class="section-wrapper">
   <view class="section">
-    <image src="{{hostUrl}}/icon/login_phone.png" class="section-img"></image>
-    <input placeholder="请输入手机号" placeholder-style="color:#AAAAAA" type="number" name="phone" value="{{phoneNumber}}" bindinput='bindInput' maxlength="11"/>
+    <!-- <image src="{{hostUrl}}/icon/login_phone.png" class="section-img"></image> -->
+    <input placeholder="请输入手机号码" placeholder-style="color:#A9A9A9" type="number" name="phone" value="{{phoneNumber}}" bindinput='bindInput' maxlength="11"/>
   </view>
    <view class="section1">
-    <image src="{{hostUrl}}/icon/login_code.png" class="section-img"></image>
-    <input placeholder="请输入验证码" placeholder-style="color:#AAAAAA" type="number" name="code" value="{{codeNumber}}" bindinput='bindCode' />
+    <!-- <image src="{{hostUrl}}/icon/login_code.png" class="section-img"></image> -->
+    <input placeholder="请输入短信验证码" placeholder-style="color:#A9A9A9" type="number" name="code" value="{{codeNumber}}" bindinput='bindCode' />
     <button class="code" style="color:{{color}}" bindtap='getCode' disabled='{{disabled}}'>{{getcode}}</button>
   </view>
-  <view class="content">{{text}}</view>
+  <!-- <view class="content">{{text}}</view> -->
   <!--按钮-->
-  <view class="button" bindtap='toIndex'>登录</view>
+  <view class="button mag100" bindtap='toIndex'>下一步</view>
 </view>

@@ -1,41 +1,43 @@
 <!--packageA/pages/mentionPeriodIndex/mentionPeriodIndex.wxml-->
 <view class="head_box">
-  <image src="{{hostUrl}}/changeImg/mention_period_bg.png" class="mentionPeriodImg" />
-  <image src="{{hostUrl}}/changeImg/set_mention_period2.png" class="setMentionPeriod2" bindtap="setMentionPeriod"/>
+  <image src="{{hostUrl}}/twoSix/mention_head.png" class="mentionPeriodImg" />
+  <view class="setMentionPeriod2" bindtap="setMentionPeriod"></view>
   <view class="mentionPeriodRlue" bindtap="toRule">规则</view>
-  <view class="sift_left {{siftLeft?'color_red':''}}" bindtap="selectSiftLeft" wx:if="{{siftLeft||content.length>0}}">不看已失效/已完成/已撤销</view>
-  <view class="sift_right" bindtap="selectSiftShow" wx:if="{{siftLeft||content.length>0}}">
+  <view class="sift_left {{siftLeft?'color_red':''}}" bindtap="selectSiftLeft" wx:if="{{siftLeft||content.length>0}}">只看有效</view>
+  <view class="sift_left left194 {{siftRightIndex==1?'color_red':''}}" bindtap="selectSiftRight" data-index="1" wx:if="{{siftLeft||content.length>0}}">发布时间</view>
+  <view class="sift_left left358 {{siftRightIndex==2?'color_red':''}}" bindtap="selectSiftRight" data-index="2" wx:if="{{siftLeft||content.length>0}}">收益高低</view>
+  <!-- <view class="sift_right" bindtap="selectSiftShow" wx:if="{{siftLeft||content.length>0}}">
     <view class="sift_right_name">{{tabName}}</view>
-  </view>
-  <view class="sift_right_list" wx:if="{{siftRight}}">
+  </view> -->
+  <!-- <view class="sift_right_list" wx:if="{{siftRight}}">
     <view class="sift_right_one {{siftRightIndex==1?'color333':''}}" bindtap="selectSiftRight" data-index="1">发布时间新旧</view>
     <view class="sift_right_two {{siftRightIndex==2?'color333':''}}" bindtap="selectSiftRight" data-index="2">收益率高低</view>
-  </view>
-  <image src="{{hostUrl}}/changeImg/sift_right_img.png" class="siftRightImg" wx:if="{{content.length>0}}"/>
+  </view> -->
+  <!-- <image src="{{hostUrl}}/changeImg/sift_right_img.png" class="siftRightImg" wx:if="{{content.length>0}}"/> -->
 </view>
 <view class="mentionPeriodContent" wx:if="{{content.length>0}}">
   <view class="mentionPeriodList">
     <view class="mentionPeriod" wx:for="{{content}}" wx:key="{{content.id}}">
       <view class="user_name_box" bindtap="toHelp" data-id="{{item.id}}">
-        <image src="{{item.avatarKey?item.avatarKey:hostUrl+'/icon/zhanw_tb_n.png'}}" class="userImg" />
+        <image src="{{item.avatarKey?item.avatarKey:'/assets/images/mine/other_ren.png'}}" class="userImg" />
         <view class="user_name">
           <view class="name">{{item.nickname}}</view>
-          <image src="{{hostUrl}}/changeImg/huiyuan.png" class="huiyuanImg" wx:if="{{item.role==2}}"/>
+          <image src="{{hostUrl}}/changeImg/huiyuan.png" class="huiyuanImg" wx:if="{{item.role==2}}" />
         </view>
         <view class="share_box" catchtap="shares" data-id="{{item.id}}" wx:if="{{item.status==2}}">
-            <image src="{{hostUrl}}/changeImg/share_mention_period.png" class="shareImg" />
+          <image src="{{hostUrl}}/changeImg/share_mention_period.png" class="shareImg" />
         </view>
       </view>
       <view class="info" bindtap="toHelp" data-id="{{item.id}}">
         <view class="top_left">
-           <view class="nianhua_number {{item.status==3||item.status==7||item.status==5?'color999':''}}">{{item.annualizedRate}}%</view>
-           <view class="nianhua_font {{item.status==3||item.status==7||item.status==5?'color999':''}}">预估年化收益</view>
+          <view class="nianhua_number {{item.status==3||item.status==7||item.status==5?'color999':''}}">{{item.annualizedRate}}%</view>
+          <view class="nianhua_font {{item.status==3||item.status==7||item.status==5?'color999':''}}">预估年化收益</view>
         </view>
         <view class="top_right">
-           <view class="mentionPeriod_number {{item.status==3||item.status==7||item.status==5?'color999':''}}">需要提{{item.periodLeft+item.estimatedPeriod-2}}期</view>
-           <view class="mentionPeriod_font">帮助金额越多，收益越高</view>
+          <view class="mentionPeriod_number {{item.status==3||item.status==7||item.status==5?'color999':''}}">需要提{{item.periodLeft+item.estimatedPeriod-2}}期（月）</view>
+          <view class="mentionPeriod_font">帮助金额越多，收益越高</view>
         </view>
-        <view class="button" wx:if="{{item.status==2}}" >提期</view>
+        <view class="button" wx:if="{{item.status==2}}">详情</view>
         <view class="button bge7" wx:if="{{item.status==3}}">已完成</view>
         <view class="button bge7" wx:if="{{item.status==5}}">已失效</view>
         <view class="button bge7" wx:if="{{item.status==7}}">已撤销</view>
@@ -45,18 +47,19 @@
   <view style="height:100rpx"></view>
 </view>
 <view class="nothing" wx:if="{{content.length==0}}">
-    <image src="{{hostUrl}}/changeImg/nothing.png" class="noThingImg"/>
-    <view class="bottom_font">什么都没有，你快来当第一个</view>
-    <view class="bottom_font">提期的小伙伴吧</view>
+  <image src="{{hostUrl}}/changeImg/nothing.png" class="noThingImg" />
+  <view class="bottom_font">什么都没有，你快来当第一个</view>
+  <view class="bottom_font">提期的小伙伴吧</view>
 </view>
 <view class="tab_bottom">
   <view class="bottom_left">
     <view class="bottom_left_font" bindtap="toMySet">我发起的提期</view>
-    <image src="{{hostUrl}}/changeImg/set_mention_period.png" class="bottomLeftImg" />
+    <image src="{{hostUrl}}/twoSix/set_mention_period.png" class="bottomLeftImg" />
   </view>
+  <view class="mention_jiange"></view>
   <view class="bottom_right">
     <view class="bottom_left_font" bindtap="toMyBuy">我帮助的提期</view>
-    <image src="{{hostUrl}}/changeImg/shop_cart1.png" class="bottomLeftImg" />
+    <image src="{{hostUrl}}/twoSix/shop_cart1.png" class="bottomLeftImg" />
   </view>
 </view>
 <!-- 分享弹框 -->
@@ -75,6 +78,20 @@
         <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
         <view class="wx">分享群</view>
       </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
     </view>
   </view>
 </view>
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>
+<!-- 使用canvas将分享图片和申请0元购图片合成一张图 -->
+<canvas canvas-id="canvas" style="width:400px;height:400px;position: absolute;left:-1000px;top:-1000px;"></canvas>

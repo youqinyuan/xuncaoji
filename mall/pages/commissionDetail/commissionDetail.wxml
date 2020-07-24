@@ -31,7 +31,7 @@
     <image src="{{hostUrl}}/add/pic_c.png" class="status3" wx:if="{{item.status==2&&item.stopType==1}}"></image>
     <view class="list">
       <view class="listItem-photo">
-        <image src="{{item.avatarUrl?item.avatarUrl:hostUrl+'/add/head_img.png'}}"></image>
+        <image src="{{item.avatarUrl?item.avatarUrl:'/assets/images/mine/other_ren.png'}}"></image>
       </view>
       <view class="message">
         <view class="msgtext">

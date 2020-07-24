@@ -13,7 +13,7 @@
     </view>
   </view>
 </view>
-<view class="fill">出售信息：</view>
+<view class="fill">预订购买价格：</view>
 <view class="listItem">
   <view class="listItem-list" >
     <input wx:if="{{showBtn=='发布'}}" class="listItem-right" placeholder-style="color:#AAAAAA" placeholder="{{placeholder1}}" type="digit" bindinput="getOffer" value="{{getOffer}}"></input>
@@ -34,7 +34,7 @@
 <view class="fill">订单备注（可不填）：</view>
 <view class="listItem">
   <view class="listItem-list">
-    <input class="listItem-right" placeholder-style="color:#AAAAAA" placeholder="请输入您的想法" type="string" bindinput="orderContent" value="{{orderContent}}" maxlength="{{201}}"></input>
+    <input class="listItem-right" placeholder-style="color:#AAAAAA" placeholder="请输入您的想法" type="string" bindinput="orderContent" value="{{orderContent}}" maxlength="{{100}}"></input>
   </view>
 </view>
 <view class="goodsBtn" bindtap="getMoneyPost">{{showBtn}}</view>

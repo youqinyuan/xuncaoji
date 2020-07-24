@@ -23,7 +23,7 @@
 <view class="content" wx:for="{{arr}}" wx:key="{{item.id}}">
     <view class="left">
         <view class="nianhua_number">{{item.annualizedRate}}<text >%</text></view>
-        <view class="nianhua">年化率</view>
+        <view class="nianhua">年收益率</view>
     </view>
     <view class="right">
         <view class="right_one martop20">售价：￥{{item.expendAmount}}</view>

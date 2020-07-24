@@ -16,10 +16,13 @@
 </view>
 <!-- 蒙版 -->
 <view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{mengban}}"></view>
-<view class="seed_box" wx:for="{{content}}" wx:key="id">
+<view class="seed_box" wx:for="{{content}}" wx:if="{{content.length>0}}" wx:key="id">
     <text class="seed_title">{{item.remark}}</text>
     <text class="seed_time">{{item.recordTime}}</text>
-    <!-- <text class="seed_number">100</text> -->
     <text class="seed_number" wx:if="{{item.amount>0}}">+{{item.amount}}</text>
      <text class="seed_number2" wx:if="{{item.amount<0}}">{{item.amount}}</text>
+</view>
+<view wx:if="{{content.length==0}}">
+  <image src="/assets/images/mine/noThing.png" class="picStore"/>
+  <view class="noThing">这里什么都没有，去别的地方逛逛吧</view>
 </view>

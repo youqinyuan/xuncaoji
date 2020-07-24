@@ -2,7 +2,7 @@
 <view class="getMoney-wrap">
   <view class="getMoney-swiper_item" wx:for="{{allPost}}" wx:key="{{item.id}}">
     <image class="getMoneyPhoto" wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-    <image class="getMoneyPhoto" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+    <image class="getMoneyPhoto" wx:else src="/assets/images/mine/other_ren.png"></image>
     <view class="getMoney-middle">
       <view class="getName">
         <text>{{item.nickname}}</text>
@@ -17,5 +17,5 @@
   </view>
 </view>
 <view class="postingBtn-wrap" bindtap="toDetail">
-  <view class="postingBtn">发布商品卖贴</view>
+  <view class="postingBtn">发布预售商品</view>
 </view>

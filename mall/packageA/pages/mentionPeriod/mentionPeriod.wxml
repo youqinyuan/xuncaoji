@@ -44,11 +44,11 @@
     <view class="nianhua_box">
         <view class="text_one">帮提期用户预估年化收益为<text style="color:#FF2644;"> {{nianhua?nianhua:0}}%</text> </view>
         <view class="text_two">提至最短期返现预估需要 <text style="color:#FF2644;"> ￥{{waitReentry.maxMentionPeriodAmount?waitReentry.maxMentionPeriodAmount:0}}</text> </view>
-        <view class="text_three" bindtap="choose">
+        <!-- <view class="text_three" bindtap="choose">
             <view class="text_three_font">发布成功后同时发帖至订单交易</view>
         </view>
         <image src="{{hostUrl}}/changeImg/no_period_choose.png" class="chooseImg" wx:if="{{!choose}}" bindtap="choose"/>
-        <image src="{{hostUrl}}/changeImg/period_choose.png" class="chooseImg" wx:if="{{choose}}" bindtap="choose"/>
+        <image src="{{hostUrl}}/changeImg/period_choose.png" class="chooseImg" wx:if="{{choose}}" bindtap="choose"/> -->
     </view>
 </view>
-<view class="set" bindtap="setMentionPeriod">发布</view>
+<view class="set" bindtap="setMentionPeriod">下一步</view>

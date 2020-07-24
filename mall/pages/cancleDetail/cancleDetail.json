@@ -1,7 +1,7 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#FF2644",
+  "navigationBarBackgroundColor": "#FFFFFF",
   "navigationBarTitleText": "提现取消",
   "enablePullDownRefresh": true,
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "black"
 }

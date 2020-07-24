@@ -1,7 +1,7 @@
 {
   "usingComponents": {},
   "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTitleText": "FreeBuy提期",
+  "navigationBarTitleText": "一折购提期",
   "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true
 }

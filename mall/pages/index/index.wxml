@@ -1,29 +1,32 @@
 <!--pages/index/index.wxml-->
 <import src='/template/exProducts/exProducts' />
 <import src='/template/othersClassification/othersClassification' />
+<import src='/template/floatingwindow/floatingwindow' />
+<import src='/template/pop-upwindows/pop-upwindows' />
 <!--搜索-->
 <view class="section-wrapper">
   <view class="section" bindtap='focus' data-url='/pages/search/search'>
     <image src="{{hostUrl}}/icon/index_nav_search_n.png" class="section-img"></image>
     <view class="input">更多好货等你来发现</view>
   </view>
+  <image class="section-image" src="{{hostUrl}}/twoSix/allClass.png" bindtap="jumpClassify"></image>
 </view>
-<view class="container" wx:if="{{navData.length>0}}">
+<view wx:if="{{navData.length>0}}">
   <view class="content_top">
     <scroll-view scroll-x class="nav" scroll-left="{{navScrollLeft}}">
       <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
         <view class="nav-box">
           <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" data-id="{{item.id}}" bindtap="switchNav">{{item.name}}</view>
-          <view class="nav-item {{currentTab == idx ?'active1':''}}"></view>
+          <view class="nav-item {{currentTab == idx ?'active1':''}}">
+            <view class="nav-item1 {{currentTab == idx ?'active1':''}}"></view>
+          </view>
         </view>
       </block>
     </scroll-view>
-    <view class="content_all" bindtap="jumpClassify">
-      <image src="{{hostUrl}}/add/ic_all.png"></image>
-      <text>全部</text>
-    </view>
   </view>
-
+  <view class="huxing_box">
+    <image src="{{hostUrl}}/twoSix/indexBg.png" class="huxing" />
+  </view>
   <!-- 微信授权弹框 -->
   <view class="zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>
   <view class="zan-dialog__container" wx:if="{{showDialog}}">
@@ -57,8 +60,8 @@
       <view class="rule">公告</view>
       <view class="rule_text">
         <view class="rule_wrap" wx:for="{{noticeList}}" wx:key="{{item.id}}">
-           <view class="rule_title">{{item.title}}</view>
-           <view class="rule_content">{{item.content}}</view>
+          <view class="rule_title">{{item.title}}</view>
+          <view class="rule_content">{{item.content}}</view>
         </view>
       </view>
     </view>
@@ -69,15 +72,17 @@
 
   <!--购物小图标-->
   <view class="small-cart" bindtap='toCart' data-url='/pages/index/cart/cart'>
-    <image src="{{hostUrl}}/icon/gouwuc_ceb_n.png" class="section-img"></image>
+    <image src="{{hostUrl}}/twoSix/ic_cart.png" class="section-img1"></image>
   </view>
-  <view class="small-wrapper" wx:if="{{count}}" bindtap='toCart' data-url='/pages/index/cart/cart'>
-    <view class="small-num">{{count}}</view>
-  </view>
+  <view class="small-num" wx:if="{{count>0}}">{{count}}</view>
   <!-- 页面内容 -->
-  <template wx:if="{{currentTab === 0}}" is='exProducts' data="{{imgUrls:imgUrls,autoplay:autoplay,circular:circular,interval:interval,duration:duration,goods:goods,list:list,trend:trend,wholeNation:wholeNation,totalAmount:totalAmount,text:text,bannerId:bannerId,bannerUrl:bannerUrl,showNotice:showNotice,noticeList:noticeList,navigationList:navigationList,navigationList1:navigationList1,navigationList2:navigationList2,indicatorDots:indicatorDots,paddingTop:paddingTop,height:height,activityList:activityList,maxHeight:maxHeight,hostUrl:hostUrl}}"
+  <template wx:if="{{currentTab === 0}}" is='exProducts' data="{{imgUrls:imgUrls,autoplay:autoplay,circular:circular,interval:interval,duration:duration,goods:goods,list:list,trend:trend,wholeNation:wholeNation,totalAmount:totalAmount,text:text,bannerId:bannerId,bannerUrl:bannerUrl,showNotice:showNotice,noticeList:noticeList,navigationList:navigationList,navigationList1:navigationList1,navigationList2:navigationList2,indicatorDots:indicatorDots,paddingTop:paddingTop,height:height,activityList:activityList,maxHeight:maxHeight,hostUrl:hostUrl,swiperCurrent:swiperCurrent,content10:content10,frameClass1:frameClass1}}"
   />
-  <template wx:if="{{currentTab !== 0}}" is='othersClassification' data="{{imageUrl:imageUrl,autoplay:autoplay,circular:circular,interval:interval,duration:duration,navData:navData,classfy:classfy,comprehensive:comprehensive,pricePhoto:pricePhoto,pricePhoto1:pricePhoto1,color:color,color1:color1,color2:color2,text1:text1,heightTop:heightTop,hostUrl:hostUrl}}"
+  <template wx:if="{{currentTab !== 0}}" is='othersClassification' data="{{imageUrl:imageUrl,autoplay:autoplay,circular:circular,interval:interval,duration:duration,navData:navData,classfy:classfy,comprehensive:comprehensive,pricePhoto:pricePhoto,pricePhoto1:pricePhoto1,pricePhoto2:pricePhoto2,pricePhoto3:pricePhoto3,color:color,color1:color1,color2:color2,text1:text1,heightTop:heightTop,hostUrl:hostUrl}}"
+  />
+  <template  is='floatingwindow' data="{{hostUrl:hostUrl,floatShow:floatShow,floatContent:floatContent}}"
+  />
+    <template  is='pop-upwindows' data="{{hostUrl:hostUrl,popShow:popShow,popContent:popContent}}"
   />
 </view>
 <!-- 轮播展示组件 -->
@@ -100,7 +105,7 @@
 <!-- 待返转让弹窗 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry}}">
   <view class="zan-dialog__container1" wx:if="{{waitReentry}}">
-    <image wx:if="{{waitReentry}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose'></image>
+    <!-- <image wx:if="{{waitReentry}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose'></image> -->
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -120,7 +125,7 @@
 <!-- 待返转让弹窗2 -->
 <view class="wait_shure-one-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{waitReentry2}}">
   <view class="zan-dialog__container1" wx:if="{{waitReentry2}}">
-    <image wx:if="{{waitReentry2}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose2'></image>
+    <!-- <image wx:if="{{waitReentry2}}" class="cancel-img" src="{{hostUrl}}/mine/withdraw_close.png" bindtap='waitReentryClose2'></image> -->
     <view class="title1">待返转让</view>
     <view class="text1">
       <view class="cause_box">
@@ -153,34 +158,50 @@
     </view>
   </view>
 </view>
-  <view class="return_money_box" bindtap="retunrnMoneyShow" wx:if="{{cashBackMoney}}">
-    <image src="{{hostUrl}}/update/return_money.png" class="return_money_img" />
+<view class="return_money_box" bindtap="retunrnMoneyShow" wx:if="{{cashBackMoney}}">
+  <image src="{{hostUrl}}/update/return_money.png" class="return_money_img" />
+</view>
+<!-- 返现到账弹窗 -->
+<view class="show-received1" catchtouchmove="preventTouchMove" wx:if="{{returnMoneyShow}}">
+  <view class="show-received-container1" wx:if="{{returnMoneyShow}}">
+    <image src="{{hostUrl}}/update/bg.png" class="bg_img" />
+    <image class="show-received-top1" src="{{returnImg}}"></image>
+    <view class="return_money">返现到账{{cashBackMoney}}元</view>
+    <image class="toYue" src="{{hostUrl}}/twoSix/btn@2x.png" class="toyue_img" bindtap="toYue" />
   </view>
-  <!-- 返现到账弹窗 -->
-    <view class="show-received1" catchtouchmove="preventTouchMove" wx:if="{{returnMoneyShow}}">
-    <view class="show-received-container1" wx:if="{{returnMoneyShow}}">
-      <image src="{{hostUrl}}/update/bg.png" class="bg_img"/>
-      <image class="show-received-top1" src="{{returnImg}}"></image>
-      <view class="return_money">返现到账{{cashBackMoney}}元</view>
-      <image class="toYue" src="{{hostUrl}}/update/btn.png" class="toyue_img" bindtap="toYue"/>
-    </view>
-    <view class="show-received-cancel1" wx:if="{{returnMoneyShow}}" bindtap='retunrnMoneyClose'>
-      <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png"></image>
-    </view>
+  <view class="show-received-cancel1" wx:if="{{returnMoneyShow}}" bindtap='retunrnMoneyClose'>
+    <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png"></image>
   </view>
-  <!-- 转让撤销提示弹窗 -->
+</view>
+<!-- 转让撤销提示弹窗 -->
 <view class="return-two-dialog__maskPeople" catchtouchmove="preventTouchMove" wx:if="{{returnCanclePeople}}">
   <view class="zan-dialog__containerPeople" wx:if="{{returnCanclePeople}}">
     <view class="head_title"></view>
-          <view class="peopleCancle_box" wx:for="{{returnContent3}}" wx:key="{{item.id}}">
-            <image class="people_info_img" src="{{item.imgUrl}}"/>
-            <view class="people_info_name">{{item.nikeName}}</view>
-            <view class="people_info_acountnumber">{{item.mobileNumber}}</view>
-            <view class="cancle_font">转让方撤销了与您的交易！如有疑问请联系该用户。</view>
-            <view class="border_bottom"></view>
-        </view>
-  </view>
-    <view class="peopleCanlce_close" wx:if="{{returnCanclePeople}}" bindtap='returnCanclePeople'>
-      <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
+    <view class="peopleCancle_box" wx:for="{{returnContent3}}" wx:key="{{item.id}}">
+      <image class="people_info_img" src="{{item.imgUrl}}" />
+      <view class="people_info_name">{{item.nikeName}}</view>
+      <view class="people_info_acountnumber">{{item.mobileNumber}}</view>
+      <view class="cancle_font">转让方撤销了与您的交易！如有疑问请联系该用户。</view>
+      <view class="border_bottom"></view>
     </view>
+  </view>
+  <view class="peopleCanlce_close" wx:if="{{returnCanclePeople}}" bindtap='returnCanclePeople'>
+    <image src="{{hostUrl}}/icon/tanc_closecutline_n.png"></image>
+  </view>
+</view>
+
+<!-- 品牌筛选弹窗 -->
+<view class="get-zan-dialog__mask2" wx:if="{{brandShow}}" catchtap="cancelBrand"></view>
+<view class="zan-dialog__container2" animation="{{animationData}}" wx:if="{{brandShow}}">
+  <view class="brandTitle">品牌筛选</view>
+  <view class="brandChoose">
+    <view class="brandChooseItem" wx:for="{{content11}}" wx:key="{{item.id}}" catchtap="chooseBrand" data-id="{{item.id}}" data-type="{{item.type}}" data-index="{{index}}" style="border:{{item.border1}};"> 
+      {{item.name}}
+      <image class="brandChooseImg" src="{{hostUrl}}/twoSix/activeImg.png" wx:if="{{item.brandChoose==true}}"></image>
+    </view> 
+  </view>
+  <view class="brandBtn">
+    <view class="brandButton brandBtnItem1" catchtap="resetBrand">重置</view>
+    <view class="brandButton brandBtnItem2" catchtap="sureBrand">确定</view>
+  </view>
 </view>

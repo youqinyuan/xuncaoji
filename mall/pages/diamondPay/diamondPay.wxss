@@ -35,20 +35,19 @@ page {
 }
 
 .active {
-  width: 100rpx;
-  height: 8rpx;
+  width: 60rpx;
+  height: 6rpx;
+  border-radius: 10rpx;
+  margin: 0 auto;
+  margin-top: -10rpx;
   background: rgba(255, 38, 68, 1);
-  border-radius: 4rpx;
-  position: absolute;
-  top: 73rpx;
-  left: 50rpx;
 }
 
 .swiper-out {
   width: 750rpx;
   height: 1100rpx;
   position: absolute;
-  top:60rpx;
+  top: 60rpx;
 }
 
 .slide-image {
@@ -84,16 +83,16 @@ page {
 
 .title {
   text-align: center;
-  color: #d35c57;
+  color: #fff;
   font-size: 36rpx;
   font-family: PingFang SC;
   font-weight: bold;
   margin-top: 33rpx;
 }
 
-.title {
+.title2 {
   text-align: center;
-  color: #d35c57;
+  color: #fff;
   font-size: 36rpx;
   font-family: PingFang SC;
   font-weight: bold;
@@ -101,19 +100,19 @@ page {
 }
 
 .title3 {
-  color: #af9243;
+  color: #fff;
 }
 
 .title4 {
-  color: #5b80a5;
+  color: #fff;
 }
 
 .title5 {
-  color: #aa5faa;
+  color: #fff;
 }
 
 .title6 {
-  color: #b0774c;
+  color: #fff;
 }
 
 .item4 {

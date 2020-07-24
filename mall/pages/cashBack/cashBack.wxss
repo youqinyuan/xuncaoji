@@ -13,7 +13,7 @@ page {
 .stop-zero {
   width: 150rpx;
   height: 46rpx;
-  border: 2rpx solid rgba(255, 38, 68, 1);
+  border: 1rpx solid rgba(255, 38, 68, 1);
   border-radius: 23rpx;
   margin-top: 20rpx;
   margin-left: 50%;
@@ -253,106 +253,6 @@ white-space: nowrap;
   color: rgba(227, 58, 89, 1);
 }
 
-.stop-zan-dialog__mask {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 9999;
-}
-
-.stop-zan-dialog__container {
-  width: 540rpx;
-  height: 282rpx;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 24rpx;
-  overflow: hidden;
-  position: fixed;
-  top: 300rpx;
-  left: 110rpx;
-  z-index: 9999;
-}
-
-/* 弹框内容 */
-
-.stop-content {
-  text-align: center;
-  overflow: hidden;
-}
-
-.stop-content-title {
-  margin-top: 44rpx;
-  margin-bottom: 10rpx;
-  font-size: 34rpx;
-  font-weight: bold;
-  color: rgba(34, 34, 34, 1);
-}
-
-.stopzero {
-  border: 2rpx solid #ff2644;
-  color: #ff2644;
-  width: 270rpx;
-  padding: 0 5rpx;
-  height: 60rpx;
-  margin-right: 50rpx;
-  margin-top: 20rpx;
-  border-radius: 28rpx;
-  line-height: 56rpx;
-  font-size: 26rpx;
-  background: #fff;
-}
-
-.stopzero[disabled] {
-  margin-right: 0 !important;
-  color: #ff2644 !important;
-  border: none !important;
-  background: #fff !important;
-}
-
-button::after {
-  border: none;
-}
-
-.stop-content-container {
-  /* width: 357rpx; */
-  height: 66rpx;
-  /* margin-left: 100rpx; */
-  margin-bottom: 35rpx;
-  font-size: 30rpx;
-  text-align: center;
-  color: rgba(51, 51, 51, 1);
-}
-
-.stop-content-button {
-  display: flex;
-  height: 100rpx;
-  border-top: 2rpx solid #eaeaea;
-}
-
-.stop-reject {
-  border-right: 2rpx solid #eaeaea;
-  width: 270rpx;
-  height: 75rpx;
-  line-height: 75rpx;
-  font-size: 34rpx;
-  color: #ff2644;
-}
-
-.stop-comfirm {
-  height: 66rpx;
-  line-height: 66rpx;
-  font-size: 34rpx;
-  text-align: center;
-  width: 270rpx;
-  background: rgba(255, 255, 255, 1);
-  color: rgba(51, 51, 51, 1);
-}
-
-.stop-comfirm::after {
-  border: none;
-}
 .everyDay{
   height: 100rpx;
   background: #fff;
@@ -399,4 +299,102 @@ button::after {
   color:rgba(255,38,68,1);
   padding-left: 51rpx;
   padding-top: 30rpx;
+}
+.stopzero{
+  border: 0.5px #ff2644 solid;
+  color: #ff2644;
+  width: 210rpx;
+  padding: 0 5rpx;
+  height: 60rpx;
+  margin-left: 495rpx;
+  border-radius: 40rpx;
+  line-height: 60rpx;
+  font-size: 26rpx;
+  background: #fff;
+  text-align: center;
+
+}
+/* 种子消耗弹窗 */
+.bg10{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+.content10{
+  position: absolute;
+  background:rgba(255,255,255,1);
+  width: 600rpx;
+  border-radius:24rpx;
+  top: 220rpx;
+  left: 75rpx;
+}
+.title10{
+  height: 142rpx;
+  line-height: 142rpx;
+  text-align: center;
+  font-size:34rpx;
+  color:rgba(51,51,51,1);
+}
+.text_one10{
+  font-size:28rpx;
+  color:rgba(51,51,51,1);
+  line-height:42rpx;
+  padding-left: 51rpx;
+  padding-right: 52rpx;
+}
+.text_two10{
+  font-size:28rpx;
+  color:rgba(51,51,51,1);
+  line-height:42rpx;
+  padding-left: 51rpx;
+  padding-right: 52rpx;
+  margin-top: 10rpx;
+}
+.message10{
+  font-size:24rpx;
+  color:#FF2644;
+  line-height:42rpx;
+  padding-left: 51rpx;
+  padding-right: 51rpx;
+  margin-top: 50rpx;
+}
+.button_box10{
+  display: flex;
+  justify-content: space-between;
+  height: 76rpx;
+  padding-left: 48rpx;
+  padding-right: 52rpx;
+  margin-top: 50rpx;
+  margin-bottom: 60rpx;
+}
+.button_one10{
+  width:240rpx;
+  height:75rpx;
+  border:0.5px solid rgba(255,38,68,1);
+  border-radius:38rpx;
+  font-size:32rpx;
+  color:rgba(255,38,68,1);
+  text-align: center;
+  line-height: 75rpx;
+}
+.button_two10{
+  width:240rpx;
+  height:76rpx;
+  background:rgba(255,38,68,1);
+  border-radius:38rpx;
+  font-size:32rpx;
+  color:rgba(255,255,255,1);
+  text-align: center;
+  line-height: 76rpx;
+}
+.cancel-get10{
+  position: absolute;
+  top: 146rpx;
+  right: 100rpx;
+  width: 44rpx;
+  height: 74rpx;
 }

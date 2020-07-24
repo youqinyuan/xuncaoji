@@ -51,7 +51,7 @@
   height: 32rpx;
   text-align: center;
   line-height: 32rpx;
-  border: 2rpx solid rgba(153, 153, 153, 1);
+  border: 1rpx solid rgba(153, 153, 153, 1);
   border-radius: 16rpx;
   font-size: 22rpx;
   font-family: PingFang SC;
@@ -103,14 +103,13 @@
   justify-content: space-between;
 }
 
-
 .bottom {
   display: flex;
 }
 
 .service {
   display: flex;
- margin-right: 49rpx;
+  margin-right: 49rpx;
   flex-direction: column;
   align-items: center;
   background-color: #fff;
@@ -167,7 +166,7 @@ button::after {
   height: 64rpx;
   text-align: center;
   background: #fff;
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
   border-radius: 32rpx;
   font-size: 30rpx;
   color: #ff2644;
@@ -231,14 +230,14 @@ button::after {
 }
 
 .zan-dialog__container {
-  width: 540rpx;
-  height: 282rpx;
+  width: 600rpx;
+  height: 300rpx;
   background: rgba(255, 255, 255, 1);
   border-radius: 24rpx;
   overflow: hidden;
   position: fixed;
   top: 300rpx;
-  left: 110rpx;
+  left: 75rpx;
   z-index: 9999;
 }
 
@@ -269,27 +268,30 @@ button::after {
 
 .content-button {
   display: flex;
-  height: 66rpx;
-  border-top: 2rpx solid #eaeaea;
+  margin-left: 50rpx;
 }
 
 .reject {
-  border-right: 2rpx solid #eaeaea;
-  width: 270rpx;
-  height: 75rpx;
-  line-height: 75rpx;
-  font-size: 34rpx;
-  color: rgba(51, 51, 51, 1);
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  border: 1rpx solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: #ff2644;
+  text-align: center;
+  margin-right: 20rpx;
 }
 
 .comfirm {
-  height: 66rpx;
-  line-height: 66rpx;
-  font-size: 34rpx;
+  width: 240rpx;
+  height: 76rpx;
+  line-height: 76rpx;
   text-align: center;
-  width: 270rpx;
-  background: rgba(255, 255, 255, 1);
-  color: #ff2644;
+  background: #ff2644;
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: #fff;
 }
 
 .comfirm::after {

@@ -1,48 +1,64 @@
 /* pages/invitationCode/invitationCode.wxss */
-
+.title{
+  font-size:60rpx;
+  font-family:PingFang SC;
+  font-weight:bold;
+  color:rgba(51,51,51,1);
+  line-height:65rpx;
+  margin-left: 52rpx;
+  margin-top: 78rpx;
+}
 .code-input {
-  width: 540rpx;
-  border-bottom: 2rpx solid rgba(221, 221, 221, 1);
-  margin: 129rpx auto;
-  margin-top: 224rpx;
+  width: 650rpx;
+  border-bottom: 0.5px solid rgba(221, 221, 221, 1);
+  margin-left: 50rpx;
+  margin-top: 217rpx;
 }
 
 .code-input input {
-  width: 215rpx;
+  width: 650rpx;
   height: 32rpx;
   margin-bottom: 30rpx;
-  margin-left: 169rpx;
-  font-size: 34rpx;
+  /* margin-left: 169rpx; */
+  font-size: 32rpx;
   color: rgba(170, 170, 170, 1);
 }
 
 .invitation-code {
-  width: 630rpx;
-  height: 80rpx;
-  background: #ff2644;
-  border-radius: 40rpx;
-  font-size: 32rpx;
-  margin-bottom: 100rpx;
-  color: rgba(255, 255, 255, 1);
+  width:650rpx;
+  height:90rpx;
+  background:linear-gradient(90deg,rgba(255,105,71,1) 0%,rgba(255,37,67,1) 100%);
+  box-shadow:0px 1px 10px 0px rgba(255,37,67,0.5);
+  border-radius:45rpx;
+  text-align: center;
+  line-height: 90rpx;
+  margin-left: 50rpx;
+  font-size:32rpx;
+  font-family:PingFang SC;
+  color:rgba(255,255,255,1);
+  margin-top: 171rpx;
 }
 .application-wrap{
   display: flex;
   justify-content: space-between;
 }
 .application-code {
-  background: #fff;
-  margin-left: 20rpx;
-  font-size: 30rpx;
-  color:#FF6417;
-  border-radius: 0;
+  font-size:28rpx;
+  text-decoration:underline;
+  color:rgba(51,51,51,1);
+  background-color: #fff !important;
+  padding: 0;
+  margin-left: 50rpx;
+  margin-top: 90rpx;
 }
 
 .writed {
-  margin-right: 20rpx;
+  margin-right: 30rpx;
   background: #fff;
-  font-size: 30rpx;
-  color:#3C8AFF;
+  font-size: 28rpx;
+  color:#FF2644;
   border-radius: 0;
+  margin-top: 90rpx;
 }
 button::after {
   border: none;

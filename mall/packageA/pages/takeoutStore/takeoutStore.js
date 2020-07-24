@@ -216,14 +216,24 @@ Page({
           that.setData({
             navData: res.data.content
           })
+         
           if(that.data.businessId){
-            for (let i = 0; i < that.data.navData.length; i++) {
-              if (that.data.navData[i].id == that.data.businessId){
-                that.setData({
-                  currentTab:i
-                })
+            let query = wx.createSelectorQuery();
+            let navData = that.data.navData
+            query.selectAll('.nav-box').boundingClientRect(function (rect) {
+              for (var i = 0; i < navData.length; i++) {
+                if (navData[i].id==that.data.businessId){
+                  that.setData({
+                    currentTab: i,
+                    navScrollLeft: rect[i].left,
+                  })
+                }
+                
               }
-            }
+            }).exec();
+            that.setData({
+              navData: navData
+            })
           }
         }
       }
@@ -388,7 +398,7 @@ Page({
     that.setData({
       currentTab: index,
       businessId: id,
-      pageNumber: 1
+      pageNumber: 1,
     })
     if (that.data.currentTab == 0) {
       that.initStore()

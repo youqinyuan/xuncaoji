@@ -13,10 +13,10 @@ page {
   position: relative;
   overflow: hidden;
   width: 690rpx;
-  height: 220rpx;
+  height: 230rpx;
   background: #fff;
   border-radius: 8rpx;
-  margin-bottom: 21rpx;
+  margin-bottom: 20rpx;
 }
 
 .bankCard-top {
@@ -42,7 +42,7 @@ page {
 .bankCard-sign {
   width: 58rpx;
   height: 28rpx;
-  border: 2rpx solid #ff2644;
+  border: 1rpx solid #ff2644;
   border-radius: 4px;
   color: #ff2644;
   text-align: center;
@@ -62,22 +62,31 @@ page {
   display: flex;
   height: 106rpx;
   align-items: center;
+  justify-content: space-between;
   margin-left: 49rpx;
+  margin-right: 40rpx;
   font-size: 32rpx;
   font-family: PingFang SC;
   font-weight: bold;
   color: #666;
 }
 
-.bankCard-num {
-  position: absolute;
-  left: 280rpx;
-  bottom:26rpx;
+.bankCard-card{
+  display: flex;
+  height: 60rpx;
 }
-
+.one{
+  height: 42rpx;
+  line-height: 42rpx;
+  margin-top: 14rpx;
+}
+.two{
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-left: 10rpx;
+}
 .bankCard-btn {
   display: flex;
-  margin-left: 207rpx;
   font-size: 24rpx;
   font-family: PingFang SC;
   font-weight: 400;
@@ -91,7 +100,7 @@ page {
 .btn {
   width: 80rpx;
   height: 40rpx;
-  border: 2rpx solid #999;
+  border: 1rpx solid #999;
   border-radius: 20rpx;
   text-align: center;
   line-height: 40rpx;
@@ -185,7 +194,7 @@ page {
 .yudialog__mask .order_box1 {
   width: 240rpx;
   height: 76rpx;
-  border: 2rpx solid rgba(255, 38, 68, 1);
+  border: 1rpx solid rgba(255, 38, 68, 1);
   border-radius: 38rpx;
   text-align: center;
   font-size: 32rpx;

@@ -1,4 +1,18 @@
 /* pages/index/twolist/twolist.wxss */
+@import "/template/goodsList/goodsList";
+
+.comprehensive-not {
+  color: #333;
+  font-size: 28rpx;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.comprehensive-not image {
+  width: 380rpx;
+  height: 380rpx;
+}
+
 page {
   background: #f4f4f4;
 }
@@ -6,61 +20,34 @@ page {
 /*综合、价格、上新*/
 
 .title {
-  height: 108rpx;
+  width: 650rpx;
+  height: 80rpx;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 1);
-}
-
-.comprehensive {
-  font-size: 30rpx;
-  width: 136rpx;
-  line-height: 108rpx;
-  text-align: center;
-}
-
-.active {
-  color: #FF6417;
+  background: #fff;
+  font-size: 26rpx;
+  padding: 0 50rpx;
 }
 
 .price {
-  font-size: 30rpx;
-  width: 136rpx;
-  line-height: 108rpx;
-  text-align: center;
   display: flex;
-  color: rgba(51, 51, 51, 1);
+  align-items: center;
+  color: #333;
 }
 
 .price-img {
-  margin-top: 10rpx;
-  width: 40rpx;
-  height: 40rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 15rpx;
+  margin-left: 8rpx;
 }
 
 .price-img image {
-  width: 40rpx;
-  height: 40rpx;
-}
-
-.new {
-  font-size: 30rpx;
-  width: 136rpx;
-  display: flex;
-  line-height: 108rpx;
-  text-align: center;
-  color: rgba(51, 51, 51, 1);
-}
-
-.new-img {
-  margin-top: 10rpx;
-  width: 40rpx;
-  height: 40rpx;
-}
-
-.new-img image {
-  width: 40rpx;
-  height: 40rpx;
+  margin-bottom: 8rpx;
+  width: 10rpx;
+  height: 8rpx;
 }
 
 /*列表*/
@@ -69,6 +56,7 @@ page {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin-left: 30rpx;
 }
 
 .comprehensive-list {
@@ -120,7 +108,7 @@ page {
   margin-right: 13rpx;
   font-size: 20rpx;
   color: rgba(255, 100, 23, 1);
-  border: 2rpx solid rgba(255, 100, 23, 1);
+  border: 1rpx solid rgba(255, 100, 23, 1);
   border-radius: 14rpx;
 }
 
@@ -131,10 +119,10 @@ page {
 }
 
 .newprice {
-  font-family:PingFang-SC-Bold;
-  font-weight:bold;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
   font-size: 36rpx;
-  color: #FF6417;
+  color: #ff6417;
 }
 
 .newprice text {
@@ -149,30 +137,6 @@ page {
   color: rgba(153, 153, 153, 1);
 }
 
-.return-wrap {
-  display: flex;
-  height: 40rpx;
-  margin-right: 16rpx;
-  line-height: 40rpx;
-  background: rgba(252, 243, 237, 1);
-  border-radius: 8rpx;
-  margin-left: 16rpx;
-  font-size: 22rpx;
-  color: #ff2644;
-  font-family: PingFang-SC-Bold;
-  font-weight: Bold;
-}
-
-.return-wrap .return-money text:nth-child(1) {
-  color: #ff6417;
-  padding: 0 8rpx;
-}
-
-.return-wrap .pay-money text:nth-child(1) {
-  color: #ff6417;
-  padding: 0 8rpx;
-}
-
 /* 底部到底啦 */
 
 .page-bottom {
@@ -183,4 +147,3 @@ page {
   font-weight: 400;
   color: rgba(153, 153, 153, 1);
 }
-
