@@ -1,84 +1,5 @@
 <!-- pages/applyZero/applyZero.wxml -->
 <wxs module="filters" src="filter.wxs"></wxs>
-<!-- <view class="advanceSale" wx:if="{{isShowBook==1&&sponsor==0&&!options.source}}">
-  <view class="advanceSale-left">
-    <image class="severice-img" src="{{hostUrl}}/yuService.png"></image>
-    <view class="yuSale">先不付款,拿全网最低价,去预售返现</view>
-    <image class="question-img" src="{{hostUrl}}/yuSale.png" catchtap="goIntoProblem"></image>
-  </view>
-  <view class="advanceSale-right">
-    <view class="experience" catchtap="experience">立即体验</view>
-    <image class="right-img" src="{{hostUrl}}/sanDetail.png"></image>
-  </view>
-</view>
-<view class="shuoming_box" bindtap="toapplyRule" style="{{isShowBook==1&&sponsor==0&&!options.source?'top:100rpx;':'top:0rpx'}}">
-  <image src="{{hostUrl}}/ic_use.png" class="shuoming_img" bindtap="toapplyRule" />
-  <text class="shuoming_one">使用须知</text>
-</view>
-<view class="return_month">
-    <view class="return_month_one">
-        <text  class="return_month_title">返还{{newPeopleActivity==1?payMsg.freeBuyMode==2?'天':'期(月)':'天'}}数</text>
-        <input class="return_month_value {{newPeopleActivity==2?'zhihui':''}}" value="{{newPeopleActivity==1?cashMsg.cashBackPeriods:payMsg.actualCashBackPeriods}}" disabled="true" catchtap="periodMonth" wx:if="{{newPeopleActivity==1}}"/>
-        <input class="return_month_value {{newPeopleActivity==2?'zhihui':''}}" value="{{newPeopleActivity==1?cashMsg.cashBackPeriods:payMsg.actualCashBackPeriods}}" disabled="true" wx:else/>
-        <text class="return_month_font">您想以多少期返还金额</text>
-    </view>
-    <view class="return_month_two" wx:if="{{payMsg.cashBackType!==1}}">
-      <view class="return_time">您想要平台分{{newPeopleActivity==1?cashMsg.cashBackPeriods:payMsg.actualCashBackPeriods}}{{newPeopleActivity==1?payMsg.freeBuyMode==2?'天':'期(月)':'天'}},把支付金额平均等额返现给您</view>
-    </view>
-    <view class="return_month_two" wx:if="{{newPeopleActivity==2&&payMsg.cashBackType==1}}">
-      <view class="return_time">您想要平台分{{payMsg.actualCashBackPeriods}}天,返现日将全部返现给您</view>
-    </view>
-</view>
-<view class="cost_price_box">
-  <view class="fanily_price_font">最终成本价:</view>
-  <view class="fanily_price_number">￥<text style="font-weight:bold;">{{cashMsg.expectedAmount?cashMsg.expectedAmount:0}}</text></view>
-  <view class="xiugai_price" bindtap="expectedAmountShow" wx:if="{{newPeopleActivity==1}}">修改</view>
-  <view class="xiugai_price" wx:else>修改</view>
-</view>
-<view class="result_box">
-    <view class="detail_explain" catchtap="returnDetail">明细说明</view>
-    <view class="pay_number_font">支付金额</view>
-    <view class="pay_number_value"><text style="font-size:30rpx;">￥</text>{{sponsor==1?payMsg.discountAfterAmount:payMsg.needPaymentAmount}}</view>
-    <view class="all_return_money">共返金额：￥{{filters.toFix(payMsg.totalCashBackAmount+payMsg.interestAmount)}}</view>
-    <view class="return_info_box">
-        <view class="return_info_one">
-            <view class="return_info_font">每期返现</view>
-            <view class="return_info_value"><text style="font-size:24rpx;">￥</text>{{payMsg.cashBackDetails[0].cashBackAmount}}</view>
-        </view>
-        <view class="return_info_two"></view>
-        <view class="return_info_one">
-            <view class="return_info_font">补贴利息</view>
-            <view class="return_info_value"><text style="font-size:24rpx;">￥</text>{{payMsg.interestAmount}}</view>
-        </view>
-        <view class="return_info_two"></view>
-        <view class="return_info_one">
-            <view class="return_info_font">周期({{newPeopleActivity==1?payMsg.freeBuyMode==2?'天':'期(月)':'天'}})</view>
-            <view class="return_info_value">{{newPeopleActivity==1?cashMsg.cashBackPeriods:payMsg.actualCashBackPeriods}}</view>
-        </view>
-    </view>
-    <view class="lixi">银行同息{{newPeopleActivity==1?cashMsg.interestRate:interestRate}}%</view>
-    <image class="lixi_img" src="{{hostUrl}}/newIndex/lixi.png" />
-</view>
-<view class="save_box" wx:if="{{!activityId&&buyType==1&&sponsor==0&&newPeopleActivity==1&&!options.source}}">
-  <view class="add_shopcart" bindtap="addOrCompute">加入购物车</view>
-  <view class="to_order" bindtap="payNow">下一步</view>
-</view>
-<view class="save_box" wx:if="{{buyType==2&&sponsor==0&&newPeopleActivity==1&&!activityId&&!options.source}}">
-  <view class="to_order wid690" bindtap="payNow">下一步</view>
-</view>
-<view class="zanzhu_box" wx:if="{{sponsor==1}}">
-  <view class="zanzhu_money">不赞助则需要支付：￥{{payMsg.needPaymentAmount}}</view>
-  <view class="zanzhu_botton" bindtap="toSponsorDetail">发起赞助</view>
-</view>
-<view class="save_box" wx:if="{{newPeopleActivity==2}}">
-  <view class="to_order wid690" bindtap="payNow2">下一步</view>
-</view>
-<view class="save_box" wx:if="{{activityId}}">
-  <view class="to_order wid690" bindtap="payNow">下一步</view>
-</view>
-<view class="save_box" wx:if="{{options.source}}">
-  <view class="to_order wid690" bindtap="payNow">下一步</view>
-</view> -->
 <view class="one_title">一、可修改选项</view>
 <view class="discount_box" bindtap="showDiscount">
     <view class="discount_one">选择商品折扣</view>
@@ -93,6 +14,7 @@
     <view class="discount_one">选择返现时间</view>
     <view class="discount_two">
       <view class="discount_number {{newPeopleActivity==2?'huise':''}}">{{payMsg.actualCashBackPeriods}}({{newPeopleActivity==1?payMsg.freeBuyMode==2?'天':'月':'天'}})</view>
+      <view class="seed_font">时间越短，赠送种子越多</view>
       <image src="{{hostUrl}}/changeImg/tonewpage.png" class="to_choose"/>
     </view>
     <view class="borbto"></view>

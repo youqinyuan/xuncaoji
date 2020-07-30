@@ -1674,7 +1674,7 @@ page {
 
 .post-zan-dialog__mask .zan-dialog__container {
   position: absolute;
-  top: 766rpx;
+  top: 734rpx;
   z-index: 9999;
 }
 

@@ -40,9 +40,10 @@
 </view>
 <!-- 新消息 -->
 <view class="container-wrap" style="{{currentTab==2||currentTab==3?'margin-top:112rpx;':''}}">
-  <view class="new_meg" catchtap="jumpMessage" wx:if="{{messageNum>0}}">
+  <view class="new_meg {{currentTab==2||currentTab==3?'matop82':''}}" catchtap="jumpMessage" wx:if="{{messageNum>0}}">
     <view class="new_btn">{{messageNum}}条新消息</view>
   </view>
+  <view style="height:80rpx;width:750rpx;" wx:if="{{messageNum==0&&currentTab==2||currentTab==3}}"></view>
   <view class="container" wx:for="{{allPost}}" wx:key="{{item.id}}" wx:for-index="index1" catchtap="jumpForumDetail" data-id="{{item.id}}" wx:if="{{allPost.length>0&&currentTab!==4}}">
     <view class="content_box">
       <view class="content_box_photo">
@@ -752,6 +753,7 @@
 <view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1&&currentTab==4}}">
   <view class="content-wrapper1">
     <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+       <view class="shareCommission">你喜欢那就分享给你朋友吧！</view>
     <view class="share-wrap">
       <button class="share-button" id='btn' open-type="share">
         <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>

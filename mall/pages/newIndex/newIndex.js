@@ -1,6 +1,7 @@
 // pages/newIndex/newIndex.js
 let app = getApp()
 let interval = null
+let m = 1
 Page({
 
   /**
@@ -21,7 +22,10 @@ Page({
     swiperCurrent: 0,
     guide: false,
     popShow: false,
-    floatShow: false
+    floatShow: false,
+    content10:[],
+    frameClass1: 'frame z1', //默认正面在上面
+    temp: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
   },
 
   /**
@@ -41,6 +45,7 @@ Page({
     that.navigationList2()
     that.navigationList3()
     that.navigationList4()
+    that.pinPai()
     // 总收益
     setTimeout(function () {
       if (wx.getStorageSync('token')) {
@@ -53,6 +58,86 @@ Page({
     //收益数据状态（是否隐藏）
     that.setData({
       profitStatus: wx.getStorageSync('profitStatus') ? wx.getStorageSync('profitStatus') : this.data.profitStatus
+    })
+  },
+  //品牌专区
+  pinPai: function () {
+    let n = 0
+    let that = this
+    let tempList = []
+    let number = 0 //数据组成数组个数
+    app.Util.ajax('mall/home/brand', {
+      pageNumber: 1,
+      pageSize: 100
+    }, 'GET').then((res) => {
+      if (res.data.messageCode = 'MSG_1001') {
+        number = Math.ceil(res.data.content.items.length / 8) //数据组成数组个数
+        that.setData({
+          number: number
+        })
+        for (let a = 0; a <= number; a++) {
+          let temp = []
+          for (let i = 0; i < res.data.content.items.length; i++) {
+            if (a * 8 <= i && i <= a * 8 + 7) {
+              temp.push(res.data.content.items[i])
+            } else { }
+          }
+          tempList.push(temp)
+        }
+        that.setData({
+          tempList: tempList,
+          content10: tempList[0]
+        })
+        if (number > 1) {
+          setInterval(function () {
+            this.rotateFn()
+          }.bind(this), 5000)
+        }
+      }
+    })
+  },
+  rotateFn: function () {
+    var that = this
+    that.setData({
+      frameClass1: "frame back"
+    })
+    setTimeout(function () {
+      let number = that.data.number
+      if (m < number) {
+        that.setData({
+          content10: that.data.tempList[m],
+        })
+        m = m + 1
+      } else {
+        that.setData({
+          content10: that.data.tempList[0],
+        })
+        m = 1
+      }
+    }, 500)
+    setTimeout(function () {
+      that.setData({
+        frameClass1: "frame z1",
+      })
+    }, 1000);
+  },
+  //点击跳到全部分类
+  jumpClassify: function () {
+    wx.navigateTo({
+      url: '/pages/classify/classify',
+    })
+  },
+  // 跳转到品牌详情
+  jumpBrand(e) {
+    let id = e.currentTarget.dataset.id
+    let type = e.currentTarget.dataset.type
+    let name = e.currentTarget.dataset.name
+    let posterimage = e.currentTarget.dataset.posterimage
+    let iconurl = posterimage ? posterimage.split('?') : null
+    let iconurl1 = iconurl ? iconurl[0] : null
+    wx.setStorageSync('posterimage', iconurl1 ? iconurl[1] : null)
+    wx.navigateTo({
+      url: `/pages/oneList/oneList?id=${id}&type=${type}&name=${name}&iconurl=${iconurl1}`,
     })
   },
   explosivesSwiper: function () {

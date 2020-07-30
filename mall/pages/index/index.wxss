@@ -10,8 +10,8 @@ page {
 }
 
 .small-cart {
-  width: 108rpx;
-  height: 108rpx;
+  width: 96rpx;
+  height: 96rpx;
   text-align: center;
   background: #fff;
   border-radius: 50%;
@@ -22,8 +22,8 @@ page {
 }
 
 .small-cart image {
-  width: 66rpx;
-  height: 66rpx;
+  width: 48rpx;
+  height: 48rpx;
   margin-top: 25rpx;
 }
 

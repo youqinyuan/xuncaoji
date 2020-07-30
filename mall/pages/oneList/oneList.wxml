@@ -64,8 +64,8 @@
     <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
   </view>
 </view>
-<view class="page-bottom">{{textToast}}</view>
-
+<view class="page-bottom" wx:if="{{textToast1}}">{{textToast1}}</view>
+<view class="page-bottom " wx:else>{{textToast}}</view>
 <!-- 品牌筛选弹窗 -->
 <view class="get-zan-dialog__mask2" wx:if="{{brandShow}}" catchtap="cancelBrand"></view>
 <view class="zan-dialog__container2" animation="{{animationData}}" wx:if="{{brandShow}}">

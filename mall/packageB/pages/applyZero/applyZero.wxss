@@ -1856,6 +1856,12 @@ white-space: nowrap;
 .col999{
   color: #999 !important;
 }
+.seed_font{
+  font-size:24rpx;
+  color:rgba(153,153,153,1);
+  margin-left: 185rpx;
+  line-height: 46rpx;
+}
 
 
 

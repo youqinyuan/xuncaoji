@@ -362,13 +362,13 @@ page {
 }
 
 .takeout-btn {
-  width: 200rpx;
-  height: 60rpx;
+  width: 140rpx;
+  height: 48rpx;
   background: #ff2644;
   border-radius: 40rpx;
   color: #fff;
   font-size: 24rpx;
-  line-height: 60rpx;
+  line-height: 48rpx;
   text-align: center;
 }
 

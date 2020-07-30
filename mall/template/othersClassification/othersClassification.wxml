@@ -13,25 +13,25 @@
       </swiper>
     </view>
     <view class="platform">
-      <view class="platform-list">
+      <view class="platform-list magtop">
         <view class="platform-list-item">
-          <image class="platform-list-img" src="{{hostUrl}}/supplement/index_protect_shouhou_icon.png"></image>
-          <text class="platform-text">源头直采</text>
+          <!-- <image class="platform-list-img" src="{{hostUrl}}/supplement/index_protect_shouhou_icon.png"></image>
+          <text class="platform-text">源头直采</text> -->
         </view>
         <view class="platform-list-item">
-          <image class="platform-list-img" src="{{hostUrl}}/supplement/zhengpin.png"></image>
-          <text class="platform-text">正品保证</text>
+          <!-- <image class="platform-list-img" src="{{hostUrl}}/supplement/zhengpin.png"></image>
+          <text class="platform-text">正品保证</text> -->
         </view>
         <view class="platform-list-item">
-          <image class="platform-list-img" src="{{hostUrl}}/supplement/index_protect_renzheng_icon.png"></image>
-          <text class="platform-text">假一赔十</text>
+          <!-- <image class="platform-list-img" src="{{hostUrl}}/supplement/index_protect_renzheng_icon.png"></image>
+          <text class="platform-text">假一赔十</text> -->
         </view>
         <view class="platform-list-item">
-          <image class="platform-list-img" src="{{hostUrl}}/supplement/index_protect_changj_icon.png"></image>
-          <text class="platform-text">全场一折购</text>
+          <!-- <image class="platform-list-img" src="{{hostUrl}}/supplement/index_protect_changj_icon.png"></image>
+          <text class="platform-text">全场一折购</text> -->
         </view>
       </view>
-      <image src="{{hostUrl}}/twoSix/border.png" class="borderB" />
+      <!-- <image src="{{hostUrl}}/twoSix/border.png" class="borderB" /> -->
     </view>
     <!--二级分类-->
     <view class="two-classification-wrapper" wx:if="{{classfy.length>0}}">

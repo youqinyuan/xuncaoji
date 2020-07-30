@@ -578,11 +578,17 @@ button::after {
 }
 
 .brand-title {
-  margin-left: 26rpx;
+  margin: 0 26rpx;
   height: 86rpx;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   color: #fff;
+}
+
+.brandZ {
+  display: flex;
+  align-items: center;
 }
 
 .brandBig {
@@ -594,6 +600,11 @@ button::after {
 .brandSmall {
   margin-left: 16rpx;
   font-size: 20rpx;
+}
+
+.brandAll {
+  width: 140rpx;
+  height: 48rpx;
 }
 
 .brand-list {
@@ -798,12 +809,18 @@ button::after {
 }
 
 @keyframes back {
-  from {
+  0% {
     transform: rotateY(0deg);
   }
 
-  to {
-    transform: rotateY(360deg);
+  50% {
+    transform: rotateY(90deg);
+  }
+  50%{
+    transform: rotateY(90deg);
+  }
+  100%{
+    transform: rotateY(0deg);
   }
 }
 
@@ -819,8 +836,4 @@ button::after {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-}
-
-.exProducts-not{
-  
 }

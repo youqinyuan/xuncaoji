@@ -4,7 +4,7 @@
 </view>
 <view class="success_text">感谢您助我一臂之力，成功帮我提前{{period}}期！</view>
 <view class="button_box">
-    <view class="button_one" bindtap="toHelpOther">再去帮助他人</view>
+    <view class="button_two" bindtap="toHelpOther">再去帮助他人</view>
 </view>
 <view class="button_box1">
     <view class="button_two" bindtap="toReturn">去待返订单看看</view>

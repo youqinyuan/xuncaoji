@@ -351,13 +351,20 @@ page {
 .expressfee-price1 {
   font-size: 28rpx !important;
 }
-
-.expressfee-price1-text {
-  color: #666;
+.expressfee-price2 {
+  font-size: 40rpx !important;
 }
 
+.expressfee-price1-text {
+  color: #FF2644;
+  font-size: 36rpx !important;
+}
+.magbto30{
+  padding-bottom: 20rpx;
+}
 .expressfee-money {
-  color: #666;
+  color: #FF2644;
+  font-size: 36rpx !important;
 }
 
 .expressfee-period {
@@ -380,6 +387,7 @@ page {
   display: flex;
   margin-left: 30rpx;
   align-items: center;
+  justify-content: space-between;
 }
 
 .yearRat-num {
@@ -387,9 +395,23 @@ page {
   font-family: PingFang SC;
   font-weight: bold;
   color: #ff2644;
-  margin-left: 15rpx;
+  margin-right: 29rpx;
 }
-
+.red{
+  font-weight:bold;
+  color:rgba(255,38,68,1);
+}
+.mag145{
+  margin-left: 353rpx;
+}
+.matop3{
+  margin-top: 3rpx;
+}
+.xiahua{
+  font-size:24rpx;
+  text-decoration:underline;
+  color:rgba(183,144,91,1);
+}
 .yearRat-item {
   margin-right: 30rpx;
   color: #b7905b;

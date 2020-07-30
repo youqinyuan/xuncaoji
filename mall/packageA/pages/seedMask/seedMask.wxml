@@ -46,6 +46,7 @@
 <view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus}}">
   <view class="content-wrapper1">
     <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+        <view class="shareCommission">你喜欢那就分享给你朋友吧！</view>
     <view class="share-wrap">
       <button class="share-button" id='btn' open-type="share">
         <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>

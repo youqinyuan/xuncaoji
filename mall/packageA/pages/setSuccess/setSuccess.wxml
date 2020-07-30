@@ -2,9 +2,9 @@
 <view class="img_box">
     <image src="{{hostUrl}}/changeImg/success.png" class="success_img" />
 </view>
-<view class="success_text">提期发起成功，快邀请好友帮你提期呗</view>
+<view class="success_text">支付成功，快邀请好友帮你提期呗</view>
 <view class="button_box">
-    <view class="button_one" bindtap="fabu">发布帖子</view>
+    <view class="button_two" bindtap="fabu">发布帖子</view>
 </view>
 <view class="tishi">不发帖自己或朋友帮提：1元顶{{multiple}}元</view>
 <view class="button_box1 matop30">

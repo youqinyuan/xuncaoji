@@ -37,7 +37,7 @@ Page({
     display: '',
     type: null,
     remarks: '',
-    seedShow: true,
+    seedShow: false,
     shoppingAmountShow: true,
     seedDetailShow: false,
     hostUrl: app.Util.getUrlImg().hostUrl,

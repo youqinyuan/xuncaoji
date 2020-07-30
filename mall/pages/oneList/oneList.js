@@ -9,7 +9,7 @@ Page({
     tempId: '',
     brandShow: false,
     fixed: 1,
-    list: [],
+    list: {},
     color: "#FF2644",
     color1: "black",
     color2: "black",
@@ -64,7 +64,8 @@ Page({
         sortBy: that.data.sortBy,
         categoryId: id,
         pageNumber: that.data.pageNumber,
-        pageSize: that.data.pageSize
+        pageSize: that.data.pageSize,
+        type:that.data.type
       }
     } else {
       var data = {
@@ -83,8 +84,15 @@ Page({
         that.setData({
           list: res.data.content.items
         })
+        if(0<res.data.content.items.length&&res.data.content.items.length<=2){
+          that.setData({
+            textToast1: '已到底，去【寻商品】提交吧'
+          })
+        }
         that.getHeight1();
-        that.pinPai();
+        if(that.data.type!==2){
+          that.pinPai();
+        }
       }
     })
     //一级分类轮播图
@@ -181,7 +189,8 @@ Page({
           sortBy: that.data.sortBy,
           categoryId: id,
           pageNumber: pageNumber,
-          pageSize: that.data.pageSize
+          pageSize: that.data.pageSize,
+          type: that.data.type
         }
       } else {
         var data = {
@@ -199,7 +208,8 @@ Page({
           sortBy: that.data.sortBy,
           sortFlag: that.data.sortFlag,
           pageNumber: pageNumber,
-          pageSize: that.data.pageSize
+          pageSize: that.data.pageSize,
+          type: that.data.type
         }
       } else {
         var data = {
@@ -218,7 +228,8 @@ Page({
           sortBy: that.data.sortBy,
           sortFlag: that.data.sortFlag,
           pageNumber: pageNumber,
-          pageSize: that.data.pageSize
+          pageSize: that.data.pageSize,
+          type: that.data.type
         }
       } else {
         var data = {
@@ -336,7 +347,8 @@ Page({
         sortBy: that.data.sortBy,
         categoryId: id,
         pageNumber: that.data.pageNumber,
-        pageSize: that.data.pageSize
+        pageSize: that.data.pageSize,
+        type: that.data.type
       }
     } else {
       var data = {
@@ -390,7 +402,8 @@ Page({
           sortBy: that.data.sortBy,
           sortFlag: that.data.sortFlag,
           pageNumber: that.data.pageNumber,
-          pageSize: that.data.pageSize
+          pageSize: that.data.pageSize,
+          type: that.data.type
         }
       } else {
         var data = {
@@ -434,7 +447,8 @@ Page({
           sortBy: that.data.sortBy,
           sortFlag: that.data.sortFlag,
           pageNumber: that.data.pageNumber,
-          pageSize: that.data.pageSize
+          pageSize: that.data.pageSize,
+          type: that.data.type
         }
       } else {
         var data = {
@@ -489,7 +503,8 @@ Page({
           sortBy: that.data.sortBy,
           sortFlag: that.data.sortFlag,
           pageNumber: that.data.pageNumber,
-          pageSize: that.data.pageSize
+          pageSize: that.data.pageSize,
+          type: that.data.type
         }
       } else {
         var data = {
@@ -534,7 +549,8 @@ Page({
           sortBy: that.data.sortBy,
           sortFlag: that.data.sortFlag,
           pageNumber: that.data.pageNumber,
-          pageSize: that.data.pageSize
+          pageSize: that.data.pageSize,
+          type: that.data.type
         }
       } else {
         var data = {

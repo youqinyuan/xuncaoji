@@ -4,6 +4,7 @@
   <view class="expires">
     <image wx:if="{{!expireTime}}" src="{{hostUrl}}/twoSix/not_vip_card.png"></image>
     <image wx:else src="{{hostUrl}}/twoSix/vip_card.png"></image>
+    <view class="expires-text1" wx:if="{{!expireTime}}">您还不是合伙人</view>
     <view class="expires-text" wx:if="{{expireTime}}">
       <view class="expires-top">合伙人到期日</view>
       <view class="expires-date">

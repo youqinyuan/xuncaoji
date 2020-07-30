@@ -1,7 +1,7 @@
 <!-- pages/seed/seed.wxml -->
 <import src='/template/goodsList/goodsList' />
 <view class="seed">
-  <image src="{{hostUrl}}/seed/pic.png" class="bg_img" />
+  <image src="{{hostUrl}}/twoSix/seed_bg.png" class="bg_img" />
   <view class="view_energy">
     <block wx:for="{{myList}}" wx:for-index="idx" wx:for-item="itm" wx:key='idx'>
       <block wx:if="{{itm.realItem}}">

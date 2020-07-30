@@ -144,7 +144,7 @@
       <view class="discount_d_price">-<text style="font-size:24rpx;margin-top:3rpx;">￥</text>{{orderContent.order.totalDiscount}}</view>
     </view>
   </view>
-  <view style="display:flex;justify-content:flex-end;margin-right:30rpx;margin-top:30rpx;"><view class="takeout-btn" catchtap="jumpMoney" data-storeid = "{{orderContent.order.storeId}}">实付金额明细</view></view>
+  <view style="display:flex;justify-content:flex-end;margin-right:30rpx;margin-top:30rpx;"><view class="takeout-btn" catchtap="jumpMoney" data-storeid = "{{orderContent.order.storeId}}">支付明细</view></view>
   <view class="takeout-block"></view>
 
   <!-- 按钮 -->

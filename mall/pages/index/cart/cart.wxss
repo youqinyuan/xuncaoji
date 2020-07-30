@@ -112,6 +112,7 @@ page {
   position: relative;
   margin-right: 10rpx;
   background: rgb(255, 255, 255);
+  border-radius:8rpx; 
 }
 
 .container_cart{
@@ -463,6 +464,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   background: rgba(0, 0, 0, 0.6);
   z-index: 2;
   position: absolute;
+  border-radius: 8rpx;
 }
 
 .againCalculate-wrap {

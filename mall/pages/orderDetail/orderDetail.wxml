@@ -280,6 +280,19 @@
               <text class="expressfee-price1">{{item.purchaseTotalPrice}}</text>
             </view>
           </view>
+          <view class="expressfee" wx:if="{{item.purchaseTotalPrice==null&&item.cashBack}}">
+            <view class="expressfee-text">返现明细</view>
+            <view class="expressfee-price" wx:if="{{item.period==0}}">
+              <text>立即返现</text>
+              <text>￥</text>
+              <text class="expressfee-price1">{{item.cashBack}}</text>
+            </view>
+              <view class="expressfee-price" wx:if="{{item.period!==0}}">
+              <text>{{item.period}}月返现</text>
+              <text>￥</text>
+              <text class="expressfee-price1">{{item.cashBack}}</text>
+            </view>
+          </view>
           <view class="expressfee" wx:if="{{item.purchaseTotalPrice&&content.orderSource!==2&&item.discountPrice>0}}">
             <view class="expressfee-text">优惠合计金额</view>
             <view class="expressfee-price">
@@ -287,10 +300,10 @@
               <text class="expressfee-price1">{{item.discountPrice}}</text>
             </view>
           </view>
-          <view class="expressfee" wx:if="{{item.purchaseTotalPrice&&content.orderSource!==2}}">
+          <view class="expressfee magbto30" wx:if="{{item.purchaseTotalPrice&&content.orderSource!==2}}">
             <view class="expressfee-text">实际支付金额</view>
             <view class="expressfee-price">
-              <text class="expressfee-price1"><text class="expressfee-price1-text">￥</text>{{item.payAmount1}}</text>
+              <text class="expressfee-price2 red"><text class="expressfee-price1-text">￥</text>{{item.payAmount1}}</text>
             </view>
           </view>
           <!-- <view class="expressfee_zeroRemind" wx:if="{{item.purchaseTotalPrice&&content.orderSource!==2}}">
@@ -303,21 +316,21 @@
             <view class="yearRat" wx:if="{{item.purchaseTotalPrice&&item.annualizedRate}}">
               <view class="yearRat-wrap">
                 <view class="yearRat-text">年化收益率</view>
-                <view class="yearRat-num">{{item.annualizedRate}}%</view>
               </view>
-              <view class="yearRat-item" catchtap="showDetails">详情查看</view>
+              <view class="yearRat-num mag145 matop3">{{item.annualizedRate}}%</view>
+              <view class="yearRat-item xiahua" catchtap="showDetails">详情></view>
             </view>
-            <view class="yearRat" wx:if="{{item.period}}">
+            <view class="yearRat" wx:if="{{item.purchaseTotalPrice&&item.period}}">
               <view class="yearRat-wrap">
                 <view class="yearRat-text">总计返现</view>
-                <view class="yearRat-num" wx:if="{{item.purchaseTotalPrice}}">￥{{item.cashBack}}-{{item.period}}{{newPeopleActivity==1?'期(月)':'天'}}</view>
               </view>
+              <view class="yearRat-num" wx:if="{{item.purchaseTotalPrice}}">￥{{item.cashBack}}-{{item.period}}{{newPeopleActivity==1?'期(月)':'天'}}</view>
             </view>
-            <view class="yearRat" wx:if="{{item.purchaseTotalPrice&&item.orderGoodsCashBackItem.length>0}}">
+            <view class="yearRat magbto30" wx:if="{{item.purchaseTotalPrice&&item.orderGoodsCashBackItem.length>0}}">
               <view class="yearRat-wrap">
                 <view class="yearRat-text">每月返现金额</view>
-                <view class="yearRat-num">￥{{item.orderGoodsCashBackItem[0].amount}}</view>
               </view>
+                  <view class="yearRat-num">￥{{item.orderGoodsCashBackItem[0].amount}}</view>
             </view>
           </view>
         </view>

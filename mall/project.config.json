@@ -92,8 +92,8 @@
 				},
 				{
 					"id": 5,
-					"name": "pages/index/cart/cart",
-					"pathName": "pages/index/cart/cart",
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
 					"query": "",
 					"scene": null
 				},
@@ -634,6 +634,76 @@
 					"name": "pages/sponsor/sponsor",
 					"pathName": "pages/sponsor/sponsor",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/sponsor/sponsor",
+					"pathName": "pages/sponsor/sponsor",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "/packageA/pages/shareMentionPeriod/shareMentionPeriod",
+					"pathName": "/packageA/pages/shareMentionPeriod/shareMentionPeriod",
+					"query": "id=2798&inviterCode={inviterCode}",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "/packageA/pages/shareMentionPeriod/shareMentionPeriod",
+					"pathName": "packageA/pages/shareMentionPeriod/shareMentionPeriod",
+					"query": "id=2798&inviterCode={inviterCode}",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/sponsor/sponsor",
+					"pathName": "pages/sponsor/sponsor",
+					"query": "id=2798&inviterCode={inviterCode}",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/sponsor/sponsor",
+					"pathName": "pages/sponsor/sponsor",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/setSuccess/setSuccess",
+					"pathName": "packageA/pages/setSuccess/setSuccess",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/setSuccess/setSuccess",
+					"pathName": "packageA/pages/setSuccess/setSuccess",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/helpSuccess/helpSuccess",
+					"pathName": "packageA/pages/helpSuccess/helpSuccess",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/takeoutStore/takeoutStore",
+					"pathName": "packageA/pages/takeoutStore/takeoutStore",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/oneList/oneList",
+					"pathName": "pages/oneList/oneList",
+					"query": "id=173",
 					"scene": null
 				}
 			]

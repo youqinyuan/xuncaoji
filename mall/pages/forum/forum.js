@@ -327,6 +327,10 @@ Page({
       if (wx.getStorageSync('token')) {
         that.floatAndPop()
       }
+          //新消息总数
+    if (wx.getStorageSync('token')) {
+      that.getMessage();
+    }
   },
   floatAndPop:function(){
     var that = this

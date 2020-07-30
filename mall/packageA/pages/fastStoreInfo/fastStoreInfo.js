@@ -133,6 +133,11 @@ Page({
         title:'请身份证号码',
         icon:'none'
       })
+    }else if(e.detail.value.number.length<18){
+      wx.showToast({
+        title:'请填写正确的身份证号码',
+        icon:'none'
+      })
     }else if(that.data.businessId==''&&that.data.options.businessId==''&&that.data.moveData.businessId==''){
       wx.showToast({
         title:'请选择行业',

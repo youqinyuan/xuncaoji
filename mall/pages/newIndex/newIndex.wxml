@@ -128,6 +128,25 @@
     <image src="{{item.iconUrl}}" class="mokuai_img" bindtap="navigatePage" data-storeType="{{item.paramExt}}" data-id="{{item.id}}" />
   </block>
 </view>
+<!-- 品牌专区 -->
+<view class="mokuai_title">品牌一折</view>
+<view class="brand-area">
+    <image src="{{hostUrl}}/twoSix/brand_bg.png" class="brand-image" />
+    <view style="position: absolute;top: 0;">
+      <view class="brand-title">
+       <view class="brandZ">
+         <view class="brandBig">品牌专区</view>
+        <view class="brandSmall">星级大牌 让利折扣</view>
+       </view>
+        <image src="/assets/images/mine/watchAll.png" class="brandAll" bindtap="jumpClassify">查看全部</image>
+      </view>
+      <view class="brand-list">
+        <view class='{{frameClass1}}' wx:for="{{content10}}" wx:key="" catchtap="jumpBrand" data-id="{{item.id}}" data-type="{{item.type}}" data-name="{{item.name}}" data-posterimage="{{item.posterImageUrl}}">
+          <image src="{{item.iconUrl}}" class="pinpaiImg" />
+        </view>
+      </view>
+    </view>
+  </view>
 <view style="height:61rpx;"></view>
 <!-- 公告弹窗 -->
 <view class="show-showNotice" wx:if="{{showNotice}}">

@@ -23,7 +23,7 @@ page{
 }
 .top{
     height: 158rpx;
-    border-bottom: #E7E7E7 solid 1rpx;
+    border-bottom: #E7E7E7 solid 0.5px;
 }
 .top_left{
     display: inline-block;
@@ -85,7 +85,7 @@ page{
     width:172rpx;
     height:60rpx;
     background:rgba(255,255,255,1);
-    border:1rpx solid #999;
+    border:0.5px solid #999;
     border-radius:40rpx;
     text-align: center;
     line-height: 60rpx;
@@ -160,7 +160,7 @@ page{
   .interest-zan-dialog__mask .table {
     width: 500rpx;
     margin: 0 auto;
-    border: 1rpx solid #dbdbdb;
+    border: 0.5px solid #dbdbdb;
     border-bottom: none;
     border-right: none;
     /* margin-bottom: 20rpx; */
@@ -181,7 +181,7 @@ page{
   .button_one{
     width:240rpx;
     height:76rpx;
-    border:1rpx solid rgba(255,38,68,1);
+    border:0.5px solid rgba(255,38,68,1);
     border-radius:38rpx;
     font-size:32rpx;
     color:rgba(255,38,68,1);
@@ -290,7 +290,7 @@ page{
       .interest-zan-dialog__mask .table {
         width: 500rpx;
         margin: 0 auto;
-        border: 1rpx solid #ddd;
+        border: 0.5px solid #ddd;
         border-bottom: none;
         border-right: none;
         /* margin-bottom: 20rpx; */

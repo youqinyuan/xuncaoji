@@ -109,7 +109,7 @@ page {
   top: 391rpx;
   left: 112rpx;
   font-size: 22rpx;
-  color: #fff;
+  color: #666;
   width: 526rpx;
 }
 

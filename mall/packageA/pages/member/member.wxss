@@ -20,16 +20,16 @@ page {
 
 .expires-text {
   position: absolute;
-  top: 68rpx;
-  left: 84rpx;
+  top: 88rpx;
+  left: 105rpx;
   font-size: 36rpx;
   color: #b7905b;
 }
 
 .expires-text1 {
   position: absolute;
-  top: 95rpx;
-  left: 53rpx;
+  top: 120rpx;
+  left: 105rpx;
   font-size: 36rpx;
   color: rgba(255, 255, 255, 1);
 }

@@ -20,7 +20,7 @@ Page({
     getWayTime: '',
     appointment: [],
     shoppingAmountShow: true, //是否使用购物金
-    useSeed: true, //是否使用种子
+    useSeed: false, //是否使用种子
     monthInput: '请输入分期数',
     tempStatus: 1,
     tempTitle: '选择支付方式',
