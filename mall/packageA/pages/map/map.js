@@ -1,4 +1,4 @@
-var QQMapWX = require('../qqmap-wx-jssdk1.2/qqmap-wx-jssdk.min.js');
+let QQMapWX = require('../../../utils/qqmap-wx-jssdk1.2/qqmap-wx-jssdk.min.js');
 const app = getApp()
 var qqmapsdk;
 Page({
@@ -44,8 +44,8 @@ Page({
       type: 'gcj02',
       success(res) {
         //console.log(res)
-        const latitude = res.latitude
-        const longitude = res.longitude
+        const latitude = res.latitude.toFixed(6)
+        const longitude = res.longitude.toFixed(6)
         const speed = res.speed
         const accuracy = res.accuracy
         //你地址解析
@@ -95,8 +95,8 @@ Page({
           //console.log(res)
           self.setData({
             nearList:[],
-            latitude: res.latitude,
-            longitude: res.longitude,
+            latitude: res.latitude.toFixed(6),
+            longitude: res.longitude.toFixed(6),
           })
           self.nearby_search();
         }
@@ -517,14 +517,27 @@ Page({
   },
   //确认选择地址
   selectedOk: function () {
-    let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
-    let prevPage = pages[pages.length - 2]; 
-    console.log(this.data)
-    prevPage.setData({
-      centerData: this.data.centerData
-    })
-    wx.navigateBack({
-      delta: 1
-    })
+    if (app.globalData.searchLocation == 0){
+      let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
+      let prevPage = pages[pages.length - 2];
+      console.log(this.data)
+      prevPage.setData({
+        centerData: this.data.centerData
+      })
+      wx.navigateBack({
+        delta: 1
+      })
+    } else if (app.globalData.searchLocation == 1){
+      let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
+      let prevPage = pages[pages.length - 3];
+      console.log(this.data)
+      prevPage.setData({
+        nearList: this.data.centerData
+      })
+      wx.navigateBack({
+        delta: 2
+      })
+      
+    }    
   }
 })

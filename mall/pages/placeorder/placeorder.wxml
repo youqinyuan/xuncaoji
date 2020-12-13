@@ -80,7 +80,7 @@
         </view>
       </view>
 
-      <view class="content-cashBack-wrap" wx:if="{{!item.orderGoods.purchaseTotalPrice && !options.type}}">
+      <view class="content-cashBack-wrap" wx:if="{{!item.orderGoods.purchaseTotalPrice && !options.type&&item.orderGoods.cashBack>0}}">
         <view class="content-cashBack">
           <image src="{{hostUrl}}/icon/youhui_bqian.png"></image>
           <view class="content-cashBack-text">
@@ -144,7 +144,7 @@
         </view>
         <view class="new_default_shuoming2 martop">年化率会随剩余期数变化不断降低，建议及时关注并重新发布</view>
       </view>
-      <view style="background: #fff;margin-top:21rpx;" wx:if="{{isShowBook==2&&!getOrder&&yizhe&&cardIds.length==0}}">
+      <view style="background: #fff;margin-top:21rpx;" wx:if="{{isShowBook==2&&!getOrder&&yizhe&&cardIds.length==0&&!orderGoodsInstallmentList}}">
         <view class="two_title">三、不想预售：</view>
         <view class="the_bottom_box">
           <view class="the_bottom_one">
@@ -377,7 +377,15 @@
         <image src="{{hostUrl}}/sponsor/rchoose_icon.png" class="choose_img2" wx:else/>
       </view>
     </view>
-    <view style="background: #fff;margin-top:21rpx;" wx:if="{{buyMode==2&&cardIds.length==0&&yushou}}">
+    <view class="stagesPeriod" wx:if="{{orderGoodsInstallmentList}}">
+        <view class="youhui_info_title">分期信息-分{{orderGoodsInstallmentList.length}}期</view>
+      <view class="friend_sponsor" wx:for="{{orderGoodsInstallmentList}}" wx:key="">
+        <view class="friend_sponsor_left">{{item.payTime}} 支付</view>
+        <view class="friend_sponsor_right">
+          <text>￥</text>{{item.amount}} {{index==0?' (即将支付)':''}}</view>
+      </view>
+    </view>
+    <view style="background: #fff;margin-top:21rpx;" wx:if="{{buyMode==2&&cardIds.length==0&&yushou&&!orderGoodsInstallmentList}}">
       <view class="two_title">不想进行下一步：</view>
       <view class="the_bottom_box">
         <view class="the_bottom_one">
@@ -391,7 +399,7 @@
         </view>
       </view>
     </view>
-    <view style="background: #fff;margin-top:21rpx;" wx:if="{{buyMode==2&&cardIds.length>0}}">
+    <view style="background: #fff;margin-top:21rpx;" wx:if="{{buyMode==2&&cardIds.length>0&&!orderGoodsInstallmentList}}">
       <view class="two_title">不想进行下一步：</view>
       <view class="the_bottom_box heigh100">
         <view class="the_bottom_one">

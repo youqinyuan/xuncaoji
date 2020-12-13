@@ -33,7 +33,7 @@
     </view>
   </view>
   <view class="pre_sell" wx:if="{{whetherAdvanceSale==1&&defaultAmountStatus==2}}">此订单未正常支付，返现日将延迟</view>
-  <view class="stopzero" catchtap="stopZero" data-ordergoodsid="{{itemName.id}}" disabled="{{itemName.isStop==1?true:false}}" wx:if="{{itemName.orderGoodsCashBackItem.length!==0&&latestStatus!==1&&latestStatus!==7&&latestStatus!==9&&latestStatus!==10&&latestStatus!==12&&from!==2&&whetherAdvanceSale==2}}">
+  <view class="stopzero" catchtap="stopZero" data-ordergoodsid="{{itemName.id}}" disabled="{{itemName.isStop==1?true:false}}" wx:if="{{itemName.orderGoodsCashBackItem.length!==0&&itemName.purchaseTotalPrice&&latestStatus!==1&&latestStatus!==7&&latestStatus!==9&&latestStatus!==10&&latestStatus!==12&&from!==2&&whetherAdvanceSale==2}}">
     {{itemName.isStop==1?'已终止一折购':'撤销一折购'}}</view>
   <!-- 返现明细 -->
   <view class="cashback-amount" wx:if="{{itemName.cashBack && itemName.period !==0}}">共分{{itemName.orderGoodsCashBackItem.length}}期，已返现{{itemName.returnedPeriod}}期，{{itemName.mentionedPeriods>0?'已提'+itemName.mentionedPeriods+'期，':''}}剩余返现金额为￥{{itemName.remainingCashReturn}}</view>
@@ -258,7 +258,7 @@
     </view>
   </view>
   <view class="pre_sell" wx:if="{{whetherAdvanceSale==1&&defaultAmountStatus==2}}">此订单未正常支付，返现日将延迟</view>
-  <view class="stopzero" catchtap="stopZero" data-ordergoodsid="{{item.id}}"  wx:if="{{item.orderGoodsCashBackItem.length!==0&&latestStatus!==1&&latestStatus!==7&&latestStatus!==9&&latestStatus!==10&&latestStatus!==12&&!from&&whetherAdvanceSale==2}}">
+  <view class="stopzero" catchtap="stopZero" data-ordergoodsid="{{item.id}}"  wx:if="{{item.orderGoodsCashBackItem.length!==0&&item.purchaseTotalPrice&&latestStatus!==1&&latestStatus!==7&&latestStatus!==9&&latestStatus!==10&&latestStatus!==12&&!from&&whetherAdvanceSale==2}}">
     {{item.isStop==1?'已终止一折购':'撤销一折购'}}</view>
   <!-- 返现明细 -->
   <view class="cashback-amount">共分{{item.orderGoodsCashBackItem[0].periodCount}}天返现，已返现{{item.returnedPeriod}}天{{item.orderGoodsCashBackItem[0].cashBackAmount}}元，剩余返现金额为{{item.remainingCashReturn}}元</view>
@@ -296,13 +296,21 @@
 
 
 <view class="bg10" wx:if="{{seedToast}}">
-  <view class="content10">
+  <view class="content10" wx:if="{{seedAmountConsume>0}}">
     <view class="title10">确定撤销一折购吗</view>
     <view class="text_one10">撤销后将退您：{{refundAmount}}元，并将扣除您{{seedAmountConsume}}颗种子！</view>
     <view class="text_two10">您的种子数量：{{seedAmountTotal}}颗</view>
     <view class="message10" wx:if="{{seedStatus==2}}">您的种子不足，请先获得足够的种子在进行终止！</view>
     <view class="button_box10">
       <view class="button_one10" bindtap="toSeed">去获得种子</view>
+      <view class="button_two10" bindtap="comfireCancel" data-order="{{allOrder}}" data-latestStatus="{{allOrder.latestStatus}}">确定撤销</view>
+    </view>
+  </view>
+   <view class="content10" wx:else>
+    <view class="title10">确定撤销一折购吗</view>
+    <view class="text_one10">撤销后将退您：{{refundAmount}}元！</view>
+    <view class="button_box10">
+      <view class="button_one10" bindtap="cancle">取消</view>
       <view class="button_two10" bindtap="comfireCancel" data-order="{{allOrder}}" data-latestStatus="{{allOrder.latestStatus}}">确定撤销</view>
     </view>
   </view>

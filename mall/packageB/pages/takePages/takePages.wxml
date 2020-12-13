@@ -1,0 +1,149 @@
+<!--packageB/pages/takePages/takePages.wxml-->
+<view class="wrap_top">
+  <view class="tp-message">
+    <view class="goodsName1">潮祥记 · 海鲜粥潮祥记 · 海鲜粥潮祥记 · 海鲜粥</view>
+    <view class="items">
+      <view class="img_wrap">
+        <image src="{{item.logoUrl}}"></image>
+      </view>
+      <view class="goodsDetail">
+        <view class="goodsBottom">
+          <view class="goodsLeft">
+            <view class="re-storeGrade">
+              <view class='stars' wx:for='{{[1,2,3,4,5]}}' wx:key="{{index}}" wx:for-item='i'>
+                <image src='/assets/images/temp/pingj_xinxin.png' wx:if="{{store.score >= index+1 }}"></image>
+                <image src='/assets/images/temp/pingj_xinxin_l.png' wx:elif="{{store.score >= index && (store.score*10)%10 !=0 }}"></image>
+                <image src='/assets/images/temp/pingj_xinxin_p.png' wx:else></image>
+              </view>
+              <view class="storeText">3.0
+                <text>分</text>
+              </view>
+            </view>
+            <view class="takeoutName">营业时间：07:00-22:00</view>
+            <view class="takeoutName">月售：235</view>
+          </view>
+          <view class="goods-right">
+            <view class="goods-m">{{tempText}}500m</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="tp-middle">
+      <view class="tp-address">武侯区天府三街升华路新希望国际A座</view>
+      <view class="tp-dao">
+        <image src="/assets/images/temp/takepage_location.png"></image>
+        <view class="tp-daotext">导航</view>
+      </view>
+      <view class="tp-dao">
+        <image src="/assets/images/temp/takepage_phone.png"></image>
+        <view class="tp-daotext">电话</view>
+      </view>
+    </view>
+    <view class="tp-btn">
+      <view class="tp-takeout">
+        <image class="tp-takeout-img" src="/assets/images/temp/takepage_out.png"></image>
+        <view class="tp-takeouttext">点外卖</view>
+      </view>
+      <view class="tp-takeout">
+        <image class="tp-takepay-img" src="/assets/images/temp/takepage_pay.png"></image>
+        <view class="tp-takepaytext">到店一折付</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 拼团商品 -->
+<view class="wrap">
+  <view class="tp-title">到店套餐</view>
+  <view class="tp-items">
+    <view class="img_wrap">
+      <image src="{{item.logoUrl}}"></image>
+    </view>
+    <view class="goodsDetail">
+      <view class="goodsName">潮祥记 · 海鲜粥潮祥记 · 海鲜粥潮祥记 · 海鲜粥</view>
+      <view class="goodsBottom">
+        <view class="goodsLeft">
+          <view class="storeGrade">
+            <view class='stars' wx:for='{{[1,2,3,4,5]}}' wx:key="{{index}}" wx:for-item='i'>
+              <image src='/assets/images/temp/pingj_xinxin.png' wx:if="{{store.score >= index+1 }}"></image>
+              <image src='/assets/images/temp/pingj_xinxin_l.png' wx:elif="{{store.score >= index && (store.score*10)%10 !=0 }}"></image>
+              <image src='/assets/images/temp/pingj_xinxin_p.png' wx:else></image>
+            </view>
+            <view class="storeText">3.0
+              <text>分</text>
+            </view>
+          </view>
+          <view class="takeoutT">一折价:
+            <text>￥</text>
+            <text>9.9</text>
+          </view>
+        </view>
+        <view class="goodsBtn">
+          <view class="goods-btn" catchtap="toSetmealDetails">拼团</view>
+          <view class="goods-text">月售：235</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="tp-getmore">查看更多商品></view>
+</view>
+<view class="tp-evaluate">
+  <view class="tp-evaluate-title">
+    <view class="tp-tltle-left">评价</view>
+    <view class="tp-tltle-right">共152条评论</view>
+  </view>
+  <view class="tp-evaluate-content">
+    <view class="tp-evaluate-img">
+      <image src=""></image>
+    </view>
+    <view class="tp-evaluate-right">
+      <view class="tp-evaluate-name">
+        <view>草原土拔鼠</view>
+        <view class="tp-storeGrade">
+          <view class='stars' wx:for='{{[1,2,3,4,5]}}' wx:key="{{index}}" wx:for-item='i'>
+            <image src='/assets/images/temp/pingj_xinxin.png' wx:if="{{store.score >= index+1 }}"></image>
+            <image src='/assets/images/temp/pingj_xinxin_l.png' wx:elif="{{store.score >= index && (store.score*10)%10 !=0 }}"></image>
+            <image src='/assets/images/temp/pingj_xinxin_p.png' wx:else></image>
+          </view>
+        </view>
+      </view>
+      <view class="tp-date-spec">
+        <view class="tp-date">2018-12-21 21:22</view>
+        <view class="tp-spec">120抽*12</view>
+      </view>
+      <view class="tp-evaluate-text">这里税评论文字内容说明文字这里，2评论文字内容说明文字这里税评论，文字内容说明文字这里税评1论文字内这里税评论文字内容说明文字这里，2评论文字内容说明文字这里税评论，文字内容说明文字这里税评1论文字内容说明文字这里税评论文字内容说明文字。</view>
+      <scroll-view class="evaluate-list-scroll" scroll-x="true">
+        <view class="evaluate-list-img">
+          <image src=""></image>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  <view class="tp-evaluate-content">
+    <view class="tp-evaluate-img">
+      <image src=""></image>
+    </view>
+    <view class="tp-evaluate-right">
+      <view class="tp-evaluate-name">
+        <view>草原土拔鼠</view>
+        <view class="tp-storeGrade">
+          <view class='stars' wx:for='{{[1,2,3,4,5]}}' wx:key="{{index}}" wx:for-item='i'>
+            <image src='/assets/images/temp/pingj_xinxin.png' wx:if="{{store.score >= index+1 }}"></image>
+            <image src='/assets/images/temp/pingj_xinxin_l.png' wx:elif="{{store.score >= index && (store.score*10)%10 !=0 }}"></image>
+            <image src='/assets/images/temp/pingj_xinxin_p.png' wx:else></image>
+          </view>
+        </view>
+      </view>
+      <view class="tp-date-spec">
+        <view class="tp-date">2018-12-21 21:22</view>
+        <view class="tp-spec">120抽*12</view>
+      </view>
+      <view class="tp-evaluate-text">这里税评论文字内容说明文字这里，2评论文字内容说明文字这里税评论，文字内容说明文字这里税评1论文字内这里税评论文字内容说明文字这里，2评论文字内容说明文字这里税评论，文字内容说明文字这里税评1论文字内容说明文字这里税评论文字内容说明文字。</view>
+      <scroll-view class="evaluate-list-scroll" scroll-x="true">
+        <view class="evaluate-list-img">
+          <image src=""></image>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+   <view class="tp-getmore">查看更多评价></view>
+</view>

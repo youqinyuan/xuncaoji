@@ -1,7 +1,8 @@
 <!--pages/newIndex/newIndex.wxml-->
 <import src='/template/floatingwindow/floatingwindow' />
 <import src='/template/pop-upwindows/pop-upwindows' />
-<view style="height:428rpx;">
+<view style="overflow-x: hidden;">
+  <view style="height:428rpx;">
   <image src="{{hostUrl}}/twoSix/newIndexBg.png" class="newIndexBg" />
   <view class="profit">
 
@@ -66,7 +67,7 @@
 </view>
 <!-- 类别 -->
 <view class="section-swiper">
-  <swiper class="section-wrap" autoplay="{{false}}" circular="{{false}}" interval="5000" indicator-color="#CCCCCC" indicator-active-color="#FF6417" indicator-dots="{{indicatorDots}}" style="height:{{height}}rpx;padding-top:{{paddingTop}}rpx;">
+  <swiper class="section-wrap" autoplay="{{false}}" circular="{{false}}" interval="5000" indicator-color="#CCCCCC" indicator-active-color="#FF2644" indicator-dots="{{indicatorDots}}" style="height:{{height}}rpx;padding-top:{{paddingTop}}rpx;">
     <swiper-item class="section-classify">
       <view class="section-list" wx:for="{{navigationList1}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}" data-storeType="{{item.paramExt}}">
         <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.category==1&&item.param===8}}">
@@ -129,8 +130,8 @@
   </block>
 </view>
 <!-- 品牌专区 -->
-<view class="mokuai_title">品牌一折</view>
-<view class="brand-area">
+<view class="mokuai_title" wx:if="{{content10.length>0}}">品牌一折</view>
+<view class="brand-area" wx:if="{{content10.length>0}}">
     <image src="{{hostUrl}}/twoSix/brand_bg.png" class="brand-image" />
     <view style="position: absolute;top: 0;">
       <view class="brand-title">
@@ -168,12 +169,14 @@
   <image src="{{hostUrl}}/supplement/main.png" class="guideImg" />
   <view class="guideButton" bindtap="toguide">立即查看</view>
 </view>
+</view>
+
 
 
 <!-- 是否能领取红包 -->
 <view class="seedBg" wx:if="{{getSeed.status==1}}" catchtap="getSeed">
   <image src="/assets/images/mine/newIndex_seed.png" class="seedBg-img"></image>
-  <view class="seedBg-title" style="{{showSeed=='马上领'?'bottom: 6rpx;left: 16rpx;font-size: 20rpx;':'bottom: 8rpx;left:10rpx;font-size: 16rpx;'}}">{{showSeed}}</view>
+  <view class="seedBg-title" style="{{showSeed=='马上领'?'bottom: 6rpx;left: 16rpx;font-size: 20rpx;':'bottom: 8rpx;left:12rpx;font-size: 16rpx;'}}">{{showSeed}}</view>
 </view>
    <template  is='floatingwindow' data="{{hostUrl:hostUrl,floatShow:floatShow,floatContent:floatContent}}"
   />

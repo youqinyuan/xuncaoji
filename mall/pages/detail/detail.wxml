@@ -36,6 +36,7 @@
             <text class="newtext2">￥</text>{{newPeopleActivity==2?detail.activityPrice:detail.discountPrice?detail.discountPrice:0}}
             <text class="price-cash">起</text>
           </view>
+           <view class="orgPrice">￥{{detail.orgPrice}}</view>
         </view>
       </view>
       <view class="new-price1" wx:if="{{stages}}">
@@ -45,6 +46,7 @@
             <text class="newtext2">￥</text>{{newPeopleActivity==2?detail.activityPrice:detail.discountPrice?detail.discountPrice:0}}
             <text class="price-cash">起</text>
           </view>
+           <view class="orgPrice">￥{{detail.orgPrice}}</view>
         </view>
       </view>
       <view class="new-price1" wx:if="{{commodity}}">
@@ -54,12 +56,10 @@
             <text class="newtext2">￥</text>{{newPeopleActivity==2?detail.activityPrice:detail.discountPrice?detail.discountPrice:0}}
             <text class="price-cash">起</text>
           </view>
+          <view class="orgPrice">￥{{detail.orgPrice}}</view>
         </view>
       </view>
       <view class="old-price">原价 ￥{{detail.dctPrice || 0}}</view>
-      <view class="rush">
-        已抢{{detail.grabbed || 0}}件
-      </view>
     </view>
     <!--商品名称-->
     <view class="goods-title">
@@ -109,10 +109,15 @@
       </view>
     </view>
     <view class="block1"></view>
-    <view class="express-wrap">
-      <view class="expressPay">快递</view>
-      <view class="express" wx:if="{{detail.expressFee == 0||buyType==2}}">包邮</view>
-      <view class="express" wx:else>￥{{detail.expressFee || 0}}</view>
+    <view class="stock">
+      <view class="stock-left">
+        <text >快递</text>
+        <text wx:if="{{detail.expressFee == 0||buyType==2}}">包邮</text>
+        <text wx:else>￥{{detail.expressFee || 0}}</text>
+      </view>
+      <view class="stock-right1">
+       <view class="stock-right-text">已抢{{detail.grabbed || 0}}件</view>        
+      </view>
     </view>
     <!-- <view class="content-cashBack1" wx:if="{{!stages&&newPeopleActivity==1}}">
       <image src="{{hostUrl}}/icon/youhui_bqian.png"></image>
@@ -214,7 +219,7 @@
   </view> -->
   </view>
   <!-- 赚钱购 -->
-  <view class="getMoney-wrap">
+  <!-- <view class="getMoney-wrap">
     <view class="getMoney-top">
       <view class="getMoney-left">
         <view class="getGoods">预售商品赚钱</view>
@@ -230,7 +235,7 @@
         <swiper-item>
           <view class="getMoney-swiper_item" wx:for="{{allPost1}}" wx:key="{{item.id}}">
             <image class="getMoneyPhoto" wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-            <image class="getMoneyPhoto" wx:else src="/assets/images/mine/other_ren.png"></image>
+            <image class="getMoneyPhoto" wx:else src="{{hostUrl}}/flashPay/other_ren.png"></image>
             <view class="getMoney-middle">
               <view class="getName">
                 <text>{{item.nickname}}</text>
@@ -268,6 +273,11 @@
       <view class="notGetMoney-text">你可以不要商品，一折购买商品并卖出赚钱</view>
       <view class="notGetMoney-btn" catchtap="goShowOrder">发布预售商品</view>
     </view>
+  </view> -->
+  <view class="yushou_box">
+    <image src="{{hostUrl}}/flashPay/banner.png" class="banner_img" />
+    <image  src="{{hostUrl}}/flashPay/wenhao.png" class="wenhao_img" catchtap="getIntoMoney"/>
+    <image  src="{{hostUrl}}/flashPay/botton.png" class="botton_img" bindtap="getIntoGetMoney"/>
   </view>
   <view class="saveMoney-top">
     <view class="saveMoney-left">
@@ -280,6 +290,16 @@
       <view class="saveMoney-right-text">点击进入</view>
       <image class="saveMoney-right-img" src="{{hostUrl}}/icon/xiangqing_more_n.png"></image>
     </view>
+  </view>
+    <view class="detail_banner_box" wx:if="{{installmentPayment==1}}">
+     <image src="/assets/images/temp/detail_banner.png" class="detail_banner_img"/>
+     <view class="detail_banner_content">
+        <view class="text">
+          <image src="/assets/images/temp/ic.png"/>
+          <view>短期购买，金额太大，买不起？</view>
+        </view>
+        <view class="stages_button" bindtap="toApplyStages">一折购分期付</view>
+     </view>
   </view>
   <!--详情图-->
   <view class="shop-detail-wrap" wx:for="{{introductions}}" wx:key="">
@@ -433,12 +453,11 @@
     <!-- 申请0元购 -->
     <view class="application-wrap" wx:if="{{!commodity&&newPeopleActivity!==2}}">
       <view class="application-zero_box" wx:if="{{zero==true&&stockDetail1.supportCount!==0}}">
-        <view class="sponsor" bindtap="toSponsorDetail" data-sponsorid="{{stockDetail1.auspicesItem.applyId}}" wx:if="{{stockDetail1.auspicesItem.status=='COMPLETE'&&buyType==1}}">赞助已完成</view>
-        <view class="sponsor" bindtap="toSponsorDetail" data-sponsorid="{{stockDetail1.auspicesItem.applyId}}" wx:if="{{stockDetail1.auspicesItem.status=='PROCESS'&&buyType==1}}">赞助进行中</view>
-        <view class="sponsor" bindtap="toSponsor" data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" data-supportCount="{{stockDetail1.supportCount}}" wx:if="{{stockDetail1.auspicesItem.status=='NO'&&buyType==1}}">好友赞助，减钱
-          <!-- <text>￥</text>{{stockDetail1.auspicesItem.savedAmount}}-->
-        </view>
-        <view class="application-zero" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}">下一步</view>
+        <view class="sponsor" bindtap="toSponsorDetail" data-sponsorid="{{stockDetail1.auspicesItem.applyId}}" wx:if="{{stockDetail1.auspicesItem.status=='COMPLETE'&&buyType==1&&applyStage==2}}">赞助已完成</view>
+        <view class="sponsor" bindtap="toSponsorDetail" data-sponsorid="{{stockDetail1.auspicesItem.applyId}}" wx:if="{{stockDetail1.auspicesItem.status=='PROCESS'&&buyType==1&&applyStage==2}}">赞助进行中</view>
+        <view class="sponsor" bindtap="toSponsor" data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" data-supportCount="{{stockDetail1.supportCount}}" wx:if="{{stockDetail1.auspicesItem.status=='NO'&&buyType==1&&applyStage==2}}">好友赞助，减钱</view>
+        <view class="application-zero" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" wx:if="{{applyStage==2}}">下一步</view>
+        <view class="application-zero1" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" wx:if="{{applyStage==1}}">下一步</view>
       </view>
       <view class="application-zero2" bindtap='applyZeroBuy' data-quantity="{{num}}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" data-price="{{detail.dctPrice}}" wx:if="{{zero==true&&stockDetail1.supportCount==0}}">下一步</view>
     </view>
@@ -738,6 +757,6 @@
   <view class="showOrderBlock"></view>
 </view>
 <view class="all10" bindtap="toIndex" wx:if="{{xiajia}}">
-<image src="/assets/images/mine/shixiao.png" class="shixiao10"></image>
-<view class="text10">商品已失效，轻触屏幕回到首页</view>
+  <image src="{{hostUrl}}/flashPay/shixiao.png" class="shixiao10"></image>
+  <view class="text10">商品已失效，轻触屏幕回到首页</view>
 </view>

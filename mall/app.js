@@ -39,6 +39,7 @@ App({
     freeBuyYinDao:2, //0成本购引导 1-开启 2-关闭
     location:0,//0-没点收货地址 1-点了收货地址
     addLocation: 0,//0-没点重新定位 1-点了重新定位 
+    searchLocation: 0,//0-没点搜索位置 1-点了搜索位置 
     seedText:'',//种子充值
     returnMentionPeriodStatus:1,
     takeOut:1
@@ -110,7 +111,8 @@ App({
             authType: 2
           },
           header: {
-            "content-type": 'application/json'
+            "content-type": 'application/json',
+            deviceId:'81c28f8d-fdbd-4a58-9c77-e59f98fa2513'
           },
           success: function(res) {
             if (res.data.content) {

@@ -198,7 +198,7 @@ Page({
   toDetail: function(e) {
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: '/pages/toSponsor/toSponsor?id=' + id
+      url: '/packageB/pages/toSponsor/toSponsor?id=' + id
     })
 
   },

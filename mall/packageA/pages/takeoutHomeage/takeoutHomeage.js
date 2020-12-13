@@ -39,6 +39,10 @@ Page({
     goodsId: null, //商品id
     showModal: false, //清空购物车弹窗
     showCart: false, //购物车
+    showInput: false,
+    inputValue: '',
+    oneShow: false,
+    times: 1
   },
 
   /**
@@ -46,6 +50,12 @@ Page({
    */
   onLoad: function(options) {
     let that = this
+    //是否闪付二维码
+    if(options.quickPass){
+      that.setData({
+        showInput:true
+      })
+    }
     //缓存为去登陆返回加载店铺数据
     if (options.storeId) {
       wx.setStorageSync('takeoutStoreId', parseInt(options.storeId))
@@ -65,7 +75,7 @@ Page({
     if (!options.goodsId) {
       //取消缓存商品id对参数没有商品id时的影响
       wx.removeStorageSync('takeoutGoodsId')
-    }  
+    }
     that.init();
     that.initgetMore();
     that.initStore();
@@ -89,14 +99,15 @@ Page({
   onShow: function() {
     let that = this
     that.setData({
-      pageNumber:1
+      pageNumber: 1
     })
     //查询购物车
     if (wx.getStorageSync('token')) {
       that.queryCart()
       that.initgetMore();
     }
-
+    //查询商铺闪付次数
+    that.selectTimes()
   },
 
   /**
@@ -135,13 +146,13 @@ Page({
   onShareAppMessage: function() {
 
   },
-  businessInfo(e){
+  businessInfo(e) {
     let that = this
-    if(that.data.store.type==1){
+    if (that.data.store.type == 1) {
       wx.navigateTo({
         url: '/packageA/pages/businessInfo/businessInfo?storeId=' + e.currentTarget.dataset.id,
       })
-    }   
+    }
   },
   getHeight1() {
     let that = this;
@@ -212,9 +223,9 @@ Page({
         that.setData({
           store: res.data.content
         })
-        if(that.data.store.type==1){
+        if (that.data.store.type == 1) {
           that.getHeight1();
-        }       
+        }
       }
     })
   },
@@ -252,7 +263,7 @@ Page({
       if (res.data.messageCode = 'MSG_1001') {
         if (res.data.content.items == '' && that.data.list !== '') {
           that.setData({
-            bottom_tishi:'已到底，去【寻商品】提交吧'
+            bottom_tishi: '已到底，去【寻商品】提交吧'
           })
         }
         let arr = that.data.list
@@ -277,7 +288,7 @@ Page({
         if (res.data.content.goodsCount == 0) {
           that.setData({
             shoppingCart: null,
-            showCart:false
+            showCart: false
           })
         } else {
           res.data.content.goodsCount = res.data.content.goodsCount > 99 ? '99' : res.data.content.goodsCount
@@ -313,7 +324,7 @@ Page({
           pageNumber: 1
         })
         that.queryCart()
-        that.initgetMore()       
+        that.initgetMore()
       }
     })
   },
@@ -368,6 +379,7 @@ Page({
           that.setData({
             selectAttridStr: selectAttridstr1,
           });
+          console.log(that.data.stockDetail)
           for (let i in that.data.stockDetail) {
             let selectAttridStr = that.data.selectAttridStr
             that.data.stockDetail[i].dctPrice = parseFloat((that.data.stockDetail[i].dctPrice).toFixed(2))
@@ -445,11 +457,11 @@ Page({
         }
       }
     })
-    if(that.data.store){
+    if (that.data.store) {
       that.setData({
         showOrder: true
       })
-    }   
+    }
   },
   //选择规格index值
   specIndex(e) {
@@ -511,13 +523,13 @@ Page({
     let num = that.data.num;
     if (num > 1) {
       num--;
-    } else if(num <= 1) {
+    } else if (num <= 1) {
       wx.showToast({
         title: '不能再少了哟',
         icon: 'none'
       })
     }
-    
+
     let minusStatus = num <= 1 ? 'disabled' : 'normal';
     that.setData({
       num: num,
@@ -592,10 +604,10 @@ Page({
                 num: 1,
                 pageNumber: 1
               })
-              setTimeout(function(){
+              setTimeout(function() {
                 that.queryCart()
-                that.initgetMore()   
-              },500)          
+                that.initgetMore()
+              }, 500)
             }
           } else {
             wx.showToast({
@@ -649,10 +661,10 @@ Page({
                 num: 1,
                 pageNumber: 1
               })
-              setTimeout(function () {
+              setTimeout(function() {
                 that.queryCart()
                 that.initgetMore()
-              }, 500)                
+              }, 500)
             }
           } else {
             wx.showToast({
@@ -715,6 +727,96 @@ Page({
   toSearch(e) {
     wx.navigateTo({
       url: '../placeorderSearch/placeorderSearch?id=' + e.currentTarget.dataset.id,
+    })
+  },
+  topay: function(e) {
+    let that = this
+    let buyMode = e.currentTarget.dataset.buymode //1-普通购买  2-一折购
+    let inputValue = that.data.inputValue //支付金额
+    let times = that.data.flashPayCount //商家闪付次数
+    console.log(inputValue)
+    if(wx.getStorageSync('token')){
+      if (inputValue && inputValue > 0) {
+        if(inputValue<that.data.flashPayAmount||inputValue==that.data.flashPayAmount){
+          if (buyMode == 1) {
+            let data = {
+              storeId: that.data.store.id,
+              flashPayAmount: inputValue,
+              buyMode: 1
+            }
+            app.Util.ajax('mall/bag/addOrderByFlashPay', data, 'POST').then((res) => {
+              if (res.data.messageCode == 'MSG_1001') {
+                // console.log(res.data.content)
+                wx.navigateTo({
+                  url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&takeType=${that.data.store.type}`,
+                })
+                that.setData({
+                  showInput: false
+                })
+              }
+            })
+          } else if (buyMode == 2) {
+            if (times == 0) {
+              that.setData({
+                oneShow: true
+              })
+            } else {
+              let buyMoney = {
+                id: that.data.store.id,
+                flashPayAmount: inputValue,
+                cashBackPeriods: null,
+                discountNumber: null,
+                buyMode: buyMode,
+                type: that.data.store.type
+              }
+              let buyStore = JSON.stringify(buyMoney)
+              wx.navigateTo({
+                url: '../takeoutPlaceorder/takeoutPlaceorder?buyStore=' + buyStore
+              })
+              that.setData({
+                showInput: false
+              })
+            }
+          }else{
+            that.setData({
+              showMessage: '消费金额超出最大额度！'
+            })
+          }
+        }
+  
+      } else {
+        wx.showToast({
+          title: '输入金额不能为空',
+          icon: 'none'
+        })
+      }
+    }else{
+      wx.navigateTo({
+        url: "/pages/invitationCode/invitationCode?inviterCode=" + that.data.inviterCode
+      })
+    }
+  },
+  //获取售价
+  btnInput: function(e) {
+    var that = this;
+    var mesValue
+    //正则验证，充值金额仅支持小数点前8位小数点后2位
+    if (e.detail.value < that.data.flashPayAmount || e.detail.value == that.data.flashPayAmount) {
+      if (/^\d{1,9}(\.\d{0,2})?$/.test(e.detail.value)) {
+        mesValue = e.detail.value;
+        that.setData({
+          showMessage: ''
+        })
+      } else {
+        mesValue = e.detail.value.substring(0, e.detail.value.length - 1);
+      }
+    } else {
+      that.setData({
+        showMessage: '消费金额超出最大额度！'
+      })
+    }
+    that.setData({
+      inputValue: e.detail.value
     })
   },
   //关注
@@ -817,4 +919,39 @@ Page({
       }
     })
   },
+  showInput: function() {
+    if(this.data.store.status!==2){
+      this.setData({
+        showInput: true
+      })
+    }else{
+      // wx.showToast({
+      //   title:'店铺已打烊',
+      //   icon:'none'
+      // })
+    }
+  },
+  cancleInput: function() {
+    this.setData({
+      showInput: false
+    })
+  },
+  cancelOneShow: function() {
+    this.setData({
+      oneShow: false
+    })
+  },
+  selectTimes: function() {
+    let that = this
+    app.Util.ajax('mall/home/storeFlashPaySet', {
+      id: that.data.storeId,
+    }, 'GET').then((res) => {
+      if (res.data.content) {
+        that.setData({
+          flashPayCount: res.data.content.flashPayCount,
+          flashPayAmount: res.data.content.flashPayAmount
+        })
+      }
+    })
+  }
 })

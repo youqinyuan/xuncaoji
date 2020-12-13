@@ -1,0 +1,412 @@
+/* packageB/pages/setmealDetails/setmealDetails.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+/* 店铺信息 */
+
+.wrap_top {
+  width: 750rpx;
+  overflow: hidden;
+  background: linear-gradient(0deg, rgba(255, 38, 68, 0) 0%, rgba(255, 38, 68, 1) 100%);
+  margin-bottom: 20rpx;
+}
+
+.tp-message {
+  width: 690rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  margin: 0 auto;
+  padding-bottom: 30rpx;
+}
+
+.goodsName1 {
+  width: 630rpx;
+  text-align: left;
+  padding-top: 30rpx;
+  margin-left: 30rpx;
+  font-size: 40rpx;
+  color: #333;
+  font-family: PingFang SC;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.re-storeGrade {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #333;
+  margin-top: 10rpx;
+  margin-left: 30rpx;
+}
+
+.stars image {
+  width: 24rpx;
+  height: 22rpx;
+  margin-right: 4rpx;
+}
+
+.sd-middle {
+  display: flex;
+  margin: 0 30rpx;
+  margin-top: 10rpx;
+  justify-content: space-between;
+  color: #333;
+  font-size: 24rpx;
+}
+
+.goodlist-list-scroll {
+  white-space: nowrap;
+  margin-left: 30rpx;
+  display: flex;
+  width: 660rpx;
+  margin-top: 38rpx;
+}
+
+.goodlist-list-item {
+  display: inline-block;
+}
+
+.goodlist-list-img {
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 170rpx;
+  height: 170rpx;
+  border-radius: 10rpx;
+  margin-right: 20rpx;
+}
+
+.goodlist-list-img image {
+  width: 170rpx;
+  height: 170rpx;
+  border-radius: 10rpx;
+}
+
+.wrap {
+  margin: 0 auto;
+  margin-top: 20rpx;
+  width: 690rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  padding-bottom: 30rpx;
+}
+
+.sd-title {
+  height: 89rpx;
+  line-height: 89rpx;
+  margin-left: 30rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+}
+
+.sd-list-img {
+  width: 630rpx;
+  margin-left: 30rpx;
+}
+
+.sd-list-img image {
+  width: 100%;
+  display: block;
+}
+
+.items {
+  width: 100%;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  display: flex;
+  padding-left: 30rpx;
+  padding-right: 20rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.img_wrap {
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 170rpx;
+  height: 170rpx;
+  margin-right: 30rpx;
+  border-radius: 20rpx;
+}
+
+.img_wrap image {
+  width: 170rpx;
+  height: 170rpx;
+  border-radius: 20rpx;
+}
+
+.goodsDetail {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.goodsName {
+  width: 440rpx;
+  text-align: left;
+  font-size: 32rpx;
+  color: #333;
+  font-family: PingFang SC;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.storeGrade {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #999;
+  margin-top: 20rpx;
+}
+
+.goodsBottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.storeText text {
+  font-weight: normal;
+}
+
+.stars image {
+  width: 24rpx;
+  height: 22rpx;
+  margin-right: 4rpx;
+}
+
+.tp-takeout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200rpx;
+  height: 48rpx;
+  border: 1rpx solid #ccc;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+  margin-top: 27rpx;
+}
+
+.tp-takeout-img {
+  width: 24rpx;
+  height: 30rpx;
+  margin-right: 12rpx;
+}
+
+/* 评价 */
+
+.tp-evaluate {
+  margin: 0 auto;
+  margin-top: 20rpx;
+  width: 690rpx;
+  background: #fff;
+  border-radius: 20rpx;
+}
+
+.tp-evaluate-title {
+  height: 89rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 30rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+}
+
+.tp-tltle-right {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #333;
+}
+
+.tp-evaluate-content {
+  display: flex;
+  margin-top: 20rpx;
+}
+
+.tp-evaluate-img {
+  background-image: url('https://xuncaoji.net/_download/img/flashPay/other_ren.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 70rpx;
+  height: 70rpx;
+  margin-left: 30rpx;
+  margin-right: 20rpx;
+}
+
+.tp-evaluate-img image {
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.tp-evaluate-right {
+  width: 540rpx;
+}
+
+.tp-evaluate-name {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 26rpx;
+  color: #333;
+}
+
+.tp-storeGrade {
+  display: flex;
+  align-items: center;
+}
+
+.tp-date-spec {
+  display: flex;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 13rpx;
+}
+
+.tp-date {
+  margin-right: 22rpx;
+}
+
+.tp-evaluate-text {
+  font-size: 28rpx;
+  margin-top: 35rpx;
+  word-break: break-all;
+  color: #333;
+  line-height: 36rpx;
+}
+
+.evaluate-list-scroll {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 40rpx 0;
+}
+
+.evaluate-list-img {
+  display: inline-block;
+  width: 174rpx;
+  height: 174rpx;
+  border-radius: 8rpx;
+  margin-right: 7rpx;
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.evaluate-list-img image {
+  width: 174rpx;
+  height: 174rpx;
+  border-radius: 8rpx;
+}
+
+.tp-getmore {
+  text-align: right;
+  width: 540rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #333;
+  font-size: 24rpx;
+  border-top: 1rpx solid #e7e7e7;
+  margin-left: 120rpx;
+}
+
+.sd-block {
+  height: 120rpx;
+  width: 750rpx;
+}
+
+/* 底部按钮 */
+
+.sd-bottom {
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  z-index: 999;
+  width: 750rpx;
+}
+
+.sd-price {
+  margin-left: 30rpx;
+}
+
+.sd-price-title {
+  width: 280rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.sd-price-title text {
+  font-weight: bold;
+  color: #ff2644;
+}
+
+.sd-price-title text:nth-child(1) {
+  font-size: 28rpx;
+}
+
+.sd-price-title text:nth-child(2) {
+  font-size: 40rpx;
+}
+
+.sd-price-text {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.sd-btn {
+  display: flex;
+  margin-right: 14rpx;
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.sd-normal {
+  width: 214rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background: #1a1a1a;
+  border-radius: 40rpx 0rpx 0rpx 40rpx;
+}
+
+.sd-one {
+  width: 214rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background: #ff2644;
+  border-radius: 0rpx 40rpx 40rpx 0rpx;
+}

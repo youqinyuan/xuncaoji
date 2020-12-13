@@ -3,15 +3,15 @@
     <image src="{{hostUrl}}/changeImg/success.png" class="success_img" />
 </view>
 <view class="success_text">支付成功，快邀请好友帮你提期呗</view>
-<view class="button_box">
-    <view class="button_two" bindtap="fabu">发布帖子</view>
+<view class="button_box" bind:tap="shares">
+    <view class="button_two">朋友帮提</view>
 </view>
-<view class="tishi">不发帖自己或朋友帮提：1元顶{{multiple}}元</view>
+<view class="tishi">给自己提期，提期速度翻倍</view>
 <view class="button_box1 matop30">
     <view class="button_two" bindtap="toHelp">我自己提</view>
 </view>
-<view class="button_box1" bind:tap="shares">
-    <view class="button_two">朋友帮提</view>
+<view class="button_box1">
+    <view class="button_two" bindtap="fabu">发布帖子</view>
 </view>
 <!-- 分享弹框 -->
 <!--屏幕背景变暗的背景  -->

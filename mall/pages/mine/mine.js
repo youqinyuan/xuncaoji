@@ -83,20 +83,6 @@ Page({
       if (e.currentTarget.dataset.index == 4) {
         wx.setStorageSync("orderShowStatus", 1)
       }
-      if (e.currentTarget.dataset.index == 1) {
-        if (wx.getStorageSync('token')) {
-          if (e.detail.formId !== 'the formId is a mock one') {
-            // console.log(e.detail.formId)
-            app.Util.ajax('mall/userFromRecord/addRecord', {
-              formId: e.detail.formId
-            }, 'POST').then((res) => { // 使用ajax函数
-              // console.log(res.data)
-            })
-          } else {
-            // console.log(e.detail.formId)
-          }
-        }
-      }
       app.nav(e);
       wx.setStorageSync('myOrder', 1)
     } else {
@@ -183,7 +169,7 @@ Page({
     var token = wx.getStorageSync('token')
     if (token) {
       wx.navigateTo({
-        url: '/pages/commission/commission',
+        url: '/packageB/pages/commission/commission',
       })
     } else {
       wx.navigateTo({
@@ -248,7 +234,7 @@ Page({
     var token = wx.getStorageSync('token')
     if (token) {
       wx.navigateTo({
-        url: '/pages/myPeriod/myPeriod',
+        url: '/packageB/pages/stagesOrder/stagesOrder',
       })
     } else {
       wx.navigateTo({
@@ -382,7 +368,7 @@ Page({
       if (res.data.content) {
         that.setData({
           seedContent: res.data.content,
-          noCashBackAmount: (res.data.content.noCashBackAmount).toFixed(2),
+          noCashBackAmount: (res.data.content.noCashBackAmount+res.data.content.noWithdrawalAmount).toFixed(2),
           balance: (res.data.content.balance).toFixed(2),
           commissionBalance: (res.data.content.totalCommission).toFixed(2)
         })
@@ -1266,7 +1252,7 @@ Page({
         })
       } else if (tempContent.param == 2) {
         wx.navigateTo({
-          url: '/pages/commission/commission',
+          url: '/packageB/pages/commission/commission',
         })
       } else if (tempContent.param == 3) {
         wx.navigateTo({
@@ -1316,8 +1302,8 @@ Page({
           url: '/packageB/pages/freeBuy/freeBuy',
         })
       } else if (tempContent.param == 15) {
-        wx.switchTab({
-          url: '/pages/wishpool/wishpool',
+        wx.navigateTo({
+          url: '/packageB/pages/wishpool/wishpool',
         })
       } else if (tempContent.param == 16) {
         wx.navigateTo({
@@ -1455,7 +1441,7 @@ Page({
       }
     } else if (tempContent.category == 8) {
       wx.navigateTo({
-        url: `/packageA/pages/takeoutStore/takeoutStore?id=${tempContent.param}`,
+        url: `/packageB/pages/nearbyStore/nearbyStore?id=${tempContent.param}`,
       })
     }
   }

@@ -35,11 +35,15 @@
       <view class="result_two_detail" bindtap="returnDetail">详情查看</view>
     </view>
     <view class="result_two">
-      <view class="result_two_title">本次购物成本 </view>
+      <view class="result_two_title mabt10">本次购物成本 </view>
       <view class="result_two_money" style="margin-left:16rpx;">￥{{newPeopleActivity==1?orgPrice:filters.toFix(payMsg.needPaymentAmount-payMsg.totalCashBackAmount)}}</view>
     </view>
+    <view class="result_two mabt10" wx:if="{{payMsg.deductSeed>0}}">
+      <view class="result_two_title">本次购物消耗种子 </view>
+      <view class="result_two_money" style="margin-left:16rpx;">{{payMsg.deductSeed}}颗</view>
+    </view>
 </view>
-<view class="pay_one_box heigh351" wx:if="{{sponsor==1}}">
+<view class="pay_one_box" wx:if="{{sponsor==1}}">
     <view class="result_one">支付及返现信息</view>
     <view class="result_two">
       <view class="result_two_title">支付金额</view>
@@ -59,8 +63,12 @@
       <view class="result_two_title">本次购物成本 </view>
       <view class="result_two_money" style="margin-left:16rpx;">￥{{newPeopleActivity==1?orgPrice:filters.toFix(payMsg.needPaymentAmount-payMsg.totalCashBackAmount)}}</view>
     </view>
+    <view class="result_two mabt10" wx:if="{{payMsg.deductSeed>0}}">
+      <view class="result_two_title">本次购物消耗种子 </view>
+      <view class="result_two_money" style="margin-left:16rpx;">{{payMsg.deductSeed}}颗</view>
+    </view>
 </view>
-<view class="pay_one_box heigh280">
+<view class="pay_one_box">
     <view class="result_one col666">本次购物您将获得</view>
     <!-- <view class="result_two">
       <view class="result_two_title">本次购物成本</view>
@@ -71,10 +79,10 @@
       <view class="result_two_money font40">{{payMsg.annualizedRate}}%</view>
       <view class="result_two_detail" bindtap="showShuoming" data-index="3">详情查看</view>
     </view>
-    <view class="result_two">
+    <view class="result_two" wx:if="{{payMsg.productSeed}}">
       <view class="result_two_title">可获得种子</view>
       <view class="result_two_money">{{payMsg.productSeed}}颗</view>
-      <view class="result_two_detail fontcol">返还期数越短，种子越多哦</view>
+      <view class="result_two_detail fontcol">返还期数越短，种子越多</view>
     </view>
     <view class="result_two">
       <view class="result_two_title">每{{newPeopleActivity==1?payMsg.freeBuyMode==2?'天':'月':'天'}}返现金额</view>
@@ -82,8 +90,8 @@
       <view class="result_two_detail" bindtap="returnDetail">明细查看</view>
     </view>
 </view>
-<view class="two_title" wx:if="{{sponsor==0&&!options.source}}">三、不想进行下一步：</view>
-<view class="the_bottom_box"wx:if="{{isShowBook==1&&sponsor==0&&!options.source&&takeout==1}}" >
+<view class="two_title" wx:if="{{sponsor==0&&!options.source&&applyStage==2}}">三、不想进行下一步：</view>
+<view class="the_bottom_box"wx:if="{{isShowBook==1&&sponsor==0&&!options.source&&takeout==1&&!quickPass&&applyStage==2}}" >
   <view class="the_bottom_one">
     <view class="one_font">1、不先付款，想拿全网最低价去试：</view>
     <view class="one_button" catchtap="experience">预售返现</view>
@@ -93,32 +101,43 @@
     <view class="one_button" bindtap="showShuoming" data-index="2">提期</view>
   </view>
 </view>
-<view class="the_bottom_box height50" wx:if="{{isShowBook==2&&sponsor==0&&!options.source}}">
+<view class="the_bottom_box height50" wx:if="{{isShowBook==2&&sponsor==0&&!options.source&&!quickPass&&applyStage==2}}">
   <view class="the_bottom_one">
-    <view class="one_font {{zhihui?'zhihui2':''}}">1、期限太长，缩短返现时间/或试：</view>
-    <view class="one_button {{zhihui?'zhihui2':''}}" bindtap="showShuoming" data-index="2">提期</view>
+    <view class="one_font ">1、期限太长，缩短返现时间/或试：</view>
+    <view class="one_button " bindtap="showShuoming" data-index="2">提期</view>
   </view>
   <view style="height:100rpx;"></view>
 </view>
-<view class="the_bottom_box" wx:if="{{isShowBook==1&&sponsor==0&&!options.source&&takeout==''}}">
+<view class="the_bottom_box {{payMsg.installmentPayment==1?'height280':''}}" wx:if="{{isShowBook==1&&sponsor==0&&!options.source&&takeout==''&&!quickPass&&applyStage==2}}">
+  <view class="the_bottom_one" wx:if="{{payMsg.installmentPayment==1}}">
+    <view class="one_font">1、短期购买，金额太大，买不起？</view>
+    <view class="one_button font24" catchtap="toStages2">一折购分期支付</view>
+  </view>
   <view class="the_bottom_one">
-    <view class="one_font">1、不先付款，想拿全网最低价去试：</view>
+    <view class="one_font">{{payMsg.installmentPayment==1?'2':'1'}}、不先付款，想拿全网最低价去试：</view>
     <view class="one_button" catchtap="experience">预售返现</view>
   </view>
   <view class="the_bottom_one">
-    <view class="one_font">2、期限太长，缩短返现时间/或试：</view>
+    <view class="one_font">{{payMsg.installmentPayment==1?'3':'2'}}、期限太长，缩短返现时间/或试：</view>
     <view class="one_button" bindtap="showShuoming" data-index="2">提期</view>
   </view>
   <view style="height:100rpx;"></view>
 </view>
-<view class="the_bottom_box height50" wx:if="{{takeout==2&&sponsor==0&&!options.source}}">
+<view class="the_bottom_box height50" wx:if="{{takeout==2&&sponsor==0&&!options.source&&!quickPass&&applyStage==2}}">
   <view class="the_bottom_one">
-    <view class="one_font {{zhihui?'zhihui2':''}}">1、期限太长，缩短返现时间/或试：</view>
-    <view class="one_button {{zhihui?'zhihui2':''}}" bindtap="showShuoming" data-index="2">提期</view>
+    <view class="one_font ">1、期限太长，缩短返现时间/或试：</view>
+    <view class="one_button " bindtap="showShuoming" data-index="2">提期</view>
   </view>
   <view style="height:100rpx;"></view>
 </view>
-<view class="the_button_box" wx:if="{{!activityId&&buyType==1&&sponsor==0&&newPeopleActivity==1&&!options.source&&!takeout}}">
+<view class="the_bottom_box height50" wx:if="{{quickPass==1&&applyStage==2}}">
+  <view class="the_bottom_one">
+    <view class="one_font ">1、期限太长，缩短返现时间/或试：</view>
+    <view class="one_button " bindtap="showShuoming" data-index="2">提期</view>
+  </view>
+  <view style="height:100rpx;"></view>
+</view>
+<view class="the_button_box" wx:if="{{!activityId&&buyType==1&&sponsor==0&&newPeopleActivity==1&&!options.source&&!takeout&&applyStage==2}}">
   <view class="the_button_one {{zhihui?'zhihui2':''}}" bindtap="addOrCompute">加入购物车</view>
   <view class="the_button_one" bindtap="showShuoming" data-index="1">撤销一折购</view>
   <view class="the_button_two {{zhihui?'zhihui2':''}}" bindtap="payNow">下一步</view>
@@ -139,6 +158,12 @@
 </view>
 <view class="the_button_box" wx:if="{{takeout}}">
   <view class="the_button_two {{zhihui?'zhihui2':''}}" bindtap="comeBack">下一步</view>
+</view>
+<view class="the_button_box" wx:if="{{quickPass}}">
+  <view class="the_button_two {{zhihui?'zhihui2':''}}" bindtap="comeBack2">下一步</view>
+</view>
+<view class="the_button_box" wx:if="{{applyStage==1}}">
+  <view class="the_button_two {{zhihui?'zhihui2':''}}" bindtap="comeBack3">下一步</view>
 </view>
 <view style="height:100rpx;background: #EFDAC0;"></view>
 <!-- 您想要分期的月数 -->
@@ -320,4 +345,21 @@
     </view>
   </view>
   <image wx:if="{{discount}}" class="discount_img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelDiscount'></image>
+</view>
+  <view class="bg10" wx:if="{{seedToast}}">
+    <view class="content10">
+        <view class="title10">温馨提示</view>
+        <view class="text_one10">本次购物需消耗{{payMsg.deductSeed}}颗种子</view>
+        <view class="text_two10">您的种子数量：{{payMsg.userSeed}}颗</view>
+        <view class="message10" wx:if="{{payMsg.deductSeed>payMsg.userSeed}}">种子不足，请先获得足够的种子或缩短返还期购买</view>
+        <view class="button_box10">
+            <view class="button_one10" bindtap="toSeed">去获得种子</view>
+            <view class="button_two10" bindtap="toOrder" wx:if="{{!takeout&&sponsor==0&&applyStage==2&&applyStage2==2}}">下一步</view>
+            <view class="button_two10" bindtap="toStore" wx:if="{{takeout}}">下一步</view>
+            <view class="button_two10" bindtap="toSponsor" wx:if="{{sponsor==1}}">下一步</view>
+            <view class="button_two10" bindtap="toStages" wx:if="{{applyStage==1}}">下一步</view>
+            <view class="button_two10" bindtap="toStages" wx:if="{{applyStage2==1}}">下一步</view>
+        </view>
+    </view>
+    <image class="cancel-get10" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap="cancle"></image>
 </view>

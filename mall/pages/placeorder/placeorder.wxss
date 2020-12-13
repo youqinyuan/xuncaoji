@@ -1965,3 +1965,7 @@ button[disabled] {
   width: 44rpx;
   height: 74rpx;
 }
+.stagesPeriod{
+  background: #fff;
+  margin-top: 20rpx;
+}

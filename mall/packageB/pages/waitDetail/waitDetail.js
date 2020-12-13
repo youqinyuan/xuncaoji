@@ -51,15 +51,6 @@ Page({
           content: arr,
           seedAmount:res.data.content.seedAmount
         })
-        if (that.data.content.length === 0) {
-          that.setData({
-            text: '暂无数据'
-          })
-        } else {
-          that.setData({
-            text: ''
-          })
-        }
       }
     })
   },
@@ -149,11 +140,18 @@ Page({
   },
   mention:function(e){
     console.log(e)
+    let that = this
     this.setData({
-      seedNumber:e.currentTarget.dataset.seednumber,
-      id:e.currentTarget.dataset.id,
-      seedToast:true
+      id:e.currentTarget.dataset.id
     })
+    if(e.currentTarget.dataset.seednumber>0){
+      this.setData({
+        seedNumber:e.currentTarget.dataset.seednumber,
+        seedToast:true
+      })
+    }else{
+      that.payShure()
+    }
   },
   payShure:function(){
     let that = this

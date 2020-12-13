@@ -45,7 +45,7 @@
             <view class="newprice">
               <text class="newtext">一折购:</text>
               <text>￥</text>{{item.discountPrice}}</view>
-            <image wx:if="{{store.status==1}}" data-id="{{item.id}}" catchtap="showOrder" class="cart" src="{{hostUrl}}/supplement/addShopCart.png"></image>
+            <image wx:if="{{store.status==1}}" data-id="{{item.id}}" catchtap="showOrder" class="cart" src="/assets/images/mine/addShopCart.png"></image>
           </view>
         </view>
       </view>
@@ -170,7 +170,7 @@
   <view class="addCart-wrap" wx:if="{{store.status==1}}">
     <view class="circle" wx:if="{{shoppingCart}}" catchtap="showCart">{{shoppingCart.goodsCount}}</view>
     <view class="addCart_left" catchtap="showCart">
-      <image class="addCart_img" src="{{hostUrl}}/changeImg/add_cart.png"></image>
+      <image class="addCart_img" src="/assets/images/mine/add_cart.png"></image>
     </view>
     <view class="addCart_right" catchtap="showCart">
       <view class="add_price" wx:if="{{shoppingCart}}">
@@ -184,6 +184,19 @@
       </view>
       <view class="btnWrap" catchtap="toPlaceorder" wx:if="{{shoppingCart}}">
         <view class="btn" style="background:#FF2644;" catchtap="toPlaceorder">详细信息</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="yudialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}">
+  <view class="dialog__container" wx:if="{{showModal}}">
+    <view class="tishi">提示</view>
+    <view class="order">
+      <view class="order_one">是否清空购物袋？</view>
+      <view class="order_box">
+        <view class="order_box1" catchtap="noNeed">取消</view>
+        <view class="order_box2" catchtap="need">确定</view>
       </view>
     </view>
   </view>

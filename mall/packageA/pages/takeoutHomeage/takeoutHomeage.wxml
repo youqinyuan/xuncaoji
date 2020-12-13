@@ -66,7 +66,7 @@
         <view class="newprice">
           <text class="newtext">一折购:</text><text>￥</text>{{item.discountPrice}}</view>
           <view class="circle1" catchtap="showOrder" wx:if="{{item.quantity>0}}">{{item.quantity> 99 ? '99' : item.quantity}}</view>
-        <image catchtap="showOrder" data-id="{{item.id}}" class="cart" src="{{hostUrl}}/supplement/addShopCart.png" wx:if="{{store.status==1}}"></image>
+        <image catchtap="showOrder" data-id="{{item.id}}" class="cart" src="/assets/images/mine/addShopCart.png" wx:if="{{store.status==1}}"></image>
       </view>
     </view>
   </view>
@@ -226,3 +226,28 @@
   </view>
 </view>
  <view class="bottom_tishi">{{bottom_tishi}}</view>
+ <!-- 闪付 -->
+ <view class="pay_box" bindtap="showInput" >
+  <image src="{{hostUrl}}/flashPay/pay.png" class="pay_img" />
+ </view>
+ <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showInput}}" bindtap="cancleInput"></view>
+<view class="modal-dialog" wx:if="{{showInput}}">
+  <view class="modal-title">请输入消费金额</view>
+  <view class="section2">
+    <view class="input-price">￥</view>
+    <input class="input-text" placeholder="最大可输入{{flashPayAmount}}元" focus="true" type="digit" value="{{inputValue}}" placeholder-style="color:#AAAAAA" bindinput="btnInput" />
+  </view>
+  <view class="prompt">{{showMessage}}</view>
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="topay" data-buyMode='1'>普通购买</view>
+    <view class="btn-confirm"  bindtap="topay" data-buyMode='2'>一折购</view>
+  </view>
+</view>
+<!-- 次数上限 -->
+<view class="shuoming__mask" catchtouchmove="preventTouchMove" wx:if="{{oneShow}}">
+  <view class="shuoming__container" wx:if="{{oneShow}}">
+    <view class="shuoming">提示</view>
+    <view class="shuoming_text" style="">商家当日闪付额度已用完请明日再来或选择商品下单</view>
+    <view class="the_button_box" bindtap='cancelOneShow'>我知道了</view>
+  </view>
+</view>

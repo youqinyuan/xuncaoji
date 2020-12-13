@@ -17,10 +17,10 @@ Page({
     pageNumber: 1, //分页记录数
     pageSize: 20, //分页大小
     titleName: '', //标题
-    pricePhoto: app.Util.getUrlImg().hostUrl+'/twoSix/greyUp.png',
-    pricePhoto1: app.Util.getUrlImg().hostUrl+'/twoSix/greyDown.png',
-    pricePhoto2: app.Util.getUrlImg().hostUrl+'/twoSix/greyUp.png',
-    pricePhoto3: app.Util.getUrlImg().hostUrl+'/twoSix/greyDown.png',
+    pricePhoto: app.Util.getUrlImg().hostUrl + '/twoSix/greyUp.png',
+    pricePhoto1: app.Util.getUrlImg().hostUrl + '/twoSix/greyDown.png',
+    pricePhoto2: app.Util.getUrlImg().hostUrl + '/twoSix/greyUp.png',
+    pricePhoto3: app.Util.getUrlImg().hostUrl + '/twoSix/greyDown.png',
     name: ''
   },
   //跳转到详情页
@@ -50,6 +50,11 @@ Page({
         that.setData({
           list: res.data.content.items
         })
+        if (0 < res.data.content.items.length && res.data.content.items.length <=4) {
+          that.setData({
+            textToast1: '已到底，去【寻商品】提交吧'
+          })
+        }
       }
     })
   },
@@ -66,7 +71,7 @@ Page({
       if (res.messageCode = 'MSG_1001') {
         if (res.data.content.items == '' && that.data.list !== '') {
           that.setData({
-            textToast: '已经到底啦'
+            textToast: '已到底，去【寻商品】提交吧'
           })
         }
         var arr = that.data.list
@@ -94,16 +99,18 @@ Page({
     that.initgetMore()
   },
   //综合
-  comprehensive: function () {
+  comprehensive: function() {
     var that = this
     var id = that.data.id
     that.setData({
       pageNumber: 1
     })
     app.Util.ajax('mall/home/goods', {
-      categoryId: id, sortBy: 1, pageNumber: that.data.pageNumber,
+      categoryId: id,
+      sortBy: 1,
+      pageNumber: that.data.pageNumber,
       pageSize: that.data.pageSize
-    }, 'GET').then((res) => {  // 使用ajax函数
+    }, 'GET').then((res) => { // 使用ajax函数
       if (res.messageCode = 'MSG_1001') {
         res.data.content.items.forEach((v, i) => {
           v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
@@ -113,10 +120,10 @@ Page({
           color: "#FF2644",
           color1: "black",
           color2: "black",
-          pricePhoto: app.Util.getUrlImg().hostUrl+'/twoSix/greyUp.png',
-          pricePhoto1: app.Util.getUrlImg().hostUrl+'/twoSix/greyDown.png',
-          pricePhoto2: app.Util.getUrlImg().hostUrl+'/twoSix/greyUp.png',
-          pricePhoto3: app.Util.getUrlImg().hostUrl+'/twoSix/greyDown.png',
+          pricePhoto: app.Util.getUrlImg().hostUrl + '/twoSix/greyUp.png',
+          pricePhoto1: app.Util.getUrlImg().hostUrl + '/twoSix/greyDown.png',
+          pricePhoto2: app.Util.getUrlImg().hostUrl + '/twoSix/greyUp.png',
+          pricePhoto3: app.Util.getUrlImg().hostUrl + '/twoSix/greyDown.png',
         })
       } else {
         wx.showToast({
@@ -127,7 +134,7 @@ Page({
     })
   },
   //升序降序
-  toPrice: function () {
+  toPrice: function() {
     var that = this
     var id = that.data.id
     that.setData({
@@ -136,9 +143,12 @@ Page({
     })
     if (that.data.i % 2 === 0) {
       app.Util.ajax('mall/home/goods', {
-        categoryId: id, sortBy: 2, sortFlag: 2, pageNumber: that.data.pageNumber,
+        categoryId: id,
+        sortBy: 2,
+        sortFlag: 2,
+        pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
-      }, 'GET').then((res) => {  // 使用ajax函数
+      }, 'GET').then((res) => { // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
           res.data.content.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
@@ -148,10 +158,10 @@ Page({
             color: "black",
             color1: "#FF2644",
             color2: "black",
-            pricePhoto: app.Util.getUrlImg().hostUrl+'/twoSix/greyUp.png',
-            pricePhoto1: app.Util.getUrlImg().hostUrl+'/twoSix/redDown.png',
-            pricePhoto2: app.Util.getUrlImg().hostUrl+'/twoSix/greyUp.png',
-            pricePhoto3: app.Util.getUrlImg().hostUrl+'/twoSix/greyDown.png',
+            pricePhoto: app.Util.getUrlImg().hostUrl + '/twoSix/greyUp.png',
+            pricePhoto1: app.Util.getUrlImg().hostUrl + '/twoSix/redDown.png',
+            pricePhoto2: app.Util.getUrlImg().hostUrl + '/twoSix/greyUp.png',
+            pricePhoto3: app.Util.getUrlImg().hostUrl + '/twoSix/greyDown.png',
           })
         } else {
           wx.showToast({
@@ -162,9 +172,12 @@ Page({
       })
     } else if (that.data.i % 2 !== 0) {
       app.Util.ajax('mall/home/goods', {
-        categoryId: id, sortBy: 2, sortFlag: 1, pageNumber: that.data.pageNumber,
+        categoryId: id,
+        sortBy: 2,
+        sortFlag: 1,
+        pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
-      }, 'GET').then((res) => {  // 使用ajax函数
+      }, 'GET').then((res) => { // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
           res.data.content.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
@@ -174,10 +187,10 @@ Page({
             color: "black",
             color1: "#FF2644",
             color2: "black",
-            pricePhoto: app.Util.getUrlImg().hostUrl+'/twoSix/redUp.png',
-            pricePhoto1: app.Util.getUrlImg().hostUrl+'/twoSix/greyDown.png',
-            pricePhoto2: app.Util.getUrlImg().hostUrl+'/twoSix/greyUp.png',
-            pricePhoto3: app.Util.getUrlImg().hostUrl+'/twoSix/greyDown.png',
+            pricePhoto: app.Util.getUrlImg().hostUrl + '/twoSix/redUp.png',
+            pricePhoto1: app.Util.getUrlImg().hostUrl + '/twoSix/greyDown.png',
+            pricePhoto2: app.Util.getUrlImg().hostUrl + '/twoSix/greyUp.png',
+            pricePhoto3: app.Util.getUrlImg().hostUrl + '/twoSix/greyDown.png',
           })
         } else {
           wx.showToast({
@@ -190,7 +203,7 @@ Page({
   },
 
   //上新
-  newGoods: function () {
+  newGoods: function() {
     var that = this
     var id = that.data.id
     that.setData({
@@ -199,9 +212,12 @@ Page({
     })
     if (that.data.i % 2 === 0) {
       app.Util.ajax('mall/home/goods', {
-        categoryId: id, sortBy: 3, sortFlag: 1, pageNumber: that.data.pageNumber,
+        categoryId: id,
+        sortBy: 3,
+        sortFlag: 1,
+        pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
-      }, 'GET').then((res) => {  // 使用ajax函数
+      }, 'GET').then((res) => { // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
           res.data.content.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
@@ -211,10 +227,10 @@ Page({
             color: "black",
             color1: "black",
             color2: "#FF2644",
-            pricePhoto: app.Util.getUrlImg().hostUrl+'/twoSix/greyUp.png',
-            pricePhoto1: app.Util.getUrlImg().hostUrl+'/twoSix/greyDown.png',
-            pricePhoto2: app.Util.getUrlImg().hostUrl+'/twoSix/redUp.png',
-            pricePhoto3: app.Util.getUrlImg().hostUrl+'/twoSix/greyDown.png',
+            pricePhoto: app.Util.getUrlImg().hostUrl + '/twoSix/greyUp.png',
+            pricePhoto1: app.Util.getUrlImg().hostUrl + '/twoSix/greyDown.png',
+            pricePhoto2: app.Util.getUrlImg().hostUrl + '/twoSix/redUp.png',
+            pricePhoto3: app.Util.getUrlImg().hostUrl + '/twoSix/greyDown.png',
           })
         } else {
           wx.showToast({
@@ -225,9 +241,12 @@ Page({
       })
     } else if (that.data.i % 2 !== 0) {
       app.Util.ajax('mall/home/goods', {
-        categoryId: id, sortBy: 3, sortFlag: 2, pageNumber: that.data.pageNumber,
+        categoryId: id,
+        sortBy: 3,
+        sortFlag: 2,
+        pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
-      }, 'GET').then((res) => {  // 使用ajax函数
+      }, 'GET').then((res) => { // 使用ajax函数
         if (res.messageCode = 'MSG_1001') {
           res.data.content.items.forEach((v, i) => {
             v.truePrice = parseFloat((v.dctPrice - v.marketingCashBack.totalAmount).toFixed(2))
@@ -237,10 +256,10 @@ Page({
             color: "black",
             color1: "black",
             color2: "#FF2644",
-            pricePhoto: app.Util.getUrlImg().hostUrl+'/twoSix/greyUp.png',
-            pricePhoto1: app.Util.getUrlImg().hostUrl+'/twoSix/greyDown.png',
-            pricePhoto2: app.Util.getUrlImg().hostUrl+'/twoSix/greyUp.png',
-            pricePhoto3: app.Util.getUrlImg().hostUrl+'/twoSix/redDown.png',
+            pricePhoto: app.Util.getUrlImg().hostUrl + '/twoSix/greyUp.png',
+            pricePhoto1: app.Util.getUrlImg().hostUrl + '/twoSix/greyDown.png',
+            pricePhoto2: app.Util.getUrlImg().hostUrl + '/twoSix/greyUp.png',
+            pricePhoto3: app.Util.getUrlImg().hostUrl + '/twoSix/redDown.png',
           })
         } else {
           wx.showToast({

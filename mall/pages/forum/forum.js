@@ -65,14 +65,14 @@ Page({
     }],
     list1: [{
       img: app.Util.getUrlImg().hostUrl + '/supplement/ic_save.png',
-      remark: '发布预定商品',
+      remark: '发布预订商品',
       status: 2
     },{
       img: app.Util.getUrlImg().hostUrl + '/supplement/ic_earn.png',
       remark: '发布预售商品',
       status: 1
     }],
-    list2: ['普通贴', '返现卖帖', '返现买帖', '预定商品', '预售商品'],
+    list2: ['普通贴', '返现卖帖', '返现买帖', '预订商品', '预售商品'],
     weihu: false,
     showPassword: false,
     isFocus: false, //聚焦 
@@ -2533,7 +2533,7 @@ Page({
           })
         } else if (tempContent.param == 2) {
           wx.navigateTo({
-            url: '/pages/commission/commission',
+            url: '/packageB/pages/commission/commission',
           })
         } else if (tempContent.param == 3) {
           wx.navigateTo({
@@ -2583,8 +2583,8 @@ Page({
             url: '/packageB/pages/freeBuy/freeBuy',
           })
         } else if (tempContent.param == 15) {
-          wx.switchTab({
-            url: '/pages/wishpool/wishpool',
+          wx.navigateTo({
+            url: '/packageB/pages/wishpool/wishpool',
           })
         } else if (tempContent.param == 16) {
           wx.navigateTo({
@@ -2722,7 +2722,7 @@ Page({
         }
       } else if (tempContent.category == 8) {
         wx.navigateTo({
-          url: `/packageA/pages/takeoutStore/takeoutStore?id=${tempContent.param}`,
+          url: `/packageB/pages/nearbyStore/nearbyStore?id=${tempContent.param}`,
         })
       }
     }

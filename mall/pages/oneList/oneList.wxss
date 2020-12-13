@@ -140,7 +140,7 @@ page {
   left: 0;
   bottom: 0;
   z-index: 9999;
-  width: 120rpx;
+  width: 122rpx;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
@@ -170,6 +170,10 @@ page {
   display: flex;
   flex-wrap: wrap;
   margin-left: 30rpx;
+  height: auto;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
 }
 
 .brandChooseItem {

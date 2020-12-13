@@ -1,6 +1,6 @@
 <!--packageA/pages/helpMentionPeriod/helpMentionPeriod.wxml-->
 <view class="head">
-    <image class="headImg" src="{{content.avatarKey?content.avatarKey:'/assets/images/mine/other_ren.png'}}"/>
+    <image class="headImg" src="{{content.avatarKey?content.avatarKey:hostUrl+'/flashPay/other_ren.png'}}"/>
     <view class="user_box">
         <view class="user_name">{{content.nickname}}</view>
         <image src="{{hostUrl}}/changeImg/huiyuan.png" class="huiyuan" wx:if="{{content.role==2}}"/>
@@ -75,8 +75,7 @@
     <image src="{{hostUrl}}/changeImg/fail.png" class="failImg"/>
     <view class="shixiaoFont">提期已完成或已撤销或已失效了！</view>
 </view>
-<view class="tishi" >给自己提期，帮助金额自动翻{{content.multiple}}倍</view>
-<view class="tishi mag10" >例如：帮付100，算作帮付{{content.multiple*100}}</view>
+<view class="tishi" >给自己提期，提期速度翻倍</view>
 <view class="bottom"></view>
 <view class="shure_box" wx:if="{{content.status==1||content.status==2}}"> <view class="shure" bindtap="shure" data-id="{{content.id}}">提期</view></view>
 <!-- 提期明细表 -->

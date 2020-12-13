@@ -1,7 +1,9 @@
 // pages/placeorder/placeorder.js
 var time = require('../../utils/util.js');
+var utils = require('../../utils/util.js');
 let app = getApp()
 var newCount = true //节流阀-限制购买提交次数
+let newCount1 = true
 Page({
 
   /**
@@ -703,10 +705,14 @@ Page({
                 periodLeft:that.data.placeOrder[0].orderAdvanceSale.periodLeft
               }, 'POST').then((res) => {
                 if(res.data.messageCode=="MSG_1001"){
+                  if(res.data.content.seedAmountConsume>0){
                     this.setData({
                       seedText:res.data.content,
                       seedToast:true
                     })
+                  }else{
+                    that.payShure()
+                  }
                 }
               })
               // app.Util.ajax('mall/newPeople/addOrderByGoods', {
@@ -778,10 +784,14 @@ Page({
                 periodLeft:that.data.placeOrder[0].orderAdvanceSale.periodLeft
               }, 'POST').then((res) => {
                 if(res.data.messageCode=="MSG_1001"){
+                  if(res.data.content.seedAmountConsume>0){
                     this.setData({
                       seedText:res.data.content,
                       seedToast:true
                     })
+                  }else{
+                    that.payShure()
+                  }
                 }
               })
               // if (that.data.options.goodsType) {
@@ -844,6 +854,7 @@ Page({
               goodsList.orderType = 19
               goodsList.activityId = that.data.options.activityId
               goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
+              goodsList.stagingNumber = that.data.options.stagingNumber?that.data.options.stagingNumber:''
               app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
                 if (res.data.content) {
                   wx.navigateTo({
@@ -903,10 +914,14 @@ Page({
                 periodLeft:that.data.placeOrder[0].orderAdvanceSale.periodLeft
               }, 'POST').then((res) => {
                 if(res.data.messageCode=="MSG_1001"){
+                  if(res.data.content.seedAmountConsume>0){
                     this.setData({
                       seedText:res.data.content,
                       seedToast:true
                     })
+                  }else{
+                    that.payShure()
+                  }
                 }
               })
               // goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
@@ -1006,10 +1021,14 @@ Page({
                 periodLeft:that.data.placeOrder[0].orderAdvanceSale.periodLeft
               }, 'POST').then((res) => {
                 if(res.data.messageCode=="MSG_1001"){
+                  if(res.data.content.seedAmountConsume>0){
                     this.setData({
                       seedText:res.data.content,
                       seedToast:true
                     })
+                  }else{
+                    that.payShure()
+                  }
                 }
               })
               // goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
@@ -1040,6 +1059,7 @@ Page({
             goodsList.useSeed = that.data.seedShow == true ? 1 : 0
             goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
             goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
+            goodsList.stagingNumber = that.data.options.stagingNumber?that.data.options.stagingNumber:''
             app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
               if (res.data.content) {
                 wx.navigateTo({
@@ -1489,7 +1509,8 @@ Page({
       cashBackPeriods: that.data.options.cashBackPeriods?that.data.options.cashBackPeriods:'',
       useSeed: that.data.seedShow == true ? 1 : 0,
       useCoupon: that.data.shoppingAmountShow == true ? 1 : 0,
-      discountNumber:Number((that.data.options.discountCompute*10).toFixed(2))
+      discountNumber:Number((that.data.options.discountCompute*10).toFixed(2)),
+      stagingNumber:that.data.options.stagingNumber?that.data.options.stagingNumber:''
     }, 'POST').then((res) => {
       if (res.data.content) {
         var arr = []
@@ -1529,27 +1550,54 @@ Page({
             }
           })
         })
-        that.setData({
-          jianyiPrice:(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7)).toFixed(2),
-          nahuoPrice:(arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount,
-          nahuoDiscount:(((((arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)/arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice))*10).toFixed(1),
-          placeOrder: arr1,
-          beizhuList1: tempRemark1,
-          goodsType: goodsType, //类型为申请零元购
-          needPaymentAmount: needPaymentAmount, //零元购需要支付的钱
-          cashBackPeriods: cashBackPeriods, //申请零元购返现期数
-          buyMode: res.data.content.order.buyMode,
-          deductionAmount: deductionAmount.toFixed(2),
-          deductionSeed: deductionSeed,
-          deductionAfterAmount: deductionAfterAmount.toFixed(2),
-          discountRatio: discountRatio.toFixed(1),
-          discountAmount: discountAmount.toFixed(2),
-          shoppingAmount: shoppingAmount.toFixed(2),
-          shoppingNum: shoppingNum,
-          totalDiscount: totalDiscount.toFixed(2),
-          isDiamondPartner:res.data.content.isDiamondPartner,
-          isMaxPeriod:res.data.content.isMaxPeriod
-        })
+        //是否是一折购分期
+        if(that.data.options.stagingNumber){
+          let stagesTemp = arr1[0].orderGoodsBo[0].orderGoodsInstallmentList
+          for (let i of stagesTemp) {
+            i.payTime = utils.formatTimeTwo(i.payTime, 'Y-M-D');
+          }
+          that.setData({
+            placeOrder: arr1,
+            beizhuList1: tempRemark1,
+            goodsType: goodsType, //类型为申请零元购
+            needPaymentAmount: needPaymentAmount, //零元购需要支付的钱
+            cashBackPeriods: cashBackPeriods, //申请零元购返现期数
+            buyMode: res.data.content.order.buyMode,
+            deductionAmount: deductionAmount.toFixed(2),
+            deductionSeed: deductionSeed,
+            deductionAfterAmount: deductionAfterAmount.toFixed(2),
+            discountRatio: discountRatio.toFixed(1),
+            discountAmount: discountAmount.toFixed(2),
+            shoppingAmount: shoppingAmount.toFixed(2),
+            shoppingNum: shoppingNum,
+            totalDiscount: totalDiscount.toFixed(2),
+            isDiamondPartner:res.data.content.isDiamondPartner,
+            isMaxPeriod:res.data.content.isMaxPeriod,
+            orderGoodsInstallmentList:stagesTemp
+          })
+        }else{
+          that.setData({
+            jianyiPrice:(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7)).toFixed(2),
+            nahuoPrice:(arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount,
+            nahuoDiscount:(((((arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)/arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice))*10).toFixed(1),
+            placeOrder: arr1,
+            beizhuList1: tempRemark1,
+            goodsType: goodsType, //类型为申请零元购
+            needPaymentAmount: needPaymentAmount, //零元购需要支付的钱
+            cashBackPeriods: cashBackPeriods, //申请零元购返现期数
+            buyMode: res.data.content.order.buyMode,
+            deductionAmount: deductionAmount.toFixed(2),
+            deductionSeed: deductionSeed,
+            deductionAfterAmount: deductionAfterAmount.toFixed(2),
+            discountRatio: discountRatio.toFixed(1),
+            discountAmount: discountAmount.toFixed(2),
+            shoppingAmount: shoppingAmount.toFixed(2),
+            shoppingNum: shoppingNum,
+            totalDiscount: totalDiscount.toFixed(2),
+            isDiamondPartner:res.data.content.isDiamondPartner,
+            isMaxPeriod:res.data.content.isMaxPeriod
+          })
+        }
         //按建议售价计算年化
         that.computeNianhua()
         var actualPrice = 0
@@ -1681,7 +1729,7 @@ Page({
       cashBackPeriods: that.data.options.cashBackPeriods,
       useSeed: that.data.seedShow == true ? 1 : 0,
       useCoupon: that.data.shoppingAmountShow == true ? 1 : 0,
-      discountNumber:Number((that.data.options.discountCompute*10).toFixed(2))
+      discountNumber:Number((that.data.options.discountCompute*10).toFixed(2)),
     }, 'POST').then((res) => {
       if (res.data.content) {
         var arr = []
@@ -1721,27 +1769,54 @@ Page({
             }
           })
         })
-        that.setData({
-          jianyiPrice:(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7)).toFixed(2),
-          nahuoPrice:(arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount,
-          nahuoDiscount:(((((arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)/arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice))*10).toFixed(1),
-          placeOrder: arr1,
-          beizhuList1: tempRemark1,
-          goodsType: goodsType, //类型为申请零元购
-          needPaymentAmount: needPaymentAmount, //零元购需要支付的钱
-          cashBackPeriods: cashBackPeriods, //申请零元购返现期数
-          buyMode: res.data.content.order.buyMode,
-          deductionAmount: deductionAmount.toFixed(2),
-          deductionSeed: deductionSeed,
-          deductionAfterAmount: deductionAfterAmount.toFixed(2),
-          discountRatio: discountRatio.toFixed(1),
-          discountAmount: discountAmount.toFixed(2),
-          shoppingAmount: shoppingAmount.toFixed(2),
-          shoppingNum: shoppingNum,
-          totalDiscount: totalDiscount.toFixed(2),
-          isDiamondPartner:res.data.content.isDiamondPartner,
-          isMaxPeriod:res.data.content.isMaxPeriod
-        })
+        //是否是分期
+        if(that.data.options.stagingNumber){
+          let stagesTemp = arr1[0].orderGoodsBo[0].orderGoodsInstallmentList
+          for (let i of stagesTemp) {
+            i.payTime = utils.formatTimeTwo(i.payTime, 'Y-M-D');
+          }
+          that.setData({
+            placeOrder: arr1,
+            beizhuList1: tempRemark1,
+            goodsType: goodsType, //类型为申请零元购
+            needPaymentAmount: needPaymentAmount, //零元购需要支付的钱
+            cashBackPeriods: cashBackPeriods, //申请零元购返现期数
+            buyMode: res.data.content.order.buyMode,
+            deductionAmount: deductionAmount.toFixed(2),
+            deductionSeed: deductionSeed,
+            deductionAfterAmount: deductionAfterAmount.toFixed(2),
+            discountRatio: discountRatio.toFixed(1),
+            discountAmount: discountAmount.toFixed(2),
+            shoppingAmount: shoppingAmount.toFixed(2),
+            shoppingNum: shoppingNum,
+            totalDiscount: totalDiscount.toFixed(2),
+            isDiamondPartner:res.data.content.isDiamondPartner,
+            isMaxPeriod:res.data.content.isMaxPeriod,
+            orderGoodsInstallmentList:stagesTemp
+          })
+        }else{
+          that.setData({
+            jianyiPrice:(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7)).toFixed(2),
+            nahuoPrice:(arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount,
+            nahuoDiscount:(((((arr1[0].orderGoodsBo[0].orderGoods.cashBack)-(arr1[0].orderAdvanceSale.cashBackAmount-((arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice-arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)*0.7))+arr1[0].orderGoodsBo[0].orderGoods.expectedAmount)/arr1[0].orderGoodsBo[0].orderGoods.goodsTotalPrice))*10).toFixed(1),
+            placeOrder: arr1,
+            beizhuList1: tempRemark1,
+            goodsType: goodsType, //类型为申请零元购
+            needPaymentAmount: needPaymentAmount, //零元购需要支付的钱
+            cashBackPeriods: cashBackPeriods, //申请零元购返现期数
+            buyMode: res.data.content.order.buyMode,
+            deductionAmount: deductionAmount.toFixed(2),
+            deductionSeed: deductionSeed,
+            deductionAfterAmount: deductionAfterAmount.toFixed(2),
+            discountRatio: discountRatio.toFixed(1),
+            discountAmount: discountAmount.toFixed(2),
+            shoppingAmount: shoppingAmount.toFixed(2),
+            shoppingNum: shoppingNum,
+            totalDiscount: totalDiscount.toFixed(2),
+            isDiamondPartner:res.data.content.isDiamondPartner,
+            isMaxPeriod:res.data.content.isMaxPeriod
+          })
+        }
         //按建议售价计算年化
         that.computeNianhua()
         var actualPrice = 0
@@ -2154,9 +2229,10 @@ Page({
     let that = this
     let goodsList = that.data.goodsList;
     let buymode = that.data.buymodetemp
+    console.log(1111111111111)
     goodsList.remark = that.data.beizhuList1[0]
-    if (newCount) {
-      newCount = false
+    if (newCount1) {
+      newCount1 = false
       if (that.data.options.newPeopleActivity == 2) {
         app.Util.ajax('mall/newPeople/addOrderByGoods', {
         stockId: parseInt(that.data.options.stockId),
@@ -2193,7 +2269,8 @@ Page({
         goodsList.useSeed = that.data.seedShow == true ? 1 : 0
         goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
         goodsList.orderType = 19
-        goodsList.activityId = that.data.options.activityId
+        goodsList.activityId = that.data.options.activityId,
+        goodsList.stagingNumber = that.data.options.stagingNumber?that.data.options.stagingNumber:''
         // 预售返现
         goodsList.defaultAmount = that.data.getMoney
         goodsList.sellingPrice = that.data.inputValue
@@ -2222,6 +2299,7 @@ Page({
         goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
         goodsList.orderType = 17
         goodsList.activityId = that.data.options.activityId
+        goodsList.stagingNumber = that.data.options.stagingNumber?that.data.options.stagingNumber:''
         // 预售返现
         goodsList.defaultAmount = that.data.getMoney
         goodsList.sellingPrice = that.data.inputValue
@@ -2277,11 +2355,13 @@ goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
       goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
       goodsList.useSeed = that.data.seedShow == true ? 1 : 0
       goodsList.useCoupon = that.data.shoppingAmountShow == true ? 1 : 0
+      goodslist.stagingNumber = that.data.options.stagingNumber?that.data.options.stagingNumber:''
       // 预售返现
       goodsList.defaultAmount = that.data.getMoney
       goodsList.sellingPrice = that.data.inputValue
       goodsList.content = that.data.saleText
-      goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2))
+      goodsList.discountNumber = Number((that.data.options.discountCompute*10).toFixed(2)),
+      
       app.Util.ajax('mall/order/addOrderByGoods', goodsList, 'POST').then((res) => {
         if (res.data.content) {
           this.setData({
@@ -2301,7 +2381,7 @@ goodsList.isUnderLine = that.data.options.buyType == 2 ? "1" : "0"
       })
 }
 setTimeout(function() {
-  newCount = true
+  newCount1 = true
 }, 300)
     }
    

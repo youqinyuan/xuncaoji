@@ -1,5 +1,6 @@
 // pages/orderDetail/orderDetail.js
 var time = require('../../utils/util.js');
+var utils = require('../../utils/util.js');
 let app = getApp();
 var newCount = true //节流阀-限制购买提交次数
 var interval = ''
@@ -36,7 +37,8 @@ Page({
     seedDetailShow:false,
     newPeopleActivity:1, //新人专区跳转页面状态
     hostUrl: app.Util.getUrlImg().hostUrl,
-    seedToast:false
+    seedToast:false,
+    notUsing:false,//成团待使用
   },
   goIntoProblem: function (e) {
     wx.navigateTo({
@@ -231,11 +233,11 @@ Page({
       that.setData({
         payStatus:true
       })
-    } else if (orderType == 23 || orderType == 24) {
+    } else if (orderType == 23 || orderType == 24 || orderType == 26) {
       wx.navigateTo({
-        url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}&buyWay=${1}`,
+        url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}&takeType=${1}`,
       })
-    } else {
+    }else {
       wx.navigateTo({
         url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}&orderSell=1`,
       })
@@ -511,11 +513,19 @@ Page({
             orderTimeDetail[2].show = true
           }
         })
-
+        let stagesTemp = []
+        if(res.data.content.installmentPaymentDetail){
+          stagesTemp = res.data.content.installmentPaymentDetail
+          for (let i of stagesTemp) {
+            i.payTime = utils.formatTimeTwo(i.payTime, 'Y-M-D');
+          }
+        }
+        console.log("11"+stagesTemp)
         that.setData({
           content: res.data.content,
           orderTimeDetail: orderTimeDetail,
           orderTimeRefundDetail: (res.data.content.orderTimeRefundDetail).reverse(),
+          installmentPaymentDetail:stagesTemp
         })
       }
     })
@@ -630,11 +640,18 @@ Page({
             orderTimeDetail[2].show = true
           }
         })
-
+        let stagesTemp = []
+        if(res.data.content.installmentPaymentDetail){
+          stagesTemp = res.data.content.installmentPaymentDetail
+          for (let i of stagesTemp) {
+            i.payTime = utils.formatTimeTwo(i.payTime, 'Y-M-D');
+          }
+        }
         that.setData({
           content: res.data.content,
           orderTimeDetail: orderTimeDetail,
           orderTimeRefundDetail: (res.data.content.orderTimeRefundDetail).reverse(),
+          installmentPaymentDetail:stagesTemp
         })
       }
     })
@@ -716,7 +733,7 @@ Page({
   toGoodsDetail:function(e){
     let goodsId = e.currentTarget.dataset.goodsid
     let orderType = e.currentTarget.dataset.ordertype
-    if (orderType == 23 || orderType==24){
+    if (orderType == 23 || orderType == 24 || orderType == 26){
       return;
     }else{
       wx.navigateTo({
@@ -737,4 +754,11 @@ Page({
       seedToast:false
     })
   },
+  // 成团待使用弹窗
+  cancelNotUsing(){
+    let that = this
+    that.setData({
+      notUsing:false
+    })
+  }
 })

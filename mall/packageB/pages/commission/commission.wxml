@@ -1,0 +1,223 @@
+<!--packageB/pages/commission/commission.wxml-->
+<wxs module="phone">
+  var toHide = function(array) {
+    var mphone = array.substring(0, 3) + '****' + array.substring(7);
+    return mphone;
+  }
+  module.exports.toHide = toHide;
+</wxs>
+<!--非会员初始页面-->
+<view class="notmember" wx:if="{{isMember==2}}">
+  <view class="container-top">
+    <view class="container-top-img">
+      <image src="{{hostUrl}}/icon/commission_not_vip.png"></image>
+    </view>
+    <view class="container-top-text">您还不是合伙人无法获取佣金</view>
+  </view>
+  <view class="container-wrap">
+    <rich-text nodes="{{html}}"></rich-text>
+  </view>
+  <view class="button" bindtap='jumpMember'>成为合伙人</view>
+</view>
+<!-- 已成为会员 -->
+<view class="member" wx:if="{{isMember==1}}">
+  <view class="commission-balance-wrapper">
+    <view class="commission-balance">
+      <image src="{{hostUrl}}/twoSix/recharge_card.png" class="img"></image>
+      <image src="{{hostUrl}}/add/tab_role.png" class="img1" bindtap="showRole"></image>
+      <view class="role" bindtap="showRole">佣金规则</view>
+      <view class="balance">
+        <view class="allMoney">
+          <view class="allMoney-text">总计赚得佣金</view>
+          <view class="allMoney-num">
+            <text class="sign">￥</text>
+            <text>{{content.totalCommission||0}}</text>
+          </view>
+        </view>
+        <view class="allMoney">
+          <view class="allMoney-text">佣金余额</view>
+          <view class="allMoney-num">
+            <text class="sign">￥</text>
+            <text>{{content.balance||0}}</text>
+          </view>
+        </view>
+        <view class="allMoney1">
+          <view class="allMoney-text">未到账金额</view>
+          <view class="allMoney-num">
+            <text class="sign">￥</text>
+            <text>{{content.pendingCommission||0}}</text>
+          </view>
+          <view class="watchDetail" bindtap="jumpCoomDe">查看明细</view>
+        </view>
+      </view>
+      <view class="withdraw-wrap">
+        <view class="withdraw" bindtap="showDetail">提现到余额</view>
+      </view>
+    </view>
+  </view>
+  <view class="block"></view>
+  <view class="commission1-details">
+    <view class="commission1-title">佣金明细</view>
+  </view>
+  <view class="wrapper">
+    <scroll-view scroll-x class="nav">
+      <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
+        <view class="nav-box" bindtap="screenCondition" data-status="{{item.status}}" data-title="{{item.name}}">
+          <view class="nav-item">{{item.name}}</view>
+          <image class="nav-img" src="{{item.img}}"></image>
+        </view>
+      </block>
+    </scroll-view>
+    <view class="listItem" wx:for="{{items}}" wx:key="{{item.id}}">
+      <image src="{{hostUrl}}/add/tab_a.png" class="bg1" wx:if="{{item.tradeType!==33}}"></image>
+      <image src="{{hostUrl}}/add/tab_f.png" class="bg6" wx:if="{{item.tradeType==33}}"></image>
+      <view class="commission">
+        <view class="commission-text">佣金</view>
+        <view class="commission-text" wx:if="{{item.tradeType!==33}}">+{{item.tradeAmount}}</view>
+        <view class="commission-text" wx:if="{{item.tradeType==33}}">{{item.tradeAmount}}</view>
+      </view>
+      <view class="withdrawTime" wx:if="{{item.tradeType==33}}">
+        <view class="withdrawTime-text">提现</view>
+        <view class="withdrawTime-time">
+          <text class="text">提现时间：</text>
+          <text>{{item.tradeTime?item.tradeTime:'未查到数据'}}</text>
+        </view>
+      </view>
+      <view class="list" wx:if="{{item.tradeType!==33}}">
+        <view class="listItem-photo">
+          <image src="{{item.avatarUrl?item.avatarUrl:hostUrl+'/flashPay/other_ren.png'}}"></image>
+        </view>
+        <view class="message">
+          <view class="msgtext">
+            <view class="nickname">{{item.nickName}}</view>
+            <view class="phone">{{item.mobileNumber=='未查到数据'?item.mobileNumber:phone.toHide(item.mobileNumber)}}</view>
+          </view>
+          <view class="msgtext">
+            <view class="msgtext-item">佣金编号：</view>
+            <view class="msgtext-text">{{item.id}}</view>
+          </view>
+          <view class="msgtext">
+            <view class="msgtext-item">佣金来源：</view>
+            <view class="msgtext-text">{{item.source?item.source:'未查到数据'}}</view>
+          </view>
+          <view class="msgtext">
+            <view class="msgtext-item">{{item.remark}}</view>
+            <view class="msgtext-text">{{item.consumerAmount?'￥'+item.consumerAmount:'未查到数据'}}</view>
+          </view>
+          <view class="msgtext">
+            <view class="msgtext-item">到账时间：</view>
+            <view class="msgtext-text">{{item.tradeTime?item.tradeTime:'未查到数据'}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="bottom1" wx:if="{{item.tradeType!==33}}" bindtap='copyText' data-text="{{item.id}}">
+        <view class="btn1">复制佣金编号</view>
+      </view>
+    </view>
+    <view class="textData">{{textData}}</view>
+  </view>
+</view>
+<!--提现弹窗-->
+<view class="modal-mask" bindtap="hide" catchtouchmove="preventTouchMove" wx:if="{{show}}"></view>
+<view class="modal-dialog1" wx:if="{{show}}">
+  <view class="modal-title1">提现</view>
+  <view class="section1">
+    <view class="input-price1">￥</view>
+    <input placeholder="请输入提现金额" auto-focus type="digit" value="{{inputValue1}}" placeholder-style="color:#AAAAAA" bindinput="btnSumbit" class="input-block" />
+  </view>
+  <view class="prompt1" wx:if="{{showMessage1}}">请输入提现金额</view>
+  <view class="modal-footer1">
+    <view class="btn-confirm1" bindtap="hideConfirm">确认提现</view>
+  </view>
+</view>
+<!-- 佣金规则弹窗 -->
+<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showRole}}">
+  <view class="zan-dialog__container" wx:if="{{showRole}}">
+    <view class="title">佣金规则</view>
+    <view class="text">
+      <view class="textitem">什么时候佣金可到账？</view>
+      <view wx:if="{{memberType===2}}">
+        <view class="textRole">1、下级正常购买的商品返佣将在订单完成后 进入您的佣金余额</view>
+        <view class="textRole">
+          2、下级通过一折购下单返佣将在返现金额 到达下级的账户时同时到达您的佣金余额。 到达多少笔佣金，也是根据下级分期月数相 同
+        </view>
+        <view class="textRole">3、转让待返的佣金会在转让完成后即可到账</view>
+        <view class="textRole">4、下级购买钻石合伙人佣金，会在下级购买 后即刻到账</view>
+      </view>
+      <view wx:if="{{memberType===1 || memberType==null}}">
+        <view class="textRole">下级购买商品返佣将在订单完成后进入您的佣金余额</view>
+      </view>
+    </view>
+  </view>
+  <image wx:if="{{showRole}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='closeShow'></image>
+</view>
+<!-- 筛选条件弹窗 -->
+<view class="commodity_screen1" wx:if="{{showWay}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showWay}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/add/withdraw_close.png" catchtap='cancelCondition'></image>
+    <view class="title">{{tempTitle}}</view>
+    <view class="time_screens" wx:if="{{tempStatus==1}}">
+      <picker-view indicator-style="height: 50px;" style="width: 100%; height: 150px; font-size:30rpx;" value="{{value}}" bindchange="bindChange">
+        <picker-view-column class="picker-text">
+          <view wx:for="{{years}}" wx:key="" style="line-height: 50px">{{item}}年</view>
+        </picker-view-column>
+        <picker-view-column class="picker-text">
+          <view wx:for="{{months}}" wx:key="" style="line-height: 50px">{{item}}月</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+    <block wx:for="{{arry2}}" wx:key="" wx:if="{{tempStatus==2}}">
+      <view class="tab" bindtap="tap" data-index="{{index}}" data-sourcestring="{{item.sourceString}}">
+        <view class="text1">{{item.name}}</view>
+        <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
+      </view>
+    </block>
+    <block wx:for="{{arry3}}" wx:key="" wx:if="{{tempStatus==3}}">
+      <view class="tab" bindtap="tap" data-index="{{index}}">
+        <view class="text1">{{item.name}}</view>
+        <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
+      </view>
+    </block>
+    <block wx:for="{{arry4}}" wx:key="" wx:if="{{tempStatus==4}}">
+      <view class="tab" bindtap="tap" data-index="{{index}}" data-amountorder="{{item.amountOrder}}">
+        <view class="text1">{{item.name}}</view>
+        <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
+      </view>
+    </block>
+    <view class="showBtn" wx:if="{{tempStatus !==1}}" bindtap="sureConfirm">确定</view>
+    <view class="botton_box" wx:else>
+      <view class="newbotton_one" bindtap="watchAllTime">查看所有时间</view>
+      <view class="newbotton_two" bindtap="showConfirm">确定</view>
+    </view>
+  </view>
+</view>
+
+<!-- 输入密码弹出框 -->
+<view class="modal-mask1" catchtouchmove="preventTouchMove" wx:if="{{showPsw}}">
+  <view class="zan-dialog__container1" wx:if="{{showPsw}}">
+    <view class="pwd-text">请输入支付密码</view>
+    <view class="text">{{text}}</view>
+    <view bindsubmit="formSubmit">
+      <view class='iptbox-wrapper'>
+        <block wx:for="{{Length}}" wx:key="item">
+          <input class='iptbox' value="{{Value.length>=index+1?Value[index]:''}}" disabled password='{{ispassword}}' type="number" catchtap='Tap'></input>
+        </block>
+      </view>
+      <input name="password" value="{{Value}}" adjust-position="{{false}}" password="{{true}}" class='ipt' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="Focus" type="number"></input>
+    </view>
+  </view>
+  <image wx:if="{{showPsw}}" class="pwd-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelShow'></image>
+</view>
+<!--是否设置支付弹框-->
+<view class="zan-dialog1" catchtouchmove="preventTouchMove" wx:if="{{showPassword}}" bindtap='hidePassword'></view>
+<view class="zan-dialog1__container" wx:if="{{showPassword}}">
+  <view class='content1'>
+    <view class="content1-title">提示</view>
+    <view class="content1-container">为了您账户余额安全，请您先设置账户支付密码哦</view>
+    <view class="content1-button">
+      <view class="cancel-password" bindtap='cancel'>取消</view>
+      <view class="sure-password" bindtap='sure'>马上设置</view>
+    </view>
+  </view>
+</view>

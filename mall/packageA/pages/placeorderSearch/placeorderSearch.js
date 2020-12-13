@@ -705,6 +705,32 @@ Page({
       showCart: false
     })
   },
+  //删除购物车
+  delete() {
+    let that = this
+    that.setData({
+      showModal: true
+    })
+  },
+  need() {
+    let that = this
+    app.Util.ajax('mall/bag/deleteBatch?storeId=' + that.data.storeId, null, 'DELETE').then((res) => {
+      if (res.data.messageCode = 'MSG_1001') {
+        that.setData({
+          showModal: false,
+          pageNumber: 1
+        })
+        that.queryCart()
+        that.initgetMore()
+      }
+    })
+  },
+  noNeed: function (e) {
+    let that = this
+    that.setData({
+      showModal: false
+    })
+  },
   storeReduce(e) {
     let that = this
     let quantity = Number(e.currentTarget.dataset.quantity)

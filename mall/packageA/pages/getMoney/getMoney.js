@@ -9,7 +9,7 @@ Page({
     hostUrl: app.Util.getUrlImg().hostUrl,
     pageNumber: 1,
     pageSize: 20,
-    allPost:[],
+    allPost:'',
     type:6
   },
 

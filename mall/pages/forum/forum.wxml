@@ -30,7 +30,7 @@
 </view>
 <view class="block"></view>
 <view class="getSaveMoney" wx:if="{{currentTab==3}}">
-  <view class="getMoney {{showClass==1?'selectClass':''}}" bindtap="getMoney">预定商品</view>
+  <view class="getMoney {{showClass==1?'selectClass':''}}" bindtap="getMoney">预订商品</view>
   <view class="getMoney {{showClass==2?'selectClass':''}}" bindtap="saveMoney">预售商品</view>
 </view>
 <view class="orderGet" wx:if="{{currentTab==2}}">
@@ -49,7 +49,7 @@
       <view class="content_box_photo">
         <view class="content_box_left">
           <image wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-          <image wx:else src="/assets/images/mine/other_ren.png"></image>
+          <image wx:else src="{{hostUrl}}/flashPay/other_ren.png"></image>
           <view class="nickname">{{item.nickname}}</view>
         </view>
         <view class="content_box_right">
@@ -305,7 +305,7 @@
         <view class="mentionPeriodList">
           <view class="mentionPeriod" wx:for="{{mentionPeriodContent}}" wx:key="{{mentionPeriodContent.id}}">
             <view class="user_name_box" bindtap="toHelp" data-id="{{item.id}}">
-              <image src="{{item.avatarKey?item.avatarKey:'/assets/images/mine/other_ren.png'}}" class="userImg" />
+              <image src="{{item.avatarKey?item.avatarKey:hostUrl+'/flashPay/other_ren.png'}}" class="userImg" />
               <view class="user_name">
                 <view class="name">{{item.nickname}}</view>
                 <image src="{{hostUrl}}/changeImg/huiyuan.png" class="huiyuanImg" wx:if="{{item.role==2}}" />
@@ -350,7 +350,7 @@
 <view class="comprehensive-not" wx:if="{{currentTab==3&&allPost.length===0&&type==6}}">
   <image src="{{hostUrl}}/changeImg/picStore.png"></image>
   <view class="notComprehensive">暂时没有可以直接购买的省钱商品，</view>
-  <view class="notComprehensive">试试自己预定商品吧。</view>
+  <view class="notComprehensive">试试自己预订商品吧。</view>
 </view>
 <view class="comprehensive-not" wx:if="{{currentTab==3&&allPost.length===0&&type==5}}">
   <image src="{{hostUrl}}/changeImg/picStore.png"></image>
@@ -358,11 +358,11 @@
   <view class="notComprehensive">试试自己挂预售商品吧。</view>
 </view>
 <view class="comprehensive-not" wx:if="{{currentTab!==3&&currentTab!==0&&allPost.length===0}}">
-  <image src="/assets/images/mine/noThing.png"></image>
+  <image src="{{hostUrl}}/flashPay/noThing.png"></image>
   <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
 </view>
 <view class="comprehensive-not" wx:if="{{currentTab==0&&allPost.length===0&&allPost1.length===0}}">
-  <image src="/assets/images/mine/noThing.png"></image>
+  <image src="{{hostUrl}}/flashPay/noThing.png"></image>
   <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
 </view>
 <view class="recommend-title" wx:if="{{isRecommend==true&&currentTab==0&&allPost1.length>0}}">
@@ -379,7 +379,7 @@
     <view class="content_box_photo">
       <view class="content_box_left">
         <image wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-        <image wx:else src="/assets/images/mine/other_ren.png"></image>
+        <image wx:else src="{{hostUrl}}/flashPay/other_ren.png"></image>
         <view class="nickname">{{item.nickname}}</view>
       </view>
       <view class="content_box_right">

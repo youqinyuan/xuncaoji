@@ -1,0 +1,231 @@
+/* packageB/pages/makeGroup/makeGroup.wxss */
+.comprehensive-not {
+  color: #333;
+  font-size: 28rpx;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.comprehensive-not image {
+  width: 380rpx;
+  height: 380rpx;
+}
+page {
+  background: #f4f4f4;
+}
+
+/* 顶部导航 */
+
+.nav {
+  width: 750rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  white-space: nowrap;
+  padding: 0 30rpx;
+  padding-right: 50rpx;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+}
+
+.nav-box {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-item {
+  text-align: center;
+  color: #333;
+}
+
+.nav-img {
+  position: absolute;
+  right: -20rpx;
+  top: 42rpx;
+  width: 16rpx;
+  height: 8rpx;
+}
+
+.wrap {
+  margin-left: 30rpx;
+  width: 690rpx;
+  box-sizing: border-box;
+  margin-top: 110rpx;
+}
+
+.items {
+  width: 100%;
+  height: 230rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  display: flex;
+  padding-left: 30rpx;
+  padding-right: 20rpx;
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.img_wrap {
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 170rpx;
+  height: 170rpx;
+  margin-right: 30rpx;
+  margin-top: 30rpx;
+  border-radius: 20rpx;
+}
+
+.img_wrap image {
+  width: 170rpx;
+  height: 170rpx;
+  border-radius: 20rpx;
+}
+
+.goodsDetail {
+  height: 100%;
+  padding-bottom: 30rpx;
+  box-sizing: border-box;
+}
+
+.goodsName {
+  width: 440rpx;
+  text-align: left;
+  margin-top: 40rpx;
+  font-size: 32rpx;
+  color: #333;
+  font-family: PingFang SC;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.storeGrade {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #999;
+  margin-top: 20rpx;
+}
+
+.re-storeGrade {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+.goodsBottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.storeText text {
+  font-weight: normal;
+}
+
+.stars image {
+  width: 24rpx;
+  height: 22rpx;
+  margin-right: 4rpx;
+}
+
+.takeoutT {
+  margin-top: 10rpx;
+  color: #ff2644;
+  font-size: 24rpx;
+}
+
+.takeoutT text:nth-child(1) {
+  font-weight: bold;
+}
+
+.takeoutT text:nth-child(2) {
+  font-weight: bold;
+  font-size: 36rpx;
+}
+
+.goods-btn {
+  width: 120rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+   background: linear-gradient(0deg, #ff2644 0%, #ff6a48 100%);
+  border-radius: 4rpx;
+}
+
+.goods-text {
+  font-size: 24rpx;
+  color: #ff2644;
+  margin-top: 5rpx;
+}
+
+/* 筛选 */
+.choose {
+  width: 750rpx;
+  position: fixed;
+  background-color: #fff;
+  top: 90rpx;
+  z-index: 999;
+}
+
+.tab {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333;
+  height: 80rpx;
+  align-items: center;
+}
+
+.choose-active {
+  color: #ff2644;
+}
+
+.choose_img {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.get-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+}
+
+.exProducts-bottom {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  text-align: center;
+  height: 70rpx;
+  line-height: 70rpx;
+}

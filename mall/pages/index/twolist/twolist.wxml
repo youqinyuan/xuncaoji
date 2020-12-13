@@ -21,8 +21,9 @@
 <view class="comprehensive-list-wrapper">
   <template is='goodsList' data="{{list:list}}" wx:if="{{list.length>0}}" />
   <view class="comprehensive-not" wx:if="{{list.length==0}}">
-    <image src="/assets/images/mine/noThing.png"></image>
+    <image src="{{hostUrl}}/flashPay/noThing.png"></image>
     <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
   </view>
 </view>
-<view class="page-bottom">{{textToast}}</view>
+<view class="page-bottom" wx:if="{{textToast1}}">{{textToast1}}</view>
+<view class="page-bottom " wx:else>{{textToast}}</view>

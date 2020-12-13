@@ -59,6 +59,7 @@ Page({
     canUseTime: [],
     canUse: null,
     store: null, //店铺id
+    buyMode: null
   },
 
   /**
@@ -66,17 +67,21 @@ Page({
    */
   onLoad: function(options) {
     let that = this
+    console.log(options)
     that.setData({
-      store: JSON.parse(options.store)
+      store: options.store ? JSON.parse(options.store) : null,
+      buyMode: options.buyStore ? JSON.parse(options.buyStore) : null
     })
-    // 校验购物袋
-    that.checkCart()
-    if(that.data.store.type==1){
-      //查询可配送地址
-      that.queryAddress()
-    }  
-    //查询可配送时间
-    that.queryTime()
+    if (!that.data.buyMode) {
+      // 校验购物袋
+      that.checkCart()
+      if (that.data.store.type == 1) {
+        //查询可配送地址
+        that.queryAddress()
+      }
+      //查询可配送时间
+      that.queryTime()
+    }
   },
 
   /**
@@ -100,9 +105,13 @@ Page({
     if (canUse) {
       that.checkCart()
     }
-    if(app.globalData.takeOut==2){
+    if (app.globalData.takeOut == 2) {
       app.globalData.takeOut = 1
       that.checkCart()
+    }
+    if (that.data.buyMode){
+      // 校验闪付下单
+      that.buyCheck()
     }
     if (that.data.isBack) {
       wx.navigateBack()
@@ -140,6 +149,35 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  // 校验闪付订单
+  buyCheck(){
+    let that = this
+    let data = {
+      storeId: that.data.buyMode.id,
+      flashPayAmount: that.data.buyMode.flashPayAmount,
+      useSeed: that.data.useSeed == true ? 1 : 0,
+      useCoupon: that.data.shoppingAmountShow == true ? 1 : 0,
+      cashBackPeriods: that.data.cashBackPeriods ? that.data.cashBackPeriods:'',
+      discountNumber: that.data.discountNumber==0 ? 0:that.data.discountNumber?that.data.discountNumber:'',
+      buyMode: parseInt(that.data.buyMode.buyMode),
+    }
+    app.Util.ajax('mall/bag/checkFlashPay', data, 'POST').then((res) => {
+      if (res.data.messageCode == 'MSG_1001') {
+        that.setData({
+          orderContent: res.data.content,
+        })
+      } else if (res.data.messageCode == 'MSG_4002') {
+        wx.navigateBack({
+          delta: 1
+        })
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+      }
+    })
   },
   nav: function() {
     let that = this;
@@ -339,76 +377,81 @@ Page({
   toPlaceOrder() {
     let that = this
     if (that.data.bgColor == '#ff2644') {
-      if (that.data.payType == 1) {
+      if(that.data.buyMode){
         let data = {
-          storeId: that.data.store.id,
+          storeId: that.data.buyMode.id,
+          flashPayAmount: that.data.buyMode.flashPayAmount,
           useSeed: that.data.useSeed == true ? 1 : 0,
           useCoupon: that.data.shoppingAmountShow == true ? 1 : 0,
-          deliveryType: that.data.deliveryType,
-          payType: that.data.payType,
-          appointmentTime: that.data.appointmentTime,
-          userAddressBookId: that.data.canUse ? that.data.canUse.id : null//地址id
+          buyMode:2,
+          cashBackPeriods: that.data.cashBackPeriods ? that.data.cashBackPeriods : that.data.orderContent.orderGoodsBo[0].orderGoods.period,
+          discountNumber: that.data.discountNumber ? that.data.discountNumber : that.data.orderContent.orderGoodsBo[0].orderGoods.discountNumber,
         }
-        app.Util.ajax('mall/bag/addOrderByBag', data, 'POST').then((res) => {
+        app.Util.ajax('mall/bag/addOrderByFlashPay', data, 'POST').then((res) => {
           if (res.data.messageCode == 'MSG_1001') {
-            if (res.data.content.hasErrGoods == 1) {
-              wx.showToast({
-                title: '部分商品价格信息有变动\n不参与结算',
-                icon: 'none'
-              })
-            }
-            setTimeout(function() {
-              wx.navigateTo({
-                url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&takeType=${that.data.store.type}&buymode=${that.data.orderContent.order.buyMode}`,
-              })
-            }, 1000)
-          } else if (res.data.message == '[userAddressId] 不能为空') {
-            wx.showToast({
-              title: '请选择配送地址',
-              icon: 'none'
-            })
-          } else if (res.data.messageCode == 'MSG_4002') {
-            wx.navigateBack({
-              delta: 1
-            })
-          } else {
-            wx.showToast({
-              title: res.data.message,
-              icon: 'none'
+            wx.navigateTo({
+              url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&takeType=${that.data.buyMode.type}`,
             })
           }
         })
-      } else {
-        let data = {
-          storeId: that.data.store.id,
-          useSeed: that.data.useSeed == true ? 1 : 0,
-          useCoupon: that.data.shoppingAmountShow == true ? 1 : 0,
-          deliveryType: that.data.deliveryType,
-          payType: that.data.payType,
-          appointmentTime: that.data.appointmentTime,
-          userAddressBookId: that.data.canUse ? that.data.canUse.id : null //地址id
-        }
-        app.Util.ajax('mall/bag/addOrderByBag', data, 'POST').then((res) => {
-          if (res.data.messageCode == 'MSG_1001') {
-            if (res.data.content.hasErrGoods == 1) {
+      }else{
+        if (that.data.payType == 1) {
+          let data = {
+            storeId: that.data.store.id,
+            useSeed: that.data.useSeed == true ? 1 : 0,
+            useCoupon: that.data.shoppingAmountShow == true ? 1 : 0,
+            deliveryType: that.data.deliveryType,
+            payType: that.data.payType,
+            appointmentTime: that.data.appointmentTime,
+            userAddressBookId: that.data.canUse ? that.data.canUse.id : null //地址id
+          }
+          app.Util.ajax('mall/bag/addOrderByBag', data, 'POST').then((res) => {
+            if (res.data.messageCode == 'MSG_1001') {
+              if (res.data.content.hasErrGoods == 1) {
+                wx.showToast({
+                  title: '部分商品价格信息有变动\n不参与结算',
+                  icon: 'none'
+                })
+              }
+              setTimeout(function () {
+                wx.navigateTo({
+                  url: `/pages/paymentorder/paymentorder?id=${res.data.content.id}&takeType=${that.data.store.type}`,
+                })
+              }, 1000)
+            } else if (res.data.message == '[userAddressId] 不能为空') {
               wx.showToast({
-                title: '部分商品价格信息有变动\n不参与结算',
+                title: '请选择配送地址',
+                icon: 'none'
+              })
+            } else if (res.data.messageCode == 'MSG_4002') {
+              wx.navigateBack({
+                delta: 1
+              })
+            } else {
+              wx.showToast({
+                title: res.data.message,
                 icon: 'none'
               })
             }
-            if(that.data.store.type==1){
-              setTimeout(function () {
-                app.Util.ajax('mall/payment/pay', {
-                  transStatementId: res.data.content.id,
-                  channel: 3,
-                  client: 2
-                }, 'POST').then((res) => {
-                  wx.navigateTo({
-                    url: `/pages/myorder/myorder?status=${0}`,
-                  })
+          })
+        } else {
+          let data = {
+            storeId: that.data.store.id,
+            useSeed: that.data.useSeed == true ? 1 : 0,
+            useCoupon: that.data.shoppingAmountShow == true ? 1 : 0,
+            deliveryType: that.data.deliveryType,
+            payType: that.data.payType,
+            appointmentTime: that.data.appointmentTime,
+            userAddressBookId: that.data.canUse ? that.data.canUse.id : null //地址id
+          }
+          app.Util.ajax('mall/bag/addOrderByBag', data, 'POST').then((res) => {
+            if (res.data.messageCode == 'MSG_1001') {
+              if (res.data.content.hasErrGoods == 1) {
+                wx.showToast({
+                  title: '部分商品价格信息有变动\n不参与结算',
+                  icon: 'none'
                 })
-              }, 1000)
-            } else if (that.data.store.type == 2){
+              }
               setTimeout(function () {
                 app.Util.ajax('mall/payment/pay', {
                   transStatementId: res.data.content.id,
@@ -420,23 +463,23 @@ Page({
                   })
                 })
               }, 1000)
-            }            
-          } else if (res.data.message == '[userAddressId] 不能为空') {
-            wx.showToast({
-              title: '请选择配送地址',
-              icon: 'none'
-            })
-          } else if (res.data.messageCode == 'MSG_4002') {
-            wx.navigateBack({
-              delta: 1
-            })
-          } else {
-            wx.showToast({
-              title: res.data.message,
-              icon: 'none'
-            })
-          }
-        })
+            } else if (res.data.message == '[userAddressId] 不能为空') {
+              wx.showToast({
+                title: '请选择配送地址',
+                icon: 'none'
+              })
+            } else if (res.data.messageCode == 'MSG_4002') {
+              wx.navigateBack({
+                delta: 1
+              })
+            } else {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'none'
+              })
+            }
+          })
+        }
       }
     } else {
       return;
@@ -526,9 +569,9 @@ Page({
     that.setData({
       useSeed: !that.data.useSeed
     })
-    if (that.data.useSeed == true) {
-      that.checkCart();
-    } else {
+    if(that.data.buyMode){
+      that.buyCheck()
+    }else{
       that.checkCart();
     }
   },
@@ -538,8 +581,8 @@ Page({
     that.setData({
       shoppingAmountShow: !that.data.shoppingAmountShow
     })
-    if (that.data.shoppingAmountShow == true) {
-      that.checkCart();
+    if (that.data.buyMode) {
+      that.buyCheck()
     } else {
       that.checkCart();
     }
@@ -618,36 +661,47 @@ Page({
   //     }
   //   })
   // },
+  // 闪付修改
+  buyPeriod(e){
+    let that = this
+    let arr = {}
+    arr.cashBackPeriods = e.target.dataset.cashbackperiods
+    arr.discountNumber = e.currentTarget.dataset.discountnumber
+    let obj = JSON.stringify(arr)
+    wx.navigateTo({
+      url: '/packageB/pages/applyZero/applyZero?quickPass=1&&arr=' + obj + '&flashPayAmount=' + that.data.buyMode.flashPayAmount
+    })
+  },
   getShowPeriod(e) {
     let that = this
-    if(e.currentTarget.dataset.stagetype==1){
+    if (e.currentTarget.dataset.stagetype == 1) {
       that.setData({
-            stagetype: e.currentTarget.dataset.stagetype,
-            cashBackType: e.currentTarget.dataset.cashbacktype,
-            bagId: e.currentTarget.dataset.bagid,
-            quantity: e.currentTarget.dataset.quantity,
-          })
-          let data = {
-            bagId: e.currentTarget.dataset.bagid
-          }
-          app.Util.ajax('mall/bag/queryCashBackPeriods', data, 'GET').then((res) => {
-            if (res.data.messageCode == 'MSG_1001') {
-              for (let i = 0; i < res.data.content.length; i++) {
-                if (res.data.content[i].cashBackId == e.currentTarget.dataset.cashbackid) {
-                  that.setData({
-                    cur: i
-                  })
-                }
-              }
+        stagetype: e.currentTarget.dataset.stagetype,
+        cashBackType: e.currentTarget.dataset.cashbacktype,
+        bagId: e.currentTarget.dataset.bagid,
+        quantity: e.currentTarget.dataset.quantity,
+      })
+      let data = {
+        bagId: e.currentTarget.dataset.bagid
+      }
+      app.Util.ajax('mall/bag/queryCashBackPeriods', data, 'GET').then((res) => {
+        if (res.data.messageCode == 'MSG_1001') {
+          for (let i = 0; i < res.data.content.length; i++) {
+            if (res.data.content[i].cashBackId == e.currentTarget.dataset.cashbackid) {
               that.setData({
-                cashBackPeriods: res.data.content
-              })
-              that.setData({
-                showPeriod: true
+                cur: i
               })
             }
+          }
+          that.setData({
+            cashBackPeriods: res.data.content
           })
-    }else{
+          that.setData({
+            showPeriod: true
+          })
+        }
+      })
+    } else {
       var arr = {}
       arr.cashBackPeriods = e.target.dataset.period
       arr.needpaymentamount = e.target.dataset.needpaymentamount
@@ -658,11 +712,11 @@ Page({
       arr.bagId = e.currentTarget.dataset.bagid
       arr.discountNumber = e.currentTarget.dataset.discountnumber
       var obj = JSON.stringify(arr)
-      if (that.data.orderContent.orderGoodsBo.length===1){
+      if (that.data.orderContent.orderGoodsBo.length === 1) {
         wx.navigateTo({
           url: '/packageB/pages/applyZero/applyZero?takeout=1&&arr=' + obj
         })
-      }else{
+      } else {
         wx.navigateTo({
           url: '/packageB/pages/applyZero/applyZero?takeout=2&&arr=' + obj
         })
@@ -814,10 +868,10 @@ Page({
     })
   },
   // 跳转至金额明细
-  jumpMoney(e){
+  jumpMoney(e) {
     let that = this
     wx.navigateTo({
-      url: `/packageB/pages/moneyDetails/moneyDetails?storeId=${that.data.store.id}&useSeed=${that.data.useSeed == true ? 1 : 0}&useCoupon=${that.data.shoppingAmountShow == true ? 1 : 0}&payType=${that.data.payType}`
+      url: `/packageB/pages/moneyDetails/moneyDetails?storeId=${e.currentTarget.dataset.storeid}&useSeed=${that.data.useSeed == true ? 1 : 0}&useCoupon=${that.data.shoppingAmountShow == true ? 1 : 0}&payType=${that.data.payType}`
     })
   }
 })

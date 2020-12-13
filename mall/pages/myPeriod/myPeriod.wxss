@@ -4,6 +4,18 @@ page {
   background: #f4f4f4;
 }
 
+.comprehensive-not {
+  color: #333;
+  font-size: 28rpx;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.comprehensive-not image {
+  width: 380rpx;
+  height: 380rpx;
+}
+
 .wrap {
   position: relative;
   width: 710rpx;

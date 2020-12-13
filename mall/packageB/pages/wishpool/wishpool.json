@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#FFF0FA",
+  "navigationBarTitleText": "寻商品",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true
+}

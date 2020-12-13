@@ -24,7 +24,7 @@
   </view>
 </view>
 <view wx:if="{{content.length==0}}">
-  <image src="/assets/images/mine/noThing.png" class="picStore"/>
+  <image src="{{hostUrl}}/flashPay/noThing.png" class="picStore"/>
   <view class="noThing">这里什么都没有，去别的地方逛逛吧</view>
 </view>
 <view class="cashBackBox-text" wx:if="{{text !==''}}">{{text}}</view>

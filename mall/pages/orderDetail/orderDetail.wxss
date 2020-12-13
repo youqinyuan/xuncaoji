@@ -34,9 +34,8 @@ page {
 .orderDetail .top {
   width: 750rpx;
   height: 180rpx;
-  background: linear-gradient(-65deg, rgba(255, 38, 68, 1) 0%, rgba(255, 106, 77, 1) 100%);
+  background: linear-gradient(-65deg, rgba(255, 106, 77, 1) 0%, rgba(255, 38, 68, 1) 100%);
   display: flex;
-  align-items: center;
 }
 
 .state {
@@ -45,6 +44,7 @@ page {
   justify-content: space-between;
   align-items: center;
   margin-right: 68rpx;
+  height: 150rpx;
 }
 
 .orderDetail .top .text:nth-child(1) text {
@@ -59,7 +59,6 @@ page {
 .orderDetail .top .text .text1 {
   display: block;
   margin-left: 52rpx;
-  /* margin-top: 30rpx; */
   font-size: 34rpx;
   font-family: PingFang-SC-Bold;
   font-weight: bold;
@@ -74,9 +73,25 @@ page {
   color: rgba(255, 255, 255, 1);
 }
 
+.orderDetail .top .text .text3 {
+  display: block;
+  margin-left: 52rpx;
+  margin-top: 14rpx;
+  font-size: 24rpx;
+  color: #ffc7c7;
+}
+
 .orderDetail .top image {
   width: 100rpx;
   height: 100rpx;
+}
+
+.address_take_wrap {
+  position: relative;
+  top: -20rpx;
+  height: 20rpx;
+  background: #fff;
+  border-radius: 20rpx 20rpx 0 0;
 }
 
 /*添加收货地址*/
@@ -85,7 +100,6 @@ page {
   position: relative;
   top: -20rpx;
   background: #fff;
-  border-radius: 20rpx 20rpx 0 0;
 }
 
 .address {
@@ -156,6 +170,7 @@ page {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+
 /*店铺商品*/
 
 .shops-wrap-top {
@@ -351,19 +366,22 @@ page {
 .expressfee-price1 {
   font-size: 28rpx !important;
 }
+
 .expressfee-price2 {
   font-size: 40rpx !important;
 }
 
 .expressfee-price1-text {
-  color: #FF2644;
+  color: #ff2644;
   font-size: 36rpx !important;
 }
-.magbto30{
+
+.magbto30 {
   padding-bottom: 20rpx;
 }
+
 .expressfee-money {
-  color: #FF2644;
+  color: #ff2644;
   font-size: 36rpx !important;
 }
 
@@ -397,21 +415,26 @@ page {
   color: #ff2644;
   margin-right: 29rpx;
 }
-.red{
-  font-weight:bold;
-  color:rgba(255,38,68,1);
+
+.red {
+  font-weight: bold;
+  color: rgba(255, 38, 68, 1);
 }
-.mag145{
+
+.mag145 {
   margin-left: 353rpx;
 }
-.matop3{
+
+.matop3 {
   margin-top: 3rpx;
 }
-.xiahua{
-  font-size:24rpx;
-  text-decoration:underline;
-  color:rgba(183,144,91,1);
+
+.xiahua {
+  font-size: 24rpx;
+  text-decoration: underline;
+  color: rgba(183, 144, 91, 1);
 }
+
 .yearRat-item {
   margin-right: 30rpx;
   color: #b7905b;
@@ -1430,7 +1453,7 @@ page {
 
 .return_money text {
   display: inline-block;
-  border: rgba(255,38,68,1) 0.5px solid;
+  border: rgba(255, 38, 68, 1) 0.5px solid;
   text-align: center;
   width: 170rpx;
   height: 56rpx;
@@ -1439,48 +1462,46 @@ page {
   position: absolute;
   right: 28rpx;
   font-size: 32rpx;
-  color: rgba(255,38,68,1);
+  color: rgba(255, 38, 68, 1);
 }
 
 .seed {
   height: 80rpx;
   background: #fff;
   position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 
 .seed_all {
-  display: inline-block;
   height: 80rpx;
   line-height: 80rpx;
   font-size: 24rpx;
   font-family: PingFang SC;
   font-weight: 400;
   color: rgba(102, 102, 102, 1);
-  position: absolute;
-  left: 29rpx;
+  margin-left: 29rpx;
 }
 
 .seed_detail {
-  display: inline-block;
   height: 80rpx;
   line-height: 80rpx;
   font-size: 24rpx;
   color: rgba(102, 102, 102, 1);
-  position: absolute;
-  right: 124rpx;
   text-align: end;
   width: 100rpx;
 }
 
+.seed_all_right {
+  margin-right: 29rpx;
+  display: flex;
+}
+
 .choose_box {
   height: 80rpx;
-  width: 90rpx;
   line-height: 80rpx;
-  display: inline-block;
   font-size: 24rpx;
   color: rgba(51, 51, 51, 1);
-  position: absolute;
-  right: 30rpx;
   text-align: end;
 }
 
@@ -1565,7 +1586,7 @@ page {
   font-size: 30rpx;
   color: rgba(255, 38, 68, 1);
   margin-left: 20rpx;
-  margin-top: 50rpx;
+  margin-top: 19rpx;
 }
 
 .seedValue {
@@ -1929,7 +1950,6 @@ page {
   position: relative;
   top: -20rpx;
   background: #fff;
-  border-radius: 20rpx 20rpx 0 0;
 }
 
 .takeout {
@@ -2009,55 +2029,63 @@ page {
   line-height: 40rpx;
   text-align: left;
 }
-.new_cancle{
-  width:204rpx;
-  height:108rpx;
+
+.new_cancle {
+  width: 204rpx;
+  height: 108rpx;
   line-height: 108rpx;
-  font-size:32rpx;
-  text-decoration:underline;
-  color:rgba(153,153,153,1);
+  font-size: 32rpx;
+  text-decoration: underline;
+  color: rgba(153, 153, 153, 1);
   text-align: center;
 }
-.new_detail{
-  width:220rpx;
-  height:80rpx;
+
+.new_detail {
+  width: 220rpx;
+  height: 80rpx;
   line-height: 80rpx;
   text-align: center;
-  background:rgba(26,26,26,1);
-  border-radius:40rpx 0px 0px 40rpx;
-  font-size:32rpx;
-  color:rgba(255,255,255,1);
+  background: rgba(26, 26, 26, 1);
+  border-radius: 40rpx 0px 0px 40rpx;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
 }
-.new_pay{
-  width:310rpx;
-  height:80rpx;
+
+.new_pay {
+  width: 310rpx;
+  height: 80rpx;
   line-height: 80rpx;
   text-align: center;
-  background:rgba(255,38,68,1);
-  border-radius:0rpx 40rpx 40rpx 0rpx;
-  font-size:32rpx;
-  color:rgba(255,255,255,1);
+  background: rgba(255, 38, 68, 1);
+  border-radius: 0rpx 40rpx 40rpx 0rpx;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
 }
-.new_detail2{
-  width:691rpx;
-  height:80rpx;
+
+.new_detail2 {
+  width: 691rpx;
+  height: 80rpx;
   line-height: 80rpx;
   text-align: center;
-  background:linear-gradient(90deg,rgba(255,106,72,1) 0%,rgba(255,38,68,1) 100%);
-  border-radius:40px;
-  font-size:32rpx;
-  color:rgba(255,255,255,1);
+  background: linear-gradient(90deg, rgba(255, 106, 72, 1) 0%, rgba(255, 38, 68, 1) 100%);
+  border-radius: 40px;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
   margin-left: 30rpx;
 }
-.width290{
+
+.width290 {
   width: 290rpx !important;
   margin-left: 30rpx;
 }
-.width400{
+
+.width400 {
   width: 400rpx !important;
 }
+
 /* 种子消耗弹窗 */
-.bg10{
+
+.bg10 {
   position: fixed;
   top: 0;
   left: 0;
@@ -2066,45 +2094,51 @@ page {
   background: rgba(0, 0, 0, 0.6);
   z-index: 9999;
 }
-.content10{
+
+.content10 {
   position: absolute;
-  background:rgba(255,255,255,1);
+  background: rgba(255, 255, 255, 1);
   width: 600rpx;
-  border-radius:24rpx;
+  border-radius: 24rpx;
   top: 220rpx;
   left: 75rpx;
 }
-.title10{
+
+.title10 {
   height: 142rpx;
   line-height: 142rpx;
   text-align: center;
-  font-size:34rpx;
-  color:rgba(51,51,51,1);
+  font-size: 34rpx;
+  color: rgba(51, 51, 51, 1);
 }
-.text_one10{
-  font-size:28rpx;
-  color:rgba(51,51,51,1);
-  line-height:42rpx;
+
+.text_one10 {
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+  line-height: 42rpx;
   padding-left: 51rpx;
   padding-right: 52rpx;
 }
-.text_two10{
-  font-size:28rpx;
-  color:rgba(51,51,51,1);
-  line-height:42rpx;
+
+.text_two10 {
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+  line-height: 42rpx;
   padding-left: 51rpx;
   padding-right: 52rpx;
   margin-top: 10rpx;
 }
-.message10{
-  font-size:24rpx;
-  color:#FF2644;
-  line-height:42rpx;
+
+.message10 {
+  font-size: 24rpx;
+  color: #ff2644;
+  line-height: 42rpx;
   padding-left: 51rpx;
   padding-right: 51rpx;
   margin-top: 50rpx;
 }
-.button_box10{
+
+.button_box10 {
   display: flex;
   justify-content: space-between;
   height: 76rpx;
@@ -2113,30 +2147,110 @@ page {
   margin-top: 50rpx;
   margin-bottom: 60rpx;
 }
-.button_one10{
-  width:240rpx;
-  height:75rpx;
-  border:0.5px solid rgba(255,38,68,1);
-  border-radius:38rpx;
-  font-size:32rpx;
-  color:rgba(255,38,68,1);
+
+.button_one10 {
+  width: 240rpx;
+  height: 75rpx;
+  border: 0.5px solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: rgba(255, 38, 68, 1);
   text-align: center;
   line-height: 75rpx;
 }
-.button_two10{
-  width:240rpx;
-  height:76rpx;
-  background:rgba(255,38,68,1);
-  border-radius:38rpx;
-  font-size:32rpx;
-  color:rgba(255,255,255,1);
+
+.button_two10 {
+  width: 240rpx;
+  height: 76rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
   text-align: center;
   line-height: 76rpx;
 }
-.cancel-get10{
+
+.cancel-get10 {
   position: absolute;
   top: 146rpx;
   right: 100rpx;
   width: 44rpx;
   height: 74rpx;
+}
+
+.stagesPeriod {
+  background: #fff;
+  margin-top: 20rpx;
+}
+
+/* 成团待使用 */
+
+.get-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.get-zan-dialog__mask .zan-dialog__container {
+  width: 600rpx;
+  height: 761rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 150rpx;
+  left: 75rpx;
+  text-align: center;
+  z-index: -1;
+}
+
+.get-zan-dialog__mask .cancel-get {
+  width: 44rpx;
+  height: 74rpx;
+  position: absolute;
+  right: 81rpx;
+  top: 76rpx;
+}
+
+.zan-wrap {
+  position: absolute;
+  top: 230rpx;
+  left: 254rpx;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.zan-dialog__container-img {
+  width: 242rpx;
+  height: 242rpx;
+}
+
+.zan-dialog__container-bg {
+  width: 70rpx;
+  height: 12rpx;
+  background: #f0f0f0;
+  margin-bottom: 100rpx;
+}
+
+.zan-dialog__container-title {
+  margin-bottom: 30rpx;
+  font-size: 32rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.zan-dialog__container-text {
+  margin-top: 62rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: rgba(34, 34, 34, 1);
 }

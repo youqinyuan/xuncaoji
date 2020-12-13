@@ -324,13 +324,23 @@ Page({
     } else {
       //发布
       that.checkSeed(id)
-      that.setData({
-        promptvalue: 3,
-        seedToast: true,
-        functionIndex: index,
-        id: id,
-        tempArr: tempList
-      })
+      if(that.data.seedText.seedAmountConsume>0){
+        that.setData({
+          promptvalue: 3,
+          seedToast: true,
+          functionIndex: index,
+          id: id,
+          tempArr: tempList
+        })
+      }else{
+        that.setData({
+          promptvalue: 3,
+          functionIndex: index,
+          id: id,
+          tempArr: tempList
+        })
+        that.fabu()
+      }
     }
   },
   checkSeed: function (id) {

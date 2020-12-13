@@ -14,7 +14,7 @@
     <view class="content_box_photo">
       <view class="content_box_left">
         <image wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-        <image wx:else src="/assets/images/mine/other_ren.png"></image>
+        <image wx:else src="{{hostUrl}}/flashPay/other_ren.png"></image>
         <view class="nickname">{{item.nickname}}</view>
       </view>
       <view class="content_box_right">
@@ -93,7 +93,7 @@
 <view class="notStore" wx:if="{{allPost.length===0}}">
   <image src="{{hostUrl}}/changeImg/picStore.png"></image>
   <view class="notStoreText">暂时没有可以直接购买的省钱商品，</view>
-  <view class="notStoreText">试试自己预定商品吧。</view>
+  <view class="notStoreText">试试自己预订商品吧。</view>
 </view>
 <!-- 删除帖子弹框 -->
 <view class="del-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDel}}">

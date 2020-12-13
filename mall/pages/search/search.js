@@ -22,8 +22,8 @@ Page({
   },
   // 跳转到寻商品页面
   emptyBtn(){
-    wx.switchTab({
-      url: '/pages/wishpool/wishpool',
+    wx.navigateTo({
+      url: '/packageB/pages/wishpool/wishpool',
     })
   },
   //跳转到详情页

@@ -196,9 +196,14 @@ Page({
     }
   },
   fabu:function(){
-    this.setData({
-      seedToast:true
-    })
+    let that = this
+    if(that.data.seedText.seedAmountConsume>0){
+      this.setData({
+        seedToast:true
+      })
+    }else{
+      this.shure()
+    }
   },
   close:function(){
     this.setData({

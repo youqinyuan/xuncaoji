@@ -85,6 +85,8 @@
 
 .goods-list-price {
   display: flex;
+  justify-content: space-between;
+  margin-right: 30rpx;
   margin-bottom: 30rpx;
 }
 
@@ -106,7 +108,12 @@
   font-family: PingFang SC;
   font-weight: 400;
 }
-
+.oldprice{
+   margin-top: 10rpx;
+  font-size: 24rpx;
+  text-decoration: line-through;
+  color: #999999;
+}
 .return-wrap {
   display: flex;
   height: 40rpx;

@@ -1,0 +1,231 @@
+/* packageB/pages/applyZeroStages/applyZeroStages.wxss */
+.pay_money_box{
+    width: 690rpx;
+    height: 180rpx;
+    background: #FFFFFF;
+    box-shadow: 0px 1rpx 20rpx 0rpx rgba(3, 0, 0, 0.08);
+    border-radius: 8rpx;
+    margin-top: 30rpx;
+    margin-left: 31rpx;
+}
+.money{
+    display: flex;
+    height: 90rpx;
+    line-height: 110rpx;
+    margin-left: 20rpx;
+}
+.month{
+    display: flex;
+    height: 90rpx;
+    line-height: 70rpx;
+    margin-left: 20rpx;
+}
+.money_left{
+    font-size: 28rpx;
+    color: #666666;
+    font-weight: 400;
+}
+.money_right{
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #FF2543;
+    margin-left: 18rpx;
+}
+.money_right text{
+    font-size: 28rpx !important;
+}
+.month_left{
+    font-size: 28rpx;
+    color: #666666;
+    font-weight: 400;
+}
+.month_right{
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #FF2543;
+    margin-left: 20rpx;
+    display: flex;
+}
+.month_right text{
+    font-size: 34rpx !important;
+    line-height: 63rpx;
+}
+.stages_title{
+    height: 67rpx;
+    padding-left: 51rpx;
+    font-size: 28rpx;
+    font-family: PingFang SC;
+    font-weight: bold;
+    color: #333333;
+    line-height: 67rpx;
+    margin-top: 39rpx;
+}
+.stages_period{
+    display: flex;
+    padding-left: 16rpx;
+    padding-right: 14rpx;
+    flex-wrap: wrap;
+    /* margin-top: 10rpx; */
+    justify-content: flex-start;
+}
+.period{
+    width: 216rpx;
+    height: 130rpx;
+    background: #FFFFFF;
+    border: 2rpx solid #E7E7E7;
+    box-shadow: 0rpx 1rpx 10rpx 0rpx rgba(3, 0, 0, 0.05);
+    border-radius: 8rpx;
+    margin-left: 15rpx;
+    margin-top:15rpx ;
+    position: relative;
+    
+}
+.period_number{
+    z-index: 10;
+    width: 216rpx;
+    height: 130rpx;
+    text-align: center;
+    line-height: 130rpx;
+    font-size: 32epx;
+    font-family: PingFang SC;
+    font-weight: 500;
+    color: #666666;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.red{
+    color: #FF2644 !important;
+}
+.period_img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 216rpx;
+    height: 130rpx;
+}
+.stages_info{
+    width: 690rpx;
+    height: 464rpx;
+    background: #FFFFFF;
+    box-shadow: 0px 1rpx 20rpx 0rpx rgba(3, 0, 0, 0.08);
+    border-radius: 8rpx;
+    margin-top: 15rpx;
+    margin-left: 31rpx;
+    overflow: hidden;
+}
+.stages_info_head{
+    height: 186rpx;
+    font-size: 28rpx;
+    color: #666666;
+    margin-top: 10rpx;
+    overflow: hidden;
+    font-weight: 500;
+}
+.stages_value{
+    margin-top: 25rpx;
+    padding-left: 30rpx;
+}
+.stages_value text{
+    color: #FF2644;
+}
+.stages_pay{
+    font-size: 28rpx;
+    color: #999999;
+    padding-left: 78rpx;
+    height: 225rpx;
+    overflow-y: scroll;
+    overflow: -Scroll;
+    overflow-x: hidden;
+    margin-top: 20rpx;
+}
+.mar20{
+    margin-top: 20rpx;
+}
+.period_money{
+    font-size: 28rpx;
+    color: #999999;
+}
+.shure_stages{
+    width: 690rpx;
+    height: 80rpx;
+    background: linear-gradient(90deg, #FF6947 0%, #FF2543 100%);
+    border-radius: 40rpx;
+    margin-top: 60rpx;
+    margin-left: 30rpx;
+    line-height: 80rpx;
+    font-size: 32rpx;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: 500;
+}
+.stages_shuoming{
+    height: 106rpx;
+    line-height: 106rpx;
+    margin-bottom: 6rpx;
+    text-align: center;
+    font-size: 28rpx;
+    font-family: PingFang SC;
+    font-weight: 400;
+    color: #999999;
+}
+.stop-zan-dialog__mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+  }
+  
+  .stop-zan-dialog__mask .zan-dialog__container {
+    width: 600rpx;
+    /* height: 474rpx; */
+    background: rgba(255, 255, 255, 1);
+    border-radius: 24rpx;
+    overflow: hidden;
+    position: fixed;
+    top: 200rpx;
+    left: 75rpx;
+    z-index: 9999;
+  }
+  
+  .stop-zan-dialog__mask .cancel-img {
+    width: 44rpx;
+    height: 74rpx;
+    position: absolute;
+    right: 108rpx;
+    top: 126rpx;
+  }
+  
+  .stop-zan-dialog__mask .zan-dialog__container .title {
+    width: 270rpx;
+    margin: 44rpx auto;
+    font-size: 34rpx;
+    font-family: PingFang-SC-Bold;
+    font-weight: bold;
+    color: rgba(34, 34, 34, 1);
+    text-align: center;
+  }
+  .stop-zan-dialog__mask .zan-dialog__container .text {
+    margin: 0 49rpx;
+    font-size: 28rpx;
+    font-family: PingFang SC;
+    font-weight: 400;
+    color: #999999;
+    line-height: 60rx;
+  }
+  .expectedAmountButton {
+    width: 440rpx;
+    height: 76rpx;
+    background:linear-gradient(90deg,rgba(255,106,72,1) 0%,rgba(255,38,68,1) 100%);
+    font-size: 32rpx;
+    text-align: center;
+    border-radius: 40rpx;
+    margin-top: 50rpx;
+    color: #fff;
+    margin-left: 80rpx;
+    margin-bottom: 60rpx;
+    line-height: 76rpx;
+  }

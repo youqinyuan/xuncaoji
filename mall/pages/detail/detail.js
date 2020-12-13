@@ -91,7 +91,8 @@ Page({
     showText1: '选择您想出售的规格型号',
     showText2: '选好了，下一步',
     yindao1:false,
-    yindao2:false
+    yindao2:false,
+    applyStage:2 //是否是申请分期付
   },
   //赚钱省钱规则
   getIntoMoney: function(e) {
@@ -244,15 +245,6 @@ Page({
     let that = this
     //0成本引导2
     if (wx.getStorageSync('token')) {
-      if (e.detail.formId !== 'the formId is a mock one') {
-        app.Util.ajax('mall/userFromRecord/addRecord', {
-          formId: e.detail.formId
-        }, 'POST').then((res) => { // 使用ajax函数
-          console.log(res.data)
-        })
-      } else {}
-    }
-    if (wx.getStorageSync('token')) {
         that.setData({
           zero: true,
           showModalStatus: true,
@@ -276,6 +268,7 @@ Page({
     var quantity = e.currentTarget.dataset.quantity
     var price = e.currentTarget.dataset.price
     var activityId = e.currentTarget.dataset.activityid ? e.currentTarget.dataset.activityid : ''
+    let applyStage = that.data.applyStage==1&&that.data.installmentPayment==1?'1':'2'
     if (that.data.quantity === 0) {
       wx.showToast({
         title: '所选商品库存为0不可购买',
@@ -299,36 +292,41 @@ Page({
       that.setData({
         num: 1
       })
+    }else if(that.data.applyStage==1&&that.data.installmentPayment==2){
+      wx.showToast({
+        title: '该规格不能分期',
+        icon: 'none'
+      })
     } else {
       if (this.data.buyType == 2) {
         if (activityId == '') {
           wx.navigateTo({
-            url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&buyType=2&freeBuyMode`,
+            url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&buyType=2&freeBuyMode&applyStage=${applyStage}`,
           })
         } else {
           wx.navigateTo({
-            url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}&buyType=2`,
+            url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}&buyType=2&applyStage=${applyStage}`,
           })
         }
       } else {
         if (app.globalData.isShowBook == 2) {
           if (activityId == '') {
             wx.navigateTo({
-              url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&isShowBook=2`,
+              url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&isShowBook=2&applyStage=${applyStage}`,
             })
           } else {
             wx.navigateTo({
-              url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}&isShowBook=2`,
+              url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}&isShowBook=2&applyStage=${applyStage}`,
             })
           }
         } else {
           if (activityId == '') {
             wx.navigateTo({
-              url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}`,
+              url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&applyStage=${applyStage}`,
             })
           } else {
             wx.navigateTo({
-              url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}`,
+              url: `/packageB/pages/applyZero/applyZero?goodsId=${goodsId}&stockId=${stockId}&quantity=${quantity}&activityId=${activityId}&applyStage=${applyStage}`,
             })
           }
         }
@@ -1154,7 +1152,14 @@ Page({
       for (let i in that.data.stockDetail) {
         if (that.data.selectAttridStr == i) {
           that.setData({
-            cashbackId: that.data.stockDetail[i].cashbackItems ? that.data.stockDetail[i].cashbackItems[0].cashbackId : ''
+            cashbackId: that.data.stockDetail[i].cashbackItems ? that.data.stockDetail[i].cashbackItems[0].cashbackId : '',
+          })
+        }
+      }
+      for (let i in that.data.stockDetail) {
+        if (attrid  == i) {
+          that.setData({
+            installmentPayment: that.data.stockDetail[i].installmentPayment
           })
         }
       }
@@ -1267,7 +1272,8 @@ Page({
       showModalStatus: false,
       zero: false,
       buyMode: 1,
-      isOrder: false
+      isOrder: false,
+      applyStage:2
     })
     app.globalData.isShowBook = 1
   },
@@ -1429,6 +1435,7 @@ Page({
           introductions: res.data.content.introductions,
           stockDetail: res.data.content.stockDetail,
           saveAmount: saveAmount,
+          installmentPayment:res.data.content.installmentPayment,
           saveMoney: res.data.content.cashBack ? (parseFloat(saveAmount) + parseFloat(res.data.content.cashBack.totalAmount)).toFixed(2) : '',
         })
         // stockDetail1: that.data.stockDetail[selectAttridStr],
@@ -1522,6 +1529,10 @@ Page({
               })
             }
           }
+          //默认的规格能否分期
+          that.setData({
+            installmentPayment:that.data.stockDetail1.installmentPayment
+          })
         }
         if (that.data.detail.activityItem) {
           if (that.data.detail.activityItem.status == 1) {
@@ -2430,7 +2441,7 @@ Page({
   toSponsorDetail: function(e) {
     var id = e.currentTarget.dataset.sponsorid
     wx.navigateTo({
-      url: "/pages/toSponsor/toSponsor?id=" + id
+      url: "/packageB/pages/toSponsor/toSponsor?id=" + id
     })
     that.setData({
       showModalStatus: false,
@@ -2523,5 +2534,24 @@ Page({
       yindao1:false
     })
     app.globalData.freeBuyYinDao = 2
+  },
+  toApplyStages:function(){
+    let that = this
+    if (wx.getStorageSync('token')) {
+      that.setData({
+        zero: true,
+        showModalStatus: true,
+        buyMode:2,
+        isCart: false,
+        applyStage:1
+      })
+  } else {
+    wx.navigateTo({
+      url: "/pages/invitationCode/invitationCode?inviterCode=" + that.data.inviterCode
+    })
+    that.setData({
+      num: 1
+    })
+  }
   }
 })

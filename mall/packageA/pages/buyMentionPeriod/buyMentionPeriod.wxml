@@ -37,7 +37,7 @@
     </view>
     <view class="bottom" bindtap="toHelp" data-id="{{item.id}}">
       <view class="to_shareWrap" catchtap="shares" data-id="{{item.id}}" wx:if="{{item.status==1||item.status==2}}">
-        <image src="{{hostUrl}}/newIndex/to_share.png" class="to_share" />
+        <image src="/assets/images/temp/share.png" class="to_share" />
         <view class="to_shareText">分享</view>
       </view>
       <view class="button two" data-temp="{{index}}" catchtap="showPrompt" data-id="{{item.id}}">发布</view>

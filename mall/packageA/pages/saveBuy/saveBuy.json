@@ -1,7 +1,7 @@
 {
   "usingComponents": {},
   "navigationBarBackgroundColor": "#FFFFFF",
-  "navigationBarTitleText": "预定商品",
+  "navigationBarTitleText": "预订商品",
   "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true
 }

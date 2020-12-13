@@ -9,8 +9,8 @@ Page({
     hostUrl: app.Util.getUrlImg().hostUrl,
     remark: '',
     DownloadAddress: 'https://xuncaoji.net:8087',
-    DownloadImg: app.Util.getUrlImg().hostUrl + '/download_android.png',
-    QRUrl:''
+    DownloadImg: '/assets/images/mine/store.png',
+    QRUrl:'/assets/images/mine/store.png'
   },
 
   /**

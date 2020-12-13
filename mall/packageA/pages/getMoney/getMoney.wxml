@@ -1,8 +1,8 @@
 <!--packageA/pages/getMoney/getMoney.wxml-->
 <view class="getMoney-wrap">
-  <view class="getMoney-swiper_item" wx:for="{{allPost}}" wx:key="{{item.id}}">
+  <view class="getMoney-swiper_item" wx:for="{{allPost}}" wx:if="{{allPost.length>0}}" wx:key="{{item.id}}">
     <image class="getMoneyPhoto" wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-    <image class="getMoneyPhoto" wx:else src="/assets/images/mine/other_ren.png"></image>
+    <image class="getMoneyPhoto" wx:else src="{{hostUrl}}/flashPay/other_ren.png"></image> 
     <view class="getMoney-middle">
       <view class="getName">
         <text>{{item.nickname}}</text>
@@ -15,6 +15,10 @@
     </view>
     <view class="getMoneyBtn" catchtap="earnMoney" wx:if="{{item.type==6&&item.status==2&&item.canRemove==2}}" data-topicId="{{item.id}}" data-specItemIds="{{item.specItemIds}}" data-id="{{item.goodsId}}" data-quantity="{{item.goodsQuantity}}" data-stockid="{{item.stockId}}">赚 {{item.expectAmount}}</view>
   </view>
+    <view class='cont_count' wx:if="{{allPost.length==0}}">
+      <image src="/assets/images/mine/orderNoThing.png"></image>
+      <view class='none_tab'>这里还没有任何订单呢~</view>
+    </view>
 </view>
 <view class="postingBtn-wrap" bindtap="toDetail">
   <view class="postingBtn">发布预售商品</view>

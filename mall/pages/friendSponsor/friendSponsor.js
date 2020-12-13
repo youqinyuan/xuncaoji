@@ -44,7 +44,7 @@ Page({
         if (res.data.content) {
           if (res.data.content.isApplyUser == "YES") {
             wx.redirectTo({
-              url: '/pages/toSponsor/toSponsor?id=' + res.data.content.apply.id,
+              url: '/packageB/pages/toSponsor/toSponsor?id=' + res.data.content.apply.id,
             })
           } else {
             that.setData({

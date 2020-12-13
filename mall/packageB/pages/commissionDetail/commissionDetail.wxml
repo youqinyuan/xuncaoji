@@ -1,0 +1,93 @@
+<!--packageB/pages/commissionDetail/commissionDetail.wxml-->
+<wxs module="phone">
+  var toHide = function(array) {
+    var mphone = array.substring(0, 3) + '****' + array.substring(7);
+    return mphone;
+  }
+  module.exports.toHide = toHide;
+</wxs>
+<view class="wrapper">
+  <scroll-view scroll-x class="nav">
+    <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
+      <view class="nav-box" bindtap="screenCondition" data-status="{{item.status}}" data-title="{{item.name}}">
+        <view class="nav-item">{{item.name}}</view>
+        <image class="nav-img" src="{{item.img}}"></image>
+      </view>
+    </block>
+  </scroll-view>
+  <view class="listItem" wx:for="{{items}}" wx:key="{{item.id}}">
+    <image src="{{hostUrl}}/add/tab_c.png" class="bg1" wx:if="{{item.status!==2}}"></image>
+    <image src="{{hostUrl}}/add/tab_g.png" class="bg2" wx:if="{{item.status==2}}"></image>
+    <view class="commission" wx:if="{{item.status!==2}}">
+      <view class="commission-text">未到账佣金</view>
+      <view class="commission-text">{{item.amount}}</view>
+    </view>
+    <view class="commission1" wx:if="{{item.status==2}}">
+      <view class="commission-text1">未到账佣金</view>
+      <view class="commission-text1">{{item.amount}}</view>
+    </view>
+    <image src="{{hostUrl}}/add/pic_a.png" class="status1" wx:if="{{item.status==2&&item.stopType==2}}"></image>
+    <image src="{{hostUrl}}/add/pic_b.png" class="status2" wx:if="{{item.status==2&&item.stopType==3}}"></image>
+    <image src="{{hostUrl}}/add/pic_c.png" class="status3" wx:if="{{item.status==2&&item.stopType==1}}"></image>
+    <view class="list">
+      <view class="listItem-photo">
+        <image src="{{item.avatarUrl?item.avatarUrl:hostUrl+'/flashPay/other_ren.png'}}"></image>
+      </view>
+      <view class="message">
+        <view class="msgtext">
+          <view class="nickname">{{item.nickName}}</view>
+          <view class="phone">{{phone.toHide(item.mobileNumber)}}</view>
+        </view>
+        <view class="msgtext">
+          <view class="msgtext-item">佣金来源：</view>
+          <view class="msgtext-text">{{item.sourceDesc?item.sourceDesc:'未查到数据'}}</view>
+        </view>
+        <view class="msgtext">
+          <view class="msgtext-item">{{item.remark}}</view>
+          <view class="msgtext-text">{{item.paymentAmount?'￥'+item.paymentAmount:'未查到数据'}}</view>
+        </view>
+        <view class="msgtext">
+          <view class="msgtext-item">记录时间：</view>
+          <view class="msgtext-text">{{item.createTime?item.createTime:'未查到数据'}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="textData">{{textData}}</view>
+</view>
+
+<!-- 筛选条件弹窗 -->
+<view class="commodity_screen1" wx:if="{{showWay}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showWay}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/add/withdraw_close.png" catchtap='cancelCondition'></image>
+    <view class="title">{{tempTitle}}</view>
+    <view class="time_screens" wx:if="{{tempStatus==1}}">
+      <picker-view indicator-style="height: 50px;" style="width: 100%; height: 150px; font-size:30rpx;" value="{{value}}" bindchange="bindChange">
+        <picker-view-column class="picker-text">
+          <view wx:for="{{years}}" wx:key="" style="line-height: 50px">{{item}}年</view>
+        </picker-view-column>
+        <picker-view-column class="picker-text">
+          <view wx:for="{{months}}" wx:key="" style="line-height: 50px">{{item}}月</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+    <block wx:for="{{arry2}}" wx:key="" wx:if="{{tempStatus==2}}">
+      <view class="tab" bindtap="tap" data-index="{{index}}">
+        <view class="text">{{item.name}}</view>
+        <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
+      </view>
+    </block>
+    <block wx:for="{{arry3}}" wx:key="" wx:if="{{tempStatus==3}}">
+      <view class="tab" bindtap="tap" data-index="{{index}}">
+        <view class="text">{{item.name}}</view>
+        <image src="{{hostUrl}}/mine/ic_choose.png" class="choose_img" wx:if="{{item.select==true}}" />
+      </view>
+    </block>
+    <view class="showBtn" wx:if="{{tempStatus !==1}}" bindtap="sureConfirm">确定</view>
+    <view class="botton_box" wx:else>
+      <view class="newbotton_one" bindtap="watchAllTime">查看所有时间</view>
+      <view class="newbotton_two" bindtap="showConfirm">确定</view>
+    </view>
+  </view>
+</view>

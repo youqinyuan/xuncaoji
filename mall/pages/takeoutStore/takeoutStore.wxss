@@ -1,0 +1,544 @@
+/* packageA/pages/takeoutStore/takeoutStore.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+.takeout-location {
+  display: flex;
+  height: 80rpx;
+  padding-left: 30rpx;
+  width: 720rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+  margin-top: 36rpx;
+}
+
+.takeout-img {
+  width: 35rpx;
+  height: 41rpx;
+  margin-right: 10rpx;
+}
+
+.takeout-san {
+  width: 16rpx;
+  height: 10rpx;
+  margin-left: 8rpx;
+  margin-top: 20rpx;
+}
+
+.takeout-wrap {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  width: 750rpx;
+  height: 30rpx;
+  background: #ff2644;
+}
+
+.takeout-yuan {
+  width: 750rpx;
+  height: 30rpx;
+}
+
+.section-wrapper {
+  font-size: 28rpx;
+  width: 100%;
+}
+
+.section {
+  line-height: 64rpx;
+  width: 690rpx;
+  height: 64rpx;
+  margin-left: 30rpx;
+  display: flex;
+  font-weight: 400;
+  border-radius: 30rpx;
+  position: relative;
+  background: #e7e7e7;
+}
+
+.section-text {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #999;
+}
+
+.section-img {
+  width: 33rpx;
+  height: 33rpx;
+  margin: 15rpx 22rpx;
+}
+
+/*轮播图*/
+
+.swiper-wrapper-item {
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 180rpx;
+  width: 690rpx;
+  border-radius: 10rpx;
+}
+
+.slide-image {
+  height: 180rpx;
+  background-size: cover;
+  width: 690rpx;
+  border-radius: 10rpx;
+}
+
+.swiper-out {
+  width: 750rpx;
+  height: 660rpx;
+  margin-top: 60rpx;
+}
+
+.active-item .slide-image {
+  box-shadow: 0 5rpx 20rpx 3rpx rgba(0, 0, 0, 0.15);
+}
+
+.swp-item {
+  width: 400rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4rpx;
+  opacity: 0.6;
+}
+
+.active-item {
+  opacity: 1;
+}
+
+.swiper-container {
+  width: 690rpx;
+  position: absolute;
+  top: 200rpx;
+  left: 30rpx;
+  border-radius: 10rpx;
+}
+
+.swiper-container .swiper {
+  height: 300rpx;
+}
+
+.swiper-container .swiper .img {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-container .dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.swiper-container .dots .dot {
+  margin: 0 8rpx;
+  width: 20rpx;
+  height: 4rpx;
+  background: rgba(255, 255, 255, 0.5);
+  transition: all 0.6s;
+  border-radius: 5rpx;
+}
+
+.swiper-container .dots .dot.active {
+  width: 20rpx;
+  background: #fff;
+  border-radius: 5rpx;
+}
+
+/* 类别 */
+
+.section-swiper {
+  width: 750rpx;
+  margin-top: 200rpx;
+}
+
+.section-classify {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section-list_wrap {
+  width: 150rpx;
+  height: 130rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-list-img {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+}
+
+.section-list-img1 {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 50%;
+  margin-bottom: 10rpx;
+}
+
+.section-list-img1 image {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 50%;
+}
+
+.section-list-img image {
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 50%;
+}
+
+.section-list-text {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/*口碑爆品榜*/
+
+.yh {
+  width: 690rpx;
+  height: 347rpx;
+  border-radius: 20rpx;
+  margin-top: 20rpx;
+  background: #fff;
+  margin-left: 30rpx;
+}
+
+.yh-top {
+  display: flex;
+  height: 90rpx;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 30rpx;
+}
+
+.yh-title {
+  display: flex;
+  align-items: center;
+}
+
+.yhBig {
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+}
+
+.yhSmall {
+  width: 100rpx;
+  height: 32rpx;
+  margin-left: 12rpx;
+}
+
+.yhAll {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #666;
+}
+
+.yh-wrapper {
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 30rpx;
+  margin-left: 30rpx;
+}
+
+.yh-list {
+  margin-right: 16rpx;
+}
+
+.yh-img {
+  width: 200rpx;
+  height: 148rpx;
+  border-radius: 6rpx;
+}
+
+.yh-name {
+  font-size: 24rpx;
+  color: #333;
+  width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  white-space: nowrap;
+  margin-top: 8rpx;
+}
+
+.yh-price {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #ff2644;
+  margin-top: 5rpx;
+}
+
+.yh-sign {
+  font-size: 20rpx;
+}
+
+/* 商品、店铺 */
+
+.re-top {
+  display: flex;
+  height: 127rpx;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 30rpx;
+}
+
+.re-title {
+  display: flex;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+}
+
+.re-goods {
+  margin-right: 72rpx;
+}
+
+.re-all {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #666;
+}
+
+.nav-box {
+  display: inline-block;
+  padding: 0 30rpx;
+}
+
+.nav-item {
+  text-align: center;
+  color: #555;
+}
+
+.re-active {
+  color: #ff2644;
+}
+
+.re-active1 {
+  width: 50rpx;
+  height: 6rpx;
+  border-radius: 10rpx;
+  margin: 0 auto;
+  margin-top: 5rpx;
+  background: #ff2644;
+}
+
+/* 店铺 */
+
+.wrap {
+  margin-left: 30rpx;
+  width: 690rpx;
+  box-sizing: border-box;
+}
+
+.items {
+  width: 100%;
+  height: 230rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  display: flex;
+  padding-left: 30rpx;
+  padding-right: 20rpx;
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.img_wrap {
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 170rpx;
+  height: 170rpx;
+  margin-right: 30rpx;
+  margin-top: 30rpx;
+  border-radius: 20rpx;
+}
+
+.img_wrap image {
+  width: 170rpx;
+  height: 170rpx;
+  border-radius: 20rpx;
+}
+
+.goodsDetail {
+  height: 100%;
+  padding-bottom: 30rpx;
+  box-sizing: border-box;
+}
+
+.goodsName {
+  width: 440rpx;
+  text-align: left;
+  margin-top: 40rpx;
+  font-size: 32rpx;
+  color: #333;
+  font-family: PingFang SC;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.goodsName1 {
+  width: 440rpx;
+  text-align: left;
+  margin-top: 30rpx;
+  font-size: 32rpx;
+  color: #333;
+  font-family: PingFang SC;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.storeGrade {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #999;
+  margin-top: 20rpx;
+}
+
+.re-storeGrade {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+.goodsBottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.storeText text {
+  font-weight: normal;
+}
+
+.stars image {
+  width: 24rpx;
+  height: 22rpx;
+  margin-right: 4rpx;
+}
+
+.takeoutT {
+  margin-top: 10rpx;
+  color: #ff2644;
+  font-size: 24rpx;
+}
+
+.takeoutT text:nth-child(1) {
+  font-weight: bold;
+}
+
+.takeoutT text:nth-child(2) {
+  font-weight: bold;
+  font-size: 36rpx;
+}
+
+.goods-btn {
+  width: 120rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  background: linear-gradient(0deg, #ff2644 0%, #ff6a48 100%);
+  border-radius: 4rpx;
+}
+
+.goods-text {
+  font-size: 24rpx;
+  color: #ff2644;
+  margin-top: 5rpx;
+}
+
+.takeoutName {
+  color: #666;
+  font-size: 24rpx;
+  margin-top: 10rpx;
+}
+
+.takeoutImg {
+  margin-top: 10rpx;
+  display: flex;
+}
+
+.takeoutF {
+  margin-right: 10rpx;
+  position: relative;
+  width: 75rpx;
+  height: 32rpx;
+}
+
+.takeoutImg image {
+  width: 75rpx;
+  height: 32rpx;
+}
+
+.takeoutText {
+  font-size: 22rpx;
+  color: #ff2644;
+  position: absolute;
+  top: 3rpx;
+  left: 15rpx;
+}
+
+.goods-right {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10rpx;
+}
+
+.goods-m {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #999;
+}
+
+.exProducts-bottom {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  text-align: center;
+  height: 70rpx;
+  line-height: 70rpx;
+}

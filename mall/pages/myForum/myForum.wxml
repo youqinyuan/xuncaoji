@@ -19,7 +19,7 @@
     <view class="content_box_photo">
       <view class="content_box_left">
         <image wx:if="{{item.avatarKey}}" src="{{item.avatarKey}}"></image>
-        <image wx:else src="/assets/images/mine/other_ren.png"></image>
+        <image wx:else src="{{hostUrl}}/flashPay/other_ren.png"></image>
         <view class="nickname">{{item.nickname}}</view>
       </view>
       <view class="content_box_right">

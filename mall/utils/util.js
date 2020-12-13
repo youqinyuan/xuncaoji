@@ -41,12 +41,23 @@ function formatTimeTwo(number, format) {
 const ajax = (url, data, method, config = {}) => {
   var authLoginStatus = 0
   var authLoginStatus2 = wx.getStorageSync('authLoginStatus')
+  // 判断用户机型是ios还是安卓，去除textarea在ios上默认的上间隙问题
+  // var phone = wx.getSystemInfoSync()
+  // if (phone.platform == 'ios') {
+  //   that.setData({
+  //     is_ios: true
+  //   })
+  // } else if (phone.platform == 'android') {
+  //   that.setData({
+  //     is_ios: false
+  //   })
+  // }
   if (authLoginStatus2) {
     authLoginStatus = authLoginStatus2
   }
   let token = wx.getStorageSync('token')
-  let baseUrl = "https://dev.xuncaoji.net/v2.6/"; //测试环境
-  // let baseUrl = 'https://xuncaoji.net/v2.5/'; //正式环境
+  let baseUrl = "https://dev.xuncaoji.net/v2.9/"; //测试环境
+  // let baseUrl = 'https://xuncaoji.net/v2.7/'; //正式环境
   let headerConfig = { // 默认header ticket、token、params参数是每次请求需要携带的认证信息
     ticket: '...',
     token: '' || token,
@@ -109,8 +120,8 @@ function getUrlImg() {
   var hostUrl = 'https://xuncaoji.net/_download/img';
   var hostVideo = 'https://xuncaoji.net/_download/';
   var host = 'https://xuncaoji.net/'
-  var publicUrl = "https://dev.xuncaoji.net/v2.6/"; //测试环境
-  // var publicUrl = 'https://xuncaoji.net/v2.5/'; //正式环境
+  var publicUrl = "https://dev.xuncaoji.net/v2.9/"; //测试环境
+  // var publicUrl = 'https://xuncaoji.net/v2.7/'; //正式环境
   return {
     hostUrl,
     publicUrl,

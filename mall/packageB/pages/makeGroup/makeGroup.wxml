@@ -1,0 +1,70 @@
+<!--packageB/pages/makeGroup/makeGroup.wxml-->
+<!-- 顶部导航 -->
+<view class="nav">
+  <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
+    <view class="nav-box" catchtap="screenCondition" data-status="{{item.status}}" data-title="{{item.name}}">
+      <view class="nav-item">{{item.name}}</view>
+      <image class="nav-img" src="{{item.img}}"></image>
+    </view>
+  </block>
+</view>
+
+<view class="wrap">
+  <view class="items" wx:for="{{selectedGoods}}" wx:key="{{item.id}}">
+    <view class="img_wrap">
+      <image src="{{item.imageUrls[0]}}"></image>
+    </view>
+    <view class="goodsDetail">
+      <view class="goodsName">{{item.name}}</view>
+      <view class="goodsBottom">
+        <view class="goodsLeft">
+          <view class="storeGrade">
+            <view class='stars' wx:for='{{[1,2,3,4,5]}}' wx:key="{{index}}" wx:for-item='i'>
+              <image src='/assets/images/temp/pingj_xinxin.png' wx:if="{{item.score >= index+1 }}"></image>
+              <image src='/assets/images/temp/pingj_xinxin_l.png' wx:elif="{{item.score >= index && (item.score*10)%10 !=0 }}"></image>
+              <image src='/assets/images/temp/pingj_xinxin_p.png' wx:else></image>
+            </view>
+            <view class="storeText">{{item.score}}
+              <text>分</text>
+            </view>
+          </view>
+          <view class="takeoutT">一折价:
+            <text>￥</text>
+            <text>{{item.discountPrice}}</text>
+          </view>
+        </view>
+        <view class="goodsBtn">
+          <view class="goods-btn" catchtap="toSetmealDetails" data-id="{{item.id}}">拼团</view>
+          <view class="goods-text">月售：{{item.grabbed+item.sales}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+   <view class="comprehensive-not" wx:if="{{selectedGoods.length==0}}">
+    <image src="{{hostUrl}}/flashPay/noThing.png"></image>
+    <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
+  </view>
+</view>
+<view class="exProducts-bottom">{{text}}</view>
+<!-- 筛选蒙版 -->
+<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{choose}}"></view>
+<view class="choose" wx:if="{{choose}}">
+  <block wx:for="{{arry}}" wx:key="" wx:if="{{status==0}}">
+    <view class="tab {{current==index?'choose-active':''}}" catchtap="chooseCondition" data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.id}}">
+      <text>{{item.name}}</text>
+      <image src="/assets/images/temp/make_choose.png" class="choose_img" wx:if="{{current==index}}" />
+    </view>
+  </block>
+  <block wx:for="{{arry1}}" wx:key="" wx:if="{{status==1}}">
+    <view class="tab {{current1==index?'choose-active':''}}" catchtap="chooseCondition" data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.id}}" data-unit="{{item.unit}}">
+      <text>{{item.name}}{{item.unit}}</text>
+      <image src="/assets/images/temp/make_choose.png" class="choose_img" wx:if="{{current1==index}}" />
+    </view>
+  </block>
+  <block wx:for="{{arry2}}" wx:key="" wx:if="{{status==2}}">
+    <view class="tab {{current2==index?'choose-active':''}}" catchtap="chooseCondition" data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.id}}" data-unit="{{item.unit}}">
+      <text>{{item.name}}{{item.unit}}</text>
+      <image src="/assets/images/temp/make_choose.png" class="choose_img" wx:if="{{current2==index}}" />
+    </view>
+  </block>
+</view>

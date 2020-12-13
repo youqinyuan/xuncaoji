@@ -41,7 +41,7 @@ Page({
       });
     } else if (options.status == 2) {
       wx.setNavigationBarTitle({
-        title: '发布预定商品'
+        title: '发布预订商品'
       });
     }
   },

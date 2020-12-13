@@ -53,3 +53,74 @@
   font-size: 32rpx;
   color: #666;
 }
+/* 取消关注弹框 */
+
+.comment-zan-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+}
+
+.comment-zan-dialog__mask .zan-dialog__container1 {
+  width: 630rpx;
+  height: 365rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 24rpx;
+  position: absolute;
+  right: 112rpx;
+  top: 300rpx;
+  left: 62rpx;
+  text-align: center;
+  z-index: 9999;
+}
+
+.comment-zan-dialog__mask .zan-dialog__container1 .msg {
+  margin: 44rpx auto;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
+}
+
+.comment-zan-dialog__mask .zan-dialog__container1 .msg_content {
+  margin: 0 auto;
+  width: 358rpx;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 40rpx;
+}
+
+.comment-zan-dialog__mask .zan-dialog__container1 .btn {
+  display: flex;
+  justify-content: space-between;
+  width: 550rpx;
+  margin-left: 40rpx;
+  margin-top: 63rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+}
+
+.comment-zan-dialog__mask .zan-dialog__container1 .cancelComment{
+  width: 264rpx;
+  margin-right: 22rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  border: 0.5px solid #ff2644;
+  color: #ff2644;
+}
+
+.comment-zan-dialog__mask .zan-dialog__container1 .confirmComment {
+  width: 264rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #ff2644;
+  border-radius: 40rpx;
+  color: #fff;
+}

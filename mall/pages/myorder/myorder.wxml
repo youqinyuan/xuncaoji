@@ -63,7 +63,7 @@
             </view>
           </view>
         </view>
-        <view class="content-cashBack-wrap" wx:if="{{!item.purchaseTotalPrice && itemName.orderType !==3 && itemName.orderType !==4 && itemName.orderType !==5 && itemName.orderType !==6}}">
+        <view class="content-cashBack-wrap" wx:if="{{!item.purchaseTotalPrice && itemName.orderType !==3 && itemName.orderType !==4 && itemName.orderType !==5 && itemName.orderType !==6&&itemName.orderType !==26&&item.cashBack>0}}">
           <view class="content-cashBack">
             <image src="{{hostUrl}}/icon/youhui_bqian.png"></image>
             <view class="content-cashBack-text">
@@ -285,7 +285,7 @@
         <view class="price">
           合计：
           <text class="sign">￥</text>
-          <text class="text">{{itemName.payAmount}}</text>
+          <text class="text">{{itemName.orderGoodsApplyRefund.refundAmount}}</text>
         </view>
       </view>
     </view>
@@ -363,13 +363,21 @@
   </view>
 </view>
   <view class="bg10" wx:if="{{seedToast}}">
-    <view class="content10">
+    <view class="content10" wx:if="{{seedAmountConsume>0}}">
         <view class="title10">确定撤销一折购吗</view>
         <view class="text_one10">撤销后将退您：{{refundAmount}}元，并将扣除您{{seedAmountConsume}}颗种子！</view>
         <view class="text_two10">您的种子数量：{{seedAmountTotal}}颗</view>
         <view class="message10" wx:if="{{seedStatus==2}}">您的种子不足，请先获得足够的种子再进行终止！</view>
         <view class="button_box10">
             <view class="button_one10" bindtap="toSeed">去获得种子</view>
+            <view class="button_two10" bindtap="comfireCancel" data-order="{{allOrder}}">确定撤销</view>
+        </view>
+    </view>
+    <view class="content10" wx:else>
+        <view class="title10">确定撤销一折购吗</view>
+        <view class="text_one10">撤销后将退您：{{refundAmount}}元！</view>
+        <view class="button_box10">
+            <view class="button_one10" bindtap="cancle">取消</view>
             <view class="button_two10" bindtap="comfireCancel" data-order="{{allOrder}}">确定撤销</view>
         </view>
     </view>

@@ -4,14 +4,14 @@
 <import src='/template/floatingwindow/floatingwindow' />
 <import src='/template/pop-upwindows/pop-upwindows' />
 <!--搜索-->
-<view class="section-wrapper">
-  <view class="section" bindtap='focus' data-url='/pages/search/search'>
-    <image src="{{hostUrl}}/icon/index_nav_search_n.png" class="section-img"></image>
-    <view class="input">更多好货等你来发现</view>
+<view class="index-wrap" wx:if="{{navData.length>0}}">
+  <view class="section-wrapper">
+    <view class="section" bindtap='focus' data-url='/pages/search/search'>
+      <image src="{{hostUrl}}/icon/index_nav_search_n.png" class="section-img"></image>
+      <view class="input">更多好货等你来发现</view>
+    </view>
+    <image class="section-image" src="{{hostUrl}}/twoSix/allClass.png" bindtap="jumpClassify"></image>
   </view>
-  <image class="section-image" src="{{hostUrl}}/twoSix/allClass.png" bindtap="jumpClassify"></image>
-</view>
-<view wx:if="{{navData.length>0}}">
   <view class="content_top">
     <scroll-view scroll-x class="nav" scroll-left="{{navScrollLeft}}">
       <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
@@ -24,6 +24,8 @@
       </block>
     </scroll-view>
   </view>
+</view>
+<view wx:if="{{navData.length>0}}" style="overflow: hidden;">
   <view class="huxing_box">
     <image src="{{hostUrl}}/twoSix/indexBg.png" class="huxing" />
   </view>
@@ -80,10 +82,8 @@
   />
   <template wx:if="{{currentTab !== 0}}" is='othersClassification' data="{{imageUrl:imageUrl,autoplay:autoplay,circular:circular,interval:interval,duration:duration,navData:navData,classfy:classfy,comprehensive:comprehensive,pricePhoto:pricePhoto,pricePhoto1:pricePhoto1,pricePhoto2:pricePhoto2,pricePhoto3:pricePhoto3,color:color,color1:color1,color2:color2,text1:text1,heightTop:heightTop,hostUrl:hostUrl}}"
   />
-  <template  is='floatingwindow' data="{{hostUrl:hostUrl,floatShow:floatShow,floatContent:floatContent}}"
-  />
-    <template  is='pop-upwindows' data="{{hostUrl:hostUrl,popShow:popShow,popContent:popContent}}"
-  />
+  <template is='floatingwindow' data="{{hostUrl:hostUrl,floatShow:floatShow,floatContent:floatContent}}" />
+  <template is='pop-upwindows' data="{{hostUrl:hostUrl,popShow:popShow,popContent:popContent}}" />
 </view>
 <!-- 轮播展示组件 -->
 <swiper-show class="swiper-show"></swiper-show>
@@ -194,11 +194,15 @@
 <view class="get-zan-dialog__mask2" wx:if="{{brandShow}}" catchtap="cancelBrand"></view>
 <view class="zan-dialog__container2" animation="{{animationData}}" wx:if="{{brandShow}}">
   <view class="brandTitle">品牌筛选</view>
-  <view class="brandChoose">
-    <view class="brandChooseItem" wx:for="{{content11}}" wx:key="{{item.id}}" catchtap="chooseBrand" data-id="{{item.id}}" data-type="{{item.type}}" data-index="{{index}}" style="border:{{item.border1}};"> 
+  <view class="brandChoose" style="max-height:{{wHeight}}px;">
+    <view class="brandChooseItem" wx:for="{{content11}}" wx:key="{{item.id}}" catchtap="chooseBrand" data-id="{{item.id}}" data-type="{{item.type}}" data-index="{{index}}" style="border:{{item.border1}};" wx:if="{{content11.length>0}}">
       {{item.name}}
       <image class="brandChooseImg" src="{{hostUrl}}/twoSix/activeImg.png" wx:if="{{item.brandChoose==true}}"></image>
-    </view> 
+    </view>
+     <view class="comprehensive-not" wx:if="{{content11.length===0}}">
+        <image src="{{hostUrl}}/flashPay/noThing.png"></image>
+        <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
+      </view>
   </view>
   <view class="brandBtn">
     <view class="brandButton brandBtnItem1" catchtap="resetBrand">重置</view>

@@ -25,7 +25,8 @@
 .active-item .slide-image {
   box-shadow: 0 5rpx 20rpx 3rpx rgba(0, 0, 0, 0.15);
 }
-.magtop{
+
+.magtop {
   margin-top: 0 !important;
 }
 
@@ -80,6 +81,8 @@
 .two-classification-img {
   width: 100rpx;
   height: 100rpx;
+  background: rgba(244, 244, 244, 0);
+  border-radius: 50rpx;
 }
 
 .two-classification-text {
@@ -192,7 +195,9 @@
 
 .comprehensive-list-price {
   display: flex;
+  justify-content: space-between;
   margin-left: 16rpx;
+  margin-right: 24rpx;
   margin-bottom: 16rpx;
 }
 
@@ -208,11 +213,10 @@
 }
 
 .oldprice {
-  margin-left: 16rpx;
   margin-top: 10rpx;
   font-size: 24rpx;
   text-decoration: line-through;
-  color: rgba(153, 153, 153, 1);
+  color: #999;
 }
 
 .newprice {

@@ -7,7 +7,7 @@ Page({
    */
   data: {
     hostUrl: app.Util.getUrlImg().hostUrl,
-    recommend: [],
+    recommend: {},
     pageNumber: 1,
     pageSize: 20,
     textData:''

@@ -44,12 +44,24 @@ Page({
       id: parseInt(options.id),
       name: options.name,
       type: options.type ? parseInt(options.type):1,
-      iconurl: options.iconurl == 'null' ? that.data.hostUrl + '/icon/zhanw_tb_n.png' : options.iconurl + '?' + wx.getStorageSync('posterimage')
+      iconurl: options.iconurl == 'null' ? null : options.iconurl + '?' + wx.getStorageSync('posterimage')
     })
     that.initgetMore();
     //带上邀请码去登陆
     if(options.inviterCode){
       wx.setStorageSync("othersInviterCode",options.inviterCode)
+    }
+    let wHeight = wx.getSystemInfoSync().windowHeight
+    if (wHeight > 555) {
+      that.setData({
+        options: options,
+        wHeight: 550
+      })
+    } else {
+      that.setData({
+        options: options,
+        wHeight: 470
+      })
     }
   },
   //初始化加载
@@ -147,21 +159,20 @@ Page({
   },
   pinPai: function () {
     var that = this
-    app.Util.ajax('mall/home/brand', {
-      pageNumber: 1,
-      pageSize: 100
+    app.Util.ajax('mall/home/categories', {
+      parentId: that.data.id
     }, 'GET').then((res) => {
       if (res.data.messageCode = 'MSG_1001') {
-        for (var i = 0; i < res.data.content.items.length; i++) {
-          res.data.content.items[i].brandChoose = false
-          res.data.content.items[i].border1 = '1rpx solid #aaa'
-          res.data.content.items[i].attr = 1
+        for (let i = 0; i < res.data.content.brandResponse.length; i++) {
+          res.data.content.brandResponse[i].brandChoose = false
+          res.data.content.brandResponse[i].border1 = '1rpx solid #aaa'
+          res.data.content.brandResponse[i].attr = 1
         }
         that.setData({
-          content10: res.data.content.items
+          content11: res.data.content.brandResponse,
         })
-      }
-    })
+      } 
+    })    
   },
   //跳转到详情页
   toDetail: function (e) {
@@ -278,21 +289,21 @@ Page({
     var index = e.currentTarget.dataset.index
     var type = e.currentTarget.dataset.type
     var id = e.currentTarget.dataset.id
-    that.data.content10[index].attr++
-    if (that.data.content10[index].attr % 2 == 0) {
-      that.data.content10[index].brandChoose = true
-      that.data.content10[index].border1 = '1rpx solid #fff'
+    that.data.content11[index].attr++
+    if (that.data.content11[index].attr % 2 == 0) {
+      that.data.content11[index].brandChoose = true
+      that.data.content11[index].border1 = '1rpx solid #fff'
     } else {
-      that.data.content10[index].brandChoose = false
-      that.data.content10[index].border1 = '1rpx solid #aaa'
+      that.data.content11[index].brandChoose = false
+      that.data.content11[index].border1 = '1rpx solid #aaa'
     }
     that.setData({
-      content10: that.data.content10,
+      content11: that.data.content11,
     })
     var tempId = []
-    that.data.content10.forEach((v, i) => {
-      if (that.data.content10[i].brandChoose == true) {
-        tempId.push(that.data.content10[i].id)
+    that.data.content11.forEach((v, i) => {
+      if (that.data.content11[i].brandChoose == true) {
+        tempId.push(that.data.content11[i].id)
       }
     })
     that.setData({
@@ -301,12 +312,12 @@ Page({
   },
   resetBrand() {
     var that = this
-    that.data.content10.forEach((v, i) => {
-      that.data.content10[i].brandChoose = false
-      that.data.content10[i].border1 = '1rpx solid #aaa'
+    that.data.content11.forEach((v, i) => {
+      that.data.content11[i].brandChoose = false
+      that.data.content11[i].border1 = '1rpx solid #aaa'
     })
     that.setData({
-      content10: that.data.content10,
+      content11: that.data.content11,
       tempId: ''
     })
   },

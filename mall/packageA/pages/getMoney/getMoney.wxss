@@ -89,3 +89,24 @@ page {
   color: #fff;
   font-size: 32rpx;
 }
+/* 无订单的时候 */
+
+.cont_count {
+  height: 424rpx;
+  text-align: center;
+  background: #f4f4f4;
+  margin-top: 50rpx;
+}
+
+.cont_count image {
+  width: 380rpx;
+  height: 380rpx;
+  margin-bottom: 0;
+}
+
+.cont_count .none_tab {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Regular;
+  text-align: center;
+  color: #999;
+}

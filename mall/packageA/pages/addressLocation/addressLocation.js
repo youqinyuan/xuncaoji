@@ -1,5 +1,5 @@
 // packageA/pages/addressLocation/addressLocation.js
-let QQMapWX = require('../qqmap-wx-jssdk1.2/qqmap-wx-jssdk.min.js');
+let QQMapWX = require('../../../utils/qqmap-wx-jssdk1.2/qqmap-wx-jssdk.min.js');
 const app = getApp()
 let qqmapsdk;
 Page({
@@ -37,10 +37,10 @@ Page({
    */
   onShow: function() {
     let that = this;
-    if (app.globalData.addLocation == 1){
+    if (app.globalData.addLocation == 1) {
       that.reLocation()
       app.globalData.addLocation = 0
-    }   
+    }
     that.initAddress()
   },
 
@@ -125,6 +125,10 @@ Page({
   },
   reLocation() {
     let that = this;
+    that.data.nearList.title = '定位中…'
+    that.setData({
+      nearList: that.data.nearList
+    })
     that.mapCtx = wx.createMapContext('myMap')
     qqmapsdk = new QQMapWX({
       key: 'ZWQBZ-ZTYL4-V2MUB-D4U7V-BZ6F7-NVF6X'
@@ -133,10 +137,12 @@ Page({
     wx.getLocation({
       type: 'gcj02',
       success(res) {
-        const latitude = res.latitude
-        const longitude = res.longitude
+        console.log(res)
+        const latitude = res.latitude.toFixed(6)
+        const longitude = res.longitude.toFixed(6)
         const speed = res.speed
         const accuracy = res.accuracy
+        console.log(latitude, longitude)
         qqmapsdk.reverseGeocoder({
           location: {
             latitude: latitude,
@@ -166,7 +172,7 @@ Page({
                   success(res) {
                     if (!res.authSetting['scope.userLocation']) {
                       wx.openSetting({
-                        success: function(res) {                         
+                        success: function(res) {
                           var is_agree = res.authSetting['scope.userLocation']
                           if (is_agree) {
                             wx.getLocation({
@@ -175,7 +181,7 @@ Page({
                                 that.nearby_search();
                               }
                             })
-                            
+
                           } else {
                             //用户拒绝位置授权
                           }
@@ -197,8 +203,8 @@ Page({
           })
         } else {
           //用户拒绝位置授权
-          
-          
+
+
         }
       }
     })
@@ -240,5 +246,117 @@ Page({
 
       }
     });
+  },
+  hrefMap: function() {
+    this.getLocation();
+  },
+
+  /**
+   * 获取当前位置信息
+   * */
+  getLocation: function() {
+    var that = this;
+    wx.getLocation({
+      type: 'gcj02',
+      altitude: true,
+      success: function(res) {
+        var longitude = res.longitude
+        var latitude = res.latitude
+        wx.setStorageSync('longitude', longitude);
+        wx.setStorageSync('latitude', latitude);
+
+        that.get_province_name(latitude, longitude, function(data) {
+          var city = data.data.regeocode.addressComponent.city; //市
+          var cityCode = data.data.regeocode.addressComponent.adcode;
+          //设置默认市
+          wx.setStorageSync('city', city);
+          wx.setStorageSync('cityCode', cityCode);
+        })
+        var longitude = wx.getStorageSync('longitude');
+        if (longitude) {
+          wx.navigateTo({
+            url: '/packageA/pages/map/map'
+          })
+          app.globalData.searchLocation = 1
+        } else {
+          this.getLocation();
+        }
+      },
+      fail: function(res) {
+        var is_first = wx.getStorageSync('is_first')
+        if (is_first) {
+          wx.showModal({
+            title: '获取位置信息',
+            content: '是否允许获取你的地理位置呢？',
+            success: function(res) {
+              if (res.confirm) {
+                wx.getSetting({
+                  success(res) {
+                    if (!res.authSetting['scope.userLocation']) {
+                      wx.openSetting({
+                        success: function(res) {
+                          var is_agree = res.authSetting['scope.userLocation']
+                          if (is_agree) {
+                            wx.getLocation({
+                              type: 'gcj02',
+                              success: function(res) {
+                                var longitude = res.longitude
+                                var latitude = res.latitude
+
+                                //获取地址信息，如果不需要，可以删除该段代码
+                                that.get_province_name(latitude, longitude, function(data) {
+                                  var city = data.data.regeocode.addressComponent.city; //市
+                                  var cityCode = data.data.regeocode.addressComponent.adcode;
+
+                                  //设置默认市
+                                  wx.setStorageSync('city', city);
+                                  wx.setStorageSync('cityCode', cityCode);
+                                })
+                              }
+                            })
+                          } else {
+                            //用户拒绝位置授权
+                          }
+
+                        },
+                        fail: function(res) {
+                          //用户拒绝位置授权
+                        }
+                      })
+                    }
+                  }
+                })
+              }
+              if (res.cancel) {
+                //用户拒绝位置授权
+              }
+
+            }
+          })
+        } else {
+          //用户拒绝位置授权
+          wx.setStorageSync('is_first', true)
+        }
+      }
+    })
+  },
+
+  get_province_name: function(latitude, longitude, callback) {
+    var that = this;
+    wx.request({
+      url: 'https://restapi.amap.com/v3/geocode/regeo?key=3463e52d39490a74a0b1354ed3e99289&location=' + longitude + ',' + latitude + '&output=json',
+      data: {},
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function(res) {
+        var city = res.data.regeocode.addressComponent.city;
+        callback(res)
+      },
+      fail: function(res) {
+        callback('定位失败')
+      }
+
+    })
   },
 })

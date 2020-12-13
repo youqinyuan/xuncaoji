@@ -1,0 +1,100 @@
+<!--packageB/pages/stagesOrder/stagesOrder.wxml-->
+<view class="repayment_prompt">
+    请勿逾期哦，逾期10天将自动扣除商品的原价
+</view>
+<view class="tab_box">
+    <view class="{{showTab==1?'tab_left':'tab_left1'}}" bindtap="changeTab" data-index="1">7天内待付</view>
+    <view class="{{showTab==1?'tab_right':'tab_right1'}}" bindtap="changeTab" data-index="2">全部</view>
+</view>
+<view class="list" wx:if="{{showTab==1}}">
+    <view class="repayment"  data-orderId="{{item.orderId}}" wx:for="{{content}}" wx:key="{{item.id}}">
+        <view class="repayment_time" wx:if="{{item.status==3&&item.overdueDays<10}}">
+            <image src="/assets/images/temp/warn.png" class="warn_img" />
+            <view >已逾期{{item.overdueDays}}天，请尽快付款！</view>
+        </view>
+        <view class="repayment_time" wx:if="{{item.status==1}}">
+            <view >还款日：{{item.repaymentDate}}</view>
+        </view>
+        <view class="repayment_time" wx:if="{{item.status==3?item.overdueDays>10||item.overdueDays==10:false}}">
+            <image src="/assets/images/temp/warn.png" class="warn_img" />
+            <view >已逾期{{item.overdueDays}}天，已扣款！</view>
+        </view>
+        <view class="goods">
+            <view class="goods_img_box">
+                <image src="{{item.imageUrl}}" class="goods_img" />
+            </view>
+            <view class="goods_info">
+                <view class="goods_name">{{item.goodsName}}</view>
+                <view class="goods_epsc">
+                    <view>{{item.specDesc}}</view>
+                    <view>原价:￥{{item.orgPrice}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="pay_money">
+            <view >总价应付：￥{{item.purchaseTotalPrice}}</view>
+            <view class="mar11">分期数：{{item.stagesNumber}}月（剩余{{item.stagesNumberReturn}}月未还）</view>
+        </view>
+        <view class="money_number">本期应付：￥{{item.currentAmount}}</view>
+        <view class="button_box">
+            <view class="button_one" bindtap="toDetail" data-orderId="{{item.orderId}}">明细</view>
+            <view class="button_two" wx:if="{{item.status==1?true:item.status==3&&item.overdueDays<10}}">付款</view>
+            <view class="button_two2 " wx:else>付款</view>
+        </view>
+    </view>
+</view>
+<view class="list" wx:if="{{showTab==2}}">
+    <view class="repayment2" bindtap="toDetail" data-orderId="{{item.orderId}}" wx:for="{{content}}" wx:key="{{item.id}}">
+        <view class="goods">
+            <view class="goods_img_box">
+                <image src="{{item.imageUrl}}" class="goods_img" />
+            </view>
+            <view class="goods_info">
+                <view class="goods_name">{{item.goodsName}}</view>
+                <view class="goods_epsc">
+                    <view>{{item.specDesc}}</view>
+                    <view>原价:￥{{item.orgPrice}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="pay_money2">
+            <view >总价应付：￥{{item.purchaseTotalPrice}}</view>
+            <view class="mar11">分期数：{{item.stagesNumber}}月（剩余{{item.stagesNumberReturn}}月未还）</view>
+            <view class="mar11">每期应付：￥{{item.issueAmount}}</view>
+        </view>
+        <view class="money_list">
+            <view class="money_list_head">
+                <view class="mar30">消费时间：<text >{{item.dissipate}}</text></view>
+                <view >总计已支付：<text >￥{{item.totalPaidAmount}}</text></view>
+            </view>
+            <view class="jiange"></view>
+            <view class="money_list_content">
+                <view class="money_value" wx:for="{{item.installmentPaymentDetail}}" wx:for-item="itemName" wx:key="{{itemName.id}}">
+                    <view class="money_value_left">{{itemName.payTime}}</view>
+                    <view class="money_value_right col333" wx:if="{{itemName.status==1}}">应支付：￥{{itemName.amount}}</view>
+                    <view class="money_value_right" wx:if="{{itemName.status==2}}">应支付：￥{{itemName.amount}}（已支付）</view>
+                    <view class="money_value_right colred" wx:if="{{itemName.status==3}}">应支付：￥{{itemName.amount}}（已逾期{{item.overdueDays}}天）</view>
+                </view>
+            </view>
+        </view>
+        <view class="button_box">
+            <view class="button_two" wx:if="{{item.status==3}}" catchtap="toPay" data-list="{{item.transStatementDetail}}">马上支付</view>
+            <view class="button_two wid270" wx:if="{{item.status==1||item.status==2}}" catchtap="toPay" data-list="{{item.transStatementDetail}}">支付最近的一期</view>
+        </view>
+    </view>
+</view>
+<view class="notStore" wx:if="{{content.length==0}}">
+  <image src="/assets/images/mine/orderNoThing.png"></image>
+  <view class="notStoreText">{{showTab==1?'7天内无待付哦':'暂时没有分期购买过哦'}}</view>
+  <view class="toIndex" wx:if="{{showTab==2}}" bindtap="toIndex">去首页看看</view>
+</view>
+<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{success}}">
+  <view class="zan-dialog__container" wx:if="{{success}}">
+    <view class="title">提示</view>
+    <view class="text">
+      恭喜您，付款成功!
+    </view>
+    <view class="expectedAmountButton" bindtap="cancleSuccess">我知道了</view>
+  </view>
+</view>
+

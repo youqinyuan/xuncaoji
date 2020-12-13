@@ -5,7 +5,7 @@
     <view class="content">
       <view class="content_left">
         <image wx:if="{{item.avatarKey}}" class="photo" src="{{item.avatarKey}}"></image>
-        <image wx:else class="photo" src="/assets/images/mine/other_ren.png"></image>
+        <image wx:else class="photo" src="{{hostUrl}}/flashPay/other_ren.png"></image>
         <view class="nickname">{{item.nickname}}</view>
       </view>
       <view class="content_right">{{filters.toDate(item.createTime)}}</view>

@@ -9,7 +9,7 @@
     <image src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
   </swiper-item>
 </swiper>
-<image class="swiper-wrapper-item1" src="{{iconurl}}" wx:else></image>
+<image class="swiper-wrapper-item1" src="{{iconurl}}" wx:if="{{type==2&&iconurl}}"></image>
 <!--二级分类-->
 <view class="two-classification-wrapper" style="padding-top:{{heightTop}}rpx;" wx:if="{{classfy.length>0}}">
   <view class="two-classification-list" wx:for="{{classfy}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="twoList">
@@ -60,7 +60,7 @@
 <view class="comprehensive-list-wrapper">
   <template is='goodsList' data="{{list:list}}" wx:if="{{list.length>0}}" />
   <view class="comprehensive-not" wx:if="{{list.length==0}}">
-    <image src="/assets/images/mine/noThing.png"></image>
+    <image src="{{hostUrl}}/flashPay/noThing.png"></image>
     <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
   </view>
 </view>
@@ -70,11 +70,15 @@
 <view class="get-zan-dialog__mask2" wx:if="{{brandShow}}" catchtap="cancelBrand"></view>
 <view class="zan-dialog__container2" animation="{{animationData}}" wx:if="{{brandShow}}">
   <view class="brandTitle">品牌筛选</view>
-  <view class="brandChoose">
-    <view class="brandChooseItem" wx:for="{{content10}}" wx:key="{{item.id}}" catchtap="chooseBrand" data-id="{{item.id}}" data-type="{{item.type}}" data-index="{{index}}" style="border:{{item.border1}};"> 
+  <view class="brandChoose" style="max-height:{{wHeight}}px">
+    <view class="brandChooseItem" wx:for="{{content11}}" wx:key="{{item.id}}" catchtap="chooseBrand" data-id="{{item.id}}" data-type="{{item.type}}" data-index="{{index}}" style="border:{{item.border1}};"  wx:if="{{content11.length>0}}"> 
       {{item.name}}
       <image class="brandChooseImg" src="{{hostUrl}}/twoSix/activeImg.png" wx:if="{{item.brandChoose==true}}"></image>
     </view> 
+    <view class="comprehensive-not" wx:if="{{content11.length===0}}">
+        <image src="{{hostUrl}}/flashPay/noThing.png"></image>
+        <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
+      </view>
   </view>
   <view class="brandBtn">
     <view class="brandButton brandBtnItem1" catchtap="resetBrand">重置</view>

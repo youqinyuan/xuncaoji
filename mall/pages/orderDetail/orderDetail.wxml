@@ -58,8 +58,44 @@
         </view>
         <image src="{{hostUrl}}/icon/ic_refund.png"></image>
       </view>
+      <!-- <view class="state" wx:if="{{content.latestStatus==1}}">
+        <view class="text">
+          <view class="text1">待成团</view>
+          <view class="text3">随时退 免预约 过期自动退</view>
+        </view>
+        <image src="{{hostUrl}}/icon/ic_clock.png"></image>
+      </view>
+      <view class="state" wx:if="{{content.latestStatus==1}}">
+        <view class="text">
+          <view class="text1">拼团成功，待使用</view>
+          <view class="text3">随时退 免预约 过期自动退</view>
+        </view>
+        <image src="/assets/images/temp/ic_group@2x.png"></image>
+      </view>
+      <view class="state" wx:if="{{content.latestStatus==1}}">
+        <view class="text">
+          <view class="text1">拼团失败</view>
+          <view class="text3">随时退 免预约 过期自动退</view>
+        </view>
+        <image src="{{hostUrl}}/icon/ic_cancel.png"></image>
+      </view>
+      <view class="state" wx:if="{{content.latestStatus==1}}">
+        <view class="text">
+          <view class="text1">已使用</view>
+          <view class="text3">随时退 免预约 过期自动退</view>
+        </view>
+        <image src="/assets/images/temp/ic_used@2x.png"></image>
+      </view>
+       <view class="state" wx:if="{{content.latestStatus==1}}">
+        <view class="text">
+          <view class="text1">已过期</view>
+          <view class="text3">随时退 免预约 过期自动退</view>
+        </view>
+        <image src="{{hostUrl}}/icon/ic_cancel.png"></image>
+      </view> -->
     </view>
   </view>
+  <view class="address_take_wrap"></view>
   <view class="address_wrap" wx:if="{{content.orderSource!==1&&content.orderType!==23&&content.orderType!==24}}">
     <!-- 物流详情 -->
     <view class="address" bindtap='jumpLogDetail' data-logisticsid="{{logisticsId}}" wx:if="{{logisticsDetailList.length===1}}">
@@ -81,7 +117,7 @@
       </view>
     </view>
     <!-- 收货地址 -->
-    <view class="address-wrapper">
+    <view class="address-wrapper" wx:if="{{content.orderType!==26}}">
       <view class="address1">
         <view class="address-name-wrap">
           <view class="address-name">
@@ -99,8 +135,8 @@
   <!-- 赚钱方 -->
   <image src="{{hostUrl}}/changeImg/modal.png" class="address2" wx:if="{{content.orderSource==1}}"></image>
   <!-- 外卖 -->
-  <view class="takeout_wrap" wx:if="{{content.orderType==23||content.orderType==24}}">
-    <view class="takeout" wx:if="{{content.deliveryType==1}}">
+  <view class="takeout_wrap" wx:if="{{content.orderType==23||content.orderType==24||content.orderType==26}}">
+    <view class="takeout" wx:if="{{content.deliveryType==1||!content.deliveryType}}">
       <image class="takeout-img" src="{{hostUrl}}/changeImg/ic_store.png"></image>
       <view class="takeout-text">
         <text>到店自取</text> （商家电话 {{content.storePhone}}）
@@ -123,6 +159,10 @@
       </view>
     </view>
     <view class="takeout" wx:if="{{content.deliveryType==1&&content.storeAddress}}">
+      <image class="takeout-img" src="{{hostUrl}}/add/ic_location.png"></image>
+      <view class="takeout-text">{{content.storeAddress}}</view>
+    </view>
+    <view class="takeout" wx:if="{{!content.deliveryType&&content.storeAddress}}">
       <image class="takeout-img" src="{{hostUrl}}/add/ic_location.png"></image>
       <view class="takeout-text">{{content.storeAddress}}</view>
     </view>
@@ -287,7 +327,7 @@
               <text>￥</text>
               <text class="expressfee-price1">{{item.cashBack}}</text>
             </view>
-              <view class="expressfee-price" wx:if="{{item.period!==0}}">
+            <view class="expressfee-price" wx:if="{{item.period!==0}}">
               <text>{{item.period}}月返现</text>
               <text>￥</text>
               <text class="expressfee-price1">{{item.cashBack}}</text>
@@ -330,7 +370,7 @@
               <view class="yearRat-wrap">
                 <view class="yearRat-text">每月返现金额</view>
               </view>
-                  <view class="yearRat-num">￥{{item.orderGoodsCashBackItem[0].amount}}</view>
+              <view class="yearRat-num">￥{{item.orderGoodsCashBackItem[0].amount}}</view>
             </view>
           </view>
         </view>
@@ -366,15 +406,27 @@
         <text>￥</text>{{content.totalDiscount}}</view>
     </view>
   </view>
-  <view class="seed" wx:if="{{content.buyMode==1&&content.deductionAmount>0&&content.useSeed==1&&content.orderSource!==2}}">
-    <view class="seed_all">种子抵扣</view>
-    <view class="seed_detail" bindtap="seedDetail">明细</view>
-    <view class="choose_box">
-      ￥
+
+    <view class="stagesPeriod" wx:if="{{installmentPaymentDetail.length>0}}">
+        <view class="youhui_info_title">分期信息-分{{installmentPaymentDetail.length}}期</view>
+      <view class="friend_sponsor" wx:for="{{installmentPaymentDetail}}" wx:key="">
+        <view class="friend_sponsor_left">{{item.payTime}} 支付</view>
+        <view class="friend_sponsor_right">
+          <text>￥</text>{{item.amount}} {{item.status==2?'(已支付)':''}}</view>
+      </view>
+    </view>
+  
+</view>
+<view class="seed" wx:if="{{content.buyMode==1&&content.deductionAmount>0&&content.useSeed==1&&content.orderSource!==2}}">
+  <view class="seed_all">种子抵扣</view>
+  <view class="seed_all_right" bindtap="seedDetail">
+    <view class="seed_detail">明细</view>
+    <view class="choose_box">￥
       <text class="font28">{{content.deductionAmount}}</text>
     </view>
   </view>
-  <!-- <view class="stopZero10" wx:if="{{content.buyMode==2&&content.orderSource!==2}}">
+</view>
+<!-- <view class="stopZero10" wx:if="{{content.buyMode==2&&content.orderSource!==2}}">
     <view class="stopZero-platform10">我们是上市挂牌公司（代码837939）旗下电商平台，为消费者存有壹亿消费保障基金，请放心使用！
       <text bindtap="showBox">终止</text>
       <image src="{{hostUrl}}/sponsor/ic_explain.png" class="stop_img" bindtap="showBox" />
@@ -389,56 +441,57 @@
     </view>
   </view> -->
 
-  <view class="blank"></view>
-  <!-- 订单信息 -->
-  <view class="order-message">
-    <view class="title">
-      <text>订单信息</text>
+<view class="blank"></view>
+<!-- 订单信息 -->
+<view class="order-message">
+  <view class="title">
+    <text>订单信息</text>
+  </view>
+  <view class="content">
+    <view class="pay-amount" wx:if="{{content.latestStatus==4||content.latestStatus==5||content.latestStatus==2||content.latestStatus==6||content.latestStatus==7||content.latestStatus==8||content.latestStatus==9||content.latestStatus==10||content.latestStatus==11}}">
+      <text>付款方式</text>
+      <text wx:if="{{content.transStatementDetail.paymentAccount===1}}">平台账户</text>
+      <text wx:if="{{content.transStatementDetail.paymentAccount===2}}">微信账户</text>
+      <text wx:if="{{content.transStatementDetail.paymentAccount===3}}">到付</text>
+      <text wx:if="{{content.transStatementDetail.paymentAccount===4}}">支付宝账户</text>
     </view>
-    <view class="content">
-      <view class="pay-amount" wx:if="{{content.latestStatus==4||content.latestStatus==5||content.latestStatus==2||content.latestStatus==6||content.latestStatus==7||content.latestStatus==8||content.latestStatus==9||content.latestStatus==10||content.latestStatus==11}}">
-        <text>付款方式</text>
-        <text wx:if="{{content.transStatementDetail.paymentAccount===1}}">平台账户</text>
-        <text wx:if="{{content.transStatementDetail.paymentAccount===2}}">微信账户</text>
-        <text wx:if="{{content.transStatementDetail.paymentAccount===3}}">到付</text>
-         <text wx:if="{{content.transStatementDetail.paymentAccount===4}}">支付宝账户</text>
+    <view class="pay-amount" wx:if="{{content.latestStatus==1||content.latestStatus==4||content.latestStatus==5||content.latestStatus==2||content.latestStatus==12||content.latestStatus==6||content.latestStatus==7||content.latestStatus==8||content.latestStatus==10||content.latestStatus==11}}}}">
+      <text>订单编号</text>
+      <text>{{content.transStatementDetail.orderNumber}}</text>
+    </view>
+    <view class="time-wrapper" wx:for="{{orderTimeDetail}}" wx:key="{{item.id}}">
+      <view class="pay-amount" wx:if="{{item.status===1}}">
+        <text>创建时间</text>
+        <text>{{item.statusTime}}</text>
       </view>
-      <view class="pay-amount" wx:if="{{content.latestStatus==1||content.latestStatus==4||content.latestStatus==5||content.latestStatus==2||content.latestStatus==12||content.latestStatus==6||content.latestStatus==7||content.latestStatus==8||content.latestStatus==10||content.latestStatus==11}}}}">
-        <text>订单编号</text>
-        <text>{{content.transStatementDetail.orderNumber}}</text>
+      <view class="pay-amount" wx:if="{{item.status===2}}">
+        <text>支付时间</text>
+        <text>{{item.statusTime}}</text>
       </view>
-      <view class="time-wrapper" wx:for="{{orderTimeDetail}}" wx:key="{{item.id}}">
-        <view class="pay-amount" wx:if="{{item.status===1}}">
-          <text>创建时间</text>
-          <text>{{item.statusTime}}</text>
-        </view>
-        <view class="pay-amount" wx:if="{{item.status===2}}">
-          <text>支付时间</text>
-          <text>{{item.statusTime}}</text>
-        </view>
-        <view class="pay-amount" wx:if="{{item.status===4 && item.show}}">
-          <text>发货时间</text>
-          <text>{{item.statusTime}}</text>
-        </view>
-        <view class="pay-amount" wx:if="{{item.status===6 || item.status===12}}">
-          <text>完成时间</text>
-          <text>{{item.statusTime}}</text>
-        </view>
+      <view class="pay-amount" wx:if="{{item.status===4 && item.show}}">
+        <text>发货时间</text>
+        <text>{{item.statusTime}}</text>
       </view>
-      <view class="pay-amount" wx:if="{{content.orderAddressDetail.remark}}">
-        <text>备注内容</text>
-        <text>{{content.orderSource==1?'******':content.orderAddressDetail.remark}}</text>
+      <view class="pay-amount" wx:if="{{item.status===6 || item.status===12}}">
+        <text>完成时间</text>
+        <text>{{item.statusTime}}</text>
       </view>
     </view>
-    <view class="stop-wrap">
-      <button class="stopzero" bindtap="stopZero" disabled="{{content.isStop==2?true:false}}" wx:if="{{content.isStop==1&&content.latestStatus!==1&&content.latestStatus!==7&&content.latestStatus!==9&&content.latestStatus!==10&&content.latestStatus!==12&&content.orderSource!==2}}" data-orderid="{{content.id}}">撤销一折购</button>
+    <view class="pay-amount" wx:if="{{content.orderAddressDetail.remark}}">
+      <text>备注内容</text>
+      <text>{{content.orderSource==1?'******':content.orderAddressDetail.remark}}</text>
     </view>
   </view>
-  <view class="order-block" wx:if="{{content.latestStatus ==1||content.latestStatus ==2||content.latestStatus ==3||content.latestStatus ==4 ||content.latestStatus ==5||content.latestStatus ==6||content.latestStatus ==9||content.latestStatus ==12}}"></view>
-  <view class="block"></view>
-  <!-- 按钮 -->
-  <view class="order-bottom">
-    <!-- <view class="order-bottom1">
+  <view class="stop-wrap">
+    <button class="stopzero" bindtap="stopZero" disabled="{{content.isStop==2?true:false}}" wx:if="{{content.isStop==1&&content.latestStatus!==1&&content.latestStatus!==7&&content.latestStatus!==9&&content.latestStatus!==10&&content.latestStatus!==12&&content.orderSource!==2}}"
+      data-orderid="{{content.id}}">撤销一折购</button>
+  </view>
+</view>
+<view class="order-block" wx:if="{{content.latestStatus ==1||content.latestStatus ==2||content.latestStatus ==3||content.latestStatus ==4 ||content.latestStatus ==5||content.latestStatus ==6||content.latestStatus ==9||content.latestStatus ==12}}"></view>
+<view class="block"></view>
+<!-- 按钮 -->
+<view class="order-bottom">
+  <!-- <view class="order-bottom1">
       <view class="cancel-order" wx:if="{{content.latestStatus==1}}" catchtap='cancelOrder' data-orderid="{{content.id}}">
         取消订单
       </view>
@@ -456,52 +509,52 @@
         去评价
       </view>
     </view> -->
-    <view class="order-bottom1" wx:if="{{content.latestStatus==1&&content.isCashBack==true&&content.orderSource==0}}">
-        <view class="new_cancle" catchtap='cancelOrder' data-orderid="{{content.id}}">取消订单</view>
-        <view class="new_detail" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
-        <view class="new_pay" data-ordertype="{{content.orderType}}" catchtap='toPay' data-id="{{content.transStatementDetail.transId}}" data-orderid="{{content.id}}" data-advanceSaleStatus="{{content.advanceSaleStatus}}"data-defaultAmountStatus="{{content.defaultAmountStatus}}">立即付款</view>
-    </view>
-    <view class="order-bottom1" wx:if="{{content.latestStatus==1&&content.isCashBack==false&&content.orderSource==0}}">
-        <view class="new_detail width290" catchtap='cancelOrder' data-orderid="{{content.id}}">取消订单</view>
-        <view class="new_pay width400" data-ordertype="{{content.orderType}}" catchtap='toPay' data-id="{{content.transStatementDetail.transId}}" data-orderid="{{content.id}}" data-advanceSaleStatus="{{content.advanceSaleStatus}}"data-defaultAmountStatus="{{content.defaultAmountStatus}}">立即付款</view>
-    </view>
-    <view class="order-bottom1" wx:if="{{content.latestStatus==2&&content.isCashBack==true&&content.orderSource==0}}">
-        <view class="new_detail2" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
-    </view>
-    <view class="order-bottom1" wx:if="{{content.latestStatus==4&&content.isCashBack==true&&content.orderSource==0}}">
-        <view class="new_detail width290" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
-        <view class="new_pay width400" catchtap='confirmReceipt'  data-orderid="{{content.id}}">确认收货</view>
-    </view>
-    <view class="order-bottom1" wx:if="{{content.latestStatus==4&&content.isCashBack==false&&content.orderSource==0}}">
-        <view class="new_detail2" catchtap='confirmReceipt'  data-orderid="{{content.id}}">确认收货</view>
-    </view>
-    <view class="order-bottom1" wx:if="{{content.latestStatus==6&&content.isCashBack==true&&content.orderSource==0}}">
-        <view class="new_detail2" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
-    </view>
-    <!-- 省钱方 orderSource==2 -->
-    <view class="order-bottom1" wx:if="{{content.latestStatus==4&&content.orderSource==2}}">
-        <view class="new_detail2" catchtap='confirmReceipt'  data-orderid="{{content.id}}">确认收货</view>
-    </view>
-    <view class="order-bottom1" wx:if="{{content.latestStatus==5&&content.isCashBack==true&&content.orderSource==0}}">
-        <view class="new_detail width290" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
-        <view class="new_pay width400" catchtap='toEvaluate' data-orderid="{{content.id}}">去评价</view>
-    </view>
-    <view class="order-bottom1" wx:if="{{content.latestStatus==5&&content.isCashBack==false&&content.orderSource==0}}">
-        <view class="new_detail2" catchtap='toEvaluate' data-orderid="{{content.id}}">去评价</view>
-    </view>
-     <!-- 省钱方 orderSource==2 -->
-    <view class="order-bottom1" wx:if="{{content.latestStatus==5&&content.orderSource==2}}">
-        <view class="new_detail2" catchtap='toEvaluate' data-orderid="{{content.id}}">去评价</view>
-    </view>
-    <view class="order-bottom1" wx:if="{{content.isCashBack==true&&content.orderSource==0&&content.latestStatus==7||content.latestStatus==8||content.latestStatus==9||content.latestStatus==10||content.latestStatus==11||content.latestStatus==12}}">
-        <view class="new_detail2" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
-    </view>
-    <!-- 赚钱方 orderSource==1 -->
-    <view class="order-bottom1" wx:if="{{content.orderSource==1}}">
-        <view class="new_detail2" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
-    </view>
+  <view class="order-bottom1" wx:if="{{content.latestStatus==1&&content.isCashBack==true&&content.orderSource==0}}">
+    <view class="new_cancle" catchtap='cancelOrder' data-orderid="{{content.id}}">取消订单</view>
+    <view class="new_detail" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
+    <view class="new_pay" data-ordertype="{{content.orderType}}" catchtap='toPay' data-id="{{content.transStatementDetail.transId}}" data-orderid="{{content.id}}" data-advanceSaleStatus="{{content.advanceSaleStatus}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">立即付款</view>
+  </view>
+  <view class="order-bottom1" wx:if="{{content.latestStatus==1&&content.isCashBack==false&&content.orderSource==0}}">
+    <view class="new_detail width290" catchtap='cancelOrder' data-orderid="{{content.id}}">取消订单</view>
+    <view class="new_pay width400" data-ordertype="{{content.orderType}}" catchtap='toPay' data-id="{{content.transStatementDetail.transId}}" data-orderid="{{content.id}}" data-advanceSaleStatus="{{content.advanceSaleStatus}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">立即付款</view>
+  </view>
+  <view class="order-bottom1" wx:if="{{content.latestStatus==2&&content.isCashBack==true&&content.orderSource==0}}">
+    <view class="new_detail2" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
+  </view>
+  <view class="order-bottom1" wx:if="{{content.latestStatus==4&&content.isCashBack==true&&content.orderSource==0}}">
+    <view class="new_detail width290" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
+    <view class="new_pay width400" catchtap='confirmReceipt' data-orderid="{{content.id}}">确认收货</view>
+  </view>
+  <view class="order-bottom1" wx:if="{{content.latestStatus==4&&content.isCashBack==false&&content.orderSource==0}}">
+    <view class="new_detail2" catchtap='confirmReceipt' data-orderid="{{content.id}}">确认收货</view>
+  </view>
+  <view class="order-bottom1" wx:if="{{content.latestStatus==6&&content.isCashBack==true&&content.orderSource==0}}">
+    <view class="new_detail2" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
+  </view>
+  <!-- 省钱方 orderSource==2 -->
+  <view class="order-bottom1" wx:if="{{content.latestStatus==4&&content.orderSource==2}}">
+    <view class="new_detail2" catchtap='confirmReceipt' data-orderid="{{content.id}}">确认收货</view>
+  </view>
+  <view class="order-bottom1" wx:if="{{content.latestStatus==5&&content.isCashBack==true&&content.orderSource==0}}">
+    <view class="new_detail width290" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
+    <view class="new_pay width400" catchtap='toEvaluate' data-orderid="{{content.id}}">去评价</view>
+  </view>
+  <view class="order-bottom1" wx:if="{{content.latestStatus==5&&content.isCashBack==false&&content.orderSource==0}}">
+    <view class="new_detail2" catchtap='toEvaluate' data-orderid="{{content.id}}">去评价</view>
+  </view>
+  <!-- 省钱方 orderSource==2 -->
+  <view class="order-bottom1" wx:if="{{content.latestStatus==5&&content.orderSource==2}}">
+    <view class="new_detail2" catchtap='toEvaluate' data-orderid="{{content.id}}">去评价</view>
+  </view>
+  <view class="order-bottom1" wx:if="{{content.isCashBack==true&&content.orderSource==2?content.latestStatus==7||content.latestStatus==8||content.latestStatus==9||content.latestStatus==10||content.latestStatus==11||content.latestStatus==12:false}}">
+    <view class="new_detail2" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
+  </view>
+  <!-- 赚钱方 orderSource==1 -->
+  <view class="order-bottom1" wx:if="{{content.orderSource==1}}">
+    <view class="new_detail2" catchtap='periodCash' data-orderid="{{content.id}}" data-lateststatus="{{content.latestStatus}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-defaultAmountStatus="{{content.defaultAmountStatus}}">返现明细</view>
   </view>
 </view>
+
 <!-- 确认收货弹框 -->
 <view class="comfirm-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showDialog}}"></view>
 <view class="comfirm-zan-dialog__container" wx:if="{{showDialog}}">
@@ -602,16 +655,38 @@
   </view>
   <image wx:if="{{showDetails}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelDetails'></image>
 </view>
-  <view class="bg10" wx:if="{{seedToast}}">
-    <view class="content10">
-        <view class="title10">确定撤销一折购吗</view>
-        <view class="text_one10">撤销后将退您：{{refundAmount}}元，并将扣除您{{seedAmountConsume}}颗种子！</view>
-        <view class="text_two10">您的种子数量：{{seedAmountTotal}}颗</view>
-        <view class="message10" wx:if="{{seedStatus==2}}">您的种子不足，请先获得足够的种子再进行终止！</view>
-        <view class="button_box10">
-            <view class="button_one10" bindtap="toSeed">去获得种子</view>
-            <view class="button_two10" bindtap="comfireCancel" data-order="{{allOrder}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-latestStatus="{{allOrder.latestStatus}}" data-isStop="{{allOrder.isStop}}">确定撤销</view>
-        </view>
+<view class="bg10" wx:if="{{seedToast}}">
+  <view class="content10" wx:if="{{seedAmountConsume>0}}">
+    <view class="title10">确定撤销一折购吗</view>
+    <view class="text_one10">撤销后将退您：{{refundAmount}}元，并将扣除您{{seedAmountConsume}}颗种子！</view>
+    <view class="text_two10">您的种子数量：{{seedAmountTotal}}颗</view>
+    <view class="message10" wx:if="{{seedStatus==2}}">您的种子不足，请先获得足够的种子再进行终止！</view>
+    <view class="button_box10">
+      <view class="button_one10" bindtap="toSeed">去获得种子</view>
+      <view class="button_two10" bindtap="comfireCancel" data-order="{{allOrder}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-latestStatus="{{allOrder.latestStatus}}" data-isStop="{{allOrder.isStop}}">确定撤销</view>
     </view>
-    <image class="cancel-get10" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap="cancle"></image>
+  </view>
+  <view class="content10" wx:else>
+    <view class="title10">确定撤销一折购吗</view>
+    <view class="text_one10">撤销后将退您：{{refundAmount}}元！</view>
+    <view class="button_box10">
+      <view class="button_one10" bindtap="cancle">取消</view>
+      <view class="button_two10" bindtap="comfireCancel" data-order="{{allOrder}}" data-whetherAdvanceSale="{{content.whetherAdvanceSale}}" data-latestStatus="{{allOrder.latestStatus}}" data-isStop="{{allOrder.isStop}}">确定撤销</view>
+    </view>
+  </view>
+  <image class="cancel-get10" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap="cancle"></image>
+</view>
+
+<!-- 成团待使用 -->
+<view class="get-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{notUsing}}">
+  <view wx:if="{{notUsing}}">
+    <image class="zan-dialog__container" src="/assets/images/temp/order_bg.png"></image>
+    <view class="zan-wrap">
+      <view class="zan-dialog__container-title">请向商家展示此码</view>
+      <view class="zan-dialog__container-bg"></view>
+      <image class="zan-dialog__container-img" src="/assets/images/temp/online_bg.png"></image>
+      <view class="zan-dialog__container-text">5 6 1 2 4 8</view>
+    </view>
+  </view>
+  <image wx:if="{{notUsing}}" class="cancel-get" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelNotUsing'></image>
 </view>

@@ -2,6 +2,7 @@
 let app = getApp()
 let interval = null
 let m = 1
+let  setInter = ''
 Page({
 
   /**
@@ -68,7 +69,7 @@ Page({
     let number = 0 //数据组成数组个数
     app.Util.ajax('mall/home/brand', {
       pageNumber: 1,
-      pageSize: 100
+      pageSize: 32
     }, 'GET').then((res) => {
       if (res.data.messageCode = 'MSG_1001') {
         number = Math.ceil(res.data.content.items.length / 8) //数据组成数组个数
@@ -89,7 +90,7 @@ Page({
           content10: tempList[0]
         })
         if (number > 1) {
-          setInterval(function () {
+          setInter = setInterval(function () {
             this.rotateFn()
           }.bind(this), 5000)
         }
@@ -172,7 +173,7 @@ Page({
   // 是否可以领取红包
   isGetSeed() {
     let that = this
-    app.Util.ajax('mall//integral/seed/checkRedEnvelope', null, 'GET').then((res) => { // 使用ajax函数
+    app.Util.ajax('mall/integral/seed/checkRedEnvelope', null, 'GET').then((res) => { // 使用ajax函数
       if (res.data.messageCode = 'MSG_1001') {
         that.setData({
           getSeed: res.data.content
@@ -350,7 +351,7 @@ Page({
             })
           } else if (res.data.content.param == 2) {
             wx.navigateTo({
-              url: '/pages/commission/commission',
+              url: '/packageB/pages/commission/commission',
             })
           } else if (res.data.content.param == 3) {
             wx.navigateTo({
@@ -400,8 +401,8 @@ Page({
               url: '/packageB/pages/freeBuy/freeBuy',
             })
           } else if (res.data.content.param == 15) {
-            wx.switchTab({
-              url: '/pages/wishpool/wishpool',
+            wx.navigateTo({
+              url: '/packageB/pages/wishpool/wishpool',
             })
           } else if (res.data.content.param == 16) {
             wx.navigateTo({
@@ -542,12 +543,12 @@ Page({
           }
         } else if (res.data.content.category == 8) {
           wx.navigateTo({
-            url: `/packageA/pages/takeoutStore/takeoutStore?id=${res.data.content.param}`,
+            url: `/packageB/pages/nearbyStore/nearbyStore?id=${res.data.content.param}`,
           })
         }
       } else {
         wx.showToast({
-          title: resa.data.message,
+          title: res.data.message,
           icon: 'none'
         })
       }
@@ -708,6 +709,8 @@ Page({
    */
   onPullDownRefresh: function () {
     let that = this
+    clearInterval(setInter)
+    clearInterval(interval)
     that.onLoad()
     wx.stopPullDownRefresh()
   },
@@ -822,7 +825,7 @@ Page({
         })
       } else if (tempContent.param == 2) {
         wx.navigateTo({
-          url: '/pages/commission/commission',
+          url: '/packageB/pages/commission/commission',
         })
       } else if (tempContent.param == 3) {
         wx.navigateTo({
@@ -872,8 +875,8 @@ Page({
           url: '/packageB/pages/freeBuy/freeBuy',
         })
       } else if (tempContent.param == 15) {
-        wx.switchTab({
-          url: '/pages/wishpool/wishpool',
+        wx.navigateTo({
+          url: '/packageB/pages/wishpool/wishpool',
         })
       } else if (tempContent.param == 16) {
         wx.navigateTo({
@@ -1015,7 +1018,7 @@ Page({
       }
     } else if (tempContent.category == 8) {
       wx.navigateTo({
-        url: `/packageA/pages/takeoutStore/takeoutStore?id=${tempContent.param}`,
+        url: `/packageB/pages/nearbyStore/nearbyStore?id=${tempContent.param}`,
       })
     }
   }

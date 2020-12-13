@@ -1,0 +1,389 @@
+/* packageB/pages/takePages/takePages.wxss */
+
+page {
+  background: #f4f4f4;
+}
+
+/* 店铺信息 */
+
+.wrap_top {
+  width: 750rpx;
+  overflow: hidden;
+  background: linear-gradient(0deg, rgba(255, 38, 68, 0) 0%, rgba(255, 38, 68, 1) 100%);
+}
+
+.tp-message {
+  width: 690rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  margin: 0 auto;
+  padding-bottom: 30rpx;
+}
+
+.items {
+  width: 100%;
+  border-radius: 20rpx;
+  display: flex;
+  padding-left: 30rpx;
+  padding-right: 20rpx;
+  margin-bottom: 10rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  margin-top: 40rpx;
+}
+
+.img_wrap {
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 170rpx;
+  height: 170rpx;
+  margin-right: 30rpx;
+  border-radius: 20rpx;
+}
+
+.img_wrap image {
+  width: 170rpx;
+  height: 170rpx;
+  border-radius: 20rpx;
+}
+
+.goodsDetail {
+  height: 100%;
+  padding-bottom: 30rpx;
+  box-sizing: border-box;
+}
+
+.goodsName1 {
+  width: 630rpx;
+  text-align: left;
+  padding-top: 30rpx;
+  margin-left: 30rpx;
+  font-size: 40rpx;
+  color: #333;
+  font-family: PingFang SC;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.storeGrade {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #999;
+  margin-top: 20rpx;
+}
+
+.re-storeGrade {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+  margin-top: 10rpx;
+}
+
+.goodsBottom {
+  display: flex;
+  justify-content: space-between;
+  width: 430rpx;
+}
+
+.storeText text {
+  font-weight: normal;
+}
+
+.stars image {
+  width: 24rpx;
+  height: 22rpx;
+  margin-right: 4rpx;
+}
+
+.takeoutT {
+  margin-top: 10rpx;
+  color: #ff2644;
+  font-size: 24rpx;
+}
+
+.takeoutT text:nth-child(1) {
+  font-weight: bold;
+}
+
+.takeoutT text:nth-child(2) {
+  font-weight: bold;
+  font-size: 36rpx;
+}
+
+.goods-btn {
+  width: 120rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  background: linear-gradient(0deg, #ff2644 0%, #ff6a48 100%);
+  border-radius: 4rpx;
+}
+
+.goods-text {
+  font-size: 24rpx;
+  color: #ff2644;
+  margin-top: 5rpx;
+}
+
+.goods-text {
+  font-size: 24rpx;
+  color: #ff2644;
+  margin-top: 5rpx;
+}
+
+.takeoutName {
+  color: #333;
+  font-size: 24rpx;
+  margin-top: 30rpx;
+}
+
+.goods-right {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10rpx;
+}
+
+.goods-m {
+  font-size: 24rpx;
+  color: #333;
+}
+
+.tp-middle {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 30rpx;
+  font-size: 24rpx;
+  color: #333;
+  height: 65rpx;
+}
+
+.tp-address {
+  max-width: 375rpx;
+}
+
+.tp-dao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50rpx;
+}
+
+.tp-dao image {
+  width: 26rpx;
+  height: 32rpx;
+  margin-bottom: 4rpx;
+}
+
+.tp-btn {
+  display: flex;
+  margin: 0 30rpx;
+  justify-content: space-between;
+  margin-top: 40rpx;
+}
+
+.tp-takeout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 308rpx;
+  height: 68rpx;
+  border: 1rpx solid #ccc;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+}
+
+.tp-takeout-img {
+  width: 34rpx;
+  height: 27rpx;
+  margin-right: 12rpx;
+}
+
+.tp-takepay-img {
+  width: 26rpx;
+  height: 26rpx;
+  margin-right: 12rpx;
+}
+
+.goodsName {
+  width: 440rpx;
+  text-align: left;
+  font-size: 32rpx;
+  color: #333;
+  font-family: PingFang SC;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.wrap {
+  margin: 0 auto;
+  margin-top: 13rpx;
+  width: 690rpx;
+  background: #fff;
+  border-radius: 20rpx;
+}
+
+.tp-title {
+  height: 89rpx;
+  line-height: 89rpx;
+  margin-left: 30rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+}
+
+.tp-items {
+  width: 100%;
+  display: flex;
+  padding-left: 30rpx;
+  margin-bottom: 40rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 20rpx;
+}
+
+.tp-getmore {
+  text-align: right;
+  width: 540rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #333;
+  font-size: 24rpx;
+  border-top: 1rpx solid #e7e7e7;
+  margin-left: 120rpx;
+}
+
+/* 评价 */
+
+.tp-evaluate {
+  margin: 0 auto;
+  margin-top: 20rpx;
+  width: 690rpx;
+  background: #fff;
+  border-radius: 20rpx;
+}
+
+.tp-evaluate-title {
+  height: 89rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 30rpx;
+  font-size: 32rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333;
+}
+
+.tp-tltle-right {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #333;
+}
+
+.tp-evaluate-content {
+  display: flex;
+  margin-top: 20rpx;
+}
+
+.tp-evaluate-img {
+  background-image: url('https://xuncaoji.net/_download/img/flashPay/other_ren.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 70rpx;
+  height: 70rpx;
+  margin-left: 30rpx;
+  margin-right: 20rpx;
+}
+
+.tp-evaluate-img image {
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.tp-evaluate-right {
+  width: 540rpx;
+}
+
+.tp-evaluate-name {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 26rpx;
+  color: #333;
+}
+
+.tp-storeGrade {
+  display: flex;
+  align-items: center;
+}
+
+.tp-date-spec {
+  display: flex;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 13rpx;
+}
+
+.tp-date {
+  margin-right: 22rpx;
+}
+
+.tp-evaluate-text {
+  font-size: 28rpx;
+  margin-top: 35rpx;
+  word-break: break-all;
+  color: #333;
+  line-height: 36rpx;
+}
+
+.evaluate-list-scroll {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 40rpx 0;
+}
+
+.evaluate-list-img {
+  display: inline-block;
+  width: 174rpx;
+  height: 174rpx;
+  border-radius: 8rpx;
+  margin-right: 7rpx;
+  background-image: url('https://xuncaoji.net/_download/img/icon/zhanw_tb_n.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.evaluate-list-img image {
+  width: 174rpx;
+  height: 174rpx;
+  border-radius: 8rpx;
+}

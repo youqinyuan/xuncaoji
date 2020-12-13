@@ -5,6 +5,7 @@
 page {
   font-family: PingFang SC;
   background: #f4f4f4;
+  
 }
 
 .newIndexBg {
@@ -114,7 +115,7 @@ page {
 .slide-image {
   height: 240rpx;
   background-size: cover;
-  width: 100%;
+  width: 750rpx;
   border-radius: 8rpx;
 }
 
@@ -155,7 +156,7 @@ page {
 }
 
 .swiper-container .swiper .img {
-  width: 100%;
+  width: 690rpx;
   height: 100%;
 }
 
@@ -295,7 +296,7 @@ page {
 /* 类别 */
 
 .section-swiper {
-  width: 100%;
+  width: 750rpx;
   margin-top: 2rpx;
   background: rgba(255, 255, 255, 0);
 }
@@ -353,10 +354,12 @@ page {
   font-family: PingFang SC;
   color: rgba(51, 51, 51, 1);
   padding-left: 50rpx;
+  width: 700rpx
 }
 
 .mokuai_value {
   display: flex;
+  width: 690rpx;
   justify-content: space-between;
   padding-left: 30rpx;
   padding-right: 30rpx;
@@ -496,6 +499,7 @@ page {
   right: 15rpx;
   width: 101rpx;
   height: 105rpx;
+  z-index: 999;
 }
 
 .seedBg-img {
@@ -518,7 +522,7 @@ page {
   margin-top: 20rpx;
   width: 690rpx;
   height: 516rpx;
-  background: #fff;
+  background: #f2ebe2;
   border-radius: 20rpx;
 }
 
@@ -528,6 +532,7 @@ page {
 }
 
 .brand-title {
+  width: 690rpx;
   margin: 0 26rpx;
   height: 86rpx;
   display: flex;
@@ -555,6 +560,7 @@ page {
 .brandAll {
   width: 140rpx;
   height: 48rpx;
+  margin-right: 40rpx;
 }
 
 .brand-list {
@@ -562,6 +568,7 @@ page {
   justify-content: flex-start;
   flex-wrap: wrap;
   margin-left: 25rpx;
+  overflow: hidden;
 }
 
 .brand-list-image {

@@ -38,7 +38,6 @@ Page({
     amount: null,
     seedBtn:null,
     isShowBook: null,
-    buyWay:null,//orderType=23、24
     takeType:null,//线下商店
     getMoneyOrder: null, //发布赚钱订单
     hostUrl: app.Util.getUrlImg().hostUrl,
@@ -150,21 +149,10 @@ Page({
                         wx.navigateTo({
                           url: `/pages/myorder/myorder?status=${5}`,
                         })
-                      } else if (that.data.buyWay) {
-                        wx.navigateTo({
-                          url: `/pages/myorder/myorder?status=${0}`,
-                        })
                       } else if (that.data.takeType) {
-                        // 线下商店
-                        if (that.data.takeType == 1) {
-                          wx.navigateTo({
-                            url: `/pages/myorder/myorder?status=${0}`,
-                          })
-                        } else {
-                          wx.navigateTo({
-                            url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
-                          })
-                        }
+                        wx.navigateTo({
+                          url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
+                        })
                       }   else {
                         //预售返现卖家付尾款
                         if(that.data.orderSell){
@@ -184,6 +172,22 @@ Page({
                         }
                       }
                       wx.removeStorageSync('myOrder')
+                    }else if (res.data.content.balance.type == 8) {
+                      //一折购分期支付
+                      if(that.data.applyStages){
+                        let pages = getCurrentPages();
+                        let prevPage = pages[pages.length - 2]; 
+                        prevPage.setData({
+                          applyStages: 1,
+                        })
+                        wx.navigateBack({
+                          delta: 1
+                        })
+                      }else{
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${2}`,
+                        })
+                      }
                     } else if (that.data.getMoneyOrder) {
                       wx.navigateBack({
                         delta: 1
@@ -321,21 +325,11 @@ Page({
                       wx.navigateTo({
                         url: `/pages/myorder/myorder?status=${5}`,
                       })
-                    } else if (that.data.buyWay) {
-                      wx.navigateTo({
-                        url: `/pages/myorder/myorder?status=${0}`,
-                      })
                     } else if (that.data.takeType) {
                       // 线下商店
-                      if (that.data.takeType == 1) {
-                        wx.navigateTo({
-                          url: `/pages/myorder/myorder?status=${0}`,
-                        })
-                      } else {
-                        wx.navigateTo({
-                          url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
-                        })
-                      }
+                      wx.navigateTo({
+                        url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
+                      })
                     }   else {
                       //预售返现卖家付尾款
                       if(that.data.orderSell){
@@ -355,6 +349,22 @@ Page({
                       }
                     }
                     wx.removeStorageSync('myOrder')
+                  }else if (res.data.content.balance.type == 8) {
+                      //一折购分期支付
+                      if(that.data.applyStages){
+                        let pages = getCurrentPages();
+                        let prevPage = pages[pages.length - 2]; 
+                        prevPage.setData({
+                          applyStages: 1,
+                        })
+                        wx.navigateBack({
+                          delta: 1
+                        })
+                      }else{
+                        wx.navigateTo({
+                          url: `/pages/myorder/myorder?status=${2}`,
+                        })
+                      }
                   } else if (that.data.getMoneyOrder) {
                     wx.navigateBack({
                       delta: 1
@@ -485,23 +495,12 @@ Page({
                             wx.navigateTo({
                               url: `/pages/myorder/myorder?status=${5}`,
                             })
-                          } else if (that.data.buyWay) {
-                            wx.navigateTo({
-                              url: `/pages/myorder/myorder?status=${0}`,
-                            })
-      
                           } else if (that.data.takeType) {
                             // 线下商店
-                            if (that.data.takeType == 1) {
-                              wx.navigateTo({
-                                url: `/pages/myorder/myorder?status=${0}`,
-                              })
-                            } else {
-                              wx.navigateTo({
-                                url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
-                              })
-                            }
-                          }   else {
+                            wx.navigateTo({
+                              url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
+                            })
+                        } else {
                             //预售返现卖家付尾款
                         if(that.data.orderSell){
                           wx.showToast({
@@ -520,6 +519,22 @@ Page({
                         }
                           }
                           wx.removeStorageSync('myOrder')
+                        }else if (res.data.content.type == 8) {
+                          //一折购分期支付
+                          if(that.data.applyStages){
+                            let pages = getCurrentPages();
+                            let prevPage = pages[pages.length - 2]; 
+                            prevPage.setData({
+                              applyStages: 1,
+                            })
+                            wx.navigateBack({
+                              delta: 1
+                            })
+                          }else{
+                            wx.navigateTo({
+                              url: `/pages/myorder/myorder?status=${2}`,
+                            })
+                          }
                         } else if (that.data.getMoneyOrder) {
                           wx.navigateBack({
                             delta: 1
@@ -736,22 +751,11 @@ Page({
                             wx.navigateTo({
                               url: `/pages/myorder/myorder?status=${5}`,
                             })
-                          }else if (that.data.buyWay) {
-                            wx.navigateTo({
-                              url: `/pages/myorder/myorder?status=${0}`,
-                            })
-      
-                          } else if (that.data.takeType) {
+                          }else if (that.data.takeType) {
                             // 线下商店
-                            if (that.data.takeType == 1) {
-                              wx.navigateTo({
-                                url: `/pages/myorder/myorder?status=${0}`,
-                              })
-                            } else {
-                              wx.navigateTo({
-                                url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
-                              })
-                            }
+                            wx.navigateTo({
+                              url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
+                            })
                           }  else {
                             //预售返现卖家付尾款
                         if(that.data.orderSell){
@@ -771,6 +775,22 @@ Page({
                         }
                           }
                           wx.removeStorageSync('myOrder')
+                        }else if (res.data.content.balance.type == 8) {
+                          //一折购分期支付
+                          if(that.data.applyStages){
+                            let pages = getCurrentPages();
+                            let prevPage = pages[pages.length - 2]; 
+                            prevPage.setData({
+                              applyStages: 1,
+                            })
+                            wx.navigateBack({
+                              delta: 1
+                            })
+                          }else{
+                            wx.navigateTo({
+                              url: `/pages/myorder/myorder?status=${2}`,
+                            })
+                          }
                         } else if (that.data.isShowBook) {
                           wx.switchTab({
                             url: '/pages/forum/forum',
@@ -872,7 +892,14 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    //一折购分期支付订单
+    if(options.applyStages){
+      that.setData({
+        applyStages:1
+      })
+    }
     //发起提期佣金支付
+    console.log(options)
     if (options.mentionPeriod) {
       that.setData({
         mentionPeriod: options.mentionPeriod
@@ -901,7 +928,6 @@ Page({
       amount1: options.amount1 ? options.amount1 : null,
       amount3: options.amount3 ? options.amount3 : null,
       orderSell: options.orderSell ? options.orderSell : null,
-      buyWay: options.buyWay ? options.buyWay : null,
       takeType: options.takeType ? options.takeType : null,
       getMoneyOrder: options.getMoneyOrder ? options.getMoneyOrder : null,
     })
@@ -1026,21 +1052,11 @@ Page({
                         wx.navigateTo({
                           url: `/pages/myorder/myorder?status=${5}`,
                         })
-                      } else if (that.data.buyWay) {
-                        wx.navigateTo({
-                          url: `/pages/myorder/myorder?status=${0}`,
-                        }) 
-                      } else if (that.data.takeType) {
+                      }else if (that.data.takeType) {
                         // 线下商店
-                        if (that.data.takeType==1){
-                          wx.navigateTo({
-                            url: `/pages/myorder/myorder?status=${0}`,
-                          })
-                        }else{
-                          wx.navigateTo({
-                            url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
-                          })
-                        }
+                        wx.navigateTo({
+                          url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
+                        })
                       }else {
                         wx.navigateTo({
                           url: `/pages/myorder/myorder?status=${2}`,
@@ -1126,21 +1142,11 @@ Page({
                     wx.navigateTo({
                       url: `/pages/myorder/myorder?status=${5}`,
                     })
-                  } else if (that.data.buyWay) {
-                    wx.navigateTo({
-                      url: `/pages/myorder/myorder?status=${0}`,
-                    })
                   } else if (that.data.takeType) {
                     // 线下商店
-                    if (that.data.takeType == 1) {
-                      wx.navigateTo({
-                        url: `/pages/myorder/myorder?status=${0}`,
-                      })
-                    } else {
-                      wx.navigateTo({
-                        url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
-                      })
-                    }
+                    wx.navigateTo({
+                      url: `/packageB/pages/waitReentryDetail/waitReentryDetail?&takeType=${that.data.takeType}`,
+                    })
                   } else {
                     wx.navigateTo({
                       url: `/pages/myorder/myorder?status=${2}`,

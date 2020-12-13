@@ -385,7 +385,6 @@ page {
 
 .takeOut_placeOrder {
   width: 710rpx;
-  background: #fff5e4;
   border-radius: 10rpx 10rpx 52rpx 52rpx;
   position: fixed;
   bottom: 20rpx;
@@ -451,6 +450,21 @@ page {
 
 .add_price {
   margin-left: 25rpx;
+  color: #fff;
+}
+
+.addCart_right1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 710rpx;
+  height: 100rpx;
+  background: rgba(26, 26, 26, 1);
+  border-radius: 50rpx;
+}
+
+.add_price1 {
+  margin-left: 50rpx;
   color: #fff;
 }
 
@@ -851,4 +865,58 @@ page {
   display: flex;
   justify-content: space-between;
   margin: 50rpx;
+}
+
+/* 闪付 */
+
+.buyMoney {
+  width: 689rpx;
+  height: 353rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  margin: 0 auto;
+}
+
+.buyMoney-title {
+  height: 128rpx;
+  display: flex;
+  align-items: center;
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-left: 36rpx;
+}
+
+.buyMoney-actual {
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-left: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.buyMoney-price {
+  color: #999;
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-left: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.buyMoney-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 30rpx;
+  font-weight: bold;
+  margin: 0 30rpx;
+}
+
+.buyMoney-btn {
+  width: 88rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  background: #ff9000;
+  border: 1rpx solid #ff9000;
+  border-radius: 4rpx;
+  color: #fff;
+  font-size: 24rpx;
 }

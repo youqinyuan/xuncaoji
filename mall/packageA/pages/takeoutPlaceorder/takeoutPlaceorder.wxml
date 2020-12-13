@@ -11,7 +11,7 @@
     },
   }
 </wxs>
-<view class="wrap_top" wx:if="{{store.useDelivery==1}}">
+<view class="wrap_top" wx:if="{{store.useDelivery==1&&!buyMode}}">
   <view class="nav_wrap">
     <block wx:for="{{navData}}" wx:key="{{item.type}}">
       <view class="nav_take" wx:if="{{item.type==1}}" catchtap="switchNav" data-index="{{index}}">
@@ -61,7 +61,7 @@
   </view>
 </view>
 
-<view class="wrap_top" wx:if="{{store.useDelivery==0}}">
+<view class="wrap_top" wx:if="{{store.useDelivery==0&&!buyMode}}">
   <view class="wrap_way1" wx:if="{{store.type==1?'min-height: 219rpx;':'min-height:0;'}}">
     <view class="getSelf_wrap">
       <view class="getTitle">到店自取</view>
@@ -77,7 +77,7 @@
     </view>
   </view>
 </view>
-<view class="goods_wrap" style="{{store.type==1?'margin-top: 20rpx;':'margin-top: -40rpx'}}">
+<view class="goods_wrap" style="{{store.type==1?'margin-top: 20rpx;':'margin-top: -40rpx'}}" wx:if="{{!buyMode}}">
   <view class="goodsList" wx:for="{{orderContent.orderGoodsBo}}" wx:key="{{index}}">
     <image class="goodsImg" wx:if="{{item.orderGoods.imageUrl}}" src="{{item.orderGoods.imageUrl}}"></image>
     <image class="goodsImg" wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
@@ -95,10 +95,12 @@
       </view>
       <view class="goodsAllPrice">
         <view class="goodsAll" wx:if="{{item.orderGoods.stageType==1}}">
-          返后价<text>￥</text>{{foo.toStr(item.orderGoods.payAmount-(item.orderGoods.cashBack?item.orderGoods.cashBack:0))}}1111111111111111111111
+          返后价
+          <text>￥</text>{{foo.toStr(item.orderGoods.payAmount-(item.orderGoods.cashBack?item.orderGoods.cashBack:0))}}
         </view>
-         <view class="goodsAll" wx:if="{{item.orderGoods.stageType==2}}">
-          成本<text>￥</text>{{foo.toStr(item.orderGoods.payAmount-(item.orderGoods.cashBack?item.orderGoods.cashBack:0))}}111111111111111
+        <view class="goodsAll" wx:if="{{item.orderGoods.stageType==2}}">
+          成本
+          <text>￥</text>{{foo.toStr(item.orderGoods.payAmount-(item.orderGoods.cashBack?item.orderGoods.cashBack:0))}}
         </view>
         <view class="goodsReturn" wx:if="{{item.orderGoods.stageType==1}}">
           <view class="goodsReturn-way" wx:if="{{item.orderGoods.period>0}}">分期返现:{{item.orderGoods.period}}期</view>
@@ -109,9 +111,22 @@
         <view class="goodsReturn" wx:if="{{item.orderGoods.stageType==2}}">
           <view class="goodsReturn-way" wx:if="{{item.orderGoods.cashBackType==0||item.orderGoods.cashBackType==1}}">返还月数：{{item.orderGoods.period}}月</view>
           <view class="goodsReturn-way" wx:if="{{item.orderGoods.cashBackType==2}}">返还天数：{{item.orderGoods.period}}天</view>
-          <view class="goodsBtn" catchtap="getShowPeriod" data-stockid='{{item.orderGoods.stockId}}' data-discountNumber="{{item.orderGoods.discountNumber}}" data-quantity='{{item.orderGoods.quantity}}' data-period='{{item.orderGoods.period}}' data-expectedAmount='{{item.orderGoods.expectedAmount}}' data-cashBackPeriods='{{item.orderGoods.cashBackPeriods}}' data-bagId="{{item.orderGoods.bagId}}" data-needPaymentAmount='{{item.orderGoods.goodsPrice}}' data-goodsid='{{item.orderGoods.goodsId}}'>修改</view>
+          <view class="goodsBtn" catchtap="getShowPeriod" data-stockid='{{item.orderGoods.stockId}}' data-discountNumber="{{item.orderGoods.discountNumber}}" data-quantity='{{item.orderGoods.quantity}}' data-period='{{item.orderGoods.period}}' data-expectedAmount='{{item.orderGoods.expectedAmount}}'
+            data-cashBackPeriods='{{item.orderGoods.cashBackPeriods}}' data-bagId="{{item.orderGoods.bagId}}" data-needPaymentAmount='{{item.orderGoods.goodsPrice}}' data-goodsid='{{item.orderGoods.goodsId}}'>修改</view>
         </view>
       </view>
+    </view>
+  </view>
+</view>
+<!-- 闪付 -->
+<view class="wrap_top" wx:if="{{buyMode}}">
+  <view class="buyMoney">
+    <view class="buyMoney-title">买单</view>
+    <view class="buyMoney-actual">实付<text style="color:#FF2644;">￥{{orderContent.orderGoodsBo[0].orderGoods.payAmount}}</text>返<text style="color:#FF2644;">￥{{orderContent.orderGoodsBo[0].orderGoods.cashBack?orderContent.orderGoodsBo[0].orderGoods.cashBack:0}}</text></view>
+    <view class="buyMoney-price">最终成本￥{{foo.toStr(orderContent.orderGoodsBo[0].orderGoods.payAmount-(orderContent.orderGoodsBo[0].orderGoods.cashBack?orderContent.orderGoodsBo[0].orderGoods.cashBack:0))}}</view>
+    <view class="buyMoney-bottom">
+      <view class="buyMoney-period">返还月数：{{orderContent.orderGoodsBo[0].orderGoods.period}}月</view>
+      <view class="buyMoney-btn" catchtap="buyPeriod"  data-cashBackPeriods='{{orderContent.orderGoodsBo[0].orderGoods.period}}' data-discountNumber="{{orderContent.orderGoodsBo[0].orderGoods.discountNumber}}">修改</view>
     </view>
   </view>
 </view>
@@ -141,20 +156,23 @@
     </view>
     <view class="discount_d" wx:if="{{orderContent.order.totalDiscount>0}}">
       <view class="discount_d_text">优惠总金额</view>
-      <view class="discount_d_price">-<text style="font-size:24rpx;margin-top:3rpx;">￥</text>{{orderContent.order.totalDiscount}}</view>
+      <view class="discount_d_price">-
+        <text style="font-size:24rpx;margin-top:3rpx;">￥</text>{{orderContent.order.totalDiscount}}</view>
     </view>
   </view>
-  <view style="display:flex;justify-content:flex-end;margin-right:30rpx;margin-top:30rpx;"><view class="takeout-btn" catchtap="jumpMoney" data-storeid = "{{orderContent.order.storeId}}">支付明细</view></view>
+  <view wx:if="{{!buyMode}}" style="display:flex;justify-content:flex-end;margin-right:30rpx;margin-top:30rpx;">
+    <view class="takeout-btn" catchtap="jumpMoney" data-storeid="{{orderContent.order.storeId}}">支付明细</view>
+  </view>
   <view class="takeout-block"></view>
 
   <!-- 按钮 -->
-  <view class="takeOut_placeOrder" style="{{orderContent.order.buyMode==2?'height: 179rpx;':''}}">
-    <view class="takeOut_get" wx:if="{{orderContent.order.buyMode==2}}">
+  <view class="takeOut_placeOrder" style="{{orderContent.order.buyMode==2&&!buyMode?'height: 179rpx; background: #fff5e4;':''}}">
+    <view class="takeOut_get" wx:if="{{orderContent.order.buyMode==2&&!buyMode}}">
       <view>试试快捷设置吧</view>
       <view class="takeOut_get_btn" catchtap="payMin">支付最少</view>
       <view class="takeOut_get_btn" catchtap="cashFast">返还最快</view>
     </view>
-    <view class="addCart-wrap">
+    <view class="addCart-wrap" wx:if="{{!buyMode}}">
       <view class="addCart_left">
         <image class="addCart_img" src="{{hostUrl}}/changeImg/add_cart.png"></image>
       </view>
@@ -171,6 +189,20 @@
           </view>
         </view>
         <view class="btn" style="background:{{bgColor}};" catchtap="toPlaceOrder">下单</view>
+      </view>
+    </view>
+    <view class="addCart-wrap" wx:if="{{buyMode}}">
+      <view class="addCart_right1">
+        <view class="add_price1">
+          <view class="allSign">
+            <text>￥</text>
+            <text>{{orderContent.order.orderAmount}}</text>
+          </view>
+          <view class="allPrice">
+            <text>返现 ¥{{orderContent.order.cashBackAmount}} 成本 ¥{{orderContent.order.afterCashBackAmount}}</text>
+          </view>
+        </view>
+        <view class="btn" style="background:{{bgColor}};" catchtap="toPlaceOrder">支付</view>
       </view>
     </view>
   </view>

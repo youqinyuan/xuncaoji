@@ -40,7 +40,7 @@
             </view>
             <view class="ranking_value" wx:else>{{item.rank}}</view>
             <view class="user_value">
-                <image src="{{item.avatarUrl?item.avatarUrl:'/assets/images/mine/other_ren.png'}}" class="head_img"/>
+                <image src="{{item.avatarUrl?item.avatarUrl:hostUrl+'/flashPay/other_ren.png'}}" class="head_img"/>
                 <view class="name">{{item.userName?item.userName:''}}</view>
             </view>
             <view class="nianhua_value">

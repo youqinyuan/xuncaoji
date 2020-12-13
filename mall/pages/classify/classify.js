@@ -105,8 +105,10 @@ Page({
     var id = e.currentTarget.dataset.id; //导航栏数组的id 
     var name = e.currentTarget.dataset.name
     that.setData({
-      id: id,
+      id: id?id:null,
       currentTab: cur,
+      showBtn:'查看全部',
+      attr: 1,
     })
     if (cur==0){
       app.Util.ajax('mall/home/brand', {

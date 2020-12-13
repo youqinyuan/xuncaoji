@@ -1,0 +1,184 @@
+<!--pages/takeoutStore/takeoutStore.wxml-->
+
+<view class="takeout-wrap"><image class="takeout-yuan" src="/assets/images/temp/takeout-yuan.png"></image></view>
+<view class="takeout-location" catchtap="jumpLocation" data-address="{{nearList.title}}">
+  <image class="takeout-img" src="/assets/images/temp/takeout_tu.png"></image>
+  <view class="takeout-text">{{nearList.title?nearList.title:'定位中…'}}</view>
+  <image wx:if="{{nearList}}" class="takeout-san" src="/assets/images/temp/takeout_san.png"></image>
+</view>
+<view class="section-wrapper">
+  <view class="section" catchtap="toSearch" data-id="{{store.id}}">
+    <image src="{{hostUrl}}/icon/index_nav_search_n.png" class="section-img"></image>
+    <view class="section-text">搜索商家/服务</view>
+  </view>
+</view>
+<!-- 轮播图 -->
+<view class="swiper-container">
+  <swiper class="swiper-wrapper-item" bindchange="swiperChange">
+    <swiper-item wx:if="{{imgUrls.length>0}}" wx:for="{{imgUrls}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}" data-storeType="{{item.paramExt}}">
+      <image wx:if="{{imgUrls.length===0}}" src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
+      <image wx:else src="{{item.iconUrl}}" class="slide-image" />
+    </swiper-item>
+    <swiper-item wx:if="{{imgUrls.length===0}}">
+      <image src="{{hostUrl}}/icon/zhanw_tb_n.png" class="slide-image" />
+    </swiper-item>
+  </swiper>
+  <view class="dots">
+    <block wx:for="{{imgUrls}}" wx:key="unique">
+      <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
+    </block>
+  </view>
+</view>
+<!-- 类别 -->
+<view class="section-swiper">
+  <swiper class="section-wrap" autoplay="{{false}}" circular="{{false}}" interval="5000" indicator-color="#CCCCCC" indicator-active-color="#FF6417" indicator-dots="{{indicatorDots}}" style="height:{{height}}rpx;padding-top:{{paddingTop}}rpx;">
+    <swiper-item class="section-classify">
+      <view class="section-list" wx:for="{{navigationList1}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}" data-storeType="{{item.paramExt}}">
+        <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.category==1&&item.param===8}}">
+          <view class="section-list-img1">
+            <image src="{{item.iconUrl}}"></image>
+          </view>
+          <view class="section-list-text">{{item.title}}</view>
+        </button>
+        <view class="section-list_wrap" wx:else>
+          <view class="section-list-img">
+            <image src="{{item.iconUrl}}"></image>
+          </view>
+          <view class="section-list-text">{{item.title}}</view>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item class="section-classify" wx:if="{{navigationList.length>10}}">
+      <view class="section-list" wx:for="{{navigationList2}}" wx:key="{{item.id}}" bindtap="navigatePage" data-id="{{item.id}}" data-storeType="{{item.paramExt}}">
+        <button class="section-list_wrap" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" bindcontact="handleContact" open-type="contact" wx:if="{{item.category==1&&item.param===8}}">
+          <view class="section-list-img1">
+            <image src="{{item.iconUrl}}"></image>
+          </view>
+          <view class="section-list-text">{{item.title}}</view>
+        </button>
+        <view class="section-list_wrap" wx:else>
+          <view class="section-list-img">
+            <image src="{{item.iconUrl}}"></image>
+          </view>
+          <view class="section-list-text">{{item.title}}</view>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>
+<!-- 优惠拼团 -->
+<view class="yh">
+  <view class="yh-top">
+    <view class="yh-title">
+      <view class="yhBig">优惠拼团</view>
+      <image class="yhSmall" src="/assets/images/temp/yh-lowprice.png"></image>
+    </view>
+    <view class="yhAll" catchtap="toMakeGroup">查看更多</view>
+  </view>
+  <view class="yh-wrapper">
+    <view class="yh-list">
+      <image class="yh-img" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+      <view class="yh-name">肯德基（吉泰路肯德基（吉泰路</view>
+      <view class="yh-price">
+        <text class="yh-sign">￥</text>222</view>
+    </view>
+    <view class="yh-list">
+      <image class="yh-img" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+      <view class="yh-name">肯德基（吉泰路肯德基（吉泰路</view>
+      <view class="yh-price">
+        <text class="yh-sign">￥</text>222</view>
+    </view>
+    <view class="yh-list">
+      <image class="yh-img" src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+      <view class="yh-name">肯德基（吉泰路肯德基（吉泰路</view>
+      <view class="yh-price">
+        <text class="yh-sign">￥</text>222</view>
+    </view>
+  </view>
+</view>
+<!-- 商品和店铺 -->
+<view class="re">
+  <view class="re-top">
+    <view class="re-title">
+      <block wx:for="{{navData}}" wx:for-index="idx" wx:key="idx">
+        <view class="nav-box">
+          <view class="nav-item {{current == idx ?'re-active':''}}" data-index="{{idx}}" catchtap="switchNav">{{item}}</view>
+          <view class="nav-item {{current == idx ?'re-active1':''}}" data-index="{{idx}}" catchtap="switchNav"></view>
+        </view>
+      </block>
+    </view>
+    <view class="re-all" catchtap="toNearbyStore">查看更多</view>
+  </view>
+  <view class="wrap">
+    <view class="items" wx:if="{{current==0}}" wx:for="{{selectedGoods}}" wx:key="{{item.id}}">
+      <view class="img_wrap">
+        <image src="{{item.imageUrls[0]}}"></image>
+      </view>
+      <view class="goodsDetail">
+        <view class="goodsName">{{item.name}}</view>
+        <view class="goodsBottom">
+          <view class="goodsLeft">
+            <view class="storeGrade">
+              <view class='stars' wx:for='{{[1,2,3,4,5]}}' wx:key="{{index}}" wx:for-item='i'>
+                <image src='/assets/images/temp/pingj_xinxin.png' wx:if="{{item.score >= index+1 }}"></image>
+                <image src='/assets/images/temp/pingj_xinxin_l.png' wx:elif="{{item.score >= index && (item.score*10)%10 !=0 }}"></image>
+                <image src='/assets/images/temp/pingj_xinxin_p.png' wx:else></image>
+              </view>
+              <view class="storeText">{{item.score}}<text>分</text></view>
+            </view>
+            <view class="takeoutT">一折价:
+              <text>￥</text>
+              <text>{{item.discountPrice}}</text>
+            </view>
+          </view>
+          <view class="goodsBtn">
+            <view class="goods-btn" catchtap="toSetmealDetails" data-id="{{item.id}}">拼团</view>
+            <view class="goods-text">月售：{{item.grabbed+item.sales}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="items" wx:if="{{current==1}}" catchtap="toTakePages" wx:for="{{recommendedStore}}" wx:key="{{item.id}}">
+      <view class="img_wrap">
+        <image src="{{item.logoUrl}}"></image>
+      </view>
+      <view class="goodsDetail">
+        <view class="goodsName1">{{item.name}}</view>
+        <view class="goodsBottom">
+          <view class="goodsLeft">
+            <view class="re-storeGrade">
+              <view class='stars' wx:for='{{[1,2,3,4,5]}}' wx:key="{{index}}" wx:for-item='i'>
+                <image src='/assets/images/temp/pingj_xinxin.png' wx:if="{{item.score >= index+1 }}"></image>
+                <image src='/assets/images/temp/pingj_xinxin_l.png' wx:elif="{{item.score >= index && (item.score*10)%10 !=0 }}"></image>
+                <image src='/assets/images/temp/pingj_xinxin_p.png' wx:else></image>
+              </view>
+              <view class="storeText">{{item.score}}
+                <text>分</text>
+              </view>
+            </view>
+            <view class="takeoutName">{{item.addressDetail}}</view>
+            <view class="takeoutImg">
+              <view class="takeoutF">
+                <image src='/assets/images/temp/re_sign.png'></image>
+                <view class="takeoutText">到店</view>
+              </view>
+              <view class="takeoutF" wx:if="{{item.canGroup==1}}">
+                <image src='/assets/images/temp/re_sign.png'></image>
+                <view class="takeoutText">拼团</view>
+              </view>
+              <view class="takeoutF">
+                <image src='/assets/images/temp/re_sign.png'></image>
+                <view class="takeoutText">外卖</view>
+              </view>
+            </view>
+          </view>
+          <view class="goods-right">
+            <view class="goods-m">{{item.distance}}</view>
+            <view class="goods-text">月售：{{item.sales}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="exProducts-bottom">{{text}}</view>

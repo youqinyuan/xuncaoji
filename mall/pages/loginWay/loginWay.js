@@ -1,5 +1,6 @@
 // pages/loginWay/loginWay.js
 let app = getApp();
+const util = require('../../utils/util.js') // 将工具函数导入进来
 Page({
 
   /**
@@ -124,65 +125,111 @@ Page({
               data: 'packageA/pages/takeoutHomeage/takeoutHomeage'
             })
           }
-          app.Util.ajax('mall/account/authLogin', {
-            encryptedData: encryptedData,
-            iv: iv,
-            code: code,
-            inviterCode: inviterCode1,
-            authType:1
-          }, 'POST').then((res) => {
-            console.log("登录："+JSON.stringify(res))
-            if (res.data.messageCode === 'MSG_1001') {
-              wx.removeStorageSync('token')
-              wx.setStorageSync('token', res.header.token)
-              wx.setStorageSync('inviterCode', res.data.content.inviterCode)
-              wx.setStorageSync('newUserCourtesyStatus', res.data.content.fresher)
-              app.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
-                if (res.data.messageCode == 'MSG_1001') {
-                  that.setData({
-                    provinces: res.data.content
-                  })
-                  wx.setStorageSync('provinces', res.data.content)
-                  app.globalData.flag = true
-                  wx.switchTab({
-                    url: '/pages/index/index'
-                  })
-                }
-              }) 
-              console.log("aaa"+JSON.stringify(res))
-            } else if (res.data.messageCode === 'MSG_4001') {
-              wx.redirectTo({
-                url: '/pages/invitationCode/invitationCode?tips=' + '请填写正确的邀请码'
-              })
-            } else if (res.data.messageCode === 'MSG_4002') {
-              console.log(666)
+          wx.request({
+            url: util.getUrlImg().publicUrl+'mall/account/authLogin',
+            method: "POST",
+            data: {
+              code: res.code,
+              authType: 1,
+              encryptedData: encryptedData,
+              iv: iv,
+              inviterCode: inviterCode1
+            },
+            header: {
+              "content-type": 'application/json',
+              deviceId:'81c28f8d-fdbd-4a58-9c77-e59f98fa2513'
+            },
+            success: function(res) {
+              if (res.data.messageCode === 'MSG_1001') {
+                wx.removeStorageSync('token')
+                wx.setStorageSync('token', res.header.token)
+                wx.setStorageSync('inviterCode', res.data.content.inviterCode)
+                wx.setStorageSync('newUserCourtesyStatus', res.data.content.fresher)
+                app.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
+                  if (res.data.messageCode == 'MSG_1001') {
+                    that.setData({
+                      provinces: res.data.content
+                    })
+                    wx.setStorageSync('provinces', res.data.content)
+                    app.globalData.flag = true
+                    wx.switchTab({
+                      url: '/pages/index/index'
+                    })
+                  }
+                }) 
+                console.log("aaa"+JSON.stringify(res))
+              } else if (res.data.messageCode === 'MSG_4001') {
+                wx.redirectTo({
+                  url: '/pages/invitationCode/invitationCode?tips=' + '请填写正确的邀请码'
+                })
+                wx.setStorageSync('tips', '请填写正确的邀请码')
+              } else if (res.data.messageCode === 'MSG_4002') {
+                console.log(666)
+                wx.showToast({
+                  title: '您的微信昵称含有特殊字符，请先修改微信昵称后再登录',
+                  icon: 'none',
+                  duration: 2000
+                })
+              } else {
+              }
+              wx.removeStorageSync('othersInviterCode')
+            },
+            fail:function(res){
               wx.showToast({
-                title: '您的微信昵称含有特殊字符，请先修改微信昵称后再登录',
-                icon: 'none',
-                duration: 2000
+                title: '登录失败，请重新登录！',
+                icon:'none'
               })
-            } else {
-              // wx.showToast({
-              //   title: res.data.message,
-              //   icon: 'none',
-              //   duration: 2000
-              // })
             }
-            wx.removeStorageSync('othersInviterCode')
-          }).catch((err)=>{
-            console.log(err)
-            wx.showToast({
-              title: '登录失败，请重新登录！',
-              icon:'none'
-            })
           })
+          // app.Util.ajax('mall/account/authLogin', {
+          //   encryptedData: encryptedData,
+          //   iv: iv,
+          //   code: code,
+          //   inviterCode: inviterCode1,
+          //   authType:1
+          // }, 'POST').then((res) => {
+          //   console.log("登录："+JSON.stringify(res))
+          //   if (res.data.messageCode === 'MSG_1001') {
+          //     wx.removeStorageSync('token')
+          //     wx.setStorageSync('token', res.header.token)
+          //     wx.setStorageSync('inviterCode', res.data.content.inviterCode)
+          //     wx.setStorageSync('newUserCourtesyStatus', res.data.content.fresher)
+          //     app.Util.ajax('mall/personal/cityData', 'GET').then((res) => { // 使用ajax函数
+          //       if (res.data.messageCode == 'MSG_1001') {
+          //         that.setData({
+          //           provinces: res.data.content
+          //         })
+          //         wx.setStorageSync('provinces', res.data.content)
+          //         app.globalData.flag = true
+          //         wx.switchTab({
+          //           url: '/pages/index/index'
+          //         })
+          //       }
+          //     }) 
+          //     console.log("aaa"+JSON.stringify(res))
+          //   } else if (res.data.messageCode === 'MSG_4001') {
+          //     wx.redirectTo({
+          //       url: '/pages/invitationCode/invitationCode?tips=' + '请填写正确的邀请码'
+          //     })
+          //   } else if (res.data.messageCode === 'MSG_4002') {
+          //     console.log(666)
+          //     wx.showToast({
+          //       title: '您的微信昵称含有特殊字符，请先修改微信昵称后再登录',
+          //       icon: 'none',
+          //       duration: 2000
+          //     })
+          //   } else {
+          //   }
+          //   wx.removeStorageSync('othersInviterCode')
+          // }).catch((err)=>{
+          //   console.log(err)
+          //   wx.showToast({
+          //     title: '登录失败，请重新登录！',
+          //     icon:'none'
+          //   })
+          // })
         } else {
           app.globalData.flag = false
-          // wx.showToast({
-          //   title: '验证码输入错误',
-          //   icon: 'none',
-          //   duration: 2000
-          // })
           wx.navigateTo({
             url: '/pages/login/login?pageNum=' + 4,
           })

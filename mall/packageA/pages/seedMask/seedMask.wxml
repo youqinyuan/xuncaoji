@@ -88,9 +88,8 @@
   <view class="shuoming__container" wx:if="{{oneShow}}">
     <view class="shuoming">提示</view>
     <view class="shuoming_text" style="">一折购，购买商品赠送种子，选择期数越短赠送种子越多哦</view>
-    <view class="the_button_box">我知道了</view>
+    <view class="the_button_box" bindtap='cancelOneShow'>我知道了</view>
   </view>
-  <image wx:if="{{oneShow}}" class="shuoming_img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelOneShow'></image>
 </view>
 <!-- 海报弹框 -->
 <view class="mask_hb" wx:if="{{haibao}}"></view>

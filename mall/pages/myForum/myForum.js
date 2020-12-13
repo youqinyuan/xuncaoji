@@ -11,7 +11,7 @@ Page({
     hostUrl: app.Util.getUrlImg().hostUrl,
     currentTab: 0,
     type: 1,
-    allPost: [], //帖子列表
+    allPost: {}, //帖子列表
     emptyText:'',
     delId: null,
     showFollow: false, //取消关注弹窗
@@ -340,7 +340,7 @@ Page({
     that.setData({
       type: type,
       pageNumber: 1,
-      allPost:[],
+      allPost:{},
       emptyText:''
     })
     that.getMessage();

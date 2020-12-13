@@ -61,7 +61,9 @@ Page({
     zhihui:false,
     topicId:'',
     takeout:'',
-    isChoose:1
+    isChoose:1,
+    applyStage:2,
+    applyStage2:2 //处理去一折购分期入口
   },
   //跳转到服务问题页面
   goIntoProblem: function(e) {
@@ -137,6 +139,12 @@ Page({
         tempList:JSON.parse(options.arr)
       })
     }
+    //是否分期支付
+    if(options.applyStage){
+      that.setData({
+        applyStage:options.applyStage
+      })
+    }
     //0成本购引导3
     if(app.globalData.freeBuyYinDao==1){
       that.setData({
@@ -188,9 +196,19 @@ Page({
         })
       }
       that.newPeopleCompute(options.activityGoodsId, options.stockId, options.quantity)
+    }else if(options.quickPass==1){
+      //闪付初始化
+      that.setData({
+        quickPass:options.quickPass,
+        flashPayAmount:options.flashPayAmount,
+        tempList:JSON.parse(options.arr)
+      })
+      //是否能选最大期
+      that.isChoose()
+      that.getInit3()
     } else {
       app.Util.ajax('mall/freeShopping/request/getUserIsChoiceMaxPeriods', {
-        stockId: options.stockId?options.stockId:JSON.parse(options.arr).stockid
+        stockId: options.detailObj?JSON.parse(options.detailObj).stockId:options.stockId?options.stockId:JSON.parse(options.arr).stockid
       }, 'GET').then((res) => {
         //获取页面分期判断数据
         if (res.data.messageCode == 'MSG_1001') {
@@ -247,7 +265,7 @@ Page({
               shoppingcartgoodsid: options.shoppingcartgoodsid
             })
             that.getInit(obj.stockId)
-          } else {
+          }else {
             var obj = {}
             obj.goodsId = options.goodsId
             obj.stockId = options.stockId
@@ -262,22 +280,15 @@ Page({
     }
   },
   //用户是否可选择最大期数
-  isChoose:function(stockId){
+  isChoose:function(){
     var that = this
     app.Util.ajax('mall/freeShopping/request/getUserIsChoiceMaxPeriods', {
-      stockId: stockId
+      flashPayAmount: that.data.flashPayAmount
     }, 'GET').then((res) => {
       //获取页面分期判断数据
       if (res.data.messageCode == 'MSG_1001') {
         that.setData({
           isChoose:res.data.content
-        })
-
-      } else {
-        wx.showToast({
-          title: res.data.message,
-          icon: 'none',
-          duration: 1000
         })
       }
     })
@@ -286,7 +297,8 @@ Page({
   getInit: function(stockId) {
     var that = this
     app.Util.ajax('mall/freeShopping/request/default', {
-      stockId: stockId
+      stockId: stockId,
+      installmentPayment:that.data.applyStage
     }, 'GET').then((res) => {
       //获取页面分期判断数据
       if (res.data.messageCode == 'MSG_1001') {
@@ -441,6 +453,71 @@ Page({
         }
       })
     },
+  //闪付请求初始化数据
+  getInit3: function(stockId) {
+    var that = this
+    app.Util.ajax('mall/freeShopping/request/default', {
+      flashPayAmount: that.data.flashPayAmount
+    }, 'GET').then((res) => {
+      //获取页面分期判断数据
+      if (res.data.messageCode == 'MSG_1001') {
+         // 从购物袋进来，修改一折购
+         if(that.data.tempList.discountNumber==0){
+          that.setData({
+            discountNumber:'零折',
+          })
+        }else if(that.data.tempList.discountNumber==1){
+          that.setData({
+            discountNumber:'一折',
+          })
+        }else if(that.data.tempList.discountNumber==2){
+          that.setData({
+            discountNumber:'二折',
+          })
+        }else if(that.data.tempList.discountNumber==3){
+          that.setData({
+            discountNumber:'三折',
+          })
+        }else if(that.data.tempList.discountNumber==4){
+          that.setData({
+            discountNumber:'四折',
+          })
+        }else if(that.data.tempList.discountNumber==5){
+          that.setData({
+            discountNumber:'五折',
+          })
+        }else if(that.data.tempList.discountNumber==6){
+          that.setData({
+            discountNumber:'六折',
+          })
+        }else if(that.data.tempList.discountNumber==7){
+          that.setData({
+            discountNumber:'七折',
+          })
+        }else if(that.data.tempList.discountNumber==8){
+          that.setData({
+            discountNumber:'八折',
+          })
+        }else if(that.data.tempList.discountNumber==9){
+          that.setData({
+            discountNumber:'九折',
+          })
+        }
+          that.compute3(that.data.tempList.discountNumber,that.data.tempList.cashBackPeriods);
+          that.setData({
+            cashMsg: res.data.content,
+            orgPriceCompute:res.data.content.orgPrice,
+            orgPrice:(res.data.content.orgPrice*that.data.discountCompute).toFixed(2)
+          })
+      } else {
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
   //新人专区计算
   newPeopleCompute: function(activityGoodsId, stockId, quantity) {
     var that = this
@@ -610,15 +687,13 @@ Page({
         }
       }
     }
-    console.log(that.data.orgPriceCompute,that.data.discountCompute,that.data.goodsMsg.quantity)
-    if (that.data.activityId) {
       app.Util.ajax('mall/freeShopping/request/calculate', {
         stockId: Number(that.data.goodsMsg.stockId),
         quantity: Number(that.data.goodsMsg.quantity),
         // expectedAmount: (that.data.orgPriceCompute*that.data.discountCompute*that.data.goodsMsg.quantity).toFixed(2),
         cashBackPeriods: that.data.isChoose==1?that.data.cashMsg.selectablePeriods[0]:that.data.cashMsg.selectablePeriods[1],
         orderType: orderType,
-        activityId: parseInt(that.data.activityId),
+        activityId: that.data.activityId?that.data.activityId:'',
         discountNumber:Number((that.data.discountCompute*10).toFixed(2)),
         topicId:that.data.topicId
       }, 'POST').then((res) => {
@@ -646,43 +721,6 @@ Page({
           })
         }
       })
-    } else {
-      console.log(that.data.isChoose==1?that.data.cashMsg.selectablePeriods[0]:that.data.cashMsg.selectablePeriods[1])
-      app.Util.ajax('mall/freeShopping/request/calculate', {
-        stockId: Number(that.data.goodsMsg.stockId),
-        quantity: Number(that.data.goodsMsg.quantity),
-        // expectedAmount: (that.data.orgPriceCompute*that.data.discountCompute*that.data.goodsMsg.quantity).toFixed(2),
-        cashBackPeriods: that.data.isChoose==1?that.data.cashMsg.selectablePeriods[0]:that.data.cashMsg.selectablePeriods[1],
-        orderType: orderType,
-        discountNumber:Number((that.data.discountCompute*10).toFixed(2)),
-        topicId:that.data.topicId
-      }, 'POST').then((res) => {
-        if (res.data.messageCode == 'MSG_1001') {
-          var cashBackDetails = res.data.content.cashBackDetails
-          cashBackDetails.forEach((v, i) => {
-            v.cashBackDate = time.formatTimeTwo(v.cashBackDate, 'Y-M-D')
-          })
-          // var interestDetails = res.data.content.interestDetails
-          // interestDetails.forEach((v, i) => {
-          //   v.cashBackDate = time.formatTimeTwo(v.cashBackDate, 'Y-M-D')
-          // })
-          that.setData({
-            zhihui:false,
-            payMsg: res.data.content
-          })
-        } else {
-          that.setData({
-            zhihui:true
-          })
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none',
-            duration: 1000
-          })
-        }
-      })
-    }
-
   },
   compute2: function(discountNumber, cashBackPeriods) {
     var that = this
@@ -690,6 +728,7 @@ Page({
       stockId: Number(that.data.goodsMsg.stockId),
       quantity: Number(that.data.goodsMsg.quantity),
       // expectedAmount: expectedAmount,
+      activityId:that.data.activityId?that.data.activityId:'',
       cashBackPeriods: cashBackPeriods,
       orderType: that.data.sponsor == 1 ? 14 : 7,
       discountNumber:discountNumber
@@ -719,6 +758,40 @@ Page({
       }
     })
   },
+  compute3: function(discountNumber, cashBackPeriods) {
+    var that = this
+    app.Util.ajax('mall/freeShopping/request/calculate', {
+      flashPayAmount:that.data.flashPayAmount,
+      cashBackPeriods: cashBackPeriods,
+      discountNumber:discountNumber,
+      orderType:26
+    }, 'POST').then((res) => {
+      if (res.data.messageCode == 'MSG_1001') {
+        var cashBackDetails = res.data.content.cashBackDetails
+        cashBackDetails.forEach((v, i) => {
+          v.cashBackDate = time.formatTimeTwo(v.cashBackDate, 'Y-M-D')
+        })
+        // var interestDetails = res.data.content.interestDetails
+        // interestDetails.forEach((v, i) => {
+        //   v.cashBackDate = time.formatTimeTwo(v.cashBackDate, 'Y-M-D')
+        // })
+        that.setData({
+          zhihui:false,
+          payMsg: res.data.content,
+          orgPrice:res.data.content.expectedAmount
+        })
+      } else {
+        that.setData({
+          zhihui:true
+        })
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
   addOrCompute: function() {
     var that = this
     if(that.data.zhihui){
@@ -733,7 +806,7 @@ Page({
         if (that.data.reviseStatus == 1 || that.data.reviseStatus2 == 1) {
           app.Util.ajax('mall/cart/updateShoppingCartApply', {
             shoppingCartGoodsId: that.data.shoppingcartgoodsid, //修改购物车的id
-            // expectedAmount: (that.data.orgPriceCompute*that.data.discountCompute).toFixed(2), //用户预期花费
+            expectedAmount: (that.data.orgPriceCompute*that.data.discountCompute).toFixed(2), //用户预期花费
             cashBackPeriods: that.data.payMsg.actualCashBackPeriods, //返现期数
             discountNumber:Number((that.data.discountCompute*10).toFixed(2))
           }, 'GET').then((res) => {
@@ -891,46 +964,12 @@ Page({
     }else{
       if (newCount) {
         newCount = false
-        if (that.data.activityId) {
-          wx.navigateTo({
-            url: '/pages/placeorder/placeorder?goodsId=' + this.data.goodsMsg.goodsId + '&&activityId=' + that.data.activityId + '&&stockId=' + this.data.goodsMsg.stockId + '&&quantity=' + this.data.goodsMsg.quantity + '&&goodsType=applyZero' + '&&needPaymentAmount=' + this.data.payMsg.needPaymentAmount + '&&cashBackPeriods=' + this.data.payMsg.actualCashBackPeriods+ '&&expectedAmount=' + this.data.orgPrice + '&&buyType=' + this.data.buyType + '&&isShowBook=' + this.data.isShowBook+ '&&discountCompute=' + that.data.discountCompute
+        if(that.data.payMsg.deductSeed>0){
+          that.setData({
+            seedToast:true
           })
-        }else if(that.data.getOrder){ 
-          let orderType;
-          if(that.data.orderType){
-            orderType = that.data.orderType
-          }else{
-            if (that.data.activityId) {
-              orderType = 19
-            } else {
-              if (that.data.sponsor == 1) {
-                orderType = 14
-              } else {
-                orderType = 7
-              }
-            }
-          }    
-          let data = {
-            goodsId: that.data.options.goodsid,
-            stockId: that.data.options.stock,
-            quantity: that.data.options.quantity,
-            source: that.data.options.source,
-            topicId: that.data.options.topicid,
-            needPaymentAmount: that.data.payMsg.needPaymentAmount,
-            cashBackPeriods: that.data.payMsg.actualCashBackPeriods,
-            expectedAmount: that.data.payMsg.expectedAmount,
-            buyType: that.data.buyType,
-            orderType:orderType,
-            isShowBook:2
-          }
-          let getOrder = JSON.stringify(data)
-          wx.navigateTo({
-            url: '/pages/placeorder/placeorder?getOrder=' + getOrder +'&goodsType=applyZero'+ '&&discountCompute=' + that.data.discountCompute
-          })
-        } else {
-          wx.navigateTo({
-            url: '/pages/placeorder/placeorder?goodsId=' + this.data.goodsMsg.goodsId + '&&stockId=' + this.data.goodsMsg.stockId + '&&quantity=' + this.data.goodsMsg.quantity + '&&goodsType=applyZero' + '&&needPaymentAmount=' + this.data.payMsg.needPaymentAmount +  '&&cashBackPeriods=' + this.data.payMsg.actualCashBackPeriods+ '&&expectedAmount=' + this.data.orgPrice + '&&buyType=' + this.data.buyType + '&&isShowBook=' + this.data.isShowBook+ '&&discountCompute=' + that.data.discountCompute
-          })
+        }else{
+          that.toOrder()
         }
       }
       setTimeout(function() {
@@ -954,6 +993,55 @@ Page({
       setTimeout(function() {
         newCount = true
       }, 1000)
+    }
+  },
+  toOrder:function(){
+    let that = this
+    if(that.data.payMsg.deductSeed>that.data.payMsg.userSeed){
+      console.log("种子不足")
+    }else{
+      that.cancle()
+      if (that.data.activityId) {
+        wx.navigateTo({
+          url: '/pages/placeorder/placeorder?goodsId=' + this.data.goodsMsg.goodsId + '&&activityId=' + that.data.activityId + '&&stockId=' + this.data.goodsMsg.stockId + '&&quantity=' + this.data.goodsMsg.quantity + '&&goodsType=applyZero' + '&&needPaymentAmount=' + this.data.payMsg.needPaymentAmount + '&&cashBackPeriods=' + this.data.payMsg.actualCashBackPeriods+ '&&expectedAmount=' + this.data.orgPrice + '&&buyType=' + this.data.buyType + '&&isShowBook=' + this.data.isShowBook+ '&&discountCompute=' + that.data.discountCompute
+        })
+      }else if(that.data.getOrder){ 
+        let orderType;
+        if(that.data.orderType){
+          orderType = that.data.orderType
+        }else{
+          if (that.data.activityId) {
+            orderType = 19
+          } else {
+            if (that.data.sponsor == 1) {
+              orderType = 14
+            } else {
+              orderType = 7
+            }
+          }
+        }    
+        let data = {
+          goodsId: that.data.options.goodsid,
+          stockId: that.data.options.stock,
+          quantity: that.data.options.quantity,
+          source: that.data.options.source,
+          topicId: that.data.options.topicid,
+          needPaymentAmount: that.data.payMsg.needPaymentAmount,
+          cashBackPeriods: that.data.payMsg.actualCashBackPeriods,
+          expectedAmount: that.data.payMsg.expectedAmount,
+          buyType: that.data.buyType,
+          orderType:orderType,
+          isShowBook:2
+        }
+        let getOrder = JSON.stringify(data)
+        wx.navigateTo({
+          url: '/pages/placeorder/placeorder?getOrder=' + getOrder +'&goodsType=applyZero'+ '&&discountCompute=' + that.data.discountCompute
+        })
+      } else {
+        wx.navigateTo({
+          url: '/pages/placeorder/placeorder?goodsId=' + this.data.goodsMsg.goodsId + '&&stockId=' + this.data.goodsMsg.stockId + '&&quantity=' + this.data.goodsMsg.quantity + '&&goodsType=applyZero' + '&&needPaymentAmount=' + this.data.payMsg.needPaymentAmount +  '&&cashBackPeriods=' + this.data.payMsg.actualCashBackPeriods+ '&&expectedAmount=' + this.data.orgPrice + '&&buyType=' + this.data.buyType + '&&isShowBook=' + this.data.isShowBook+ '&&discountCompute=' + that.data.discountCompute
+        })
+      }
     }
   },
   //期望付款
@@ -1011,68 +1099,69 @@ Page({
               duration: 2000
           })
         }else{
-          if (that.data.monthNumbertemp && reg.test(that.data.monthNumbertemp)){
-            var month = that.data.monthNumbertemp
-            app.Util.ajax('mall/freeShopping/request/calculate', {
-              stockId: Number(that.data.goodsMsg.stockId),
-              quantity: Number(that.data.goodsMsg.quantity),
-              expectedAmount: (that.data.orgPriceCompute*that.data.discountCompute*that.data.goodsMsg.quantity).toFixed(2),
-              cashBackPeriods: month,
-              orderType: orderType,
-              discountNumber:Number((that.data.discountCompute*10).toFixed(2)),
-              topicId:that.data.topicId
-            }, 'POST').then((res) => {
-              if (res.data.messageCode == 'MSG_1001') {
-                var cashBackDetails = res.data.content.cashBackDetails
-                cashBackDetails.forEach((v, i) => {
-                  v.cashBackDate = time.formatTimeTwo(v.cashBackDate, 'Y-M-D')
-                })
-                // var interestDetails = res.data.content.interestDetails
-                // interestDetails.forEach((v, i) => {
-                //   v.cashBackDate = time.formatTimeTwo(v.cashBackDate, 'Y-M-D')
-                // })
-                var cashMsg = that.data.cashMsg
-                var obj = that.data.cashMsg
-                obj.cashBackPeriods = that.data.monthNumbertemp
-                that.setData({
-                  zhihui:false,
-                  cashMsg: obj,
-                  payMsg: res.data.content,
-                  monthStatus: false,
-                  reviseStatus3: 0,
-                  canInput:0
-                })
-                wx.showToast({
-                  title: "修改成功",
-                  icon: 'none',
-                  duration: 2000
-                })
-              } else if (res.data.messageCode == 'MSG_4001') {
-                that.setData({
-                  zhihui:true
-                })
-                wx.showToast({
-                  title: res.data.message,
-                  icon: 'none',
-                  duration: 2000
-                })
-              } else {
-                that.setData({
-                  zhihui:true
-                })
-                wx.showToast({
-                  title: '分期不可同时存在整月和非整月',
-                  icon: 'none',
-                  duration: 2000
-                })
-              }
-            })
-          } else {
-            wx.showToast({
-              title: '请输入正确的数字',
-              icon: 'none'
-            })
-          }
+            if (that.data.monthNumbertemp && reg.test(that.data.monthNumbertemp)){
+              var month = that.data.monthNumbertemp
+              app.Util.ajax('mall/freeShopping/request/calculate', {
+                stockId: Number(that.data.goodsMsg.stockId),
+                quantity: Number(that.data.goodsMsg.quantity),
+                expectedAmount: (that.data.orgPriceCompute*that.data.discountCompute*that.data.goodsMsg.quantity).toFixed(2),
+                cashBackPeriods: month,
+                orderType: orderType,
+                discountNumber:Number((that.data.discountCompute*10).toFixed(2)),
+                topicId:that.data.topicId,
+                activityId:that.data.activityId?that.data.activityId:'',
+              }, 'POST').then((res) => {
+                if (res.data.messageCode == 'MSG_1001') {
+                  var cashBackDetails = res.data.content.cashBackDetails
+                  cashBackDetails.forEach((v, i) => {
+                    v.cashBackDate = time.formatTimeTwo(v.cashBackDate, 'Y-M-D')
+                  })
+                  // var interestDetails = res.data.content.interestDetails
+                  // interestDetails.forEach((v, i) => {
+                  //   v.cashBackDate = time.formatTimeTwo(v.cashBackDate, 'Y-M-D')
+                  // })
+                  var cashMsg = that.data.cashMsg
+                  var obj = that.data.cashMsg
+                  obj.cashBackPeriods = that.data.monthNumbertemp
+                  that.setData({
+                    zhihui:false,
+                    cashMsg: obj,
+                    payMsg: res.data.content,
+                    monthStatus: false,
+                    reviseStatus3: 0,
+                    canInput:0
+                  })
+                  wx.showToast({
+                    title: "修改成功",
+                    icon: 'none',
+                    duration: 2000
+                  })
+                } else if (res.data.messageCode == 'MSG_4001') {
+                  that.setData({
+                    zhihui:true
+                  })
+                  wx.showToast({
+                    title: res.data.message,
+                    icon: 'none',
+                    duration: 2000
+                  })
+                } else {
+                  that.setData({
+                    zhihui:true
+                  })
+                  // wx.showToast({
+                  //   title: '分期不可同时存在整月和非整月',
+                  //   icon: 'none',
+                  //   duration: 2000
+                  // })
+                }
+              })
+            } else {
+              wx.showToast({
+                title: '请输入正确的数字',
+                icon: 'none'
+              })
+            }
         }
       }else{
         wx.showToast({
@@ -1097,6 +1186,47 @@ Page({
       }else{
         if (that.data.monthNumbertemp && reg.test(that.data.monthNumbertemp)){
           var month = that.data.monthNumbertemp
+          if(that.data.quickPass==1){
+            app.Util.ajax('mall/freeShopping/request/calculate', {
+              flashPayAmount:that.data.flashPayAmount,
+              cashBackPeriods: month,
+              discountNumber:Number((that.data.discountCompute*10).toFixed(2)),
+              orderType:26
+            }, 'POST').then((res) => {
+              if (res.data.messageCode == 'MSG_1001') {
+                var cashBackDetails = res.data.content.cashBackDetails
+                cashBackDetails.forEach((v, i) => {
+                  v.cashBackDate = time.formatTimeTwo(v.cashBackDate, 'Y-M-D')
+                })
+                // var interestDetails = res.data.content.interestDetails
+                // interestDetails.forEach((v, i) => {
+                //   v.cashBackDate = time.formatTimeTwo(v.cashBackDate, 'Y-M-D')
+                // })
+                that.setData({
+                  zhihui:false,
+                  payMsg: res.data.content,
+                  orgPrice:res.data.content.expectedAmount,
+                  expectedAmountStatus: false,
+                  monthStatus: false,
+                  discount:false
+                })
+                wx.showToast({
+                  title: "修改成功",
+                  icon: 'none',
+                  duration: 2000
+                })
+              } else {
+                that.setData({
+                  zhihui:true
+                })
+                wx.showToast({
+                  title: res.data.message,
+                  icon: 'none',
+                  duration: 1000
+                })
+              }
+            })
+          }else{
           app.Util.ajax('mall/freeShopping/request/calculate', {
             stockId: Number(that.data.goodsMsg.stockId),
             quantity: Number(that.data.goodsMsg.quantity),
@@ -1104,7 +1234,8 @@ Page({
             cashBackPeriods: month,
             orderType: orderType,
             discountNumber:Number((that.data.discountCompute*10).toFixed(2)),
-            topicId:that.data.topicId
+            topicId:that.data.topicId,
+            activityId:that.data.activityId?that.data.activityId:'',
           }, 'POST').then((res) => {
             if (res.data.messageCode == 'MSG_1001') {
               var cashBackDetails = res.data.content.cashBackDetails
@@ -1144,13 +1275,14 @@ Page({
               that.setData({
                 zhihui:true
               })
-              wx.showToast({
-                title: '分期不可同时存在整月和非整月',
-                icon: 'none',
-                duration: 2000
-              })
+              // wx.showToast({
+              //   title: '分期不可同时存在整月和非整月',
+              //   icon: 'none',
+              //   duration: 2000
+              // })
             }
           })
+        }
         } else {
           wx.showToast({
             title: '请输入正确的数字',
@@ -1289,6 +1421,46 @@ Page({
         zeroChoose:2
       })
     }
+    if(that.data.quickPass){
+      app.Util.ajax('mall/freeShopping/request/calculate', {
+        flashPayAmount:that.data.flashPayAmount,
+        cashBackPeriods: that.data.cashMsg.cashBackPeriods,
+        discountNumber:Number((that.data.discountCompute*10).toFixed(2)),
+        orderType:26
+      }, 'POST').then((res) => {
+        if (res.data.messageCode == 'MSG_1001') {
+          var cashBackDetails = res.data.content.cashBackDetails
+          cashBackDetails.forEach((v, i) => {
+            v.cashBackDate = time.formatTimeTwo(v.cashBackDate, 'Y-M-D')
+          })
+          // var interestDetails = res.data.content.interestDetails
+          // interestDetails.forEach((v, i) => {
+          //   v.cashBackDate = time.formatTimeTwo(v.cashBackDate, 'Y-M-D')
+          // })
+          that.setData({
+            zhihui:false,
+            payMsg: res.data.content,
+            orgPrice:res.data.content.expectedAmount,
+            expectedAmountStatus: false,
+            discount:false
+          })
+          wx.showToast({
+            title: "修改成功",
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          that.setData({
+            zhihui:true
+          })
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none',
+            duration: 1000
+          })
+        }
+      })
+    }else{
       app.Util.ajax('mall/freeShopping/request/calculate', {
         stockId: Number(that.data.goodsMsg.stockId),
         quantity: Number(that.data.goodsMsg.quantity),
@@ -1296,7 +1468,8 @@ Page({
         cashBackPeriods: that.data.cashMsg.cashBackPeriods,
         orderType: orderType,
         discountNumber:Number((that.data.discountCompute*10).toFixed(2)),
-        topicId:that.data.topicId
+        topicId:that.data.topicId,
+        activityId:that.data.activityId?that.data.activityId:'',
       }, 'POST').then((res) => {
         if (res.data.messageCode == 'MSG_1001') {
           var cashBackDetails = res.data.content.cashBackDetails
@@ -1335,6 +1508,7 @@ Page({
           })
         }
       })
+    }
   },
   phoneNumberInputs(e) {
     if (e.detail.value != this.data.inputs[e.currentTarget.dataset.index]) {
@@ -1424,26 +1598,13 @@ Page({
     if(that.data.zhihui){
 
     }else{
-      app.Util.ajax('mall//marketingAuspicesGoods/addApply', {
-        stockId: that.data.stockId,
-        // expectedAmount: (that.data.orgPriceCompute*that.data.discountCompute).toFixed(2), //期望金额
-        cashBackPeriods: that.data.cashMsg.cashBackPeriods, //期望分期
-        discountNumber:Number((that.data.discountCompute*10).toFixed(2))  //折扣
-      }, 'POST').then((res) => { // 使用ajax函数
-        if (res.data.messageCode == 'MSG_1001') {
-          wx.navigateTo({
-            url: "/pages/toSponsor/toSponsor?id=" + res.data.content.id
-          })
-          that.setData({
-            sponsorShow: false
-          })
-        } else {
-          wx.showToast({
-            title: res.data.message,
-            icon: 'none'
-          })
-        }
-      })
+      if(that.data.payMsg.deductSeed>0){
+        that.setData({
+          seedToast:true
+        })
+      }else{
+        that.toSponsor()
+      }
     }
   },
   closeyindao1:function(){
@@ -1508,39 +1669,146 @@ Page({
   },
   comeBack:function(){
     let that = this
-    let arr = that.data.goodsMsg
-    console.log(arr)
-    console.log(that.data.discountCompute*10)
-    console.log(that.data.payMsg.actualCashBackPeriods)
-    app.Util.ajax('mall/bag/updateShoppingCart', {
-      id:that.data.tempList.bagId,
-      goodsId:that.data.tempList.goodsId,
-      stockId:that.data.tempList.stockId,
-      quantity:that.data.tempList.quantity,
-      buyMode:2,
-      cashBackId:that.data.tempList.cashBackId,
+    if(that.data.payMsg.deductSeed>0){
+      that.setData({
+        seedToast:true
+      })
+    }else{
+      that.toStore()
+    }
+  },
+  toStore:function(){
+    let that = this
+    if(that.data.payMsg.deductSeed>that.data.payMsg.userSeed){
+      console.log("种子不足")
+    }else{
+      that.cancle()
+      app.Util.ajax('mall/bag/updateShoppingCart', {
+        id:that.data.tempList.bagId,
+        goodsId:that.data.tempList.goodsId,
+        stockId:that.data.tempList.stockId,
+        quantity:that.data.tempList.quantity,
+        buyMode:2,
+        cashBackId:that.data.tempList.cashBackId,
+        cashBackPeriods:that.data.payMsg.actualCashBackPeriods,
+        expectedAmount:(that.data.orgPriceCompute*that.data.discountCompute).toFixed(2),
+        discountNumber:that.data.discountCompute*10
+      }, 'POST').then((res) => {
+        if (res.data.messageCode == 'MSG_1001') {
+          app.globalData.takeOut = 2
+          wx.navigateBack({
+            delta:1
+          })
+          that.setData({
+            cashBackPeriods: res.data.content
+          })
+          that.setData({
+            showPeriod: true
+          })
+        }else{
+          wx.showToast({
+            title:res.data.message,
+            icon:'none',
+            duration:2000
+          })
+        }
+      })
+    }
+  },
+  toSponsor:function(){
+    let that = this
+    if(that.data.payMsg.deductSeed>that.data.payMsg.userSeed){
+      console.log("种子不足")
+    }else{
+      that.cancle()
+      app.Util.ajax('mall/marketingAuspicesGoods/addApply', {
+        stockId: that.data.stockId,
+        // expectedAmount: (that.data.orgPriceCompute*that.data.discountCompute).toFixed(2), //期望金额
+        cashBackPeriods: that.data.cashMsg.cashBackPeriods, //期望分期
+        discountNumber:Number((that.data.discountCompute*10).toFixed(2))  //折扣
+      }, 'POST').then((res) => { // 使用ajax函数
+        if (res.data.messageCode == 'MSG_1001') {
+          wx.navigateTo({
+            url: "/packageB/pages/toSponsor/toSponsor?id=" + res.data.content.id
+          })
+          that.setData({
+            sponsorShow: false
+          })
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+        }
+      })
+    }
+  },
+  comeBack2:function(){
+    let that = this
+    let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
+    let prevPage = pages[pages.length - 2]; 
+    console.log(that.data.payMsg.actualCashBackPeriods,that.data.discountCompute*10)
+    prevPage.setData({
       cashBackPeriods:that.data.payMsg.actualCashBackPeriods,
-      expectedAmount:(that.data.orgPriceCompute*that.data.discountCompute).toFixed(2),
       discountNumber:that.data.discountCompute*10
-    }, 'POST').then((res) => {
-      if (res.data.messageCode == 'MSG_1001') {
-        app.globalData.takeOut = 2
-        wx.navigateBack({
-          delta:1
-        })
-        that.setData({
-          cashBackPeriods: res.data.content
-        })
-        that.setData({
-          showPeriod: true
-        })
-      }else{
-        wx.showToast({
-          title:res.data.message,
-          icon:'none',
-          duration:2000
-        })
-      }
     })
-  }
+    wx.navigateBack({
+      delta:1
+    })
+  },
+  comeBack3:function(){
+    let that = this
+    if(that.data.payMsg.deductSeed>0){
+      that.setData({
+        seedToast:true
+      })
+    }else{
+      that.toStages()
+    }
+  },
+  toStages2:function(){
+    let that = this
+    that.setData({
+      applyStage2:1
+    })
+    console.log(that.data.applyStage2)
+    if(that.data.payMsg.deductSeed>0){
+      that.setData({
+        seedToast:true
+      })
+    }else{
+      that.toStages()
+    }
+  },
+  toStages:function(){
+    let that = this
+    let cashBackPeriods = that.data.payMsg.actualCashBackPeriods
+    let amount = that.data.payMsg.needPaymentAmount
+    let stockId = that.data.goodsMsg.stockId
+    let goodsId = that.data.goodsMsg.goodsId
+    let quantity = that.data.goodsMsg.quantity
+    let expectedAmount = that.data.orgPrice
+    let discountCompute =  that.data.discountCompute
+    wx.navigateTo({
+      url:`/packageB/pages/applyZeroStages/applyZeroStages?cashBackPeriods=${cashBackPeriods}&amount=${amount}&stockId=${stockId}&goodsId=${goodsId}&quantity=${quantity}&expectedAmount=${expectedAmount}&discountCompute=${discountCompute}`
+    })
+    that.setData({
+      seedToast:false
+    })
+  },
+  cancle:function(){
+    this.setData({
+      seedToast:false,
+      applyStage2:2
+    })
+  },
+  toSeed:function(){
+    wx.navigateTo({
+      url:"/packageA/pages/seed/seed"
+    })
+    this.setData({
+      seedToast:false,
+      applyStage2:2
+    })
+  },
 })

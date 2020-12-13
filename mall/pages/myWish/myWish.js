@@ -82,8 +82,8 @@ Page({
 
 
     } else {
-      wx.switchTab({
-        url: '/pages/wishpool/wishpool'
+      wx.navigateTo({
+        url: '/packageB/pages/wishpool/wishpool',
       })
     }
     wx.removeStorageSync('pageNum')

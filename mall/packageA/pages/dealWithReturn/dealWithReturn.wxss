@@ -58,13 +58,15 @@ page {
   top: 70rpx;
   left: 30rpx;
 }
-
-.goods_name {
+.zz{
   position: absolute;
   top: 75rpx;
   left: 179rpx;
+  width: 400rpx;
+  height: 172rpx;
+}
+.goods_name {
   width: 334rpx;
-  height: 75rpx;
   font-size: 28rpx;
   color: rgba(51, 51, 51, 1);
   display: -webkit-box;
@@ -92,11 +94,17 @@ page {
 .goods_specifications {
   font-size: 24rpx;
   font-family: PingFang SC;
-  font-weight: 400;
   color: rgba(153, 153, 153, 1);
-  position: absolute;
+  width: 334rpx;
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  /* position: absolute;
   top: 114rpx;
-  left: 179rpx;
+  left: 179rpx; */
 }
 
 .goods_number {

@@ -7,7 +7,7 @@
   <view class="wrap_photo">
     <view class="wrap_photo_top">
       <image class="wrap_photo_top_img" wx:if="{{photoNickname.avatarKey}}" src="{{photoNickname.avatarKey}}"></image>
-      <image class="wrap_photo_top_img" wx:else src="/assets/images/mine/moren.png"></image>
+      <image class="wrap_photo_top_img" wx:else src="{{hostUrl}}/flashPay/moren.png"></image>
       <view class="wrap_photo_top_title">
         <view class="wrap_photo_top_text" wx:if="{{photoNickname.nickname}}">{{photoNickname.nickname}}</view>
         <view class="wrap_photo_top_text" wx:else>匿名用户</view>
@@ -86,7 +86,7 @@
   <view class="wrap_photo">
     <view class="wrap_photo_top">
       <image class="wrap_photo_top_img" wx:if="{{photoNickname.avatarKey}}" src="{{photoNickname.avatarKey}}"></image>
-      <image class="wrap_photo_top_img" wx:else src="/assets/images/mine/moren.png"></image>
+      <image class="wrap_photo_top_img" wx:else src="{{hostUrl}}/flashPay/moren.png"></image>
       <view class="wrap_photo_top_text" wx:if="{{photoNickname.nickname}}">{{photoNickname.nickname}}</view>
       <view class="wrap_photo_top_text" wx:else>匿名用户</view>
     </view>
@@ -147,7 +147,7 @@
 <view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showMark}}">
   <view class="zan-dialog__container" wx:if="{{showMark}}" bindlongpress="saveCode">
     <view class="title">加私人导师微信，传授赚钱经验</view>
-    <image src="{{hostUrl}}/newIndex/code_img.png" class="QR" />
+    <image src="{{hostUrl}}/flashPay/teacher.jpg" class="QR" />
     <view class="watch">长按保存二维码后用微信扫码添加好友</view>
   </view>
   <image wx:if="{{showMark}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='showMarkCancel'></image>

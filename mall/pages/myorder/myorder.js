@@ -350,9 +350,9 @@ Page({
       that.setData({
         payStatus:true
       })
-    } else if (orderType == 23 || orderType == 24){
+    } else if (orderType == 23 || orderType == 24 || orderType == 26){
       wx.navigateTo({
-        url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}&buyWay=${1}`,
+        url: `/pages/paymentorder/paymentorder?orderId=${orderId}&id=${id}&orderType=${orderType}&takeType=${1}`,
       })
     }else{
       //预售返现卖方付尾款提示 orderSell
@@ -590,7 +590,7 @@ Page({
   onUnload: function() {
     var pages = getCurrentPages()
     // 如果是从提交订单页面跳转过来 页面返回的时候跳转到我的页面
-    if (wx.getStorageSync('tempStatus') || wx.getStorageSync('params') || wx.getStorageSync('returnToSponsor') || wx.getStorageSync('myOrder')) {
+    if (wx.getStorageSync('tempStatus') || wx.getStorageSync('params') || wx.getStorageSync('takeType') || wx.getStorageSync('returnToSponsor') || wx.getStorageSync('myOrder')) {
       
     } else {
       wx.switchTab({
@@ -601,6 +601,7 @@ Page({
     wx.removeStorageSync('params')
     wx.removeStorageSync('returnToSponsor')
     wx.removeStorageSync('myOrder')
+    wx.removeStorageSync('takeType')
   },
 
   /**

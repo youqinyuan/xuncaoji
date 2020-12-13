@@ -402,7 +402,7 @@ button::after {
   margin: 50rpx auto;
   width: 440rpx;
   height: 76rpx;
-  background: linear-gradient(90deg, rgba(255, 38, 68, 1) 0%, rgba(255, 106, 72, 1) 100%);
+  background: linear-gradient(90deg, rgba(255, 106, 72, 1) 0%,  rgba(255, 38, 68, 1) 100%);
   border-radius: 38rpx;
   color: #fff;
   font-size: 32rpx;

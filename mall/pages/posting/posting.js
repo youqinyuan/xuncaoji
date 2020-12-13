@@ -372,11 +372,15 @@ Page({
               lastReturnAmount: that.data.waitReentry.lastReturnAmount ? that.data.waitReentry.lastReturnAmount : ''
             }, 'POST').then((res) => {
               if (res.data.messageCode == "MSG_1001") {
-                this.setData({
-                  seedText: res.data.content,
-                  seedToast: true,
-                  isdisabled: false
-                })
+                if(res.data.content.seedAmountConsume>0){
+                  this.setData({
+                    seedText: res.data.content,
+                    seedToast: true,
+                    isdisabled: false
+                  })
+                }else{
+                  that.payShure()
+                }
               }else{
                 wx.showToast({
                   title: res.data.message,

@@ -4,6 +4,18 @@
 @import "/template/floatingwindow/floatingwindow";
 @import "/template/pop-upwindows/pop-upwindows";
 
+.comprehensive-not {
+  color: #333;
+  font-size: 28rpx;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.comprehensive-not image {
+  width: 380rpx;
+  height: 380rpx;
+}
+
 page {
   background: #f4f4f4;
   padding-bottom: 40rpx;
@@ -42,6 +54,13 @@ page {
   font-size: 20rpx;
 }
 
+.index-wrap {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  background: #ff2644;
+}
+
 /*搜索框*/
 
 .section-wrapper {
@@ -50,10 +69,6 @@ page {
   font-size: 28rpx;
   width: 750rpx;
   height: 88rpx;
-  position: fixed;
-  top: 0;
-  background: #ff2644;
-  z-index: 99;
 }
 
 .section {
@@ -87,18 +102,14 @@ page {
 /*导航栏*/
 
 .content_top {
-  width: 100%;
+  width: 750rpx;
   display: flex;
-  background: #ff2644;
-  position: fixed;
-  top: 88rpx;
   height: 82rpx;
   line-height: 65rpx;
-  z-index: 999;
 }
 
 .nav {
-  width: 100%;
+  width: 750rpx;
   box-sizing: border-box;
   font-size: 30rpx;
   white-space: nowrap;
@@ -136,9 +147,7 @@ page {
 }
 
 .huxing_box {
-  position: relative;
-  margin-top: 170rpx;
-  top: -1rpx;
+  margin-top: 167rpx;
 }
 
 .huxing {
@@ -216,7 +225,7 @@ page {
   height: 76rpx;
   line-height: 76rpx;
   text-align: center;
-  background: #FF2644;
+  background: #ff2644;
   border-radius: 38rpx;
   font-size: 32rpx;
   color: #fff;
@@ -784,7 +793,7 @@ page {
   left: 0;
   bottom: 0;
   z-index: 9999;
-  width: 120rpx;
+  width: 122rpx;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
@@ -814,6 +823,10 @@ page {
   display: flex;
   flex-wrap: wrap;
   margin-left: 30rpx;
+  height: auto;
+  overflow-y: scroll;
+  overflow: -Scroll;
+  overflow-x: hidden;
 }
 
 .brandChooseItem {

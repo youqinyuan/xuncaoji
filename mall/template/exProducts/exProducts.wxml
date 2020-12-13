@@ -182,7 +182,7 @@
 
   <view class="block"></view>
   <!-- 品牌专区 -->
-  <view class="brand-area">
+  <view class="brand-area" wx:if="{{content10.length>0}}">
     <image src="{{hostUrl}}/twoSix/brand_bg.png" class="brand-image" />
     <view style=" position: absolute;top: 0;">
       <view class="brand-title">

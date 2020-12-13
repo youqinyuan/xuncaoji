@@ -16,7 +16,7 @@ Page({
     tempStatus: 1,
     firstStep: false, //第一级明细
     commissionDetail: [],
-    moveText:null,
+    moveText: null,
     collocation: [{
       type: 1,
       level: 1,
@@ -40,24 +40,24 @@ Page({
     }, ],
     shareImg: '', //分享图片
     list: [{
-        img: app.Util.getUrlImg().hostUrl+'/diamondPartner/card_a.png',
+        img: app.Util.getUrlImg().hostUrl + '/diamondPartner/card_a.png',
         status: '1'
       }, {
-        img: app.Util.getUrlImg().hostUrl+'/diamondPartner/card_b.png',
+        img: app.Util.getUrlImg().hostUrl + '/diamondPartner/card_b.png',
         status: '6'
       }, {
-        img: app.Util.getUrlImg().hostUrl+'/diamondPartner/card_c.png',
+        img: app.Util.getUrlImg().hostUrl + '/diamondPartner/card_c.png',
         status: '2'
       }, {
-        img: app.Util.getUrlImg().hostUrl+'/diamondPartner/card_d.png',
+        img: app.Util.getUrlImg().hostUrl + '/diamondPartner/card_d.png',
         status: '3'
       },
       {
-        img: app.Util.getUrlImg().hostUrl +'/supplement/card_e.png',
+        img: app.Util.getUrlImg().hostUrl + '/supplement/card_e.png',
         status: '4'
       },
       {
-        img: app.Util.getUrlImg().hostUrl+'/diamondPartner/card_f.png',
+        img: app.Util.getUrlImg().hostUrl + '/diamondPartner/card_f.png',
         status: '5'
       }
     ],
@@ -71,7 +71,7 @@ Page({
     level: null,
     day: null, //剩余天数
     photoNickname: null, //头像和昵称
-    inviterCode:''
+    inviterCode: ''
   },
 
   /**
@@ -80,12 +80,12 @@ Page({
   onLoad: function(options) {
     var that = this
     //下载线上图片到本地，用于绘制分享图片
-    if(wx.getStorageSync('token')){
+    if (wx.getStorageSync('token')) {
       that.getData();
       that.initDiamond();
     }
     wx.downloadFile({
-      url: app.Util.getUrlImg().hostUrl+'/shre_img.png',
+      url: app.Util.getUrlImg().hostUrl + '/shre_img.png',
       success: function(res) {
         that.setData({
           shareImg: res.tempFilePath
@@ -95,19 +95,30 @@ Page({
 
       }
     })
-    that.setData({
-      options:options,
-      inviterCode: options.inviterCode?options.inviterCode : ''
+    wx.downloadFile({
+      url: app.Util.getUrlImg().hostUrl + '/flashPay/teacher.jpg',
+      success: function (res) {
+        that.setData({
+          tempSave: res.tempFilePath
+        })
+      },
+      fail: function (res) {
+
+      }
     })
-    if(wx.getStorageSync('token')){
+    that.setData({
+      options: options,
+      inviterCode: options.inviterCode ? options.inviterCode : ''
+    })
+    if (wx.getStorageSync('token')) {
       app.Util.ajax('mall/personal/followers', {
         pageNumber: that.data.pageNumber,
         pageSize: that.data.pageSize
       }, 'GET').then((res) => {
         if (res.data.messageCode = 'MSG_1001') {
-          that.data.collocation[1].level=res.data.content.level
+          that.data.collocation[1].level = res.data.content.level
           that.setData({
-            collocation:that.data.collocation
+            collocation: that.data.collocation
           })
         }
       })
@@ -327,7 +338,7 @@ Page({
           that.setData({
             collocation: that.data.collocation
           })
-        }        
+        }
       } else {
         wx.showToast({
           title: res.data.message,
@@ -367,11 +378,11 @@ Page({
           })
         }
       })
-    }else{
+    } else {
       wx.navigateTo({
         url: `/pages/invitationCode/invitationCode?inviterCode=${that.data.inviterCode}`,
       })
-    }   
+    }
   },
   //续费
   payDiamond: function() {
@@ -395,8 +406,8 @@ Page({
       wx.navigateTo({
         url: `/pages/invitationCode/invitationCode?inviterCode=${that.data.inviterCode}`,
       })
-    }  
-   
+    }
+
   },
   //跳转至6大回报
   jumpDiamondPay: function(e) {
@@ -410,8 +421,8 @@ Page({
       wx.navigateTo({
         url: `/pages/invitationCode/invitationCode?inviterCode=${that.data.inviterCode}`,
       })
-    }  
-   
+    }
+
   },
   //跳转至申请合伙人
   jumpCityPartner: function() {
@@ -479,15 +490,15 @@ Page({
         that.setData({
           firstStep: true
         })
-        if (res.data.content.items.length===0){
+        if (res.data.content.items.length === 0) {
           that.setData({
             commissionDetail: res.data.content.items,
             moveText: '暂无数据'
           })
-        }else{
+        } else {
           that.setData({
             commissionDetail: res.data.content.items,
-            moveText:'提示：滑动查看'
+            moveText: '提示：滑动查看'
           })
         }
       } else {
@@ -549,7 +560,7 @@ Page({
   //长按保存
   saveCode: function() {
     var that = this
-    var tempFilePath = '/assets/images/diamondPartner/code_img.png'
+    let tempFilePath = that.data.tempSave
     wx.getSetting({
       success(res) {
         if (!res.authSetting['scope.writePhotosAlbum']) {

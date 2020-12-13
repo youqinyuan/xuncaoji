@@ -1,0 +1,248 @@
+<!--packageB/pages/onlineActivityDetail/onlineActivityDetail.wxml-->
+<wxs module="foo">
+  module.exports = {
+    toStr: function(n) {
+      n = n.toFixed(2)
+      return n
+    }
+  }
+</wxs>
+  <view class="swiper-wrap">
+    <swiper class="swiper-wrapper-item" circular="{{circular}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="countIndex">
+      <swiper-item wx:for="{{imageUrls}}" wx:key="{{imageUrls}}" bindtap='imgYu' data-list="{{imageUrls}}" data-src="{{item}}">
+        <image src="{{item}}" class="slide-image" />
+      </swiper-item>
+    </swiper>
+    <view class="currentIndex">{{current+1}}/{{imageUrls.length}}</view>
+  </view>
+  <view class="banner_box">
+      <image src="/assets/images/temp/banner.png" class="banner_img"/>
+      <view class="time_box">
+        <view class="time_name">每日必拼</view>
+        <view class="time_number_box">
+          <view class="time_number">19</view>
+          <view class="time_maohao">:</view>
+          <view class="time_number">19</view>
+          <view class="time_maohao">:</view>
+          <view class="time_number">19</view>
+          <view class="time_maohao">:</view>
+          <view class="time_number">19</view>
+        </view>
+      </view>
+  </view>
+  <view class="goods_info">
+    <view class="goods_price_box">
+        <view class="goods_price"><text>￥</text>19.9</view>
+        <view class="sag">买1送2</view>
+        <view class="buy_count">已抢2500件</view>
+    </view>
+    <view class="goods_name_box">当季新品 日本大赏金奖化妆水润肤水洁面水 实惠套装送 礼佳品可赠送礼品</view>
+    <view class="shuoming_box">
+      <view class="shuoming">购买获得￥999现金返现</view>
+      <view class="shuoming">购买获得￥999现金返现</view>
+      <view class="shuoming">购买获得￥999现金返现</view>
+      <view class="shuoming">购买获得￥999现金返现</view>
+    </view>
+  </view>
+  <view class="detail_banner_box">
+     <image src="/assets/images/temp/detail_banner.png" class="detail_banner_img"/>
+     <view class="detail_banner_content">
+        <view class="text">
+          <image src="/assets/images/temp/ic.png"/>
+          <view>短期购买，金额太大，买不起？</view>
+        </view>
+        <view class="stages_button">一折购分期付</view>
+     </view>
+  </view>
+<view class="buy_condition">
+    <view class="buy_condition_title">购物条件</view>
+    <view class="buy_condition_text">1、N个商品起购</view>
+    <view class="buy_condition_text">1、N个商品起购</view>
+    <view class="buy_condition_text">1、N个商品起购</view>
+    <view class="buy_condition_text">1、N个商品起购</view>
+    <view class="buy_condition_shuoming">拼团说明：如果到成团时间后未成团，将自动退款</view>
+</view>
+  <view class="buy_condition">
+    <view class="buy_condition_title">下单后赠送奖励</view>
+    <view >
+      <view class="buy_condition_text">1、送优惠券一张</view>
+      <view class="coupon">
+        <view class="money">
+            <view class="">最多减</view>
+            <view class="money_number">￥2000</view>
+        </view>
+        <view class="limit">
+          <view >限一折购0.5~6期的商品</view>
+          <view class="jiange"></view>
+          <view >领取后7日内有效</view>
+        </view>
+      </view>
+    </view>
+    <view class="buy_condition_text">1、N个商品起购</view>
+    <view class="buy_condition_text">1、N个商品起购</view>
+    <view >
+      <view class="buy_condition_text">1、送商品一个</view>
+      <view class="song_goods">
+        <view class="left">
+            <image src="/assets/images/icon/code.png" class="goods_img"/>
+        </view>
+        <view class="right">
+          <view class="song_goods_name">商品商品商品商品商品</view>
+          <view class="song_goods_price">￥9.9</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="choose">
+    <view class="choose_one bor" bindtap="showModal">
+      <view class="choose_left">
+        <view class="choose_left_one">选择</view>
+        <view class="choose_left_two">商品数量/规格</view>
+      </view>
+      <view class="choose_right">
+        <view class="choose_right_one">库存 97864</view>
+        <image src="/assets/images/temp/to_detail.png" class="to_detail_img"/>
+      </view>
+    </view>
+    <view class="choose_one" catchtap='jumpEvaluate' data-goodsid="{{detail.id}}" wx:if="{{comment.length>0}}">
+      <view class="choose_left" >
+        <view class="choose_left_one">评价</view>
+        <view class="choose_left_two">{{goodInteractRate}}%好评率</view>
+      </view>
+      <view class="choose_right">
+        <view class="choose_right_one">查看全部</view>
+        <image src="/assets/images/temp/to_detail.png" class="to_detail_img"/>
+      </view>
+    </view>
+  </view>
+  <view class="share" catchtap='share' data-goodsid="{{detail.id}}" data-profit="{{detail.sharingProfit}}" wx:if="{{imageUrls.length>0}}">
+  <view class="share-price" wx:if="{{detail.sharingProfit}}">
+    <image src="/assets/images/temp/share1.png" class="share_img"/>
+    <!-- <view class="share-price1">邀好友一起拼</view> -->
+    <view class="share-price1">邀好友享福利</view>
+  </view>
+</view>
+    <!--详情图-->
+  <view class="shop-detail-wrap" wx:for="{{introductions}}" wx:key="">
+    <image src="{{item.content}}" mode="widthFix" wx:if="{{item.resourceType==2}}"></image>
+    <view class="shop-detail-wrap-text" wx:if="{{item.resourceType==1}}">{{item.content}}</view>
+  </view>
+  <view style="height:165rpx;"></view>
+  <view class="bottom" >
+    <view class="cart" >
+      <image src="/assets/images/temp/shouye.png"></image>
+      <view class="cart-text">首页</view>
+    </view>
+    <button class="service" session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}|foreignid={{userInfo.foreignid}}|referrerTitle={{ysf.title}}" send-message-title="{{detail.name}}" send-message-img='{{imageUrls[0]}}' show-message-card="true"
+      bindcontact="handleContact" open-type="contact">
+      <image src="{{hostUrl}}/icon/xqing_downbar_kefu_n.png"></image>
+      <view class="service-text">客服</view>
+    </button>
+    <view class="buy" bindtap="buy" data-index="1">不参与活动购买</view>
+    <view class="apply" bindtap="buy" data-index="2">一折购</view>
+  </view>
+  <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class="commodity-top">
+    <view class="commodity-top-img">
+      <image wx:if="{{iconUrl}}" src="{{iconUrl}}"></image>
+      <image wx:else src="{{hostUrl}}/icon/zhanw_tb_n.png"></image>
+    </view>
+    <view class="commodity-top-right">
+      <view class="commodity-top-right-item">
+        <view class="commodity-top-right-title">{{buyMode==1?'原价':'一折购'}}:
+          <view class="sign">￥</view>
+          <view class="price">{{buyMode==1?stockDetail1.dctPrice:stockDetail1.discountPrice}}</view>
+        </view>
+        <view class="commodity-top-right-cancel" bindtap="hideModal">
+          <image src="{{hostUrl}}/icon/tanc_close_n.png"></image>
+        </view>
+      </view>
+      <view class="commodity-save">库存{{stockDetail1.quantity?stockDetail1.quantity:0}}件</view>
+      <view class="commodity-size">已选：{{selectName}}</view>
+    </view>
+  </view>
+  <view class="content-cashBack" wx:if="{{stockDetail1.cashbackItems&&buyMode==1}}">
+    <image src="{{hostUrl}}/icon/youhui_bqian.png"></image>
+    <view class="content-cashBack-text">
+      返现
+      <text>{{foo.toStr(cashMoney)}}</text> 元，返后价
+      <text>{{foo.toStr(stockDetail1.dctPrice-cashMoney)}}</text>元
+    </view>
+  </view>
+  <view class="content-wrapper" style="{{stockDetail1.cashbackItems?'max-height: 585rpx;':'max-height: 630rpx;'}}">
+    <!--选择规格-->
+    <block wx:for="{{spec}}" wx:key="{{item.id}}" wx:for-index="group_idx">
+      <view class="color-size" data-index="{{group_idx}}" bindtap='specIndex'>
+        <view class="color-size-title">{{item.name}}</view>
+        <view class="color-size-list">
+          <block wx:for="{{item.items}}" wx:key="{{item.id}}">
+            <text bindtap='clickAttr' data-attr-index="{{index}}" data-name="{{item.name}}" data-select-index="{{group_idx}}" data-attr-id="{{item.id}}" class="text1 {{item.isSelect==true? 'active' : ''}}">{{item.name}}</text>
+          </block>
+        </view>
+      </view>
+    </block>
+    <!--选择结束 -->
+    <!--购买数量-->
+    <view class="num">
+      <view class="num-title">购买数量</view>
+      <view class="num-item">
+        <text class="{{minusStatus}}" bindtap="bindMinus">-</text>
+        <input type="number" bindchange="bindManual" value="{{num}}" />
+        <text class="{plusStatus}}" bindtap="bindPlus">+</text>
+      </view>
+    </view>
+    <!-- 分期返现 -->
+    <view class="return" wx:if="{{stockDetail1.cashbackItems.length>0&&buyMode==1}}">
+      <view class="return-title">选择返现方式</view>
+      <scroll-view scroll-x scroll-left='{{scrleft}}' class='orderTab'>
+        <view class="orderTabItem" wx:for="{{stockDetail1.cashbackItems}}" wx:key="{{item.cashbackId}}">
+          <view class="order-item {{activeIndex===index? 'active1' : ''}}" data-id="{{item.cashbackId}}" data-gindex="{{index}}" bindtap='clickCashback' data-total="{{item.totalAmount}}">
+            <view class="tabTitle" wx:if="{{item.period==0}}">立即返现</view>
+            <view class="tabTitle1" wx:if="{{item.period==0}}">返现{{item.totalAmount}}元</view>
+            <view class="tabTitle" wx:if="{{item.period !== 0}}">{{item.period}}期返现{{item.totalAmount}}元</view>
+            <view class="tabTitle1" wx:if="{{item.period !== 0}}">每月返现{{item.amount}}元</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <view style="height:20rpx;"></view>
+  </view>
+  <view class="showOrderBlock"></view>
+  <!--加入购物车、立即购买-->
+  <view class="bottom-buy" >
+    <view class="now-buy" data-quantity="{{num}}" data-cashbackid="{{stockDetail1.cashbackItems ? cashbackId:'' }}" data-goodsid="{{detail.id}}" data-stockid="{{stockDetail1.stockId}}" bindtap='toPlaceorder' >确定</view>
+  </view>
+</view>
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen1" bindtap="hide" wx:if="{{showModalStatus1}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box1" wx:if="{{showModalStatus1}}">
+  <view class="content-wrapper1">
+    <image class="cancel" src="{{hostUrl}}/icon/tanc_close_n.png" catchtap='cancelShare'></image>
+    <view class="shareCommission">邀好友领福利</view>
+    <view class="share-wrap">
+      <button class="share-button" id='btn' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_wechat.png"></image>
+        <view class="wx">分享好友</view>
+      </button>
+      <button class="share-button" id='btnGroup' open-type="share">
+        <image class="photo" src="{{hostUrl}}/icon/share_tanc_qun_n.png"></image>
+        <view class="wx">分享群</view>
+      </button>
+      <button class="share-button" bindtap='shareFriend'>
+        <image class="photo" src="{{hostUrl}}/icon/share_friends.png"></image>
+        <view class="wx">分享图片</view>
+      </button>
+    </view>
+  </view>
+</view>
+<!-- 海报弹框 -->
+<view class="mask_hb" wx:if="{{haibao}}"></view>
+<view class="canvas-box" hidden='{{haibao == false}}'>
+  <canvas class="canvas" canvas-id="mycanvas" disable-scroll catchtouchmove='{{true}}' bindlongpress="handleLongPress" />
+  <view class="close_hb" wx:if="{{haibao}}">
+    <image src="{{hostUrl}}/icon/vip_close_Pop-ups.png" catchtap='close_hb'></image>
+  </view>
+</view>
+<!-- 使用canvas将分享图片和申请0元购图片合成一张图 -->
+<canvas canvas-id="canvas" style="width:400px;height:400px;position: absolute;left:-1000px;top:-1000px;"></canvas>

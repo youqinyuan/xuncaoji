@@ -1,0 +1,117 @@
+<!--packageB/pages/setmealDetails/setmealDetails.wxml-->
+<wxs module="filters" src="filter.wxs"></wxs>
+<wxs module="foo">
+  module.exports = {
+    toStr: function(n) {
+      n = n.toFixed(2)
+      return n
+    }
+  }
+</wxs>
+<view class="wrap_top">
+  <view class="tp-message">
+    <view class="goodsName1">{{setmealDetails.name}}</view>
+    <view class="re-storeGrade">
+      <view class='stars' wx:for='{{[1,2,3,4,5]}}' wx:key="{{index}}" wx:for-item='i'>
+        <image src='/assets/images/temp/pingj_xinxin.png' wx:if="{{setmealDetails.score >= index+1 }}"></image>
+        <image src='/assets/images/temp/pingj_xinxin_l.png' wx:elif="{{setmealDetails.score >= index && (setmealDetails.score*10)%10 !=0 }}"></image>
+        <image src='/assets/images/temp/pingj_xinxin_p.png' wx:else></image>
+      </view>
+      <view class="storeText">{{setmealDetails.score}}<text>分</text></view>
+    </view>
+    <view class="sd-middle">
+      <view class="sd-middle-text">随时退 免预约 过期自动退</view>
+      <view class="sd-middle-text">月售：{{setmealDetails.grabbed+setmealDetails.sales}}</view>
+    </view>
+    <scroll-view class="goodlist-list-scroll" scroll-x="true">
+      <view class="goodlist-list-item" wx:for="{{setmealDetails.imageUrls}}" wx:key="{{index}}">
+        <view class="goodlist-list-img">
+          <image src="{{item}}"></image>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+<view class="wrap_q">
+  <view class="wrap" wx:for="{{setmealDetails.introductions}}" wx:key="{{item.title}}">
+  <view class="sd-title">{{item.title}}</view>
+  <view class="sd-list-img">
+    <image src="{{item.imageUrl}}" mode="widthFix"></image>
+  </view>
+</view>
+</view>
+
+
+<view class="wrap">
+  <view class="sd-title">适用商户</view>
+  <view class="items">
+    <view class="img_wrap">
+      <image src="{{setmealDetails.store.logoUrl}}"></image>
+    </view>
+    <view class="goodsDetail">
+      <view class="goodsName">{{setmealDetails.store.name}}</view>
+      <view class="goodsBottom">
+        <view class="goodsLeft">
+          <view class="storeGrade">
+            <view class='stars' wx:for='{{[1,2,3,4,5]}}' wx:key="{{index}}" wx:for-item='i'>
+              <image src='/assets/images/temp/pingj_xinxin.png' wx:if="{{setmealDetails.store.score >= index+1 }}"></image>
+              <image src='/assets/images/temp/pingj_xinxin_l.png' wx:elif="{{setmealDetails.store.score >= index && (setmealDetails.store.score*10)%10 !=0 }}"></image>
+              <image src='/assets/images/temp/pingj_xinxin_p.png' wx:else></image>
+            </view>
+            <view class="storeText">{{setmealDetails.store.score}}<text>分</text></view>
+          </view>
+          <view class="tp-takeout" catchtap='freeTell'>
+            <image class="tp-takeout-img" src="/assets/images/temp/takepage_tel.png"></image>
+            <view class="tp-takeouttext">联系商家</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="tp-evaluate" wx:if="{{setmealEvaluation.length>0}}">
+  <view class="tp-evaluate-title">
+    <view class="tp-tltle-left">评价</view>
+    <view class="tp-tltle-right">共{{setmeal}}条评论</view>
+  </view>
+  <view class="tp-evaluate-content" wx:for="{{setmealEvaluation}}" wx:key="{{item.id}}">
+    <view class="tp-evaluate-img">
+      <image src="{{item.headImg}}"></image>
+    </view>
+    <view class="tp-evaluate-right">
+      <view class="tp-evaluate-name">
+        <view>{{item.name}}</view>
+        <view class="tp-storeGrade">
+          <view class='stars' wx:for='{{[1,2,3,4,5]}}' wx:key="{{index}}" wx:for-item='i'>
+            <image src='/assets/images/temp/pingj_xinxin.png' wx:if="{{item.score >= index+1 }}"></image>
+            <image src='/assets/images/temp/pingj_xinxin_l.png' wx:elif="{{item.score >= index && (item.score*10)%10 !=0 }}"></image>
+            <image src='/assets/images/temp/pingj_xinxin_p.png' wx:else></image>
+          </view>
+        </view>
+      </view>
+      <view class="tp-date-spec">
+        <view class="tp-date">{{filters.toDate(item.createTime)}}</view>
+        <view class="tp-spec">{{item.spec}}</view>
+      </view>
+      <view class="tp-evaluate-text">{{item.content}}</view>
+      <scroll-view class="evaluate-list-scroll" scroll-x="true">
+        <view class="evaluate-list-img" wx:for="{{item.imageFiles}}" wx:for-item='imageF'>
+          <image src="{{imageF}}"></image>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+   <view class="tp-getmore" catchtap="getEvaluation" wx:if="{{getEvaluate!==''}}">{{getEvaluate}}</view>
+</view>
+<view class="sd-block"></view>
+<view class="sd-bottom">
+  <view class="sd-price">
+    <view class="sd-price-title">一折拼团价<text>￥</text><text>{{setmealDetails.stockDetail.discountPrice}}</text></view>
+    <view class="sd-price-text">实付 ¥{{setmealDetails.stockDetail.dctPrice}} 返 ¥{{foo.toStr(setmealDetails.stockDetail.dctPrice-setmealDetails.stockDetail.discountPrice)}}</view>
+  </view>
+  <view class="sd-btn">
+    <view class="sd-normal">普通拼团</view>
+    <view class="sd-one">一折拼团</view>
+  </view>
+</view>

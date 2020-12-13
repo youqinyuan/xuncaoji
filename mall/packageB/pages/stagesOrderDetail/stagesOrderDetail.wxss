@@ -1,0 +1,50 @@
+/* packageB/pages/stagesOrderDetail/stagesOrderDetail.wxss */
+@import"/packageB/pages/stagesOrder/stagesOrder.wxss";
+.list{
+    padding-bottom:81rpx;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20rpx;
+}
+.repayment{
+    margin-top: 20rpx;
+    width: 690rpx;
+    height: 436rpx;
+    background: #FFFFFF;
+    box-shadow: 0rpx 1rpx 30rpx 0rpx #E8E8E8;
+    border-radius: 8rpx;
+    overflow: hidden;
+}
+.money_list{
+    width: 690rpx;
+    background: #F3F3F3;
+    border-radius: 4rpx;
+    margin-top: 19rpx;
+    margin-left: 0;
+}
+.money_list_content {
+    padding-bottom: 36rpx;
+    margin-bottom: 0;
+    overflow-y: scroll;
+    overflow: -Scroll;
+    overflow-x: hidden;
+    max-height: 202rpx;
+    margin-top: 13rpx;
+}
+.pay{
+    width: 690rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center;
+    position: fixed;
+    left: 30rpx;
+    bottom: 22rpx;
+    background: linear-gradient(90deg, #FF6947 0%, #FF2543 100%);
+    border-radius: 40rpx;
+    font-size: 32rpx;
+    font-family: PingFang SC;
+    font-weight: 500;
+    color: #FFFFFF;
+}
+    

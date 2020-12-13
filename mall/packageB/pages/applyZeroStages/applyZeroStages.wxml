@@ -1,0 +1,45 @@
+<!--packageB/pages/applyZeroStages/applyZeroStages.wxml-->
+<view class="pay_money_box">
+    <view class="money">
+        <view class="money_left">本次需支付金额</view>
+        <view class="money_right"><text >￥</text>{{content.issueAmount}}</view>
+    </view>
+    <view class="month">
+        <view class="month_left">支付金额返还周期</view>
+        <view class="month_right">{{content.period}}<text >(月)</text></view>
+    </view>
+</view>
+<view class="stages_title">
+    一、请选择分几期支付
+</view>
+<view class="stages_period">
+    <view class="period" wx:for="{{content.installmentPeriods}}" wx:key="{{item}}" bindtap="choose" data-index="{{index}}">
+        <view class="period_number {{index==choose?'red':''}}">{{item}}期</view>
+        <image src="/assets/images/temp/period.png"class="period_img" wx:if="{{index==choose}}"/>
+    </view>
+</view>
+<view class="stages_title">
+    二、每期支付信息
+</view>
+<view class="stages_info">
+   <view class="stages_info_head">
+        <view class="stages_value">1、分4期共计支付<text >￥{{content.payAmount}}</text></view>
+        <view class="stages_value">2、每期应支付<text >￥{{content.issueAmount}}</text>,支付后<text >{{content.period}}</text>期返还到账</view>
+        <view class="stages_value">3、支付时间和金额：</view>
+   </view>
+   <view class="stages_pay">
+       <view class="period_money {{index==0?'':'mar20'}}" wx:for="{{content.payDetails}}" wx:key="">{{item.payDate}} 支付：￥{{item.amount}} {{index==0?"（即将支付）":""}}</view>
+    </view>
+</view>
+<view class="shure_stages" bindtap="toPlaceOrder">确认分期</view>
+<view class="stages_shuoming" bindtap="showStages">分期说明</view>
+<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{showStages}}">
+  <view class="zan-dialog__container" wx:if="{{showStages}}">
+    <view class="title">分期支付说明</view>
+    <view class="text">
+      <rich-text nodes="{{rule}}" />
+    </view>
+    <view class="expectedAmountButton" bindtap="cancleStages">我知道了，不再提醒</view>
+  </view>
+  <image wx:if="{{showStages}}" class="cancel-img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancleStages'></image>
+</view>

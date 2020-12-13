@@ -50,7 +50,6 @@ Page({
       key: 'tips',
       success: function(res) {},
     })
-    console.log("options:"+JSON.stringify(options))
     if(options.inviterCode=='undefined'){
       inviterCode = ''
     }else{

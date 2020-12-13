@@ -1,0 +1,191 @@
+<!--packageB/pages/onlineActivity/onlineActivity.wxml-->
+<!-- 样式一 -->
+<view class="content_one">
+<view class="head_box">
+    <view class="head_img"></view>
+    <view class="rule">
+        <image src="/assets/images/temp/rule.png" class="rule_img"/>
+    </view>
+    <view class="rule">
+        <view class="rule_font">活动规则</view>
+    </view>
+</view>
+
+<view class="recommend_box">
+    <view class="recommed_title">
+        <view class="text_left">爆款推荐</view>
+        <view class="text_right">超值省钱随心拼</view>
+    </view>
+    <view class="goods_box">
+        <view class="goods">
+            <view class="goods_img_box">
+                <image src="/assets/images/icon/code.png" class="goods_img"/>
+            </view>
+            <view class="goods_name">粉色化妆包送礼佳品</view>
+            <view class="shuoming_box">
+                <view class="shuoming">拼团成功率99%</view>
+                <view class="shuoming ">购买获得￥99返现</view>
+                <view class="shuoming ">购买获得￥99返现</view>
+            </view>
+            <view class="goods_price">
+                <view class="fuhao">￥</view>
+                <view class="number">19.9</view>
+                <view class="sag">买1送2</view>
+            </view>
+        </view>
+        <view class="goods">
+            <view class="goods_img_box">
+                <image src="/assets/images/icon/code.png" class="goods_img"/>
+            </view>
+            <view class="goods_name">粉色化妆包送礼佳品</view>
+            <view class="shuoming_box">
+                <view class="shuoming">拼团成功率99%</view>
+                <view class="shuoming">购买获得￥99返现</view>
+            </view>
+            <view class="goods_price">
+                <view class="fuhao">￥</view>
+                <view class="number">19.9</view>
+                <view class="sag">买1送2</view>
+            </view>
+        </view>
+    </view>
+</view>
+
+<view class="recommend_box2">
+    <view class="recommed_title">
+        <view class="text_left">热销排行</view>
+        <view class="text_right">买它买它就买它</view>
+    </view>
+    <view class="goods_box">
+        <view class="goods">
+            <view class="goods_img_box">
+                <image src="/assets/images/icon/code.png" class="goods_img"/>
+            </view>
+            <view class="goods_name">粉色化妆包送礼佳品</view>
+            <view class="shuoming_box">
+                <view class="shuoming">拼团成功率99%</view>
+                <view class="shuoming ">购买获得￥99返现</view>
+            </view>
+            <view class="goods_price">
+                <view class="fuhao">￥</view>
+                <view class="number">19.9</view>
+                <view class="sag">买1送2</view>
+            </view>
+        </view>
+        <view class="goods">
+            <view class="goods_img_box">
+                <image src="/assets/images/icon/code.png" class="goods_img"/>
+            </view>
+            <view class="goods_name">粉色化妆包送礼佳品</view>
+            <view class="shuoming_box">
+                <view class="shuoming">拼团成功率99%</view>
+                <view class="shuoming ">购买获得￥99返现</view>
+            </view>
+            <view class="goods_price">
+                <view class="fuhao">￥</view>
+                <view class="number">19.9</view>
+                <view class="sag">买1送2</view>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="height:58rpx;"></view>
+</view>
+<!-- 样式二 -->
+<!-- <view class="content_two">
+    <image src="/assets/images/temp/online_bg.png" class="bg_img"/>
+    <view class="content">
+        <view class="head">
+     <view class="time_box">
+        <view class="time_font">距结束仅剩</view>
+        <view class="time_number mar">19</view>
+        <view class="time_maohao">:</view>
+        <view class="time_number">19</view>
+        <view class="time_maohao">:</view>
+        <view class="time_number">19</view>
+        <view class="time_maohao">:</view>
+        <view class="time_number">19</view>
+        <image src="/assets/images/temp/rule2.png" class="rule2_img"/>
+     </view>
+    </view>
+    <view class="recommend_box3">
+        <view class="recommed_title2">
+            <view class="text_left2">爆款推荐</view>
+            <view class="text_right2">超值省钱随心拼</view>
+        </view>
+        <view class="goods_list">
+            <view class="goods2">
+                <image src="/assets/images/icon/code.png" class="goods2_img"/>
+                <view class="goods2_price">
+                    <view class="price2"><text >￥</text>19.9</view>
+                    <view class="sag2">买2送1</view>
+                </view>
+            </view>
+                        <view class="goods2">
+                <image src="/assets/images/icon/code.png" class="goods2_img"/>
+                <view class="goods2_price">
+                    <view class="price2"><text >￥</text>19.9</view>
+                    <view class="sag2">买2送1</view>
+                </view>
+            </view>
+                        <view class="goods2">
+                <image src="/assets/images/icon/code.png" class="goods2_img"/>
+                <view class="goods2_price">
+                    <view class="price2"><text >￥</text>19.9</view>
+                    <view class="sag2">买2送1</view>
+                </view>
+            </view>
+            <view class="goods2">
+                <image src="/assets/images/icon/code.png" class="goods2_img"/>
+                <view class="goods2_price">
+                    <view class="price2"><text >￥</text>19.9</view>
+                    <view class="sag2">买2送1</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="title2">
+        <image src="/assets/images/temp/title_img.png" class="title_img"/>
+        <view class="title2_text">疯狂选购</view>
+    </view>
+    <view class="goods_list2">
+        <view class="goods3">
+            <view class="goods3_left">
+                <image src="/assets/images/icon/code.png" class="goods3_img"/>
+            </view>
+            <view class="goods3_right">
+                <view class="goods3_name">商品商品商品商品商品商品商品商品商品商品</view>
+                <view class="shuoming_box2">
+                    <view class="goods3_shuoming">明说明说明</view>
+                    <view class="goods3_shuoming">说明说明说明说明说明说明</view>
+                    <view class="goods3_shuoming">说明说明说明说明说明说明</view>
+                </view>
+                <view class="goods3_price">
+                    <view class="price3"><text >￥</text>19.9</view>
+                    <view class="sag3">买1送2</view>
+                </view>
+                <view class="goods3_button">拼团</view>
+            </view>
+        </view>
+        <view class="goods3 ma20">
+            <view class="goods3_left">
+                <image src="/assets/images/icon/code.png" class="goods3_img"/>
+            </view>
+            <view class="goods3_right">
+                <view class="goods3_name">商品</view>
+                <view class="shuoming_box2">
+                    <view class="goods3_shuoming">说明说明说明说明说明说明</view>
+                </view>
+                <view class="goods3_price">
+                    <view class="price3"><text >￥</text>19.9</view>
+                    <view class="sag3">买1送2</view>
+                </view>
+                <view class="goods3_button">拼团</view>
+            </view>
+        </view>
+        <view class="goods3 ma20"></view>
+        <view class="goods3 ma20"></view>
+    </view>
+    <view style="height:54rpx;background: #FCE3CD;"></view>
+    </view>
+</view> -->

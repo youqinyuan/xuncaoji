@@ -334,7 +334,7 @@ button::after {
   margin-left: 50rpx;
   width: 440rpx;
   height: 80rpx;
-  border-bottom: 4rpx solid #ddd;
+  border-bottom: 2rpx solid #ddd;
 }
 
 .input-price {

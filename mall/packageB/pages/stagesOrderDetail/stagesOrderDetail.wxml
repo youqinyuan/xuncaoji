@@ -1,0 +1,58 @@
+<!--packageB/pages/stagesOrderDetail/stagesOrderDetail.wxml-->
+<view class="repayment_prompt">
+    请勿逾期哦，逾期10天将自动扣除商品的原价
+</view>
+<view class="list">
+    <view class="repayment">
+        <view class="repayment_time" wx:if="{{content.status==3}}">
+            <image src="/assets/images/temp/warn.png" class="warn_img" />
+            <view >已逾期{{content.overdueDays}}天，请尽快付款！</view>
+        </view>
+        <view class="repayment_time" wx:if="{{content.status==1}}">
+            <image src="/assets/images/temp/warn.png" class="warn_img" />
+            <view >还款日：{{content.repaymentDate}}</view>
+        </view>
+        <view class="goods">
+            <view class="goods_img_box">
+                <image src="{{content.imageUrl}}" class="goods_img" />
+            </view>
+            <view class="goods_info">
+                <view class="goods_name">{{content.goodsName}}</view>
+                <view class="goods_epsc">
+                    <view>{{content.specDesc}}</view>
+                    <view>原价:{{content.orgPrice}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="pay_money">
+            <view >总价应付：￥{{content.purchaseTotalPrice}}</view>
+            <view class="mar11">分期数：{{content.stagesNumber}}月（剩余{{content.stagesNumberReturn}}月未还）</view>
+        </view>
+        <view class="money_number">本期应付：￥{{content.currentAmount}}</view>
+    </view>
+    <view class="money_list">
+            <view class="money_list_head">
+                <view class="mar30">消费时间：<text >{{content.dissipate}}</text></view>
+                <view >总计已支付：<text >￥{{content.totalPaidAmount}}</text></view>
+            </view>
+            <view class="jiange"></view>
+            <view class="money_list_content">
+                <view class="money_value" wx:for="{{content.installmentPaymentDetail}}" wx:for-item="itemName" wx:key="{{itemName.id}}">
+                    <view class="money_value_left">{{itemName.payTime}}</view>
+                    <view class="money_value_right col333" wx:if="{{itemName.status==1}}">应支付：￥{{itemName.amount}}</view>
+                    <view class="money_value_right" wx:if="{{itemName.status==2}}">应支付：￥{{itemName.amount}}（已支付）</view>
+                    <view class="money_value_right colred" wx:if="{{itemName.status==3}}">应支付：￥{{itemName.amount}}（已逾期）</view>
+                </view>
+            </view>
+    </view>
+</view>
+<view class="pay" catchtap="toPay">付款</view>
+<view class="stop-zan-dialog__mask" catchtouchmove="preventTouchMove" wx:if="{{success}}">
+  <view class="zan-dialog__container" wx:if="{{success}}">
+    <view class="title">提示</view>
+    <view class="text">
+      恭喜您，付款成功!
+    </view>
+    <view class="expectedAmountButton" bindtap="cancleSuccess">我知道了</view>
+  </view>
+</view>

@@ -21,4 +21,7 @@
     <view class="againCalculate" bindtap="getGoodsMsg" data-installment="{{item}}">重新填写申请</view>
   </view>
 </view>
-<view class="textData">{{textData}}</view>
+<view class="comprehensive-not" wx:if="{{recommend.length==0}}">
+    <image src="{{hostUrl}}/flashPay/noThing.png"></image>
+    <view class="notComprehensive">这里什么都没有，去别的地方逛逛吧</view>
+  </view>

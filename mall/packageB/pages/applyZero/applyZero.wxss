@@ -18,6 +18,9 @@ page {
   border-bottom: 2rpx solid #f4f4f4;
   color: #333;
 }
+.mabt10{
+  margin-bottom: 10rpx;
+}
 
 .advanceSale-left {
   position: absolute;
@@ -445,7 +448,13 @@ page {
   right: 68rpx;
   top: 226rpx;
 }
-
+.height280{
+  height: 280rpx !important;
+}
+.font24{
+  font-size: 24rpx !important;
+  width: 215rpx !important;
+}
 .interest-zan-dialog__mask .zan-dialog__container .title {
   width: 170rpx;
   margin: 44rpx auto;
@@ -546,7 +555,7 @@ page {
   text-align: center;
 }
 .fontcol{
-  color: #999999 !important;
+  color: #B7905B !important;
 }
 
 .stop-zan-dialog__mask .zan-dialog__container .text {
@@ -1605,11 +1614,12 @@ white-space: nowrap;
 }
 .pay_one_box{
   width:690rpx;
-  height:281rpx;
+  /* height:281rpx; */
   background:rgba(255,255,255,1);
   border-radius:8rpx;
   margin-left: 30rpx;
-  margin-top: 9rpx;
+  margin-top: 11rpx;
+  overflow: hidden;
 }
 .result_one{
   height: 60rpx;
@@ -1861,6 +1871,100 @@ white-space: nowrap;
   color:rgba(153,153,153,1);
   margin-left: 185rpx;
   line-height: 46rpx;
+}
+/* 种子消耗弹窗 */
+
+.bg10 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.content10 {
+  position: absolute;
+  background: rgba(255, 255, 255, 1);
+  width: 600rpx;
+  border-radius: 24rpx;
+  top: 220rpx;
+  left: 75rpx;
+}
+
+.title10 {
+  height: 142rpx;
+  line-height: 142rpx;
+  text-align: center;
+  font-size: 34rpx;
+  color: rgba(51, 51, 51, 1);
+}
+
+.text_one10 {
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+  line-height: 42rpx;
+  padding-left: 51rpx;
+  padding-right: 52rpx;
+}
+
+.text_two10 {
+  font-size: 28rpx;
+  color: rgba(51, 51, 51, 1);
+  line-height: 42rpx;
+  padding-left: 51rpx;
+  padding-right: 52rpx;
+  margin-top: 10rpx;
+}
+
+.message10 {
+  font-size: 24rpx;
+  color: #ff2644;
+  line-height: 42rpx;
+  padding-left: 51rpx;
+  padding-right: 51rpx;
+  margin-top: 50rpx;
+}
+
+.button_box10 {
+  display: flex;
+  justify-content: space-between;
+  height: 76rpx;
+  padding-left: 48rpx;
+  padding-right: 52rpx;
+  margin-top: 50rpx;
+  margin-bottom: 60rpx;
+}
+
+.button_one10 {
+  width: 240rpx;
+  height: 75rpx;
+  border: 0.5px solid rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: rgba(255, 38, 68, 1);
+  text-align: center;
+  line-height: 75rpx;
+}
+
+.button_two10 {
+  width: 240rpx;
+  height: 76rpx;
+  background: rgba(255, 38, 68, 1);
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  line-height: 76rpx;
+}
+
+.cancel-get10 {
+  position: absolute;
+  top: 146rpx;
+  right: 100rpx;
+  width: 44rpx;
+  height: 74rpx;
 }
 
 

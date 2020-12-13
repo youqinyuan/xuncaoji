@@ -11,7 +11,7 @@
       <view class="top-left">
         <view class="sculpture">
           <image wx:if="{{content.avatarKey}}" src="{{content.avatarKey}}" class="photo"></image>
-          <image wx:else src="/assets/images/mine/moren.png" class="photo"></image>
+          <image wx:else src="{{hostUrl}}/flashPay/moren.png" class="photo"></image>
           <!-- 钻石合伙人 -->
           <view class="big-title3" wx:if="{{content.memberType===2}}">
             <image src="{{hostUrl}}/twoSix/zuanshi.png" class="img1" />
@@ -71,7 +71,7 @@
     <image src="{{hostUrl}}/twoSix/mineBg.png" class="mineBg1" />
     <view class="container">
       <view class="sculpture">
-        <image src="/assets/images/mine/moren.png" class="photo"></image>
+        <image src="{{hostUrl}}/flashPay/moren.png" class="photo"></image>
       </view>
       <view class="notToken">
         <view class="click" bindtap="jumpLogin">点击登录账户</view>
@@ -170,7 +170,7 @@
     </view>
     <view class="pay" catchtap='toMyPeriod'>
       <view class="pay-img">
-        <image src="{{hostUrl}}/changeImg/my_service_list4_icon.png"></image>
+        <image src="/assets/images/temp/my_service_list4_icon.png"></image>
       </view>
       <view class="pay-text">
         <view class="pay-text-big">我的分期</view>
@@ -187,7 +187,7 @@
   </view>
   <view class="seedBox" bindtap="toSeed">
     <view class="seednum1" >
-      <view class="seednumStyle">￥{{seedContent.seedAmount?seedContent.seedAmount:0}}</view>
+      <view class="seednumStyle">{{seedContent.seedAmount?seedContent.seedAmount:0}}</view>
       <view class="seedfontStyle">现有种子</view>
     </view>
     <view class="seednum1" >
@@ -195,7 +195,7 @@
       <view class="seedfontStyle">可抵金额</view>
     </view>
     <view class="seednum2" >
-      <view class="seednumStyle">￥{{seedContent.unReceiveSeed?seedContent.unReceiveSeed:0}}</view>
+      <view class="seednumStyle">{{seedContent.unReceiveSeed?seedContent.unReceiveSeed:0}}</view>
       <view class="seedfontStyle">未领种子</view>
     </view>
   </view>
@@ -278,7 +278,7 @@
 <!-- 邀请码弹框 -->
 <view class="zan-dialog1" catchtouchmove="preventTouchMove" wx:if="{{showInviterCode}}" catchtap="hideModal"></view>
 <view class="zan-dialog__container1" wx:if="{{showInviterCode}}">
-  <image src="/assets/images/mine/my_code_bg.png"></image>
+  <image src="{{hostUrl}}/flashPay/my_code_bg.png"></image>
   <view class="title2">我的邀请码</view>
   <view class="invite-code">{{content.inviterCode}}</view>
   <view class="copy" bindtap='copyText' data-text="{{content.inviterCode}}">复制</view>
@@ -410,9 +410,8 @@
   <view class="shuoming__container" wx:if="{{oneShow}}">
     <view class="shuoming">提示</view>
     <view class="shuoming_text" style="">一折购，购买商品赠送种子，选择期数越短赠送种子越多哦</view>
-    <view class="the_button_box">我知道了</view>
+    <view class="the_button_box" bindtap='cancelOneShow'>我知道了</view>
   </view>
-  <image wx:if="{{oneShow}}" class="shuoming_img" src="{{hostUrl}}/icon/tanc_closecutline_n.png" bindtap='cancelOneShow'></image>
 </view>
 <!-- 海报弹框 -->
 <view class="mask_hb" wx:if="{{haibao}}"></view>

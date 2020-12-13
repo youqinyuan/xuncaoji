@@ -19,8 +19,9 @@
             <view class="newprice-wrap">
               <view class="newprice">
                 <text class="newtext">一折购:</text>
-                <text>￥</text>{{item.discountPrice}}</view>
+                <text>￥</text>{{item.discountPrice}}</view>               
             </view>
+             <!-- <view class="oldprice">￥{{item.orgPrice}}</view> -->
           </view>
         </view>
       </view>

@@ -28,9 +28,11 @@
 <view class="goodsWrap">
   <view class="goods">
     <image src="{{allContent.imageUrl}}" class="goods_img" />
-    <text class="goods_name">{{allContent.goodsName}}</text>
+    <view class="zz">
+          <view class="goods_name">{{allContent.goodsName}}</view>
+          <view class="goods_specifications">{{allContent.specDesc}}</view>
+    </view>
     <text class="goods_price"><text class="sz24">￥</text>{{allContent.price}}</text>
-    <text class="goods_specifications">{{allContent.specDesc}}</text>
     <text class="goods_number">x{{allContent.quantity}}</text>
   </view>
 </view>

@@ -19,7 +19,7 @@
   <view class="mentionPeriodList">
     <view class="mentionPeriod" wx:for="{{content}}" wx:key="{{content.id}}">
       <view class="user_name_box" bindtap="toHelp" data-id="{{item.id}}">
-        <image src="{{item.avatarKey?item.avatarKey:'/assets/images/mine/other_ren.png'}}" class="userImg" />
+        <image src="{{item.avatarKey?item.avatarKey:hostUrl+'/flashPay/other_ren.png'}}" class="userImg" />
         <view class="user_name">
           <view class="name">{{item.nickname}}</view>
           <image src="{{hostUrl}}/changeImg/huiyuan.png" class="huiyuanImg" wx:if="{{item.role==2}}" />

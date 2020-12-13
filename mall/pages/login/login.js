@@ -46,7 +46,7 @@ Page({
       that.data.url = '/' + url
     } else if (url == 'packageB/pages/zeroPurchaseActivity/zeroPurchaseActivity') {
       that.data.url = '/' + url
-    } else if (url == 'pages/wishpool/wishpool') {
+    } else if (url == 'packageB/pages/wishpool/wishpool') {
       that.data.url = '/' + url
     } else if (url == 'packageB/pages/freeBuy/freeBuy') {
       that.data.url = '/' + url
@@ -248,7 +248,8 @@ Page({
               inviterCode: inviterCode1
             },
             header: {
-              "content-type": 'application/json'
+              "content-type": 'application/json',
+              deviceId:'81c28f8d-fdbd-4a58-9c77-e59f98fa2513'
             },
             success: function(res) {
               if (res.data.messageCode === 'MSG_1001') {
@@ -267,16 +268,9 @@ Page({
                 })
                 wx.removeStorageSync('othersInviterCode')
                 if (that.data.url !== '') {
-                  if (that.data.url == '/pages/wishpool/wishpool') {
-                    console.log("心愿池")
-                    wx.switchTab({
-                      url: '/pages/wishpool/wishpool'
-                    })
-                  } else {
-                    wx.navigateTo({
-                      url: that.data.url,
-                    })
-                  }
+                  wx.navigateTo({
+                    url: that.data.url,
+                  })
                 }else{
                   wx.switchTab({
                     url: '/pages/index/index',

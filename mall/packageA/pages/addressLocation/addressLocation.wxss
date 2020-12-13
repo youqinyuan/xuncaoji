@@ -1,5 +1,36 @@
 /* packageA/pages/addressLocation/addressLocation.wxss */
 
+.section-wrapper {
+  font-size: 28rpx;
+  width: 100%;
+}
+
+.section {
+  line-height: 60rpx;
+  width: 690rpx;
+  height: 60rpx;
+  margin-left: 30rpx;
+  display: flex;
+  font-weight: 400;
+  background: #f3f3f3;
+  border-radius: 8rpx;
+  position: relative;
+  background: #F3F3F3;
+}
+
+.section-text {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 400;
+  color: #999;
+}
+
+.section-img {
+  width: 33rpx;
+  height: 33rpx;
+  margin: 15rpx 22rpx;
+}
+
 .block {
   background: #f4f4f4;
   height: 20rpx;
@@ -27,6 +58,7 @@
   height: 28rpx;
   margin-right: 20rpx;
 }
+
 .current-img1 {
   width: 23rpx;
   height: 22rpx;

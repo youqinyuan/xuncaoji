@@ -2,7 +2,6 @@
   "pages": [
     "pages/newIndex/newIndex",
     "pages/index/index",
-    "pages/wishpool/wishpool",
     "pages/leaveWish/leaveWish",
     "pages/myWish/myWish",
     "pages/userAgreement/userAgreement",
@@ -16,8 +15,6 @@
     "pages/paymentorder/paymentorder",
     "pages/myorder/myorder",
     "pages/mine/mine",
-    "pages/commission/commission",
-    "pages/commissionDetail/commissionDetail",
     "pages/search/search",
     "pages/detail/detail",
     "pages/evaluate/evaluate",
@@ -60,14 +57,14 @@
     "pages/finishPosting/finishPosting",
     "pages/newMessage/newMessage",
     "pages/sponsor/sponsor",
-    "pages/toSponsor/toSponsor",
     "pages/friendSponsor/friendSponsor",
     "pages/chooseMoney/chooseMoney",
     "pages/chooseTime/chooseTime",
     "pages/lovingHeart/lovingHeart",
     "pages/longActivity/longActivity",
     "pages/commodityArea/commodityArea",
-    "pages/h5Page/h5Page"
+    "pages/h5Page/h5Page",
+    "pages/takeoutStore/takeoutStore"
   ],
   "subPackages": [
     {
@@ -117,7 +114,6 @@
         "pages/bankCard/bankCard",
         "pages/addCard/addCard",
         "pages/editCard/editCard",
-        "pages/takeoutStore/takeoutStore",
         "pages/storeSearch/storeSearch",
         "pages/seedRecharge/seedRecharge",
         "pages/addressLocation/addressLocation",
@@ -150,7 +146,20 @@
         "pages/zeroBuy/zeroBuy",
         "pages/waitReentryDetail/waitReentryDetail",
         "pages/moneyDetails/moneyDetails",
-        "pages/waitDetail/waitDetail"
+        "pages/waitDetail/waitDetail",
+        "pages/makeGroup/makeGroup",
+        "pages/nearbyStore/nearbyStore",
+        "pages/takePages/takePages",
+        "pages/setmealDetails/setmealDetails",
+        "pages/wishpool/wishpool",
+        "pages/toSponsor/toSponsor",
+        "pages/commission/commission",
+        "pages/commissionDetail/commissionDetail",
+        "pages/onlineActivity/onlineActivity",
+        "pages/onlineActivityDetail/onlineActivityDetail",
+        "pages/applyZeroStages/applyZeroStages",
+        "pages/stagesOrder/stagesOrder",
+        "pages/stagesOrderDetail/stagesOrderDetail"
       ]
     }
   ],
@@ -176,8 +185,8 @@
         "selectedIconPath": "assets/images/icon/ic_goods_s.png"
       },
       {
-        "pagePath": "pages/wishpool/wishpool",
-        "text": "寻商品",
+        "pagePath": "pages/takeoutStore/takeoutStore",
+        "text": "附近",
         "iconPath": "assets/images/icon/ic_goods_t.png",
         "selectedIconPath": "assets/images/icon/ic_goods_h.png"
       },
